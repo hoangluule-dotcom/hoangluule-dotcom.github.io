@@ -397,20 +397,20 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 /* Photo overlay team layout */
 .team-photo-wrap{position:relative;border-radius:24px;overflow:hidden;height:520px;box-shadow:0 12px 48px rgba(0,30,15,.25)}
 .team-photo-wrap>img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
-.team-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,25,12,.08) 0%,rgba(0,25,12,.45) 40%,rgba(0,25,12,.88) 62%,rgba(0,25,12,.96) 100%)}
+.team-overlay{position:absolute;inset:0;background:none}
 .team-overlay-content{position:absolute;inset:0;display:flex;align-items:stretch}
-.team-overlay-left{flex:0 0 44%;display:flex;flex-direction:column;justify-content:flex-end;padding:44px 28px 44px 48px}
-.team-badge-pill{display:inline-block;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-size:10.5px;font-weight:700;padding:5px 14px;border-radius:30px;margin-bottom:14px;text-transform:uppercase;letter-spacing:.8px;border:1px solid rgba(255,255,255,.25);width:fit-content}
-.team-overlay-title{font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:900;color:#fff;line-height:1.25;margin-bottom:12px;text-shadow:0 2px 16px rgba(0,0,0,.35)}
-.team-overlay-sub{font-size:13.5px;color:rgba(255,255,255,.78);line-height:1.7;max-width:320px}
-.team-overlay-right{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 48px 40px 28px}
+.team-overlay-left{flex:0 0 28%;display:flex;flex-direction:column;justify-content:flex-end;padding:44px 16px 44px 40px}
+.team-badge-pill{display:inline-block;background:rgba(0,0,0,.38);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-size:10.5px;font-weight:700;padding:5px 14px;border-radius:30px;margin-bottom:14px;text-transform:uppercase;letter-spacing:.8px;border:1px solid rgba(255,255,255,.25);width:fit-content}
+.team-overlay-title{font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:900;color:#fff;line-height:1.25;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.9),0 4px 40px rgba(0,0,0,.7)}
+.team-overlay-sub{font-size:13.5px;color:rgba(255,255,255,.9);line-height:1.7;max-width:300px;text-shadow:0 1px 10px rgba(0,0,0,.85)}
+.team-overlay-right{flex:0 0 42%;margin-left:auto;display:flex;flex-direction:column;justify-content:center;padding:36px 40px;background:transparent}
 .team-stat-grid{display:flex;flex-direction:column;gap:10px}
-.team-stat-row{display:flex;align-items:center;gap:13px;padding:11px 15px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:11px;border:1px solid rgba(255,255,255,.14);transition:.2s}
-.team-stat-row:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28)}
+.team-stat-row{display:flex;align-items:center;gap:13px;padding:11px 15px;background:rgba(0,22,11,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:11px;border:1px solid rgba(255,255,255,.1);transition:.2s}
+.team-stat-row:hover{background:rgba(0,30,15,.9);border-color:rgba(255,255,255,.2)}
 .team-stat-row-icon{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.team-stat-row-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px;line-height:1}
+.team-stat-row-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.5px;line-height:1}
 .team-stat-row-value{font-size:13px;font-weight:700;color:#fff;line-height:1.3;margin-top:2px}
-.team-commit-row{margin-top:14px;background:rgba(0,116,55,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:11px;padding:12px 16px;display:flex;align-items:center;gap:11px;border:1px solid rgba(0,180,80,.3)}
+.team-commit-row{margin-top:14px;background:rgba(0,110,48,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:11px;padding:12px 16px;display:flex;align-items:center;gap:11px;border:1px solid rgba(0,180,80,.4)}
 .team-commit-text{color:#fff;font-size:12.5px;font-weight:700;line-height:1.45}
 .team-cta-row{margin-top:32px;text-align:center}
 .team-cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--g);color:#fff;border-radius:100px;padding:14px 34px;font-size:.95rem;font-weight:700;text-decoration:none;transition:.2s;box-shadow:0 4px 16px rgba(0,116,55,.35)}
@@ -1351,11 +1351,6 @@ img, svg, video { max-width: 100%; height: auto; }
 <!-- ══════════════ TEAM ══════════════ -->
 <section class="team-section" id="team">
   <div class="team-inner">
-    <div class="team-header">
-      <div class="team-tag">Đội ngũ chuyên gia</div>
-      <h2 class="team-title">Tư vấn viên đồng hành cùng bạn</h2>
-      <p class="team-subtitle">Mỗi khách hàng được kết nối với một chuyên viên có chuyên môn phù hợp — từ tư vấn ban đầu đến hỗ trợ bồi thường tận nơi.</p>
-    </div>
     <div class="team-photo-wrap">
       <!-- Real group photo -->
       <img src="/doi-ngu-chuyen-gia.png" alt="Đội ngũ chuyên gia DBV247" loading="lazy">
