@@ -394,28 +394,36 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .team-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11.5px;font-weight:700;padding:5px 14px;border-radius:30px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
 .team-title{font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:900;color:var(--dk);margin-bottom:12px}
 .team-subtitle{font-size:15px;color:var(--ts);max-width:580px;margin:0 auto;line-height:1.7}
-/* New 2-col team layout */
-.team-showcase{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.team-illus{border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#003d1f,#007437 60%,#00a84f);padding:0;position:relative;min-height:420px;display:flex;align-items:center;justify-content:center}
-.team-illus-inner{padding:32px;width:100%;text-align:center}
-.team-quality{background:#f8fdf9;border-radius:24px;border:1.5px solid #d1e7d9;padding:36px 40px}
-.team-quality-title{font-size:1.25rem;font-weight:900;color:var(--dk);margin-bottom:6px}
-.team-quality-sub{font-size:13.5px;color:var(--ts);margin-bottom:28px;line-height:1.5}
-.team-stat-list{display:flex;flex-direction:column;gap:14px}
-.team-stat-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e8f2ec;transition:.2s}
-.team-stat-item:hover{border-color:rgba(0,116,55,.3);box-shadow:0 4px 16px rgba(0,116,55,.08)}
-.team-stat-icon{width:36px;height:36px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.team-stat-icon svg{color:var(--g)}
-.team-stat-body{flex:1;min-width:0}
-.team-stat-label{font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.team-stat-value{font-size:14.5px;font-weight:800;color:var(--dk);line-height:1.3}
-.team-commitment{margin-top:20px;background:linear-gradient(135deg,var(--g),var(--gp));border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px}
-.team-commitment-text{color:#fff;font-size:13px;font-weight:700;line-height:1.5}
-.team-cta-row{margin-top:40px;text-align:center}
+/* Photo overlay team layout */
+.team-photo-wrap{position:relative;border-radius:24px;overflow:hidden;height:520px;box-shadow:0 12px 48px rgba(0,30,15,.25)}
+.team-photo-wrap>img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+.team-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,25,12,.08) 0%,rgba(0,25,12,.45) 40%,rgba(0,25,12,.88) 62%,rgba(0,25,12,.96) 100%)}
+.team-overlay-content{position:absolute;inset:0;display:flex;align-items:stretch}
+.team-overlay-left{flex:0 0 44%;display:flex;flex-direction:column;justify-content:flex-end;padding:44px 28px 44px 48px}
+.team-badge-pill{display:inline-block;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-size:10.5px;font-weight:700;padding:5px 14px;border-radius:30px;margin-bottom:14px;text-transform:uppercase;letter-spacing:.8px;border:1px solid rgba(255,255,255,.25);width:fit-content}
+.team-overlay-title{font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:900;color:#fff;line-height:1.25;margin-bottom:12px;text-shadow:0 2px 16px rgba(0,0,0,.35)}
+.team-overlay-sub{font-size:13.5px;color:rgba(255,255,255,.78);line-height:1.7;max-width:320px}
+.team-overlay-right{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 48px 40px 28px}
+.team-stat-grid{display:flex;flex-direction:column;gap:10px}
+.team-stat-row{display:flex;align-items:center;gap:13px;padding:11px 15px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:11px;border:1px solid rgba(255,255,255,.14);transition:.2s}
+.team-stat-row:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28)}
+.team-stat-row-icon{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.team-stat-row-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px;line-height:1}
+.team-stat-row-value{font-size:13px;font-weight:700;color:#fff;line-height:1.3;margin-top:2px}
+.team-commit-row{margin-top:14px;background:rgba(0,116,55,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:11px;padding:12px 16px;display:flex;align-items:center;gap:11px;border:1px solid rgba(0,180,80,.3)}
+.team-commit-text{color:#fff;font-size:12.5px;font-weight:700;line-height:1.45}
+.team-cta-row{margin-top:32px;text-align:center}
 .team-cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--g);color:#fff;border-radius:100px;padding:14px 34px;font-size:.95rem;font-weight:700;text-decoration:none;transition:.2s;box-shadow:0 4px 16px rgba(0,116,55,.35)}
 .team-cta-btn:hover{background:var(--gp);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,116,55,.45)}
-@media(max-width:900px){.team-showcase{grid-template-columns:1fr;gap:32px}.team-illus{min-height:300px}}
-@media(max-width:560px){.team-section{padding:48px 16px}.team-quality{padding:24px 20px}}
+@media(max-width:900px){
+  .team-header{display:none} /* hidden — same content is inside the overlay */
+  .team-photo-wrap{height:auto;min-height:800px}
+  .team-overlay{background:linear-gradient(180deg,rgba(0,25,12,.1) 0%,rgba(0,25,12,.6) 35%,rgba(0,25,12,.92) 55%,rgba(0,25,12,.97) 100%)}
+  .team-overlay-content{flex-direction:column}
+  .team-overlay-left{flex:none;padding:200px 24px 16px 24px}
+  .team-overlay-right{flex:none;padding:0 24px 36px}
+}
+@media(max-width:560px){.team-section{padding:48px 16px}.team-photo-wrap{border-radius:16px;min-height:760px}.team-overlay-left{padding-top:160px;padding-bottom:14px}.team-stat-row{padding:8px 11px;gap:10px}.team-stat-row-icon{width:28px;height:28px;border-radius:7px}.team-stat-row-value{font-size:12.5px}}
 
 
 /* hero card wizard */
@@ -1348,175 +1356,85 @@ img, svg, video { max-width: 100%; height: auto; }
       <h2 class="team-title">Tư vấn viên đồng hành cùng bạn</h2>
       <p class="team-subtitle">Mỗi khách hàng được kết nối với một chuyên viên có chuyên môn phù hợp — từ tư vấn ban đầu đến hỗ trợ bồi thường tận nơi.</p>
     </div>
-    <div class="team-showcase">
+    <div class="team-photo-wrap">
+      <!-- Real group photo -->
+      <img src="/doi-ngu-chuyen-gia.png" alt="Đội ngũ chuyên gia DBV247" loading="lazy">
+      <!-- Gradient overlay -->
+      <div class="team-overlay"></div>
+      <!-- Content over photo -->
+      <div class="team-overlay-content">
 
-      <!-- LEFT: Group illustration -->
-      <div class="team-illus">
-        <div class="team-illus-inner">
-          <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:460px;display:block;margin:0 auto">
-            <!-- Background subtle circles -->
-            <circle cx="240" cy="190" r="170" fill="rgba(255,255,255,0.04)"/>
-            <circle cx="240" cy="190" r="130" fill="rgba(255,255,255,0.04)"/>
-
-            <!-- Row 3 (back) — 7 silhouettes -->
-            <g opacity="0.55">
-              <!-- Person 1 -->
-              <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,0.7)"/>
-              <path d="M35 170 Q60 145 85 170" fill="rgba(255,255,255,0.55)" stroke="none"/>
-              <rect x="35" y="170" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
-              <!-- Person 2 -->
-              <circle cx="120" cy="100" r="18" fill="rgba(255,255,255,0.7)"/>
-              <path d="M95 160 Q120 135 145 160" fill="rgba(255,255,255,0.55)" stroke="none"/>
-              <rect x="95" y="160" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
-              <!-- Person 3 -->
-              <circle cx="180" cy="108" r="18" fill="rgba(255,255,255,0.7)"/>
-              <rect x="155" y="168" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
-              <!-- Person 4 -->
-              <circle cx="300" cy="108" r="18" fill="rgba(255,255,255,0.7)"/>
-              <rect x="275" y="168" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
-              <!-- Person 5 -->
-              <circle cx="360" cy="100" r="18" fill="rgba(255,255,255,0.7)"/>
-              <rect x="335" y="160" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
-              <!-- Person 6 -->
-              <circle cx="420" cy="110" r="18" fill="rgba(255,255,255,0.7)"/>
-              <rect x="395" y="170" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
-              <!-- Person 7 (center back) -->
-              <circle cx="240" cy="95" r="20" fill="rgba(255,255,255,0.75)"/>
-              <rect x="213" y="157" width="54" height="58" rx="9" fill="rgba(255,255,255,0.55)"/>
-            </g>
-
-            <!-- Row 2 (middle) — 7 silhouettes -->
-            <g opacity="0.75">
-              <!-- Person 8 -->
-              <circle cx="55" cy="220" r="20" fill="rgba(255,255,255,0.82)"/>
-              <rect x="30" y="282" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
-              <!-- Person 9 -->
-              <circle cx="115" cy="210" r="20" fill="rgba(255,255,255,0.82)"/>
-              <rect x="90" y="272" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
-              <!-- Person 10 -->
-              <circle cx="175" cy="218" r="20" fill="rgba(255,255,255,0.82)"/>
-              <rect x="150" y="280" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
-              <!-- Person 11 (center) -->
-              <circle cx="240" cy="205" r="22" fill="rgba(255,255,255,0.88)"/>
-              <rect x="213" y="269" width="58" height="63" rx="9" fill="rgba(255,255,255,0.75)"/>
-              <!-- Person 12 -->
-              <circle cx="305" cy="218" r="20" fill="rgba(255,255,255,0.82)"/>
-              <rect x="280" y="280" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
-              <!-- Person 13 -->
-              <circle cx="365" cy="210" r="20" fill="rgba(255,255,255,0.82)"/>
-              <rect x="340" y="272" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
-              <!-- Person 14 -->
-              <circle cx="425" cy="220" r="20" fill="rgba(255,255,255,0.82)"/>
-              <rect x="400" y="282" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
-            </g>
-
-            <!-- Row 1 (front) — 6 silhouettes, larger -->
-            <g opacity="0.95">
-              <!-- Person 15 -->
-              <circle cx="80" cy="295" r="22" fill="rgba(255,255,255,0.95)"/>
-              <rect x="54" y="318" width="58" height="55" rx="10" fill="rgba(255,255,255,0.88)"/>
-              <!-- Person 16 -->
-              <circle cx="155" cy="285" r="22" fill="rgba(255,255,255,0.95)"/>
-              <rect x="129" y="308" width="58" height="62" rx="10" fill="rgba(255,255,255,0.88)"/>
-              <!-- Person 17 (front center-left) -->
-              <circle cx="210" cy="298" r="24" fill="rgba(255,255,255,1)"/>
-              <rect x="183" y="323" width="62" height="52" rx="10" fill="rgba(255,255,255,0.92)"/>
-              <!-- Person 18 (front center-right) -->
-              <circle cx="270" cy="298" r="24" fill="rgba(255,255,255,1)"/>
-              <rect x="243" y="323" width="62" height="52" rx="10" fill="rgba(255,255,255,0.92)"/>
-              <!-- Person 19 -->
-              <circle cx="325" cy="285" r="22" fill="rgba(255,255,255,0.95)"/>
-              <rect x="299" y="308" width="58" height="62" rx="10" fill="rgba(255,255,255,0.88)"/>
-              <!-- Person 20 -->
-              <circle cx="400" cy="295" r="22" fill="rgba(255,255,255,0.95)"/>
-              <rect x="374" y="318" width="58" height="55" rx="10" fill="rgba(255,255,255,0.88)"/>
-            </g>
-
-            <!-- Badges/ties on front row -->
-            <g fill="rgba(0,116,55,0.7)">
-              <rect x="72" y="325" width="16" height="5" rx="2"/>
-              <rect x="147" y="315" width="16" height="5" rx="2"/>
-              <rect x="202" y="328" width="18" height="5" rx="2"/>
-              <rect x="262" y="328" width="18" height="5" rx="2"/>
-              <rect x="317" y="315" width="16" height="5" rx="2"/>
-              <rect x="392" y="325" width="16" height="5" rx="2"/>
-            </g>
-
-            <!-- "20" count badge -->
-            <rect x="192" y="22" width="96" height="44" rx="22" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-            <text x="240" y="50" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-size="22" font-weight="900" fill="#fff">20</text>
-
-            <!-- Label -->
-            <text x="240" y="72" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-size="11.5" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="1">TƯ VẤN VIÊN CHUYÊN NGHIỆP</text>
-          </svg>
+        <!-- LEFT: Section heading -->
+        <div class="team-overlay-left">
+          <div class="team-badge-pill">Đội ngũ chuyên gia</div>
+          <h2 class="team-overlay-title">Tư vấn viên<br>đồng hành cùng bạn</h2>
+          <p class="team-overlay-sub">Mỗi khách hàng được kết nối với một chuyên viên có chuyên môn phù hợp — từ tư vấn ban đầu đến hỗ trợ bồi thường tận nơi.</p>
         </div>
+
+        <!-- RIGHT: Quality stats -->
+        <div class="team-overlay-right">
+          <div class="team-stat-grid">
+
+            <div class="team-stat-row">
+              <div class="team-stat-row-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="team-stat-row-label">Số lượng</div>
+                <div class="team-stat-row-value">20 tư vấn viên</div>
+              </div>
+            </div>
+
+            <div class="team-stat-row">
+              <div class="team-stat-row-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div>
+                <div class="team-stat-row-label">Trình độ</div>
+                <div class="team-stat-row-value">Đại học / Trên đại học chuyên ngành Bảo hiểm</div>
+              </div>
+            </div>
+
+            <div class="team-stat-row">
+              <div class="team-stat-row-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="team-stat-row-label">Kinh nghiệm</div>
+                <div class="team-stat-row-value">Trên 10 năm trong ngành bảo hiểm</div>
+              </div>
+            </div>
+
+            <div class="team-stat-row">
+              <div class="team-stat-row-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div>
+                <div class="team-stat-row-label">Chuyên môn hoá</div>
+                <div class="team-stat-row-value">Theo từng nghiệp vụ sản phẩm</div>
+              </div>
+            </div>
+
+            <div class="team-stat-row">
+              <div class="team-stat-row-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div>
+                <div class="team-stat-row-label">Phương thức tư vấn</div>
+                <div class="team-stat-row-value">1 chuyên viên – 1 khách hàng (1:1)</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Commitment strip -->
+          <div class="team-commit-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="team-commit-text">Cam kết: <strong>Tin cậy · Chuyên môn · Trách nhiệm</strong></div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- RIGHT: Quality panel -->
-      <div class="team-quality">
-        <div class="team-quality-title">Đội ngũ tư vấn viên</div>
-        <div class="team-quality-sub">Chất lượng chuyên môn cao — Cam kết đồng hành</div>
-
-        <div class="team-stat-list">
-          <!-- Số lượng -->
-          <div class="team-stat-item">
-            <div class="team-stat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div class="team-stat-body">
-              <div class="team-stat-label">Số lượng</div>
-              <div class="team-stat-value">20 tư vấn viên</div>
-            </div>
-          </div>
-          <!-- Trình độ -->
-          <div class="team-stat-item">
-            <div class="team-stat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            </div>
-            <div class="team-stat-body">
-              <div class="team-stat-label">Trình độ</div>
-              <div class="team-stat-value">Đại học / Trên đại học chuyên ngành Bảo hiểm</div>
-            </div>
-          </div>
-          <!-- Kinh nghiệm -->
-          <div class="team-stat-item">
-            <div class="team-stat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div class="team-stat-body">
-              <div class="team-stat-label">Kinh nghiệm</div>
-              <div class="team-stat-value">Trên 10 năm trong ngành bảo hiểm</div>
-            </div>
-          </div>
-          <!-- Chuyên môn hoá -->
-          <div class="team-stat-item">
-            <div class="team-stat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            </div>
-            <div class="team-stat-body">
-              <div class="team-stat-label">Chuyên môn hoá</div>
-              <div class="team-stat-value">Theo từng nghiệp vụ sản phẩm</div>
-            </div>
-          </div>
-          <!-- Tư vấn -->
-          <div class="team-stat-item">
-            <div class="team-stat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <div class="team-stat-body">
-              <div class="team-stat-label">Phương thức tư vấn</div>
-              <div class="team-stat-value">1 chuyên viên – 1 khách hàng (1:1)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cam kết strip -->
-        <div class="team-commitment">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <div class="team-commitment-text">Cam kết: <strong>Tin cậy · Chuyên môn · Trách nhiệm</strong></div>
-        </div>
-      </div>
-
     </div>
     <div class="team-cta-row">
       <a href="tel:0869656561" class="team-cta-btn">
