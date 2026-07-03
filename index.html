@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DBV Insurance – Bảo Hiểm Toàn Diện | Uy Tín – Chuyên Nghiệp – Bền Vững</title>
+<meta name="description" content="DBV Insurance – Giải pháp bảo hiểm toàn diện cho doanh nghiệp và cá nhân. Được cấp phép Bộ Tài chính, bồi thường nhanh 24h, phí cạnh tranh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#007437;--gp:#005a2b;--gd:#004020;--gl:#E8F5E9;--g10:rgba(0,116,55,.10);
+  --gold:#E8920A;--goldd:#c97d08;--gold-light:#FFF8E7;
+  --navy:#1B3A5C;--navyp:#132d47;
+  --dk:#1A2E1A;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--bg:#F7F9FC;
+  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+  --sh:0 2px 16px rgba(0,0,0,.07);--sh2:0 8px 40px rgba(0,0,0,.13);--sh3:0 20px 60px rgba(0,0,0,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:hidden;scroll-behavior:smooth}
+body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;line-height:1.6;overflow-x:hidden}
+
+/* ══════════════ HEADER ══════════════ */
+.hdr{background:rgba(255,255,255,.97);backdrop-filter:blur(12px);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--bd);box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.hdr-logo{display:flex;align-items:center;text-decoration:none;gap:12px;flex-shrink:0}
+.hdr-logo img{height:85px;width:auto}
+.hdr-nav{display:flex;align-items:center;gap:4px}
+.hdr-nav a{color:var(--tm);font-size:13.5px;font-weight:500;padding:7px 14px;border-radius:8px;text-decoration:none;transition:.2s;white-space:nowrap}
+.hdr-nav a:hover{background:var(--gl);color:var(--g)}
+.hdr-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.hdr-tel{color:var(--g);font-weight:700;font-size:15px;text-decoration:none;display:flex;align-items:center;gap:6px}
+.hdr-tel svg{width:16px;height:16px;fill:var(--g)}
+.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 14px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.hdr-allprod:hover{background:var(--g);color:#fff}
+.hdr-btn{background:var(--gold);color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:30px;text-decoration:none;transition:.2s;white-space:nowrap}
+.hdr-btn:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
+@media(max-width:900px){.hdr-nav{display:none}}
+@media(max-width:640px){.hdr-tel span{display:none}.hdr-inner{padding:0 16px}}
+
+/* ══════════════ HERO ══════════════ */
+.hero-section{background:url("hero-banner.jpg") center 35%/cover no-repeat;position:relative;padding:72px 32px 80px}.hero-section::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.88) 42%,rgba(255,255,255,.55) 62%,rgba(255,255,255,.10) 100%)}
+.hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,116,55,.09);border:1px solid rgba(0,116,55,.2);color:var(--g);font-size:12px;font-weight:700;padding:7px 16px;border-radius:30px;margin-bottom:20px}
+.hero-badge-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;display:inline-block}
+.hero-h1{font-size:clamp(1.9rem,3.2vw,2.9rem);font-weight:900;color:var(--dk);line-height:1.18;margin:0 0 16px}
+.hero-h1 em{font-style:normal;color:var(--g)}
+.hero-desc{font-size:15px;color:var(--ts);line-height:1.7;margin-bottom:22px;max-width:480px}
+.hero-trust-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.hero-tp{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid rgba(0,116,55,.2);border-radius:100px;padding:6px 14px;font-size:12.5px;font-weight:600;color:var(--dk);box-shadow:0 2px 8px rgba(0,116,55,.06)}
+.hero-tp-check{color:var(--g);font-weight:900;font-size:14px}
+.hero-cta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hero-ask{font-size:13px;color:var(--ts)}
+.hero-call-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--g);color:var(--g);font-weight:700;font-size:14px;padding:11px 24px;border-radius:30px;text-decoration:none;transition:.2s;box-shadow:0 2px 10px rgba(0,116,55,.1)}
+.hero-call-btn:hover{background:var(--g);color:#fff;box-shadow:0 4px 20px rgba(0,116,55,.3)}
+.hero-zalo-btn{display:inline-flex;align-items:center;gap:8px;background:#0068ff;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:30px;text-decoration:none;transition:.2s;box-shadow:0 2px 10px rgba(0,104,255,.25)}
+.hero-zalo-btn:hover{background:#0055cc;box-shadow:0 4px 20px rgba(0,104,255,.35)}
+/* Hero card */
+.hero-card{background:rgba(255,255,255,0.97);border-radius:16px;padding:24px 22px}
+.hcard-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.hcard-avatar{width:44px;height:44px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:900;flex-shrink:0;letter-spacing:-.5px}
+.hcard-name{font-size:14px;font-weight:700;color:var(--dk);margin-bottom:3px}
+.hcard-status{font-size:12px;color:#16a34a;display:flex;align-items:center;gap:5px}
+.hcard-dot{width:7px;height:7px;background:#16a34a;border-radius:50%;display:inline-block;animation:blink 1.8s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hcard-progress{display:flex;gap:4px;margin-bottom:20px}
+.hcp-seg{height:4px;border-radius:4px;flex:1}
+.hcp-seg.on{background:var(--g)}
+.hcp-seg.off{background:#e2e8f0}
+.hcard-q{font-size:15px;font-weight:800;color:var(--dk);margin-bottom:4px}
+.hcard-hint{font-size:12px;color:var(--ts);margin-bottom:14px}
+.hcard-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:16px}
+.hcg-item{display:flex;align-items:center;gap:7px;border:1.5px solid var(--bd);border-radius:10px;padding:9px 11px;font-size:12px;font-weight:600;color:var(--dk);text-decoration:none;transition:.2s;background:#fff;cursor:pointer}
+.hcg-item:hover{border-color:var(--g);background:var(--gl);color:var(--g)}
+.hcg-wide{grid-column:1/-1}
+.hcard-footer{text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--bd);padding-top:12px}
+.hcard-footer a{color:var(--g);font-weight:600;text-decoration:none}
+.hcard-footer a:hover{text-decoration:underline}
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:32px}
+  .hero-section{padding:60px 24px 64px}
+  .hero-right{max-width:480px}
+}
+@media(max-width:768px){
+  .hero-section{
+    padding:40px 16px 48px;
+    background-position:center 20%!important;
+  }
+  .hero-section::before{
+    background:linear-gradient(180deg,
+      rgba(255,255,255,.97) 0%,
+      rgba(255,255,255,.92) 55%,
+      rgba(255,255,255,.75) 100%)!important;
+  }
+  .hero-inner{
+    grid-template-columns:1fr!important;
+    gap:24px!important;
+    overflow:hidden;
+  }
+  /* Hero card — full width, compact trên mobile */
+  .hero-right{ display:block!important; width:100%; max-width:100%; }
+  .hero-card{ padding:18px 16px; border-radius:16px; }
+  .hcard-grid{ grid-template-columns:1fr 1fr!important; gap:8px; }
+  .hcg-item{ font-size:12px!important; padding:9px 8px!important; gap:5px; }
+  .hcg-item svg{ width:13px; height:13px; }
+  .hcg-wide{ grid-column:span 2!important; }
+  .hero-cta-row{ display:none; } /* Ẩn nút gọi/zalo — đã có trong header */
+  .hero-ask{ display:none; }
+}
+@media(max-width:480px){
+  .hcard-grid{ grid-template-columns:1fr 1fr!important; gap:7px; }
+  .hcg-item{ font-size:11px!important; padding:8px 6px!important; }
+  .hero-card{ padding:14px 12px; }
+  .hcard-name{ font-size:13px; }
+  .hcard-q{ font-size:13px; }
+  .hcard-hint{ font-size:11px; }
+}
+@media(max-width:640px){
+  .hero-section{padding:40px 16px 48px}
+  .hero-h1{font-size:clamp(1.6rem,5.5vw,2rem)}
+  .hero-desc{font-size:14px;max-width:100%}
+  .hcard-grid{grid-template-columns:1fr}
+  .hero-trust-pills{gap:8px}
+  .hero-tp{font-size:11.5px;padding:5px 11px}
+  .hero-call-btn,.hero-zalo-btn{font-size:13px;padding:10px 18px}
+}
+
+/* ══════════════ TRUST BAR UPGRADE ══════════════ */
+.trust-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);padding:14px 32px;border-bottom:1px solid rgba(0,116,55,.15)}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#2d6a4f;font-weight:600}
+.trust-item svg{flex-shrink:0;color:#007437}
+
+/* ══════════════ TESTIMONIALS ══════════════ */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);padding:28px;box-shadow:var(--sh);transition:.3s;position:relative}
+.testi-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--gold));border-radius:var(--r16) var(--r16) 0 0}
+.testi-card:hover{box-shadow:var(--sh2);transform:translateY(-3px)}
+.testi-stars{color:var(--gold);font-size:1rem;margin-bottom:14px;letter-spacing:3px}
+.testi-quote{font-size:2.5rem;color:var(--gl);line-height:1;margin-bottom:6px;font-family:Georgia,serif;color:#c8e6c9}
+.testi-text{font-size:.88rem;color:var(--tm);line-height:1.75;margin-bottom:20px}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--bd)}
+.testi-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--g),#004d2e);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.testi-name{font-weight:700;font-size:13.5px;color:var(--navy)}
+.testi-role{font-size:11.5px;color:var(--ts);margin-top:2px;line-height:1.4}
+/* Gallery strip */
+.proof-gallery-strip{margin-top:40px;padding-top:32px;border-top:1px solid var(--bd)}
+.proof-gallery-title{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ts);font-weight:500;margin-bottom:16px;justify-content:center}
+.proof-gallery-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.proof-gal-thumb{position:relative;border-radius:var(--r8);overflow:hidden;aspect-ratio:4/3;cursor:pointer}
+.proof-gal-thumb img{width:100%;height:100%;object-fit:cover;transition:.3s;filter:brightness(.9)}
+.proof-gal-thumb:hover img{transform:scale(1.06);filter:brightness(1)}
+.proof-gal-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.72));color:rgba(255,255,255,.9);font-size:10px;padding:18px 8px 6px;line-height:1.3}
+@media(max-width:768px){.proof-gallery-row{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.proof-gallery-row{grid-template-columns:repeat(2,1fr)}}
+
+.testi-proof-img{position:relative;height:180px;overflow:hidden;border-radius:var(--r12) var(--r12) 0 0;margin:-28px -28px 20px -28px}
+.testi-proof-img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.testi-card:hover .testi-proof-img img{transform:scale(1.04)}
+.testi-proof-badge{position:absolute;bottom:10px;left:12px;background:var(--g);color:#fff;font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:.3px}
+.testi-proof-badge--gold{background:var(--gold)}
+.testi-case-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--ts);margin-bottom:10px;font-weight:500}
+.testi-card--featured::before{background:linear-gradient(90deg,var(--gold),#f59e0b)}
+.testi-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding:12px;background:var(--bg);border-radius:var(--r8)}
+.testi-metric{text-align:center}
+.testi-metric-val{display:block;font-size:12.5px;font-weight:800;color:var(--g);line-height:1.2}
+.testi-metric-lbl{display:block;font-size:10.5px;color:var(--ts);margin-top:2px}
+@media(max-width:900px){.testi-grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
+
+/* ══════════════ CERTIFICATIONS ══════════════ */
+.cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+.cert-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r12);padding:24px 18px;text-align:center;transition:.2s}
+.cert-card:hover{border-color:var(--g);box-shadow:0 4px 20px rgba(0,116,55,.12)}
+.cert-icon{width:54px;height:54px;background:var(--gl);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.cert-name{font-size:12.5px;font-weight:700;color:var(--dk);margin-bottom:5px;line-height:1.4}
+.cert-detail{font-size:11px;color:var(--g);font-weight:600;margin-bottom:3px}
+.cert-sub{font-size:10.5px;color:var(--ts)}
+.cert-valid{display:inline-flex;align-items:center;gap:4px;background:#ecfdf5;color:#065f46;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-top:8px}
+.cert-valid-dot{width:6px;height:6px;background:#10b981;border-radius:50%}
+.assoc-row{display:flex;justify-content:center;align-items:center;gap:32px;flex-wrap:wrap;padding:28px 0 0;border-top:1px solid var(--bd)}
+.assoc-item{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:var(--tm)}
+.assoc-item svg{color:var(--g)}
+@media(max-width:900px){.cert-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cert-grid{grid-template-columns:1fr}}
+
+/* Cert Checklist */
+.cert-checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.cert-check-item{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);padding:24px;display:flex;gap:16px;transition:.25s}
+.cert-check-item:hover{border-color:var(--g);box-shadow:0 4px 20px rgba(0,116,55,.1)}
+.cert-check-icon{width:40px;height:40px;min-width:40px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.cert-check-title{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:7px;line-height:1.35}
+.cert-check-desc{font-size:13px;color:var(--tm);line-height:1.65;margin-bottom:10px}
+.cert-check-desc strong{color:var(--dk)}
+.cert-check-impact{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--g);font-weight:600;line-height:1.4}
+@media(max-width:768px){.cert-checklist{grid-template-columns:1fr}}
+
+/* Footer nav columns */
+.footer-top{display:flex;gap:48px;flex-wrap:wrap}
+.footer-top>div:first-child{flex:0 0 260px}
+.f-addr{font-size:13px;color:var(--ts);margin-top:6px;line-height:1.6}
+.f-nav{display:flex;gap:40px;flex:1;flex-wrap:wrap}
+.f-nav-group{display:flex;flex-direction:column;gap:8px;min-width:140px}
+.f-nav-title{font-weight:700;font-size:14px;color:var(--dk);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.f-nav-link{font-size:13.5px;color:var(--ts);text-decoration:none;transition:color .2s}
+.f-nav-link:hover{color:var(--navy)}
+.footer-bottom{border-top:1px solid var(--bd);margin-top:32px;padding-top:18px}
+.footer-bottom-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-legal{display:flex;gap:20px}
+.f-legal-link{font-size:12.5px;color:var(--ts);text-decoration:none}
+.f-legal-link:hover{color:var(--g)}
+@media(max-width:768px){.footer-top{flex-direction:column;gap:24px}.f-nav{gap:24px}.footer-bottom-inner{flex-direction:column;align-items:flex-start}}
+
+/* ══════════════ STATS BAR ══════════════ */
+.stats-bar{background:var(--navy);padding:18px 32px}
+.stats-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:16px}
+.stat-item{text-align:center;color:#fff}
+.stat-num{font-size:1.8rem;font-weight:900;color:#fff;line-height:1}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.75);margin-top:3px;font-weight:500}
+@media(max-width:640px){.stats-bar{padding:14px 16px}.stat-num{font-size:1.4rem}}
+
+/* ══════════════ SECTION BASE ══════════════ */
+.section{padding:72px 0;position:relative;z-index:2;background:#F7F9FC}
+/* Sections slide OVER the sticky hero */
+.team-section,.partners-section,.cta-section,.stats-bar,.trust-bar{
+  position:relative;
+  z-index:2;
+}
+.stats-bar{ background:var(--g); }          /* ensure opaque */
+.partners-section{ background:var(--bg); }   /* ensure opaque */
+.cta-section{ background:linear-gradient(135deg,var(--navy),var(--navyp)); }
+
+.section-alt{padding:72px 0;background:var(--bg);position:relative;z-index:2}
+.section-inner{max-width:1280px;margin:0 auto;padding:0 32px}
+.section-header{text-align:center;margin-bottom:48px}
+.section-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
+.section-h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:900;color:var(--dk);line-height:1.2;margin-bottom:10px}
+.section-sub{font-size:15px;color:var(--ts);max-width:640px;margin:0 auto;line-height:1.75}
+@media(max-width:640px){.section{padding:48px 0}.section-alt{padding:48px 0}.section-inner{padding:0 16px}}
+
+/* ══════════════ HERO FORM ══════════════ */
+.hero-form{background:#fff;border-radius:var(--r16);padding:32px 28px;box-shadow:var(--sh2);position:relative}
+.hero-form-title{font-size:1.1rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.hero-form-sub{font-size:12.5px;color:var(--ts);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.form-field{margin-bottom:14px}
+.form-field label{display:block;font-size:12px;font-weight:600;color:var(--tx);margin-bottom:5px;letter-spacing:.3px}
+.form-field input,.form-field select{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:var(--r8);font-family:"Be Vietnam Pro",sans-serif;font-size:13px;color:var(--tx);background:#fff;outline:none;transition:.2s;appearance:none;box-sizing:border-box}
+.form-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23718096' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.form-field input:focus,.form-field select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
+.form-submit{width:100%;background:var(--gold);color:#fff;font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:14px;padding:14px;border:none;border-radius:var(--r8);cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.form-submit:hover{background:var(--goldd);transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,146,10,.35)}
+.form-note{font-size:11px;color:var(--ts);text-align:center;margin-top:10px;line-height:1.5}
+.form-succ{text-align:center;display:none;padding:24px;background:var(--gl);border-radius:var(--r12)}
+.form-succ-icon{font-size:2rem;margin-bottom:8px}
+.form-succ h3{font-size:1rem;font-weight:800;color:var(--g);margin-bottom:6px}
+.form-succ p{font-size:13px;color:var(--tm);line-height:1.6}
+
+/* ══════════════ PRODUCT TABS ══════════════ */
+.prod-tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}.prod-tabs::-webkit-scrollbar{display:none}
+.prod-tab{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:var(--tm);cursor:pointer;background:#fff;transition:.2s;font-family:"Be Vietnam Pro",sans-serif;white-space:nowrap}
+.prod-tab:hover{border-color:var(--g);color:var(--g)}
+.prod-tab.active{background:var(--g);color:#fff;border-color:var(--g)}
+.prod-panel{display:none!important}
+.prod-panel.active{display:block!important}
+.prod-grid{grid-template-columns:repeat(3,1fr);gap:18px}
+.prod-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);padding:24px 20px;transition:.25s;text-decoration:none;display:block;color:inherit}
+.prod-card:hover{border-color:var(--g);box-shadow:var(--sh);transform:translateY(-3px)}
+.prod-card-icon{width:48px;height:48px;background:var(--gl);border-radius:var(--r12);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--g)}
+.prod-card-name{font-size:14px;font-weight:700;color:var(--dk);margin-bottom:7px;line-height:1.3}
+.prod-card-desc{font-size:12.5px;color:var(--ts);line-height:1.65;margin-bottom:14px}
+.prod-card-cta{font-size:12px;font-weight:700;color:var(--g);display:flex;align-items:center;gap:5px}
+@media(max-width:900px){.prod-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.prod-grid{grid-template-columns:1fr}.prod-tabs{gap:6px}.prod-tab{font-size:12px;padding:7px 12px}}
+
+/* ══════════════ WHY DBV ══════════════ */
+/* ══════════════ WHY DBV ══════════════ */
+.why-section-header{text-align:center;margin-bottom:56px}
+.why-cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.why-card{background:#fff;border-radius:22px;padding:36px 28px 32px;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,.07);border-top:4px solid var(--g);transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s;box-shadow:0 2px 4px rgba(0,0,0,.04),0 6px 16px rgba(0,0,0,.06),0 16px 32px rgba(0,0,0,.04)}
+.why-card::before{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(0,116,55,.03) 0%,transparent 55%);pointer-events:none;border-radius:inherit}
+.why-card:hover{transform:translateY(-12px) scale(1.01);box-shadow:0 4px 8px rgba(0,0,0,.06),0 12px 32px rgba(0,0,0,.1),0 28px 56px rgba(0,0,0,.07)}
+.why-card-num{position:absolute;top:18px;right:24px;font-size:52px;font-weight:900;color:rgba(0,116,55,.07);line-height:1;font-family:inherit;user-select:none}
+.why-card-icon{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,#e8f5ec,#d0ead7);display:flex;align-items:center;justify-content:center;margin-bottom:22px;box-shadow:0 4px 12px rgba(0,116,55,.15)}
+.why-card-title{font-size:16.5px;font-weight:800;color:var(--dk);margin-bottom:10px;line-height:1.3}
+.why-card-text{font-size:13.5px;color:var(--ts);line-height:1.75}
+.why-card-accent{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:12px;font-weight:700;color:var(--g);background:var(--gl);padding:5px 12px;border-radius:100px}
+@media(max-width:960px){.why-cards-grid{grid-template-columns:1fr 1fr;gap:20px}}
+@media(max-width:560px){.why-cards-grid{grid-template-columns:1fr;gap:16px}.why-card{padding:28px 22px 24px}}
+
+/* ══════════════ PROCESS ══════════════ */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px;position:relative}
+.process-grid::before{content:"";position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--g),var(--gold));opacity:.2;z-index:0}
+.process-item{text-align:center;position:relative;z-index:1}
+.process-num{width:56px;height:56px;border-radius:50%;background:var(--gold);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 4px 16px rgba(232,146,10,.35)}
+.process-title{font-size:14px;font-weight:700;color:var(--dk);margin-bottom:7px}
+.process-text{font-size:12.5px;color:var(--ts);line-height:1.65}
+@media(max-width:768px){.process-grid{grid-template-columns:repeat(2,1fr)}.process-grid::before{display:none}}
+@media(max-width:480px){.process-grid{grid-template-columns:1fr}}
+
+/* ══════════════ TRUST BAR INNER ══════════════ */
+.trust-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+
+/* ══════════════ CTA SECTION ══════════════ */
+.cta-section{background:linear-gradient(135deg,var(--navy),var(--navyp));padding:80px 32px;text-align:center}
+.cta-inner{max-width:680px;margin:0 auto}
+.cta-inner h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:900;color:#fff;margin-bottom:14px;line-height:1.2}
+.cta-inner p{font-size:15px;color:rgba(255,255,255,.78);margin-bottom:32px;line-height:1.75}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-btn-primary{background:var(--gold);color:#fff;font-weight:700;font-size:15px;padding:15px 32px;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(232,146,10,.4);transition:.2s;display:inline-block}
+.cta-btn-primary:hover{background:var(--goldd);transform:translateY(-2px)}
+.cta-btn-secondary{background:transparent;color:#fff;font-weight:700;font-size:15px;padding:14px 32px;border-radius:30px;border:2px solid rgba(255,255,255,.4);text-decoration:none;transition:.2s;display:inline-block}
+.cta-btn-secondary:hover{background:rgba(255,255,255,.1);border-color:#fff}
+@media(max-width:640px){.cta-section{padding:56px 16px}}
+
+/* ══════════════ FOOTER ══════════════ */
+.footer{background:#fff;padding:56px 0 24px;border-top:1px solid var(--bd)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 32px}
+.f-desc{font-size:13.5px;color:var(--ts);line-height:1.7;margin-bottom:14px}
+.f-tel{color:var(--g);font-weight:700;font-size:17px;text-decoration:none;display:block;margin-bottom:4px}
+.f-tel:hover{color:var(--gp)}
+.f-copy{font-size:12px;color:var(--ts)}
+
+/* ══════════════ CERT CHECK BODY ══════════════ */
+.cert-check-body{flex:1}
+
+/* ══════════════ FOOTER REDESIGN ══════════════ */
+.footer{background:#fff;padding:56px 0 0;border-top:1px solid var(--bd)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 32px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:48px;padding-bottom:40px}
+.f-logo{height:120px;width:auto;display:block;margin-bottom:14px}
+.f-desc{font-size:13px;color:var(--ts);line-height:1.7;margin-bottom:14px}
+.f-tel{color:var(--g);font-weight:800;font-size:18px;text-decoration:none;display:block;margin-bottom:6px}
+.f-tel:hover{color:var(--gp)}
+.f-email{color:var(--ts);font-size:13px;text-decoration:none;display:block}
+.f-email:hover{color:var(--g)}
+.f-col-title{font-size:12px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.f-links a{color:var(--ts);font-size:13.5px;text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--g)}
+.f-contact-list{display:flex;flex-direction:column;gap:11px}
+.f-contact-item{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ts)}
+.f-contact-item a{color:var(--ts);text-decoration:none;transition:color .2s}
+.f-contact-item a:hover{color:var(--g)}
+.f-contact-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.fci-phone{background:#e8f5e9}
+.fci-email{background:#e3f2fd}
+.fci-zalo{background:#e8f5e9}
+.fci-web{background:#f3e5f5}
+.footer-bottom{border-top:1px solid var(--bd);padding:16px 0}
+.footer-bottom-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.f-copy{font-size:12px;color:var(--ts)}
+.f-lic{font-size:12px;color:var(--ts)}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:560px){.footer-top{grid-template-columns:1fr;gap:28px}.footer-inner{padding:0 16px}}
+
+/* ══════════════ FLOATING CTA ══════════════ */
+.float-cta{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.float-row{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.float-btn{background:var(--g);color:#fff;font-weight:700;font-size:13px;padding:12px 18px;border-radius:30px;box-shadow:0 4px 20px rgba(0,116,55,.4);display:flex;align-items:center;gap:8px;transition:.2s;animation:fpulse 2.5s infinite;cursor:pointer;border:none;font-family:'Be Vietnam Pro',sans-serif}
+.float-btn:hover{background:var(--gp);transform:scale(1.05)}
+.float-call{background:rgba(255,255,255,.95);color:var(--dk);font-weight:700;font-size:13px;padding:12px 16px;border-radius:30px;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.15);display:flex;align-items:center;gap:7px;transition:.2s;border:1.5px solid var(--bd)}
+.float-call:hover{background:#fff;transform:scale(1.05);border-color:var(--g)}
+.float-zalo{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;background:#fff;border:2px solid #e2e8f0;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.float-zalo:hover{transform:scale(1.1)}
+@keyframes fpulse{0%,100%{box-shadow:0 4px 20px rgba(0,116,55,.4)}50%{box-shadow:0 4px 30px rgba(0,116,55,.7)}}
+@media(max-width:480px){.float-btn span{display:none}.float-btn{padding:12px 14px;border-radius:50%}.float-call span{display:none}.float-call{padding:12px 14px;border-radius:50%}}
+
+/* ══════════════ PARTNERS SECTION ══════════════ */
+.partners-section{padding:56px 0 64px;background:var(--bg);overflow:hidden}
+/* ─── Marquee 2-row carousel ─── */
+.marquee-wrapper{display:flex;flex-direction:column;gap:14px;padding:4px 0}
+.marquee-row{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;gap:14px;width:max-content}
+.marquee-row:first-child .marquee-track{animation:mq-left 50s linear infinite}
+.marquee-row:last-child .marquee-track{animation:mq-right 44s linear infinite}
+.marquee-wrapper:hover .marquee-track{animation-play-state:paused}
+@keyframes mq-left{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes mq-right{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+/* ─── Logo card ─── */
+.m-logo{background:#fff;border:1.5px solid var(--bd);border-radius:12px;padding:10px 22px;height:64px;min-width:148px;display:inline-flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;transition:border-color .2s,box-shadow .2s;cursor:default;white-space:nowrap}
+.m-logo:hover{border-color:var(--g);box-shadow:0 4px 14px rgba(0,116,55,.13)}
+.m-logo img{height:34px;max-width:110px;width:auto;object-fit:contain;filter:grayscale(.7);opacity:.8;transition:.3s;display:block}
+.m-logo:hover img{filter:grayscale(0);opacity:1}
+.m-fallback{display:none;align-items:center;gap:7px;background:var(--gl);border:1.5px solid rgba(0,116,55,.18);border-radius:10px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--g);white-space:nowrap;letter-spacing:.2px}
+.m-logo:hover .m-fallback{background:var(--g);color:#fff;border-color:var(--g)}
+@media(max-width:640px){.m-logo{height:54px;min-width:120px;padding:8px 16px}.m-logo img{height:26px}}
+
+/* ══════════════ TEAM SECTION ══════════════ */
+.team-section{padding:72px 32px;background:#fff}
+.team-inner{max-width:1200px;margin:0 auto}
+.team-header{text-align:center;margin-bottom:52px}
+.team-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11.5px;font-weight:700;padding:5px 14px;border-radius:30px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.team-title{font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:900;color:var(--dk);margin-bottom:12px}
+.team-subtitle{font-size:15px;color:var(--ts);max-width:580px;margin:0 auto;line-height:1.7}
+/* New 2-col team layout */
+.team-showcase{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.team-illus{border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#003d1f,#007437 60%,#00a84f);padding:0;position:relative;min-height:420px;display:flex;align-items:center;justify-content:center}
+.team-illus-inner{padding:32px;width:100%;text-align:center}
+.team-quality{background:#f8fdf9;border-radius:24px;border:1.5px solid #d1e7d9;padding:36px 40px}
+.team-quality-title{font-size:1.25rem;font-weight:900;color:var(--dk);margin-bottom:6px}
+.team-quality-sub{font-size:13.5px;color:var(--ts);margin-bottom:28px;line-height:1.5}
+.team-stat-list{display:flex;flex-direction:column;gap:14px}
+.team-stat-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e8f2ec;transition:.2s}
+.team-stat-item:hover{border-color:rgba(0,116,55,.3);box-shadow:0 4px 16px rgba(0,116,55,.08)}
+.team-stat-icon{width:36px;height:36px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.team-stat-icon svg{color:var(--g)}
+.team-stat-body{flex:1;min-width:0}
+.team-stat-label{font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.team-stat-value{font-size:14.5px;font-weight:800;color:var(--dk);line-height:1.3}
+.team-commitment{margin-top:20px;background:linear-gradient(135deg,var(--g),var(--gp));border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px}
+.team-commitment-text{color:#fff;font-size:13px;font-weight:700;line-height:1.5}
+.team-cta-row{margin-top:40px;text-align:center}
+.team-cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--g);color:#fff;border-radius:100px;padding:14px 34px;font-size:.95rem;font-weight:700;text-decoration:none;transition:.2s;box-shadow:0 4px 16px rgba(0,116,55,.35)}
+.team-cta-btn:hover{background:var(--gp);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,116,55,.45)}
+@media(max-width:900px){.team-showcase{grid-template-columns:1fr;gap:32px}.team-illus{min-height:300px}}
+@media(max-width:560px){.team-section{padding:48px 16px}.team-quality{padding:24px 20px}}
+
+
+/* hero card wizard */
+.hcard-back{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--ts);cursor:pointer;margin-bottom:12px;padding:3px 0;transition:.2s;background:none;border:none;font-family:inherit}
+.hcard-back:hover{color:var(--g)}
+.hcard-step{transition:opacity .2s}
+.hform-group{margin-bottom:9px}
+.hform-input{width:100%;border:1.5px solid var(--bd);border-radius:10px;padding:10px 13px;font-size:13px;font-family:inherit;outline:none;transition:.2s;box-sizing:border-box;color:var(--dk)}
+.hform-input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.08)}
+.hform-btn{width:100%;background:var(--g);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit;margin-top:4px}
+.hform-btn:hover{background:var(--gp);transform:translateY(-1px)}
+.hcard-success{text-align:center;padding:20px 0}
+.hcard-success-icon{font-size:2.4rem;margin-bottom:10px}
+
+
+.hcg-item svg{flex-shrink:0}
+
+
+/* ══════════════════════════════════════════════════
+   3D DESIGN SYSTEM — depth, glass, tilt, parallax
+══════════════════════════════════════════════════ */
+
+/* ── Global 3D shadow tokens ── */
+:root{
+  --sh3-sm:0 2px 4px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.06),0 8px 20px rgba(0,0,0,.05);
+  --sh3-md:0 4px 8px rgba(0,0,0,.05),0 12px 28px rgba(0,0,0,.08),0 24px 48px rgba(0,0,0,.05);
+  --sh3-lg:0 8px 16px rgba(0,0,0,.06),0 24px 56px rgba(0,0,0,.10),0 48px 80px rgba(0,0,0,.06);
+  --sh3-g:0 4px 8px rgba(0,116,55,.06),0 12px 28px rgba(0,116,55,.10),0 24px 48px rgba(0,116,55,.06);
+}
+
+/* ── Header — enhanced glass ── */
+.hdr{
+  background:rgba(255,255,255,.80)!important;
+  backdrop-filter:blur(20px) saturate(180%)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(180%)!important;
+  box-shadow:0 1px 0 rgba(0,0,0,.06),0 4px 24px rgba(0,0,0,.07),inset 0 -1px 0 rgba(255,255,255,.6)!important;
+}
+
+/* ── Hero card — glassmorphism ── */
+.hero-card{
+  background:rgba(255,255,255,.82)!important;
+  backdrop-filter:blur(28px) saturate(160%)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(160%)!important;
+  border:1px solid rgba(255,255,255,.85)!important;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.04),
+    0 8px 24px rgba(0,60,30,.10),
+    0 24px 56px rgba(0,60,30,.09),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(0,116,55,.05)!important;
+}
+
+/* ── Product cards — 3D depth ── */
+.prod-card{
+  box-shadow:var(--sh3-sm)!important;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s!important;
+  will-change:transform;
+  transform-style:preserve-3d;
+}
+.prod-card:hover{
+  transform:translateY(-6px) scale(1.01)!important;
+  box-shadow:var(--sh3-md)!important;
+}
+
+/* ── Team cards — 3D depth ── */
+.team-card{
+  box-shadow:var(--sh3-sm)!important;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s!important;
+  will-change:transform;
+  transform-style:preserve-3d;
+}
+
+/* ── Testimonial cards — 3D depth ── */
+.testi-card{
+  box-shadow:var(--sh3-sm)!important;
+  transition:transform .25s ease,box-shadow .25s ease!important;
+  will-change:transform;
+  transform-style:preserve-3d;
+}
+
+/* ── Process numbers — 3D sphere ── */
+.process-num{
+  background:radial-gradient(circle at 35% 35%,#f5c842,var(--gold) 50%,var(--goldd))!important;
+  box-shadow:
+    0 6px 20px rgba(232,146,10,.45),
+    0 2px 6px rgba(232,146,10,.3),
+    inset 0 2px 6px rgba(255,255,255,.40),
+    inset 0 -2px 4px rgba(0,0,0,.12)!important;
+  border:1px solid rgba(255,255,255,.2);
+}
+
+/* ── Why icons — floating 3D box ── */
+.why-item-icon{
+  box-shadow:0 4px 12px rgba(0,116,55,.14),0 8px 24px rgba(0,116,55,.07)!important;
+  transition:transform .3s ease,box-shadow .3s ease!important;
+}
+.why-item:hover .why-item-icon{
+  transform:translateY(-3px) scale(1.06)!important;
+  box-shadow:0 8px 20px rgba(0,116,55,.20),0 14px 32px rgba(0,116,55,.10)!important;
+}
+.why-item-icon.gold{
+  box-shadow:0 4px 12px rgba(232,146,10,.18),0 8px 24px rgba(232,146,10,.09)!important;
+}
+.why-item:hover .why-item-icon.gold{
+  box-shadow:0 8px 20px rgba(232,146,10,.28),0 14px 32px rgba(232,146,10,.13)!important;
+}
+
+/* ── Hero buttons — 3D press effect ── */
+.hero-call-btn{
+  box-shadow:0 4px 0 rgba(0,116,55,.25),0 6px 16px rgba(0,116,55,.12)!important;
+  transition:transform .15s,box-shadow .15s,background .2s,color .2s!important;
+}
+.hero-call-btn:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 6px 0 rgba(0,116,55,.2),0 10px 24px rgba(0,116,55,.2)!important;
+}
+.hero-call-btn:active{transform:translateY(2px)!important;box-shadow:0 2px 0 rgba(0,116,55,.2)!important;}
+
+.hero-zalo-btn{
+  box-shadow:0 4px 0 rgba(0,80,200,.3),0 6px 16px rgba(0,104,255,.2)!important;
+  transition:transform .15s,box-shadow .15s!important;
+}
+.hero-zalo-btn:hover{transform:translateY(-2px)!important;box-shadow:0 6px 0 rgba(0,80,200,.25),0 10px 24px rgba(0,104,255,.25)!important;}
+.hero-zalo-btn:active{transform:translateY(2px)!important;box-shadow:0 2px 0 rgba(0,80,200,.25)!important;}
+
+/* ── Header button — 3D gold ── */
+.hdr-btn{
+  box-shadow:0 4px 0 rgba(180,110,0,.3),0 6px 16px rgba(232,146,10,.2)!important;
+  transition:transform .15s,box-shadow .15s,background .2s!important;
+}
+.hdr-btn:hover{transform:translateY(-2px)!important;box-shadow:0 6px 0 rgba(180,110,0,.25),0 10px 20px rgba(232,146,10,.3)!important;}
+.hdr-btn:active{transform:translateY(2px)!important;box-shadow:0 2px 0 rgba(180,110,0,.25)!important;}
+
+/* ── Trust pills — 3D subtle ── */
+.hero-tp{
+  box-shadow:0 2px 0 rgba(0,116,55,.15),0 4px 10px rgba(0,116,55,.07)!important;
+  transition:transform .2s,box-shadow .2s!important;
+}
+.hero-tp:hover{transform:translateY(-2px)!important;box-shadow:0 4px 0 rgba(0,116,55,.12),0 8px 16px rgba(0,116,55,.10)!important;}
+
+/* ── Stat items — inset glow ── */
+.stat-item{
+  transition:transform .25s ease!important;
+}
+.stat-item:hover{transform:translateY(-3px) scale(1.04)!important;}
+
+/* ── Section decorative depth blobs ── */
+.prod-section{position:relative;overflow:hidden;}
+.prod-section::before{
+  content:"";position:absolute;top:-120px;right:-80px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,116,55,.05) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.prod-section::after{
+  content:"";position:absolute;bottom:-100px;left:-60px;
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,146,10,.05) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.prod-section .section-inner,.prod-section .prod-grid{position:relative;z-index:1;}
+
+.team-section{position:relative;overflow:hidden;}
+.team-section::before{
+  content:"";position:absolute;top:-80px;left:-60px;
+  width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,116,55,.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+/* ── CTA section — 3D depth on card ── */
+.cta-section{
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:"";position:absolute;inset:-2px;
+  background:linear-gradient(135deg,var(--gp) 0%,var(--g) 50%,var(--gp) 100%);
+  z-index:0;pointer-events:none;
+}
+.cta-section>*{position:relative;z-index:1;}
+
+/* ── Floating pulse for team badges ── */
+@keyframes floatBadge{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+.team-exp-badge{animation:floatBadge 3s ease-in-out infinite;}
+
+/* ── Scroll-reveal base (JS will toggle) ── */
+.reveal-3d{
+  opacity:0;
+  transform:translateY(24px) perspective(600px) rotateX(4deg);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.reveal-3d.visible{
+  opacity:1;
+  transform:translateY(0) perspective(600px) rotateX(0deg);
+}
+
+/* ── Hero section — parallax wrapper ── */
+.hero-section{
+  transition:background-position .05s linear;
+}
+
+
+/* Hero card gentle float - CSS only, no JS bug */
+@keyframes heroFloat{
+  0%,100%{transform:translateY(0px)}
+  50%{transform:translateY(-6px)}
+}
+.hero-card{animation:heroFloat 4s ease-in-out infinite;}
+
+/* ══════════════════════════════════════════════
+   MOBILE FIX — comprehensive responsive overrides
+══════════════════════════════════════════════ */
+
+/* 0. Prevent ANY element from causing horizontal overflow */
+html { overflow-x: hidden; max-width: 100vw; }
+body { overflow-x: clip; max-width: 100vw; }
+img, svg, video { max-width: 100%; height: auto; }
+
+/* 1. Header — mobile layout */
+@media(max-width:768px){
+  /* Ẩn "Tất cả sản phẩm" — tiết kiệm chỗ */
+  .hdr-allprod{ display:none; }
+  .hdr-inner{ padding:0 14px; gap:12px; height:60px; }
+  /* Rút ngắn nút tư vấn */
+  .hdr-btn{ font-size:12px; padding:8px 14px; white-space:nowrap; }
+  .hdr-tel{ font-size:13px; }
+}
+@media(max-width:480px){
+  /* Chỉ hiện icon điện thoại, ẩn số */
+  .hdr-tel span{ display:none; }
+  .hdr-btn{ font-size:11.5px; padding:8px 12px; }
+}
+
+/* 2. Trust bar — ẩn trên mobile nhỏ (thông tin phụ) */
+@media(max-width:768px){
+  .trust-bar{ display:none; }
+}
+
+/* 3. Hero — chắc chắn không tràn */
+@media(max-width:1100px){
+  .hero-section{ overflow:hidden; }
+  .hero-inner{ overflow:hidden; }
+}
+
+/* 4. Stats bar — 2x2 grid trên mobile */
+@media(max-width:560px){
+  .stats-inner{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 8px;
+    padding:0 16px;
+  }
+  .stat-item{ text-align:center; }
+}
+
+/* 5. Section inner — luôn có padding hợp lý */
+@media(max-width:480px){
+  .section-inner{ padding:0 14px; }
+  .section-h2{ font-size:clamp(1.3rem,5vw,1.7rem); }
+}
+
+/* 6. Product tabs — scroll ngang thay vì tràn */
+@media(max-width:640px){
+  .prod-tabs{
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:6px;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    gap:6px;
+  }
+  .prod-tabs::-webkit-scrollbar{ display:none; }
+  .prod-tab{ flex-shrink:0; font-size:12px; padding:7px 12px; }
+}
+
+/* 7. Testimonials proof gallery */
+@media(max-width:480px){
+  .proof-gallery-row{ grid-template-columns:repeat(2,1fr); }
+}
+
+/* 8. Footer — no overflow */
+@media(max-width:640px){
+  .footer-inner{ padding:0 14px; }
+  .f-nav{ flex-wrap:wrap; gap:14px; }
+}
+
+/* 9. CTA section */
+@media(max-width:480px){
+  .cta-section{ padding:48px 14px; }
+  .cta-btns{ flex-direction:column; align-items:stretch; gap:10px; }
+  .cta-btn-primary, .cta-btn-secondary{ text-align:center; justify-content:center; }
+}
+
+/* 10. Float CTA — smaller on mobile */
+@media(max-width:480px){
+  .float-cta{ bottom:14px; right:14px; gap:8px; }
+}
+
+/* 11. Why section image — prevent overflow */
+@media(max-width:768px){
+  .why-img{ max-width:100%; overflow:hidden; }
+  .why-team-grid{ grid-template-columns:1fr 1fr; }
+}
+
+/* 12. Process section */
+@media(max-width:480px){
+  .process-grid{ grid-template-columns:1fr; }
+}
+
+
+/* ══════════════ REGISTRATION FORM ══════════════ */
+.reg-form-title{font-size:1rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.reg-form-sub{font-size:12px;color:var(--ts);margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.reg-field{margin-bottom:14px}
+.reg-label{display:block;font-size:11px;font-weight:800;color:var(--dk);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.reg-select,.reg-input{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;color:var(--dk);background:#fff;outline:none;transition:border-color .2s;font-family:inherit;box-sizing:border-box}
+.reg-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;appearance:none;-webkit-appearance:none;cursor:pointer}
+.reg-select:focus,.reg-input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.08)}
+.reg-btn{width:100%;background:var(--g);color:#fff;font-weight:800;font-size:15px;padding:13px;border-radius:12px;border:none;cursor:pointer;transition:.2s;margin-top:4px;font-family:inherit}
+.reg-btn:hover{background:var(--gp);box-shadow:0 4px 20px rgba(0,116,55,.3);transform:translateY(-1px)}
+.reg-success{text-align:center;padding:16px 0}
+.reg-success-icon{font-size:36px;margin-bottom:10px}
+.reg-success-title{font-weight:800;font-size:16px;color:var(--dk);margin-bottom:8px}
+.reg-success-note{font-size:13px;color:var(--ts);line-height:1.6}
+
+/* ══════════════ PRODUCT IMAGE CARDS ══════════════ */
+.prod-img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.prod-img-card{background:#fff;border-radius:20px;border:1.5px solid var(--bd);overflow:hidden;transition:.3s;text-decoration:none;color:inherit;display:block}
+.prod-img-card:hover{box-shadow:0 8px 32px rgba(0,60,30,.13);transform:translateY(-4px);border-color:rgba(0,116,55,.3)}
+.prod-img-card-photo{position:relative;height:190px;overflow:hidden;background:var(--gl)}
+.prod-img-card-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.prod-img-card:hover .prod-img-card-photo img{transform:scale(1.06)}
+.prod-img-badge{position:absolute;top:10px;left:10px;background:var(--gold);color:#fff;font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
+.prod-img-badge.hot{background:#e53e3e}
+.prod-img-card-body{padding:16px 18px 18px;text-align:center}
+.prod-img-card-name{font-weight:800;font-size:14.5px;color:var(--dk);margin-bottom:7px;line-height:1.3}
+.prod-img-card-desc{font-size:12.5px;color:var(--ts);line-height:1.6;margin-bottom:12px}
+.prod-img-card-cta{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--g)}
+@media(max-width:768px){.prod-img-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
+@media(max-width:480px){.prod-img-grid{grid-template-columns:1fr;gap:12px}}
+@media(max-width:768px){.prod-tabs{flex-wrap:nowrap;justify-content:flex-start;padding-bottom:4px}}</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <a href="/" class="hdr-logo">
+      <img src="/Logo header Footer.png" alt="DBV247">
+    </a>
+    <nav class="hdr-nav">
+      <a href="#products">Sản phẩm</a>
+      <a href="#why-dbv">Tại sao DBV?</a>
+      <a href="#process">Quy trình</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+    <a href="/san-pham" class="hdr-allprod" style="margin-left:8px">☰ Tất cả sản phẩm</a>
+    <div class="hdr-actions">
+      <a href="tel:0869656561" class="hdr-tel">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        <span>0869 656 561</span>
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="hdr-btn">Nhận tư vấn miễn phí</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════ HERO SLIDESHOW ══════════════ -->
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero-section" id="top">
+  <div class="hero-inner">
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Kênh tư vấn bảo hiểm online của Tập đoàn Bảo hiểm DBV
+      </div>
+      <h1 class="hero-h1">Bảo hiểm <em>uy tín</em>, giá tối ưu, đồng hành đến khi bồi thường xong</h1>
+      <p class="hero-desc">Hơn 20 sản phẩm cho cá nhân, gia đình và doanh nghiệp. Bạn được chuyên viên tư vấn 1-1 để chọn đúng gói, mức phí tốt nhất, và hỗ trợ bồi thường tận nơi khi cần.</p>
+      <div class="hero-trust-pills">
+        <span class="hero-tp"><span class="hero-tp-check">✓</span>&nbsp;Sản phẩm phù hợp</span>
+        <span class="hero-tp"><span class="hero-tp-check">✓</span>&nbsp;Tư vấn chuyên sâu 1-1</span>
+        <span class="hero-tp"><span class="hero-tp-check">✓</span>&nbsp;Hỗ trợ bồi thường</span>
+      </div>
+      <div class="hero-cta-row">
+        <span class="hero-ask">Muốn hỏi nhanh?</span>
+        <a href="tel:0869656561" class="hero-call-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          Gọi 0869 656 561
+        </a>
+        <a href="https://zalo.me/1283738895804393564" class="hero-zalo-btn">Nhắn Zalo</a>
+      </div>
+    </div>
+    <!-- Right card -->
+    <div class="hero-right">
+      <div class="hero-card" id="hcard">
+        <div id="reg-form-wrap">
+          <p class="reg-form-title">Bạn cần tư vấn sản phẩm nào?</p>
+          <p class="reg-form-sub">Để lại thông tin — chuyên viên liên hệ trong <strong>15 phút</strong></p>
+          <form class="reg-form" name="dbv-tuvan" method="POST" data-netlify="true" onsubmit="regSubmit(event)">
+            <input type="hidden" name="form-name" value="dbv-tuvan">
+            <div class="reg-field">
+              <label class="reg-label">Nghiệp vụ sản phẩm</label>
+              <select class="reg-select" name="san-pham" required>
+                <option value="" disabled selected>-- Chọn nghiệp vụ --</option>
+                <option value="Bảo hiểm xe cơ giới">🚗 Bảo hiểm xe cơ giới</option>
+                <option value="Bảo hiểm con người & sức khỏe">❤️ Bảo hiểm con người &amp; sức khỏe</option>
+                <option value="Bảo hiểm tài sản & kỹ thuật">🏠 Bảo hiểm tài sản &amp; kỹ thuật</option>
+                <option value="Bảo hiểm hàng hải & du lịch">⚓ Bảo hiểm hàng hải &amp; du lịch</option>
+              </select>
+            </div>
+            <div class="reg-field">
+              <label class="reg-label">Số điện thoại</label>
+              <input class="reg-input" type="tel" name="dien-thoai" placeholder="Nhập số điện thoại của bạn..." required pattern="[0-9]{9,11}">
+            </div>
+            <button type="submit" class="reg-btn">Đăng ký tư vấn miễn phí</button>
+          </form>
+        </div>
+
+        <div id="reg-success" class="reg-success" style="display:none">
+          <div class="reg-success-icon">✅</div>
+          <div class="reg-success-title">Đã nhận thông tin!</div>
+          <p class="reg-success-note">Chuyên viên DBV sẽ liên hệ bạn trong vòng <strong>15 phút</strong> trong giờ làm việc.</p>
+          <a href="tel:0869656561" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:var(--g);color:#fff;padding:10px 22px;border-radius:30px;font-size:13px;font-weight:700;text-decoration:none">📞 Gọi ngay để nhanh hơn</a>
+        </div>
+
+        <div class="hcard-footer">Hoặc <a href="tel:0869656561">gọi 0869 656 561</a> · <a href="https://zalo.me/1283738895804393564">nhắn Zalo</a></div>
+      </div></section>
+
+
+<!-- ══════════════ STATS ══════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num" data-count="18" data-suffix="+">18+</div><div class="stat-lbl">Năm kinh nghiệm</div></div>
+    <div class="stat-item"><div class="stat-num" data-count="20" data-suffix="+">20+</div><div class="stat-lbl">Sản phẩm bảo hiểm</div></div>
+    <div class="stat-item"><div class="stat-num" data-count="2" data-suffix=" triệu+">2 triệu+</div><div class="stat-lbl">Khách hàng tin tưởng</div></div>
+    <div class="stat-item"><div class="stat-num" data-count="98" data-suffix="%">98%</div><div class="stat-lbl">Tỷ lệ bồi thường thành công</div></div>
+  </div>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="var(--g)"><rect x="3" y="11" width="18" height="11" rx="2"/></g><g stroke="var(--gold)"><path d="M7 11V7a5 5 0 0110 0v4"/></g></svg>
+      Giấy phép Bộ Tài Chính số 49/GD/KDBH
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="var(--g)"><circle cx="12" cy="12" r="10"/></g><g stroke="var(--gold)"><polyline points="12 6 12 12 16 14"/></g></svg>
+      Bồi thường nhanh trong 24h
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="var(--g)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></g><g stroke="var(--gold)"><polyline points="9 12 11 14 15 10"/></g></svg>
+      Phí cạnh tranh – Không phí ẩn
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="var(--g)"><path d="M3 18v-6a9 9 0 0118 0v6"/></g><g stroke="var(--gold)"><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></g></svg>
+      Hỗ trợ tư vấn 24/7
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PRODUCTS ══════════════ -->
+<section class="section section-alt" id="products">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Danh mục sản phẩm</div>
+      <h2 class="section-h2">Giải Pháp Bảo Hiểm Toàn Diện</h2>
+      <p class="section-sub">Từ doanh nghiệp đến cá nhân – DBV Insurance bảo vệ mọi khía cạnh quan trọng trong cuộc sống và kinh doanh</p>
+    </div>
+
+    <div class="prod-tabs">
+      <button class="prod-tab active" onclick="showTab('hotpro')">🔥 Được mua nhiều</button>
+      <button class="prod-tab" onclick="showTab('xecogioi')">🚗 Xe Cơ Giới</button>
+      <button class="prod-tab" onclick="showTab('hanghai')">⚓ Hàng Hải</button>
+      <button class="prod-tab" onclick="showTab('taisan')">🏠 Tài Sản & Kỹ Thuật</button>
+      <button class="prod-tab" onclick="showTab('conguoi')">❤️ Du Lịch & Con Người</button>
+      <button class="prod-tab" onclick="showTab('trachnhiem')">⚖️ Trách Nhiệm</button>
+    </div>
+
+    <div id="tab-hotpro" class="prod-panel active">
+      <div class="prod-img-grid">
+      <a class="prod-img-card" href="/bao-hiem-vat-chat-oto">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
+          <img src="/than-vo-oto.png" alt="Vật chất ô tô" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge hot">🔥 Hot</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Vật chất ô tô</div>
+          <div class="prod-img-card-desc">Bồi thường toàn bộ chi phí sửa chữa xe khi va chạm, tai nạn, cháy nổ hay thiên tai.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-tnds-oto">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+          <img src="/tnds-oto.png" alt="TNDS ô tô bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge hot">🔥 Hot</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">TNDS ô tô bắt buộc</div>
+          <div class="prod-img-card-desc">Đảm bảo trách nhiệm pháp lý khi tai nạn gây thiệt hại thân thể & tài sản người khác.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-chay-no">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
+          <img src="/chay-no-bat-buoc.png" alt="Cháy nổ bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge hot">🔥 Hot</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Cháy nổ bắt buộc</div>
+          <div class="prod-img-card-desc">Bảo vệ tài sản khỏi hoả hoạn, nổ theo Nghị định 23/2018/NĐ-CP.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-tai-nan">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
+          <img src="/tai-nan-ca-nhan.png" alt="Tai nạn cá nhân" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge hot">🔥 Hot</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Tai nạn cá nhân</div>
+          <div class="prod-img-card-desc">Nhận tiền bồi thường nhanh khi tai nạn – không phân biệt loại hình hay địa điểm xảy ra.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-suc-khoe">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
+          <img src="/suc-khoe.png" alt="Bảo hiểm sức khỏe" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge hot">🔥 Hot</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Bảo hiểm sức khỏe</div>
+          <div class="prod-img-card-desc">Thanh toán toàn bộ viện phí, phẫu thuật, thuốc men – không lo thiếu tiền khi nằm viện.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-van-chuyen">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
+          <img src="/hang-hoa-van-chuyen-noi-dia.png" alt="Vận chuyển hàng hóa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge hot">🔥 Hot</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Vận chuyển hàng hóa</div>
+          <div class="prod-img-card-desc">Bảo hiểm hàng hoá đường bộ, đường thuỷ nội địa – mọi rủi ro theo ICC.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div id="tab-xecogioi" class="prod-panel">
+      <div class="prod-img-grid">
+      <a class="prod-img-card" href="/bao-hiem-vat-chat-oto">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
+          <img src="/than-vo-oto.png" alt="Vật chất ô tô" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Vật chất ô tô</div>
+          <div class="prod-img-card-desc">Bồi thường toàn bộ chi phí sửa chữa xe khi va chạm, tai nạn, cháy nổ hay thiên tai.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-tnds-oto">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+          <img src="/tnds-oto.png" alt="TNDS ô tô bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">TNDS ô tô bắt buộc</div>
+          <div class="prod-img-card-desc">Bắt buộc theo pháp luật – bồi thường thiệt hại thân thể & tài sản người thứ ba.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-tnds-xemay">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+          <img src="/tnds-xemay.png" alt="TNDS xe máy bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">TNDS xe máy bắt buộc</div>
+          <div class="prod-img-card-desc">Đảm bảo quyền lợi pháp lý và bồi thường khi xe máy gây tai nạn cho người khác.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-oto-dien">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
+          <img src="/than-vo-oto-dien.png" alt="Vật chất ô tô điện" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge">MỚI</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Vật chất ô tô điện</div>
+          <div class="prod-img-card-desc">Bảo vệ đặc biệt pin & hệ thống điện tử – giải pháp bảo hiểm tiên phong cho xe EV.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div id="tab-hanghai" class="prod-panel">
+      <div class="prod-img-grid">
+      <a class="prod-img-card" href="/bao-hiem-van-chuyen">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
+          <img src="/hang-hoa-van-chuyen-noi-dia.png" alt="Vận chuyển hàng hóa nội địa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Vận chuyển hàng hóa nội địa</div>
+          <div class="prod-img-card-desc">Bảo hiểm hàng hoá đường bộ, đường thuỷ nội địa – mọi rủi ro theo ICC.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-xnk">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
+          <img src="/hang-hoa-xnk.png" alt="Hàng hóa xuất nhập khẩu" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Hàng hóa xuất nhập khẩu</div>
+          <div class="prod-img-card-desc">Bảo vệ toàn bộ lô hàng xuất nhập khẩu từ kho đến cảng đến tay người nhận.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-buu-gui">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
+          <img src="/hang-buu-gui.png" alt="Bảo hiểm bưu gửi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Bảo hiểm bưu gửi</div>
+          <div class="prod-img-card-desc">Đền bù hàng hoá thất lạc, hư hỏng khi vận chuyển qua bất kỳ đơn vị phát chuyển nào.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div id="tab-taisan" class="prod-panel">
+      <div class="prod-img-grid">
+      <a class="prod-img-card" href="/bao-hiem-chay-no">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
+          <img src="/chay-no-bat-buoc.png" alt="Cháy nổ bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Cháy nổ bắt buộc</div>
+          <div class="prod-img-card-desc">Tuân thủ pháp luật & bảo vệ toàn bộ tài sản trước rủi ro cháy nổ theo quy định nhà nước.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-chay-no-hkd">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
+          <img src="/chay-no-ho-kinh-doanh.png" alt="Cháy nổ hộ kinh doanh" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="prod-img-badge">MỚI</div>
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Cháy nổ hộ kinh doanh</div>
+          <div class="prod-img-card-desc">Bảo vệ cơ sở kinh doanh linh hoạt với mức phí phù hợp – không bắt buộc nhưng cần thiết.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-hoa-hoan">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
+          <img src="/hoa-hoan-rui-ro-dac-biet.png" alt="Hỏa hoạn & rủi ro đặc biệt" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Hỏa hoạn & rủi ro đặc biệt</div>
+          <div class="prod-img-card-desc">Bảo vệ tài sản trước mọi thảm hoạ thiên nhiên và sự cố không thể dự đoán.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-moi-rui-ro">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
+          <img src="/moi-rui-ro-tai-san.png" alt="Mọi rủi ro tài sản" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Mọi rủi ro tài sản</div>
+          <div class="prod-img-card-desc">Phạm vi bảo vệ rộng nhất thị trường – một hợp đồng bảo vệ toàn bộ tài sản doanh nghiệp.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-xay-dung">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1e3a5f,#2d5986)">
+          <img src="/moi-rui-ro-xay-dung.png" alt="Công trình xây dựng & lắp đặt" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Công trình xây dựng & lắp đặt</div>
+          <div class="prod-img-card-desc">Bảo vệ toàn bộ giá trị công trình từ ngày khởi công đến khi bàn giao, không bỏ sót rủi ro.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div id="tab-conguoi" class="prod-panel">
+      <div class="prod-img-grid">
+      <a class="prod-img-card" href="/bao-hiem-tai-nan">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
+          <img src="/tai-nan-ca-nhan.png" alt="Tai nạn cá nhân" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Tai nạn cá nhân</div>
+          <div class="prod-img-card-desc">Nhận tiền bồi thường nhanh khi tai nạn – không phân biệt loại hình hay địa điểm xảy ra.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-suc-khoe">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
+          <img src="/suc-khoe.png" alt="Bảo hiểm sức khỏe" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Bảo hiểm sức khỏe</div>
+          <div class="prod-img-card-desc">Thanh toán toàn bộ viện phí, phẫu thuật, thuốc men – không lo thiếu tiền khi nằm viện.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-tnc">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
+          <img src="/tai-nan-ca-nhan.png" alt="Tai nạn người thứ ba" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Tai nạn người thứ ba</div>
+          <div class="prod-img-card-desc">Bảo vệ doanh nghiệp trước rủi ro pháp lý khi khách hàng/đối tác bị tai nạn trong khuôn viên.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-tnn-kcb">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
+          <img src="/trach-nhiem-kham-chua-benh.png" alt="Tai nạn con người (KCB)" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Tai nạn con người (KCB)</div>
+          <div class="prod-img-card-desc">Chăm sóc sức khoẻ toàn diện cho toàn bộ nhân viên – không giới hạn số lần khám chữa bệnh.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-du-lich-noi-dia">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#0369a1,#0891b2)">
+          <img src="/du-lich-trong-nuoc.png" alt="Du lịch nội địa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Du lịch nội địa</div>
+          <div class="prod-img-card-desc">An tâm trên mọi chuyến đi trong nước – được hỗ trợ 24/7 khi tai nạn hay sự cố bất ngờ.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      <a class="prod-img-card" href="/bao-hiem-du-lich-quoc-te">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#0369a1,#0891b2)">
+          <img src="/du-lich-quoc-te.png" alt="Du lịch quốc tế" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Du lịch quốc tế</div>
+          <div class="prod-img-card-desc">Bảo vệ toàn cầu – chi trả cấp cứu y tế, hành lý và trách nhiệm pháp lý ở bất kỳ quốc gia nào.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm</span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div id="tab-trachnhiem" class="prod-panel">
+      <div class="prod-img-grid">
+
+      <a class="prod-img-card" href="/bao-hiem-tnc.html">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+          <img src="/trach-nhiem-chung.png" alt="Trách nhiệm chung" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Trách nhiệm chung</div>
+          <div class="prod-img-card-desc">Bảo vệ doanh nghiệp trước các yêu cầu bồi thường từ bên thứ ba về thương tật thân thể hoặc thiệt hại tài sản.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="prod-img-card" href="/bao-hiem-tncc.html">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4338ca,#6d28d9)">
+          <img src="/trach-nhiem-cong-cong.png" alt="Trách nhiệm công cộng" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Trách nhiệm công cộng</div>
+          <div class="prod-img-card-desc">Bảo vệ doanh nghiệp trước rủi ro pháp lý với cộng đồng phát sinh trong quá trình hoạt động kinh doanh.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="prod-img-card" href="/bao-hiem-tnn-kcb.html">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#5b21b6,#7c3aed)">
+          <img src="/trach-nhiem-kham-chua-benh.png" alt="Nghề nghiệp khám chữa bệnh" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Nghề nghiệp khám chữa bệnh</div>
+          <div class="prod-img-card-desc">Bảo vệ bác sĩ, cơ sở y tế trước rủi ro pháp lý phát sinh trong quá trình khám và điều trị bệnh nhân.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="prod-img-card" href="/bao-hiem-tnn-ls.html">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#3730a3,#4f46e5)">
+          <img src="/trach-nhiem-luat-su-cong-chung.png" alt="Nghề nghiệp luật sư & Công chứng viên" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Nghề nghiệp luật sư & Công chứng viên</div>
+          <div class="prod-img-card-desc">Bảo vệ hành nghề pháp lý trước rủi ro phát sinh từ sai sót, nhầm lẫn trong tư vấn và công chứng.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="prod-img-card" href="/bao-hiem-tnn-tvtk.html">
+        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#6d28d9,#8b5cf6)">
+          <img src="/trach-nhiem-tu-van-giam-sat.png" alt="Nghề nghiệp tư vấn, thiết kế & giám sát" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="prod-img-card-body">
+          <div class="prod-img-card-name">Nghề nghiệp tư vấn, thiết kế & giám sát</div>
+          <div class="prod-img-card-desc">Bảo vệ kỹ sư, kiến trúc sư trước rủi ro pháp lý do lỗi tư vấn, thiết kế hoặc giám sát công trình.</div>
+          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ WHY DBV ══════════════ -->
+<section class="section" id="why-dbv">
+  <div class="section-inner">
+
+    <!-- Centered header -->
+    <div class="why-section-header">
+      <div class="section-tag">Tại sao chọn DBV?</div>
+      <h2 class="section-h2">Cam Kết Bảo Vệ Những Điều Quan Trọng Nhất</h2>
+      <p class="section-sub">Với hơn 18 năm kinh nghiệm trong ngành bảo hiểm, DBV Insurance tự hào là người đồng hành tin cậy của hàng nghìn doanh nghiệp và cá nhân.</p>
+    </div>
+
+    <!-- 3D Cards grid -->
+    <div class="why-cards-grid">
+
+      <!-- Card 1: Sản phẩm phù hợp -->
+      <div class="why-card">
+        <div class="why-card-num">01</div>
+        <div class="why-card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </div>
+        <div class="why-card-title">Sản phẩm phù hợp</div>
+        <div class="why-card-text">Danh mục 19+ sản phẩm bảo hiểm đa dạng — từ hàng hải, tài sản, trách nhiệm đến xe cơ giới và con người. DBV phân tích nhu cầu để đề xuất đúng sản phẩm, đúng mức bảo vệ.</div>
+        <div class="why-card-accent">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          19+ sản phẩm
+        </div>
+      </div>
+
+      <!-- Card 2: Chi phí tối ưu -->
+      <div class="why-card">
+        <div class="why-card-num">02</div>
+        <div class="why-card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div class="why-card-title">Chi phí tối ưu</div>
+        <div class="why-card-text">So sánh và tối ưu phí bảo hiểm từ nhiều công ty uy tín — đảm bảo khách hàng luôn nhận được mức phí cạnh tranh nhất mà không đánh đổi quyền lợi bảo hiểm.</div>
+        <div class="why-card-accent">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Phí cạnh tranh nhất
+        </div>
+      </div>
+
+      <!-- Card 3: Tư vấn 1/1 -->
+      <div class="why-card">
+        <div class="why-card-num">03</div>
+        <div class="why-card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="why-card-title">Tư vấn chuyên sâu 1/1</div>
+        <div class="why-card-text">Mỗi khách hàng được phân công chuyên viên riêng, tư vấn trực tiếp, am hiểu sâu từng lĩnh vực kinh doanh — không tư vấn đại trà, không bán ép sản phẩm.</div>
+        <div class="why-card-accent">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Chuyên viên riêng
+        </div>
+      </div>
+
+      <!-- Card 4: Đồng hành sau bán -->
+      <div class="why-card">
+        <div class="why-card-num">04</div>
+        <div class="why-card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <div class="why-card-title">Cam kết đồng hành sau bán</div>
+        <div class="why-card-text">DBV không chỉ bán hợp đồng — chúng tôi đồng hành suốt hành trình: nhắc gia hạn, hỗ trợ hồ sơ bồi thường, tư vấn điều chỉnh quyền lợi khi nhu cầu thay đổi.</div>
+        <div class="why-card-accent">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Hỗ trợ trọn vòng đời
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROCESS ══════════════ -->
+<section class="section section-alt" id="process">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Quy trình đơn giản</div>
+      <h2 class="section-h2">Tham Gia Bảo Hiểm Chỉ 4 Bước</h2>
+      <p class="section-sub">Từ tư vấn đến cấp đơn bảo hiểm – nhanh chóng, minh bạch, không mất thời gian</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-item"><div class="process-num">1</div><div class="process-title">Liên hệ tư vấn</div><div class="process-text">Gọi điện hoặc điền form – chuyên viên DBV phản hồi trong 30 phút</div></div>
+      <div class="process-item"><div class="process-num">2</div><div class="process-title">Nhận báo giá</div><div class="process-text">Phân tích nhu cầu, đề xuất gói phù hợp với mức phí tối ưu nhất</div></div>
+      <div class="process-item"><div class="process-num">3</div><div class="process-title">Ký hợp đồng</div><div class="process-text">Xem xét điều khoản rõ ràng, ký hợp đồng và thanh toán phí bảo hiểm</div></div>
+      <div class="process-item"><div class="process-num">4</div><div class="process-title">Được bảo vệ</div><div class="process-text">Nhận đơn bảo hiểm ngay – hỗ trợ bồi thường 24/7 khi có sự cố</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ TEAM ══════════════ -->
+<section class="team-section" id="team">
+  <div class="team-inner">
+    <div class="team-header">
+      <div class="team-tag">Đội ngũ chuyên gia</div>
+      <h2 class="team-title">Tư vấn viên đồng hành cùng bạn</h2>
+      <p class="team-subtitle">Mỗi khách hàng được kết nối với một chuyên viên có chuyên môn phù hợp — từ tư vấn ban đầu đến hỗ trợ bồi thường tận nơi.</p>
+    </div>
+    <div class="team-showcase">
+
+      <!-- LEFT: Group illustration -->
+      <div class="team-illus">
+        <div class="team-illus-inner">
+          <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:460px;display:block;margin:0 auto">
+            <!-- Background subtle circles -->
+            <circle cx="240" cy="190" r="170" fill="rgba(255,255,255,0.04)"/>
+            <circle cx="240" cy="190" r="130" fill="rgba(255,255,255,0.04)"/>
+
+            <!-- Row 3 (back) — 7 silhouettes -->
+            <g opacity="0.55">
+              <!-- Person 1 -->
+              <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,0.7)"/>
+              <path d="M35 170 Q60 145 85 170" fill="rgba(255,255,255,0.55)" stroke="none"/>
+              <rect x="35" y="170" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
+              <!-- Person 2 -->
+              <circle cx="120" cy="100" r="18" fill="rgba(255,255,255,0.7)"/>
+              <path d="M95 160 Q120 135 145 160" fill="rgba(255,255,255,0.55)" stroke="none"/>
+              <rect x="95" y="160" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
+              <!-- Person 3 -->
+              <circle cx="180" cy="108" r="18" fill="rgba(255,255,255,0.7)"/>
+              <rect x="155" y="168" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
+              <!-- Person 4 -->
+              <circle cx="300" cy="108" r="18" fill="rgba(255,255,255,0.7)"/>
+              <rect x="275" y="168" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
+              <!-- Person 5 -->
+              <circle cx="360" cy="100" r="18" fill="rgba(255,255,255,0.7)"/>
+              <rect x="335" y="160" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
+              <!-- Person 6 -->
+              <circle cx="420" cy="110" r="18" fill="rgba(255,255,255,0.7)"/>
+              <rect x="395" y="170" width="50" height="55" rx="8" fill="rgba(255,255,255,0.5)"/>
+              <!-- Person 7 (center back) -->
+              <circle cx="240" cy="95" r="20" fill="rgba(255,255,255,0.75)"/>
+              <rect x="213" y="157" width="54" height="58" rx="9" fill="rgba(255,255,255,0.55)"/>
+            </g>
+
+            <!-- Row 2 (middle) — 7 silhouettes -->
+            <g opacity="0.75">
+              <!-- Person 8 -->
+              <circle cx="55" cy="220" r="20" fill="rgba(255,255,255,0.82)"/>
+              <rect x="30" y="282" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
+              <!-- Person 9 -->
+              <circle cx="115" cy="210" r="20" fill="rgba(255,255,255,0.82)"/>
+              <rect x="90" y="272" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
+              <!-- Person 10 -->
+              <circle cx="175" cy="218" r="20" fill="rgba(255,255,255,0.82)"/>
+              <rect x="150" y="280" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
+              <!-- Person 11 (center) -->
+              <circle cx="240" cy="205" r="22" fill="rgba(255,255,255,0.88)"/>
+              <rect x="213" y="269" width="58" height="63" rx="9" fill="rgba(255,255,255,0.75)"/>
+              <!-- Person 12 -->
+              <circle cx="305" cy="218" r="20" fill="rgba(255,255,255,0.82)"/>
+              <rect x="280" y="280" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
+              <!-- Person 13 -->
+              <circle cx="365" cy="210" r="20" fill="rgba(255,255,255,0.82)"/>
+              <rect x="340" y="272" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
+              <!-- Person 14 -->
+              <circle cx="425" cy="220" r="20" fill="rgba(255,255,255,0.82)"/>
+              <rect x="400" y="282" width="54" height="60" rx="9" fill="rgba(255,255,255,0.7)"/>
+            </g>
+
+            <!-- Row 1 (front) — 6 silhouettes, larger -->
+            <g opacity="0.95">
+              <!-- Person 15 -->
+              <circle cx="80" cy="295" r="22" fill="rgba(255,255,255,0.95)"/>
+              <rect x="54" y="318" width="58" height="55" rx="10" fill="rgba(255,255,255,0.88)"/>
+              <!-- Person 16 -->
+              <circle cx="155" cy="285" r="22" fill="rgba(255,255,255,0.95)"/>
+              <rect x="129" y="308" width="58" height="62" rx="10" fill="rgba(255,255,255,0.88)"/>
+              <!-- Person 17 (front center-left) -->
+              <circle cx="210" cy="298" r="24" fill="rgba(255,255,255,1)"/>
+              <rect x="183" y="323" width="62" height="52" rx="10" fill="rgba(255,255,255,0.92)"/>
+              <!-- Person 18 (front center-right) -->
+              <circle cx="270" cy="298" r="24" fill="rgba(255,255,255,1)"/>
+              <rect x="243" y="323" width="62" height="52" rx="10" fill="rgba(255,255,255,0.92)"/>
+              <!-- Person 19 -->
+              <circle cx="325" cy="285" r="22" fill="rgba(255,255,255,0.95)"/>
+              <rect x="299" y="308" width="58" height="62" rx="10" fill="rgba(255,255,255,0.88)"/>
+              <!-- Person 20 -->
+              <circle cx="400" cy="295" r="22" fill="rgba(255,255,255,0.95)"/>
+              <rect x="374" y="318" width="58" height="55" rx="10" fill="rgba(255,255,255,0.88)"/>
+            </g>
+
+            <!-- Badges/ties on front row -->
+            <g fill="rgba(0,116,55,0.7)">
+              <rect x="72" y="325" width="16" height="5" rx="2"/>
+              <rect x="147" y="315" width="16" height="5" rx="2"/>
+              <rect x="202" y="328" width="18" height="5" rx="2"/>
+              <rect x="262" y="328" width="18" height="5" rx="2"/>
+              <rect x="317" y="315" width="16" height="5" rx="2"/>
+              <rect x="392" y="325" width="16" height="5" rx="2"/>
+            </g>
+
+            <!-- "20" count badge -->
+            <rect x="192" y="22" width="96" height="44" rx="22" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+            <text x="240" y="50" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-size="22" font-weight="900" fill="#fff">20</text>
+
+            <!-- Label -->
+            <text x="240" y="72" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-size="11.5" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="1">TƯ VẤN VIÊN CHUYÊN NGHIỆP</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- RIGHT: Quality panel -->
+      <div class="team-quality">
+        <div class="team-quality-title">Đội ngũ tư vấn viên</div>
+        <div class="team-quality-sub">Chất lượng chuyên môn cao — Cam kết đồng hành</div>
+
+        <div class="team-stat-list">
+          <!-- Số lượng -->
+          <div class="team-stat-item">
+            <div class="team-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="team-stat-body">
+              <div class="team-stat-label">Số lượng</div>
+              <div class="team-stat-value">20 tư vấn viên</div>
+            </div>
+          </div>
+          <!-- Trình độ -->
+          <div class="team-stat-item">
+            <div class="team-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="team-stat-body">
+              <div class="team-stat-label">Trình độ</div>
+              <div class="team-stat-value">Đại học / Trên đại học chuyên ngành Bảo hiểm</div>
+            </div>
+          </div>
+          <!-- Kinh nghiệm -->
+          <div class="team-stat-item">
+            <div class="team-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="team-stat-body">
+              <div class="team-stat-label">Kinh nghiệm</div>
+              <div class="team-stat-value">Trên 10 năm trong ngành bảo hiểm</div>
+            </div>
+          </div>
+          <!-- Chuyên môn hoá -->
+          <div class="team-stat-item">
+            <div class="team-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="team-stat-body">
+              <div class="team-stat-label">Chuyên môn hoá</div>
+              <div class="team-stat-value">Theo từng nghiệp vụ sản phẩm</div>
+            </div>
+          </div>
+          <!-- Tư vấn -->
+          <div class="team-stat-item">
+            <div class="team-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="team-stat-body">
+              <div class="team-stat-label">Phương thức tư vấn</div>
+              <div class="team-stat-value">1 chuyên viên – 1 khách hàng (1:1)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cam kết strip -->
+        <div class="team-commitment">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="team-commitment-text">Cam kết: <strong>Tin cậy · Chuyên môn · Trách nhiệm</strong></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="team-cta-row">
+      <a href="tel:0869656561" class="team-cta-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Kết nối với tư vấn viên ngay
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section class="section" id="testimonials">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Khách hàng nói gì</div>
+      <h2 class="section-h2">Được Tin Tưởng Bởi Hàng Nghìn Khách Hàng</h2>
+      <p class="section-sub">Chia sẻ thực từ các doanh nghiệp và cá nhân đã sử dụng dịch vụ bảo hiểm tại DBV Insurance</p>
+    </div>
+    <div class="testi-grid">
+      <!-- Case 1: Xe điện VinFast -->
+      <div class="testi-card">
+        <div class="testi-proof-img">
+          <img src="./proof-vinfast-ev.jpg" alt="Giám định viên DBV kiểm tra xe điện VinFast tại Thái Nguyên" loading="lazy"/>
+          <span class="testi-proof-badge">Xe điện VinFast · Thái Nguyên</span>
+        </div>
+        <div class="testi-case-tag">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          590 Thống Nhất, Thái Nguyên · 11/10/2025
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Giám định viên DBV trực tiếp kiểm tra hệ thống điện và pin xe tại garage VinFast chính hãng — không phải kiểm tra đại trà. Tôi không phải ứng trước một đồng nào, mọi thứ được DBV xử lý hoàn toàn.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#1565c0,#0d47a1)">VF</div>
+          <div>
+            <div class="testi-name">Chủ xe điện VinFast</div>
+            <div class="testi-role">Bảo hiểm vật chất ô tô · Garage VinFast Hunter Mai Linh</div>
+          </div>
+        </div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-val">Chính hãng</span><span class="testi-metric-lbl">Garage VinFast</span></div>
+          <div class="testi-metric"><span class="testi-metric-val">0đ</span><span class="testi-metric-lbl">Khách ứng trước</span></div>
+          <div class="testi-metric"><span class="testi-metric-val">Chuyên biệt</span><span class="testi-metric-lbl">Xe điện EV</span></div>
+        </div>
+      </div>
+
+      <!-- Case 2: Xe khách cháy 1 tỷ -->
+      <div class="testi-card testi-card--featured">
+        <div class="testi-proof-img">
+          <img src="./proof-bus-fire-nhatrang.jpg" alt="Xe khách bốc cháy trên cao tốc Nha Trang Cam Lâm - DBV bồi thường 1 tỷ đồng" loading="lazy"/>
+          <span class="testi-proof-badge testi-proof-badge--gold">Bồi thường 1 tỷ đồng</span>
+        </div>
+        <div class="testi-case-tag">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Cao tốc Nha Trang – Cam Lâm, Khánh Hòa
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Xe khách bốc cháy hoàn toàn trên cao tốc. Giám định viên DBV có mặt tại hiện trường ngay sau đó. Toàn bộ thiệt hại được bồi thường đầy đủ — không tranh cãi, không kéo dài, không thiếu một đồng.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#e65100,#bf360c)">XK</div>
+          <div>
+            <div class="testi-name">Chủ xe khách</div>
+            <div class="testi-role">Bảo hiểm vật chất ô tô · Cao tốc Nha Trang – Cam Lâm</div>
+          </div>
+        </div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-val" style="color:var(--gold)">1 tỷ đồng</span><span class="testi-metric-lbl">Bồi thường</span></div>
+          <div class="testi-metric"><span class="testi-metric-val">Toàn bộ</span><span class="testi-metric-lbl">Thiệt hại chi trả</span></div>
+          <div class="testi-metric"><span class="testi-metric-val">0đ</span><span class="testi-metric-lbl">Khách ứng trước</span></div>
+        </div>
+      </div>
+
+      <!-- Case 3: Đêm khuya Đắk Lắk -->
+      <div class="testi-card">
+        <div class="testi-proof-img">
+          <img src="./proof-kia-cerato-daklak.jpg" alt="Giám định viên DBV hỗ trợ xe Kia Cerato tai nạn ban đêm tại Đắk Lắk" loading="lazy"/>
+          <span class="testi-proof-badge">Hỗ trợ 24/7 · Đắk Lắk</span>
+        </div>
+        <div class="testi-case-tag">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Đắk Lắk · 22/11/2025 · 18:15
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Xe Kia Cerato tai nạn lúc chiều tối. Giám định viên DBV có mặt ngay trong đêm, phối hợp kéo xe và lập biên bản tại chỗ — không để tôi chờ đến sáng hôm sau. Đây là điều tôi không mong đợi nhưng rất cảm kích.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#2e7d32,#1b5e20)">KC</div>
+          <div>
+            <div class="testi-name">Chủ xe Kia Cerato</div>
+            <div class="testi-role">Bảo hiểm vật chất ô tô · Hỗ trợ 24/7</div>
+          </div>
+        </div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-val">Trong đêm</span><span class="testi-metric-lbl">Giám định ngay</span></div>
+          <div class="testi-metric"><span class="testi-metric-val">Kéo xe</span><span class="testi-metric-lbl">Hỗ trợ tại chỗ</span></div>
+          <div class="testi-metric"><span class="testi-metric-val">0đ</span><span class="testi-metric-lbl">Khách ứng trước</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Gallery bổ sung -->
+    <div class="proof-gallery-strip">
+      <p class="proof-gallery-title">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        Thêm hình ảnh thực tế từ các ca bồi thường của DBV
+      </p>
+      <div class="proof-gallery-row">
+        <div class="proof-gal-thumb">
+          <img src="./gallery-kia-morning.jpg" alt="Giám định viên DBV tại hiện trường xe Kia Morning" loading="lazy"/>
+          <span class="proof-gal-cap">Giám định xe Kia Morning</span>
+        </div>
+        <div class="proof-gal-thumb">
+          <img src="./gallery-vinfast-garage.jpg" alt="Đội ngũ DBV tại garage VinFast Hunter Mai Linh Thái Nguyên" loading="lazy"/>
+          <span class="proof-gal-cap">Garage VinFast Hunter Mai Linh</span>
+        </div>
+        <div class="proof-gal-thumb">
+          <img src="./gallery-ford-ranger.jpg" alt="DBV hỗ trợ kéo Ford Ranger sau tai nạn tại Nha Trang" loading="lazy"/>
+          <span class="proof-gal-cap">Ford Ranger – Nha Trang</span>
+        </div>
+        <div class="proof-gal-thumb">
+          <img src="./gallery-rescue-night.jpg" alt="DBV hỗ trợ cứu hộ xe đêm khuya Khánh Hòa" loading="lazy"/>
+          <span class="proof-gal-cap">Cứu hộ đêm khuya – Khánh Hòa</span>
+        </div>
+        <div class="proof-gal-thumb">
+          <img src="./gallery-tow-truck.jpg" alt="DBV vận chuyển xe cứu hộ đêm khuya Khánh Hòa" loading="lazy"/>
+          <span class="proof-gal-cap">Kéo xe đêm – Khánh Hòa 24/11</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CERTIFICATIONS ══════════════ -->
+<section class="partners-section" id="certifications">
+  <div class="section-inner">
+    <div class="section-header" style="margin-bottom:40px">
+      <div class="section-tag">Đối tác của DBV</div>
+      <h2 class="section-h2">Được Tin Tưởng Bởi Các Thương Hiệu Hàng Đầu</h2>
+      <p class="section-sub">Ngân hàng · Tập đoàn · Thương hiệu xe · Bệnh viện lớn nhất Việt Nam</p>
+    </div>
+    <div class="marquee-wrapper">
+      <div class="marquee-row">
+        <div class="marquee-track">
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vietcombank_logo.svg" alt="Vietcombank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Vietcombank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo_BIDV.svg" alt="BIDV" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">BIDV</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/TCB_logo_official.svg" alt="Techcombank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Techcombank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/VPBank_logo.svg" alt="VPBank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">VPBank</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/mbbank.com.vn" alt="MBBank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">MBBank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo-Sacombank-new.png" alt="Sacombank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Sacombank</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/agribank.com.vn" alt="Agribank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Agribank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Asia_Commercial_Bank_logo.svg" alt="ACB Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">ACB</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vingroup_logo.svg" alt="Vingroup" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Vingroup</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/FPT_logo_2010.svg" alt="FPT Corp" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">FPT Corp</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/masangroup.com" alt="Masan Group" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Masan Group</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Thaco_Logo.svg" alt="THACO" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">THACO</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/hoaphat.com.vn" alt="Hòa Phát Group" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Hòa Phát</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo_th_group.svg" alt="TH True Milk" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">TH Group</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vietcombank_logo.svg" alt="Vietcombank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Vietcombank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo_BIDV.svg" alt="BIDV" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">BIDV</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/TCB_logo_official.svg" alt="Techcombank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Techcombank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/VPBank_logo.svg" alt="VPBank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">VPBank</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/mbbank.com.vn" alt="MBBank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">MBBank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo-Sacombank-new.png" alt="Sacombank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Sacombank</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/agribank.com.vn" alt="Agribank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Agribank</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Asia_Commercial_Bank_logo.svg" alt="ACB Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">ACB</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vingroup_logo.svg" alt="Vingroup" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Vingroup</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/FPT_logo_2010.svg" alt="FPT Corp" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">FPT Corp</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/masangroup.com" alt="Masan Group" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Masan Group</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Thaco_Logo.svg" alt="THACO" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">THACO</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/hoaphat.com.vn" alt="Hòa Phát Group" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Hòa Phát</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Logo_th_group.svg" alt="TH True Milk" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">TH Group</span></div>
+        </div>
+      </div>
+      <div class="marquee-row">
+        <div class="marquee-track">
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_carlogo.svg" alt="Toyota" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Toyota</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda.svg" alt="Honda" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Honda</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/BMW.svg" alt="BMW" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">BMW</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes-Logo.svg" alt="Mercedes-Benz" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Mercedes</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hyundai_Motor_Company_logo.svg" alt="Hyundai" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Hyundai</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/KIA_logo3.svg" alt="Kia" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Kia</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ford_logo_flat.svg" alt="Ford" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Ford</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mazda_logo_2024.svg" alt="Mazda" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Mazda</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vinfast_logo.svg" alt="VinFast" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">VinFast</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mitsubishi_motors_new_logo.svg" alt="Mitsubishi" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Mitsubishi</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/vinmec.com" alt="Vinmec" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Vinmec</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/fvhospital.com" alt="FV Hospital" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">FV Hospital</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/hongngochospital.vn" alt="BV Hồng Ngọc" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Hồng Ngọc</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/medlatec.vn" alt="Medlatec" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Medlatec</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_carlogo.svg" alt="Toyota" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Toyota</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda.svg" alt="Honda" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Honda</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/BMW.svg" alt="BMW" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">BMW</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes-Logo.svg" alt="Mercedes-Benz" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Mercedes</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hyundai_Motor_Company_logo.svg" alt="Hyundai" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Hyundai</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/KIA_logo3.svg" alt="Kia" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Kia</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ford_logo_flat.svg" alt="Ford" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Ford</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mazda_logo_2024.svg" alt="Mazda" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Mazda</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vinfast_logo.svg" alt="VinFast" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">VinFast</span></div>
+          <div class="m-logo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mitsubishi_motors_new_logo.svg" alt="Mitsubishi" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Mitsubishi</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/vinmec.com" alt="Vinmec" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Vinmec</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/fvhospital.com" alt="FV Hospital" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">FV Hospital</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/hongngochospital.vn" alt="BV Hồng Ngọc" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Hồng Ngọc</span></div>
+          <div class="m-logo"><img src="https://api.companyenrich.com/logo/medlatec.vn" alt="Medlatec" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="m-fallback">Medlatec</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+
+
+
+<!-- ══════════════ PARTNERS ══════════════ -->
+
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <h2>Bắt đầu bảo vệ ngay hôm nay</h2>
+    <p>Tư vấn miễn phí – Báo giá trong 30 phút – Cấp đơn trong ngày</p>
+    <div class="cta-btns">
+      <a href="tel:0869656561" class="cta-btn-primary">📞 Gọi 0869 656 561</a>
+      <a href="https://zalo.me/1283738895804393564" class="cta-btn-secondary">💬 Nhắn Zalo ngay</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+
+      <!-- Col 1: Brand -->
+      <div>
+        <img src="/Logo header Footer.png" alt="DBV247" class="f-logo">
+        <p class="f-desc">
+          <strong style="color:var(--dk);font-size:13.5px">DBV247</strong> – Kênh tư vấn bảo hiểm online trực thuộc<br>
+          <span style="font-size:12.5px">Công ty cổ phần Tập đoàn Bảo hiểm DBV – Chi nhánh Thành Đô</span>
+        </p>
+        <p class="f-desc" style="margin-top:8px;font-size:12.5px;line-height:1.9">
+          <span style="color:var(--ts)">MST:</span> 0102737963-059<br>
+          <span style="color:var(--ts)">Địa chỉ:</span> BT20-C37, TDP 20, Phường Thanh Xuân, Thành phố Hà Nội
+        </p>
+        <a href="tel:0869656561" class="f-tel">0869 656 561</a>
+        <a href="mailto:dbvi247@gmail.com" class="f-email">dbvi247@gmail.com</a>
+      </div>
+
+      <!-- Col 2: Sản phẩm -->
+      <div>
+        <div class="f-col-title">Sản phẩm</div>
+        <ul class="f-links">
+          <li><a href="/bao-hiem-xnk">BH Hàng Hóa XNK</a></li>
+          <li><a href="/bao-hiem-vat-chat-oto">BH Vật Chất Ô Tô</a></li>
+          <li><a href="/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a></li>
+          <li><a href="/san-pham">Xem tất cả sản phẩm</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Hỗ trợ -->
+      <div>
+        <div class="f-col-title">Hỗ trợ</div>
+        <ul class="f-links">
+          <li><a href="#process">Quy trình bồi thường</a></li>
+          <li><a href="#faq">Câu hỏi thường gặp</a></li>
+          <li><a href="#contact">Liên hệ tư vấn</a></li>
+          <li><a href="#">Điều khoản bảo hiểm</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Liên hệ -->
+      <div>
+        <div class="f-col-title">Liên hệ</div>
+        <div class="f-contact-list">
+          <div class="f-contact-item">
+            <span class="f-contact-icon fci-phone">📞</span>
+            <a href="tel:0869656561">0869 656 561</a>
+          </div>
+          <div class="f-contact-item">
+            <span class="f-contact-icon fci-email">✉️</span>
+            <a href="mailto:dbvi247@gmail.com">dbvi247@gmail.com</a>
+          </div>
+          <div class="f-contact-item">
+            <span class="f-contact-icon fci-zalo">💬</span>
+            <a href="https://zalo.me/1283738895804393564">Zalo: 0869 656 561</a>
+          </div>
+          <div class="f-contact-item">
+            <span class="f-contact-icon fci-web">🌐</span>
+            <a href="https://dbv247.com.vn">www.dbv247.com.vn</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <div class="f-copy">© 2025 DBV247 – Kênh tư vấn bảo hiểm online. Bảo lưu mọi quyền.</div>
+        <div class="f-lic">Được cấp phép hoạt động bởi Bộ Tài chính Việt Nam – Số 49/GD/KDBH</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating CTA -->
+<div class="float-cta" id="floatCta">
+  <!-- Popup form -->
+  <div id="floatFormWrap" style="display:none">
+    <div style="background:#fff;border-radius:14px;padding:18px;box-shadow:0 8px 40px rgba(0,0,0,.22);margin-bottom:8px;min-width:270px">
+      <div style="font-size:13px;font-weight:800;color:var(--dk);margin-bottom:12px;display:flex;align-items:center;gap:7px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Đăng ký tư vấn miễn phí
+      </div>
+      <form name="dbv-float" method="POST" data-netlify="true" onsubmit="floatSubmit(event)" style="display:flex;flex-direction:column;gap:8px">
+        <input type="hidden" name="form-name" value="dbv-float">
+        <select name="san-pham" id="float-product" style="width:100%;padding:9px 12px;border:1.5px solid var(--bd);border-radius:7px;font-family:'Be Vietnam Pro',sans-serif;font-size:12.5px;color:var(--tx);outline:none;appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E") right 10px center no-repeat" required>
+          <option value="" disabled selected>-- Chọn nghiệp vụ --</option>
+          <option value="Bảo hiểm xe cơ giới">🚗 Xe cơ giới</option>
+          <option value="Bảo hiểm con người & sức khỏe">❤️ Con người &amp; sức khỏe</option>
+          <option value="Bảo hiểm tài sản & kỹ thuật">🏠 Tài sản &amp; kỹ thuật</option>
+          <option value="Bảo hiểm hàng hải & du lịch">⚓ Hàng hải &amp; du lịch</option>
+        </select>
+        <div style="display:flex;gap:6px">
+          <input type="tel" id="float-phone" name="dien-thoai" placeholder="Số điện thoại..." style="flex:1;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-family:'Be Vietnam Pro',sans-serif;font-size:12.5px;outline:none;min-width:0" required pattern="[0-9]{9,11}"/>
+          <button type="submit" id="float-submit-btn" style="background:var(--g);color:#fff;font-weight:700;font-size:12.5px;padding:9px 14px;border:none;border-radius:7px;cursor:pointer;white-space:nowrap;font-family:'Be Vietnam Pro',sans-serif;transition:.2s">Gửi</button>
+        </div>
+        <div id="float-succ" style="font-size:11.5px;color:var(--g);font-weight:700;display:none;padding:4px 0">✓ Đã ghi nhận! Chuyên viên liên hệ ngay.</div>
+      </form>
+    </div>
+  </div>
+  <!-- Button row (horizontal) -->
+  <div class="float-row">
+    <button class="float-btn" onclick="toggleFloatForm()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>Đăng ký tư vấn</span>
+    </button>
+    <a href="tel:0869656561" class="float-call" title="Gọi ngay">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Gọi Ngay</span>
+    </a>
+    <a href="https://zalo.me/1283738895804393564" class="float-zalo" title="Chat Zalo">
+      <img src="data:image/jpeg;base64,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" alt="Zalo" style="width:36px;height:36px;object-fit:contain;border-radius:4px;"/>
+    </a>
+  </div>
+</div>
+
+
+<script>
+// Hero Slideshow
+(function(){
+  var slides = document.querySelectorAll('.hbg');
+  var dots = document.querySelectorAll('.slider-dot');
+  var progress = document.getElementById('sliderProgress');
+  var current = 0, timer, progTimer;
+
+  function goSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = ((n % slides.length) + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    startProgress();
+  }
+  function nextSlide(){ goSlide(current + 1); }
+  function prevSlide(){ goSlide(current - 1); }
+  function startProgress(){
+    clearInterval(timer);
+    clearTimeout(progTimer);
+    if(progress){
+      progress.style.transition = 'none';
+      progress.style.width = '0';
+      progTimer = setTimeout(function(){
+        progress.style.transition = 'width 6s linear';
+        progress.style.width = '100%';
+      }, 50);
+    }
+    timer = setInterval(nextSlide, 6000);
+  }
+  window.goSlide = goSlide;
+  window.nextSlide = nextSlide;
+  window.prevSlide = prevSlide;
+  startProgress();
+})();
+
+// Product tabs
+function showTab(name) {
+  document.querySelectorAll('.prod-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.prod-tab').forEach(function(t){ t.classList.remove('active'); });
+  var panel = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('active');
+  var tabs = document.querySelectorAll('.prod-tab');
+  tabs.forEach(function(t){
+    if (t.getAttribute('onclick') === "showTab('" + name + "')") t.classList.add('active');
+  });
+}
+
+// Form submit
+function submitHeroForm() {
+  var phone = document.getElementById('hf-phone');
+  if (!phone || !phone.value.trim()) { phone && phone.focus(); return; }
+  document.getElementById('form-body').style.display = 'none';
+  document.getElementById('form-succ').style.display = 'block';
+}
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var item = this.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  });
+});
+</script>
+<!-- Netlify form detection -->
+<form name="dbv-tuvan" netlify hidden>
+  <input name="ho-ten"><input name="dien-thoai"><input name="ghi-chu"><input name="san-pham">
+</form>
+
+<script>
+/* ── Hero card wizard ── */
+const HP = {
+  xe:{t:'🚗 Xe cơ giới — chọn sản phẩm',p:[
+    {l:'Vật chất ô tô',h:'bao-hiem-vat-chat-oto.html'},
+    {l:'TNDS ô tô bắt buộc',h:'bao-hiem-tnds-oto.html'},
+    {l:'TNDS xe máy bắt buộc',h:'bao-hiem-tnds-xemay.html'},
+    {l:'Vật chất ô tô điện',h:'bao-hiem-oto-dien.html'}
+  ]},
+  hanghai:{t:'⚓ Hàng hải — chọn sản phẩm',p:[
+    {l:'Vận chuyển hàng hóa nội địa',h:'bao-hiem-van-chuyen.html'},
+    {l:'Hàng hóa xuất nhập khẩu',h:'bao-hiem-xnk.html'},
+    {l:'Bảo hiểm bưu gửi',h:'bao-hiem-buu-gui.html'}
+  ]},
+  connguoi:{t:'❤️ Con người — chọn sản phẩm',p:[
+    {l:'Tai nạn cá nhân',h:'bao-hiem-tai-nan.html'},
+    {l:'Sức khỏe',h:'bao-hiem-suc-khoe.html'},
+    {l:'Tai nạn người thứ ba',h:'bao-hiem-tnc.html'},
+    {l:'Tai nạn con người (KCB)',h:'bao-hiem-tnn-kcb.html'},
+    {l:'Tai nạn con người (lớn)',h:'bao-hiem-tnn-ls.html'},
+    {l:'Tai nạn tư vấn & thiết kế',h:'bao-hiem-tnn-tvtk.html'}
+  ]},
+  dulich:{t:'✈️ Du lịch — chọn sản phẩm',p:[
+    {l:'Du lịch nội địa',h:'bao-hiem-du-lich-noi-dia.html'},
+    {l:'Du lịch quốc tế',h:'bao-hiem-du-lich-quoc-te.html'}
+  ]},
+  taisan:{t:'🏠 Tài sản — chọn sản phẩm',p:[
+    {l:'Cháy nổ bắt buộc',h:'bao-hiem-chay-no.html'},
+    {l:'Cháy nổ hộ kinh doanh',h:'bao-hiem-chay-no-hkd.html'},
+    {l:'Hỏa hoạn & rủi ro đặc biệt',h:'bao-hiem-hoa-hoan.html'},
+    {l:'Mọi rủi ro tài sản',h:'bao-hiem-moi-rui-ro.html'}
+  ]},
+  kythuat:{t:'⚙️ Kỹ thuật / Xây dựng — chọn sản phẩm',p:[
+    {l:'Công trình xây dựng & lắp đặt',h:'bao-hiem-xay-dung.html'}
+  ]},
+  trachnhiem:{t:'⚖️ Trách nhiệm — chọn sản phẩm',p:[
+    {l:'Tai nạn người lao động (TNCC)',h:'bao-hiem-tncc.html'},
+    {l:'TNDS chủ xe ô tô',h:'bao-hiem-tnds-oto.html'},
+    {l:'TNDS chủ xe máy',h:'bao-hiem-tnds-xemay.html'}
+  ]},
+  tuvan:{t:'',p:[]}
+};
+let _gKey='', _gLabel='', _pLabel='';
+
+function hGroup(key){
+  const g = HP[key];
+  _gKey = key;
+  _gLabel = document.querySelector('[onclick="hGroup(\''+key+'\')"]')?.textContent?.trim() || key;
+  if(!g.p.length){
+    // No sub-products → go straight to form
+    _pLabel = _gLabel;
+    document.getElementById('hf-sp').value = _gLabel;
+    document.getElementById('hs3hint').textContent = 'Nhóm quan tâm: ' + _gLabel;
+    hStep(3); return;
+  }
+  document.getElementById('hs2q').textContent = g.t;
+  const grid = document.getElementById('hgrid2');
+  const wide = g.p.length <= 2;
+  grid.style.gridTemplateColumns = wide ? '1fr' : '';
+  grid.innerHTML = g.p.map(p =>
+    '<button class="hcg-item'+(wide?' hcg-wide':'')+'" onclick="hProduct(\''+p.h+'\',\''+p.l.replace(/'/g,"\\'")+'\')">'+p.l+'</button>'
+  ).join('');
+  hStep(2);
+}
+
+function hProduct(href, label){
+  // Navigate thẳng đến landing page sản phẩm
+  window.location.href = href;
+}
+
+function hStep(n){
+  for(var i=1;i<=4;i++){
+    var el=document.getElementById('hstep'+i);
+    if(el) el.style.display = (i===n)?'':'none';
+  }
+  ['hp1','hp2','hp3'].forEach(function(id,i){
+    var el=document.getElementById(id);
+    if(el) el.className='hcp-seg '+(i<n?'on':'off');
+  });
+  var ft = document.getElementById('hfooter');
+  if(ft) ft.style.display = (n===4)?'none':'';
+}
+
+function hSubmit(e){
+  e.preventDefault();
+  var form = document.getElementById('hform');
+  fetch('/',{method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(new FormData(form)).toString()
+  }).then(function(){hStep(4);}).catch(function(){hStep(4);});
+}
+
+/* ══ 3D EFFECTS ENGINE ══ */
+(function(){
+  /* 1. Perspective tilt on cards */
+  function tilt3d(selector, strength, maxShadow){
+    var els = document.querySelectorAll(selector);
+    els.forEach(function(el){
+      el.addEventListener('mousemove', function(e){
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top)  / r.height - 0.5;
+        el.style.transition = 'transform .08s ease,box-shadow .08s ease';
+        el.style.transform  = 'perspective(900px) rotateY('+(x*strength)+'deg) rotateX('+(-y*strength)+'deg) scale(1.025)';
+        var sx = (-x*maxShadow).toFixed(1);
+        var sy = (y*maxShadow).toFixed(1);
+        el.style.boxShadow  = sx+'px '+sy+'px 40px rgba(0,0,0,.13),0 4px 12px rgba(0,0,0,.08)';
+      });
+      el.addEventListener('mouseleave', function(){
+        el.style.transition = 'transform .45s ease,box-shadow .45s ease';
+        el.style.transform  = '';
+        el.style.boxShadow  = '';
+      });
+    });
+  }
+  tilt3d('.prod-card',  9, 22);
+  tilt3d('.team-card',  7, 20);
+  tilt3d('.testi-card', 5, 16);
+
+  /* 2. Hero background parallax */
+  var heroSec = document.querySelector('.hero-section');
+  if(heroSec){
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY * 0.28;
+      heroSec.style.backgroundPositionY = 'calc(35% + '+y+'px)';
+    }, {passive:true});
+  }
+
+  /* 3. Scroll-reveal with 3D entrance */
+  function revealInit(){
+    var targets = document.querySelectorAll('.prod-card,.team-card,.testi-card,.why-item,.process-step,.cert-item,.stat-item');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add('visible');
+          en.target.style.opacity='1';
+          en.target.style.transform='';
+          obs.unobserve(en.target);
+        }
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+    targets.forEach(function(t,i){
+      t.classList.add('reveal-3d');
+      t.style.transitionDelay = (i%4)*0.07+'s';
+      obs.observe(t);
+    });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',revealInit);
+  } else { revealInit(); }
+
+  /* 4. Stats counter animation */
+  function animateCounter(el, target, suffix){
+    var start=0, duration=1400, startTime=null;
+    function step(ts){
+      if(!startTime) startTime=ts;
+      var prog = Math.min((ts-startTime)/duration,1);
+      var ease = 1-Math.pow(1-prog,3);
+      var val = Math.round(ease*target);
+      el.textContent = val.toLocaleString('vi-VN') + suffix;
+      if(prog<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var statObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var el = en.target;
+        var raw = el.getAttribute('data-count');
+        var suffix = el.getAttribute('data-suffix')||'';
+        if(raw){ animateCounter(el, parseInt(raw), suffix); }
+        statObs.unobserve(el);
+      }
+    });
+  },{threshold:0.5});
+  document.querySelectorAll('.stat-num').forEach(function(el){ statObs.observe(el); });
+
+
+})();
+
+</script>
+
+
+<script>
+function regSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('.reg-btn');
+  btn.textContent = 'Đang gửi...';
+  btn.disabled = true;
+  fetch('/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(new FormData(form)).toString()
+  }).then(() => {
+    document.getElementById('reg-form-wrap').style.display = 'none';
+    document.getElementById('reg-success').style.display = 'block';
+  }).catch(() => {
+    form.submit();
+  });
+}
+
+/* ── FLOAT CTA ── */
+function toggleFloatForm() {
+  const w = document.getElementById('floatFormWrap');
+  w.style.display = w.style.display === 'none' ? 'block' : 'none';
+  if (w.style.display === 'block') {
+    setTimeout(() => document.getElementById('float-phone').focus(), 50);
+  }
+}
+function floatSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById('float-submit-btn');
+  btn.textContent = '⏳';
+  btn.disabled = true;
+  fetch('/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(new FormData(form)).toString()
+  }).then(() => {
+    document.getElementById('float-succ').style.display = 'block';
+    form.querySelector('select').style.display = 'none';
+    document.getElementById('float-phone').parentElement.style.display = 'none';
+    setTimeout(() => {
+      document.getElementById('floatFormWrap').style.display = 'none';
+      form.reset();
+      form.querySelector('select').style.display = '';
+      document.getElementById('float-phone').parentElement.style.display = '';
+      document.getElementById('float-succ').style.display = 'none';
+      btn.textContent = 'Gửi';
+      btn.disabled = false;
+    }, 3000);
+  }).catch(() => {
+    btn.textContent = 'Gửi';
+    btn.disabled = false;
+    form.submit();
+  });
+}
+/* Close float form when clicking outside */
+document.addEventListener('click', function(e) {
+  const cta = document.getElementById('floatCta');
+  if (cta && !cta.contains(e.target)) {
+    const w = document.getElementById('floatFormWrap');
+    if (w) w.style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>

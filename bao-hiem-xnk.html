@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8"/>
+  <link rel="canonical" href="https://www.dbv247.com.vn/bao-hiem-xnk"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bảo Hiểm Hàng Hóa Xuất Nhập Khẩu | DBV Insurance</title>
+<meta name="description" content="Bảo hiểm hàng hóa xuất nhập khẩu DBV — Hỗ trợ báo giá nhanh, bảo hiểm theo ICC A/B/C, hỗ trợ bồi thường minh bạch, đồng hành 24/7."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
+  --gold:#E8920A;--goldd:#c97d08;
+  --navy:#1B3A5C;--dk:#1A4D32;
+  --tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--bg:#ffffff;--white:#ffffff;
+  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sh2:0 8px 40px rgba(0,0,0,.13);
+}
+html{overflow-x:clip;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--white);line-height:1.6;overflow-x:clip}
+
+/* ── HEADER ── */
+.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.hdr-logo{display:flex;align-items:center;text-decoration:none}
+
+
+
+.hdr-nav{display:flex;gap:4px}
+.hdr-nav a{color:#444;text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:6px;transition:.2s;white-space:nowrap}
+.hdr-nav a:hover{color:var(--g);background:var(--gl)}
+.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13.5px!important}
+.hdr-cta:hover{background:var(--goldd)!important}
+.hdr-tel{color:var(--g);font-weight:700;font-size:14px;text-decoration:none;border:2px solid var(--g);padding:6px 14px;border-radius:8px;display:none}
+
+/* ── USP BAR ── */
+.usp-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:12px 0}
+.usp-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.usp-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#2d6a4f}
+.usp-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 50%,#fafffe 100%);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;opacity:.13}
+.hero-inner{max-width:1200px;margin:0 auto;padding:64px 24px 56px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;position:relative;z-index:1;width:100%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.5px}
+.hero-h1{font-size:clamp(2rem,3.5vw,3rem);font-weight:800;color:var(--dk);line-height:1.18;margin-bottom:20px;letter-spacing:-.5px}
+.hero-h1 em{color:var(--gold);font-style:normal}
+.hero-sub{color:var(--tm);font-size:15.5px;line-height:1.8;margin-bottom:32px}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap}
+.hero-stat-num{font-size:1.8rem;font-weight:800;color:var(--g);line-height:1}
+.hero-stat-lbl{font-size:11px;color:var(--tm);margin-top:3px}
+
+/* form card */
+.form-card{background:#fff;border-radius:16px;padding:32px;box-shadow:0 12px 48px rgba(0,0,0,.2)}
+.form-card-title{font-size:1.15rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.form-card-sub{font-size:13px;color:var(--tm);margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--bd)}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--tx);margin-bottom:5px;letter-spacing:.3px}
+.fg input,.fg select{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--tx);background:#fff;outline:none;transition:.2s;appearance:none}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23718096' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.fg input:focus,.fg select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
+.btn-primary{width:100%;background:var(--g);color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:14px;padding:14px;border:none;border-radius:8px;cursor:pointer;transition:.2s;margin-top:2px}
+.btn-primary:hover{background:var(--gp);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,116,55,.3)}
+.form-disc{font-size:10px;color:var(--ts);text-align:center;margin-top:8px;line-height:1.5}
+.form-succ{text-align:center;display:none;padding:18px;background:var(--gl);border-radius:var(--r12);font-weight:600;color:var(--g);font-size:14px;margin-top:8px}
+
+/* ── SECTION BASE ── */
+.sec{padding:72px 0}
+.sec-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.sec-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
+.sec-h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--dk);line-height:1.2;margin-bottom:12px}
+.sec-sub{font-size:15px;color:var(--tm);max-width:680px;line-height:1.75}
+
+/* ── PAIN POINTS ── */
+.pain-sec{background:#f8fafb;padding:72px 0}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+.pain-card{background:#fff;border-radius:var(--r16);padding:28px;border:1.5px solid var(--bd);display:flex;gap:16px;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.pain-card:hover{border-color:var(--gold);box-shadow:var(--sh2)}
+.pain-num{width:44px;height:44px;border-radius:12px;background:#fff3e0;color:var(--gold);font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pain-h3{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:8px}
+.pain-body{font-size:14px;color:var(--tm);line-height:1.7}
+
+/* ── BENEFITS ── */
+.benefits-sec{padding:72px 0}
+.ben-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+.ben-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);padding:28px;transition:.3s;display:flex;gap:16px}
+.ben-card:hover{border-color:var(--g);box-shadow:var(--sh)}
+.ben-icon{width:48px;height:48px;border-radius:12px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ben-h4{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:8px}
+.ben-body{font-size:14px;color:var(--tm);line-height:1.7}
+.ben-full{grid-column:1/-1;background:linear-gradient(135deg,var(--gl),#f0fdf4);border-color:var(--g);align-items:center;padding:32px}
+.ben-full .ben-icon{width:56px;height:56px;background:rgba(0,116,55,.15)}
+.ben-full .ben-h4{font-size:17px;color:var(--g)}
+
+/* ── COVERAGE ── */
+.coverage-sec{background:#f8fafb;padding:72px 0}
+.cov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.cov-card{background:#fff;border-radius:var(--r16);padding:32px;border:2px solid var(--bd);position:relative;transition:.3s}
+.cov-card:hover{box-shadow:var(--sh2)}
+.cov-card.featured{border-color:var(--g)}
+.cov-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:4px 18px;border-radius:20px;white-space:nowrap}
+.cov-label{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--ts);text-transform:uppercase;margin-bottom:6px}
+.cov-name{font-size:1.5rem;font-weight:800;color:var(--dk);margin-bottom:8px}
+.cov-desc{font-size:14px;color:var(--tm);margin-bottom:20px;line-height:1.6}
+.cov-fit{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.cov-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.cov-list li{font-size:13px;color:var(--tm);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.cov-list li::before{content:'✓';color:var(--g);font-weight:700;font-size:11px;margin-top:2px;flex-shrink:0}
+.cov-cta{display:block;text-align:center;padding:12px;border-radius:var(--r8);font-weight:700;font-size:13px;cursor:pointer;border:none;width:100%;font-family:'Be Vietnam Pro',sans-serif;transition:.2s}
+.cov-cta.primary{background:var(--g);color:#fff}
+.cov-cta.primary:hover{background:var(--gp)}
+.cov-cta.outline{background:transparent;color:var(--g);border:1.5px solid var(--g)}
+.cov-cta.outline:hover{background:var(--gl)}
+
+/* ── PROCESS ── */
+.process-sec{background:#f7f9fc;padding:72px 0}
+.process-sec .sec-tag{background:var(--gl);color:var(--g)}
+.process-sec .sec-h2{color:var(--dk)}
+.process-sec .sec-sub{color:var(--tm)}
+.steps-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:48px;position:relative}
+.steps-row::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.2),rgba(232,146,10,.6),rgba(255,255,255,.2));z-index:0}
+.step{text-align:center;position:relative;z-index:1;padding:0 12px}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--g);border:2px solid var(--g);color:#fff;font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 4px rgba(0,116,55,.3)}
+.step-h4{font-size:13px;font-weight:700;color:var(--dk);margin-bottom:6px;line-height:1.4}
+.step-body{font-size:12px;color:var(--tm);line-height:1.55}
+
+/* ── CASES ── */
+.case-sec{padding:72px 0}
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.case-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);overflow:hidden;transition:.3s}
+.case-card:hover{border-color:var(--g);box-shadow:var(--sh)}
+.case-img{height:150px;display:flex;align-items:center;justify-content:center}
+.case-img.c1{background:linear-gradient(135deg,#1B3A5C,#255770)}
+.case-img.c2{background:linear-gradient(135deg,#255770,#2c3e7c)}
+.case-img.c3{background:linear-gradient(135deg,#1B3A5C,#255770)}
+.case-body{padding:22px}
+.case-tag-el{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:10px;background:var(--gl);color:var(--g);text-transform:uppercase;letter-spacing:.5px}
+.case-h4{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:8px}
+.case-body p{font-size:13.5px;color:var(--tm);line-height:1.65}
+
+/* ── RISK ── */
+.risk-sec{background:#f8fafb;padding:72px 0}
+.risk-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:40px}
+.risk-intro{font-size:15px;color:var(--tm);line-height:1.8;margin-bottom:20px}
+.risk-list{display:flex;flex-direction:column;gap:10px}
+.risk-item{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--bd);border-radius:var(--r8);padding:13px 18px;font-size:14px;color:var(--tx);font-weight:500;transition:.2s}
+.risk-item:hover{border-color:var(--gold)}
+.risk-icon{display:inline-flex;vertical-align:middle;flex-shrink:0}
+.risk-visual{background:linear-gradient(135deg,#1B3A5C,#255770);border-radius:var(--r24);padding:40px 36px;text-align:center}
+.risk-visual-lbl{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;font-weight:600}
+.risk-visual-num{font-size:3.2rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:8px}
+.risk-visual-sub{font-size:13px;color:rgba(255,255,255,.72);line-height:1.6}
+.risk-divider{border-top:1px solid rgba(255,255,255,.15);margin:20px 0;padding-top:20px}
+
+/* ── FAQ ── */
+.faq-sec{padding:72px 0}
+.faq-list{margin-top:40px;display:flex;flex-direction:column;gap:8px;max-width:800px;margin-left:auto;margin-right:auto}
+.faq-item{background:#fff;border-radius:var(--r12);border:1.5px solid var(--bd);overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:18px 20px;font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:600;color:var(--dk);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:.2s}
+.faq-q:hover{color:var(--g)}
+.arr{font-size:12px;color:var(--ts);transition:.3s;flex-shrink:0}
+.faq-item.open .arr{transform:rotate(180deg)}
+.faq-a{padding:0 20px;font-size:14px;color:var(--tm);line-height:1.75;max-height:0;overflow:hidden;transition:.35s ease}
+.faq-item.open .faq-a{max-height:200px;padding:0 20px 18px}
+
+/* ── FINAL CTA ── */
+.cta-final{background:linear-gradient(135deg,#1B3A5C,#132d47);padding:80px 0}
+.cta-final-inner{max-width:720px;margin:0 auto;padding:0 24px;text-align:center}
+.cta-final h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;color:#fff;margin-bottom:16px;line-height:1.2}
+.cta-final p{font-size:15px;color:rgba(255,255,255,.78);margin-bottom:36px;line-height:1.75}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-cta-a{background:var(--gold);color:#fff;font-weight:700;font-size:15px;padding:16px 32px;border:none;border-radius:30px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;box-shadow:0 4px 20px rgba(232,146,10,.4);transition:.2s;display:inline-block}
+.btn-cta-a:hover{background:var(--goldd);transform:translateY(-2px)}
+.btn-cta-b{background:transparent;color:#fff;font-weight:700;font-size:15px;padding:16px 32px;border:2px solid rgba(255,255,255,.4);border-radius:30px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;transition:.2s;display:inline-block}
+.btn-cta-b:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+.cta-promises{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.cta-prom{font-size:12px;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:6px}
+.cta-prom::before{content:'✓';color:var(--gold);font-weight:700}
+
+/* ── FOOTER ── */
+.footer{background:#fff;padding:48px 0 24px;color:#4a5568;border-top:1px solid #E2E8F0}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
+
+
+
+.f-desc{font-size:13px;line-height:1.65;margin-bottom:14px;color:#4a5568}
+.f-tel{color:var(--g);font-weight:700;font-size:18px;text-decoration:none;display:block;margin-bottom:5px}
+.f-email{color:#718096;font-size:13px;text-decoration:none}
+.f-h4{font-size:13px;font-weight:700;color:#1C1C1C;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:8px}
+.f-links a{color:#4a5568;font-size:13px;text-decoration:none;transition:.2s}
+.f-links a:hover{color:var(--g)}
+.f-bottom{border-top:1px solid #E2E8F0;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-copy{font-size:12px;color:#718096}
+.f-lic{font-size:11px;color:#a0aec0}
+
+/* ── FLOATING CTA — 3 nút ── */
+.float-cta{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.float-btn{background:var(--g);color:#fff;font-weight:700;font-size:13px;padding:12px 20px;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(46,125,50,.4);display:flex;align-items:center;gap:8px;transition:.2s;animation:pulse 2.5s infinite;cursor:pointer;border:none;font-family:'Be Vietnam Pro',sans-serif}
+.float-btn:hover{background:var(--gp);transform:scale(1.05)}
+.float-zalo{background:var(--navy);width:44px;height:44px;border-radius:50%;box-shadow:0 4px 16px rgba(44,74,124,.4);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;transition:.2s}
+.float-zalo:hover{transform:scale(1.1)}
+@keyframes pulse{0%,100%{box-shadow:0 4px 20px rgba(46,125,50,.4)}50%{box-shadow:0 4px 30px rgba(46,125,50,.7)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .cov-grid{grid-template-columns:1fr}
+  .ben-grid{grid-template-columns:1fr}
+  .case-grid{grid-template-columns:1fr 1fr}
+  .steps-row{grid-template-columns:1fr 1fr;gap:24px}
+  .steps-row::before{display:none}
+  .risk-wrap{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:32px}
+  .pain-grid{grid-template-columns:1fr}
+  .hdr-nav{display:none}
+  .hdr-inner{gap:8px;padding:0 12px}
+  .hdr-tel{display:flex;white-space:nowrap;align-items:center}
+}
+@media(max-width:600px){
+  .case-grid{grid-template-columns:1fr}
+  .ben-grid{grid-template-columns:1fr}
+  .ben-full{flex-direction:column}
+  .cta-btns{flex-direction:column;align-items:center}
+  .usp-inner{gap:16px}
+  .footer-top{grid-template-columns:1fr}
+}
+
+/* ── ALL PRODUCTS BUTTON ── */
+.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 12px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.hdr-allprod:hover{background:var(--g);color:#fff}
+@media(max-width:480px){.hdr-allprod{padding:6px 10px;font-size:11px}}
+@media(max-width:640px){.hdr-allprod span{display:none}}
+@media(max-width:480px){.hdr-tel-num{display:none!important}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <a href="https://www.dbv247.com.vn" class="hdr-logo">
+      <img src="/Logo header Footer.png" alt="DBV247" style="height:85px;width:auto;display:block;">
+    </a>
+    <nav class="hdr-nav">
+      <a href="#pain">Vấn đề</a>
+      <a href="#benefits">Giải pháp</a>
+      <a href="#coverage">Gói bảo hiểm</a>
+      <a href="#process">Quy trình</a>
+      <a href="#faq">FAQ</a>
+      <a href="#hero-form" class="hdr-cta">Nhận Báo Giá</a>
+    </nav>
+    <a href="/san-pham" class="hdr-allprod">☰ Tất cả sản phẩm</a>
+    <a href="tel:0869 656 561" class="hdr-tel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="hdr-tel-num">0869 656 561</span></a>
+  </div>
+</header>
+
+<!-- USP BAR -->
+<div class="usp-bar">
+  <div class="usp-inner">
+    <span class="usp-item"><span class="usp-dot"></span>Hỗ trợ báo giá nhanh</span>
+    <span class="usp-item"><span class="usp-dot"></span>Bảo hiểm theo ICC A/B/C</span>
+    <span class="usp-item"><span class="usp-dot"></span>Hỗ trợ bồi thường minh bạch</span>
+    <span class="usp-item"><span class="usp-dot"></span>Đồng hành 24/7</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Giấy phép Bộ Tài chính số 49/GD/KDBH</div>
+      <h1 class="hero-h1">Một sự cố vận chuyển có thể làm doanh nghiệp <em>mất cả quý lợi nhuận</em></h1>
+      <p class="hero-sub">Bảo hiểm hàng hóa xuất nhập khẩu DBV giúp doanh nghiệp bảo vệ giá trị lô hàng, giảm rủi ro tài chính và hỗ trợ bồi thường minh bạch khi phát sinh sự cố trong vận chuyển quốc tế.</p>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">18+</div><div class="hero-stat-lbl">Năm kinh nghiệm</div></div>
+        <div><div class="hero-stat-num">5.000+</div><div class="hero-stat-lbl">Doanh nghiệp tin dùng</div></div>
+        <div><div class="hero-stat-num">98%</div><div class="hero-stat-lbl">Hồ sơ được giải quyết</div></div>
+        <div><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Hỗ trợ sự cố</div></div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-card" id="hero-form">
+      <div class="form-card-title">Nhận báo giá bảo hiểm cho lô hàng của bạn</div>
+      <div class="form-card-sub">Chuyên viên DBV phản hồi trong 15 phút — miễn phí, không ràng buộc</div>
+      <div class="fg">
+        <label>Loại hàng hóa cần bảo hiểm</label>
+        <select id="f-goods">
+          <option value="">— Chọn loại hàng hóa —</option>
+          <option>Thực phẩm, nông sản</option>
+          <option>Máy móc, thiết bị, điện tử</option>
+          <option>Hàng dệt may, giày da</option>
+          <option>Hóa chất, dược phẩm</option>
+          <option>Sắt thép, vật liệu xây dựng</option>
+          <option>Thủy sản đông lạnh</option>
+          <option>Gỗ và sản phẩm gỗ</option>
+          <option>Hàng tiêu dùng, tạp phẩm</option>
+          <option>Nhóm hàng khác</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Số điện thoại</label>
+        <input type="tel" id="f-phone" placeholder="Nhập số điện thoại để nhận tư vấn"/>
+      </div>
+      <div class="fg">
+        <label>Giá trị hàng hóa ước tính / chuyến</label>
+        <select id="f-value">
+          <option value="">— Chọn giá trị ước tính —</option>
+          <option>Dưới 500 triệu VNĐ</option>
+          <option>500 triệu – 1 tỷ VNĐ</option>
+          <option>1 – 5 tỷ VNĐ</option>
+          <option>5 – 20 tỷ VNĐ</option>
+          <option>Trên 20 tỷ VNĐ</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="submitForm()">Nhận báo giá trong 15 phút</button>
+      <div class="form-disc">Thông tin được bảo mật · Không có cam kết mua hàng</div>
+      <div class="form-succ" id="form-succ">✓ Đã ghi nhận! Chuyên viên DBV liên hệ trong 15 phút.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — PAIN POINTS -->
+<section class="pain-sec" id="pain">
+  <div class="sec-inner">
+    <span class="sec-tag">Thực trạng</span>
+    <h2 class="sec-h2">Doanh Nghiệp XNK Thực Sự Đang Lo Điều Gì?</h2>
+    <p class="sec-sub">Mỗi chuyến hàng quốc tế đều tiềm ẩn rủi ro mà doanh nghiệp không thể kiểm soát hoàn toàn.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-num">01</div>
+        <div>
+          <div class="pain-h3">Hàng hóa hư hỏng trong vận chuyển</div>
+          <div class="pain-body">Va đập, nước biển xâm nhập, đổ vỡ hoặc hư hại trong quá trình vận chuyển có thể khiến doanh nghiệp chịu tổn thất lớn ngoài kế hoạch.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">02</div>
+        <div>
+          <div class="pain-h3">Chậm giao hàng, ảnh hưởng hợp đồng</div>
+          <div class="pain-body">Một sự cố logistics không chỉ làm mất hàng hóa mà còn kéo theo chậm thanh toán, mất uy tín và phát sinh tranh chấp với đối tác.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">03</div>
+        <div>
+          <div class="pain-h3">Không được bồi thường do điều khoản không phù hợp</div>
+          <div class="pain-body">Nhiều doanh nghiệp chỉ mua bảo hiểm để "đủ hồ sơ", đến khi xảy ra sự cố mới phát hiện quyền lợi không đáp ứng đúng rủi ro thực tế.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">04</div>
+        <div>
+          <div class="pain-h3">Đứt dòng tiền vì tổn thất lớn</div>
+          <div class="pain-body">Một container gặp sự cố có thể khiến doanh nghiệp mất hàng trăm triệu đến hàng tỷ đồng chỉ sau một chuyến hàng.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — BENEFITS -->
+<section class="benefits-sec" id="benefits">
+  <div class="sec-inner">
+    <span class="sec-tag">Giải pháp DBV</span>
+    <h2 class="sec-h2">DBV Giúp Doanh Nghiệp Bảo Vệ Điều Gì?</h2>
+    <p class="sec-sub">Không chỉ là bảo hiểm hàng hóa. Đây là giải pháp giúp doanh nghiệp giảm thiểu áp lực tài chính khi rủi ro vận chuyển xảy ra.</p>
+    <div class="ben-grid">
+      <div class="ben-card ben-full">
+        <div class="ben-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div>
+          <div class="ben-h4">Bảo vệ hàng hóa trong vận chuyển quốc tế</div>
+          <div class="ben-body">Hỗ trợ bồi thường các tổn thất phát sinh trong quá trình vận chuyển bằng đường biển, đường bộ, đường hàng không theo điều kiện bảo hiểm phù hợp với từng loại hàng và tuyến vận chuyển.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
+        <div>
+          <div class="ben-h4">Tư vấn điều kiện ICC phù hợp</div>
+          <div class="ben-body">DBV hỗ trợ doanh nghiệp lựa chọn ICC A/B/C dựa trên loại hàng, tuyến vận chuyển và mức độ rủi ro thực tế — tránh trường hợp mua xong không được bồi thường.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div>
+          <div class="ben-h4">Hỗ trợ xử lý hồ sơ bồi thường</div>
+          <div class="ben-body">Đồng hành cùng doanh nghiệp trong quá trình giám định, hoàn thiện hồ sơ và xử lý tổn thất — không để doanh nghiệp đơn độc khi sự cố xảy ra.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></div>
+        <div>
+          <div class="ben-h4">Tối ưu chi phí theo từng lô hàng</div>
+          <div class="ben-body">Mức phí linh hoạt theo loại hàng hóa, giá trị hàng và phạm vi bảo hiểm. Doanh nghiệp chỉ trả đúng với mức độ bảo vệ thực sự cần thiết.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — COVERAGE -->
+<section class="coverage-sec" id="coverage">
+  <div class="sec-inner">
+    <span class="sec-tag">Gói bảo hiểm</span>
+    <h2 class="sec-h2">3 Gói Bảo Vệ Phù Hợp Với Từng Nhu Cầu</h2>
+    <p class="sec-sub">Chuyên viên DBV sẽ tư vấn gói phù hợp nhất dựa trên loại hàng, giá trị và tuyến vận chuyển của doanh nghiệp.</p>
+    <div class="cov-grid">
+      <div class="cov-card">
+        <div class="cov-label">Điều kiện C</div>
+        <div class="cov-name">ICC-C</div>
+        <div class="cov-desc">Giải pháp tiết kiệm cho hàng hóa phổ thông</div>
+        <div class="cov-fit">Phù hợp với:</div>
+        <ul class="cov-list">
+          <li>Hàng hóa thông dụng</li>
+          <li>Tuyến vận chuyển ổn định</li>
+          <li>Doanh nghiệp cần tối ưu chi phí</li>
+        </ul>
+        <button class="cov-cta outline" onclick="scrollToForm()">Tư vấn gói ICC-C</button>
+      </div>
+      <div class="cov-card featured">
+        <div class="cov-badge">Phổ biến nhất</div>
+        <div class="cov-label">Điều kiện A — Toàn diện nhất</div>
+        <div class="cov-name">ICC-A</div>
+        <div class="cov-desc">Bảo vệ toàn diện cho hàng hóa giá trị cao</div>
+        <div class="cov-fit">Phù hợp với:</div>
+        <ul class="cov-list">
+          <li>Hàng giá trị lớn</li>
+          <li>Hàng dễ hư hỏng</li>
+          <li>Tuyến vận chuyển quốc tế phức tạp</li>
+        </ul>
+        <button class="cov-cta primary" onclick="scrollToForm()">Tư vấn gói ICC-A</button>
+      </div>
+      <div class="cov-card">
+        <div class="cov-label">Điều kiện B</div>
+        <div class="cov-name">ICC-B</div>
+        <div class="cov-desc">Cân bằng giữa chi phí và phạm vi bảo vệ</div>
+        <div class="cov-fit">Phù hợp với:</div>
+        <ul class="cov-list">
+          <li>Hàng hóa có giá trị trung bình</li>
+          <li>Tuyến vận chuyển có rủi ro vừa phải</li>
+          <li>Doanh nghiệp muốn mở rộng quyền lợi</li>
+        </ul>
+        <button class="cov-cta outline" onclick="scrollToForm()">Tư vấn gói ICC-B</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — PROCESS -->
+<section class="process-sec" id="process">
+  <div class="sec-inner">
+    <span class="sec-tag">Quy trình</span>
+    <h2 class="sec-h2">Minh Bạch Từ Mua Bảo Hiểm Đến Bồi Thường</h2>
+    <p class="sec-sub">Mỗi bước đều rõ ràng — doanh nghiệp luôn biết mình đang ở đâu trong quy trình và cần làm gì tiếp theo.</p>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-h4">Tiếp nhận thông tin lô hàng</div>
+        <div class="step-body">DBV tư vấn quyền lợi phù hợp dựa trên loại hàng, tuyến vận chuyển và nhu cầu bảo vệ thực tế.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-h4">Báo giá và phát hành chứng nhận</div>
+        <div class="step-body">Doanh nghiệp nhận báo giá nhanh chóng cùng đầy đủ điều khoản bảo hiểm trong ngày làm việc.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-h4">Hỗ trợ khi phát sinh sự cố</div>
+        <div class="step-body">DBV phối hợp giám định và hướng dẫn xử lý tổn thất ngay khi sự cố xảy ra, 24/7.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-h4">Hoàn thiện hồ sơ bồi thường</div>
+        <div class="step-body">Hỗ trợ doanh nghiệp chuẩn bị chứng từ và xử lý hồ sơ minh bạch, đầy đủ.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-h4">Chi trả bồi thường</div>
+        <div class="step-body">Giải quyết bồi thường theo phạm vi quyền lợi đã tham gia, đúng cam kết hợp đồng.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — CASES -->
+<section class="sec" id="cases">
+  <div class="sec-inner">
+    <span class="sec-tag">Tình huống thực tế</span>
+    <h2 class="sec-h2">Những Tình Huống Doanh Nghiệp Thường Gặp</h2>
+    <p class="sec-sub">DBV đã đồng hành cùng hàng nghìn doanh nghiệp xử lý các tổn thất thực tế trong vận chuyển quốc tế.</p>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-img c1"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c.5-1 2-2 3.5-2s3 1 4.5 2 3 2 4.5 2 3-1 4.5-2"/><path d="M2 17c.5-1 2-2 3.5-2s3 1 4.5 2 3 2 4.5 2 3-1 4.5-2"/><path d="M2 7c.5-1 2-2 3.5-2s3 1 4.5 2 3 2 4.5 2 3-1 4.5-2"/></svg></div>
+        <div class="case-body">
+          <span class="case-tag-el">Đường biển</span>
+          <div class="case-h4">Container hàng điện tử bị nước biển xâm nhập</div>
+          <p>DBV hỗ trợ giám định và xử lý tổn thất theo phạm vi bảo hiểm phù hợp, đảm bảo doanh nghiệp được bồi thường đúng giá trị thực tế của lô hàng.</p>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-img c2"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+        <div class="case-body">
+          <span class="case-tag-el">Bốc dỡ hàng</span>
+          <div class="case-h4">Hàng hóa hư hỏng trong quá trình bốc dỡ</div>
+          <p>Hỗ trợ doanh nghiệp giảm áp lực tài chính phát sinh từ sự cố vận chuyển, phối hợp với cảng và hãng tàu để xử lý nhanh nhất có thể.</p>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-img c3"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <div class="case-body">
+          <span class="case-tag-el">Mất mát hàng hóa</span>
+          <div class="case-h4">Hàng bị mất mát trong vận chuyển quốc tế</div>
+          <p>DBV đồng hành xử lý hồ sơ và hỗ trợ bồi thường theo điều khoản tham gia, bảo vệ quyền lợi tối đa cho doanh nghiệp.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7 — RISK -->
+<section class="risk-sec" id="risk">
+  <div class="sec-inner">
+    <span class="sec-tag">Góc nhìn tài chính</span>
+    <h2 class="sec-h2">Chi Phí Không Chỉ Nằm Ở Giá Trị Hàng Hóa</h2>
+    <div class="risk-wrap">
+      <div>
+        <p class="risk-intro">Một sự cố vận chuyển có thể kéo theo nhiều tổn thất hơn doanh nghiệp nghĩ — vượt xa giá trị lô hàng bị thiệt hại.</p>
+        <div class="risk-list">
+          <div class="risk-item"><span class="risk-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Gián đoạn dòng tiền</div>
+          <div class="risk-item"><span class="risk-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Chậm thanh toán từ đối tác</div>
+          <div class="risk-item"><span class="risk-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 9l9-6 9 6"/><line x1="3" y1="21" x2="21" y2="21"/><path d="M3 9c0 2.21 1.35 4 3 4s3-1.79 3-4"/><path d="M15 9c0 2.21 1.35 4 3 4s3-1.79 3-4"/></svg></span>Phát sinh tranh chấp pháp lý</div>
+          <div class="risk-item"><span class="risk-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M9 8h1"/><path d="M9 12h1"/><path d="M9 16h1"/><path d="M14 8h1"/><path d="M14 12h1"/><path d="M14 16h1"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/></svg></span>Mất uy tín với đối tác quốc tế</div>
+          <div class="risk-item"><span class="risk-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>Chi phí xử lý phát sinh ngoài kế hoạch</div>
+          <div class="risk-item"><span class="risk-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></span>Ảnh hưởng kế hoạch kinh doanh cả quý</div>
+        </div>
+      </div>
+      <div class="risk-visual">
+        <div class="risk-visual-lbl">Giá trị bồi thường trung bình</div>
+        <div class="risk-visual-num">1,2 tỷ</div>
+        <div class="risk-visual-sub">đồng / vụ tổn thất lớn<br/>trong lĩnh vực hàng hóa XNK</div>
+        <div class="risk-divider">
+          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:6px">Phí bảo hiểm ICC-A chỉ từ</div>
+          <div style="font-size:2rem;font-weight:800;color:var(--gold)">0,15%</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6)">giá trị hàng hóa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 — FAQ -->
+<section class="faq-sec" id="faq">
+  <div class="sec-inner">
+    <span class="sec-tag">Câu hỏi thường gặp</span>
+    <h2 class="sec-h2" style="text-align:center">Câu Hỏi Doanh Nghiệp Quan Tâm</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Bảo hiểm hàng hóa XNK có bắt buộc không? <span class="arr">▼</span></button>
+        <div class="faq-a">Không bắt buộc trong mọi trường hợp, nhưng giúp doanh nghiệp giảm thiểu rủi ro tài chính đáng kể khi phát sinh sự cố vận chuyển.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Nên chọn ICC A, B hay C? <span class="arr">▼</span></button>
+        <div class="faq-a">Tùy theo loại hàng hóa, tuyến vận chuyển và mức độ bảo vệ doanh nghiệp mong muốn. Chuyên viên DBV sẽ tư vấn cụ thể sau khi nắm rõ đặc thù lô hàng.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Khi xảy ra tổn thất cần làm gì? <span class="arr">▼</span></button>
+        <div class="faq-a">Thông báo cho DBV sớm nhất có thể qua hotline 0869 656 561 để được hướng dẫn giám định và xử lý hồ sơ. Đồng thời khiếu nại ngay với hãng tàu tại cảng nhận hàng.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">DBV có hỗ trợ doanh nghiệp hoàn thiện hồ sơ bồi thường không? <span class="arr">▼</span></button>
+        <div class="faq-a">Có. DBV hỗ trợ doanh nghiệp trong toàn bộ quá trình chuẩn bị hồ sơ và xử lý bồi thường — từ yêu cầu giám định đến nộp hồ sơ chính thức.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Phí bảo hiểm được tính như thế nào? <span class="arr">▼</span></button>
+        <div class="faq-a">Phí phụ thuộc vào loại hàng hóa, giá trị hàng, tuyến vận chuyển và phạm vi bảo hiểm lựa chọn. Liên hệ để nhận báo giá chính xác cho lô hàng cụ thể của doanh nghiệp.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-final" id="cta-final">
+  <div class="cta-final-inner">
+    <h2>Đừng để một chuyến hàng gặp sự cố làm gián đoạn cả kế hoạch kinh doanh</h2>
+    <p>DBV đồng hành cùng doanh nghiệp trong việc bảo vệ hàng hóa và giảm thiểu áp lực tài chính khi rủi ro phát sinh.</p>
+    <div class="cta-btns">
+      <button class="btn-cta-a" onclick="scrollToForm()">Nhận báo giá ngay</button>
+      <a href="tel:0869 656 561" class="btn-cta-b">Tư vấn quyền lợi phù hợp</a>
+    </div>
+    <div class="cta-promises">
+      <span class="cta-prom">Phản hồi trong 15 phút</span>
+      <span class="cta-prom">Không cam kết ràng buộc</span>
+      <span class="cta-prom">Tư vấn hoàn toàn miễn phí</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <img src="/Logo header Footer.png" alt="DBV247" style="height:120px;width:auto;display:block;margin-bottom:14px;">
+        <div class="f-desc">
+          <strong style="color:var(--dk,#1B3A5C);font-size:13.5px">DBV247</strong> – Kênh tư vấn bảo hiểm online trực thuộc<br>
+          <span style="font-size:12.5px">Công ty cổ phần Tập đoàn Bảo hiểm DBV – Chi nhánh Thành Đô</span>
+        </div>
+        <div class="f-desc" style="font-size:12.5px;line-height:1.9;margin-top:6px">
+          <span style="opacity:.75">MST:</span> 0102737963-059<br>
+          <span style="opacity:.75">Địa chỉ:</span> BT20-C37, TDP 20, Phường Thanh Xuân, Thành phố Hà Nội
+        </div>
+        <a href="tel:0869656561" class="f-tel">0869 656 561</a>
+        <a href="mailto:dbvi247@gmail.com" class="f-email">dbvi247@gmail.com</a>
+      </div>
+      <div>
+        <div class="f-h4">Sản Phẩm</div>
+        <ul class="f-links">
+          <li><a href="https://www.dbv247.com.vn/bao-hiem-xnk">BH Hàng Hóa XNK</a></li>
+          <li><a href="https://www.dbv247.com.vn/bao-hiem-vat-chat-oto">BH Vật Chất Ô Tô</a></li>
+          <li><a href="https://www.dbv247.com.vn/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a></li>
+          <li><a href="/san-pham">Xem tất cả sản phẩm</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-h4">Hỗ Trợ</div>
+        <ul class="f-links">
+          <li><a href="#process">Quy trình bồi thường</a></li>
+          <li><a href="#faq">Câu hỏi thường gặp</a></li>
+          <li><a href="#hero-form">Liên hệ tư vấn</a></li>
+          <li><a href="#">Điều khoản bảo hiểm</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-h4">Liên Hệ</div>
+        <ul class="f-links">
+          <li><a href="tel:0869656561">📞 0869 656 561</a></li>
+          <li><a href="mailto:dbvi247@gmail.com">✉️ dbvi247@gmail.com</a></li>
+          <li><a href="https://zalo.me/1283738895804393564">💬 Zalo: 0869 656 561</a></li>
+          <li><a href="https://www.dbv247.com.vn">🌐 www.dbv247.com.vn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <div class="f-copy">© 2025 DBV247 – Kênh tư vấn bảo hiểm online. Bảo lưu mọi quyền.</div>
+      <div class="f-lic">Được cấp phép hoạt động bởi Bộ Tài chính Việt Nam</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════
+     FLOATING CTA — 3 nút giống hệt bảo hiểm xe ô tô
+     position:fixed → luôn ở right-bottom khi scroll
+     ════════════════════════════════════════════════ -->
+<div class="float-cta" id="floatCta">
+  <div style="display:flex;gap:8px;align-items:center;justify-content:flex-end">
+    <a href="tel:0869656561" class="float-btn" style="animation:none">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Gọi Ngay
+    </a>
+    <a href="https://zalo.me/1283738895804393564" class="float-zalo" title="Chat Zalo" style="background:#fff;border:2px solid #e2e8f0;box-shadow:0 4px 16px rgba(0,0,0,.18),0 0 0 1px rgba(0,116,55,.12);width:48px;height:48px;">
+      <img src="data:image/jpeg;base64,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" alt="Zalo" style="width:36px;height:36px;object-fit:contain;border-radius:4px;"/>
+    </a>
+  </div>
+</div>
+
+<script>
+/* ─ Form hero ─ */
+function submitForm(){
+  var p=document.getElementById('f-phone').value.trim();
+  if(!p){alert('Vui lòng nhập số điện thoại.');return;}
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Hàng Hóa Xuất Nhập Khẩu',from_name:'Landing Page DBV','Số điện thoại':p,'Trang':window.location.href})});
+  document.getElementById('form-succ').style.display='block';
+  document.querySelector('.btn-primary').style.display='none';
+}
+/* ─ FAQ ─ */
+function toggleFaq(btn){
+  var item=btn.parentElement;
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+  if(!wasOpen)item.classList.add('open');
+}
+/* ─ Scroll to form ─ */
+function scrollToForm(){
+  document.getElementById('hero-form').scrollIntoView({behavior:'smooth'});
+}
+
+/* ─ Smooth anchor scroll ─ */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>

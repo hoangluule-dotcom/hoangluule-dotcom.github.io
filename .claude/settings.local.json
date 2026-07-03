@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where node *)",
+      "Bash(where npm *)",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__computer",
+      "PowerShell(Get-Command node,npm,python,py -ErrorAction SilentlyContinue)"
+    ]
+  }
+}

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bảo Hiểm Tai Nạn Con Người 24 Giờ | DBV Insurance</title>
+<meta name="description" content="Bảo hiểm tai nạn 24 giờ DBV — Bảo vệ sức khỏe và tính mạng mọi lúc mọi nơi, phí cạnh tranh từ 25.000đ/tháng, tư vấn chuyên sâu và hỗ trợ 24/7."/>
+<meta name="keywords" content="bảo hiểm tai nạn 24 giờ, bảo hiểm tai nạn cá nhân, bảo hiểm sức khỏe DBV, bảo hiểm tai nạn nhóm, DBV Insurance"/>
+<link rel="canonical" href="https://www.dbv247.com.vn/bao-hiem-tai-nan"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
+  --gold:#E8920A;--goldd:#c97d08;
+  --navy:#1B3A5C;--dk:#1A4D32;
+  --tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--bg:#ffffff;--white:#ffffff;
+  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sh2:0 8px 40px rgba(0,0,0,.13);
+}
+html{overflow-x:clip;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--white);line-height:1.6;overflow-x:clip}
+
+/* ── HEADER ── */
+.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.hdr-logo{display:flex;align-items:center;text-decoration:none}
+.hdr-nav{display:flex;gap:4px}
+.hdr-nav a{color:#444;text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:6px;transition:.2s;white-space:nowrap}
+.hdr-nav a:hover{color:var(--g);background:var(--gl)}
+.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13.5px!important}
+.hdr-cta:hover{background:var(--goldd)!important}
+.hdr-tel{color:var(--g);font-weight:700;font-size:14px;text-decoration:none;border:2px solid var(--g);padding:6px 14px;border-radius:8px;display:none}
+
+/* ── USP BAR ── */
+.usp-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:12px 0}
+.usp-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.usp-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#2d6a4f}
+.usp-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 50%,#fafffe 100%);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;opacity:.1}
+.hero-inner{max-width:1200px;margin:0 auto;padding:64px 24px 56px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;position:relative;z-index:1;width:100%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.5px}
+.hero-h1{font-size:clamp(2rem,3.5vw,3rem);font-weight:800;color:var(--dk);line-height:1.18;margin-bottom:20px;letter-spacing:-.5px}
+.hero-h1 em{color:var(--gold);font-style:normal}
+.hero-sub{color:var(--tm);font-size:15.5px;line-height:1.8;margin-bottom:32px}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap}
+.hero-stat-num{font-size:1.8rem;font-weight:800;color:var(--g);line-height:1}
+.hero-stat-lbl{font-size:11px;color:var(--tm);margin-top:3px}
+
+/* form card */
+.form-card{background:#fff;border-radius:16px;padding:32px;box-shadow:0 12px 48px rgba(0,0,0,.2)}
+.form-card-title{font-size:1.15rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.form-card-sub{font-size:13px;color:var(--tm);margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--bd)}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--tx);margin-bottom:5px;letter-spacing:.3px}
+.fg input,.fg select{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--tx);background:#fff;outline:none;transition:.2s;appearance:none}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23718096' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.fg input:focus,.fg select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
+.btn-primary{width:100%;background:var(--g);color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:14px;padding:14px;border:none;border-radius:8px;cursor:pointer;transition:.2s;margin-top:2px}
+.btn-primary:hover{background:var(--gp);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,116,55,.3)}
+.form-disc{font-size:10px;color:var(--ts);text-align:center;margin-top:8px;line-height:1.5}
+.form-succ{text-align:center;display:none;padding:18px;background:var(--gl);border-radius:var(--r12);font-weight:600;color:var(--g);font-size:14px;margin-top:8px}
+
+/* ── SECTION BASE ── */
+.sec{padding:72px 0}
+.sec-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.sec-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
+.sec-h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--dk);line-height:1.2;margin-bottom:12px}
+.sec-sub{font-size:15px;color:var(--tm);max-width:680px;line-height:1.75}
+
+/* ── PAIN POINTS ── */
+.pain-sec{background:#f8fafb;padding:72px 0}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+.pain-card{background:#fff;border-radius:var(--r16);padding:28px;border:1.5px solid var(--bd);display:flex;gap:16px;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.pain-card:hover{border-color:var(--gold);box-shadow:var(--sh2)}
+.pain-num{width:44px;height:44px;border-radius:12px;background:#fff3e0;color:var(--gold);font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pain-h3{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:8px}
+.pain-body{font-size:14px;color:var(--tm);line-height:1.7}
+
+/* ── BENEFITS ── */
+.benefits-sec{padding:72px 0}
+.ben-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+.ben-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);padding:28px;transition:.3s;display:flex;gap:16px}
+.ben-card:hover{border-color:var(--g);box-shadow:var(--sh)}
+.ben-icon{width:48px;height:48px;border-radius:12px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g)}
+.ben-h4{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:8px}
+.ben-body{font-size:14px;color:var(--tm);line-height:1.7}
+.ben-full{grid-column:1/-1;background:linear-gradient(135deg,var(--gl),#f0fdf4);border-color:var(--g);align-items:center;padding:32px}
+.ben-full .ben-icon{width:56px;height:56px;background:rgba(0,116,55,.15)}
+.ben-full .ben-h4{font-size:17px;color:var(--g)}
+
+/* ── COVERAGE PLANS ── */
+.coverage-sec{background:#f8fafb;padding:72px 0}
+.cov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.cov-card{background:#fff;border-radius:var(--r16);padding:32px;border:2px solid var(--bd);position:relative;transition:.3s}
+.cov-card:hover{box-shadow:var(--sh2)}
+.cov-card.featured{border-color:var(--g)}
+.cov-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:4px 18px;border-radius:20px;white-space:nowrap}
+.cov-label{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--ts);text-transform:uppercase;margin-bottom:6px}
+.cov-name{font-size:1.5rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.cov-price{font-size:1rem;font-weight:700;color:var(--g);margin-bottom:8px}
+.cov-desc{font-size:14px;color:var(--tm);margin-bottom:20px;line-height:1.6}
+.cov-fit{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.cov-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.cov-list li{font-size:13px;color:var(--tm);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.cov-list li::before{content:'✓';color:var(--g);font-weight:700;font-size:11px;margin-top:2px;flex-shrink:0}
+.cov-cta{display:block;text-align:center;padding:12px;border-radius:var(--r8);font-weight:700;font-size:13px;cursor:pointer;border:none;width:100%;font-family:'Be Vietnam Pro',sans-serif;transition:.2s;text-decoration:none}
+.cov-cta.primary{background:var(--g);color:#fff}
+.cov-cta.primary:hover{background:var(--gp)}
+.cov-cta.outline{background:transparent;color:var(--g);border:1.5px solid var(--g);display:block}
+.cov-cta.outline:hover{background:var(--gl)}
+
+/* ── CLAIMS PROCESS ── */
+.process-sec{background:#f7f9fc;padding:72px 0}
+.process-sec .sec-tag{background:var(--gl);color:var(--g)}
+.process-sec .sec-h2{color:var(--dk)}
+.process-sec .sec-sub{color:var(--tm)}
+.steps-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:48px;position:relative}
+.steps-row::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.2),rgba(232,146,10,.6),rgba(255,255,255,.2));z-index:0}
+.step{text-align:center;position:relative;z-index:1;padding:0 12px}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--g);border:2px solid var(--g);color:#fff;font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 4px rgba(0,116,55,.3)}
+.step-h4{font-size:13px;font-weight:700;color:var(--dk);margin-bottom:6px;line-height:1.4}
+.step-body{font-size:12px;color:var(--tm);line-height:1.55}
+
+/* ── EXCLUSIONS ── */
+.excl-sec{padding:72px 0;background:#fff}
+.excl-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px}
+.excl-list{display:flex;flex-direction:column;gap:10px}
+.excl-item{display:flex;align-items:flex-start;gap:12px;background:#fff8f8;border:1.5px solid #fee2e2;border-radius:var(--r8);padding:13px 18px;font-size:14px;color:var(--tx);font-weight:500}
+.excl-icon{color:#ef4444;flex-shrink:0;margin-top:1px}
+.excl-note{background:var(--gl);border:1.5px solid rgba(0,116,55,.2);border-radius:var(--r16);padding:28px}
+.excl-note-title{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.excl-note p{font-size:14px;color:var(--tm);line-height:1.75;margin-bottom:10px}
+.excl-note p:last-child{margin-bottom:0}
+
+/* ── RISK VISUAL ── */
+.risk-sec{background:#f8fafb;padding:72px 0}
+.risk-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:40px}
+.risk-intro{font-size:15px;color:var(--tm);line-height:1.8;margin-bottom:20px}
+.risk-list{display:flex;flex-direction:column;gap:10px}
+.risk-item{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--bd);border-radius:var(--r8);padding:13px 18px;font-size:14px;color:var(--tx);font-weight:500;transition:.2s}
+.risk-item:hover{border-color:var(--gold)}
+.risk-item svg{flex-shrink:0;color:var(--g)}
+.risk-visual{background:linear-gradient(135deg,#1B3A5C,#255770);border-radius:var(--r24);padding:40px 36px;text-align:center}
+.risk-visual-lbl{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;font-weight:600}
+.risk-visual-num{font-size:3.2rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:8px}
+.risk-visual-sub{font-size:13px;color:rgba(255,255,255,.72);line-height:1.6}
+.risk-divider{border-top:1px solid rgba(255,255,255,.15);margin:20px 0;padding-top:20px}
+
+/* ── FAQ ── */
+.faq-sec{padding:72px 0}
+.faq-list{margin-top:40px;display:flex;flex-direction:column;gap:8px;max-width:800px;margin-left:auto;margin-right:auto}
+.faq-item{background:#fff;border-radius:var(--r12);border:1.5px solid var(--bd);overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:18px 20px;font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:600;color:var(--dk);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:.2s}
+.faq-q:hover{color:var(--g)}
+.arr{font-size:12px;color:var(--ts);transition:.3s;flex-shrink:0}
+.faq-item.open .arr{transform:rotate(180deg)}
+.faq-a{padding:0 20px;font-size:14px;color:var(--tm);line-height:1.75;max-height:0;overflow:hidden;transition:.35s ease}
+.faq-item.open .faq-a{max-height:300px;padding:0 20px 18px}
+
+/* ── TRUST SIGNALS ── */
+.trust-sec{background:var(--gl);padding:56px 0}
+.trust-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;align-items:center;gap:32px}
+.trust-row{display:flex;gap:32px;flex-wrap:wrap;justify-content:center}
+.trust-card{background:#fff;border-radius:var(--r12);padding:20px 28px;display:flex;align-items:center;gap:14px;box-shadow:var(--sh);min-width:200px}
+.trust-card svg{color:var(--g);flex-shrink:0}
+.trust-text-main{font-size:1.3rem;font-weight:800;color:var(--dk)}
+.trust-text-sub{font-size:12px;color:var(--tm)}
+
+/* ── FINAL CTA ── */
+.cta-final{background:linear-gradient(135deg,#1B3A5C,#132d47);padding:80px 0}
+.cta-final-inner{max-width:720px;margin:0 auto;padding:0 24px;text-align:center}
+.cta-final h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;color:#fff;margin-bottom:16px;line-height:1.2}
+.cta-final p{font-size:15px;color:rgba(255,255,255,.78);margin-bottom:36px;line-height:1.75}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-cta-a{background:var(--gold);color:#fff;font-weight:700;font-size:15px;padding:16px 32px;border:none;border-radius:30px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;box-shadow:0 4px 20px rgba(232,146,10,.4);transition:.2s;display:inline-block}
+.btn-cta-a:hover{background:var(--goldd);transform:translateY(-2px)}
+.btn-cta-b{background:transparent;color:#fff;font-weight:700;font-size:15px;padding:16px 32px;border:2px solid rgba(255,255,255,.4);border-radius:30px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;transition:.2s;display:inline-block}
+.btn-cta-b:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+.cta-promises{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.cta-prom{font-size:12px;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:6px}
+.cta-prom::before{content:'✓';color:var(--gold);font-weight:700}
+
+/* ── FOOTER ── */
+.footer{background:#fff;padding:48px 0 24px;color:#4a5568;border-top:1px solid #E2E8F0}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
+.f-desc{font-size:13px;line-height:1.65;margin-bottom:14px;color:#4a5568}
+.f-tel{color:var(--g);font-weight:700;font-size:18px;text-decoration:none;display:block;margin-bottom:5px}
+.f-email{color:#718096;font-size:13px;text-decoration:none}
+.f-h4{font-size:13px;font-weight:700;color:#1C1C1C;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:8px}
+.f-links a{color:#4a5568;font-size:13px;text-decoration:none;transition:.2s}
+.f-links a:hover{color:var(--g)}
+.f-bottom{border-top:1px solid #E2E8F0;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-copy{font-size:12px;color:#718096}
+.f-lic{font-size:11px;color:#a0aec0}
+
+/* ── FLOATING CTA ── */
+.float-cta{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.float-btn{background:var(--g);color:#fff;font-weight:700;font-size:13px;padding:12px 20px;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(46,125,50,.4);display:flex;align-items:center;gap:8px;transition:.2s;animation:pulse 2.5s infinite;cursor:pointer;border:none;font-family:'Be Vietnam Pro',sans-serif}
+.float-btn:hover{background:var(--gp);transform:scale(1.05)}
+.float-zalo{background:var(--navy);width:44px;height:44px;border-radius:50%;box-shadow:0 4px 16px rgba(44,74,124,.4);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;transition:.2s}
+.float-zalo:hover{transform:scale(1.1)}
+@keyframes pulse{0%,100%{box-shadow:0 4px 20px rgba(46,125,50,.4)}50%{box-shadow:0 4px 30px rgba(46,125,50,.7)}}
+
+/* ── HIGHLIGHT BOX ── */
+.highlight-box{background:linear-gradient(135deg,#fff7e6,#fff3cd);border:1.5px solid var(--gold);border-radius:var(--r16);padding:24px 28px;margin-top:24px;display:flex;gap:14px;align-items:flex-start}
+.highlight-box svg{color:var(--gold);flex-shrink:0;margin-top:2px}
+.highlight-box p{font-size:14px;color:var(--tx);line-height:1.7}
+.highlight-box strong{color:var(--dk)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding:40px 20px}
+  .pain-grid,.ben-grid,.cov-grid{grid-template-columns:1fr}
+  .ben-full{grid-column:auto}
+  .steps-row{grid-template-columns:1fr 1fr;gap:24px}
+  .steps-row::before{display:none}
+  .risk-wrap,.excl-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px}
+  .hdr-nav a:not(.hdr-cta){display:none}
+  .hdr-tel{display:flex;white-space:nowrap;align-items:center}
+}
+@media(max-width:600px){
+  .footer-top{grid-template-columns:1fr}
+  .float-cta{bottom:16px;right:16px}
+  .cta-btns{flex-direction:column;align-items:center}
+}
+
+/* ── ALL PRODUCTS BUTTON ── */
+.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 12px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.hdr-allprod:hover{background:var(--g);color:#fff}
+@media(max-width:480px){.hdr-allprod{padding:6px 10px;font-size:11px}}
+@media(max-width:640px){.hdr-allprod span{display:none}}
+@media(max-width:480px){.hdr-tel-num{display:none!important}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <a href="https://www.dbv247.com.vn" class="hdr-logo">
+      <img src="/Logo header Footer.png" alt="DBV247" style="height:85px;width:auto;display:block;">
+    </a>
+    <nav class="hdr-nav">
+      <a href="#van-de">Vấn đề</a>
+      <a href="#quyen-loi">Quyền lợi</a>
+      <a href="#goi-bh">Gói bảo hiểm</a>
+      <a href="#quy-trinh">Quy trình</a>
+      <a href="#faq">FAQ</a>
+      <a href="#hero-form" class="hdr-cta">Nhận Báo Giá</a>
+    </nav>
+    <a href="/san-pham" class="hdr-allprod">☰ Tất cả sản phẩm</a>
+    <a href="tel:0869 656 561" class="hdr-tel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="hdr-tel-num">0869 656 561</span></a>
+  </div>
+</header>
+
+<!-- USP BAR -->
+<div class="usp-bar">
+  <div class="usp-inner">
+    <span class="usp-item"><span class="usp-dot"></span>Bảo vệ 24/7 – mọi lúc, mọi nơi</span>
+    <span class="usp-item"><span class="usp-dot"></span>Phí từ 25.000đ/tháng</span>
+    <span class="usp-item"><span class="usp-dot"></span>Bồi thường nhanh – 15 ngày làm việc</span>
+    <span class="usp-item"><span class="usp-dot"></span>Tư vấn & hỗ trợ sau bán hàng 24/7</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Được Bộ Tài chính phê chuẩn · QĐ 985A/QĐ-DBV ngày 09/7/2025
+      </div>
+      <h1 class="hero-h1">Tai nạn không báo trước —<br/><em>nhưng bạn có thể chuẩn bị sẵn sàng</em></h1>
+      <p class="hero-sub">Bảo hiểm tai nạn 24 giờ DBV bảo vệ toàn bộ nhân sự và doanh nghiệp của bạn khỏi gánh nặng tài chính khi tai nạn bất ngờ xảy ra: từ gãy xương, thương tật đến tử vong — chi trả nhanh, minh bạch, đồng hành 24/7.</p>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">18+</div><div class="hero-stat-lbl">Năm kinh nghiệm</div></div>
+        <div><div class="hero-stat-num">50.000+</div><div class="hero-stat-lbl">Khách hàng bảo vệ</div></div>
+        <div><div class="hero-stat-num">98%</div><div class="hero-stat-lbl">Hồ sơ được giải quyết</div></div>
+        <div><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Hỗ trợ tư vấn</div></div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-card" id="hero-form">
+      <div class="form-card-title">Nhận báo giá bảo hiểm tai nạn 24 giờ</div>
+      <div class="form-card-sub">Chuyên viên DBV phản hồi trong 15 phút — miễn phí, không ràng buộc</div>
+      <div class="fg">
+        <label>Đối tượng cần bảo hiểm</label>
+        <select id="f-type">
+          <option value="">— Chọn đối tượng bảo hiểm —</option>
+          <option>Cá nhân (1 người)</option>
+          <option>Gia đình (2–5 người)</option>
+          <option>Nhóm doanh nghiệp (6–50 người)</option>
+          <option>Nhóm doanh nghiệp (51–300 người)</option>
+          <option>Tổ chức, trường học, hội đoàn (300+ người)</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Số điện thoại liên hệ</label>
+        <input type="tel" id="f-phone" placeholder="Nhập số điện thoại để nhận tư vấn"/>
+      </div>
+      <div class="fg">
+        <label>Số tiền bảo hiểm mong muốn</label>
+        <select id="f-sum">
+          <option value="">— Chọn mức bảo hiểm —</option>
+          <option>10.000.000 – 50.000.000 VNĐ/người</option>
+          <option>50.000.000 – 100.000.000 VNĐ/người</option>
+          <option>100.000.000 – 150.000.000 VNĐ/người</option>
+          <option>150.000.000 – 200.000.000 VNĐ/người</option>
+          <option>Tư vấn phù hợp nhất cho tôi</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="submitForm()">Nhận báo giá trong 15 phút</button>
+      <div class="form-disc">Thông tin được bảo mật · Không có cam kết mua hàng</div>
+      <div class="form-succ" id="form-succ">✓ Đã ghi nhận! Chuyên viên DBV liên hệ trong 15 phút.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — VẤN ĐỀ KHÁCH HÀNG -->
+<section class="pain-sec" id="van-de">
+  <div class="sec-inner">
+    <span class="sec-tag">Thực trạng</span>
+    <h2 class="sec-h2">Tai Nạn Có Thể Xảy Ra Với Bất Kỳ Ai — Bất Kỳ Lúc Nào</h2>
+    <p class="sec-sub">Theo thống kê, mỗi năm có hàng triệu người Việt Nam nhập viện vì tai nạn. Gánh nặng tài chính có thể ập đến trong tích tắc nếu bạn không có sự chuẩn bị.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-num">01</div>
+        <div>
+          <div class="pain-h3">Chi phí y tế ngoài dự kiến</div>
+          <div class="pain-body">Một ca gãy xương phẫu thuật có thể tiêu tốn từ 20–80 triệu đồng. Tai nạn nghiêm trọng hơn như chấn thương sọ não, đa chấn thương có thể lên đến hàng trăm triệu — không gia đình nào chuẩn bị sẵn sàng.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">02</div>
+        <div>
+          <div class="pain-h3">Mất thu nhập trong thời gian điều trị</div>
+          <div class="pain-body">Nằm viện hay nghỉ dưỡng thương có nghĩa là không thể đi làm. Nhiều gia đình rơi vào khó khăn tài chính chỉ sau vài tuần mất nguồn thu nhập chính.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">03</div>
+        <div>
+          <div class="pain-h3">Tai nạn xảy ra ngoài giờ làm — không ai lo</div>
+          <div class="pain-body">Bảo hiểm tai nạn lao động chỉ bảo vệ bạn trong giờ làm việc. Còn khi đi chợ, đón con, tập thể thao, du lịch cuối tuần — bạn hoàn toàn không có lưới đỡ.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">04</div>
+        <div>
+          <div class="pain-h3">Gia đình không có người trụ cột nếu xảy ra điều tệ nhất</div>
+          <div class="pain-body">Nếu tai nạn dẫn đến tử vong hoặc thương tật vĩnh viễn, gia đình bạn sẽ ra sao? Một khoản bảo hiểm đúng lúc có thể là điểm tựa tài chính quan trọng trong giai đoạn khó khăn nhất.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — QUYỀN LỢI BẢO HIỂM -->
+<section class="benefits-sec" id="quyen-loi">
+  <div class="sec-inner">
+    <span class="sec-tag">Quyền lợi bảo hiểm</span>
+    <h2 class="sec-h2">DBV Bảo Vệ Bạn Toàn Diện — Từ Nhẹ Đến Nặng</h2>
+    <p class="sec-sub">Không phân biệt tai nạn xảy ra ở đâu, trong hoàn cảnh nào — chỉ cần trong lãnh thổ Việt Nam và trong thời hạn hợp đồng, DBV đều có trách nhiệm bồi thường.</p>
+    <div class="ben-grid">
+      <div class="ben-card">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <div class="ben-h4">Tử vong do tai nạn</div>
+          <div class="ben-body">DBV chi trả toàn bộ 100% số tiền bảo hiểm ghi trên hợp đồng. Thêm quyền lợi đặc biệt: nếu tai nạn xảy ra trên phương tiện công cộng hoặc trong thang máy, DBV bồi thường gấp đôi.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <div class="ben-h4">Thương tật toàn bộ vĩnh viễn</div>
+          <div class="ben-body">Chi trả 100% số tiền bảo hiểm. Áp dụng cho các trường hợp như mù hai mắt, mất cả hai tay/hai chân, mất toàn bộ khả năng lao động, liệt giường vĩnh viễn.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        </div>
+        <div>
+          <div class="ben-h4">Thương tật bộ phận vĩnh viễn</div>
+          <div class="ben-body">Bồi thường theo tỷ lệ % số tiền bảo hiểm tương ứng với mức độ thương tật — dựa trên Bảng tỷ lệ trả tiền bảo hiểm thương tật của DBV gồm 278 hạng mục chi tiết.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div>
+          <div class="ben-h4">Chi phí y tế điều trị thương tật</div>
+          <div class="ben-body">Với gói trên 20 triệu đồng: DBV chi trả toàn bộ chi phí y tế hợp lý (phẫu thuật, nằm viện, xét nghiệm, thuốc, truyền dịch...) tối đa 180 ngày/năm. Không lo hóa đơn.</div>
+        </div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="ben-h4">Thương tật tạm thời</div>
+          <div class="ben-body">Bồi thường theo bảng tỷ lệ cho từng loại thương tật tạm thời — từ gãy xương cẳng tay đến chấn thương sọ não, đảm bảo bù đắp thu nhập bị mất trong thời gian điều trị.</div>
+        </div>
+      </div>
+      <div class="ben-card ben-full">
+        <div class="ben-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="ben-h4">Quyền lợi mở rộng theo yêu cầu</div>
+          <div class="ben-body">Nộp thêm phụ phí để mở rộng bảo hiểm cho: (1) Luyện tập thể thao chuyên nghiệp (đua xe, leo núi, nhảy dù, lặn biển...); (2) Ngộ độc thực phẩm, hơi độc, khí độc cần nằm viện điều trị — DBV chi trả chi phí thực tế tối đa 0,5% STBH/ngày nằm viện.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — GÓI BẢO HIỂM & PHÍ -->
+<section class="coverage-sec" id="goi-bh">
+  <div class="sec-inner">
+    <span class="sec-tag">Gói bảo hiểm</span>
+    <h2 class="sec-h2">Lựa Chọn Gói Phù Hợp Với Nhu Cầu Của Bạn</h2>
+    <p class="sec-sub">Số tiền bảo hiểm từ 1.000.000đ đến 200.000.000đ/người/vụ. Phí tính theo tỷ lệ chuẩn, có giảm thêm khi tham gia nhóm.</p>
+    <div class="cov-grid">
+      <div class="cov-card">
+        <div class="cov-label">Gói cơ bản</div>
+        <div class="cov-name">Starter</div>
+        <div class="cov-price">50.000.000 VNĐ bảo hiểm · ~125.000đ/năm</div>
+        <div class="cov-desc">Bảo vệ cơ bản cho cá nhân hoặc gia đình nhỏ. Phù hợp nếu bạn muốn có lưới đỡ tài chính ở mức khởi điểm.</div>
+        <div class="cov-fit">PHÙ HỢP CHO</div>
+        <ul class="cov-list">
+          <li>Cá nhân lần đầu tham gia bảo hiểm</li>
+          <li>Học sinh, sinh viên</li>
+          <li>Người đã có BHYT nhưng muốn thêm bảo vệ</li>
+          <li>Ngân sách giới hạn</li>
+        </ul>
+        <a href="#hero-form" class="cov-cta outline" onclick="scrollToForm()">Tư vấn gói này</a>
+      </div>
+      <div class="cov-card featured">
+        <div class="cov-badge">Phổ biến nhất</div>
+        <div class="cov-label">Gói tiêu chuẩn</div>
+        <div class="cov-name">Standard</div>
+        <div class="cov-price">100.000.000 VNĐ bảo hiểm · ~250.000đ/năm</div>
+        <div class="cov-desc">Bảo vệ toàn diện — bao gồm cả chi phí y tế điều trị thương tật. Được khách hàng cá nhân và hộ gia đình lựa chọn nhiều nhất.</div>
+        <div class="cov-fit">PHÙ HỢP CHO</div>
+        <ul class="cov-list">
+          <li>Người lao động, văn phòng, công nhân</li>
+          <li>Cha mẹ muốn bảo vệ con cái</li>
+          <li>Người thường xuyên di chuyển</li>
+          <li>Được chi trả chi phí y tế hợp lý</li>
+        </ul>
+        <a href="#hero-form" class="cov-cta primary" onclick="scrollToForm()">Nhận báo giá ngay</a>
+      </div>
+      <div class="cov-card">
+        <div class="cov-label">Gói cao cấp</div>
+        <div class="cov-name">Premium</div>
+        <div class="cov-price">200.000.000 VNĐ bảo hiểm · ~740.000đ/năm</div>
+        <div class="cov-desc">Bảo vệ tối đa cho người có thu nhập cao hoặc làm công việc có rủi ro. Bao gồm đầy đủ chi phí y tế và quyền lợi mở rộng.</div>
+        <div class="cov-fit">PHÙ HỢP CHO</div>
+        <ul class="cov-list">
+          <li>Người làm việc trong ngành xây dựng, vận tải</li>
+          <li>Chủ doanh nghiệp, quản lý cấp cao</li>
+          <li>Người hoạt động thể thao thường xuyên</li>
+          <li>Gia đình muốn bảo vệ tổng thể tốt nhất</li>
+        </ul>
+        <a href="#hero-form" class="cov-cta outline" onclick="scrollToForm()">Tư vấn gói này</a>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p><strong>Giảm phí theo nhóm:</strong> Nhóm 50–100 người giảm tối đa 10% · Nhóm 100–300 người giảm tối đa 20% · Nhóm trên 300 người giảm tối đa 25%. Liên hệ ngay để được tư vấn gói doanh nghiệp tốt nhất!</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — QUY TRÌNH MUA & BỒI THƯỜNG -->
+<section class="process-sec" id="quy-trinh">
+  <div class="sec-inner">
+    <span class="sec-tag">Quy trình</span>
+    <h2 class="sec-h2">Mua Bảo Hiểm Đơn Giản — Bồi Thường Nhanh Chóng</h2>
+    <p class="sec-sub">Từ khi liên hệ đến khi có hợp đồng chỉ mất vài giờ. Khi tai nạn xảy ra, DBV giải quyết trong 15 ngày làm việc sau khi có đủ hồ sơ hợp lệ.</p>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-h4">Liên hệ tư vấn</div>
+        <div class="step-body">Gọi điện, Zalo hoặc điền form. Chuyên viên DBV gọi lại trong 15 phút, tư vấn gói phù hợp hoàn toàn miễn phí.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-h4">Nhận báo giá & chọn gói</div>
+        <div class="step-body">Xem đề xuất chi tiết, so sánh quyền lợi và phí. Không có phí ẩn, không ràng buộc.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-h4">Ký hợp đồng & đóng phí</div>
+        <div class="step-body">Hoàn tất thủ tục đơn giản. Bảo hiểm có hiệu lực ngay sau khi đóng phí đầy đủ.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-h4">Nộp hồ sơ khi tai nạn</div>
+        <div class="step-body">Thông báo sự kiện trong 90 ngày. Nộp đủ hồ sơ theo hướng dẫn — đội ngũ DBV hỗ trợ xuyên suốt.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-h4">Nhận tiền bồi thường</div>
+        <div class="step-body">DBV xét duyệt và chi trả trong 15 ngày làm việc từ khi nhận đủ hồ sơ hợp lệ.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — LOẠI TRỪ & LƯU Ý -->
+<section class="excl-sec" id="luu-y">
+  <div class="sec-inner">
+    <span class="sec-tag">Lưu ý quan trọng</span>
+    <h2 class="sec-h2">Biết Rõ Để Tránh Rủi Ro Khi Cần Bồi Thường</h2>
+    <p class="sec-sub">Sự rõ ràng ngay từ đầu giúp bạn chọn đúng gói và không bị bất ngờ. Dưới đây là các trường hợp không được chi trả.</p>
+    <div class="excl-grid">
+      <div>
+        <div class="excl-list">
+          <div class="excl-item">
+            <svg class="excl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Hành động cố ý gây tai nạn cho bản thân
+          </div>
+          <div class="excl-item">
+            <svg class="excl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Vi phạm luật giao thông, luật lao động (có án hình sự)
+          </div>
+          <div class="excl-item">
+            <svg class="excl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Tai nạn khi say rượu, bia, ma túy (nồng độ cồn vượt chuẩn)
+          </div>
+          <div class="excl-item">
+            <svg class="excl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Tham gia thể thao chuyên nghiệp khi chưa đăng ký mở rộng
+          </div>
+          <div class="excl-item">
+            <svg class="excl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Tử vong do bệnh tật, đột quỵ, đột tử, ốm đau (không phải tai nạn)
+          </div>
+          <div class="excl-item">
+            <svg class="excl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Tai nạn do thiên tai, dịch bệnh, chiến tranh, khủng bố
+          </div>
+          <div class="excl-item">
+            <svg class="excl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Thương tật có sẵn trước khi tham gia bảo hiểm
+          </div>
+        </div>
+      </div>
+      <div class="excl-note">
+        <div class="excl-note-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--g)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Điều kiện tham gia bảo hiểm
+        </div>
+        <p>Đối tượng bảo hiểm: công dân Việt Nam hoặc người nước ngoài cư trú hợp pháp tại Việt Nam, từ <strong>15 ngày tuổi đến 70 tuổi</strong>.</p>
+        <p>DBV không nhận bảo hiểm cho người đang điều trị bệnh động kinh, tâm thần, bệnh phong, hoặc người bị thương tật vĩnh viễn từ 50% trở lên.</p>
+        <p>Phạm vi bảo hiểm địa lý: <strong>trong lãnh thổ Việt Nam</strong>. Bảo hiểm có hiệu lực ngay sau khi đóng phí đầy đủ.</p>
+        <p>Thời hạn yêu cầu bồi thường: <strong>trong vòng 1 năm</strong> kể từ ngày xảy ra sự kiện bảo hiểm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7 — RỦI RO & SỐ LIỆU -->
+<section class="risk-sec">
+  <div class="sec-inner">
+    <span class="sec-tag">Tại sao bảo hiểm tai nạn 24 giờ?</span>
+    <h2 class="sec-h2">Rủi Ro Tai Nạn Không Phân Biệt Nghề Nghiệp Hay Thời Gian</h2>
+    <div class="risk-wrap">
+      <div>
+        <p class="risk-intro">Tai nạn xảy ra mọi lúc, mọi nơi: tại nhà, trên đường, khi chơi thể thao, khi đi du lịch. Bảo hiểm tai nạn 24 giờ DBV lấp đầy khoảng trống mà BHYT và bảo hiểm lao động không thể bao phủ.</p>
+        <div class="risk-list">
+          <div class="risk-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="9 12 11 14 15 10"/></svg>
+            Tai nạn giao thông: nguy cơ hàng ngày khi tham gia giao thông
+          </div>
+          <div class="risk-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="9 12 11 14 15 10"/></svg>
+            Tai nạn sinh hoạt: ngã, trơn trượt, vật sắc nhọn tại nhà
+          </div>
+          <div class="risk-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="9 12 11 14 15 10"/></svg>
+            Tai nạn thể thao: bóng đá, cầu lông, gym, đạp xe
+          </div>
+          <div class="risk-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="9 12 11 14 15 10"/></svg>
+            Ngộ độc thực phẩm: phổ biến trong ăn uống hàng ngày (gói mở rộng)
+          </div>
+          <div class="risk-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><polyline points="9 12 11 14 15 10"/></svg>
+            Tai nạn lao động: ngoài phạm vi BHXH bắt buộc
+          </div>
+        </div>
+      </div>
+      <div class="risk-visual">
+        <div class="risk-visual-lbl">Chi phí y tế trung bình</div>
+        <div class="risk-visual-num">80 triệu</div>
+        <div class="risk-visual-sub">một ca gãy xương có phẫu thuật tại bệnh viện tư thành phố lớn</div>
+        <div class="risk-divider">
+          <div class="risk-visual-lbl">Phí bảo hiểm 100 triệu STBH</div>
+          <div style="font-size:2rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:8px">250.000đ</div>
+          <div class="risk-visual-sub">mỗi năm — chưa đến 700đ/ngày</div>
+        </div>
+        <div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,.6);font-style:italic">Tỷ lệ chi phí điều trị / phí bảo hiểm: ~320 lần</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST SIGNALS -->
+<section class="trust-sec">
+  <div class="trust-inner">
+    <h2 style="font-size:1.4rem;font-weight:800;color:var(--dk);text-align:center">Tại Sao Hơn 50.000 Khách Hàng Tin Tưởng DBV?</h2>
+    <div class="trust-row">
+      <div class="trust-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div>
+          <div class="trust-text-main">18+ năm</div>
+          <div class="trust-text-sub">Kinh nghiệm bảo hiểm</div>
+        </div>
+      </div>
+      <div class="trust-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div>
+          <div class="trust-text-main">50.000+</div>
+          <div class="trust-text-sub">Khách hàng được bảo vệ</div>
+        </div>
+      </div>
+      <div class="trust-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div>
+          <div class="trust-text-main">98%</div>
+          <div class="trust-text-sub">Hồ sơ bồi thường được giải quyết</div>
+        </div>
+      </div>
+      <div class="trust-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div>
+          <div class="trust-text-main">15 ngày</div>
+          <div class="trust-text-sub">Giải quyết bồi thường tối đa</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--tm);text-align:center;max-width:600px">Được cấp phép hoạt động bởi Bộ Tài chính Việt Nam · Giấy phép số 49/GPDC43/KDBH · Sản phẩm phê chuẩn theo Công văn 10194/BTC-QLBH ngày 08/07/2025</p>
+  </div>
+</section>
+
+<!-- SECTION 8 — FAQ -->
+<section class="faq-sec" id="faq">
+  <div class="sec-inner">
+    <span class="sec-tag">Câu hỏi thường gặp</span>
+    <h2 class="sec-h2" style="text-align:center">Giải Đáp Những Thắc Mắc Phổ Biến Nhất</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Bảo hiểm tai nạn 24 giờ khác bảo hiểm tai nạn lao động như thế nào?
+          <span class="arr">▼</span>
+        </button>
+        <div class="faq-a">Bảo hiểm tai nạn lao động (BHXH bắt buộc) chỉ bảo vệ bạn khi tai nạn xảy ra trong giờ làm việc hoặc trên đường đi–về. Bảo hiểm tai nạn 24 giờ DBV bảo vệ bạn liên tục 24 giờ, 7 ngày — dù bạn đang ở nhà, đi chơi, tập thể thao hay du lịch. Đây là sản phẩm bổ sung không trùng lặp với BHXH.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Tai nạn xảy ra đã 2 tháng, tôi có còn nộp hồ sơ được không?
+          <span class="arr">▼</span>
+        </button>
+        <div class="faq-a">Có. Bạn cần thông báo sự kiện bảo hiểm cho DBV trong vòng 90 ngày kể từ ngày xuất viện, thăm khám hoặc tử vong. Thời hạn yêu cầu trả tiền bảo hiểm là 1 năm kể từ ngày xảy ra sự kiện. Nếu bạn bỏ lỡ thời hạn 90 ngày có trường hợp bất khả kháng, hãy liên hệ DBV để được tư vấn cụ thể.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Tôi tham gia bảo hiểm nhiều nơi — DBV có trả toàn bộ không?
+          <span class="arr">▼</span>
+        </button>
+        <div class="faq-a">Đối với quyền lợi thương tật và tử vong: DBV trả theo tỷ lệ phần trăm số tiền bảo hiểm của hợp đồng DBV, độc lập với các hợp đồng khác. Đối với quyền lợi chi phí y tế: tổng số tiền nhận từ tất cả các bảo hiểm không vượt quá chi phí điều trị thực tế. DBV sẽ tính toán và bồi thường theo tỷ lệ.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Mua bảo hiểm cho đội nhóm doanh nghiệp có cần khám sức khỏe không?
+          <span class="arr">▼</span>
+        </button>
+        <div class="faq-a">Thông thường không cần khám sức khỏe trước khi tham gia, đặc biệt với nhóm doanh nghiệp. Bên mua chỉ cần cung cấp danh sách người được bảo hiểm và thông tin cơ bản. DBV sẽ xem xét và cấp hợp đồng nhanh chóng. Một số trường hợp đặc biệt có thể cần thêm khai báo sức khỏe.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Hủy hợp đồng giữa chừng có được hoàn phí không?
+          <span class="arr">▼</span>
+        </button>
+        <div class="faq-a">Có. Nếu bạn yêu cầu hủy hợp đồng, DBV hoàn trả 80% phí bảo hiểm tính theo tỷ lệ thời gian hiệu lực còn lại — với điều kiện trong thời hạn chưa có khiếu nại nào được DBV chấp nhận chi trả. Thông báo hủy phải gửi văn bản trước ít nhất 30 ngày.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Người cao tuổi (60–70 tuổi) có tham gia được không?
+          <span class="arr">▼</span>
+        </button>
+        <div class="faq-a">Có. Đối tượng bảo hiểm của DBV từ 15 ngày tuổi đến 70 tuổi. Tuy nhiên với người từ 60 tuổi trở lên, một số điều khoản và mức phí có thể khác. Hãy liên hệ tư vấn viên DBV để được báo giá chính xác nhất cho độ tuổi và nhu cầu của bạn.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Hồ sơ bồi thường cần những giấy tờ gì?
+          <span class="arr">▼</span>
+        </button>
+        <div class="faq-a">Hồ sơ cơ bản gồm: (1) Giấy yêu cầu trả tiền theo mẫu DBV; (2) Biên bản tai nạn có xác nhận chính quyền hoặc công an; (3) Các chứng từ y tế: giấy ra viện, chỉ định và kết quả xét nghiệm, hóa đơn viện phí; (4) Giấy CMND/CCCD người được bảo hiểm. Trường hợp tử vong cần thêm giấy chứng tử và giấy thừa kế hợp pháp. DBV hỗ trợ bạn chuẩn bị hồ sơ từ đầu đến cuối.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-final" id="cta-final">
+  <div class="cta-final-inner">
+    <h2>Đừng để một tai nạn bất ngờ trở thành gánh nặng cho cả gia đình</h2>
+    <p>Chỉ cần 250.000đ/năm, DBV đồng hành bảo vệ bạn 24/7, giải quyết bồi thường nhanh chóng và minh bạch khi bạn cần nhất.</p>
+    <div class="cta-btns">
+      <button class="btn-cta-a" onclick="scrollToForm()">Nhận báo giá ngay — miễn phí</button>
+      <a href="tel:0869 656 561" class="btn-cta-b">Gọi tư vấn: 0869 656 561</a>
+    </div>
+    <div class="cta-promises">
+      <span class="cta-prom">Phản hồi trong 15 phút</span>
+      <span class="cta-prom">Không cam kết ràng buộc</span>
+      <span class="cta-prom">Tư vấn hoàn toàn miễn phí</span>
+      <span class="cta-prom">Hỗ trợ sau bán hàng 24/7</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <img src="/Logo header Footer.png" alt="DBV247" style="height:120px;width:auto;display:block;margin-bottom:14px;">
+        <div class="f-desc">
+          <strong style="color:var(--dk,#1B3A5C);font-size:13.5px">DBV247</strong> – Kênh tư vấn bảo hiểm online trực thuộc<br>
+          <span style="font-size:12.5px">Công ty cổ phần Tập đoàn Bảo hiểm DBV – Chi nhánh Thành Đô</span>
+        </div>
+        <div class="f-desc" style="font-size:12.5px;line-height:1.9;margin-top:6px">
+          <span style="opacity:.75">MST:</span> 0102737963-059<br>
+          <span style="opacity:.75">Địa chỉ:</span> BT20-C37, TDP 20, Phường Thanh Xuân, Thành phố Hà Nội
+        </div>
+        <a href="tel:0869656561" class="f-tel">0869 656 561</a>
+        <a href="mailto:dbvi247@gmail.com" class="f-email">dbvi247@gmail.com</a>
+      </div>
+      <div>
+        <div class="f-h4">Sản Phẩm</div>
+        <ul class="f-links">
+          <li><a href="https://www.dbv247.com.vn/bao-hiem-xnk">BH Hàng Hóa XNK</a></li>
+          <li><a href="https://www.dbv247.com.vn/bao-hiem-vat-chat-oto">BH Vật Chất Ô Tô</a></li>
+          <li><a href="https://www.dbv247.com.vn/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a></li>
+          <li><a href="/san-pham">Xem tất cả sản phẩm</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-h4">Hỗ Trợ</div>
+        <ul class="f-links">
+          <li><a href="#quy-trinh">Quy trình bồi thường</a></li>
+          <li><a href="#faq">Câu hỏi thường gặp</a></li>
+          <li><a href="#hero-form">Liên hệ tư vấn</a></li>
+          <li><a href="#">Điều khoản bảo hiểm</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-h4">Liên Hệ</div>
+        <ul class="f-links">
+          <li><a href="tel:0869656561">📞 0869 656 561</a></li>
+          <li><a href="mailto:dbvi247@gmail.com">✉️ dbvi247@gmail.com</a></li>
+          <li><a href="https://zalo.me/1283738895804393564">💬 Zalo: 0869 656 561</a></li>
+          <li><a href="https://www.dbv247.com.vn">🌐 www.dbv247.com.vn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <div class="f-copy">© 2025 DBV247 – Kênh tư vấn bảo hiểm online. Bảo lưu mọi quyền.</div>
+      <div class="f-lic">Được cấp phép hoạt động bởi Bộ Tài chính Việt Nam</div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<div class="float-cta" id="floatCta">
+  <div style="display:flex;gap:8px;align-items:center;justify-content:flex-end">
+    <a href="tel:0869656561" class="float-btn" style="animation:none">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Gọi Ngay
+    </a>
+    <a href="https://zalo.me/1283738895804393564" class="float-zalo" title="Chat Zalo" style="background:#fff;border:2px solid #e2e8f0;box-shadow:0 4px 16px rgba(0,0,0,.18),0 0 0 1px rgba(0,116,55,.12);width:48px;height:48px;">
+      <img src="data:image/jpeg;base64,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" alt="Zalo" style="width:36px;height:36px;object-fit:contain;border-radius:4px;"/>
+    </a>
+  </div>
+</div>
+
+<script>
+/* ─ Form hero ─ */
+function submitForm(){
+  var p=document.getElementById('f-phone').value.trim();
+  if(!p){alert('Vui lòng nhập số điện thoại.');return;}
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Tai Nạn 24 Giờ',from_name:'Landing Page DBV','Số điện thoại':p,'Trang':window.location.href})});
+  document.getElementById('form-succ').style.display='block';
+  document.querySelector('.btn-primary').style.display='none';
+}
+/* ─ FAQ ─ */
+function toggleFaq(btn){
+  var item=btn.parentElement;
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+  if(!wasOpen)item.classList.add('open');
+}
+/* ─ Scroll to form ─ */
+function scrollToForm(){
+  document.getElementById('hero-form').scrollIntoView({behavior:'smooth'});
+}
+/* ─ Toggle floating mini-form ─ */
+function toggleFloatForm(){
+  var w=document.getElementById('floatFormWrap');
+  var isOpen=w.style.display==='block';
+  w.style.display=isOpen?'none':'block';
+  if(!isOpen)setTimeout(function(){document.getElementById('float-phone').focus();},50);
+}
+/* ─ Submit floating form ─ */
+function submitFloat(){
+  var p=document.getElementById('float-phone').value.trim();
+  if(!p){document.getElementById('float-phone').focus();return;}
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Tai Nạn 24 Giờ (float)',from_name:'Landing Page DBV','Số điện thoại':p,'Trang':window.location.href})});
+  document.getElementById('float-phone').disabled=true;
+  document.getElementById('float-type').disabled=true;
+  document.querySelector('#floatFormWrap button').style.display='none';
+  document.getElementById('float-succ').style.display='block';
+  setTimeout(function(){
+    document.getElementById('floatFormWrap').style.display='none';
+    document.getElementById('float-phone').disabled=false;
+    document.getElementById('float-type').disabled=false;
+    document.getElementById('float-phone').value='';
+    document.getElementById('float-succ').style.display='none';
+    document.querySelector('#floatFormWrap button').style.display='block';
+  },3500);
+}
+/* ─ Close float form on outside click ─ */
+document.addEventListener('click',function(e){
+  var wrap=document.getElementById('floatFormWrap');
+  if(wrap.style.display==='block'&&!document.getElementById('floatCta').contains(e.target)){
+    wrap.style.display='none';
+  }
+});
+/* ─ Smooth anchor scroll ─ */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>

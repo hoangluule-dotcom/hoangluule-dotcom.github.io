@@ -1,0 +1,25 @@
+# Netlify 301 Redirects — URL migration: old slugs -> new hyphenated slugs
+# Generated automatically. Do not edit manually.
+
+/baohiembuu-gui            /bao-hiem-buu-gui           301
+/baohiemchayno-hkd         /bao-hiem-chay-no-hkd       301
+/baohiemchayno             /bao-hiem-chay-no            301
+/baohiemdulich-noida       /bao-hiem-du-lich-noi-dia    301
+/baohiemdulich-quocte      /bao-hiem-du-lich-quoc-te    301
+/baohiemhoahoan            /bao-hiem-hoa-hoan            301
+/baohiemmoiruiro           /bao-hiem-moi-rui-ro          301
+/baohiemoto-dien           /bao-hiem-oto-dien            301
+/baohiemsuckhoe            /bao-hiem-suc-khoe            301
+/baohiemtainan             /bao-hiem-tai-nan             301
+/baohiemthantau-noidia     /bao-hiem-than-tau-noi-dia    301
+/baohiemtnc                /bao-hiem-tnc                 301
+/baohiemtncc               /bao-hiem-tncc                301
+/baohiemtnds-oto           /bao-hiem-tnds-oto            301
+/baohiemtnds-xemay         /bao-hiem-tnds-xemay          301
+/baohiemtnn-kcb            /bao-hiem-tnn-kcb             301
+/baohiemtnn-ls             /bao-hiem-tnn-ls              301
+/baohiemtnn-tvtk           /bao-hiem-tnn-tvtk            301
+/baohiemvanchuyen          /bao-hiem-van-chuyen          301
+/baohiemvatchat-oto        /bao-hiem-vat-chat-oto        301
+/baohiemxaydung            /bao-hiem-xay-dung            301
+/baohiemxnk                /bao-hiem-xnk                 301
