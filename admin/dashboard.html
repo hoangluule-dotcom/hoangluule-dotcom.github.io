@@ -6,80 +6,168 @@
 <title>Tổng quan – Quản trị DBV247</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
-  --gold:#E8920A;--navy:#1B3A5C;--navyp:#132d47;
-  --dk:#1A2E1A;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
-  --bd:#E2E8F0;--bg:#F7F9FC;--r12:12px;--r16:16px;
-  --sh:0 2px 16px rgba(0,0,0,.07);
+  --gold:#E8920A;--goldl:#FFF3DE;--navy:#1B3A5C;--navyp:#132d47;
+  --blue:#2563EB;--bluel:#EAF1FF;
+  --dk:#16241A;--tx:#1C1C1C;--tm:#4a5568;--ts:#8492a6;
+  --bd:#E7EBF1;--bg:#F5F7FA;--r10:10px;--r14:14px;--r18:18px;
+  --sh:0 1px 3px rgba(16,24,40,.05),0 1px 2px rgba(16,24,40,.04);
+  --sh2:0 4px 20px rgba(16,24,40,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
 body{font-family:"Be Vietnam Pro",sans-serif;background:var(--bg);color:var(--tx)}
-.topbar{background:linear-gradient(135deg,var(--navy),var(--navyp));padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
-.topbar h1{color:#fff;font-size:19px;font-weight:800}
-.topbar-actions a{color:#fff;font-size:13px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.12);padding:9px 16px;border-radius:8px;margin-left:8px}
-.topbar-actions a:hover{background:rgba(255,255,255,.22)}
-.wrap{max-width:1100px;margin:0 auto;padding:32px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px}
-.stat-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);padding:22px;box-shadow:var(--sh)}
-.stat-label{font-size:12px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
-.stat-value{font-size:30px;font-weight:900;color:var(--dk)}
-.stat-sub{font-size:12.5px;color:var(--ts);margin-top:6px}
-.stat-card.muted{opacity:.6}
-.panel{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);box-shadow:var(--sh);overflow:hidden;margin-bottom:24px}
-.panel-head{padding:18px 22px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
-.panel-head h2{font-size:15px;font-weight:800;color:var(--dk)}
-.panel-head a{font-size:12.5px;font-weight:700;color:var(--g);text-decoration:none}
+
+/* Topbar */
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navyp));padding:18px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.topbar-brand{display:flex;align-items:center;gap:11px}
+.topbar-logo{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px}
+.topbar h1{color:#fff;font-size:17px;font-weight:800;line-height:1.2}
+.topbar-sub{color:rgba(255,255,255,.55);font-size:11.5px;font-weight:500}
+.topbar-actions{display:flex;gap:8px}
+.topbar-actions a{color:#fff;font-size:12.5px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.1);padding:9px 15px;border-radius:9px;display:inline-flex;align-items:center;gap:6px;transition:.15s;border:1px solid rgba(255,255,255,.08)}
+.topbar-actions a:hover{background:rgba(255,255,255,.2)}
+.topbar-actions a.primary{background:var(--gold);border-color:transparent}
+.topbar-actions a.primary:hover{background:#d68209}
+
+.wrap{max-width:1180px;margin:0 auto;padding:28px 32px 60px}
+
+/* Stat cards */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r18);padding:20px 22px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.stat-top{display:flex;align-items:center;justify-content:space-between}
+.stat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.stat-icon.i-news{background:var(--bluel)}
+.stat-icon.i-leads{background:var(--gl)}
+.stat-icon.i-traffic{background:var(--goldl)}
+.stat-label{font-size:12px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.04em}
+.stat-value{font-size:32px;font-weight:900;color:var(--dk);letter-spacing:-.02em}
+.stat-sub{font-size:12.5px;color:var(--ts)}
+.stat-card.muted .stat-value{color:var(--ts)}
+.stat-card.muted{background:repeating-linear-gradient(135deg,#fff,#fff 10px,#fbfbfb 10px,#fbfbfb 20px)}
+
+/* Panel */
+.panel{background:#fff;border:1px solid var(--bd);border-radius:var(--r18);box-shadow:var(--sh);overflow:hidden;margin-bottom:24px}
+.panel-head{padding:18px 24px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.panel-head h2{font-size:15.5px;font-weight:800;color:var(--dk);display:flex;align-items:center;gap:8px}
+.panel-head h2 .cnt{font-size:11.5px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 9px;border-radius:20px}
+.panel-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.search-box{position:relative}
+.search-box input{width:220px;padding:8px 12px 8px 32px;border:1.5px solid var(--bd);border-radius:9px;font-size:12.5px;font-family:inherit;outline:none;transition:.15s}
+.search-box input:focus{border-color:var(--g)}
+.search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--ts)}
+.btn-ghost{font-size:12.5px;font-weight:700;color:var(--tm);text-decoration:none;background:var(--bg);border:1px solid var(--bd);padding:8px 14px;border-radius:9px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:.15s;font-family:inherit}
+.btn-ghost:hover{background:#eef1f5;color:var(--dk)}
+.btn-link{font-size:12.5px;font-weight:700;color:var(--g);text-decoration:none}
+.btn-link:hover{text-decoration:underline}
+
 table{width:100%;border-collapse:collapse}
-th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ts);padding:10px 22px;border-bottom:1px solid var(--bd);background:var(--bg)}
-td{padding:12px 22px;font-size:13.5px;border-bottom:1px solid var(--bd);color:var(--tm)}
-tr:last-child td{border-bottom:none}
-.empty-row td{text-align:center;color:var(--ts);padding:30px}
-.gate{max-width:380px;margin:120px auto;background:#fff;border:1px solid var(--bd);border-radius:var(--r16);padding:32px;box-shadow:var(--sh);text-align:center}
-.gate h2{font-size:16px;font-weight:800;margin-bottom:8px;color:var(--dk)}
-.gate p{font-size:13px;color:var(--ts);margin-bottom:18px}
-.gate input{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;margin-bottom:12px;font-family:inherit}
-.gate button{width:100%;background:var(--g);color:#fff;font-weight:700;padding:12px;border:none;border-radius:10px;cursor:pointer;font-family:inherit}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);font-weight:800;padding:11px 24px;border-bottom:1px solid var(--bd);background:#FAFBFC;white-space:nowrap}
+td{padding:14px 24px;font-size:13.5px;border-bottom:1px solid var(--bd);color:var(--tm);vertical-align:top}
+tbody tr{transition:background .12s;cursor:pointer}
+tbody tr:hover{background:#FAFBFC}
+tbody tr:last-child td{border-bottom:none}
+.empty-row td{text-align:center;color:var(--ts);padding:44px 20px;cursor:default}
+.empty-row td:hover{background:none}
+
+.cell-time .t-date{font-weight:700;color:var(--dk);font-size:13px}
+.cell-time .t-ago{font-size:11.5px;color:var(--ts);margin-top:2px}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:20px;white-space:nowrap}
+.badge-blue{background:var(--bluel);color:var(--blue)}
+.badge-gold{background:var(--goldl);color:var(--goldd,#a3670a)}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+.pill-product{display:inline-block;font-size:12px;font-weight:600;color:var(--gp);background:var(--gl);padding:5px 11px;border-radius:8px}
+.no-product{color:var(--ts);font-style:italic;font-size:12.5px}
+
+.phone-link{color:var(--dk);font-weight:700;text-decoration:none;font-variant-numeric:tabular-nums}
+.phone-link:hover{color:var(--g);text-decoration:underline}
+
+.detail-row td{background:#FAFBFC;padding:0 24px;border-bottom:1px solid var(--bd)}
+.detail-inner{display:none;padding:14px 0 16px;font-size:12px;color:var(--ts);line-height:1.9}
+.detail-inner.open{display:block}
+.detail-inner b{color:var(--tm);font-weight:700}
+.detail-inner .drow{display:flex;gap:8px;flex-wrap:wrap}
+.detail-inner .dtag{background:#fff;border:1px solid var(--bd);border-radius:7px;padding:5px 10px;word-break:break-all}
+.chev{display:inline-block;transition:transform .15s;color:var(--ts);font-size:11px}
+.chev.open{transform:rotate(90deg)}
+
+.panel-foot{padding:12px 24px;border-top:1px solid var(--bd);font-size:12px;color:var(--ts);display:flex;justify-content:space-between;align-items:center}
+
+/* Gate */
+.gate{max-width:380px;margin:120px auto;background:#fff;border:1px solid var(--bd);border-radius:var(--r18);padding:34px 32px;box-shadow:var(--sh2);text-align:center}
+.gate .gate-icon{width:52px;height:52px;border-radius:14px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px}
+.gate h2{font-size:17px;font-weight:800;margin-bottom:6px;color:var(--dk)}
+.gate p{font-size:13px;color:var(--ts);margin-bottom:20px;line-height:1.5}
+.gate input{width:100%;padding:12px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;margin-bottom:12px;font-family:inherit;outline:none;transition:.15s}
+.gate input:focus{border-color:var(--g)}
+.gate button{width:100%;background:var(--g);color:#fff;font-weight:700;padding:13px;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-size:14px;transition:.15s}
 .gate button:hover{background:var(--gp)}
-.gate-error{color:#c0392b;font-size:12.5px;margin-top:10px;display:none}
+.gate-error{color:#c0392b;font-size:12.5px;margin-top:12px;display:none;background:#fdf1f0;padding:9px;border-radius:8px}
 #dashboardBody{display:none}
+
+@media(max-width:800px){
+  .stats{grid-template-columns:1fr}
+  .wrap{padding:20px 16px 40px}
+  .topbar{padding:16px 18px}
+  table{font-size:12.5px}
+  th,td{padding:10px 14px}
+}
 </style>
 </head>
 <body>
 
 <div id="gate" class="gate">
-  <h2>🔒 Truy cập Dashboard</h2>
-  <p>Nhập khoá truy cập nội bộ (do quản trị viên cung cấp)</p>
-  <input type="password" id="keyInput" placeholder="Access key">
+  <div class="gate-icon">🔒</div>
+  <h2>Truy cập Dashboard</h2>
+  <p>Nhập khoá truy cập nội bộ (do quản trị viên cung cấp) để xem dữ liệu quản trị.</p>
+  <input type="password" id="keyInput" placeholder="Access key" onkeydown="if(event.key==='Enter')unlockDashboard()">
   <button onclick="unlockDashboard()">Vào Dashboard</button>
   <div class="gate-error" id="gateError">Sai khoá truy cập, thử lại.</div>
 </div>
 
 <div id="dashboardBody">
   <div class="topbar">
-    <h1>📊 Dashboard quản trị DBV247</h1>
+    <div class="topbar-brand">
+      <div class="topbar-logo">📊</div>
+      <div>
+        <h1>Dashboard quản trị DBV247</h1>
+        <div class="topbar-sub">Nội dung · Khách liên hệ · Truy cập</div>
+      </div>
+    </div>
     <div class="topbar-actions">
-      <a href="/admin/#/collections/news">✏️ Sửa nội dung (CMS)</a>
-      <a href="/" target="_blank">🌐 Xem website</a>
+      <a href="/admin/#/collections/news">✏️ Sửa nội dung</a>
+      <a href="/" target="_blank" class="primary">🌐 Xem website</a>
     </div>
   </div>
 
   <div class="wrap">
     <div class="stats">
       <div class="stat-card">
-        <div class="stat-label">Tin tức đã đăng</div>
+        <div class="stat-top">
+          <div class="stat-label">Tin tức đã đăng</div>
+          <div class="stat-icon i-news">📰</div>
+        </div>
         <div class="stat-value" id="statNews">–</div>
         <div class="stat-sub">Tổng số bài viết hiện có</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Khách liên hệ (Leads)</div>
+        <div class="stat-top">
+          <div class="stat-label">Khách liên hệ (Leads)</div>
+          <div class="stat-icon i-leads">👥</div>
+        </div>
         <div class="stat-value" id="statLeads">–</div>
-        <div class="stat-sub">Tổng số lượt gửi form</div>
+        <div class="stat-sub" id="statLeadsSub">Tổng số lượt gửi form</div>
       </div>
       <div class="stat-card muted">
-        <div class="stat-label">Lượt truy cập website</div>
+        <div class="stat-top">
+          <div class="stat-label">Lượt truy cập website</div>
+          <div class="stat-icon i-traffic">📈</div>
+        </div>
         <div class="stat-value">—</div>
         <div class="stat-sub">Chưa kết nối Google Analytics</div>
       </div>
@@ -87,23 +175,41 @@ tr:last-child td{border-bottom:none}
 
     <div class="panel">
       <div class="panel-head">
-        <h2>Khách liên hệ gần đây</h2>
-        <a href="https://app.netlify.com/projects/dbv247/forms" target="_blank">Xem đầy đủ trên Netlify →</a>
+        <h2>Khách liên hệ gần đây <span class="cnt" id="leadsCount">0</span></h2>
+        <div class="panel-tools">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="leadSearch" placeholder="Tìm theo SĐT, sản phẩm...">
+          </div>
+          <button class="btn-ghost" onclick="exportCsv()">⬇ Xuất CSV</button>
+          <a class="btn-link" href="https://app.netlify.com/projects/dbv247/forms" target="_blank">Xem trên Netlify →</a>
+        </div>
       </div>
       <table>
         <thead>
-          <tr><th>Thời gian</th><th>Form</th><th>Thông tin</th></tr>
+          <tr><th style="width:30px"></th><th>Thời gian</th><th>Nguồn</th><th>Sản phẩm quan tâm</th><th>Số điện thoại</th></tr>
         </thead>
         <tbody id="leadsTableBody">
-          <tr class="empty-row"><td colspan="3">Đang tải...</td></tr>
+          <tr class="empty-row"><td colspan="5">Đang tải...</td></tr>
         </tbody>
       </table>
+      <div class="panel-foot" id="leadsFoot" style="display:none">
+        <span id="leadsFootText"></span>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
 const KEY_STORAGE = "dbv247_dashboard_key";
+let ALL_SUBMISSIONS = [];
+
+const FORM_LABELS = {
+  'dbv-tuvan': { label: 'Form tư vấn', cls: 'badge-blue' },
+  'dbv-float': { label: 'Nút nổi', cls: 'badge-gold' }
+};
+const META_KEYS = ['ip','user_agent','referrer'];
+const FIELD_LABELS = { 'ho-ten':'Họ tên', 'dien-thoai':'Số điện thoại', 'san-pham':'Sản phẩm', 'ghi-chu':'Ghi chú' };
 
 function unlockDashboard(){
   const key = document.getElementById('keyInput').value.trim();
@@ -127,14 +233,137 @@ function formatDate(iso){
   }catch(e){ return iso; }
 }
 
-function renderLeadInfo(data){
-  var parts = [];
-  for(var k in data){
-    if(k === 'form-name') continue;
+function timeAgo(iso){
+  try{
+    const diffMs = Date.now() - new Date(iso).getTime();
+    const min = Math.floor(diffMs/60000);
+    if(min < 1) return 'Vừa xong';
+    if(min < 60) return min + ' phút trước';
+    const hr = Math.floor(min/60);
+    if(hr < 24) return hr + ' giờ trước';
+    const day = Math.floor(hr/24);
+    return day + ' ngày trước';
+  }catch(e){ return ''; }
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+  });
+}
+
+function renderRow(s, idx){
+  const data = s.data || {};
+  const form = FORM_LABELS[s.form_name] || { label: s.form_name || 'Không rõ', cls: 'badge-blue' };
+  const product = data['san-pham'] ? '<span class="pill-product">' + escapeHtml(data['san-pham']) + '</span>' : '<span class="no-product">—</span>';
+  const phone = data['dien-thoai'] ? '<a class="phone-link" href="tel:' + escapeHtml(data['dien-thoai']) + '">' + escapeHtml(data['dien-thoai']) + '</a>' : '—';
+
+  const extraFields = [];
+  for(const k in data){
+    if(k === 'form-name' || k === 'san-pham' || k === 'dien-thoai' || META_KEYS.includes(k)) continue;
     if(!data[k]) continue;
-    parts.push('<strong>' + k + ':</strong> ' + data[k]);
+    extraFields.push('<div class="dtag"><b>' + (FIELD_LABELS[k] || k) + ':</b> ' + escapeHtml(data[k]) + '</div>');
   }
-  return parts.join(' · ') || '(không có dữ liệu)';
+  const metaFields = META_KEYS.filter(k => data[k]).map(k =>
+    '<div class="dtag"><b>' + k + ':</b> ' + escapeHtml(data[k]) + '</div>'
+  );
+
+  const tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td><span class="chev" id="chev-' + idx + '">▶</span></td>' +
+    '<td class="cell-time"><div class="t-date">' + formatDate(s.created_at) + '</div><div class="t-ago">' + timeAgo(s.created_at) + '</div></td>' +
+    '<td><span class="badge ' + form.cls + '"><span class="badge-dot"></span>' + form.label + '</span></td>' +
+    '<td>' + product + '</td>' +
+    '<td>' + phone + '</td>';
+  tr.addEventListener('click', function(){ toggleDetail(idx); });
+
+  const detailTr = document.createElement('tr');
+  detailTr.className = 'detail-row';
+  detailTr.innerHTML = '<td colspan="5"><div class="detail-inner" id="detail-' + idx + '">' +
+    (extraFields.length ? '<div class="drow" style="margin-bottom:8px">' + extraFields.join('') + '</div>' : '') +
+    (metaFields.length ? '<div class="drow">' + metaFields.join('') + '</div>' : '<span style="color:var(--ts)">Không có dữ liệu bổ sung.</span>') +
+    '</div></td>';
+
+  return [tr, detailTr];
+}
+
+function toggleDetail(idx){
+  const el = document.getElementById('detail-' + idx);
+  const chev = document.getElementById('chev-' + idx);
+  if(!el) return;
+  el.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function renderTable(list){
+  const tbody = document.getElementById('leadsTableBody');
+  tbody.innerHTML = '';
+  if(!list.length){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Không tìm thấy kết quả phù hợp.</td></tr>';
+    return;
+  }
+  list.forEach(function(s, idx){
+    const [tr, detailTr] = renderRow(s, idx);
+    tbody.appendChild(tr);
+    tbody.appendChild(detailTr);
+  });
+}
+
+function applyFilter(){
+  const q = document.getElementById('leadSearch').value.trim().toLowerCase();
+  if(!q){ renderTable(ALL_SUBMISSIONS.slice(0, 30)); updateFoot(ALL_SUBMISSIONS.length, ALL_SUBMISSIONS.length); return; }
+  const filtered = ALL_SUBMISSIONS.filter(function(s){
+    const d = s.data || {};
+    return Object.values(d).join(' ').toLowerCase().includes(q);
+  });
+  renderTable(filtered.slice(0, 30));
+  updateFoot(filtered.length, ALL_SUBMISSIONS.length, true);
+}
+
+function updateFoot(showing, total, isFiltered){
+  const foot = document.getElementById('leadsFoot');
+  const text = document.getElementById('leadsFootText');
+  if(total > 30 || isFiltered){
+    foot.style.display = 'flex';
+    text.textContent = isFiltered
+      ? 'Tìm thấy ' + showing + ' / ' + total + ' lượt liên hệ'
+      : 'Hiển thị ' + Math.min(30, showing) + ' / ' + total + ' lượt liên hệ gần nhất — xem đầy đủ trên Netlify.';
+  } else {
+    foot.style.display = 'none';
+  }
+}
+
+function csvEscape(v){
+  const s = String(v == null ? '' : v);
+  if(/[",\n]/.test(s)) return '"' + s.replace(/"/g,'""') + '"';
+  return s;
+}
+
+function exportCsv(){
+  if(!ALL_SUBMISSIONS.length){ return; }
+  const rows = [['Thời gian','Form','Sản phẩm','Số điện thoại','Ghi chú','IP','Referrer']];
+  ALL_SUBMISSIONS.forEach(function(s){
+    const d = s.data || {};
+    rows.push([
+      formatDate(s.created_at),
+      (FORM_LABELS[s.form_name] || {}).label || s.form_name || '',
+      d['san-pham'] || '',
+      d['dien-thoai'] || '',
+      d['ghi-chu'] || '',
+      d['ip'] || '',
+      d['referrer'] || ''
+    ]);
+  });
+  const csv = rows.map(r => r.map(csvEscape).join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'dbv247-leads-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function loadDashboard(key, isManualUnlock){
@@ -146,22 +375,17 @@ function loadDashboard(key, isManualUnlock){
     .then(function(data){
       localStorage.setItem(KEY_STORAGE, key);
       showDashboard();
+      ALL_SUBMISSIONS = data.submissions || [];
       document.getElementById('statLeads').textContent = data.total || 0;
+      document.getElementById('leadsCount').textContent = data.total || 0;
 
-      var tbody = document.getElementById('leadsTableBody');
-      tbody.innerHTML = '';
-      if(!data.submissions || !data.submissions.length){
-        tbody.innerHTML = '<tr class="empty-row"><td colspan="3">Chưa có lượt liên hệ nào.</td></tr>';
-      } else {
-        data.submissions.slice(0, 30).forEach(function(s){
-          var tr = document.createElement('tr');
-          tr.innerHTML =
-            '<td>' + formatDate(s.created_at) + '</td>' +
-            '<td>' + (s.form_name || '') + '</td>' +
-            '<td>' + renderLeadInfo(s.data || {}) + '</td>';
-          tbody.appendChild(tr);
-        });
+      if(ALL_SUBMISSIONS.length){
+        const last = ALL_SUBMISSIONS[0];
+        document.getElementById('statLeadsSub').textContent = 'Gần nhất: ' + timeAgo(last.created_at);
       }
+
+      renderTable(ALL_SUBMISSIONS.slice(0, 30));
+      updateFoot(ALL_SUBMISSIONS.length, ALL_SUBMISSIONS.length);
     })
     .catch(function(){
       if(isManualUnlock){ showGateError(); }
@@ -175,6 +399,11 @@ function loadDashboard(key, isManualUnlock){
     })
     .catch(function(){});
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+  const search = document.getElementById('leadSearch');
+  if(search) search.addEventListener('input', applyFilter);
+});
 
 (function(){
   var saved = localStorage.getItem(KEY_STORAGE);
