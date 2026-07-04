@@ -928,15 +928,25 @@ body.sticky-shown{padding-bottom:60px}
 <script>
 /* ── SEND LEAD ── */
 async function sendLead(payload) {
-  payload.access_key = '4a200f57-1b34-4482-93d3-41531ab59898';
-  payload.subject = '[DBV] Bảo Hiểm Xe Ô Tô Điện';
-  payload.from_name = 'Landing Page DBV — Xe Điện';
-  payload.source = payload.source || 'Landing Page Xe Điện';
+  const ghiChu = [
+    payload.car ? ('Xe: ' + payload.car) : '',
+    payload.year ? ('Năm: ' + payload.year) : '',
+    payload.car_info || '',
+    payload.note || '',
+    payload.source ? ('Nguồn: ' + payload.source) : ''
+  ].filter(Boolean).join(' · ');
+  const data = {
+    'form-name': 'dbv-tuvan',
+    'san-pham': 'Bảo Hiểm Xe Ô Tô Điện',
+    'dien-thoai': payload.phone || '',
+    'ho-ten': payload.name || '',
+    'ghi-chu': ghiChu
+  };
   try {
-    await fetch('https://api.web3forms.com/submit', {
+    await fetch('/', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-      body: JSON.stringify(payload)
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams(data).toString()
     });
   } catch(e) { console.log('Webhook error:', e); }
 }
@@ -1205,7 +1215,7 @@ function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p){var ph=document.getElementById('float-phone');if(ph)ph.focus();return;}
   var ct=document.getElementById('float-cartype');var ctv=ct?ct.value:'';
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Xe Ô Tô Điện (float)',from_name:'Landing Page DBV','Số điện thoại':p,'Loại xe':ctv,'Trang':window.location.href})});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-float','san-pham':'Bảo Hiểm Xe Ô Tô Điện','dien-thoai':p,'loai-xe':ctv}).toString()});
   var ph2=document.getElementById('float-phone');if(ph2)ph2.disabled=true;
   if(ct)ct.disabled=true;
   var sc=document.getElementById('float-succ');if(sc){sc.style.display='block';}

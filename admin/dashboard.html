@@ -209,7 +209,12 @@ const FORM_LABELS = {
   'dbv-float': { label: 'Nút nổi', cls: 'badge-gold' }
 };
 const META_KEYS = ['ip','user_agent','referrer'];
-const FIELD_LABELS = { 'ho-ten':'Họ tên', 'dien-thoai':'Số điện thoại', 'san-pham':'Sản phẩm', 'ghi-chu':'Ghi chú' };
+const FIELD_LABELS = {
+  'ho-ten':'Họ tên', 'dien-thoai':'Số điện thoại', 'san-pham':'Sản phẩm', 'ghi-chu':'Ghi chú',
+  'loai-hinh-kd':'Loại hình KD', 'tinh-thanh':'Tỉnh thành', 'loai-tau':'Loại tàu',
+  'loai-xe':'Loại xe', 'hang-hoa':'Hàng hóa', 'loai':'Loại', 'so-nguoi':'Số người',
+  'so-ngay':'Số ngày', 'loai-hang':'Loại hàng hóa', 'phuong-tien':'Phương tiện', 'gia-tri':'Giá trị hàng hóa'
+};
 
 function unlockDashboard(){
   const key = document.getElementById('keyInput').value.trim();

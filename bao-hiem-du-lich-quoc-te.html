@@ -726,7 +726,7 @@ function updateFeeDisplay() {
 function submitForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Du Lịch Quốc Tế',from_name:'Landing Page DBV','Số điện thoại':p,'Trang':window.location.href})});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Du Lịch Quốc Tế','dien-thoai':p}).toString()});
   document.getElementById('form-succ').style.display='block';
   document.querySelector('.btn-primary').style.display='none';
 }
@@ -749,7 +749,7 @@ function toggleFloatForm(){
 function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p){document.getElementById('float-phone').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Du Lịch Quốc Tế (float)',from_name:'Landing Page DBV','Số điện thoại':p,'Trang':window.location.href})});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-float','san-pham':'Bảo Hiểm Du Lịch Quốc Tế','dien-thoai':p}).toString()});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-region').disabled=true;
   document.querySelector('#floatFormWrap button').style.display='none';

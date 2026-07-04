@@ -1012,7 +1012,7 @@ function submitForm(){
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   var nm=document.getElementById('f-name').value.trim();
   var bt=document.getElementById('f-boattype').value;
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Thân Tàu Thuỷ Nội Địa',from_name:'Landing Page DBV','Họ tên / DN':nm,'Số điện thoại':p,'Loại tàu':bt,'Trang':window.location.href})});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Thân Tàu Thuỷ Nội Địa','ho-ten':nm,'dien-thoai':p,'loai-tau':bt}).toString()});
   document.getElementById('form-succ').style.display='block';
   document.querySelector('#hero-form .btn-primary').style.display='none';
 }
@@ -1021,7 +1021,7 @@ function submitCtaForm(){
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   var nm=document.getElementById('cta-name').value.trim();
   var bt=document.getElementById('cta-boattype').value;
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Thân Tàu Thuỷ Nội Địa (CTA)',from_name:'Landing Page DBV','Họ tên / DN':nm,'Số điện thoại':p,'Loại tàu':bt,'Trang':window.location.href})});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Thân Tàu Thuỷ Nội Địa','ho-ten':nm,'dien-thoai':p,'loai-tau':bt}).toString()});
   document.getElementById('cta-succ').style.display='block';
   document.querySelector('.cta-form .btn-primary').style.display='none';
 }
@@ -1041,7 +1041,7 @@ function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p){document.getElementById('float-phone').focus();return;}
   var bt=document.getElementById('float-boattype').value;
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Thân Tàu Thuỷ Nội Địa (float)',from_name:'Landing Page DBV','Số điện thoại':p,'Loại tàu':bt,'Trang':window.location.href})});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-float','san-pham':'Bảo Hiểm Thân Tàu Thuỷ Nội Địa','dien-thoai':p,'loai-tau':bt}).toString()});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-boattype').disabled=true;
   document.querySelector('#floatFormWrap button').style.display='none';

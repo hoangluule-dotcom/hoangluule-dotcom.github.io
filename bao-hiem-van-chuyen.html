@@ -360,7 +360,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);background:var(--w
         <div class="form-card-sub">Chuyên viên DBV phản hồi trong 15 phút — miễn phí, không ràng buộc</div>
         <div class="fg">
           <label>Loại hàng hóa cần bảo hiểm</label>
-          <select required>
+          <select required name="loai-hang">
             <option value="" disabled selected>– Chọn loại hàng hóa –</option>
             <option>Hàng điện tử, thiết bị</option>
             <option>Thực phẩm, hàng tiêu dùng</option>
@@ -371,7 +371,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);background:var(--w
         </div>
         <div class="fg">
           <label>Phương tiện vận chuyển</label>
-          <select required>
+          <select required name="phuong-tien">
             <option value="" disabled selected>– Chọn phương tiện –</option>
             <option>Đường bộ (xe tải, container)</option>
             <option>Đường sắt</option>
@@ -380,7 +380,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);background:var(--w
         </div>
         <div class="fg">
           <label>Giá trị hàng hóa / chuyến</label>
-          <select required>
+          <select required name="gia-tri">
             <option value="" disabled selected>– Chọn giá trị ước tính –</option>
             <option>Dưới 500 triệu VNĐ</option>
             <option>500 triệu – 1 tỷ VNĐ</option>
@@ -391,7 +391,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);background:var(--w
         </div>
         <div class="fg">
           <label>Số điện thoại</label>
-          <input type="tel" placeholder="Nhập số điện thoại để nhận tư vấn" required/>
+          <input type="tel" name="dien-thoai" placeholder="Nhập số điện thoại để nhận tư vấn" required/>
         </div>
         <button class="btn-primary" onclick="submitForm(this)">Nhận báo giá trong 15 phút →</button>
         <div class="form-succ" id="formSucc">✅ Đã gửi thành công! Chuyên viên DBV sẽ liên hệ bạn trong 15 phút.</div>
@@ -911,7 +911,7 @@ function submitForm(btn) {
   });
   if (!valid) return;
   var _f={}; card.querySelectorAll('input,select').forEach(function(i){if(i.name||i.id)_f[i.name||i.id]=i.value;});
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(Object.assign({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] Bảo Hiểm Vận Chuyển Nội Địa',from_name:'Landing Page DBV','Trang':window.location.href},_f))});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(Object.assign({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Vận Chuyển Nội Địa'},_f)).toString()});
   btn.textContent = 'Đang gửi...';
   btn.disabled = true;
   setTimeout(() => {
