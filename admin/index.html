@@ -10,12 +10,12 @@
   <!-- Decap CMS (git-based CMS, đăng nhập bằng tài khoản GitHub) -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Thêm link nhanh tới trang Leads (Netlify Forms) trong sidebar quản trị, nếu API hỗ trợ.
+    // Thêm link nhanh tới trang Tổng quan (Dashboard) trong sidebar quản trị, nếu API hỗ trợ.
     if (window.CMS && typeof window.CMS.registerAdditionalLink === "function") {
       window.CMS.registerAdditionalLink({
-        id: "leads",
-        title: "Khách liên hệ (Leads)",
-        data: "https://app.netlify.com/projects/dbv247/forms",
+        id: "dashboard",
+        title: "📊 Tổng quan & Leads",
+        data: "/admin/dashboard.html",
         options: { icon: "page" }
       });
     }

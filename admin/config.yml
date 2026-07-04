@@ -2,7 +2,6 @@ backend:
   name: github
   repo: hoangluule-dotcom/hoangluule-dotcom.github.io
   branch: main
-  site_id: dbv247.com.vn
 
 media_folder: "images/news"
 public_folder: "/images/news"

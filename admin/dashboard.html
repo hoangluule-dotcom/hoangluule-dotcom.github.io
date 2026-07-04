@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tổng quan – Quản trị DBV247</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
+  --gold:#E8920A;--navy:#1B3A5C;--navyp:#132d47;
+  --dk:#1A2E1A;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--bg:#F7F9FC;--r12:12px;--r16:16px;
+  --sh:0 2px 16px rgba(0,0,0,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Be Vietnam Pro",sans-serif;background:var(--bg);color:var(--tx)}
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navyp));padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
+.topbar h1{color:#fff;font-size:19px;font-weight:800}
+.topbar-actions a{color:#fff;font-size:13px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.12);padding:9px 16px;border-radius:8px;margin-left:8px}
+.topbar-actions a:hover{background:rgba(255,255,255,.22)}
+.wrap{max-width:1100px;margin:0 auto;padding:32px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px}
+.stat-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);padding:22px;box-shadow:var(--sh)}
+.stat-label{font-size:12px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.stat-value{font-size:30px;font-weight:900;color:var(--dk)}
+.stat-sub{font-size:12.5px;color:var(--ts);margin-top:6px}
+.stat-card.muted{opacity:.6}
+.panel{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);box-shadow:var(--sh);overflow:hidden;margin-bottom:24px}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.panel-head h2{font-size:15px;font-weight:800;color:var(--dk)}
+.panel-head a{font-size:12.5px;font-weight:700;color:var(--g);text-decoration:none}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ts);padding:10px 22px;border-bottom:1px solid var(--bd);background:var(--bg)}
+td{padding:12px 22px;font-size:13.5px;border-bottom:1px solid var(--bd);color:var(--tm)}
+tr:last-child td{border-bottom:none}
+.empty-row td{text-align:center;color:var(--ts);padding:30px}
+.gate{max-width:380px;margin:120px auto;background:#fff;border:1px solid var(--bd);border-radius:var(--r16);padding:32px;box-shadow:var(--sh);text-align:center}
+.gate h2{font-size:16px;font-weight:800;margin-bottom:8px;color:var(--dk)}
+.gate p{font-size:13px;color:var(--ts);margin-bottom:18px}
+.gate input{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;margin-bottom:12px;font-family:inherit}
+.gate button{width:100%;background:var(--g);color:#fff;font-weight:700;padding:12px;border:none;border-radius:10px;cursor:pointer;font-family:inherit}
+.gate button:hover{background:var(--gp)}
+.gate-error{color:#c0392b;font-size:12.5px;margin-top:10px;display:none}
+#dashboardBody{display:none}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+  <h2>🔒 Truy cập Dashboard</h2>
+  <p>Nhập khoá truy cập nội bộ (do quản trị viên cung cấp)</p>
+  <input type="password" id="keyInput" placeholder="Access key">
+  <button onclick="unlockDashboard()">Vào Dashboard</button>
+  <div class="gate-error" id="gateError">Sai khoá truy cập, thử lại.</div>
+</div>
+
+<div id="dashboardBody">
+  <div class="topbar">
+    <h1>📊 Dashboard quản trị DBV247</h1>
+    <div class="topbar-actions">
+      <a href="/admin/#/collections/news">✏️ Sửa nội dung (CMS)</a>
+      <a href="/" target="_blank">🌐 Xem website</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Tin tức đã đăng</div>
+        <div class="stat-value" id="statNews">–</div>
+        <div class="stat-sub">Tổng số bài viết hiện có</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Khách liên hệ (Leads)</div>
+        <div class="stat-value" id="statLeads">–</div>
+        <div class="stat-sub">Tổng số lượt gửi form</div>
+      </div>
+      <div class="stat-card muted">
+        <div class="stat-label">Lượt truy cập website</div>
+        <div class="stat-value">—</div>
+        <div class="stat-sub">Chưa kết nối Google Analytics</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Khách liên hệ gần đây</h2>
+        <a href="https://app.netlify.com/projects/dbv247/forms" target="_blank">Xem đầy đủ trên Netlify →</a>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Thời gian</th><th>Form</th><th>Thông tin</th></tr>
+        </thead>
+        <tbody id="leadsTableBody">
+          <tr class="empty-row"><td colspan="3">Đang tải...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY_STORAGE = "dbv247_dashboard_key";
+
+function unlockDashboard(){
+  const key = document.getElementById('keyInput').value.trim();
+  if(!key){ return; }
+  loadDashboard(key, true);
+}
+
+function showGateError(){
+  document.getElementById('gateError').style.display = 'block';
+}
+
+function showDashboard(){
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('dashboardBody').style.display = 'block';
+}
+
+function formatDate(iso){
+  try{
+    const d = new Date(iso);
+    return d.toLocaleString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }catch(e){ return iso; }
+}
+
+function renderLeadInfo(data){
+  var parts = [];
+  for(var k in data){
+    if(k === 'form-name') continue;
+    if(!data[k]) continue;
+    parts.push('<strong>' + k + ':</strong> ' + data[k]);
+  }
+  return parts.join(' · ') || '(không có dữ liệu)';
+}
+
+function loadDashboard(key, isManualUnlock){
+  fetch('/.netlify/functions/leads', { headers: { 'x-dashboard-key': key } })
+    .then(function(r){
+      if(r.status === 401){ throw new Error('unauthorized'); }
+      return r.json();
+    })
+    .then(function(data){
+      localStorage.setItem(KEY_STORAGE, key);
+      showDashboard();
+      document.getElementById('statLeads').textContent = data.total || 0;
+
+      var tbody = document.getElementById('leadsTableBody');
+      tbody.innerHTML = '';
+      if(!data.submissions || !data.submissions.length){
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="3">Chưa có lượt liên hệ nào.</td></tr>';
+      } else {
+        data.submissions.slice(0, 30).forEach(function(s){
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td>' + formatDate(s.created_at) + '</td>' +
+            '<td>' + (s.form_name || '') + '</td>' +
+            '<td>' + renderLeadInfo(s.data || {}) + '</td>';
+          tbody.appendChild(tr);
+        });
+      }
+    })
+    .catch(function(){
+      if(isManualUnlock){ showGateError(); }
+      localStorage.removeItem(KEY_STORAGE);
+    });
+
+  fetch('/content/news.json')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      document.getElementById('statNews').textContent = (data.posts || []).length;
+    })
+    .catch(function(){});
+}
+
+(function(){
+  var saved = localStorage.getItem(KEY_STORAGE);
+  if(saved){ loadDashboard(saved, false); }
+})();
+</script>
+
+</body>
+</html>
