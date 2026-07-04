@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>DBV247 – Quản trị nội dung</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <!-- Decap CMS (git-based CMS, đăng nhập bằng tài khoản GitHub) -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Thêm link nhanh tới trang Leads (Netlify Forms) trong sidebar quản trị, nếu API hỗ trợ.
+    if (window.CMS && typeof window.CMS.registerAdditionalLink === "function") {
+      window.CMS.registerAdditionalLink({
+        id: "leads",
+        title: "Khách liên hệ (Leads)",
+        data: "https://app.netlify.com/projects/dbv247/forms",
+        options: { icon: "page" }
+      });
+    }
+  </script>
+</body>
+</html>

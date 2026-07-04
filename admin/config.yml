@@ -1,0 +1,45 @@
+backend:
+  name: github
+  repo: hoangluule-dotcom/hoangluule-dotcom.github.io
+  branch: main
+
+media_folder: "images/news"
+public_folder: "/images/news"
+
+locale: "vi"
+
+collections:
+  - name: "settings"
+    label: "Thông tin liên hệ"
+    label_singular: "Thông tin liên hệ"
+    files:
+      - file: "content/settings.json"
+        label: "Thông tin liên hệ chung (áp dụng toàn bộ website)"
+        name: "settings"
+        fields:
+          - {label: "Số điện thoại (chỉ số, không dấu cách)", name: "phone", widget: "string", pattern: ['^[0-9]+$', "Chỉ nhập số, không có dấu cách hoặc ký tự khác"]}
+          - {label: "Số điện thoại (hiển thị, có dấu cách)", name: "phone_display", widget: "string"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Link Zalo", name: "zalo_link", widget: "string"}
+          - {label: "Mã số thuế", name: "tax_code", widget: "string"}
+          - {label: "Địa chỉ", name: "address", widget: "string"}
+
+  - name: "news"
+    label: "Tin tức"
+    label_singular: "Bài viết"
+    files:
+      - file: "content/news.json"
+        label: "Danh sách tin tức"
+        name: "news"
+        fields:
+          - label: "Danh sách bài viết"
+            name: "posts"
+            widget: "list"
+            label_singular: "Bài viết"
+            summary: "{{title}} — {{date}}"
+            fields:
+              - {label: "Tiêu đề", name: "title", widget: "string"}
+              - {label: "Ngày đăng", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false}
+              - {label: "Ảnh đại diện", name: "cover", widget: "image", required: false, hint: "Không bắt buộc"}
+              - {label: "Tóm tắt ngắn", name: "excerpt", widget: "text"}
+              - {label: "Nội dung bài viết", name: "body", widget: "markdown"}

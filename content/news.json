@@ -1,0 +1,11 @@
+{
+  "posts": [
+    {
+      "title": "Chào mừng đến với Tin tức DBV247",
+      "date": "2026-07-04",
+      "cover": "",
+      "excerpt": "Đây là bài viết mẫu. Vào trang quản trị /admin để thêm, sửa hoặc xoá tin tức — thay đổi sẽ tự động hiển thị tại đây.",
+      "body": "Chào mừng bạn đến với chuyên mục Tin tức của DBV247!\n\nTừ nay, đội ngũ DBV247 có thể đăng tin tức, thông báo, kiến thức bảo hiểm... trực tiếp qua trang quản trị tại **/admin** mà không cần chỉnh sửa code.\n\nHãy đăng nhập bằng tài khoản GitHub được cấp để bắt đầu thêm bài viết đầu tiên của bạn."
+    }
+  ]
+}
