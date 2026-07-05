@@ -767,6 +767,10 @@ img, svg, video { max-width: 100%; height: auto; }
 .prod-img-card-body{padding:16px 18px 18px;text-align:center}
 .prod-img-card-name{font-weight:800;font-size:14.5px;color:var(--dk);margin-bottom:7px;line-height:1.3}
 .prod-img-card-desc{font-size:12.5px;color:var(--ts);line-height:1.6;margin-bottom:12px}
+.prod-img-card-tags{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0 14px}
+.prod-img-card-tag{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;padding:9px 6px 8px;background:#f4fbf6;border:1px solid rgba(0,116,55,.13);border-radius:10px;font-size:10px;font-weight:700;color:var(--dk);text-align:center;line-height:1.3;transition:.2s}
+.prod-img-card-tag svg{flex-shrink:0;vertical-align:unset}
+.prod-img-card-tag:has(svg[stroke="#f97316"]){background:#fff8f3;border-color:rgba(249,115,22,.18)}
 .prod-img-card-cta{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--g)}
 @media(max-width:768px){.prod-img-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
 @media(max-width:480px){.prod-img-grid{grid-template-columns:1fr;gap:12px}}
@@ -787,7 +791,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <a href="/tin-tuc">Tin tức</a>
       <a href="#contact">Liên hệ</a>
     </nav>
-    <a href="/san-pham" class="hdr-allprod" style="margin-left:8px">☰ Tất cả sản phẩm</a>
+    <a href="/san-pham" class="hdr-allprod" style="margin-left:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Tất cả sản phẩm</a>
     <div class="hdr-actions">
       <a href="tel:0869656561" class="hdr-tel">
         <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
@@ -836,10 +840,10 @@ img, svg, video { max-width: 100%; height: auto; }
               <label class="reg-label">Nghiệp vụ sản phẩm</label>
               <select class="reg-select" name="san-pham" required>
                 <option value="" disabled selected>-- Chọn nghiệp vụ --</option>
-                <option value="Bảo hiểm xe cơ giới">🚗 Bảo hiểm xe cơ giới</option>
-                <option value="Bảo hiểm con người & sức khỏe">❤️ Bảo hiểm con người &amp; sức khỏe</option>
-                <option value="Bảo hiểm tài sản & kỹ thuật">🏠 Bảo hiểm tài sản &amp; kỹ thuật</option>
-                <option value="Bảo hiểm hàng hải & du lịch">⚓ Bảo hiểm hàng hải &amp; du lịch</option>
+                <option value="Bảo hiểm xe cơ giới">Bảo hiểm xe cơ giới</option>
+                <option value="Bảo hiểm con người & sức khỏe">Bảo hiểm con người &amp; sức khỏe</option>
+                <option value="Bảo hiểm tài sản & kỹ thuật">Bảo hiểm tài sản &amp; kỹ thuật</option>
+                <option value="Bảo hiểm hàng hải & du lịch">Bảo hiểm hàng hải &amp; du lịch</option>
               </select>
             </div>
             <div class="reg-field">
@@ -851,10 +855,10 @@ img, svg, video { max-width: 100%; height: auto; }
         </div>
 
         <div id="reg-success" class="reg-success" style="display:none">
-          <div class="reg-success-icon">✅</div>
+          <div class="reg-success-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
           <div class="reg-success-title">Đã nhận thông tin!</div>
           <p class="reg-success-note">Chuyên viên DBV sẽ liên hệ bạn trong vòng <strong>15 phút</strong> trong giờ làm việc.</p>
-          <a href="tel:0869656561" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:var(--g);color:#fff;padding:10px 22px;border-radius:30px;font-size:13px;font-weight:700;text-decoration:none">📞 Gọi ngay để nhanh hơn</a>
+          <a href="tel:0869656561" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:var(--g);color:#fff;padding:10px 22px;border-radius:30px;font-size:13px;font-weight:700;text-decoration:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.77 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.92z"/></svg> Gọi ngay để nhanh hơn</a>
         </div>
 
         <div class="hcard-footer">Hoặc <a href="tel:0869656561">gọi 0869 656 561</a> · <a href="https://zalo.me/1283738895804393564">nhắn Zalo</a></div>
@@ -902,12 +906,12 @@ img, svg, video { max-width: 100%; height: auto; }
     </div>
 
     <div class="prod-tabs">
-      <button class="prod-tab active" onclick="showTab('hotpro')">🔥 Được mua nhiều</button>
-      <button class="prod-tab" onclick="showTab('xecogioi')">🚗 Xe Cơ Giới</button>
-      <button class="prod-tab" onclick="showTab('hanghai')">⚓ Hàng Hải</button>
-      <button class="prod-tab" onclick="showTab('taisan')">🏠 Tài Sản & Kỹ Thuật</button>
-      <button class="prod-tab" onclick="showTab('conguoi')">❤️ Du Lịch & Con Người</button>
-      <button class="prod-tab" onclick="showTab('trachnhiem')">⚖️ Trách Nhiệm</button>
+      <button class="prod-tab active" onclick="showTab('hotpro')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg> Được mua nhiều</button>
+      <button class="prod-tab" onclick="showTab('xecogioi')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg> Xe Cơ Giới</button>
+      <button class="prod-tab" onclick="showTab('hanghai')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg> Hàng Hải</button>
+      <button class="prod-tab" onclick="showTab('taisan')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><path d="M9 7h1m4 0h1M9 12h1"/></svg> Tài Sản & Kỹ Thuật</button>
+      <button class="prod-tab" onclick="showTab('conguoi')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Du Lịch & Con Người</button>
+      <button class="prod-tab" onclick="showTab('trachnhiem')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Trách Nhiệm</button>
     </div>
 
     <div id="tab-hotpro" class="prod-panel active">
@@ -915,15 +919,15 @@ img, svg, video { max-width: 100%; height: auto; }
       <a class="prod-img-card" href="/bao-hiem-vat-chat-oto">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
           <img src="/than-vo-oto.png" alt="Vật chất ô tô" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div class="prod-img-badge hot">🔥 Hot</div>
+          <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Vật chất ô tô</div>
           <div class="prod-img-card-desc">Yên tâm lái xe – toàn bộ chi phí sửa chữa sau va chạm, cháy nổ, thiên tai đều được bồi thường.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🛡️ Va chạm & tai nạn</span>
-          <span class="prod-img-card-tag">🔥 Cháy nổ</span>
-          <span class="prod-img-card-tag">🌊 Thiên tai</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Va chạm & tai nạn</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg> Cháy nổ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> Thiên tai</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -931,15 +935,15 @@ img, svg, video { max-width: 100%; height: auto; }
       <a class="prod-img-card" href="/bao-hiem-tnds-oto">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
           <img src="/tnds-oto.png" alt="TNDS ô tô bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div class="prod-img-badge hot">🔥 Hot</div>
+          <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">TNDS ô tô bắt buộc</div>
           <div class="prod-img-card-desc">Đúng pháp luật – không lo bị phạt, được bảo vệ khi gây tai nạn cho người khác.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">⚖️ Bắt buộc</span>
-          <span class="prod-img-card-tag">👥 Bên thứ ba</span>
-          <span class="prod-img-card-tag">🚔 Tránh bị phạt</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Bắt buộc</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Bên thứ ba</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Tránh bị phạt</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -947,15 +951,15 @@ img, svg, video { max-width: 100%; height: auto; }
       <a class="prod-img-card" href="/bao-hiem-chay-no">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
           <img src="/chay-no-bat-buoc.png" alt="Cháy nổ bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div class="prod-img-badge hot">🔥 Hot</div>
+          <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Cháy nổ bắt buộc</div>
           <div class="prod-img-card-desc">Đủ điều kiện kinh doanh & bảo vệ tài sản trước rủi ro cháy nổ theo quy định nhà nước.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">✅ Bắt buộc</span>
-          <span class="prod-img-card-tag">🏢 Tài sản DN</span>
-          <span class="prod-img-card-tag">📋 Nghị định 23</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Bắt buộc</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><path d="M9 7h1m4 0h1M9 12h1"/></svg> Tài sản DN</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Nghị định 23</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -963,15 +967,15 @@ img, svg, video { max-width: 100%; height: auto; }
       <a class="prod-img-card" href="/bao-hiem-tai-nan">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
           <img src="/tai-nan-ca-nhan.png" alt="Tai nạn cá nhân" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div class="prod-img-badge hot">🔥 Hot</div>
+          <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Tai nạn cá nhân</div>
           <div class="prod-img-card-desc">Nhận bồi thường nhanh – không cần nằm viện, tai nạn ở bất kỳ đâu đều được chi trả.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">⚡ Bồi thường nhanh</span>
-          <span class="prod-img-card-tag">🌍 Mọi địa điểm</span>
-          <span class="prod-img-card-tag">💊 Nội & ngoại trú</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Bồi thường nhanh</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Mọi địa điểm</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Nội & ngoại trú</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -979,15 +983,15 @@ img, svg, video { max-width: 100%; height: auto; }
       <a class="prod-img-card" href="/bao-hiem-suc-khoe">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
           <img src="/suc-khoe.png" alt="Bảo hiểm sức khỏe" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div class="prod-img-badge hot">🔥 Hot</div>
+          <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Bảo hiểm sức khỏe</div>
           <div class="prod-img-card-desc">Không lo viện phí – toàn bộ chi phí nằm viện, phẫu thuật, thuốc men được chi trả.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏥 Nội trú</span>
-          <span class="prod-img-card-tag">💊 Thuốc men</span>
-          <span class="prod-img-card-tag">🔬 Phẫu thuật</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> Nội trú</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Thuốc men</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Phẫu thuật</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -995,15 +999,15 @@ img, svg, video { max-width: 100%; height: auto; }
       <a class="prod-img-card" href="/bao-hiem-van-chuyen">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
           <img src="/hang-hoa-van-chuyen-noi-dia.png" alt="Vận chuyển hàng hóa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div class="prod-img-badge hot">🔥 Hot</div>
+          <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Vận chuyển hàng hóa</div>
           <div class="prod-img-card-desc">Giao hàng an toàn – mọi tổn thất vận chuyển đường bộ, đường thuỷ đều được bồi thường.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🚚 Đường bộ</span>
-          <span class="prod-img-card-tag">🚢 Đường thuỷ</span>
-          <span class="prod-img-card-tag">📦 ICC A/B/C</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Đường bộ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg> Đường thuỷ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> ICC A/B/C</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1020,9 +1024,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Vật chất ô tô</div>
           <div class="prod-img-card-desc">Yên tâm lái xe – toàn bộ chi phí sửa chữa sau va chạm, cháy nổ, thiên tai đều được bồi thường.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🛡️ Va chạm & tai nạn</span>
-          <span class="prod-img-card-tag">🔥 Cháy nổ</span>
-          <span class="prod-img-card-tag">🌊 Thiên tai</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Va chạm & tai nạn</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg> Cháy nổ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> Thiên tai</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1035,9 +1039,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">TNDS ô tô bắt buộc</div>
           <div class="prod-img-card-desc">Lưu thông hợp pháp – bồi thường thiệt hại thân thể & tài sản người thứ ba.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">⚖️ Bắt buộc</span>
-          <span class="prod-img-card-tag">👥 Người thứ ba</span>
-          <span class="prod-img-card-tag">🚗 Ô tô</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Bắt buộc</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Người thứ ba</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg> Ô tô</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1050,9 +1054,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">TNDS xe máy bắt buộc</div>
           <div class="prod-img-card-desc">Lưu thông hợp pháp – bảo đảm quyền lợi bên thứ ba khi xe máy gây tai nạn.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">⚖️ Bắt buộc</span>
-          <span class="prod-img-card-tag">🛵 Xe máy</span>
-          <span class="prod-img-card-tag">👥 Người thứ ba</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Bắt buộc</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M5 17H3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M11 17h4"/><path d="M9 9l3-4h6l2 4"/></svg> Xe máy</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Người thứ ba</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1066,9 +1070,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Vật chất ô tô điện</div>
           <div class="prod-img-card-desc">Bảo vệ đặc biệt pin & hệ thống điện – giải pháp tiên phong dành riêng cho xe EV.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🔋 Pin EV</span>
-          <span class="prod-img-card-tag">⚡ Hệ thống điện</span>
-          <span class="prod-img-card-tag">🆕 Sản phẩm mới</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg> Pin EV</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Hệ thống điện</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Sản phẩm mới</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1085,9 +1089,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Vận chuyển hàng hóa nội địa</div>
           <div class="prod-img-card-desc">Hàng đến đúng nơi, đúng số lượng – mọi tổn thất vận chuyển nội địa đều được bồi thường.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🚚 Đường bộ</span>
-          <span class="prod-img-card-tag">🚢 Đường thuỷ</span>
-          <span class="prod-img-card-tag">📦 All risk</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Đường bộ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg> Đường thuỷ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> All risk</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1100,9 +1104,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Hàng hóa xuất nhập khẩu</div>
           <div class="prod-img-card-desc">Xuất nhập khẩu an toàn – bảo vệ toàn bộ lô hàng từ kho người bán đến tay người mua.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">✈️ Quốc tế</span>
-          <span class="prod-img-card-tag">🚢 Đường biển</span>
-          <span class="prod-img-card-tag">📋 ICC A/B/C</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg> Quốc tế</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg> Đường biển</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> ICC A/B/C</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1115,9 +1119,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Bảo hiểm bưu gửi</div>
           <div class="prod-img-card-desc">Gửi hàng không lo mất – đền bù đầy đủ khi bưu gửi thất lạc hoặc hư hỏng qua mọi đơn vị.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">📦 Mọi đơn vị</span>
-          <span class="prod-img-card-tag">🔍 Kiểm soát rủi ro</span>
-          <span class="prod-img-card-tag">💰 Bồi thường nhanh</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Mọi đơn vị</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Kiểm soát rủi ro</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Bồi thường nhanh</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1134,9 +1138,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Cháy nổ bắt buộc</div>
           <div class="prod-img-card-desc">Tuân thủ pháp luật & bảo vệ cơ sở kinh doanh 24/7 trước nguy cơ cháy nổ.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">✅ Bắt buộc</span>
-          <span class="prod-img-card-tag">🏢 Tài sản</span>
-          <span class="prod-img-card-tag">📋 Nghị định 23</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Bắt buộc</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><path d="M9 7h1m4 0h1M9 12h1"/></svg> Tài sản</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Nghị định 23</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1150,9 +1154,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Cháy nổ hộ kinh doanh</div>
           <div class="prod-img-card-desc">Bảo vệ cửa hàng, kho xưởng linh hoạt – không bắt buộc nhưng thiệt hại thực sự có thể rất lớn.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏪 Hộ kinh doanh</span>
-          <span class="prod-img-card-tag">💡 Tự nguyện</span>
-          <span class="prod-img-card-tag">🔥 Phòng ngừa rủi ro</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Hộ kinh doanh</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> Tự nguyện</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg> Phòng ngừa rủi ro</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1165,9 +1169,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Hỏa hoạn & rủi ro đặc biệt</div>
           <div class="prod-img-card-desc">Bảo vệ tài sản toàn diện trước hỏa hoạn, thiên tai, bão lũ và mọi rủi ro khó lường.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🌊 Thiên tai</span>
-          <span class="prod-img-card-tag">⚡ Sét đánh</span>
-          <span class="prod-img-card-tag">💨 Bão lũ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> Thiên tai</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Sét đánh</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg> Bão lũ</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1180,9 +1184,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Mọi rủi ro tài sản</div>
           <div class="prod-img-card-desc">Phạm vi bảo vệ rộng nhất – một hợp đồng, toàn bộ tài sản doanh nghiệp an toàn mọi lúc.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏢 Doanh nghiệp</span>
-          <span class="prod-img-card-tag">🔒 Toàn diện</span>
-          <span class="prod-img-card-tag">📊 All risk</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><path d="M9 7h1m4 0h1M9 12h1"/></svg> Doanh nghiệp</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Toàn diện</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> All risk</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1195,9 +1199,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Công trình xây dựng & lắp đặt</div>
           <div class="prod-img-card-desc">Bảo vệ toàn bộ giá trị công trình từ ngày khởi công đến khi bàn giao – không bỏ sót rủi ro nào.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏗️ Khởi công → Bàn giao</span>
-          <span class="prod-img-card-tag">🔧 Lắp đặt</span>
-          <span class="prod-img-card-tag">👷 Nhà thầu</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Khởi công → Bàn giao</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Lắp đặt</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M2 18h20v2H2z"/><path d="M20 14a8 8 0 1 0-16 0h16z"/><path d="M12 6v4"/></svg> Nhà thầu</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1214,9 +1218,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Tai nạn cá nhân</div>
           <div class="prod-img-card-desc">Nhận bồi thường nhanh – không cần nằm viện, tai nạn ở bất kỳ đâu đều được chi trả.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">⚡ Bồi thường nhanh</span>
-          <span class="prod-img-card-tag">🌍 Mọi địa điểm</span>
-          <span class="prod-img-card-tag">💊 Nội & ngoại trú</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Bồi thường nhanh</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Mọi địa điểm</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Nội & ngoại trú</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1229,9 +1233,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Bảo hiểm sức khỏe</div>
           <div class="prod-img-card-desc">Không lo viện phí – toàn bộ chi phí nằm viện, phẫu thuật, thuốc men được chi trả.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏥 Nội trú</span>
-          <span class="prod-img-card-tag">💊 Thuốc men</span>
-          <span class="prod-img-card-tag">🔬 Phẫu thuật</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> Nội trú</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Thuốc men</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Phẫu thuật</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1244,9 +1248,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Tai nạn người thứ ba</div>
           <div class="prod-img-card-desc">Tránh rủi ro pháp lý – bồi thường khi khách hàng bị tai nạn trong khuôn viên doanh nghiệp.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏢 Khuôn viên DN</span>
-          <span class="prod-img-card-tag">👥 Khách hàng</span>
-          <span class="prod-img-card-tag">⚖️ Rủi ro pháp lý</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><path d="M9 7h1m4 0h1M9 12h1"/></svg> Khuôn viên DN</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Khách hàng</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Rủi ro pháp lý</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1259,9 +1263,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Tai nạn con người (KCB)</div>
           <div class="prod-img-card-desc">Chăm sóc sức khoẻ toàn diện cho nhân viên – không giới hạn số lần khám, không cần nằm viện.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏥 KCB ngoại trú</span>
-          <span class="prod-img-card-tag">👨‍💼 Tập thể NLĐ</span>
-          <span class="prod-img-card-tag">💊 Không giới hạn</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> KCB ngoại trú</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Tập thể NLĐ</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Không giới hạn</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1274,9 +1278,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Du lịch nội địa</div>
           <div class="prod-img-card-desc">An tâm mỗi chuyến đi – hỗ trợ khẩn cấp 24/7, bồi thường tại chỗ khi có sự cố bất ngờ.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🗺️ Trong nước</span>
-          <span class="prod-img-card-tag">🆘 Hỗ trợ 24/7</span>
-          <span class="prod-img-card-tag">🏥 Y tế khẩn cấp</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Trong nước</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Hỗ trợ 24/7</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> Y tế khẩn cấp</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1289,9 +1293,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Du lịch quốc tế</div>
           <div class="prod-img-card-desc">Khám phá thế giới không lo chi phí – y tế khẩn cấp, hành lý và pháp lý được bảo vệ toàn cầu.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">✈️ Toàn cầu</span>
-          <span class="prod-img-card-tag">🏥 Y tế quốc tế</span>
-          <span class="prod-img-card-tag">🧳 Hành lý</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg> Toàn cầu</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> Y tế quốc tế</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Hành lý</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1309,9 +1313,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Trách nhiệm chung</div>
           <div class="prod-img-card-desc">Doanh nghiệp vận hành tự tin – bảo vệ trước mọi yêu cầu bồi thường từ bên thứ ba.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏢 Doanh nghiệp</span>
-          <span class="prod-img-card-tag">⚖️ Pháp lý</span>
-          <span class="prod-img-card-tag">👥 Bên thứ ba</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><path d="M9 7h1m4 0h1M9 12h1"/></svg> Doanh nghiệp</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Pháp lý</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Bên thứ ba</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1325,9 +1329,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Trách nhiệm công cộng</div>
           <div class="prod-img-card-desc">Kinh doanh không lo rủi ro pháp lý với cộng đồng – bảo vệ trước các khiếu kiện phát sinh.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏪 Cơ sở KD</span>
-          <span class="prod-img-card-tag">👥 Cộng đồng</span>
-          <span class="prod-img-card-tag">⚖️ Khiếu kiện</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Cơ sở KD</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Cộng đồng</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Khiếu kiện</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1341,9 +1345,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Nghề nghiệp khám chữa bệnh</div>
           <div class="prod-img-card-desc">Hành nghề y tự tin – bồi thường rủi ro pháp lý phát sinh trong quá trình khám và điều trị.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏥 Y tế</span>
-          <span class="prod-img-card-tag">👨‍⚕️ Bác sĩ/Cơ sở</span>
-          <span class="prod-img-card-tag">⚖️ Pháp lý nghề nghiệp</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> Y tế</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> Bác sĩ/Cơ sở</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Pháp lý nghề nghiệp</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1357,9 +1361,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Nghề nghiệp luật sư & Công chứng viên</div>
           <div class="prod-img-card-desc">Hành nghề pháp lý bảo đảm – bảo vệ trước rủi ro sai sót trong tư vấn và công chứng.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">⚖️ Luật sư</span>
-          <span class="prod-img-card-tag">📋 Công chứng</span>
-          <span class="prod-img-card-tag">🔍 Sai sót nghề nghiệp</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Luật sư</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Công chứng</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Sai sót nghề nghiệp</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1373,9 +1377,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <div class="prod-img-card-name">Nghề nghiệp tư vấn, thiết kế & giám sát</div>
           <div class="prod-img-card-desc">Thiết kế, tư vấn tự tin – bảo vệ pháp lý trước rủi ro sai sót kỹ thuật trong công trình.</div>
           <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag">🏗️ Công trình</span>
-          <span class="prod-img-card-tag">👷 Kỹ sư/KTS</span>
-          <span class="prod-img-card-tag">📐 Sai sót kỹ thuật</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Công trình</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M2 18h20v2H2z"/><path d="M20 14a8 8 0 1 0-16 0h16z"/><path d="M12 6v4"/></svg> Kỹ sư/KTS</span>
+          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M2 20l20-20"/><path d="M6 16l4-4M10 12l4-4M14 8l4-4"/><rect x="2" y="14" width="20" height="8" rx="1" transform="rotate(-45 12 18)"/></svg> Sai sót kỹ thuật</span>
           </div>
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
@@ -1800,8 +1804,8 @@ img, svg, video { max-width: 100%; height: auto; }
     <h2>Bắt đầu bảo vệ ngay hôm nay</h2>
     <p>Tư vấn miễn phí – Báo giá trong 30 phút – Cấp đơn trong ngày</p>
     <div class="cta-btns">
-      <a href="tel:0869656561" class="cta-btn-primary">📞 Gọi 0869 656 561</a>
-      <a href="https://zalo.me/1283738895804393564" class="cta-btn-secondary">💬 Nhắn Zalo ngay</a>
+      <a href="tel:0869656561" class="cta-btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.77 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.92z"/></svg> Gọi 0869 656 561</a>
+      <a href="https://zalo.me/1283738895804393564" class="cta-btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Nhắn Zalo ngay</a>
     </div>
   </div>
 </section>
@@ -1853,19 +1857,19 @@ img, svg, video { max-width: 100%; height: auto; }
         <div class="f-col-title">Liên hệ</div>
         <div class="f-contact-list">
           <div class="f-contact-item">
-            <span class="f-contact-icon fci-phone">📞</span>
+            <span class="f-contact-icon fci-phone"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.77 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.92z"/></svg></span>
             <a href="tel:0869656561">0869 656 561</a>
           </div>
           <div class="f-contact-item">
-            <span class="f-contact-icon fci-email">✉️</span>
+            <span class="f-contact-icon fci-email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
             <a href="mailto:dbvi247@gmail.com">dbvi247@gmail.com</a>
           </div>
           <div class="f-contact-item">
-            <span class="f-contact-icon fci-zalo">💬</span>
+            <span class="f-contact-icon fci-zalo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
             <a href="https://zalo.me/1283738895804393564">Zalo: 0869 656 561</a>
           </div>
           <div class="f-contact-item">
-            <span class="f-contact-icon fci-web">🌐</span>
+            <span class="f-contact-icon fci-web"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
             <a href="https://dbv247.com.vn">www.dbv247.com.vn</a>
           </div>
         </div>
@@ -1894,10 +1898,10 @@ img, svg, video { max-width: 100%; height: auto; }
         <input type="hidden" name="form-name" value="dbv-float">
         <select name="san-pham" id="float-product" style="width:100%;padding:9px 12px;border:1.5px solid var(--bd);border-radius:7px;font-family:'Be Vietnam Pro',sans-serif;font-size:12.5px;color:var(--tx);outline:none;appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E") right 10px center no-repeat" required>
           <option value="" disabled selected>-- Chọn nghiệp vụ --</option>
-          <option value="Bảo hiểm xe cơ giới">🚗 Xe cơ giới</option>
-          <option value="Bảo hiểm con người & sức khỏe">❤️ Con người &amp; sức khỏe</option>
-          <option value="Bảo hiểm tài sản & kỹ thuật">🏠 Tài sản &amp; kỹ thuật</option>
-          <option value="Bảo hiểm hàng hải & du lịch">⚓ Hàng hải &amp; du lịch</option>
+          <option value="Bảo hiểm xe cơ giới">Xe cơ giới</option>
+          <option value="Bảo hiểm con người & sức khỏe">Con người &amp; sức khỏe</option>
+          <option value="Bảo hiểm tài sản & kỹ thuật">Tài sản &amp; kỹ thuật</option>
+          <option value="Bảo hiểm hàng hải & du lịch">Hàng hải &amp; du lịch</option>
         </select>
         <div style="display:flex;gap:6px">
           <input type="tel" id="float-phone" name="dien-thoai" placeholder="Số điện thoại..." style="flex:1;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-family:'Be Vietnam Pro',sans-serif;font-size:12.5px;outline:none;min-width:0" required pattern="[0-9]{9,11}"/>
@@ -1999,18 +2003,18 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
 <script>
 /* ── Hero card wizard ── */
 const HP = {
-  xe:{t:'🚗 Xe cơ giới — chọn sản phẩm',p:[
+  xe:{t:'Xe cơ giới — chọn sản phẩm',p:[
     {l:'Vật chất ô tô',h:'bao-hiem-vat-chat-oto.html'},
     {l:'TNDS ô tô bắt buộc',h:'bao-hiem-tnds-oto.html'},
     {l:'TNDS xe máy bắt buộc',h:'bao-hiem-tnds-xemay.html'},
     {l:'Vật chất ô tô điện',h:'bao-hiem-oto-dien.html'}
   ]},
-  hanghai:{t:'⚓ Hàng hải — chọn sản phẩm',p:[
+  hanghai:{t:'Hàng hải — chọn sản phẩm',p:[
     {l:'Vận chuyển hàng hóa nội địa',h:'bao-hiem-van-chuyen.html'},
     {l:'Hàng hóa xuất nhập khẩu',h:'bao-hiem-xnk.html'},
     {l:'Bảo hiểm bưu gửi',h:'bao-hiem-buu-gui.html'}
   ]},
-  connguoi:{t:'❤️ Con người — chọn sản phẩm',p:[
+  connguoi:{t:'Con người — chọn sản phẩm',p:[
     {l:'Tai nạn cá nhân',h:'bao-hiem-tai-nan.html'},
     {l:'Sức khỏe',h:'bao-hiem-suc-khoe.html'},
     {l:'Tai nạn người thứ ba',h:'bao-hiem-tnc.html'},
@@ -2018,20 +2022,20 @@ const HP = {
     {l:'Tai nạn con người (lớn)',h:'bao-hiem-tnn-ls.html'},
     {l:'Tai nạn tư vấn & thiết kế',h:'bao-hiem-tnn-tvtk.html'}
   ]},
-  dulich:{t:'✈️ Du lịch — chọn sản phẩm',p:[
+  dulich:{t:'Du lịch — chọn sản phẩm',p:[
     {l:'Du lịch nội địa',h:'bao-hiem-du-lich-noi-dia.html'},
     {l:'Du lịch quốc tế',h:'bao-hiem-du-lich-quoc-te.html'}
   ]},
-  taisan:{t:'🏠 Tài sản — chọn sản phẩm',p:[
+  taisan:{t:'Tài sản — chọn sản phẩm',p:[
     {l:'Cháy nổ bắt buộc',h:'bao-hiem-chay-no.html'},
     {l:'Cháy nổ hộ kinh doanh',h:'bao-hiem-chay-no-hkd.html'},
     {l:'Hỏa hoạn & rủi ro đặc biệt',h:'bao-hiem-hoa-hoan.html'},
     {l:'Mọi rủi ro tài sản',h:'bao-hiem-moi-rui-ro.html'}
   ]},
-  kythuat:{t:'⚙️ Kỹ thuật / Xây dựng — chọn sản phẩm',p:[
+  kythuat:{t:'Kỹ thuật / Xây dựng — chọn sản phẩm',p:[
     {l:'Công trình xây dựng & lắp đặt',h:'bao-hiem-xay-dung.html'}
   ]},
-  trachnhiem:{t:'⚖️ Trách nhiệm — chọn sản phẩm',p:[
+  trachnhiem:{t:'Trách nhiệm — chọn sản phẩm',p:[
     {l:'Tai nạn người lao động (TNCC)',h:'bao-hiem-tncc.html'},
     {l:'TNDS chủ xe ô tô',h:'bao-hiem-tnds-oto.html'},
     {l:'TNDS chủ xe máy',h:'bao-hiem-tnds-xemay.html'}
