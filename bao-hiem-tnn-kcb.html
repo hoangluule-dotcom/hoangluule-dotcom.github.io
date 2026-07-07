@@ -32,6 +32,19 @@
 ]}
 </script>
 <style>
+/* ── HEADER ── */
+.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;gap:20px}
+.hdr-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+.hdr-nav{display:flex;align-items:center;gap:18px;flex:1;overflow:hidden}
+.hdr-nav a{color:var(--tm);font-size:13px;font-weight:500;text-decoration:none;transition:.15s;white-space:nowrap}
+.hdr-nav a:hover{color:var(--g)}
+.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13px!important;text-decoration:none!important;white-space:nowrap;flex-shrink:0;transition:.15s}
+.hdr-cta:hover{background:var(--goldd)!important;transform:translateY(-1px)}
+.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 14px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
+.hdr-allprod:hover{background:var(--g);color:#fff}
+@media(max-width:768px){.hdr-nav,.hdr-cta{display:none!important}.hdr-inner{gap:12px}}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
@@ -47,16 +60,6 @@ html{overflow-x:clip;scroll-behavior:smooth}
 body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--white);line-height:1.6;overflow-x:clip}
 
 /* HEADER */
-.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
-.hdr-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
-.hdr-logo{display:flex;align-items:center;text-decoration:none}
-.hdr-nav{display:flex;gap:4px}
-.hdr-nav a{color:#444;text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:6px;transition:.2s;white-space:nowrap}
-.hdr-nav a:hover{color:var(--g);background:var(--gl)}
-.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13.5px!important}
-.hdr-cta:hover{background:var(--goldd)!important}
-.hdr-tel{color:var(--g);font-weight:700;font-size:14px;text-decoration:none;border:2px solid var(--g);padding:6px 14px;border-radius:8px;display:none}
-
 /* USP BAR */
 .usp-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:12px 0}
 .usp-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
@@ -268,10 +271,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   .why-grid{grid-template-columns:1fr}
   .excl-grid{grid-template-columns:1fr}
   .docs-list{grid-template-columns:1fr}
-  .hdr-nav{display:none}
-  .hdr-inner{gap:8px;padding:0 12px}
-  .hdr-tel{display:flex;white-space:nowrap;align-items:center}
-}
+  }
 @media(max-width:600px){
   .cta-btns{flex-direction:column;align-items:center}
   .usp-inner{gap:14px}
@@ -282,9 +282,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 }
 
 /* ── ALL PRODUCTS BUTTON ── */
-.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 12px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px}
-.hdr-allprod:hover{background:var(--g);color:#fff}
-@media(max-width:480px){.hdr-allprod{padding:6px 10px;font-size:11px}}
+@media(max-width:480px){}
 
 /* ── qben-list item alignment fix ── */
 .qben-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--tm);line-height:1.65}
@@ -296,7 +294,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .qben-tag.t3{background:#EEF2FF;color:#4338ca}
 
 .qben-list li span{flex:1;min-width:0}
-@media(max-width:480px){.hdr-tel-num{display:none!important}}
+@media(max-width:480px){}
 </style>
 </head>
 <body>
@@ -304,9 +302,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="https://www.dbv247.com.vn" class="hdr-logo">
-      <img src="/Logo header Footer.png" alt="DBV247" style="height:85px;width:auto;display:block;">
-    </a>
+    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV Insurance" style="height:38px;width:auto;display:block"/></a>
     <nav class="hdr-nav">
       <a href="#rui-ro">Rủi ro</a>
       <a href="#giai-phap">Giải pháp</a>
@@ -314,10 +310,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
       <a href="#pham-vi">Phạm vi</a>
       <a href="#boi-thuong">Bồi thường</a>
       <a href="#faq">FAQ</a>
-      <a href="#hero-form" class="hdr-cta">Nhận Tư Vấn</a>
     </nav>
-    <a href="/san-pham" class="hdr-allprod">☰ Tất cả sản phẩm</a>
-    <a href="tel:0934614389" class="hdr-tel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="hdr-tel-num">0934 614 389</span></a>
+    <a href="https://zalo.me/1283738895804393564" class="hdr-cta" target="_blank" rel="noopener">Liên hệ tư vấn</a>
+    <a href="/san-pham" class="hdr-allprod"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Tất cả sản phẩm</a>
   </div>
 </header>
 

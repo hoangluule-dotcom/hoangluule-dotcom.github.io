@@ -13,6 +13,48 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 50%,#fafffe 100%);min-height:540px;display:flex;flex-direction:column;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;opacity:.08;z-index:0}
+.hero-inner{max-width:1200px;width:100%;margin:0 auto;padding:64px 32px 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:start;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:18px}
+.hero-h1{font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:800;color:var(--dk);line-height:1.18;margin-bottom:16px;letter-spacing:-.5px}
+.hero-h1 em{color:var(--gold);font-style:normal}
+.hero-sub{color:var(--tm);font-size:15px;line-height:1.8;margin-bottom:28px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+.hero-stat{padding-right:20px;border-right:1px solid var(--bd)}
+.hero-stat:last-child{border-right:none;padding-right:0}
+.hero-stat-num{font-size:1.7rem;font-weight:800;color:var(--g);line-height:1}
+.hero-stat-lbl{font-size:11px;color:var(--tm);margin-top:3px}
+/* Form card */
+.form-card{background:#fff;border-radius:16px;padding:28px 28px 24px;box-shadow:0 12px 48px rgba(0,0,0,.16);position:sticky;top:90px}
+.form-card-title{font-size:1.05rem;font-weight:800;color:var(--dk);margin-bottom:4px;text-align:center}
+.form-card-sub{font-size:12.5px;color:var(--tm);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--bd);text-align:center;line-height:1.6}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:11.5px;font-weight:700;color:var(--tm);margin-bottom:5px;letter-spacing:.4px;text-transform:uppercase}
+.fg input,.fg select{width:100%;padding:12px 14px;border:1.5px solid var(--bd);border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;color:var(--tx);background:#fff;outline:none;transition:.2s;box-sizing:border-box}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23718096' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;appearance:none}
+.fg input:focus,.fg select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
+.btn-primary{width:100%;background:var(--g);color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:14px;padding:14px;border:none;border-radius:8px;cursor:pointer;transition:.2s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary:hover{background:var(--gp);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,116,55,.3)}
+.form-succ{text-align:center;display:none;padding:16px;background:var(--gl);border-radius:10px;font-weight:600;color:var(--g);font-size:13.5px;margin-top:10px}
+.form-disc{font-size:10.5px;color:var(--ts);text-align:center;margin-top:8px;line-height:1.5}
+@media(max-width:1024px){.hero-inner{grid-template-columns:1fr;gap:36px}.form-card{position:static}}
+@media(max-width:640px){.hero-inner{padding:44px 20px 40px}.form-card{padding:22px 18px}}
+
+/* ── HEADER ── */
+.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;gap:20px}
+.hdr-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+.hdr-nav{display:flex;align-items:center;gap:18px;flex:1;overflow:hidden}
+.hdr-nav a{color:var(--tm);font-size:13px;font-weight:500;text-decoration:none;transition:.15s;white-space:nowrap}
+.hdr-nav a:hover{color:var(--g)}
+.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13px!important;text-decoration:none!important;white-space:nowrap;flex-shrink:0;transition:.15s}
+.hdr-cta:hover{background:var(--goldd)!important;transform:translateY(-1px)}
+.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 14px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
+.hdr-allprod:hover{background:var(--g);color:#fff}
+@media(max-width:768px){.hdr-nav,.hdr-cta{display:none!important}.hdr-inner{gap:12px}}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
@@ -26,29 +68,10 @@
 }
 html{overflow-x:clip;scroll-behavior:smooth}
 body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--white);line-height:1.6;overflow-x:clip}
-.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
-.hdr-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
-.hdr-logo{display:flex;align-items:center;text-decoration:none}
-.hdr-nav{display:flex;gap:4px}
-.hdr-nav a{color:#444;text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:6px;transition:.2s;white-space:nowrap}
-.hdr-nav a:hover{color:var(--g);background:var(--gl)}
-.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13.5px!important}
-.hdr-cta:hover{background:var(--goldd)!important}
-.hdr-tel{color:var(--g);font-weight:700;font-size:14px;text-decoration:none;border:2px solid var(--g);padding:6px 14px;border-radius:8px;display:none}
 .usp-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:12px 0}
 .usp-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
 .usp-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#2d6a4f}
 .usp-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
-.hero{background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 50%,#fafffe 100%);padding:64px 0 56px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;opacity:.10}
-.hero-inner{max-width:900px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.5px}
-.hero-h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--dk);line-height:1.18;margin-bottom:16px;letter-spacing:-.5px}
-.hero-h1 em{color:var(--gold);font-style:normal}
-.hero-sub{color:var(--tm);font-size:15px;line-height:1.8;max-width:680px;margin:0 auto 32px}
-.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
-.hero-stat-num{font-size:1.8rem;font-weight:800;color:var(--g);line-height:1}
-.hero-stat-lbl{font-size:11px;color:var(--tm);margin-top:3px}
 .sec{padding:64px 0}
 .sec-inner{max-width:1200px;margin:0 auto;padding:0 24px}
 .sec-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
@@ -126,17 +149,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   .steps-row::before{display:none}
   .footer-top{grid-template-columns:1fr 1fr}
 }
-@media(max-width:900px){
-  .hdr-nav{display:none}
-  .hdr-inner{gap:8px;padding:0 12px}
-  .hdr-tel{display:flex;white-space:nowrap;align-items:center}
-}
 @media(max-width:600px){
   .intro-grid{grid-template-columns:1fr}
   .cta-btns{flex-direction:column;align-items:center}
   .usp-inner{gap:16px}
   .footer-top{grid-template-columns:1fr}
-  .hero-stats{gap:24px}
   .steps-row{grid-template-columns:1fr 1fr}
 }
 
@@ -152,25 +169,23 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .faq-item.open .faq-a{max-height:200px;padding:0 20px 18px}
 
 /* ── ALL PRODUCTS BUTTON ── */
-.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 12px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px}
-.hdr-allprod:hover{background:var(--g);color:#fff}
-@media(max-width:480px){.hdr-allprod{padding:6px 10px;font-size:11px}}
+@media(max-width:480px){}
 @media(max-width:640px){.hdr-allprod span{display:none}}
-@media(max-width:480px){.hdr-tel-num{display:none!important}}
+@media(max-width:480px){}
+
 </style>
 </head>
 <body>
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="https://www.dbv247.com.vn" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247" style="height:85px;width:auto;display:block;">    </a>
+    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV Insurance" style="height:38px;width:auto;display:block"/></a>
     <nav class="hdr-nav">
       <a href="#intro">Giới thiệu</a>
       <a href="#fee-table">Biểu phí</a>
       <a href="#process">Quy trình</a>
-      <a href="#contact" class="hdr-cta">Nhận Báo Giá</a>
     </nav>
-    <a href="/san-pham" class="hdr-allprod">☰ Tất cả sản phẩm</a>
-    <a href="tel:0869 656 561" class="hdr-tel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="hdr-tel-num">0869 656 561</span></a>
+    <a href="https://zalo.me/1283738895804393564" class="hdr-cta" target="_blank" rel="noopener">Liên hệ tư vấn</a>
+    <a href="/san-pham" class="hdr-allprod"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Tất cả sản phẩm</a>
   </div>
 </header>
 
@@ -183,26 +198,67 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   </div>
 </div>
 
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Nghị định 105/2025/NĐ-CP · Có hiệu lực từ 01/07/2025</div>
-    <h1 class="hero-h1">Biểu Phí Bảo Hiểm <em>Cháy Nổ Bắt Buộc</em><br>Theo Quy Định Nhà Nước</h1>
-    <p class="hero-sub">Tra cứu biểu phí bảo hiểm cháy nổ bắt buộc áp dụng cho các cơ sở có nguy hiểm về cháy nổ theo Nghị định 105/2025/NĐ-CP. DBV Insurance hỗ trợ tư vấn và phát hành hợp đồng nhanh chóng.</p>
-    <div class="hero-stats">
-      <div><div class="hero-stat-num">18+</div><div class="hero-stat-lbl">Năm kinh nghiệm</div></div>
-      <div><div class="hero-stat-num">5.000+</div><div class="hero-stat-lbl">Doanh nghiệp tin dùng</div></div>
-      <div><div class="hero-stat-num">98%</div><div class="hero-stat-lbl">Hồ sơ được giải quyết</div></div>
-      <div><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Hỗ trợ khẩn cấp</div></div>
+    <div>
+      <div class="hero-eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Bảo hiểm bắt buộc &middot; Nghị định 105/2025/NĐ-CP
+      </div>
+      <h1 class="hero-h1">Biểu Phí Bảo Hiểm <em>Cháy Nổ Bắt Buộc</em><br>Theo Quy Định Nhà Nước</h1>
+      <p class="hero-sub">Tra cứu biểu phí bảo hiểm cháy nổ bắt buộc áp dụng cho các cơ sở có nguy hiểm về cháy nổ theo Nghị định 105/2025/NĐ-CP. DBV Insurance hỗ trợ tư vấn và phát hành hợp đồng nhanh chóng.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">18+</div><div class="hero-stat-lbl">Năm kinh nghiệm</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">5.000+</div><div class="hero-stat-lbl">Doanh nghiệp tin dùng</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">98%</div><div class="hero-stat-lbl">Hồ sơ được giải quyết</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Hỗ trợ khẩn cấp</div></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px">
+        <a href="#hero-form" style="display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-weight:700;font-size:14px;padding:14px 28px;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(0,116,55,.35);transition:.2s;font-family:'Be Vietnam Pro',sans-serif" onmouseover="this.style.background='var(--gp)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--g)';this.style.transform='translateY(0)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Nhận báo giá miễn phí
+        </a>
+        <a href="#fee-table" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dk);font-weight:700;font-size:14px;padding:14px 28px;border-radius:30px;text-decoration:none;border:2px solid var(--g);transition:.2s;font-family:'Be Vietnam Pro',sans-serif" onmouseover="this.style.background='var(--gl)'" onmouseout="this.style.background='transparent'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          Xem biểu phí
+        </a>
+      </div>
+    </div>
+    <div id="hero-form">
+      <div class="form-card">
+        <div class="form-card-title">Nhận Tư Vấn &amp; Báo Giá Miễn Phí</div>
+        <div class="form-card-sub">Để lại số điện thoại — chuyên viên DBV247 liên hệ trong <strong>24 giờ làm việc</strong></div>
+        <div class="fg">
+          <label>Số điện thoại *</label>
+          <input type="tel" id="f-phone" placeholder="09xx xxx xxx" inputmode="tel"/>
+        </div>
+        <div class="fg">
+          <label>Loại cơ sở *</label>
+          <select id="f-biz">
+            <option value="">— Chọn loại cơ sở —</option>
+            <option value="nha-may">Nhà máy / Xí nghiệp</option>
+            <option value="kho-hang">Kho hàng / Xưởng sản xuất</option>
+            <option value="khach-san">Khách sạn / Nhà nghỉ / Homestay</option>
+            <option value="nha-hang">Nhà hàng / Quán ăn lớn</option>
+            <option value="cao-oc">Tòa nhà văn phòng / Chung cư</option>
+            <option value="xang-dau">Cửa hàng xăng dầu / Gas</option>
+            <option value="benh-vien">Bệnh viện / Phòng khám</option>
+            <option value="truong-hoc">Trường học / Cơ sở giáo dục</option>
+            <option value="trung-tam">Trung tâm thương mại / Siêu thị</option>
+            <option value="khac">Loại cơ sở khác</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="submitHeroForm()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          Nhận Báo Giá Miễn Phí Ngay
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="form-succ" id="form-succ">&#10003; Đã ghi nhận! Chuyên viên DBV247 sẽ liên hệ bạn trong 24h.</div>
+        <p class="form-disc">&#128274; Thông tin được bảo mật tuyệt đối — DBV không chia sẻ với bên thứ ba</p>
+      </div>
     </div>
   </div>
-</section>
-
-<section class="intro-sec" id="intro">
-  <div class="sec-inner">
-    <span class="sec-tag">Thông tin cần biết</span>
-    <h2 class="sec-h2">Bảo Hiểm Cháy Nổ Bắt Buộc Là Gì?</h2>
-    <p class="sec-sub">Theo Luật Phòng cháy, chữa cháy và cứu nạn, cứu hộ 2024, các cơ sở có nguy hiểm về cháy nổ bắt buộc phải tham gia bảo hiểm. Mức phí được quy định tại Nghị định 105/2025/NĐ-CP.</p>
-    <div class="intro-grid">
+</section>ro-grid">
       <div class="intro-card">
         <div class="intro-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -634,5 +690,35 @@ function toggleFaq(btn){
 }
 </script>
 <script src="/site-settings.js" defer></script>
+<script>
+function submitHeroForm(){
+  var p=document.getElementById('f-phone').value.trim();
+  if(!p){alert('Vui lòng nhập số điện thoại.');return;}
+  var biz=document.getElementById('f-biz').value;
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      access_key:'4a200f57-1b34-4482-93d3-41531ab59898',
+      subject:'[DBV] BH Chay No Bat Buoc - Hero Form',
+      phone:p,loai_co_so:biz
+    })
+  });
+  document.getElementById('form-succ').style.display='block';
+  document.querySelector('#hero-form .btn-primary').style.display='none';
+}
+  var biz=document.getElementById('f-biz').value;
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      access_key:'4a200f57-1b34-4482-93d3-41531ab59898',
+      subject:'[DBV] BH Chay No Bat Buoc - Hero Form',phone:p,loai_co_so:biz
+    })
+  });
+  document.getElementById('form-succ').style.display='block';
+  document.querySelector('#hero-form .btn-primary').style.display='none';
+}
+</script>
 </body>
 </html>
