@@ -774,7 +774,160 @@ img, svg, video { max-width: 100%; height: auto; }
 .prod-img-card-cta{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--g)}
 @media(max-width:768px){.prod-img-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
 @media(max-width:480px){.prod-img-grid{grid-template-columns:1fr;gap:12px}}
-@media(max-width:768px){.prod-tabs{flex-wrap:nowrap;justify-content:flex-start;padding-bottom:4px}}</style>
+@media(max-width:768px){.prod-tabs{flex-wrap:nowrap;justify-content:flex-start;padding-bottom:4px}}
+
+/* ══════════════ FINTECH LIGHT UPGRADE ══════════════ */
+
+/* 1. Section backgrounds – trắng tinh & xanh nhạt xen kẽ */
+.section{background:#fff}
+.section-alt{background:#f0fdf8}
+
+/* 2. Orbs cho #products section */
+#products{overflow:hidden}
+#products::before{
+  content:"";position:absolute;top:-140px;right:-100px;
+  width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,116,55,.11) 0%,transparent 65%);
+  filter:blur(55px);pointer-events:none;z-index:0;
+}
+#products::after{
+  content:"";position:absolute;bottom:-100px;left:-80px;
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,160,90,.07) 0%,transparent 65%);
+  filter:blur(55px);pointer-events:none;z-index:0;
+}
+#products .section-inner{position:relative;z-index:1}
+
+/* 3. Orbs cho #why-dbv section */
+#why-dbv{overflow:hidden}
+#why-dbv::before{
+  content:"";position:absolute;top:-80px;right:-60px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,116,55,.10) 0%,transparent 65%);
+  filter:blur(60px);pointer-events:none;z-index:0;
+}
+#why-dbv::after{
+  content:"";position:absolute;bottom:-100px;left:5%;
+  width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,146,10,.08) 0%,transparent 65%);
+  filter:blur(60px);pointer-events:none;z-index:0;
+}
+#why-dbv .section-inner{position:relative;z-index:1}
+#why-dbv .why-section-header{position:relative;z-index:1}
+#why-dbv .why-cards-grid{position:relative;z-index:1}
+
+/* 4. Orbs cho #testimonials */
+#testimonials{overflow:hidden}
+#testimonials::before{
+  content:"";position:absolute;top:-60px;left:-80px;
+  width:440px;height:440px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,146,10,.07) 0%,transparent 65%);
+  filter:blur(60px);pointer-events:none;z-index:0;
+}
+#testimonials::after{
+  content:"";position:absolute;bottom:-80px;right:-60px;
+  width:360px;height:360px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,116,55,.08) 0%,transparent 65%);
+  filter:blur(60px);pointer-events:none;z-index:0;
+}
+#testimonials .section-inner{position:relative;z-index:1}
+
+/* 5. Orb nhỏ cho prod-section (::before/::after đã có, tăng opacity) */
+.prod-section::before{
+  background:radial-gradient(circle,rgba(0,116,55,.10) 0%,transparent 65%)!important;
+  filter:blur(50px);
+}
+.prod-section::after{
+  background:radial-gradient(circle,rgba(232,146,10,.08) 0%,transparent 65%)!important;
+  filter:blur(50px);
+}
+
+/* 6. Gradient text – hero headline */
+.hero-h1 em{
+  background:linear-gradient(120deg,#005a2b 0%,#009c50 55%,#00743a 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-style:normal;color:unset;
+}
+
+/* 7. Gradient text – section headline utility */
+#products .section-h2,
+#why-dbv .section-h2{
+  background:linear-gradient(120deg,#1A2E1A 20%,#007437 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* 8. Refined product image cards */
+.prod-img-card{
+  border:1px solid rgba(0,0,0,0.07)!important;
+  box-shadow:0 2px 14px rgba(0,0,0,0.06)!important;
+  border-radius:18px!important;
+}
+.prod-img-card:hover{
+  box-shadow:0 14px 44px rgba(0,116,55,.14)!important;
+  border-color:rgba(0,116,55,.22)!important;
+  transform:translateY(-5px)!important;
+}
+
+/* 9. Feature tags – fintech tinh tế hơn */
+.prod-img-card-tag{
+  background:#f0fdf4!important;
+  border:1px solid rgba(0,116,55,.09)!important;
+  border-radius:8px!important;
+}
+.prod-img-card-tag:has(svg[stroke="#f97316"]){
+  background:#fff7ed!important;
+  border-color:rgba(249,115,22,.13)!important;
+}
+.prod-img-card-tag:hover{
+  background:#e6f9ee!important;
+  border-color:rgba(0,116,55,.2)!important;
+}
+
+/* 10. Why cards – glassmorphism nhẹ + shadow đẹp hơn */
+.why-card{
+  background:rgba(255,255,255,0.85)!important;
+  backdrop-filter:blur(6px);
+  box-shadow:0 4px 6px rgba(0,0,0,0.04),0 10px 28px rgba(0,0,0,0.06),0 22px 44px rgba(0,0,0,0.04)!important;
+}
+.why-card:hover{
+  box-shadow:0 8px 12px rgba(0,0,0,0.06),0 18px 40px rgba(0,116,55,.1),0 32px 64px rgba(0,0,0,0.05)!important;
+}
+
+/* 11. Cert check items – tinh tế hơn */
+.cert-check-item{
+  border:1px solid rgba(0,0,0,0.07)!important;
+  box-shadow:0 2px 12px rgba(0,0,0,0.05)!important;
+}
+.cert-check-item:hover{
+  box-shadow:0 8px 32px rgba(0,116,55,.10)!important;
+  border-color:rgba(0,116,55,.2)!important;
+}
+
+/* 12. Testimonial cards – lift nhẹ hơn, shadow fintech */
+.testi-card{
+  border:1px solid rgba(0,0,0,0.07)!important;
+  box-shadow:0 2px 14px rgba(0,0,0,0.06)!important;
+}
+.testi-card:hover{
+  box-shadow:0 12px 40px rgba(0,0,0,0.10)!important;
+}
+
+/* 13. Section tag – viền tinh tế hơn */
+.section-tag{
+  border:1px solid rgba(0,116,55,.2)!important;
+  letter-spacing:.5px;
+}
+
+/* 14. Hero trust pills – fintech badge style */
+.hero-tp{
+  box-shadow:0 2px 10px rgba(0,116,55,.08)!important;
+  border-color:rgba(0,116,55,.18)!important;
+}
+</style>
 </head>
 <body>
 
@@ -918,7 +1071,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <div class="prod-img-grid">
       <a class="prod-img-card" href="/bao-hiem-vat-chat-oto">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
-          <img src="/than-vo-oto.png" alt="Vật chất ô tô" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/than-vo-oto.webp" alt="Vật chất ô tô" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
@@ -934,7 +1087,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-oto-dien">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
-          <img src="/than-vo-oto-dien.png" alt="Vật chất ô tô điện" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/than-vo-oto-dien.webp" alt="Vật chất ô tô điện" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
@@ -950,7 +1103,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-tnds-oto">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
-          <img src="/tnds-oto.png" alt="TNDS ô tô bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/tnds-oto.webp" alt="TNDS ô tô bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
@@ -966,7 +1119,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-du-lich-quoc-te">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#0369a1,#0891b2)">
-          <img src="/du-lich-quoc-te.png" alt="Du lịch quốc tế" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/du-lich-quoc-te.webp" alt="Du lịch quốc tế" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
@@ -982,7 +1135,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-nha-chung-cu">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#0f766e,#0d9488)">
-          <img src="/moi-rui-ro-tai-san.png" alt="Nhà chung cư" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/nha-chung-cu.webp" alt="Nhà chung cư" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
@@ -998,7 +1151,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-suc-khoe">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
-          <img src="/suc-khoe.png" alt="Bảo hiểm sức khỏe" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/suc-khoe.webp" alt="Bảo hiểm sức khỏe" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge hot">HOT</div>
         </div>
         <div class="prod-img-card-body">
@@ -1018,7 +1171,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <div class="prod-img-grid">
       <a class="prod-img-card" href="/bao-hiem-vat-chat-oto">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
-          <img src="/than-vo-oto.png" alt="Vật chất ô tô" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/than-vo-oto.webp" alt="Vật chất ô tô" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Vật chất ô tô</div>
@@ -1033,7 +1186,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-tnds-oto">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
-          <img src="/tnds-oto.png" alt="TNDS ô tô bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/tnds-oto.webp" alt="TNDS ô tô bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">TNDS ô tô bắt buộc</div>
@@ -1048,7 +1201,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-tnds-xemay">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
-          <img src="/tnds-xemay.png" alt="TNDS xe máy bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/tnds-xemay.webp" alt="TNDS xe máy bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">TNDS xe máy bắt buộc</div>
@@ -1063,7 +1216,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-oto-dien">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#007437,#009c50)">
-          <img src="/than-vo-oto-dien.png" alt="Vật chất ô tô điện" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/than-vo-oto-dien.webp" alt="Vật chất ô tô điện" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge">MỚI</div>
         </div>
         <div class="prod-img-card-body">
@@ -1083,7 +1236,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <div class="prod-img-grid">
       <a class="prod-img-card" href="/bao-hiem-van-chuyen">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
-          <img src="/hang-hoa-van-chuyen-noi-dia.png" alt="Vận chuyển hàng hóa nội địa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/hang-hoa-van-chuyen-noi-dia.webp" alt="Vận chuyển hàng hóa nội địa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Vận chuyển hàng hóa nội địa</div>
@@ -1098,7 +1251,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-xnk">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
-          <img src="/hang-hoa-xnk.png" alt="Hàng hóa xuất nhập khẩu" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/hang-hoa-xnk.webp" alt="Hàng hóa xuất nhập khẩu" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Hàng hóa xuất nhập khẩu</div>
@@ -1113,7 +1266,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-buu-gui">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1B3A5C,#2a5b9e)">
-          <img src="/hang-buu-gui.png" alt="Bảo hiểm bưu gửi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/hang-buu-gui.webp" alt="Bảo hiểm bưu gửi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Bảo hiểm bưu gửi</div>
@@ -1132,7 +1285,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <div class="prod-img-grid">
       <a class="prod-img-card" href="/bao-hiem-chay-no">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
-          <img src="/chay-no-bat-buoc.png" alt="Cháy nổ bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/chay-no-bat-buoc.webp" alt="Cháy nổ bắt buộc" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Cháy nổ bắt buộc</div>
@@ -1147,7 +1300,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-chay-no-hkd">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
-          <img src="/chay-no-ho-kinh-doanh.png" alt="Cháy nổ hộ kinh doanh" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/chay-no-ho-kinh-doanh.webp" alt="Cháy nổ hộ kinh doanh" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge">MỚI</div>
         </div>
         <div class="prod-img-card-body">
@@ -1179,7 +1332,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-hoa-hoan">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
-          <img src="/hoa-hoan-rui-ro-dac-biet.png" alt="Hỏa hoạn & rủi ro đặc biệt" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/hoa-hoan-rui-ro-dac-biet.webp" alt="Hỏa hoạn & rủi ro đặc biệt" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Hỏa hoạn & rủi ro đặc biệt</div>
@@ -1194,7 +1347,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-moi-rui-ro">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
-          <img src="/moi-rui-ro-tai-san.png" alt="Mọi rủi ro tài sản" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/moi-rui-ro-tai-san.webp" alt="Mọi rủi ro tài sản" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Mọi rủi ro tài sản</div>
@@ -1209,7 +1362,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-xay-dung">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#1e3a5f,#2d5986)">
-          <img src="/moi-rui-ro-xay-dung.png" alt="Công trình xây dựng & lắp đặt" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/moi-rui-ro-xay-dung.webp" alt="Công trình xây dựng & lắp đặt" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Công trình xây dựng & lắp đặt</div>
@@ -1228,7 +1381,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <div class="prod-img-grid">
       <a class="prod-img-card" href="/bao-hiem-tai-nan">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
-          <img src="/tai-nan-ca-nhan.png" alt="Tai nạn cá nhân" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/tai-nan-ca-nhan.webp" alt="Tai nạn cá nhân" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Tai nạn cá nhân</div>
@@ -1243,7 +1396,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-suc-khoe">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
-          <img src="/suc-khoe.png" alt="Bảo hiểm sức khỏe" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/suc-khoe.webp" alt="Bảo hiểm sức khỏe" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Bảo hiểm sức khỏe</div>
@@ -1256,39 +1409,9 @@ img, svg, video { max-width: 100%; height: auto; }
           <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </a>
-      <a class="prod-img-card" href="/bao-hiem-tnc">
-        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
-          <img src="/tai-nan-ca-nhan.png" alt="Tai nạn người thứ ba" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Tai nạn người thứ ba</div>
-          <div class="prod-img-card-desc">Tránh rủi ro pháp lý – bồi thường khi khách hàng bị tai nạn trong khuôn viên doanh nghiệp.</div>
-          <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10"/><path d="M9 7h1m4 0h1M9 12h1"/></svg> Khuôn viên DN</span>
-          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Khách hàng</span>
-          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><path d="M6 3h12M12 3v18"/><path d="M6 3L2 11a6 6 0 0 0 12 0L6 3"/><path d="M18 3l4 8a6 6 0 0 0-12 0l4-8"/></svg> Rủi ro pháp lý</span>
-          </div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-tnn-kcb">
-        <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#be123c,#e11d48)">
-          <img src="/trach-nhiem-kham-chua-benh.png" alt="Tai nạn con người (KCB)" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Tai nạn con người (KCB)</div>
-          <div class="prod-img-card-desc">Chăm sóc sức khoẻ toàn diện cho nhân viên – không giới hạn số lần khám, không cần nằm viện.</div>
-          <div class="prod-img-card-tags">
-          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg> KCB ngoại trú</span>
-          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Tập thể NLĐ</span>
-          <span class="prod-img-card-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Không giới hạn</span>
-          </div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
       <a class="prod-img-card" href="/bao-hiem-du-lich-noi-dia">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#0369a1,#0891b2)">
-          <img src="/du-lich-trong-nuoc.png" alt="Du lịch nội địa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/du-lich-trong-nuoc.webp" alt="Du lịch nội địa" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Du lịch nội địa</div>
@@ -1303,7 +1426,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-du-lich-quoc-te">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#0369a1,#0891b2)">
-          <img src="/du-lich-quoc-te.png" alt="Du lịch quốc tế" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/du-lich-quoc-te.webp" alt="Du lịch quốc tế" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Du lịch quốc tế</div>
@@ -1323,7 +1446,7 @@ img, svg, video { max-width: 100%; height: auto; }
 
       <a class="prod-img-card" href="/bao-hiem-tnc.html">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4f46e5,#7c3aed)">
-          <img src="/trach-nhiem-chung.png" alt="Trách nhiệm chung" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/trach-nhiem-chung.webp" alt="Trách nhiệm chung" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Trách nhiệm chung</div>
@@ -1339,7 +1462,7 @@ img, svg, video { max-width: 100%; height: auto; }
 
       <a class="prod-img-card" href="/bao-hiem-tncc.html">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#4338ca,#6d28d9)">
-          <img src="/trach-nhiem-cong-cong.png" alt="Trách nhiệm công cộng" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/trach-nhiem-cong-cong.webp" alt="Trách nhiệm công cộng" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Trách nhiệm công cộng</div>
@@ -1355,7 +1478,7 @@ img, svg, video { max-width: 100%; height: auto; }
 
       <a class="prod-img-card" href="/bao-hiem-tnn-kcb.html">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#5b21b6,#7c3aed)">
-          <img src="/trach-nhiem-kham-chua-benh.png" alt="Nghề nghiệp khám chữa bệnh" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/trach-nhiem-kham-chua-benh.webp" alt="Nghề nghiệp khám chữa bệnh" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Nghề nghiệp khám chữa bệnh</div>
@@ -1371,7 +1494,7 @@ img, svg, video { max-width: 100%; height: auto; }
 
       <a class="prod-img-card" href="/bao-hiem-tnn-ls.html">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#3730a3,#4f46e5)">
-          <img src="/trach-nhiem-luat-su-cong-chung.png" alt="Nghề nghiệp luật sư & Công chứng viên" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/trach-nhiem-luat-su-cong-chung.webp" alt="Nghề nghiệp luật sư & Công chứng viên" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Nghề nghiệp luật sư & Công chứng viên</div>
@@ -1387,7 +1510,7 @@ img, svg, video { max-width: 100%; height: auto; }
 
       <a class="prod-img-card" href="/bao-hiem-tnn-tvtk.html">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#6d28d9,#8b5cf6)">
-          <img src="/trach-nhiem-tu-van-giam-sat.png" alt="Nghề nghiệp tư vấn, thiết kế & giám sát" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="/trach-nhiem-tu-van-giam-sat.webp" alt="Nghề nghiệp tư vấn, thiết kế & giám sát" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div class="prod-img-card-body">
           <div class="prod-img-card-name">Nghề nghiệp tư vấn, thiết kế & giám sát</div>
