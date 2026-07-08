@@ -1316,7 +1316,7 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
       <a class="prod-img-card" href="/bao-hiem-chay-no-chung-cu">
         <div class="prod-img-card-photo" style="position:relative;background:linear-gradient(135deg,#b45309,#d97706)">
-          <img src="/banners/banner-chay-no-chung-cu.jpg" alt="Cháy nổ căn hộ chung cư" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.style.display='none'">
+          <img src="/nha-chung-cu.webp" alt="Cháy nổ căn hộ chung cư" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
           <div class="prod-img-badge">MỚI</div>
         </div>
         <div class="prod-img-card-body">
@@ -2369,4 +2369,14 @@ function floatSubmit(e) {
       form.reset();
       form.querySelector('select').style.display = '';
       document.getElementById('float-phone').parentElement.style.display = '';
-      document.getElementById('float-succ').style.
+            document.getElementById('float-succ').style.display = 'none';
+      btn.textContent = 'Gửi';
+      btn.disabled = false;
+    }, 3000);
+  }).catch(() => {
+    form.submit();
+  });
+}
+</script>
+</body>
+</html>

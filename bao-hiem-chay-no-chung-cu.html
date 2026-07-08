@@ -748,24 +748,38 @@ function calcFee(){
 }
 calcFee();
 
-/* ===== FORMS (Web3Forms) ===== */
-function submitHeroForm(){
+/* ===== FORMS (Netlify) ===== */
+async function submitHeroForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   var nm=document.getElementById('f-name').value.trim();
   var area=document.getElementById('f-area').value.trim();
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] BH Cháy Nổ Chung Cư - Hero Form',from_name:'Landing Page DBV Thành Đô','Họ tên':nm,'Số điện thoại':p,'Diện tích (m2)':area,'Form':'Hero Form','Trang':window.location.href})});
-  document.getElementById('hero-succ').style.display='block';
-  document.querySelector('#hero-form .btn-primary').style.display='none';
+  var btn=document.querySelector('#hero-form .btn-primary');
+  btn.disabled=true;btn.textContent='Đang gửi...';
+  try{
+    await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Căn Hộ Chung Cư','dien-thoai':p,'ho-ten':nm,'ghi-chu':area?'Diện tích: '+area+' m²':''}).toString()});
+    document.getElementById('hero-succ').style.display='block';
+    btn.style.display='none';
+  }catch(e){
+    btn.disabled=false;btn.textContent='Nhận báo giá miễn phí →';
+    alert('Không gửi được. Vui lòng gọi trực tiếp: 0869 656 561');
+  }
 }
-function submitCtaForm(){
+async function submitCtaForm(){
   var p=document.getElementById('cta-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   var nm=document.getElementById('cta-name').value.trim();
   var area=document.getElementById('cta-area').value.trim();
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'4a200f57-1b34-4482-93d3-41531ab59898',subject:'[DBV] BH Cháy Nổ Chung Cư - CTA Form',from_name:'Landing Page DBV Thành Đô','Họ tên':nm,'Số điện thoại':p,'Diện tích (m2)':area,'Form':'CTA Form','Trang':window.location.href})});
-  document.getElementById('cta-succ').style.display='block';
-  document.querySelector('.cta-form .btn-primary').style.display='none';
+  var btn=document.querySelector('.cta-form .btn-primary');
+  btn.disabled=true;btn.textContent='Đang gửi...';
+  try{
+    await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Căn Hộ Chung Cư','dien-thoai':p,'ho-ten':nm,'ghi-chu':area?'Diện tích: '+area+' m²':''}).toString()});
+    document.getElementById('cta-succ').style.display='block';
+    btn.style.display='none';
+  }catch(e){
+    btn.disabled=false;btn.textContent='Nhận báo giá miễn phí →';
+    alert('Không gửi được. Vui lòng gọi trực tiếp: 0869 656 561');
+  }
 }
 
 /* ===== FAQ ===== */
