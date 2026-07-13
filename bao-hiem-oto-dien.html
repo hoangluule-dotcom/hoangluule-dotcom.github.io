@@ -117,6 +117,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .res-row.total{border-top:1.5px solid rgba(0,116,55,.2);padding-top:8px;margin-top:4px;font-size:15px;font-weight:800;color:var(--dk)}
 .res-row.total span:last-child{color:var(--g)}
 .res-month{font-size:11px;color:var(--ts);text-align:right;margin-top:3px}
+.res-note{font-size:11px;line-height:1.5;color:#a15c00;background:#fff8e6;border:1px solid #ffe1a1;border-radius:8px;padding:8px 10px;margin-top:10px}
+.use-toggle{display:flex;gap:8px}
+.use-btn{flex:1;padding:11px 8px;border:1.5px solid #d8dee6;background:#fff;border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:12.5px;font-weight:600;color:var(--tm);cursor:pointer;transition:.15s;line-height:1.3}
+.use-btn:hover{border-color:var(--g)}
+.use-btn.active{border-color:var(--g);background:var(--gl);color:var(--dk);box-shadow:0 0 0 2px rgba(0,116,55,.12)}
 .btn-calc-submit{width:100%;background:var(--g);color:#fff;border:none;padding:13px;border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;transition:.2s}
 .btn-calc-submit:hover{background:var(--gp)}
 .quick-call{display:none;margin-top:12px;gap:8px;align-items:center;flex-wrap:wrap}
@@ -404,6 +409,13 @@ body.sticky-shown{padding-bottom:60px}
         <div class="csi" id="csi4"><span class="csi-num">4</span>Phiên bản</div>
       </div>
       <div class="cg">
+        <label>Mục đích sử dụng</label>
+        <div class="use-toggle">
+          <button type="button" class="use-btn active" data-use="CN" onclick="setUse('CN')">🚗 Cá nhân / Gia đình</button>
+          <button type="button" class="use-btn" data-use="KD" onclick="setUse('KD')">🚕 Kinh doanh / Taxi công nghệ</button>
+        </div>
+      </div>
+      <div class="cg">
         <label>Hãng xe điện</label>
         <select id="sel-brand" onchange="onBrand()">
           <option value="">— Chọn hãng xe —</option>
@@ -448,7 +460,7 @@ body.sticky-shown{padding-bottom:60px}
             <input type="checkbox" id="bs06" onchange="calcFee()"/>
             <div class="bs-opt-code">BS06</div>
             <div class="bs-opt-name">Thủy kích & ngập hệ thống điện</div>
-            <div class="bs-opt-rate">+0.10%</div>
+            <div class="bs-opt-rate" id="bs06rate">+0.10%</div>
             <span class="bs-opt-ev">⚡ Quan trọng với xe điện</span>
             <div class="bs-check"><svg width="8" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L4 7L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </label>
@@ -462,6 +474,7 @@ body.sticky-shown{padding-bottom:60px}
           <div class="res-row" id="rowBS06" style="display:none"><span>+ BS06 Thủy kích điện</span><span id="resBS06"></span></div>
           <div class="res-row total"><span>Tổng phí/năm (có VAT)</span><span id="resTotal"></span></div>
           <div class="res-month" id="resMonth"></div>
+          <div class="res-note" id="resNote" style="display:none"></div>
         </div>
         <div class="quick-call" id="quickCall">
           <input type="tel" id="miniPhone" placeholder="SĐT để nhận tư vấn chi tiết..."/>
@@ -963,26 +976,49 @@ async function sendLead(payload) {
 /* ── EV CAR DATA (filtered) ── */
 const CAR_DATA={"VINFAST":{"VF3":{"2026":[{"pb":"VF3","gmin":245200000,"gmax":311100000,"gia":278150000}],"2025":[{"pb":"VF3","gmin":220700000,"gmax":280000000,"gia":250350000}],"2024":[{"pb":"VF3","gmin":200000000,"gmax":236000000,"gia":218000000}]},"VF5":{"2026":[{"pb":"PLUS","gmin":421100000,"gmax":534300000,"gia":477700000}],"2025":[{"pb":"PLUS","gmin":384100000,"gmax":487300000,"gia":435700000}],"2024":[{"pb":"S","gmin":374200000,"gmax":474800000,"gia":424500000},{"pb":"PLUS","gmin":373600000,"gmax":474000000,"gia":423800000}],"2023":[{"pb":"PLUS","gmin":369200000,"gmax":468500000,"gia":418850000}],"2022":[{"pb":"PLUS","gmin":367400000,"gmax":466200000,"gia":416800000}]},"VF6":{"2026":[{"pb":"PLUS","gmin":614300000,"gmax":779400000,"gia":696850000},{"pb":"ECO","gmin":560500000,"gmax":711200000,"gia":635850000}],"2025":[{"pb":"ECO","gmin":529200000,"gmax":671400000,"gia":600300000},{"pb":"PLUS","gmin":567400000,"gmax":720000000,"gia":643700000}],"2024":[{"pb":"PLUS","gmin":548100000,"gmax":695500000,"gia":621800000},{"pb":"ECO","gmin":461100000,"gmax":585000000,"gia":523050000},{"pb":"S","gmin":485800000,"gmax":616400000,"gia":551100000}],"2023":[{"pb":"ECO","gmin":450000000,"gmax":571000000,"gia":510500000},{"pb":"PLUS","gmin":528900000,"gmax":671100000,"gia":600000000}]},"VF7":{"2026":[{"pb":"PLUS","gmin":766500000,"gmax":972500000,"gia":869500000},{"pb":"ECO","gmin":638900000,"gmax":810600000,"gia":724750000}],"2025":[{"pb":"ECO","gmin":616700000,"gmax":782400000,"gia":699550000},{"pb":"PLUS","gmin":713000000,"gmax":904700000,"gia":808850000}],"2024":[{"pb":"PLUS","gmin":653300000,"gmax":828900000,"gia":741100000},{"pb":"S","gmin":583700000,"gmax":740600000,"gia":662150000},{"pb":"ECO","gmin":611200000,"gmax":775500000,"gia":693350000}],"2023":[{"pb":"ECO","gmin":547200000,"gmax":694300000,"gia":620750000},{"pb":"PLUS","gmin":652400000,"gmax":827800000,"gia":740100000}]},"VF8":{"2026":[{"pb":"ECO","gmin":770100000,"gmax":977200000,"gia":873650000},{"pb":"PLUS","gmin":874000000,"gmax":1109000000,"gia":991500000}],"2025":[{"pb":"ECO","gmin":757200000,"gmax":960700000,"gia":858950000},{"pb":"PLUS","gmin":833000000,"gmax":1056900000,"gia":944950000}],"2024":[{"pb":"ECO","gmin":674400000,"gmax":855700000,"gia":765050000},{"pb":"PLUS","gmin":736400000,"gmax":934400000,"gia":835400000}],"2023":[{"pb":"ECO","gmin":567400000,"gmax":720000000,"gia":643700000},{"pb":"PLUS","gmin":620700000,"gmax":787500000,"gia":704100000}],"2022":[{"pb":"ECO","gmin":549200000,"gmax":696800000,"gia":623000000},{"pb":"PLUS","gmin":581300000,"gmax":737600000,"gia":659450000}]},"VF9":{"2026":[{"pb":"LAC HONG 900 LX","gmin":4557000000,"gmax":5782000000,"gia":5169500000},{"pb":"PLUS 7 CHO","gmin":1238600000,"gmax":1571500000,"gia":1405050000},{"pb":"ECO","gmin":1002000000,"gmax":1271300000,"gia":1136650000},{"pb":"PLUS 6 CHO","gmin":1233100000,"gmax":1564600000,"gia":1398850000}],"2025":[{"pb":"LAC HONG 900 LX","gmin":4557000000,"gmax":5782000000,"gia":5169500000},{"pb":"PLUS 6 CHO","gmin":1116700000,"gmax":1416900000,"gia":1266800000},{"pb":"PLUS 7 CHO","gmin":1148200000,"gmax":1456800000,"gia":1302500000},{"pb":"ECO","gmin":1083700000,"gmax":1375000000,"gia":1229350000}],"2024":[{"pb":"ECO","gmin":1030000000,"gmax":1306900000,"gia":1168450000},{"pb":"PLUS 6 CHO","gmin":966800000,"gmax":1226700000,"gia":1096750000},{"pb":"PLUS 7 CHO","gmin":1015300000,"gmax":1288200000,"gia":1151750000}],"2023":[{"pb":"ECO","gmin":961800000,"gmax":1220300000,"gia":1091050000},{"pb":"PLUS 6 CHO","gmin":902600000,"gmax":1145300000,"gia":1023950000},{"pb":"PLUS 7 CHO","gmin":939500000,"gmax":1192100000,"gia":1065800000}],"2022":[{"pb":"PLUS 7 CHO","gmin":998900000,"gmax":1267400000,"gia":1133150000}]},"VFE34":{"2025":[{"pb":"VFE34","gmin":647100000,"gmax":821000000,"gia":734050000}],"2024":[{"pb":"VFE34","gmin":498600000,"gmax":632600000,"gia":565600000}],"2023":[{"pb":"VFE34","gmin":443900000,"gmax":563200000,"gia":503550000}],"2022":[{"pb":"VFE34","gmin":370000000,"gmax":469500000,"gia":419750000}],"2021":[{"pb":"VFE34","gmin":469200000,"gmax":595300000,"gia":532250000}]},"VFMPV7":{"2026":[{"pb":"VFMPV7","gmin":664400000,"gmax":843000000,"gia":753700000}],"2025":[{"pb":"VFMPV7","gmin":620200000,"gmax":786900000,"gia":703550000}]}},"BYD":{"ATTO 2":{"2026":[{"pb":"ATTO 2","gmin":609700000,"gmax":773600000,"gia":691650000}],"2025":[{"pb":"ATTO 2","gmin":594600000,"gmax":754500000,"gia":674550000}]},"ATTO 3":{"2026":[{"pb":"PREMIUM","gmin":792900000,"gmax":1006100000,"gia":899500000},{"pb":"DYNAMIC","gmin":683600000,"gmax":867300000,"gia":775450000}],"2025":[{"pb":"PREMIUM","gmin":712900000,"gmax":904500000,"gia":808700000},{"pb":"DYNAMIC","gmin":644500000,"gmax":817800000,"gia":731150000}],"2024":[{"pb":"PREMIUM","gmin":618700000,"gmax":785000000,"gia":701850000},{"pb":"DYNAMIC","gmin":586800000,"gmax":744500000,"gia":665650000}]},"DOLPHIN":{"2026":[{"pb":"GLX","gmin":592400000,"gmax":751700000,"gia":672050000}],"2025":[{"pb":"GLX","gmin":552000000,"gmax":700400000,"gia":626200000}],"2024":[{"pb":"GLX","gmin":436000000,"gmax":553200000,"gia":494600000}]},"HAN":{"2026":[{"pb":"PERFORMANCE","gmin":1357100000,"gmax":1721900000,"gia":1539500000}],"2025":[{"pb":"PERFORMANCE","gmin":1357100000,"gmax":1721900000,"gia":1539500000}],"2024":[{"pb":"PERFORMANCE","gmin":1357100000,"gmax":1721900000,"gia":1539500000}]},"SEAL":{"2026":[{"pb":"PERFORMANCE","gmin":1043600000,"gmax":1324100000,"gia":1183850000},{"pb":"ADVANCED","gmin":844900000,"gmax":1072000000,"gia":958450000}],"2025":[{"pb":"PERFORMANCE","gmin":1044800000,"gmax":1325700000,"gia":1185250000},{"pb":"ADVANCED","gmin":890800000,"gmax":1130300000,"gia":1010550000}],"2024":[{"pb":"PERFORMANCE","gmin":818000000,"gmax":1037900000,"gia":927950000},{"pb":"ADVANCED","gmin":644700000,"gmax":818000000,"gia":731350000}]},"SEAL 5":{"2026":[{"pb":"STANDARD","gmin":634300000,"gmax":804900000,"gia":719600000}],"2025":[{"pb":"STANDARD","gmin":634300000,"gmax":804900000,"gia":719600000}]},"SEALION 6":{"2026":[{"pb":"PREMIUM","gmin":819300000,"gmax":1039600000,"gia":929450000},{"pb":"DYNAMIC","gmin":728200000,"gmax":924000000,"gia":826100000}],"2025":[{"pb":"PREMIUM","gmin":824800000,"gmax":1046500000,"gia":935650000},{"pb":"DYNAMIC","gmin":753700000,"gmax":956300000,"gia":855000000}]},"SEALION 8":{"2026":[{"pb":"PERFORMANCE","gmin":1430000000,"gmax":1814400000,"gia":1622200000}],"2025":[{"pb":"PERFORMANCE","gmin":1430000000,"gmax":1814400000,"gia":1622200000}]}},"AUDI":{"E-TRON":{"2022":[{"pb":"50 QUATTRO","gmin":1923500000,"gmax":2440600000,"gia":2182050000}]},"E-TRON GT":{"2026":[{"pb":"QUATTRO","gmin":3600000000,"gmax":4567800000,"gia":4083900000}],"2025":[{"pb":"QUATTRO","gmin":3275800000,"gmax":4156400000,"gia":3716100000},{"pb":"RS QUATTRO","gmin":4179800000,"gmax":5303400000,"gia":4741600000}],"2024":[{"pb":"RS QUATTRO","gmin":4036200000,"gmax":5121200000,"gia":4578700000}],"2023":[{"pb":"RS QUATTRO","gmin":3892600000,"gmax":4939000000,"gia":4415800000}],"2022":[{"pb":"RS QUATTRO","gmin":3967500000,"gmax":5034100000,"gia":4500800000}]},"Q6":{"2026":[{"pb":"E-TRON","gmin":2915600000,"gmax":3699300000,"gia":3307450000}],"2025":[{"pb":"E-TRON","gmin":2880600000,"gmax":3654900000,"gia":3267750000}],"2024":[{"pb":"E-TRON","gmin":2907400000,"gmax":3688900000,"gia":3298150000}]}},"MERCEDES-BENZ":{"EQB":{"2026":[{"pb":"250","gmin":2104400000,"gmax":2670100000,"gia":2387250000},{"pb":"250+","gmin":2104400000,"gmax":2670100000,"gia":2387250000}],"2025":[{"pb":"250","gmin":2059500000,"gmax":2613100000,"gia":2336300000},{"pb":"250+","gmin":2059500000,"gmax":2613100000,"gia":2336300000}],"2024":[{"pb":"250","gmin":1811100000,"gmax":2298000000,"gia":2054550000},{"pb":"250+","gmin":1811100000,"gmax":2298000000,"gia":2054550000}],"2023":[{"pb":"250","gmin":1639400000,"gmax":2080100000,"gia":1859750000},{"pb":"250+","gmin":1639400000,"gmax":2080100000,"gia":1859750000}],"2022":[{"pb":"250","gmin":1790000000,"gmax":2271200000,"gia":2030600000},{"pb":"250+","gmin":1790000000,"gmax":2271200000,"gia":2030600000}]},"EQE":{"2026":[{"pb":"500 4 MATIC","gmin":3343900000,"gmax":4242800000,"gia":3793350000}],"2025":[{"pb":"500 4 MATIC","gmin":3138600000,"gmax":3982400000,"gia":3560500000}],"2024":[{"pb":"500 4 MATIC","gmin":2933300000,"gmax":3721900000,"gia":3327600000}],"2023":[{"pb":"500 4 MATIC","gmin":2278900000,"gmax":2891500000,"gia":2585200000}]},"EQS":{"2026":[{"pb":"450+","gmin":4100400000,"gmax":5202600000,"gia":4651500000},{"pb":"580 4MATIC","gmin":5431000000,"gmax":6891000000,"gia":6161000000},{"pb":"500 4MATIC","gmin":4647200000,"gmax":5896500000,"gia":5271850000}],"2025":[{"pb":"500 4MATIC","gmin":4605900000,"gmax":5844000000,"gia":5224950000},{"pb":"580 4MATIC","gmin":4901400000,"gmax":6219000000,"gia":5560200000},{"pb":"450+","gmin":4069600000,"gmax":5163600000,"gia":4616600000}],"2024":[{"pb":"450+","gmin":4038800000,"gmax":5124500000,"gia":4581650000},{"pb":"580 4MATIC","gmin":4371800000,"gmax":5547100000,"gia":4959450000},{"pb":"500 4MATIC","gmin":4195100000,"gmax":5322800000,"gia":4758950000}],"2023":[{"pb":"500 4MATIC","gmin":3002600000,"gmax":3809800000,"gia":3406200000},{"pb":"450+","gmin":2894400000,"gmax":3672500000,"gia":3283450000},{"pb":"580 4MATIC","gmin":2946100000,"gmax":3738000000,"gia":3342050000}],"2022":[{"pb":"450+","gmin":2399500000,"gmax":3044600000,"gia":2722050000},{"pb":"580 4MATIC","gmin":2927900000,"gmax":3714900000,"gia":3321400000},{"pb":"500 4MATIC","gmin":3195800000,"gmax":4054900000,"gia":3625350000}]}},"BMW":{"I4":{"2026":[{"pb":"EDRIVE40","gmin":3412300000,"gmax":4329600000,"gia":3870950000}],"2025":[{"pb":"EDRIVE40","gmin":3221700000,"gmax":4087800000,"gia":3654750000}],"2024":[{"pb":"EDRIVE40","gmin":3031200000,"gmax":3846000000,"gia":3438600000}],"2023":[{"pb":"EDRIVE40","gmin":2840600000,"gmax":3604200000,"gia":3222400000}],"2022":[{"pb":"EDRIVE40","gmin":2816400000,"gmax":3573500000,"gia":3194950000}]},"IX3":{"2026":[{"pb":"M SPORT","gmin":2906500000,"gmax":3687800000,"gia":3297150000}],"2025":[{"pb":"M SPORT","gmin":2886200000,"gmax":3662100000,"gia":3274150000}],"2024":[{"pb":"M SPORT","gmin":2774900000,"gmax":3520800000,"gia":3147850000}],"2023":[{"pb":"M SPORT","gmin":2191900000,"gmax":2781100000,"gia":2486500000}],"2022":[{"pb":"M SPORT","gmin":2177300000,"gmax":2762600000,"gia":2469950000}]}},"MG":{"MG4 EV":{"2026":[{"pb":"DEL","gmin":754600000,"gmax":957500000,"gia":856050000},{"pb":"LUX","gmin":864000000,"gmax":1096300000,"gia":980150000}],"2025":[{"pb":"LUX","gmin":864000000,"gmax":1096300000,"gia":980150000},{"pb":"DEL","gmin":754600000,"gmax":957500000,"gia":856050000}],"2024":[{"pb":"DEL","gmin":754600000,"gmax":957500000,"gia":856050000},{"pb":"LUX","gmin":864000000,"gmax":1096300000,"gia":980150000}]}}};
 
-/* ── RATE TABLE ── */
-const RATES={
-  u400:  {u3:1.25,t36:1.30,t610:1.50,t1015:1.70},
-  r400:  {u3:1.10,t36:1.00,t610:1.05,t1015:1.05},
-  r600:  {u3:0.95,t36:0.85,t610:0.90,t1015:0.90},
-  r800p: {u3:0.70,t36:0.60,t610:0.65,t1015:0.70}
+/* ── RATE TABLE — Biểu phí xe áp dụng từ 10/04/2026 ──
+   ageIdx: 0 = <3 năm | 1 = 3–6 năm | 2 = 6–10 năm | 3 = 10–15 năm
+   CN = Cá nhân/Gia đình (không KD) · KD = Kinh doanh/Taxi công nghệ (đến 9 chỗ) */
+const MIN_FEE=6000000; // Phí tối thiểu 6 triệu/năm (đã gồm VAT)
+const RATE_MODEL={
+  CN:{
+    label:'Cá nhân / Gia đình',
+    tiers:[
+      {max:400e6,   r:[1.75,1.70,2.10,2.20]}, // giá trị < 400tr
+      {max:600e6,   r:[1.10,1.00,1.05,1.05]}, // 400–<600tr
+      {max:800e6,   r:[0.95,0.85,0.90,0.90]}, // 600–<800tr
+      {max:Infinity,r:[0.70,0.60,0.65,0.70]}  // ≥ 800tr
+    ],
+    net:[0.96,1.01,1.15,1.36] // phí thuần DBV — sàn tỷ lệ áp dụng
+  },
+  KD:{
+    label:'Kinh doanh / Taxi công nghệ',
+    tiers:[
+      {max:500e6,   r:[1.50,1.50,1.80,2.10]}, // giá trị < 500tr
+      {max:Infinity,r:[1.40,1.45,1.65,1.85]}  // ≥ 500tr
+    ],
+    net:[1.10,1.21,1.32,1.43]
+  }
 };
-function getRateGroup(g){
-  const m=g/1e6;
-  if(m<400)return'u400';if(m<600)return'r400';if(m<800)return'r600';return'r800p';
-}
-function getAgeKey(yr){
+/* Gói mở rộng — tỷ lệ cộng thêm theo tuổi xe (chung cho CN & KD) */
+const BS01_R=[0.00,0.10,0.10,0.20];
+const BS02_R=[0.20,0.30,0.40,0.60];
+const BS06_R=[0.10,0.10,0.10,0.10];
+let USAGE='CN';
+function getAgeIdx(yr){
   const a=new Date().getFullYear()-yr;
-  if(a<3)return'u3';if(a<6)return't36';if(a<10)return't610';return't1015';
+  if(a<3)return 0;if(a<6)return 1;if(a<10)return 2;return 3;
 }
-function getBS01Rate(ageKey){
-  if(ageKey==='u3')return 0;if(ageKey==='t36')return 0.10;if(ageKey==='t610')return 0.20;return 0.30;
+/* Tỷ lệ phí cơ bản áp dụng = max(phí cơ bản theo bậc giá trị, phí thuần) */
+function getBaseRate(usage,val,ai){
+  const m=RATE_MODEL[usage];
+  const tier=m.tiers.find(t=>val<t.max)||m.tiers[m.tiers.length-1];
+  return Math.max(tier.r[ai], m.net[ai]);
 }
-function getBS02Rate(ageKey){
-  if(ageKey==='u3')return 0.10;if(ageKey==='t36')return 0.20;if(ageKey==='t610')return 0.30;return 0.40;
+function setUse(u){
+  USAGE=u;
+  document.querySelectorAll('.use-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.use===u));
+  if(document.getElementById('sel-ver') && document.getElementById('sel-ver').value!=='')calcFee();
 }
 function fmtV(v){
   if(v>=1e9)return(v/1e9).toFixed(2)+' tỷ đ';
@@ -1075,22 +1111,27 @@ function calcFee(){
   const vi=document.getElementById('sel-ver').value;
   if(!b||!m||!y||vi==='')return;
   const vd=CAR_DATA[b][m][String(y)][parseInt(vi)];
-  const ageKey=getAgeKey(y);
-  const rg=getRateGroup(vd.gia);
-  const baseRate=RATES[rg][ageKey];
-  const bs01rate=getBS01Rate(ageKey);
-  const bs02rate=getBS02Rate(ageKey);
+  const ai=getAgeIdx(y);
+  const baseRate=getBaseRate(USAGE,vd.gia,ai);
+  const bs01rate=BS01_R[ai];
+  const bs02rate=BS02_R[ai];
+  const bs06rate=BS06_R[ai];
   document.getElementById('bs01rate').textContent='+'+bs01rate.toFixed(2)+'%';
   document.getElementById('bs02rate').textContent='+'+bs02rate.toFixed(2)+'%';
+  const bs06el=document.getElementById('bs06rate');if(bs06el)bs06el.textContent='+'+bs06rate.toFixed(2)+'%';
   const useBS01=document.getElementById('bs01').checked;
   const useBS02=document.getElementById('bs02').checked;
   const useBS06=document.getElementById('bs06').checked;
   const baseMin=vd.gmin*baseRate/100, baseMax=vd.gmax*baseRate/100;
   const bs01Min=useBS01?vd.gmin*bs01rate/100:0, bs01Max=useBS01?vd.gmax*bs01rate/100:0;
   const bs02Min=useBS02?vd.gmin*bs02rate/100:0, bs02Max=useBS02?vd.gmax*bs02rate/100:0;
-  const bs06Min=useBS06?vd.gmin*0.10/100:0,    bs06Max=useBS06?vd.gmax*0.10/100:0;
-  const totalMin=Math.round((baseMin+bs01Min+bs02Min+bs06Min)*1.10);
-  const totalMax=Math.round((baseMax+bs01Max+bs02Max+bs06Max)*1.10);
+  const bs06Min=useBS06?vd.gmin*bs06rate/100:0, bs06Max=useBS06?vd.gmax*bs06rate/100:0;
+  let totalMin=Math.round((baseMin+bs01Min+bs02Min+bs06Min)*1.10);
+  let totalMax=Math.round((baseMax+bs01Max+bs02Max+bs06Max)*1.10);
+  // Quy tắc phí tối thiểu 6 triệu/năm (đã gồm VAT)
+  const minApplied=(totalMin<MIN_FEE)||(totalMax<MIN_FEE);
+  totalMin=Math.max(totalMin,MIN_FEE);
+  totalMax=Math.max(totalMax,MIN_FEE);
   const baseAmt=(baseMin+baseMax)/2;
   const bs01Amt=(bs01Min+bs01Max)/2;
   const bs02Amt=(bs02Min+bs02Max)/2;
@@ -1098,7 +1139,7 @@ function calcFee(){
   const res=document.getElementById('calcResult');
   res.style.display='block';res.classList.add('show');
   document.getElementById('resCarName').textContent=b+' '+m+' '+y+' — '+vd.pb;
-  document.getElementById('resRange').textContent='Giá trị xe tham khảo: '+fmtV(vd.gmin)+' – '+fmtV(vd.gmax);
+  document.getElementById('resRange').textContent='Giá trị xe tham khảo: '+fmtV(vd.gmin)+' – '+fmtV(vd.gmax)+' · '+RATE_MODEL[USAGE].label;
   document.getElementById('resBase').textContent=fmtF(baseAmt)+' ('+baseRate.toFixed(2)+'%)';
   document.getElementById('rowBS01').style.display=useBS01?'flex':'none';
   document.getElementById('rowBS02').style.display=useBS02?'flex':'none';
@@ -1106,8 +1147,17 @@ function calcFee(){
   if(useBS01)document.getElementById('resBS01').textContent='+'+fmtF(bs01Amt);
   if(useBS02)document.getElementById('resBS02').textContent='+'+fmtF(bs02Amt);
   if(useBS06)document.getElementById('resBS06').textContent='+'+fmtF(bs06Amt);
-  document.getElementById('resTotal').textContent=fmtF(totalMin)+' – '+fmtF(totalMax);
-  document.getElementById('resMonth').textContent='≈ '+Math.round(totalMin/12/1e6).toFixed(1)+' – '+Math.round(totalMax/12/1e6).toFixed(1)+' triệu/tháng · Đã gồm VAT 10%';
+  document.getElementById('resTotal').textContent = (totalMin===totalMax) ? fmtF(totalMin) : fmtF(totalMin)+' – '+fmtF(totalMax);
+  document.getElementById('resMonth').textContent = (totalMin===totalMax)
+    ? '≈ '+(totalMin/12/1e6).toFixed(1)+' triệu/tháng · Đã gồm VAT 10%'
+    : '≈ '+(totalMin/12/1e6).toFixed(1)+' – '+(totalMax/12/1e6).toFixed(1)+' triệu/tháng · Đã gồm VAT 10%';
+  // Ghi chú: phí tối thiểu & các mục cần trình duyệt
+  const notes=[];
+  if(minApplied)notes.push('Đã áp dụng phí tối thiểu 6 triệu đồng/năm (gồm VAT).');
+  if(useBS02&&ai>=2)notes.push('BS02 với xe trên 6 năm cần DBV trình duyệt biểu phí.');
+  if(USAGE==='KD'&&ai===3)notes.push('Xe kinh doanh trên 10 năm cần trình duyệt trước khi cấp đơn.');
+  const noteEl=document.getElementById('resNote');
+  if(noteEl){noteEl.innerHTML=notes.map(n=>'⚠️ '+n).join('<br/>');noteEl.style.display=notes.length?'block':'none';}
   document.getElementById('quickCall').style.display='flex';
   setStep(5);
   const fv=document.getElementById('f-car-val');
