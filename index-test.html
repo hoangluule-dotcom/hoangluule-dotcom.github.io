@@ -154,6 +154,10 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 /* Section titles */
 .sec-label{font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .sec-label::after{content:"";flex:1;height:1px;background:var(--bd)}
+.hint-btn{padding:8px 16px;border-radius:20px;border:1.5px solid var(--bd);background:#fff;color:var(--tm);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.hint-btn:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+.hint-all{border-color:var(--g);color:var(--g);font-weight:600}
+.hint-all:hover{background:var(--g);color:#fff}
 .cat-section{margin-bottom:40px}
 
 /* Grid */
@@ -166,7 +170,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .pcard{background:#fff;border-radius:var(--r12);border:1px solid rgba(0,0,0,.07);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:.22s}
 .pcard:hover{box-shadow:0 10px 36px rgba(0,116,55,.13);border-color:rgba(0,116,55,.18);transform:translateY(-3px)}
 .pcard.hidden{display:none!important}
-.pcard-photo{height:152px;position:relative;overflow:hidden;flex-shrink:0}
+.pcard-photo{height:128px;position:relative;overflow:hidden;flex-shrink:0}
 .pcard-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:.3s}
 .pcard:hover .pcard-photo img{transform:scale(1.04)}
 .pbadge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:.4px}
@@ -365,8 +369,18 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
     </div>
   </div>
 
+  <!-- Hint xem thêm danh mục -->
+  <div id="show-all-hint" style="display:flex;justify-content:center;padding:8px 0 32px;gap:10px;flex-wrap:wrap">
+    <button onclick="filterCat('xe', document.querySelector('[data-f=xe]'))" class="hint-btn">🚗 Xe cơ giới</button>
+    <button onclick="filterCat('taisan', document.querySelector('[data-f=taisan]'))" class="hint-btn">🏠 Tài sản & Kỹ thuật</button>
+    <button onclick="filterCat('conguoi', document.querySelector('[data-f=conguoi]'))" class="hint-btn">❤️ Sức khỏe & Du lịch</button>
+    <button onclick="filterCat('hanghai', document.querySelector('[data-f=hanghai]'))" class="hint-btn">🚢 Hàng hải</button>
+    <button onclick="filterCat('trachnhiem', document.querySelector('[data-f=trachnhiem]'))" class="hint-btn">⚖️ Trách nhiệm</button>
+    <button onclick="showAllSections()" class="hint-btn hint-all">Xem toàn bộ 22 sản phẩm ↓</button>
+  </div>
+
   <!-- XE CƠ GIỚI -->
-  <div class="cat-section" id="sec-xe">
+  <div class="cat-section" id="sec-xe" style="display:none">
     <div class="sec-label">🚗 Xe cơ giới</div>
     <div class="prod-grid">
       <a class="pcard" href="/bao-hiem-vat-chat-oto" data-cat="xe" data-name="vật chất ô tô xe hơi tai nạn"><div class="pcard-photo" style="background:linear-gradient(135deg,#007437,#16a34a)"><img src="/than-vo-oto.webp" alt="Vật chất ô tô" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Vật chất ô tô</div><div class="pcard-desc">Toàn bộ chi phí sửa chữa sau va chạm, cháy nổ, thiên tai đều được bồi thường.</div><div class="pcard-tags"><span class="ptag">Va chạm</span><span class="ptag">Cháy nổ</span><span class="ptag">Thiên tai</span></div></div><div class="pcard-actions"><a href="/bao-hiem-vat-chat-oto" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></a>
@@ -377,7 +391,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   </div>
 
   <!-- TÀI SẢN -->
-  <div class="cat-section" id="sec-taisan">
+  <div class="cat-section" id="sec-taisan" style="display:none">
     <div class="sec-label">🏠 Tài sản & Kỹ thuật</div>
     <div class="prod-grid">
       <a class="pcard" href="/bao-hiem-chay-no" data-cat="taisan batbuoc" data-name="cháy nổ bắt buộc doanh nghiệp"><div class="pcard-photo" style="background:linear-gradient(135deg,#b45309,#d97706)"><img src="/chay-no-bat-buoc.webp" alt="Cháy nổ bắt buộc" loading="lazy"><span class="pbadge pbadge-req">BẮT BUỘC</span></div><div class="pcard-body"><div class="pcard-name">Cháy nổ bắt buộc</div><div class="pcard-desc">Tuân thủ pháp luật & bảo vệ cơ sở kinh doanh 24/7 trước nguy cơ cháy nổ.</div><div class="pcard-tags"><span class="ptag">Bắt buộc</span><span class="ptag">Nghị định 23</span></div></div><div class="pcard-actions"><a href="/bao-hiem-chay-no" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></a>
@@ -390,7 +404,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   </div>
 
   <!-- SỨC KHỎE & DU LỊCH -->
-  <div class="cat-section" id="sec-conguoi">
+  <div class="cat-section" id="sec-conguoi" style="display:none">
     <div class="sec-label">❤️ Sức khỏe & Du lịch</div>
     <div class="prod-grid">
       <a class="pcard" href="/bao-hiem-suc-khoe" data-cat="conguoi" data-name="sức khỏe nằm viện phẫu thuật thuốc"><div class="pcard-photo" style="background:linear-gradient(135deg,#be123c,#e11d48)"><img src="/suc-khoe.webp" alt="Sức khỏe" loading="lazy"><span class="pbadge pbadge-hot">HOT</span></div><div class="pcard-body"><div class="pcard-name">Bảo hiểm sức khỏe</div><div class="pcard-desc">Không lo viện phí — nội trú, phẫu thuật, thuốc men được chi trả toàn bộ.</div><div class="pcard-tags"><span class="ptag">Nội trú</span><span class="ptag">Phẫu thuật</span></div></div><div class="pcard-actions"><a href="/bao-hiem-suc-khoe" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></a>
@@ -401,7 +415,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   </div>
 
   <!-- HÀNG HẢI -->
-  <div class="cat-section" id="sec-hanghai">
+  <div class="cat-section" id="sec-hanghai" style="display:none">
     <div class="sec-label">🚢 Hàng hải</div>
     <div class="prod-grid">
       <a class="pcard" href="/bao-hiem-van-chuyen" data-cat="hanghai" data-name="vận chuyển hàng hóa nội địa đường bộ thuỷ"><div class="pcard-photo" style="background:linear-gradient(135deg,#1B3A5C,#2a5b9e)"><img src="/hang-hoa-van-chuyen-noi-dia.webp" alt="Vận chuyển nội địa" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Vận chuyển hàng hóa nội địa</div><div class="pcard-desc">Hàng đến đúng nơi, đúng số lượng — mọi tổn thất vận chuyển nội địa đều được bồi thường.</div><div class="pcard-tags"><span class="ptag">Đường bộ</span><span class="ptag">Đường thuỷ</span></div></div><div class="pcard-actions"><a href="/bao-hiem-van-chuyen" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></a>
@@ -411,7 +425,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   </div>
 
   <!-- TRÁCH NHIỆM -->
-  <div class="cat-section" id="sec-trachnhiem">
+  <div class="cat-section" id="sec-trachnhiem" style="display:none">
     <div class="sec-label">⚖️ Trách nhiệm</div>
     <div class="prod-grid">
       <a class="pcard" href="/bao-hiem-tnc.html" data-cat="trachnhiem" data-name="trách nhiệm chung doanh nghiệp bên thứ ba"><div class="pcard-photo" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)"><img src="/trach-nhiem-chung.webp" alt="Trách nhiệm chung" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Trách nhiệm chung</div><div class="pcard-desc">Doanh nghiệp vận hành tự tin — bảo vệ trước mọi yêu cầu bồi thường từ bên thứ ba.</div><div class="pcard-tags"><span class="ptag">Doanh nghiệp</span><span class="ptag">Bên thứ ba</span></div></div><div class="pcard-actions"><a href="/bao-hiem-tnc.html" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></a>
@@ -453,10 +467,18 @@ function filterCat(cat, chipEl) {
   const cards = document.querySelectorAll('.pcard');
 
   if (cat === 'all') {
-    sections.forEach(s => s.style.display = '');
+    // "Tất cả": chỉ hiện HOT, ẩn các section con (tránh trùng lặp & trang quá dài)
+    document.getElementById('sec-hot').style.display = '';
+    sections.forEach(s => {
+      if (s.id !== 'sec-hot') s.style.display = 'none';
+    });
     cards.forEach(c => c.classList.remove('hidden'));
+    // Hiện thêm nút "Xem tất cả danh mục" gợi ý filter
+    document.getElementById('show-all-hint').style.display = 'flex';
   } else {
+    // Filter theo danh mục: ẩn HOT, hiện section tương ứng
     document.getElementById('sec-hot').style.display = 'none';
+    document.getElementById('show-all-hint').style.display = 'none';
     sections.forEach(s => {
       if (s.id === 'sec-hot') return;
       const visible = [...s.querySelectorAll('.pcard')].some(c => (c.dataset.cat || '').split(' ').includes(cat));
@@ -469,6 +491,14 @@ function filterCat(cat, chipEl) {
   }
   clearSearch();
   checkEmpty();
+}
+
+function showAllSections() {
+  document.querySelectorAll('.cat-section').forEach(s => s.style.display = '');
+  document.querySelectorAll('.pcard').forEach(c => c.classList.remove('hidden'));
+  document.getElementById('show-all-hint').style.display = 'none';
+  document.querySelectorAll('.f-chip').forEach(c => c.classList.remove('active'));
+  // Không active chip nào = đang xem tất cả thật sự
 }
 
 function scrollToCatalog() {
@@ -495,7 +525,9 @@ document.getElementById('cat-search').addEventListener('input', function() {
   checkEmpty();
 });
 
-function clearSearch() { document.getElementById('cat-search').value = ''; }
+function clearSearch() {
+  document.getElementById('cat-search').value = '';
+}
 function checkEmpty() {
   const any = [...document.querySelectorAll('.pcard')].some(c => !c.classList.contains('hidden'));
   document.getElementById('empty-state').classList.toggle('show', !any);
