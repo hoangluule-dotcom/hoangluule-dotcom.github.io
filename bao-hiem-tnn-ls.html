@@ -328,11 +328,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .cat-dd-sub.open{display:block}
 .cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
 .cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
-.nav-dd-wrap{position:relative;display:inline-flex}
-.nav-dd{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--bd);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:6px;min-width:190px;z-index:500}
-.nav-dd-wrap:hover .nav-dd{display:block}
-.nav-dd a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;text-decoration:none;color:#1C1C1C;font-size:13px;font-weight:500;transition:.15s;white-space:nowrap}
-.nav-dd a:hover{background:var(--gl);color:var(--g)}
+
+
+
+
+
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){
   .hdr-inner{padding:0 16px}
@@ -381,16 +381,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
     <nav class="hdr-nav">
-      <div class="nav-dd-wrap">
-        <a href="/san-pham">Sản phẩm <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
-        <div class="nav-dd">
-          <a href="/bao-hiem-vat-chat-oto">Xe ô tô</a>
-          <a href="/bao-hiem-suc-khoe">Sức khỏe</a>
-          <a href="/bao-hiem-tai-san">Tài sản</a>
-          <a href="/bao-hiem-du-lich">Du lịch</a>
-          <a href="/bao-hiem-hang-hai">Hàng hải</a>
-        </div>
-      </div>
+      <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/ve-dbv">Về DBV247</a>
@@ -1062,5 +1053,29 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 });
 </script>
 <script src="/site-settings.js" defer></script>
+
+<script>
+(function(){
+  function toggleCatDropdown(e){e.stopPropagation();document.getElementById('cat-dropdown').classList.toggle('open')}
+  function closeCatDropdown(){
+    var dd=document.getElementById('cat-dropdown');
+    if(dd){dd.classList.remove('open');
+    dd.querySelectorAll('.cat-dd-sub.open').forEach(function(el){el.classList.remove('open')});
+    dd.querySelectorAll('.cat-dd-parent.open').forEach(function(el){el.classList.remove('open')})}
+  }
+  function toggleSubMenu(btn){
+    var sub=document.getElementById('sub-sanpham');
+    var isOpen=sub.classList.contains('open');
+    sub.classList.toggle('open',!isOpen);
+    btn.classList.toggle('open',!isOpen);
+  }
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.hdr-cat-wrap'))closeCatDropdown();
+  });
+  window.toggleCatDropdown=toggleCatDropdown;
+  window.closeCatDropdown=closeCatDropdown;
+  window.toggleSubMenu=toggleSubMenu;
+})();
+</script>
 </body>
 </html>
