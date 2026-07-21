@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--g:#007437;--gp:#005a2b;--gl:#E8F5E9;--gold:#E8920A;--goldd:#c97d08;--navy:#1B3A5C;--dk:#1A4D32;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;--bd:#E2E8F0;--bg:#F7F9FC;--r8:8px;--r12:12px;--r16:16px;--r20:20px;--sh:0 2px 16px rgba(0,0,0,.07);--sh2:0 8px 40px rgba(0,0,0,.12)}
+:root{--g:#007437;--gp:#005a2b;--gl:#E8F5E9;--zalo:#0068ff;--gold:#E8920A;--goldd:#c97d08;--navy:#1B3A5C;--dk:#1A4D32;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;--bd:#E2E8F0;--bg:#F7F9FC;--r8:8px;--r12:12px;--r16:16px;--r20:20px;--sh:0 2px 16px rgba(0,0,0,.07);--sh2:0 8px 40px rgba(0,0,0,.12)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{overflow-x:clip;scroll-behavior:smooth}
 body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg);line-height:1.6;overflow-x:clip}
@@ -93,6 +93,82 @@ svg.ico{width:24px;height:24px;fill:none;stroke:var(--g);stroke-width:1.8}
 @media(max-width:768px){.page-hero{padding:56px 20px 52px}.filter-bar{padding:0 16px}.prod-img-grid{grid-template-columns:repeat(2,1fr);gap:14px}.cta-section{padding:36px 20px}.footer-top{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.hdr-inner{padding:0 16px}.main{padding:28px 16px}.hdr-back{display:none!important}}
 @media(max-width:480px){.hdr-tel-num{display:none!important}.page-hero h1{font-size:1.5rem}.prod-img-grid{grid-template-columns:1fr;gap:12px}.footer-top{grid-template-columns:1fr!important}.footer-inner{padding:0 16px}}
+/* ══ HEADER SYNC ══ */
+.hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:78px;gap:8px}
+.hdr-logo{flex-shrink:0;margin-right:24px;text-decoration:none}
+.hdr-logo img{height:66px;width:auto;display:block}
+.hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
+.hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
+.hdr-nav a:hover{color:var(--g);background:var(--gl)}
+.hdr-nav a.active{color:var(--g);font-weight:700;position:relative}
+.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g);border-radius:2px}
+.hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap;background:none;cursor:pointer;font-family:inherit}
+.btn-catalog-hdr:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+.btn-login{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-login:hover{border-color:var(--g);color:var(--g)}
+.btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--gold);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-consult-hdr:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
+.hdr-cat-wrap{position:relative;display:inline-flex}
+@media(min-width:641px){.hdr-cat-wrap{display:none}}
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
+.cat-dropdown.open{display:block}
+.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.cat-dd-item:hover{background:var(--gl);color:var(--g)}
+.cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
+
+
+
+
+.cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
+.cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
+
+
+
+
+
+@media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
+@media(max-width:640px){
+  .hdr-inner{padding:0 16px}
+  .hdr-logo img{height:54px}
+  .hdr-nav{display:none}
+  .btn-login{display:none}
+  .btn-consult-hdr{display:none}
+  .hdr-actions{margin-left:auto}
+  .btn-catalog-hdr .btn-cat-text{display:none}
+  .btn-catalog-hdr{padding:8px 10px;border-radius:10px}
+}
+/* ══ END HEADER SYNC ══ */
+
+/* ══ FOOTER SYNC ══ */
+.ftr{background:#f4f7f5;border-top:1px solid var(--bd);margin-top:0}
+.ftr-inner{max-width:1280px;margin:0 auto;padding:28px 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+.ftr-logo{height:88px;width:auto;display:block;margin-bottom:18px}
+.ftr-brand-desc{font-size:13px;color:var(--ts);line-height:1.7;margin-bottom:12px}
+.ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:8px;line-height:1.5}
+.ftr-info a:hover{color:var(--g)}
+.ftr-info a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0;margin-top:2px}
+.ftr-col h4,.ftr-contact h4{font-size:11px;font-weight:700;color:var(--dk);text-transform:uppercase;letter-spacing:.7px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.ftr-col a{display:block;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:10px;line-height:1.5;transition:.15s}
+.ftr-col a:hover{color:var(--g);padding-left:4px}
+.ftr-social{display:flex;gap:10px;margin-bottom:24px}
+.ftr-social a{width:38px;height:38px;border-radius:50%;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a:hover{background:var(--g);transform:translateY(-2px)}
+.ftr-social svg{width:17px;height:17px;fill:#fff}
+.ftr-phone-label{font-size:11px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ftr-hotline{font-size:22px;font-weight:800;color:var(--g);text-decoration:none;letter-spacing:-.5px;display:block;line-height:1.2}
+.ftr-hotline:hover{color:var(--gd,#005a2b)}
+.ftr-copy{border-top:1px solid var(--bd)}
+.ftr-copy-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ts)}
+.ftr-copy-inner a{color:var(--ts);text-decoration:none}
+.ftr-copy-inner a:hover{color:var(--g)}
+@media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
+@media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 20px 28px}.ftr-copy-inner{padding:14px 20px;flex-direction:column;text-align:center}}
+/* ══ END FOOTER SYNC ══ */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);padding:10px 16px;z-index:400;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}@media(max-width:640px){.mob-bar{display:flex}}.mob-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;padding:11px;border-radius:10px;text-decoration:none}.mob-call{background:var(--gl);color:var(--g);border:1.5px solid var(--g)}.mob-zalo{background:var(--zalo);color:#fff}@media(max-width:640px){.float-cta{display:none!important}}
 </style>
 </head>
 <body>
@@ -100,10 +176,34 @@ svg.ico{width:24px;height:24px;fill:none;stroke:var(--g);stroke-width:1.8}
 <header class="hdr">
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <nav class="hdr-nav">
+      <a href="/san-pham" class="active">Sản phẩm</a>
+      <a href="/boi-thuong">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
+    </nav>
     <div class="hdr-actions">
-      <a href="/" class="hdr-back"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Trang chủ</a>
-      <a href="tel:0869656561" class="hdr-tel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="hdr-tel-num">0869 656 561</span></a>
-      <a href="tel:0869656561" class="hdr-btn">Tư vấn miễn phí</a>
+      <div class="hdr-cat-wrap">
+        <button class="btn-catalog-hdr" onclick="toggleCatDropdown(event)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="btn-cat-text">Danh mục</span>
+        </button>
+        <div class="cat-dropdown" id="cat-dropdown">
+          <a class="cat-dd-item" href="/san-pham" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Sản phẩm</a>
+          <div class="cat-dd-sep"></div>
+          <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Bồi thường</a>
+          <a class="cat-dd-item" href="/servicemap" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="19" x2="10" y2="19"/><line x1="14" y1="19" x2="17" y2="19"/></svg>Mạng lưới dịch vụ</a>
+          <a class="cat-dd-item" href="/ve-dbv" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/></svg>Về DBV247</a>
+        </div>
+      </div>
+      <a href="tel:0869656561" class="btn-login">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        0869 656 561
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="btn-consult-hdr" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Nhận tư vấn
+      </a>
     </div>
   </div>
 </header>
@@ -467,49 +567,73 @@ svg.ico{width:24px;height:24px;fill:none;stroke:var(--g);stroke-width:1.8}
 
 </main>
 
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <img src="/Logo header Footer.png" alt="DBV247" style="height:40px;width:auto;display:block;margin-bottom:14px;">
-        <div class="f-desc"><strong style="color:var(--dk);font-size:13.5px">DBV247</strong> – Kênh tư vấn bảo hiểm online trực thuộc<br><span style="font-size:12.5px">Công ty cổ phần Tập đoàn Bảo hiểm DBV – Chi nhánh Thành Đô</span></div>
-        <div class="f-desc" style="font-size:12.5px;line-height:1.9;margin-top:6px"><span style="opacity:.75">MST:</span> 0102737963-059<br><span style="opacity:.75">Địa chỉ:</span> BT20-C37, TDP 20, Phường Thanh Xuân, Thành phố Hà Nội</div>
-        <a href="tel:0869656561" class="f-tel">0869 656 561</a>
-        <a href="mailto:dbvi247@gmail.com" class="f-email">dbvi247@gmail.com</a>
-      </div>
-      <div>
-        <div class="f-h4">Sản Phẩm</div>
-        <ul class="f-links">
-          <li><a href="/bao-hiem-tnds-oto">BH TNDS Ô Tô</a></li>
-          <li><a href="/bao-hiem-tnds-xemay">BH TNDS Xe Máy</a></li>
-          <li><a href="/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a></li>
-          <li><a href="/bao-hiem-chay-no-chung-cu">BH Cháy Nổ Chung Cư</a></li>
-          <li><a href="/bao-hiem-suc-khoe">BH Sức Khỏe</a></li>
-          <li><a href="/san-pham">Xem tất cả →</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-h4">Hỗ Trợ</div>
-        <ul class="f-links">
-          <li><a href="/">Trang chủ DBV</a></li>
-          <li><a href="mailto:dbvi247@gmail.com">Gửi yêu cầu tư vấn</a></li>
-          <li><a href="https://zalo.me/1283738895804393564">Nhắn tin Zalo</a></li>
-          <li><a href="#">Điều khoản bảo hiểm</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-h4">Liên Hệ</div>
-        <ul class="f-links">
-          <li><a href="tel:0869656561">📞 0869 656 561</a></li>
-          <li><a href="mailto:dbvi247@gmail.com">✉️ dbvi247@gmail.com</a></li>
-          <li><a href="https://zalo.me/1283738895804393564">💬 Zalo: 0869 656 561</a></li>
-          <li><a href="https://www.dbv247.com.vn">🌐 www.dbv247.com.vn</a></li>
-        </ul>
+<footer class="ftr">
+  <div class="ftr-inner">
+    <div class="ftr-brand">
+      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV trực thuộc chi nhánh DBV Thành Đô</p>
+      <div class="ftr-info">
+        <a href="#">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          BT20-C37, TDP 20, Phường Thanh Xuân, TP Hà Nội, Việt Nam
+        </a>
+        <a href="tel:0869656561">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          0869 656 561
+        </a>
+        <a href="mailto:dbvi247@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          dbvi247@gmail.com
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          MST: 0102737963-059
+        </a>
       </div>
     </div>
-    <div class="f-bottom">
-      <div class="f-copy">© 2025 DBV247 – Kênh tư vấn bảo hiểm online. Bảo lưu mọi quyền.</div>
-      <div class="f-lic">Được cấp phép hoạt động bởi Bộ Tài chính Việt Nam</div>
+    <div class="ftr-col">
+      <h4>Sản phẩm</h4>
+      <a href="/bao-hiem-vat-chat-oto">Bảo hiểm Xe ô tô</a>
+      <a href="/bao-hiem-tnds-xemay">Bảo hiểm Xe máy</a>
+      <a href="/bao-hiem-suc-khoe">Bảo hiểm Sức khỏe</a>
+      <a href="/bao-hiem-du-lich">Bảo hiểm Du lịch</a>
+      <a href="/bao-hiem-tai-san">Bảo hiểm Tài sản</a>
+      <a href="/bao-hiem-hang-hai">Bảo hiểm Hàng hải</a>
+    </div>
+    <div class="ftr-col">
+      <h4>Công ty</h4>
+      <a href="/san-pham">Sản phẩm</a>
+      <a href="/boi-thuong">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
+    </div>
+    <div class="ftr-contact">
+      <h4>Kết nối với chúng tôi</h4>
+      <div class="ftr-social">
+        <a href="https://www.facebook.com/TapdoanbaohiemDBV" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" aria-label="Zalo">
+          <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@tapdoanbaohiemdbv" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@TapdoanBaohiemDBV" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1a1a"/></svg>
+        </a>
+      </div>
+      <p class="ftr-phone-label">Liên hệ DBV247</p>
+      <a href="tel:0869656561" class="ftr-hotline">0869 656 561</a>
+    </div>
+  </div>
+  <div class="ftr-copy">
+    <div class="ftr-copy-inner">
+      <span>Copyright © 2025 DBV247. All rights reserved.</span>
+      <div style="display:flex;gap:16px">
+        <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+        <a href="/dieu-khoan-su-dung">Điều khoản sử dụng</a>
+      </div>
     </div>
   </div>
 </footer>
@@ -533,5 +657,24 @@ function filterCat(cat,btn){
   });
 }
 </script>
+<script>
+(function(){
+  function toggleCatDropdown(e){e.stopPropagation();document.getElementById('cat-dropdown').classList.toggle('open')}
+  function closeCatDropdown(){var dd=document.getElementById('cat-dropdown');if(dd)dd.classList.remove('open')}
+  document.addEventListener('click',function(e){if(!e.target.closest('.hdr-cat-wrap'))closeCatDropdown()});
+  window.toggleCatDropdown=toggleCatDropdown;window.closeCatDropdown=closeCatDropdown;
+})();
+</script>
+
+<div class="mob-bar">
+  <a href="tel:0869656561" class="mob-call">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--g)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Gọi ngay
+  </a>
+  <a href="https://zalo.me/1283738895804393564" class="mob-zalo" target="_blank" rel="noopener">
+    <svg width="15" height="15" viewBox="0 0 32 32" fill="#fff"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
+    Nhắn Zalo
+  </a>
+</div>
 </body>
 </html>

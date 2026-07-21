@@ -14,7 +14,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;--zalo:#0068ff;
   --gold:#E8920A;--goldd:#c97d08;
   --navy:#1B3A5C;--dk:#1A4D32;
   --tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
@@ -344,7 +344,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
 .float-btn:hover{background:var(--goldd)!important;transform:scale(1.03)}
 .float-zalo{background:#fff;border:2px solid var(--bd);width:48px;height:48px;border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:11px;font-weight:800;color:#0068ff;transition:.2s}
 .float-zalo:hover{transform:scale(1.1)}
-
 /* ══ HEADER SYNC ══ */
 .hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
 .hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:78px;gap:8px}
@@ -371,10 +370,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
 .cat-dd-item:hover{background:var(--gl);color:var(--g)}
 .cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
-.cat-dd-parent{font-weight:600}
-.cat-dd-parent.open .dd-arr{transform:rotate(180deg)}
-.cat-dd-sub{display:none;border-left:2px solid var(--gl);margin:2px 4px 4px 20px;padding:2px 0}
-.cat-dd-sub.open{display:block}
+
+
+
+
 .cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
 .cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
 
@@ -420,7 +419,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
 @media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
 @media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 20px 28px}.ftr-copy-inner{padding:14px 20px;flex-direction:column;text-align:center}}
 /* ══ END FOOTER SYNC ══ */
-
+@media(max-width:640px){.float-cta{display:none!important}}
 </style>
 </head>
 <body>
@@ -438,7 +437,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
     <nav class="hdr-nav">
-      <a href="/san-pham" class="active">Sản phẩm</a>
+      <div class="nav-dd-wrap">
+        <a href="/san-pham" class="active">Sản phẩm <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <div class="nav-dd">
+          <a href="/bao-hiem-vat-chat-oto">Xe ô tô</a>
+          <a href="/bao-hiem-suc-khoe">Sức khỏe</a>
+          <a href="/bao-hiem-tai-san">Tài sản</a>
+          <a href="/bao-hiem-du-lich">Du lịch</a>
+          <a href="/bao-hiem-hang-hai">Hàng hải</a>
+        </div>
+      </div>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/ve-dbv">Về DBV247</a>
@@ -450,18 +458,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
           <span class="btn-cat-text">Danh mục</span>
         </button>
         <div class="cat-dropdown" id="cat-dropdown">
-          <button class="cat-dd-item cat-dd-parent" onclick="toggleSubMenu(this)">
-            <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-            Sản phẩm
-            <svg class="dd-arr" viewBox="0 0 24 24" width="12" height="12" style="margin-left:auto;stroke:currentColor;fill:none;stroke-width:2;transition:.2s"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="cat-dd-sub" id="sub-sanpham">
-            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-vat-chat-oto" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe ô tô</a>
-            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Sức khỏe</a>
-            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-tai-san" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản</a>
-            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-du-lich" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>Du lịch</a>
-            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-hang-hai" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải</a>
-          </div>
+          <a class="cat-dd-item" href="/san-pham" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Sản phẩm</a>
           <div class="cat-dd-sep"></div>
           <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Bồi thường</a>
           <a class="cat-dd-item" href="/servicemap" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="19" x2="10" y2="19"/><line x1="14" y1="19" x2="17" y2="19"/></svg>Mạng lưới dịch vụ</a>
@@ -607,7 +604,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
     <!-- Desktop: card grid -->
     <div class="aud-grid">
       <div class="aud-card star">
-        <div class="aud-ribbon"> Được chọn nhiều nhất</div>
+        <div class="aud-ribbon">⭐ Được chọn nhiều nhất</div>
         <div class="aud-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M12 9v6"/><circle cx="12" cy="12" r="10"/></svg></div>
         <div class="aud-title">Con nhỏ (từ 60 ngày tuổi)</div>
         <div class="aud-body">Trẻ hay ốm vặt, viêm hô hấp, nằm viện bất chợt. Tham gia cùng bố/mẹ với chương trình quyền lợi tương đương.</div>
@@ -686,7 +683,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
     <div class="plan-tabs">
       <label class="plan-tab" for="pr0" onclick="switchPlan(0)">Đồng</label>
       <label class="plan-tab" for="pr1" onclick="switchPlan(1)">Bạc</label>
-      <label class="plan-tab star" for="pr2" onclick="switchPlan(2)"> Vàng</label>
+      <label class="plan-tab star" for="pr2" onclick="switchPlan(2)">⭐ Vàng</label>
       <label class="plan-tab" for="pr3" onclick="switchPlan(3)">Bạch Kim</label>
       <label class="plan-tab" for="pr4" onclick="switchPlan(4)">Kim Cương</label>
     </div>
@@ -729,7 +726,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
       </div>
       <div class="plan-card-panel star-panel" data-plan="2">
         <div class="plan-name">Gói Vàng</div>
-        <div class="plan-badge"> Cân bằng phí/quyền lợi — chọn nhiều nhất</div>
+        <div class="plan-badge">⭐ Cân bằng phí/quyền lợi — chọn nhiều nhất</div>
         <div class="plan-rows">
           <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do tai nạn</span><span class="plan-row-val green">100 triệu</span></div>
           <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do bệnh</span><span class="plan-row-val green">100 triệu</span></div>
@@ -792,7 +789,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
             <th>Quyền lợi chính</th>
             <th>Đồng</th>
             <th>Bạc</th>
-            <th class="scol">Vàng<span class="rb"> Chọn nhiều nhất</span></th>
+            <th class="scol">Vàng<span class="rb">⭐ Chọn nhiều nhất</span></th>
             <th>Bạch Kim</th>
             <th>Kim Cương</th>
           </tr>
@@ -839,7 +836,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
           <select id="c-plan" onchange="calcFee()">
             <option value="0">Đồng</option>
             <option value="1">Bạc</option>
-            <option value="2" selected>Vàng </option>
+            <option value="2" selected>Vàng ⭐</option>
             <option value="3">Bạch Kim</option>
             <option value="4">Kim Cương</option>
           </select>
@@ -871,8 +868,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
         <div class="calc-fee-lbl">Phí bảo hiểm ước tính /năm</div>
         <div class="calc-fee" id="calc-fee">1.484.000đ</div>
         <div class="calc-perday" id="calc-perday">≈ 4.100đ/ngày — chưa bằng ly trà đá</div>
-        <div class="calc-info" id="calc-info">Gói Vàng · Nội trú 50tr + Tai nạn 100tr + Bảo lãnh nội trú — cân bằng nhất</div>
-        <div class="calc-nojs-notice">Đây là mức phí tham khảo mặc định. Để đổi tuổi/gói/quyền lợi và xem phí chính xác, vui lòng mở link web (không mở file), hoặc nhắn Zalo — chuyên viên tính giúp bạn trong 5 phút.</div>
+        <div class="calc-info" id="calc-info">Gói Vàng ⭐ · Nội trú 50tr + Tai nạn 100tr + Bảo lãnh nội trú — cân bằng nhất</div>
+        <div class="calc-nojs-notice">📌 Đây là mức phí tham khảo mặc định. Để đổi tuổi/gói/quyền lợi và xem phí chính xác, vui lòng mở link web (không mở file), hoặc nhắn Zalo — chuyên viên tính giúp bạn trong 5 phút.</div>
         <a href="#cta-form" class="calc-cta-btn" id="calc-cta" onclick="pickFromCalc()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           Giữ mức phí này — nhận tư vấn ngay
@@ -1052,7 +1049,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
           <div class="fg"><label>Gói quan tâm</label>
             <select id="c-goi">
               <option value="">— Chưa rõ, cần tư vấn —</option>
-              <option>Đồng</option><option>Bạc</option><option>Vàng </option>
+              <option>Đồng</option><option>Bạc</option><option>Vàng ⭐</option>
               <option>Bạch Kim</option><option>Kim Cương</option>
             </select>
           </div>
@@ -1232,7 +1229,7 @@ var PLAN_NAMES=['Đồng','Bạc','Vàng','Bạch Kim','Kim Cương'];
 var PLAN_INFO=[
   'Gói Đồng · Nội trú 15tr + Tai nạn 25tr — bảo vệ cơ bản, phí tối thiểu',
   'Gói Bạc · Nội trú 30tr + Bảo lãnh viện phí nội trú',
-  'Gói Vàng · Nội trú 50tr + Tai nạn 100tr + Bảo lãnh nội trú — cân bằng nhất',
+  'Gói Vàng ⭐ · Nội trú 50tr + Tai nạn 100tr + Bảo lãnh nội trú — cân bằng nhất',
   'Gói Bạch Kim · Nội trú 100tr + Bảo lãnh cả Nội trú, Ngoại trú, Nha khoa',
   'Gói Kim Cương · Nội trú 120tr + Tai nạn 500tr — bảo vệ tối đa'
 ];
@@ -1308,28 +1305,12 @@ document.addEventListener('click',function(e){
 // Khởi động máy tính phí
 calcFee();
 </script>
-
 <script>
 (function(){
   function toggleCatDropdown(e){e.stopPropagation();document.getElementById('cat-dropdown').classList.toggle('open')}
-  function closeCatDropdown(){
-    var dd=document.getElementById('cat-dropdown');
-    if(dd){dd.classList.remove('open');
-    dd.querySelectorAll('.cat-dd-sub.open').forEach(function(el){el.classList.remove('open')});
-    dd.querySelectorAll('.cat-dd-parent.open').forEach(function(el){el.classList.remove('open')})}
-  }
-  function toggleSubMenu(btn){
-    var sub=document.getElementById('sub-sanpham');
-    var isOpen=sub.classList.contains('open');
-    sub.classList.toggle('open',!isOpen);
-    btn.classList.toggle('open',!isOpen);
-  }
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('.hdr-cat-wrap'))closeCatDropdown();
-  });
-  window.toggleCatDropdown=toggleCatDropdown;
-  window.closeCatDropdown=closeCatDropdown;
-  window.toggleSubMenu=toggleSubMenu;
+  function closeCatDropdown(){var dd=document.getElementById('cat-dropdown');if(dd)dd.classList.remove('open')}
+  document.addEventListener('click',function(e){if(!e.target.closest('.hdr-cat-wrap'))closeCatDropdown()});
+  window.toggleCatDropdown=toggleCatDropdown;window.closeCatDropdown=closeCatDropdown;
 })();
 </script>
 </body>
