@@ -25,16 +25,12 @@ html{overflow-x:clip;scroll-behavior:smooth}
 body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--white);line-height:1.6;overflow-x:clip}
 
 /* HEADER */
-.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
+
 .hdr-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
 .hdr-logo{display:flex;align-items:center;text-decoration:none;gap:10px}
 .hdr-nav{display:flex;gap:4px}
 .hdr-nav a{color:#444;text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:6px;transition:.2s;white-space:nowrap}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
-.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13.5px!important}
-.hdr-cta:hover{background:var(--goldd)!important}
-.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 12px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px}
-.hdr-allprod:hover{background:var(--g);color:#fff}
 
 /* USP BAR */
 .usp-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:12px 0}
@@ -279,7 +275,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   .footer-top{grid-template-columns:1fr}
 }
 
-
 /* ===== BỔ SUNG CHO TRANG VCX ===== */
 .trust-band{background:#fff;padding:36px 0;border-bottom:1px solid var(--bd)}
 .trust-grid{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
@@ -327,7 +322,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .sec-pad{padding:72px 0}
 .sec-alt{background:#f6faf7}
 @media(max-width:920px){.trust-grid{grid-template-columns:repeat(2,1fr)}.case-grid{grid-template-columns:1fr}.exc-grid,.promo-grid{grid-template-columns:1fr}.calc-form2{grid-template-columns:1fr}}
-
 
 .calc-result .calc-brk{color:var(--tm);text-align:center;font-size:12px;line-height:1.7;margin:6px 0 2px}
 .calc-result .calc-brk b{color:var(--g)}
@@ -384,7 +378,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   .dkbs-table td[data-label="Vì sao nên cân nhắc"]{font-size:13px;color:var(--tm);line-height:1.7}
 }
 
-
 /* ===== MOBILE: ẩn fine-print & tinh chỉnh layout ===== */
 @media(max-width:640px){
   /* Ẩn các dòng ghi chú/miễn trừ dài */
@@ -428,7 +421,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   .tl b{font-size:14.5px;margin-bottom:0;line-height:1.35}
 }
 
-
 /* ===== FIX: select trên mobile (năm đăng ký, khu vực...) ===== */
 @media(max-width:640px){
   .fg select{
@@ -447,7 +439,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   .calc-card>div:first-child{position:relative;z-index:2}
   .calc-result{position:relative;z-index:1}
 }
-
 
 /* ===== HL-BOX: accordion trên mobile ===== */
 .hl-acc .hl-head{display:flex;align-items:baseline;gap:6px;background:none;border:none;
@@ -503,15 +494,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
 
-
-
-
 .cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
 .cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
-
-
-
-
 
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){
@@ -573,16 +557,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
     <nav class="hdr-nav">
-      <div class="nav-dd-wrap">
-        <a href="/san-pham" class="active">Sản phẩm <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
-        <div class="nav-dd">
-          <a href="/bao-hiem-vat-chat-oto">Xe ô tô</a>
-          <a href="/bao-hiem-suc-khoe">Sức khỏe</a>
-          <a href="/bao-hiem-tai-san">Tài sản</a>
-          <a href="/bao-hiem-du-lich">Du lịch</a>
-          <a href="/bao-hiem-hang-hai">Hàng hải</a>
-        </div>
-      </div>
+      <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/ve-dbv">Về DBV247</a>

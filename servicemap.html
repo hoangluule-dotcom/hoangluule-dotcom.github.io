@@ -18,7 +18,7 @@ html{overflow-x:clip;scroll-behavior:smooth}
 body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg);line-height:1.6;overflow-x:clip}
 .hdr{background:rgba(255,255,255,.97);backdrop-filter:blur(12px);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--bd);box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
-.hdr-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+
 .hdr-logo img{height:85px;width:auto}
 .hdr-actions{display:flex;align-items:center;gap:10px}
 .hdr-tel{color:var(--g);font-weight:700;font-size:15px;text-decoration:none;display:flex;align-items:center;gap:6px}
@@ -140,15 +140,8 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
 .cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
 
-
-
-
 .cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
 .cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
-
-
-
-
 
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){
@@ -198,16 +191,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
     <nav class="hdr-nav">
-      <div class="nav-dd-wrap">
-        <a href="/san-pham">Sản phẩm <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
-        <div class="nav-dd">
-          <a href="/bao-hiem-vat-chat-oto">Xe ô tô</a>
-          <a href="/bao-hiem-suc-khoe">Sức khỏe</a>
-          <a href="/bao-hiem-tai-san">Tài sản</a>
-          <a href="/bao-hiem-du-lich">Du lịch</a>
-          <a href="/bao-hiem-hang-hai">Hàng hải</a>
-        </div>
-      </div>
+      <a href="/san-pham">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/ve-dbv">Về DBV247</a>

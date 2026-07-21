@@ -34,10 +34,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
 @media(min-width:992px){.hdr-nav{display:flex}}
 .hdr-nav a{color:#444;text-decoration:none;font-size:13px;font-weight:500;padding:6px 10px;border-radius:6px;transition:.2s;white-space:nowrap}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
-.hdr-cta{background:var(--gold);color:#fff;font-weight:700;padding:8px 16px;border-radius:8px;font-size:13px;text-decoration:none;display:none;white-space:nowrap}
-@media(min-width:992px){.hdr-cta{display:inline-block}}
-.hdr-allprod{margin-left:auto;color:var(--g);font-size:12px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 12px;border-radius:20px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;transition:.2s}
-.hdr-allprod:hover{background:var(--g);color:#fff}
+
+@media(min-width:992px){}
 
 /* ── MOBILE STICKY BAR ── */
 .mob-bar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1.5px solid var(--bd);padding:10px 16px;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.12)}
@@ -371,15 +369,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
 .cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
 
-
-
-
 .cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
 .cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
-
-
-
-
 
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){
@@ -437,16 +428,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
     <nav class="hdr-nav">
-      <div class="nav-dd-wrap">
-        <a href="/san-pham" class="active">Sản phẩm <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
-        <div class="nav-dd">
-          <a href="/bao-hiem-vat-chat-oto">Xe ô tô</a>
-          <a href="/bao-hiem-suc-khoe">Sức khỏe</a>
-          <a href="/bao-hiem-tai-san">Tài sản</a>
-          <a href="/bao-hiem-du-lich">Du lịch</a>
-          <a href="/bao-hiem-hang-hai">Hàng hải</a>
-        </div>
-      </div>
+      <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/ve-dbv">Về DBV247</a>

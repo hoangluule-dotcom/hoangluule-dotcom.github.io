@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hướng dẫn Bồi Thường – DBV247</title>
+<meta name="description" content="Hướng dẫn quy trình bồi thường bảo hiểm tại DBV247. Minh bạch – Đơn giản – Nhanh chóng. Hỗ trợ 24/7 qua hotline 1900 96 96 90.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#007437;--gd:#005a2b;--gl:#e8f5e9;--g10:rgba(0,116,55,.10);
+  --gold:#E8920A;--goldd:#c97d08;--gold-bg:#FFF8E7;
+  --dk:#0f2515;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--bg:#f8fafb;
+  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip;scroll-behavior:smooth}
+body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;line-height:1.6}
+
+/* ══ HEADER ══ */
+.hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:78px;gap:8px}
+.hdr-logo{flex-shrink:0;margin-right:24px}
+.hdr-logo img{height:66px;width:auto;display:block}
+.hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
+.hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
+.hdr-nav a:hover{color:var(--g);background:var(--gl)}
+.hdr-nav a.active{color:var(--g);font-weight:700;position:relative}
+.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g);border-radius:2px}
+.hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:16px}
+.btn-login{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-login:hover{border-color:var(--g);color:var(--g)}
+.btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--gold);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-consult-hdr:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
+.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-catalog-hdr:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+.hdr-cat-wrap{position:relative;display:inline-flex}
+@media(min-width:641px){.hdr-cat-wrap{display:none}}
+@media(max-width:640px){.hdr-inner{padding:0 16px}.hdr-logo img{height:54px}.hdr-nav{display:none}.btn-login{display:none}.btn-consult-hdr{display:none}.hdr-actions{margin-left:auto}.btn-catalog-hdr .btn-cat-text{display:none}.btn-catalog-hdr{padding:8px 10px;border-radius:10px}}
+
+/* ══ NAV DROPDOWN ══ */
+
+.nav-dd-wrap:hover 
+
+/* ══ CATEGORY DROPDOWN (mobile) ══ */
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
+.cat-dropdown.open{display:block}
+.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.cat-dd-item:hover{background:var(--gl);color:var(--g)}
+.cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
+
+/* ══ PAGE HERO ══ */
+.page-hero{background:linear-gradient(135deg,#004d26 0%,#007437 50%,#009a4a 100%);padding:56px 32px 60px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+.page-hero::after{content:'';position:absolute;bottom:-60px;left:30%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+.page-hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:1}
+.page-breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px}
+.page-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;transition:.15s}
+.page-breadcrumb a:hover{color:#fff}
+.page-breadcrumb .sep{opacity:.5}
+.page-breadcrumb .cur{color:rgba(255,255,255,.9)}
+.page-hero h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:16px}
+.page-hero h1 span{color:#fbbf24}
+.page-hero p{font-size:16px;color:rgba(255,255,255,.85);max-width:600px;line-height:1.7;margin-bottom:28px}
+.page-hero-badges{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
+.hero-badge-item{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:8px 18px;font-size:13px;font-weight:700;color:#fff}
+.hero-badge-item svg{width:14px;height:14px;fill:none;stroke:#fbbf24;stroke-width:2.5;flex-shrink:0}
+.page-hero-cta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.btn-orange{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;padding:13px 28px;border-radius:30px;text-decoration:none;transition:.2s;font-family:inherit}
+.btn-orange:hover{background:var(--goldd);box-shadow:0 6px 24px rgba(232,146,10,.4);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);color:#fff;font-weight:600;font-size:14px;padding:12px 24px;border-radius:30px;text-decoration:none;transition:.2s}
+.btn-ghost:hover{background:rgba(255,255,255,.2)}
+
+/* ══ MAIN SECTION ══ */
+.sec{padding:64px 32px}
+.sec-inner{max-width:1280px;margin:0 auto}
+.sec-tag{display:inline-flex;align-items:center;gap:6px;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.4px;text-transform:uppercase;margin-bottom:16px}
+.sec-tag svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5}
+.sec-h2{font-size:clamp(1.5rem,2.5vw,2rem);font-weight:900;color:var(--dk);line-height:1.2;margin-bottom:10px}
+.sec-h2 span{color:var(--g)}
+.sec-sub{font-size:15px;color:var(--ts);max-width:540px;line-height:1.7;margin-bottom:40px}
+
+/* ══ CATEGORY TABS ══ */
+.cat-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px}
+.cat-tab{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:var(--tm);background:#fff;cursor:pointer;transition:.18s;white-space:nowrap}
+.cat-tab:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+.cat-tab.active{background:var(--g);color:#fff;border-color:var(--g)}
+.cat-tab svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+
+/* ══ ACCORDION ══ */
+.acc-list{display:flex;flex-direction:column;gap:10px}
+.acc-item{border:1.5px solid var(--bd);border-radius:14px;overflow:hidden;transition:.2s}
+.acc-item.open{border-color:var(--g);box-shadow:0 4px 20px rgba(0,116,55,.1)}
+.acc-header{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;background:#fff;transition:.15s;user-select:none}
+.acc-header:hover{background:var(--gl)}
+.acc-icon{width:40px;height:40px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+.acc-item.open .acc-icon{background:var(--g)}
+.acc-icon svg{width:18px;height:18px;stroke:var(--g);fill:none;stroke-width:2;transition:.2s}
+.acc-item.open .acc-icon svg{stroke:#fff}
+.acc-title{flex:1;font-size:15px;font-weight:700;color:var(--dk)}
+.acc-arrow{width:20px;height:20px;stroke:var(--ts);fill:none;stroke-width:2;transition:transform .25s;flex-shrink:0}
+.acc-item.open .acc-arrow{transform:rotate(180deg);stroke:var(--g)}
+.acc-body{display:none;padding:0 22px 24px}
+.acc-item.open .acc-body{display:block}
+.acc-desc{font-size:13.5px;color:var(--ts);margin-bottom:24px;line-height:1.7;padding-top:4px}
+
+/* ══ STEPS ══ */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:20px;position:relative;transition:.2s}
+.step:hover{border-color:var(--g);box-shadow:0 4px 16px rgba(0,116,55,.08)}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--g);color:#fff;font-size:14px;font-weight:800;margin-bottom:12px}
+.step-connector{position:absolute;top:36px;right:-24px;width:24px;height:2px;background:var(--bd);z-index:1}
+.steps .step:last-child .step-connector{display:none}
+.step-title{font-size:13px;font-weight:800;color:var(--dk);text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px;line-height:1.3}
+.step-body{font-size:13px;color:var(--ts);line-height:1.65}
+.step-docs{margin-top:10px;display:flex;flex-direction:column;gap:4px}
+.step-doc{display:flex;align-items:flex-start;gap:6px;font-size:12.5px;color:var(--tm)}
+.step-doc::before{content:'•';color:var(--g);font-weight:900;flex-shrink:0;margin-top:1px}
+.hotline-note{margin-top:20px;display:flex;align-items:center;gap:10px;background:var(--gold-bg);border:1px solid rgba(232,146,10,.25);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--tm)}
+.hotline-note svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:2;flex-shrink:0}
+.hotline-note a{color:var(--gold);font-weight:700;text-decoration:none}
+@media(max-width:860px){.steps{grid-template-columns:1fr;gap:12px}.step-connector{display:none!important}}
+@media(max-width:640px){.sec{padding:40px 16px}}
+
+/* ══ CTA SECTION ══ */
+.cta-sec{background:linear-gradient(135deg,#004d26 0%,#007437 100%);padding:56px 32px;text-align:center}
+.cta-sec h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;color:#fff;margin-bottom:12px}
+.cta-sec p{font-size:15px;color:rgba(255,255,255,.8);margin-bottom:32px}
+.cta-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+
+/* ══ FOOTER ══ */
+.ftr{background:#f4f7f5;border-top:1px solid var(--bd);margin-top:0}
+.ftr-inner{max-width:1280px;margin:0 auto;padding:28px 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+.ftr-logo{height:88px;width:auto;display:block;margin-bottom:18px}
+.ftr-brand-desc{font-size:13px;color:var(--ts);line-height:1.7;margin-bottom:12px}
+.ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:8px;line-height:1.5}
+.ftr-info a:hover{color:var(--g)}
+.ftr-info a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0;margin-top:2px}
+.ftr-col h4,.ftr-contact h4{font-size:11px;font-weight:700;color:var(--dk);text-transform:uppercase;letter-spacing:.7px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.ftr-col a{display:block;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:10px;line-height:1.5;transition:.15s}
+.ftr-col a:hover{color:var(--g);padding-left:4px}
+.ftr-social{display:flex;gap:10px;margin-bottom:24px}
+.ftr-social a{width:38px;height:38px;border-radius:50%;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a:hover{background:var(--g);transform:translateY(-2px)}
+.ftr-social svg{width:17px;height:17px;fill:#fff}
+.ftr-phone-label{font-size:11px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ftr-hotline{font-size:22px;font-weight:800;color:var(--gold);text-decoration:none;letter-spacing:-.5px;display:block;line-height:1.2}
+.ftr-hotline:hover{color:var(--goldd)}
+.ftr-copy{border-top:1px solid var(--bd)}
+.ftr-copy-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ts)}
+.ftr-copy-inner a{color:var(--ts);text-decoration:none}
+@media(max-width:860px){.ftr-inner{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:640px){.ftr-inner{grid-template-columns:1fr;gap:24px;padding:24px 16px 32px}.ftr-copy-inner{padding:14px 16px;flex-direction:column;align-items:flex-start}}
+
+/* ══ MOBILE BAR ══ */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);z-index:200;padding:8px 16px;gap:8px}
+.mob-call,.mob-zalo{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 10px;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;transition:.18s}
+.mob-call{background:var(--g);color:#fff}
+.mob-zalo{background:#0068ff;color:#fff}
+@media(max-width:640px){.mob-bar{display:flex}}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <nav class="hdr-nav">
+      <a href="/san-pham">Sản phẩm</a>
+      <a href="/boi-thuong" class="active">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
+    </nav>
+    <div class="hdr-actions">
+      <div class="hdr-cat-wrap">
+        <button class="btn-catalog-hdr" onclick="toggleCatDropdown(event)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="btn-cat-text">Danh mục</span>
+        </button>
+        <div class="cat-dropdown" id="cat-dropdown">
+          <a class="cat-dd-item" href="/san-pham" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Sản phẩm</a>
+          <div class="cat-dd-sep"></div>
+          <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Bồi thường</a>
+          <a class="cat-dd-item" href="/servicemap" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/></svg>Mạng lưới dịch vụ</a>
+          <a class="cat-dd-item" href="/ve-dbv" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/></svg>Về DBV247</a>
+        </div>
+      </div>
+      <a href="tel:0869656561" class="btn-login">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        0869 656 561
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="btn-consult-hdr" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Nhận tư vấn
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-breadcrumb">
+      <a href="/">Trang chủ</a>
+      <span class="sep">/</span>
+      <span class="cur">Bồi thường</span>
+    </div>
+    <h1>Hướng dẫn <span>Bồi Thường</span></h1>
+    <p>DBV247 cam kết xử lý hồ sơ bồi thường nhanh chóng, minh bạch. Liên hệ ngay khi có sự cố — chúng tôi đồng hành cùng bạn từ bước đầu tiên đến khi hoàn tất.</p>
+    <div class="page-hero-badges">
+      <div class="hero-badge-item">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Minh bạch
+      </div>
+      <div class="hero-badge-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Nhanh chóng
+      </div>
+      <div class="hero-badge-item">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 12 2a8 8 0 0 0-8 8.2c0 7.3 8 11.8 8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+        Hỗ trợ 24/7
+      </div>
+    </div>
+    <div class="page-hero-cta">
+      <a href="tel:1900969690" class="btn-orange">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Gọi hotline 1900 96 96 90
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="btn-ghost" target="_blank" rel="noopener">Nhắn Zalo ngay</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HƯỚNG DẪN BỒI THƯỜNG ══ -->
+<section class="sec" id="huong-dan">
+  <div class="sec-inner">
+    <div>
+      <div class="sec-tag">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Hướng dẫn
+      </div>
+      <h2 class="sec-h2">Quy trình Bồi Thường <span>Theo Sản Phẩm</span></h2>
+      <p class="sec-sub">Chọn loại bảo hiểm để xem chi tiết quy trình và hồ sơ cần chuẩn bị.</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="cat-tabs">
+      <button class="cat-tab active" onclick="switchCat('xe',this)">
+        <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        Xe cơ giới
+      </button>
+      <button class="cat-tab" onclick="switchCat('suckhoe',this)">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Sức khỏe & Du lịch
+      </button>
+      <button class="cat-tab" onclick="switchCat('taisan',this)">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Tài sản & Kỹ thuật
+      </button>
+      <button class="cat-tab" onclick="switchCat('hanghai',this)">
+        <svg viewBox="0 0 24 24"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>
+        Hàng hải
+      </button>
+      <button class="cat-tab" onclick="switchCat('trachnhiem',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 12 2a8 8 0 0 0-8 8.2c0 7.3 8 11.8 8 11.8z"/></svg>
+        Trách nhiệm
+      </button>
+    </div>
+
+    <!-- XE CƠ GIỚI -->
+    <div class="acc-list cat-panel" id="cat-xe">
+
+      <!-- Vật chất ô tô -->
+      <div class="acc-item open" id="acc-1">
+        <div class="acc-header" onclick="toggleAcc('acc-1')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
+          <span class="acc-title">Bảo hiểm Vật chất ô tô & Xe máy</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bảo hiểm vật chất xe bồi thường thiệt hại do tai nạn, mất cắp, thiên tai. Quy trình xử lý nhanh qua hệ thống garage ủy quyền của DBV trên toàn quốc.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Khách hàng thông báo sự cố</div>
+              <div class="step-body">Liên hệ hotline <strong>1900 96 96 90</strong> ngay khi xảy ra tai nạn. Chụp ảnh hiện trường, không di chuyển xe trước khi được xác nhận (trừ trường hợp cấp thiết về an toàn).
+                <div class="step-docs">
+                  <span class="step-doc">Thông báo trong vòng 24h kể từ khi xảy ra sự cố</span>
+                  <span class="step-doc">Cung cấp biển số, địa điểm, mô tả tình huống</span>
+                  <span class="step-doc">Trình báo công an nếu có tranh chấp hoặc thương vong</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Giám định & tiến hành sửa chữa</div>
+              <div class="step-body">Giám định viên DBV phối hợp với garage ủy quyền kiểm tra, lập biên bản xác nhận thiệt hại và phương án sửa chữa.
+                <div class="step-docs">
+                  <span class="step-doc">Xuất trình CMND/CCCD, đăng ký xe, bằng lái</span>
+                  <span class="step-doc">Xe được đưa vào garage DBV ủy quyền sửa chữa</span>
+                  <span class="step-doc">DBV chi trả trực tiếp — khách hàng không ứng trước</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Hoàn tất bồi thường</div>
+              <div class="step-body">DBV247 thanh toán trực tiếp cho garage hoặc chuyển khoản cho khách hàng sau khi hồ sơ được phê duyệt.
+                <div class="step-docs">
+                  <span class="step-doc">Thời gian xử lý: 5–7 ngày làm việc</span>
+                  <span class="step-doc">Thông báo kết quả qua điện thoại / email</span>
+                  <span class="step-doc">Hỗ trợ khiếu nại nếu có vướng mắc</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TNDS ô tô bắt buộc -->
+      <div class="acc-item" id="acc-2">
+        <div class="acc-header" onclick="toggleAcc('acc-2')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+          <span class="acc-title">Bảo hiểm TNDS bắt buộc ô tô & Xe máy</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bồi thường thiệt hại về người và tài sản của bên thứ ba do tai nạn giao thông. Bắt buộc theo quy định pháp luật Việt Nam.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Thông báo tổn thất</div>
+              <div class="step-body">Thông báo ngay cho DBV247 sau tai nạn qua hotline <strong>1900 96 96 90</strong>. Hỗ trợ nạn nhân kịp thời và trình báo cơ quan công an.
+                <div class="step-docs">
+                  <span class="step-doc">Thông báo trong vòng 24h sau tai nạn</span>
+                  <span class="step-doc">Lập biên bản tai nạn tại cơ quan công an</span>
+                  <span class="step-doc">Không rời hiện trường khi chưa được phép</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Giải quyết bồi thường</div>
+              <div class="step-body">DBV phối hợp xác định trách nhiệm pháp lý, thương lượng với các bên liên quan và giám định thiệt hại theo quy định.
+                <div class="step-docs">
+                  <span class="step-doc">Giám định viên làm việc với cơ quan công an</span>
+                  <span class="step-doc">Xác định mức độ lỗi và thiệt hại thực tế</span>
+                  <span class="step-doc">Hỗ trợ điều trị / mai táng nếu có thương vong</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Chuẩn bị hồ sơ & nhận bồi thường</div>
+              <div class="step-body">Nộp đầy đủ hồ sơ để nhận bồi thường theo quy định của hợp đồng bảo hiểm.
+                <div class="step-docs">
+                  <span class="step-doc">Biên bản tai nạn giao thông có xác nhận công an</span>
+                  <span class="step-doc">Hóa đơn điều trị / sửa chữa tài sản</span>
+                  <span class="step-doc">CMND/CCCD chủ xe, đăng ký xe, bằng lái</span>
+                  <span class="step-doc">Giấy tờ tử tuất (nếu có tử vong)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vật chất ô tô điện -->
+      <div class="acc-item" id="acc-3">
+        <div class="acc-header" onclick="toggleAcc('acc-3')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <span class="acc-title">Bảo hiểm Vật chất ô tô điện</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bảo hiểm chuyên biệt cho xe điện: pin, hệ thống sạc, và các rủi ro đặc thù. Phối hợp với garage VinFast, Tesla và các thương hiệu EV chính hãng.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Khách hàng thông báo sự cố</div>
+              <div class="step-body">Liên hệ hotline <strong>1900 96 96 90</strong> ngay khi có sự cố. Không tự ý sạc xe hoặc can thiệp vào hệ thống điện trước khi giám định viên EV xác nhận.
+                <div class="step-docs">
+                  <span class="step-doc">Thông báo trong vòng 24h</span>
+                  <span class="step-doc">Chụp ảnh xe, màn hình hiển thị lỗi</span>
+                  <span class="step-doc">Không sạc hoặc khởi động xe khi có hỏng hóc điện</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Giám định EV chuyên biệt & sửa chữa</div>
+              <div class="step-body">Giám định viên có chuyên môn xe điện phối hợp với garage EV chính hãng để kiểm tra, chẩn đoán và sửa chữa.
+                <div class="step-docs">
+                  <span class="step-doc">Garage VinFast / chính hãng ủy quyền</span>
+                  <span class="step-doc">Kiểm tra pin, hệ thống sạc, phần mềm</span>
+                  <span class="step-doc">DBV chi trả trực tiếp cho garage</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Hoàn tất bồi thường</div>
+              <div class="step-body">Thanh toán nhanh sau khi sửa chữa hoàn tất và hồ sơ được xác nhận.
+                <div class="step-docs">
+                  <span class="step-doc">Thời gian xử lý: 5–7 ngày làm việc</span>
+                  <span class="step-doc">Bảo hành linh kiện EV theo nhà sản xuất</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cat-xe -->
+
+    <!-- SỨC KHỎE & DU LỊCH -->
+    <div class="acc-list cat-panel" id="cat-suckhoe" style="display:none">
+
+      <!-- Bảo hiểm sức khỏe -->
+      <div class="acc-item open" id="acc-sk1">
+        <div class="acc-header" onclick="toggleAcc('acc-sk1')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <span class="acc-title">Bảo hiểm Sức khỏe & Tai nạn cá nhân</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Áp dụng cho bảo hiểm sức khỏe tổng quát, DBVcare, tai nạn cá nhân 24h. Hồ sơ nộp online qua cổng điện tử hoặc trực tiếp tại văn phòng DBV247.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Chuẩn bị hồ sơ trả tiền bảo hiểm</div>
+              <div class="step-body">Thu thập đầy đủ giấy tờ y tế liên quan đến đợt điều trị hoặc sự cố tai nạn.
+                <div class="step-docs">
+                  <span class="step-doc">Giấy ra viện / tóm tắt bệnh án</span>
+                  <span class="step-doc">Hóa đơn viện phí, thuốc, xét nghiệm (bản gốc)</span>
+                  <span class="step-doc">Kết quả chẩn đoán của bác sĩ</span>
+                  <span class="step-doc">CMND/CCCD và thẻ bảo hiểm</span>
+                  <span class="step-doc">Biên bản tai nạn (nếu do tai nạn)</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Nộp hồ sơ bồi thường</div>
+              <div class="step-body">Nộp hồ sơ qua cổng điện tử <a href="https://ebhhk.vn/Dang-nhap" target="_blank" style="color:var(--g);font-weight:600">ebhhk.vn</a> hoặc gửi trực tiếp tới DBV247.
+                <div class="step-docs">
+                  <span class="step-doc">Online: đăng nhập ebhhk.vn → Nộp hồ sơ</span>
+                  <span class="step-doc">Trực tiếp: BT20-C37, TDP 20, Phường Thanh Xuân, Hà Nội</span>
+                  <span class="step-doc">Tư vấn hồ sơ: 0869 656 561</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Nhận tiền bảo hiểm</div>
+              <div class="step-body">Sau khi hồ sơ được thẩm định, DBV247 chuyển tiền bồi thường vào tài khoản ngân hàng của khách hàng.
+                <div class="step-docs">
+                  <span class="step-doc">Thời gian: 5–15 ngày làm việc</span>
+                  <span class="step-doc">Thông báo kết quả qua email / SMS</span>
+                  <span class="step-doc">Hỗ trợ bổ sung hồ sơ nếu cần</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Nộp hồ sơ sức khỏe online: <a href="https://ebhhk.vn/Dang-nhap" target="_blank">ebhhk.vn</a> — hoặc gọi <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Du lịch quốc tế -->
+      <div class="acc-item" id="acc-sk2">
+        <div class="acc-header" onclick="toggleAcc('acc-sk2')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M21.5 2l-8.5 4L2 2l3 6-3 5 11-4 8.5 4L19 8z"/></svg></div>
+          <span class="acc-title">Bảo hiểm Du lịch quốc tế & Nội địa</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bồi thường chi phí y tế, hủy chuyến, mất hành lý khi du lịch trong và ngoài nước. Hỗ trợ 24/7 bằng tiếng Việt khi ở nước ngoài.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Chuẩn bị hồ sơ trả tiền bảo hiểm</div>
+              <div class="step-body">Thu thập đầy đủ giấy tờ chứng minh tổn thất xảy ra trong chuyến đi được bảo hiểm.
+                <div class="step-docs">
+                  <span class="step-doc">Hóa đơn y tế / viện phí (bản gốc hoặc bản dịch công chứng)</span>
+                  <span class="step-doc">Vé máy bay, xác nhận đặt phòng, thẻ lên máy bay</span>
+                  <span class="step-doc">Biên bản mất hành lý từ hãng hàng không</span>
+                  <span class="step-doc">Hộ chiếu, CMND/CCCD, thẻ bảo hiểm du lịch</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Nhận thông báo phương án bồi thường</div>
+              <div class="step-body">DBV247 thẩm định hồ sơ và thông báo phương án trả tiền bảo hiểm. Khách hàng xác nhận phương án trước khi giải ngân.
+                <div class="step-docs">
+                  <span class="step-doc">Thẩm định trong vòng 5–10 ngày làm việc</span>
+                  <span class="step-doc">Thông báo bằng email / điện thoại</span>
+                  <span class="step-doc">Có thể yêu cầu bổ sung giấy tờ nếu cần</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Nhận tiền bảo hiểm</div>
+              <div class="step-body">Sau khi khách hàng xác nhận phương án, DBV247 chuyển tiền bồi thường vào tài khoản được cung cấp.
+                <div class="step-docs">
+                  <span class="step-doc">Chuyển khoản trong 3–5 ngày sau xác nhận</span>
+                  <span class="step-doc">Hỗ trợ thanh toán ngoại tệ nếu phát sinh nước ngoài</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cat-suckhoe -->
+
+    <!-- TÀI SẢN & KỸ THUẬT -->
+    <div class="acc-list cat-panel" id="cat-taisan" style="display:none">
+
+      <div class="acc-item open" id="acc-ts1">
+        <div class="acc-header" onclick="toggleAcc('acc-ts1')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <span class="acc-title">Bảo hiểm Cháy nổ bắt buộc & Tài sản</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Áp dụng cho cháy nổ bắt buộc, hỏa hoạn, mọi rủi ro tài sản, nhà chung cư. Thông báo sự cố ngay và không tự ý dọn dẹp trước khi giám định.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Thông báo tổn thất</div>
+              <div class="step-body">Gọi ngay <strong>1900 96 96 90</strong> khi xảy ra sự cố cháy nổ, hỏa hoạn. Không tự ý dọn dẹp, sửa chữa hoặc di chuyển tài sản trước khi giám định.
+                <div class="step-docs">
+                  <span class="step-doc">Gọi cứu hỏa (114) nếu đang cháy</span>
+                  <span class="step-doc">Thông báo DBV247 trong vòng 24h sau sự cố</span>
+                  <span class="step-doc">Chụp ảnh/quay video toàn bộ hiện trường</span>
+                  <span class="step-doc">Không di chuyển tài sản bị tổn thất</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Chuẩn bị hồ sơ bồi thường</div>
+              <div class="step-body">Giám định viên đến khảo sát, lập biên bản xác nhận thiệt hại. Chuẩn bị đầy đủ giấy tờ theo yêu cầu.
+                <div class="step-docs">
+                  <span class="step-doc">Biên bản cháy nổ của cơ quan PCCC / công an</span>
+                  <span class="step-doc">Danh sách tài sản bị thiệt hại có giá trị</span>
+                  <span class="step-doc">Hóa đơn mua tài sản, hợp đồng xây dựng</span>
+                  <span class="step-doc">Hợp đồng bảo hiểm, CMND/CCCD chủ tài sản</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Nhận tiền bồi thường</div>
+              <div class="step-body">DBV247 xem xét hồ sơ và chi trả bồi thường theo giá trị thực tế thiệt hại trong phạm vi hợp đồng bảo hiểm.
+                <div class="step-docs">
+                  <span class="step-doc">Thời gian xử lý: 15–30 ngày làm việc</span>
+                  <span class="step-doc">Thanh toán qua chuyển khoản ngân hàng</span>
+                  <span class="step-doc">Hỗ trợ khiếu nại và tái thẩm định nếu cần</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" id="acc-ts2">
+        <div class="acc-header" onclick="toggleAcc('acc-ts2')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <span class="acc-title">Bảo hiểm Mọi rủi ro xây dựng & Lắp đặt</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bồi thường thiệt hại công trình xây dựng, lắp đặt trong thời gian thi công do tai nạn, hỏa hoạn, thiên tai, sụt lún.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Thông báo tổn thất</div>
+              <div class="step-body">Thông báo ngay DBV247 khi công trình gặp sự cố. Dừng thi công tại khu vực bị thiệt hại để phục vụ giám định.
+                <div class="step-docs">
+                  <span class="step-doc">Thông báo trong vòng 24h</span>
+                  <span class="step-doc">Chụp ảnh hiện trường, tài liệu thiết kế</span>
+                  <span class="step-doc">Trình báo cơ quan chức năng nếu cần</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Chuẩn bị hồ sơ bồi thường</div>
+              <div class="step-body">Giám định viên kỹ thuật xây dựng đánh giá thiệt hại và lập phương án bồi thường.
+                <div class="step-docs">
+                  <span class="step-doc">Hợp đồng xây dựng, hồ sơ thiết kế</span>
+                  <span class="step-doc">Biên bản giám định thiệt hại</span>
+                  <span class="step-doc">Dự toán sửa chữa / khắc phục</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Nhận tiền bồi thường</div>
+              <div class="step-body">Chi trả bồi thường theo giá trị thiệt hại thực tế được xác nhận bởi giám định viên DBV.
+                <div class="step-docs">
+                  <span class="step-doc">Thời gian: 15–30 ngày làm việc</span>
+                  <span class="step-doc">Có thể tạm ứng để khắc phục khẩn cấp</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cat-taisan -->
+
+    <!-- HÀNG HẢI -->
+    <div class="acc-list cat-panel" id="cat-hanghai" style="display:none">
+      <div class="acc-item open" id="acc-hh1">
+        <div class="acc-header" onclick="toggleAcc('acc-hh1')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg></div>
+          <span class="acc-title">Bảo hiểm Hàng hóa Vận chuyển nội địa & XNK</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bồi thường tổn thất hàng hóa trong quá trình vận chuyển đường bộ, đường biển, đường hàng không trong nước và quốc tế.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Thông báo tổn thất</div>
+              <div class="step-body">Thông báo ngay khi phát hiện hàng hóa bị tổn thất, mất mát hoặc hư hỏng trong quá trình vận chuyển.
+                <div class="step-docs">
+                  <span class="step-doc">Thông báo DBV247 trong vòng 24–48h phát hiện</span>
+                  <span class="step-doc">Lưu giữ hàng hóa bị hỏng để giám định</span>
+                  <span class="step-doc">Yêu cầu biên bản xác nhận từ đơn vị vận chuyển</span>
+                  <span class="step-doc">Chụp ảnh hàng hóa, bao bì, nhãn hiệu</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Giải quyết bồi thường</div>
+              <div class="step-body">Giám định viên hàng hải DBV kiểm tra, xác nhận tổn thất và phối hợp xác định nguyên nhân với đơn vị vận chuyển.
+                <div class="step-docs">
+                  <span class="step-doc">Giám định tại kho hàng hoặc cảng</span>
+                  <span class="step-doc">Đối chiếu với chứng từ vận chuyển</span>
+                  <span class="step-doc">Xác định trách nhiệm các bên</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Chuẩn bị hồ sơ & nhận bồi thường</div>
+              <div class="step-body">Nộp đầy đủ hồ sơ để nhận bồi thường theo giá trị hàng hóa thực tế.
+                <div class="step-docs">
+                  <span class="step-doc">Hợp đồng bảo hiểm, vận đơn (Bill of Lading)</span>
+                  <span class="step-doc">Hóa đơn thương mại, packing list</span>
+                  <span class="step-doc">Biên bản giám định tổn thất</span>
+                  <span class="step-doc">Thư khiếu nại gửi hãng vận chuyển</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" id="acc-hh2">
+        <div class="acc-header" onclick="toggleAcc('acc-hh2')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+          <span class="acc-title">Bảo hiểm Bưu gửi & Hàng hóa đặc biệt</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bảo vệ bưu kiện, kiện hàng thương mại điện tử và hàng hóa đặc biệt trong quá trình chuyển phát.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Thông báo tổn thất</div>
+              <div class="step-body">Báo ngay khi bưu kiện bị mất, hư hỏng hoặc giao sai địa chỉ. Giữ lại toàn bộ bao bì và hình ảnh gốc.
+                <div class="step-docs">
+                  <span class="step-doc">Yêu cầu xác nhận tổn thất từ đơn vị chuyển phát</span>
+                  <span class="step-doc">Chụp ảnh bưu kiện và bao bì bị hỏng</span>
+                  <span class="step-doc">Thông báo DBV247 trong vòng 48h</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Giải quyết bồi thường</div>
+              <div class="step-body">DBV247 xác minh tổn thất với đơn vị vận chuyển và lập biên bản xác nhận.
+                <div class="step-docs">
+                  <span class="step-doc">Kiểm tra theo mã vận đơn</span>
+                  <span class="step-doc">Xác nhận giá trị hàng hóa thực tế</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Chuẩn bị hồ sơ & nhận bồi thường</div>
+              <div class="step-body">Nộp hồ sơ và nhận tiền bồi thường theo giá trị hàng hóa được khai báo.
+                <div class="step-docs">
+                  <span class="step-doc">Mã vận đơn, hóa đơn mua hàng</span>
+                  <span class="step-doc">Biên bản xác nhận tổn thất từ đơn vị phát</span>
+                  <span class="step-doc">Ảnh chụp hiện trạng bưu kiện</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cat-hanghai -->
+
+    <!-- TRÁCH NHIỆM -->
+    <div class="acc-list cat-panel" id="cat-trachnhiem" style="display:none">
+      <div class="acc-item open" id="acc-tn1">
+        <div class="acc-header" onclick="toggleAcc('acc-tn1')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 12 2a8 8 0 0 0-8 8.2c0 7.3 8 11.8 8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <span class="acc-title">Bảo hiểm Trách nhiệm chung & Công cộng</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bồi thường thiệt hại về người và tài sản của bên thứ ba phát sinh từ hoạt động kinh doanh, sản xuất của doanh nghiệp.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Thông báo tổn thất</div>
+              <div class="step-body">Thông báo ngay cho DBV247 khi nhận được khiếu nại từ bên thứ ba hoặc khi xảy ra sự cố có thể phát sinh trách nhiệm pháp lý.
+                <div class="step-docs">
+                  <span class="step-doc">Không thừa nhận trách nhiệm trước khi có sự đồng ý của DBV</span>
+                  <span class="step-doc">Giữ toàn bộ bằng chứng liên quan</span>
+                  <span class="step-doc">Thông báo trong vòng 24h sau sự cố</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Giải quyết bồi thường</div>
+              <div class="step-body">DBV phối hợp với đơn vị được bảo hiểm xác định trách nhiệm pháp lý và thương lượng với bên bị thiệt hại.
+                <div class="step-docs">
+                  <span class="step-doc">Luật sư DBV hỗ trợ nếu có tranh chấp pháp lý</span>
+                  <span class="step-doc">Giám định thiệt hại thực tế của bên thứ ba</span>
+                  <span class="step-doc">Thương lượng trong phạm vi hạn mức bảo hiểm</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Chuẩn bị hồ sơ & nhận bồi thường</div>
+              <div class="step-body">Hoàn thiện hồ sơ pháp lý để xử lý bồi thường cho bên thứ ba theo phán quyết hoặc thỏa thuận.
+                <div class="step-docs">
+                  <span class="step-doc">Biên bản tai nạn / sự cố có xác nhận</span>
+                  <span class="step-doc">Hồ sơ y tế / thiệt hại tài sản bên thứ ba</span>
+                  <span class="step-doc">Biên bản thỏa thuận hoặc phán quyết tòa án</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" id="acc-tn2">
+        <div class="acc-header" onclick="toggleAcc('acc-tn2')">
+          <div class="acc-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+          <span class="acc-title">Bảo hiểm Trách nhiệm nghề nghiệp KCB & Luật sư</span>
+          <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Bảo vệ cơ sở y tế, bác sĩ, luật sư, công chứng viên trước các khiếu nại từ khách hàng liên quan đến sai sót nghề nghiệp.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Thông báo tổn thất</div>
+              <div class="step-body">Thông báo ngay khi nhận được khiếu nại hoặc đe dọa khiếu nại từ bệnh nhân / khách hàng liên quan đến hoạt động nghề nghiệp.
+                <div class="step-docs">
+                  <span class="step-doc">Thông báo DBV ngay khi có khiếu nại</span>
+                  <span class="step-doc">Lưu giữ toàn bộ hồ sơ bệnh án / hợp đồng dịch vụ</span>
+                  <span class="step-doc">Không thừa nhận trách nhiệm khi chưa có DBV tham gia</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-connector"></div>
+              <div class="step-title">Giải quyết bồi thường</div>
+              <div class="step-body">DBV247 phối hợp với chuyên gia pháp lý y tế / luật để đánh giá khiếu nại và xây dựng phương án xử lý.
+                <div class="step-docs">
+                  <span class="step-doc">Đánh giá độc lập từ chuyên gia ngành</span>
+                  <span class="step-doc">Hỗ trợ pháp lý trong quá trình tranh tụng</span>
+                  <span class="step-doc">Thương lượng hòa giải với bên khiếu nại</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Chuẩn bị hồ sơ & nhận bồi thường</div>
+              <div class="step-body">Chi trả bồi thường và chi phí pháp lý trong phạm vi hạn mức hợp đồng.
+                <div class="step-docs">
+                  <span class="step-doc">Phán quyết tòa án hoặc biên bản hòa giải</span>
+                  <span class="step-doc">Hóa đơn phí luật sư / chi phí tố tụng</span>
+                  <span class="step-doc">Hồ sơ chuyên môn liên quan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hotline-note">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            Thông báo sự cố: <a href="tel:1900969690">1900 96 96 90</a> — Tư vấn bồi thường: <a href="tel:0869656561">0869 656 561</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cat-trachnhiem -->
+
+  </div>
+</section>
+
+<!-- ══ CTA SECTION ══ -->
+<section class="cta-sec">
+  <div style="max-width:640px;margin:0 auto">
+    <h2>Cần hỗ trợ bồi thường ngay?</h2>
+    <p>Đội ngũ chuyên viên DBV247 sẵn sàng hỗ trợ bạn 24/7 — từ khi xảy ra sự cố đến khi nhận tiền bồi thường.</p>
+    <div class="cta-row">
+      <a href="tel:0869656561" class="btn-orange">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Gọi 0869 656 561
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="btn-ghost" target="_blank" rel="noopener">Nhắn Zalo</a>
+      <a href="https://ebhhk.vn/Dang-nhap" class="btn-ghost" target="_blank" rel="noopener">Nộp hồ sơ online</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="ftr">
+  <div class="ftr-inner">
+    <div class="ftr-brand">
+      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV trực thuộc chi nhánh DBV Thành Đô</p>
+      <div class="ftr-info">
+        <a href="#">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          BT20-C37, TDP 20, Phường Thanh Xuân, TP Hà Nội, Việt Nam
+        </a>
+        <a href="tel:0869656561">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          0869 656 561
+        </a>
+        <a href="mailto:dbvi247@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          dbvi247@gmail.com
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          MST: 0102737963-059
+        </a>
+      </div>
+    </div>
+    <div class="ftr-col">
+      <h4>Sản phẩm</h4>
+      <a href="/bao-hiem-vat-chat-oto">Bảo hiểm Xe ô tô</a>
+      <a href="bao-hiem-tnds-xemay.html">Bảo hiểm Xe máy</a>
+      <a href="/bao-hiem-suc-khoe">Bảo hiểm Sức khỏe</a>
+      <a href="/bao-hiem-du-lich">Bảo hiểm Du lịch</a>
+      <a href="/bao-hiem-chay-no">Bảo hiểm Tài sản</a>
+      <a href="/bao-hiem-hang-hai">Bảo hiểm Hàng hải</a>
+    </div>
+    <div class="ftr-col">
+      <h4>Công ty</h4>
+      <a href="/">Sản phẩm</a>
+      <a href="/boi-thuong" class="active">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
+    </div>
+    <div class="ftr-contact">
+      <h4>Kết nối với chúng tôi</h4>
+      <div class="ftr-social">
+        <a href="https://www.facebook.com/people/B%E1%BA%A3o-hi%E1%BB%83m-DBVI-247/61590966449840/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" aria-label="Zalo">
+          <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@tapdoanbaohiemdbv?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@TapdoanBaohiemDBV" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1a1a"/></svg>
+        </a>
+      </div>
+      <p class="ftr-phone-label">Liên hệ DBV247</p>
+      <a href="tel:1900969690" class="ftr-hotline">1900 96 96 90</a>
+    </div>
+  </div>
+  <div class="ftr-copy">
+    <div class="ftr-copy-inner">
+      <span>Copyright © 2025 DBV247. All rights reserved.</span>
+      <div style="display:flex;gap:16px">
+        <a href="#">Chính sách bảo mật</a>
+        <a href="#">Điều khoản sử dụng</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ MOBILE BAR ══ -->
+<div class="mob-bar">
+  <a href="tel:1900969690" class="mob-call">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Gọi ngay
+  </a>
+  <a href="https://zalo.me/1283738895804393564" class="mob-zalo" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z" fill="#fff"/></svg>
+    Zalo
+  </a>
+</div>
+
+<script>
+// ── Category switching ──
+function switchCat(cat, btn) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cat-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('cat-' + cat).style.display = 'flex';
+  document.getElementById('cat-' + cat).style.flexDirection = 'column';
+}
+
+// ── Accordion toggle ──
+function toggleAcc(id) {
+  const item = document.getElementById(id);
+  item.classList.toggle('open');
+}
+
+// ── Mobile cat dropdown ──
+function toggleCatDropdown(e) { e.stopPropagation(); document.getElementById('cat-dropdown').classList.toggle('open') }
+function closeCatDropdown() { document.getElementById('cat-dropdown').classList.remove('open') }
+document.addEventListener('click', function(e) { if (!e.target.closest('.hdr-cat-wrap')) closeCatDropdown() });
+
+// ── Smooth scroll for anchor links ──
+document.querySelectorAll('a[href="#huong-dan"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('huong-dan').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
