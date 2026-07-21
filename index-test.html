@@ -22,9 +22,9 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
 /* ══ HEADER ══ */
 .hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
-.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:136px;gap:8px}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:72px;gap:8px}
 .hdr-logo{flex-shrink:0;margin-right:24px}
-.hdr-logo img{height:123px;width:auto;display:block}
+.hdr-logo img{height:56px;width:auto;display:block}
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
 .hdr-nav a{color:var(--tm);font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
@@ -43,7 +43,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){
   .hdr-inner{padding:0 16px}
-  .hdr-logo img{height:108px}
+  .hdr-logo img{height:48px}
   .hdr-nav{display:none}
   .btn-login{display:none}
   .btn-consult-hdr{display:none}
@@ -74,10 +74,12 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 @media(min-width:641px){.hdr-cat-wrap{display:none}}
 
 /* ══ HERO ══ */
-.hero{background:#fff;padding:0;overflow:hidden;position:relative}
-.hero::before{content:"";position:absolute;top:-80px;right:-120px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,116,55,.07) 0%,transparent 70%);pointer-events:none}
-.hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;min-height:540px}
-.hero-left{padding:56px 48px 56px 32px}
+.hero{position:relative;overflow:hidden;min-height:560px;padding:0;background:#fff}
+.hero-visual{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(255,255,255,.97) 28%,rgba(255,255,255,.8) 48%,rgba(255,255,255,.25) 70%,transparent 100%)}
+.hero-banner-img{width:100%;height:100%;object-fit:cover;object-position:right center;display:block}
+.hero-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto;min-height:560px;display:flex;align-items:center}
+.hero-left{padding:72px 48px 72px 32px;max-width:620px}
 /* Left */
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid rgba(232,146,10,.3);color:var(--goldd);font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:24px;letter-spacing:.3px}
 .hero-badge svg{width:14px;height:14px;fill:none;stroke:var(--goldd);stroke-width:2;flex-shrink:0}
@@ -125,16 +127,17 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .b-teal svg{stroke:#fff;fill:none;stroke-width:2}
 
 @media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:40px 24px 32px}
-  .hero-visual{min-height:280px;border-radius:0}
+  .hero{min-height:460px}
+  .hero-inner{min-height:460px}
+  .hero-left{padding:48px 24px 48px 24px;max-width:100%}
+  .hero-visual::after{background:linear-gradient(to right,rgba(255,255,255,.98) 30%,rgba(255,255,255,.85) 55%,rgba(255,255,255,.4) 80%,transparent 100%)}
   .hero-cats{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:640px){
-  .hero-visual{display:none}
-}
-@media(max-width:640px){
-  .hero-left{padding:28px 16px 28px}
+  .hero{min-height:380px}
+  .hero-inner{min-height:380px}
+  .hero-visual::after{background:rgba(255,255,255,.88)}
+  .hero-left{padding:32px 16px 32px}
   .hero-cats{grid-template-columns:repeat(4,1fr);gap:7px}
   .hcat{padding:10px 6px;font-size:11px}
   .hcat-icon{width:34px;height:34px;border-radius:8px}
@@ -336,8 +339,11 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
 <!-- ══ HERO ══ -->
 <section class="hero">
+  <!-- Background image — full bleed -->
+  <div class="hero-visual">
+    <img class="hero-banner-img" src="/banner-hero.png" alt="Banner DBV247">
+  </div>
   <div class="hero-inner">
-    <!-- Left -->
     <div class="hero-left">
       <div class="hero-badge">
         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -383,10 +389,6 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
     </div>
 
-    <!-- Right — Visual -->
-    <div class="hero-visual">
-      <img class="hero-banner-img" src="/banner-hero.png" alt="Banner DBV247">
-    </div>
   </div>
 </section>
 
