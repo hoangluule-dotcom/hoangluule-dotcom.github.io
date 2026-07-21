@@ -17,8 +17,8 @@
   --zalo:#0068ff;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{overflow-x:hidden;scroll-behavior:smooth}
-body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;line-height:1.6;overflow-x:hidden}
+html{overflow-x:clip;scroll-behavior:smooth}
+body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;line-height:1.6}
 
 /* ══ HEADER ══ */
 .hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
@@ -34,12 +34,44 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:16px}
 .hdr-search{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tm);transition:.18s}
 .hdr-search:hover{background:var(--gl);color:var(--g);border-color:var(--g)}
+.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:var(--tm);text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-catalog-hdr:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
 .btn-login{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:var(--tm);text-decoration:none;transition:.18s;white-space:nowrap}
 .btn-login:hover{border-color:var(--g);color:var(--g)}
 .btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--g);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
 .btn-consult-hdr:hover{background:var(--gd);box-shadow:0 4px 16px rgba(0,116,55,.3)}
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
-@media(max-width:640px){.hdr-inner{padding:0 16px}.btn-login{display:none}.hdr-logo img{height:36px}}
+@media(max-width:640px){
+  .hdr-inner{padding:0 16px}
+  .hdr-logo img{height:36px}
+  .hdr-nav{display:none}
+  .btn-login{display:none}
+  .btn-consult-hdr{display:none}
+  /* Đẩy actions sát phải khi nav ẩn */
+  .hdr-actions{margin-left:auto}
+  /* Icon only */
+  .btn-catalog-hdr .btn-cat-text{display:none}
+  .btn-catalog-hdr{padding:8px 10px;border-radius:10px}
+}
+
+/* ══ CATEGORY DROPDOWN (nav menu) ══ */
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
+.cat-dropdown.open{display:block}
+.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.cat-dd-item:hover{background:var(--gl);color:var(--g)}
+.cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
+/* Sản phẩm parent */
+.cat-dd-parent{font-weight:600}
+.cat-dd-parent.open .dd-arr{transform:rotate(180deg)}
+/* Sub-menu */
+.cat-dd-sub{display:none;border-left:2px solid var(--gl);margin:2px 4px 4px 20px;padding:2px 0}
+.cat-dd-sub.open{display:block}
+.cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
+.cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
+/* Wrapper cho btn Danh mục: mặc định hiện, ẩn ở desktop */
+.hdr-cat-wrap{position:relative;display:inline-flex}
+@media(min-width:641px){.hdr-cat-wrap{display:none}}
 
 /* ══ HERO ══ */
 .hero{background:#fff;padding:56px 32px 0;overflow:hidden;position:relative}
@@ -94,8 +126,11 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 @media(max-width:900px){
   .hero{padding:40px 24px 0}
   .hero-inner{grid-template-columns:1fr;gap:32px;min-height:auto}
-  .hero-visual{order:-1;padding-bottom:0}
+  .hero-visual{padding-bottom:0}
   .hero-cats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .hero-visual{display:none}
 }
 @media(max-width:640px){
   .hero{padding:28px 16px 0}
@@ -130,7 +165,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .catalog-search input::placeholder{color:var(--ts)}
 
 /* Filter chips */
-.filter-wrap{display:flex;gap:8px;margin-bottom:28px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.filter-wrap{display:flex;flex-wrap:nowrap;gap:8px;margin-bottom:28px;overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x;scrollbar-width:none;padding-bottom:4px}
 .filter-wrap::-webkit-scrollbar{display:none}
 .f-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:20px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:var(--tm);background:#fff;white-space:nowrap;cursor:pointer;transition:.18s;flex-shrink:0}
 .f-chip:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
@@ -189,6 +224,36 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .mob-zalo{background:var(--zalo);color:#fff}
 
 
+/* ══ LEAD FORM ══ */
+.lead-section{background:linear-gradient(135deg,var(--g) 0%,#005a2b 100%);padding:56px 32px;position:relative;overflow:hidden}
+.lead-section::before{content:"";position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.lead-section::after{content:"";position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+.lead-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+.lead-copy h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;color:#fff;line-height:1.25;margin-bottom:12px}
+.lead-copy h2 span{color:#ffd166}
+.lead-copy p{font-size:14px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:24px}
+.lead-promise{display:flex;flex-direction:column;gap:10px}
+.lead-promise-item{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.9)}
+.lead-promise-item svg{width:16px;height:16px;stroke:#4ade80;fill:none;stroke-width:2.5;flex-shrink:0}
+.lead-form-box{background:#fff;border-radius:20px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.lead-form-box h3{font-size:16px;font-weight:700;color:var(--dk);margin-bottom:20px}
+.lf-group{margin-bottom:14px}
+.lf-label{display:block;font-size:12px;font-weight:600;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px}
+.lf-input,.lf-select{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;font-family:inherit;color:var(--tx);background:#fff;outline:none;transition:.2s;-webkit-appearance:none}
+.lf-input:focus,.lf-select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.08)}
+.lf-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;cursor:pointer}
+.lf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lf-submit{width:100%;padding:13px;background:var(--g);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.lf-submit:hover{background:var(--gd);box-shadow:0 4px 16px rgba(0,116,55,.3)}
+.lf-submit svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5}
+.lf-note{font-size:11px;color:var(--ts);text-align:center;margin-top:10px}
+.lf-success{display:none;text-align:center;padding:20px 0}
+.lf-success svg{width:48px;height:48px;stroke:var(--g);fill:none;stroke-width:1.5;margin-bottom:12px}
+.lf-success h4{font-size:16px;font-weight:700;color:var(--dk);margin-bottom:6px}
+.lf-success p{font-size:13px;color:var(--ts)}
+@media(max-width:768px){.lead-inner{grid-template-columns:1fr;gap:32px}.lead-section{padding:40px 20px}}
+@media(max-width:480px){.lf-row{grid-template-columns:1fr}}
+
 /* ══ FOOTER ══ */
 .ftr{background:#f4f7f5;border-top:1px solid var(--bd);margin-top:64px}
 .ftr-inner{max-width:1280px;margin:0 auto;padding:52px 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
@@ -229,9 +294,33 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
       <a href="/ve-dbv">Về DBV247</a>
     </nav>
     <div class="hdr-actions">
-      <button class="hdr-search" onclick="document.getElementById('cat-search').focus()" aria-label="Tìm kiếm">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </button>
+
+      <div class="hdr-cat-wrap">
+        <button class="btn-catalog-hdr" onclick="toggleCatDropdown(event)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="btn-cat-text">Danh mục</span>
+        </button>
+        <div class="cat-dropdown" id="cat-dropdown">
+          <!-- Sản phẩm (có sub-menu) -->
+          <button class="cat-dd-item cat-dd-parent" onclick="toggleSubMenu(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            Sản phẩm
+            <svg class="dd-arr" viewBox="0 0 24 24" width="12" height="12" style="margin-left:auto;stroke:currentColor;fill:none;stroke-width:2;transition:.2s"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-dd-sub" id="sub-sanpham">
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-vat-chat-oto" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe ô tô</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Sức khỏe</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-tai-san" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-du-lich" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>Du lịch</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-hang-hai" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải</a>
+          </div>
+          <div class="cat-dd-sep"></div>
+          <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Bồi thường</a>
+          <a class="cat-dd-item" href="/mang-luoi" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="19" x2="10" y2="19"/><line x1="14" y1="19" x2="17" y2="19"/></svg>Mạng lưới dịch vụ</a>
+          <a class="cat-dd-item" href="/kien-thuc" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Kiến thức</a>
+          <a class="cat-dd-item" href="/ve-dbv" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/></svg>Về DBV247</a>
+        </div>
+      </div>
       <a href="tel:0869656561" class="btn-login">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
         0869 656 561
@@ -259,23 +348,23 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
       <p class="hero-need">Bạn cần bảo hiểm cho</p>
       <div class="hero-cats">
         <a class="hcat" href="#" onclick="filterCat('xe');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
+          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
           Xe ô tô
           <span class="hcat-arr">→</span>
         </a>
-        <a class="hcat" href="#" onclick="filterCat('xe');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M11 17h4"/><path d="M9 9l3-4h6l2 4"/></svg></div>
-          Xe máy
-          <span class="hcat-arr">→</span>
-        </a>
         <a class="hcat" href="#" onclick="filterCat('conguoi');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          Du lịch
-          <span class="hcat-arr">→</span>
-        </a>
-        <a class="hcat" href="#" onclick="filterCat('conguoi');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
           Sức khỏe
+          <span class="hcat-arr">→</span>
+        </a>
+        <a class="hcat" href="#" onclick="filterCat('taisan');scrollToCatalog();return false">
+          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          Tài sản
+          <span class="hcat-arr">→</span>
+        </a>
+        <a class="hcat" href="#" onclick="filterCat('conguoi');scrollToCatalog();return false">
+          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          Du lịch
           <span class="hcat-arr">→</span>
         </a>
       </div>
@@ -295,7 +384,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
     <!-- Right — Visual -->
     <div class="hero-visual">
-      <img class="hero-banner-img" src="/banner-hero.png" alt="DBV247 – Bảo vệ mọi hành trình của bạn">
+      <img class="hero-banner-img" src="/banner-hero.png" alt="Banner DBV247">
     </div>
   </div>
 </section>
@@ -333,39 +422,32 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   </div>
 
   <div class="filter-wrap">
-    <button class="f-chip active" data-f="all" onclick="filterCat('all',this)">Tất cả <span class="f-count">22</span></button>
-    <button class="f-chip" data-f="xe" onclick="filterCat('xe',this)">🚗 Xe cơ giới <span class="f-count">4</span></button>
-    <button class="f-chip" data-f="taisan" onclick="filterCat('taisan',this)">🏠 Tài sản & Kỹ thuật <span class="f-count">6</span></button>
-    <button class="f-chip" data-f="conguoi" onclick="filterCat('conguoi',this)">❤️ Sức khỏe & Du lịch <span class="f-count">4</span></button>
-    <button class="f-chip" data-f="hanghai" onclick="filterCat('hanghai',this)">🚢 Hàng hải <span class="f-count">3</span></button>
-    <button class="f-chip" data-f="trachnhiem" onclick="filterCat('trachnhiem',this)">⚖️ Trách nhiệm <span class="f-count">4</span></button>
-    <button class="f-chip" data-f="batbuoc" onclick="filterCat('batbuoc',this)">📋 Bắt buộc</button>
+    <button class="f-chip active" data-f="all" onclick="filterCat('all',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Được mua nhiều</button>
+    <button class="f-chip" data-f="xe" onclick="filterCat('xe',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe cơ giới <span class="f-count">4</span></button>
+    <button class="f-chip" data-f="taisan" onclick="filterCat('taisan',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản & Kỹ thuật <span class="f-count">6</span></button>
+    <button class="f-chip" data-f="conguoi" onclick="filterCat('conguoi',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Sức khỏe & Du lịch <span class="f-count">4</span></button>
+    <button class="f-chip" data-f="hanghai" onclick="filterCat('hanghai',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải <span class="f-count">3</span></button>
+    <button class="f-chip" data-f="trachnhiem" onclick="filterCat('trachnhiem',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M3 18l9-3 9 3"/><path d="M3 6c0 3.314 2.686 6 6 6s6-2.686 6-6"/><path d="M15 18c0 3.314 2.686 6 6 6s6-2.686 6-6" transform="translate(-6,-6)"/></svg>Trách nhiệm <span class="f-count">4</span></button>
   </div>
 
   <!-- HOT -->
   <div class="cat-section" id="sec-hot">
-    <div class="sec-label">🔥 Được mua nhiều nhất</div>
+    <div class="sec-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Được mua nhiều nhất</div>
     <div class="prod-grid">
       <div class="pcard" onclick="window.location.href='/bao-hiem-vat-chat-oto'"  data-cat="xe" data-name="vật chất ô tô xe hơi tai nạn va chạm"><div class="pcard-photo" style="background:linear-gradient(135deg,#007437,#16a34a)"><img src="/than-vo-oto.webp" alt="Vật chất ô tô" loading="lazy"><span class="pbadge pbadge-hot">HOT</span></div><div class="pcard-body"><div class="pcard-name">Vật chất ô tô</div><div class="pcard-desc">Sửa chữa sau va chạm, cháy nổ, thiên tai — toàn bộ chi phí được bồi thường.</div><div class="pcard-tags"><span class="ptag">Va chạm</span><span class="ptag">Cháy nổ</span><span class="ptag">Thiên tai</span></div></div><div class="pcard-actions"><a href="/bao-hiem-vat-chat-oto" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='/bao-hiem-tnds-oto'"  data-cat="xe batbuoc" data-name="tnds ô tô bắt buộc trách nhiệm dân sự"><div class="pcard-photo" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)"><img src="/tnds-oto.webp" alt="TNDS ô tô" loading="lazy"><span class="pbadge pbadge-req">BẮT BUỘC</span></div><div class="pcard-body"><div class="pcard-name">TNDS ô tô bắt buộc</div><div class="pcard-desc">Đúng pháp luật, tránh bị phạt — bồi thường thiệt hại cho người thứ ba.</div><div class="pcard-tags"><span class="ptag">Bắt buộc</span><span class="ptag">Người thứ ba</span></div></div><div class="pcard-actions"><a href="/bao-hiem-tnds-oto" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='https://dbv247.com.vn/bao-hiem-chay-no-chung-cu'"  data-cat="taisan batbuoc" data-name="nhà chung cư cháy nổ căn hộ"><div class="pcard-photo" style="background:linear-gradient(135deg,#0f766e,#0d9488)"><img src="/nha-chung-cu.webp" alt="Nhà chung cư" loading="lazy"><span class="pbadge pbadge-hot">HOT</span></div><div class="pcard-body"><div class="pcard-name">Nhà chung cư</div><div class="pcard-desc">Căn hộ, nội thất & trách nhiệm liền kề — bồi thường toàn diện theo NĐ 67.</div><div class="pcard-tags"><span class="ptag">Căn hộ</span><span class="ptag">Cháy nổ</span><span class="ptag">NĐ 67</span></div></div><div class="pcard-actions"><a href="https://dbv247.com.vn/bao-hiem-chay-no-chung-cu" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='/bao-hiem-suc-khoe'"  data-cat="conguoi" data-name="sức khỏe nằm viện phẫu thuật thuốc"><div class="pcard-photo" style="background:linear-gradient(135deg,#be123c,#e11d48)"><img src="/suc-khoe.webp" alt="Sức khỏe" loading="lazy"><span class="pbadge pbadge-hot">HOT</span></div><div class="pcard-body"><div class="pcard-name">Bảo hiểm sức khỏe</div><div class="pcard-desc">Không lo viện phí — nội trú, phẫu thuật, thuốc men được chi trả toàn bộ.</div><div class="pcard-tags"><span class="ptag">Nội trú</span><span class="ptag">Phẫu thuật</span><span class="ptag">Thuốc men</span></div></div><div class="pcard-actions"><a href="/bao-hiem-suc-khoe" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
+      <div class="pcard" onclick="window.location.href='/bao-hiem-oto-dien'"  data-cat="xe" data-name="vật chất ô tô điện ev electric pin"><div class="pcard-photo" style="background:linear-gradient(135deg,#007437,#16a34a)"><img src="/than-vo-oto-dien.webp" alt="Ô tô điện" loading="lazy"><span class="pbadge pbadge-new">MỚI</span></div><div class="pcard-body"><div class="pcard-name">Vật chất ô tô điện</div><div class="pcard-desc">Bảo vệ đặc biệt pin & hệ thống điện — giải pháp tiên phong dành riêng cho xe EV.</div><div class="pcard-tags"><span class="ptag">Pin EV</span><span class="ptag">Hệ thống điện</span></div></div><div class="pcard-actions"><a href="/bao-hiem-oto-dien" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
+      <div class="pcard" onclick="window.location.href='/bao-hiem-chay-no-hkd'"  data-cat="taisan" data-name="cháy nổ hộ kinh doanh cửa hàng kho xưởng"><div class="pcard-photo" style="background:linear-gradient(135deg,#b45309,#d97706)"><img src="/chay-no-ho-kinh-doanh.webp" alt="Cháy nổ hộ KD" loading="lazy"><span class="pbadge pbadge-hot">HOT</span></div><div class="pcard-body"><div class="pcard-name">Cháy nổ hộ kinh doanh</div><div class="pcard-desc">Bảo vệ cửa hàng, kho xưởng linh hoạt — thiệt hại thực sự có thể rất lớn.</div><div class="pcard-tags"><span class="ptag">Cửa hàng</span><span class="ptag">Kho xưởng</span></div></div><div class="pcard-actions"><a href="/bao-hiem-chay-no-hkd" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
+      <div class="pcard" onclick="window.location.href='/bao-hiem-du-lich-quoc-te'"  data-cat="conguoi" data-name="du lịch quốc tế nước ngoài y tế hành lý"><div class="pcard-photo" style="background:linear-gradient(135deg,#0369a1,#0891b2)"><img src="/du-lich-quoc-te.webp" alt="Du lịch quốc tế" loading="lazy"><span class="pbadge pbadge-hot">HOT</span></div><div class="pcard-body"><div class="pcard-name">Du lịch quốc tế</div><div class="pcard-desc">Khám phá thế giới không lo chi phí — y tế khẩn cấp & hành lý bảo vệ toàn cầu.</div><div class="pcard-tags"><span class="ptag">Toàn cầu</span><span class="ptag">Y tế</span><span class="ptag">Hành lý</span></div></div><div class="pcard-actions"><a href="/bao-hiem-du-lich-quoc-te" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
+      <div class="pcard" onclick="window.location.href='/bao-hiem-benh-nhiet-doi'"  data-cat="conguoi" data-name="bệnh nhiệt đới sốt xuất huyết zika dengue"><div class="pcard-photo" style="background:linear-gradient(135deg,#be123c,#e11d48)"><img src="/suc-khoe.webp" alt="Bệnh nhiệt đới" loading="lazy"><span class="pbadge pbadge-new">MỚI</span></div><div class="pcard-body"><div class="pcard-name">Bảo hiểm bệnh nhiệt đới</div><div class="pcard-desc">Bảo vệ trước sốt xuất huyết, Zika, sốt rét — chi phí điều trị được bồi thường toàn bộ.</div><div class="pcard-tags"><span class="ptag">Sốt xuất huyết</span><span class="ptag">Zika</span></div></div><div class="pcard-actions"><a href="/bao-hiem-benh-nhiet-doi" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
     </div>
-  </div>
-
-  <!-- Hint xem thêm danh mục -->
-  <div id="show-all-hint" style="display:flex;justify-content:center;padding:8px 0 32px;gap:10px;flex-wrap:wrap">
-    <button onclick="filterCat('xe', document.querySelector('[data-f=xe]'))" class="hint-btn">🚗 Xe cơ giới</button>
-    <button onclick="filterCat('taisan', document.querySelector('[data-f=taisan]'))" class="hint-btn">🏠 Tài sản & Kỹ thuật</button>
-    <button onclick="filterCat('conguoi', document.querySelector('[data-f=conguoi]'))" class="hint-btn">❤️ Sức khỏe & Du lịch</button>
-    <button onclick="filterCat('hanghai', document.querySelector('[data-f=hanghai]'))" class="hint-btn">🚢 Hàng hải</button>
-    <button onclick="filterCat('trachnhiem', document.querySelector('[data-f=trachnhiem]'))" class="hint-btn">⚖️ Trách nhiệm</button>
-    <button onclick="showAllSections()" class="hint-btn hint-all">Xem toàn bộ 22 sản phẩm ↓</button>
   </div>
 
   <!-- XE CƠ GIỚI -->
   <div class="cat-section" id="sec-xe" style="display:none">
-    <div class="sec-label">🚗 Xe cơ giới</div>
+    <div class="sec-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe cơ giới</div>
     <div class="prod-grid">
       <div class="pcard" onclick="window.location.href='/bao-hiem-vat-chat-oto'"  data-cat="xe" data-name="vật chất ô tô xe hơi tai nạn"><div class="pcard-photo" style="background:linear-gradient(135deg,#007437,#16a34a)"><img src="/than-vo-oto.webp" alt="Vật chất ô tô" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Vật chất ô tô</div><div class="pcard-desc">Toàn bộ chi phí sửa chữa sau va chạm, cháy nổ, thiên tai đều được bồi thường.</div><div class="pcard-tags"><span class="ptag">Va chạm</span><span class="ptag">Cháy nổ</span><span class="ptag">Thiên tai</span></div></div><div class="pcard-actions"><a href="/bao-hiem-vat-chat-oto" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='/bao-hiem-tnds-oto'"  data-cat="xe batbuoc" data-name="tnds ô tô bắt buộc trách nhiệm dân sự"><div class="pcard-photo" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)"><img src="/tnds-oto.webp" alt="TNDS ô tô" loading="lazy"><span class="pbadge pbadge-req">BẮT BUỘC</span></div><div class="pcard-body"><div class="pcard-name">TNDS ô tô bắt buộc</div><div class="pcard-desc">Lưu thông hợp pháp — bồi thường thiệt hại thân thể & tài sản người thứ ba.</div><div class="pcard-tags"><span class="ptag">Bắt buộc</span><span class="ptag">Người thứ ba</span></div></div><div class="pcard-actions"><a href="/bao-hiem-tnds-oto" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
@@ -376,7 +458,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
   <!-- TÀI SẢN -->
   <div class="cat-section" id="sec-taisan" style="display:none">
-    <div class="sec-label">🏠 Tài sản & Kỹ thuật</div>
+    <div class="sec-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản & Kỹ thuật</div>
     <div class="prod-grid">
       <div class="pcard" onclick="window.location.href='/bao-hiem-chay-no'"  data-cat="taisan batbuoc" data-name="cháy nổ bắt buộc doanh nghiệp"><div class="pcard-photo" style="background:linear-gradient(135deg,#b45309,#d97706)"><img src="/chay-no-bat-buoc.webp" alt="Cháy nổ bắt buộc" loading="lazy"><span class="pbadge pbadge-req">BẮT BUỘC</span></div><div class="pcard-body"><div class="pcard-name">Cháy nổ bắt buộc</div><div class="pcard-desc">Tuân thủ pháp luật & bảo vệ cơ sở kinh doanh 24/7 trước nguy cơ cháy nổ.</div><div class="pcard-tags"><span class="ptag">Bắt buộc</span><span class="ptag">Nghị định 23</span></div></div><div class="pcard-actions"><a href="/bao-hiem-chay-no" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='/bao-hiem-chay-no-hkd'"  data-cat="taisan" data-name="cháy nổ hộ kinh doanh cửa hàng kho xưởng"><div class="pcard-photo" style="background:linear-gradient(135deg,#b45309,#d97706)"><img src="/chay-no-ho-kinh-doanh.webp" alt="Cháy nổ hộ KD" loading="lazy"><span class="pbadge pbadge-new">MỚI</span></div><div class="pcard-body"><div class="pcard-name">Cháy nổ hộ kinh doanh</div><div class="pcard-desc">Bảo vệ cửa hàng, kho xưởng linh hoạt — thiệt hại thực sự có thể rất lớn.</div><div class="pcard-tags"><span class="ptag">Cửa hàng</span><span class="ptag">Kho xưởng</span></div></div><div class="pcard-actions"><a href="/bao-hiem-chay-no-hkd" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
@@ -389,7 +471,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
   <!-- SỨC KHỎE & DU LỊCH -->
   <div class="cat-section" id="sec-conguoi" style="display:none">
-    <div class="sec-label">❤️ Sức khỏe & Du lịch</div>
+    <div class="sec-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Sức khỏe & Du lịch</div>
     <div class="prod-grid">
       <div class="pcard" onclick="window.location.href='/bao-hiem-suc-khoe'"  data-cat="conguoi" data-name="sức khỏe nằm viện phẫu thuật thuốc"><div class="pcard-photo" style="background:linear-gradient(135deg,#be123c,#e11d48)"><img src="/suc-khoe.webp" alt="Sức khỏe" loading="lazy"><span class="pbadge pbadge-hot">HOT</span></div><div class="pcard-body"><div class="pcard-name">Bảo hiểm sức khỏe</div><div class="pcard-desc">Không lo viện phí — nội trú, phẫu thuật, thuốc men được chi trả toàn bộ.</div><div class="pcard-tags"><span class="ptag">Nội trú</span><span class="ptag">Phẫu thuật</span></div></div><div class="pcard-actions"><a href="/bao-hiem-suc-khoe" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='/bao-hiem-tai-nan'"  data-cat="conguoi" data-name="tai nạn cá nhân người"><div class="pcard-photo" style="background:linear-gradient(135deg,#be123c,#e11d48)"><img src="/tai-nan-ca-nhan.webp" alt="Tai nạn cá nhân" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Tai nạn cá nhân</div><div class="pcard-desc">Nhận bồi thường nhanh — không cần nằm viện, tai nạn ở đâu cũng được chi trả.</div><div class="pcard-tags"><span class="ptag">Mọi địa điểm</span><span class="ptag">Nội & ngoại trú</span></div></div><div class="pcard-actions"><a href="/bao-hiem-tai-nan" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
@@ -400,7 +482,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
   <!-- HÀNG HẢI -->
   <div class="cat-section" id="sec-hanghai" style="display:none">
-    <div class="sec-label">🚢 Hàng hải</div>
+    <div class="sec-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải</div>
     <div class="prod-grid">
       <div class="pcard" onclick="window.location.href='/bao-hiem-van-chuyen'"  data-cat="hanghai" data-name="vận chuyển hàng hóa nội địa đường bộ thuỷ"><div class="pcard-photo" style="background:linear-gradient(135deg,#1B3A5C,#2a5b9e)"><img src="/hang-hoa-van-chuyen-noi-dia.webp" alt="Vận chuyển nội địa" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Vận chuyển hàng hóa nội địa</div><div class="pcard-desc">Hàng đến đúng nơi, đúng số lượng — mọi tổn thất vận chuyển nội địa đều được bồi thường.</div><div class="pcard-tags"><span class="ptag">Đường bộ</span><span class="ptag">Đường thuỷ</span></div></div><div class="pcard-actions"><a href="/bao-hiem-van-chuyen" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='/bao-hiem-xnk'"  data-cat="hanghai" data-name="hàng hóa xuất nhập khẩu quốc tế đường biển"><div class="pcard-photo" style="background:linear-gradient(135deg,#1B3A5C,#2a5b9e)"><img src="/hang-hoa-xnk.webp" alt="Hàng hóa XNK" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Hàng hóa xuất nhập khẩu</div><div class="pcard-desc">Xuất nhập khẩu an toàn — bảo vệ toàn bộ lô hàng từ kho đến tay người mua.</div><div class="pcard-tags"><span class="ptag">Quốc tế</span><span class="ptag">ICC A/B/C</span></div></div><div class="pcard-actions"><a href="/bao-hiem-xnk" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
@@ -410,7 +492,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
   <!-- TRÁCH NHIỆM -->
   <div class="cat-section" id="sec-trachnhiem" style="display:none">
-    <div class="sec-label">⚖️ Trách nhiệm</div>
+    <div class="sec-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M3 18l9-3 9 3"/><path d="M3 6c0 3.314 2.686 6 6 6s6-2.686 6-6"/><path d="M15 18c0 3.314 2.686 6 6 6s6-2.686 6-6" transform="translate(-6,-6)"/></svg>Trách nhiệm</div>
     <div class="prod-grid">
       <div class="pcard" onclick="window.location.href='/bao-hiem-tnc.html'"  data-cat="trachnhiem" data-name="trách nhiệm chung doanh nghiệp bên thứ ba"><div class="pcard-photo" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)"><img src="/trach-nhiem-chung.webp" alt="Trách nhiệm chung" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Trách nhiệm chung</div><div class="pcard-desc">Doanh nghiệp vận hành tự tin — bảo vệ trước mọi yêu cầu bồi thường từ bên thứ ba.</div><div class="pcard-tags"><span class="ptag">Doanh nghiệp</span><span class="ptag">Bên thứ ba</span></div></div><div class="pcard-actions"><a href="/bao-hiem-tnc.html" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
       <div class="pcard" onclick="window.location.href='/bao-hiem-tncc.html'"  data-cat="trachnhiem" data-name="trách nhiệm công cộng cộng đồng khiếu kiện"><div class="pcard-photo" style="background:linear-gradient(135deg,#4338ca,#6d28d9)"><img src="/trach-nhiem-cong-cong.webp" alt="Trách nhiệm công cộng" loading="lazy"></div><div class="pcard-body"><div class="pcard-name">Trách nhiệm công cộng</div><div class="pcard-desc">Kinh doanh không lo rủi ro pháp lý với cộng đồng — bảo vệ trước các khiếu kiện.</div><div class="pcard-tags"><span class="ptag">Cơ sở KD</span><span class="ptag">Cộng đồng</span></div></div><div class="pcard-actions"><a href="/bao-hiem-tncc.html" class="btn-det" onclick="event.stopPropagation()">Chi tiết →</a><a href="https://zalo.me/1283738895804393564" class="btn-zalo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>Tư vấn</a></div></div>
@@ -424,6 +506,79 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
     <p>Thử từ khoá khác hoặc <a href="https://zalo.me/1283738895804393564" style="color:var(--g);font-weight:600">nhắn Zalo</a> để được tư vấn trực tiếp.</p>
   </div>
 </div>
+
+<!-- ══ LEAD FORM ══ -->
+<section class="lead-section">
+  <div class="lead-inner">
+    <!-- Left: copy -->
+    <div class="lead-copy">
+      <h2>Nhận tư vấn <span>miễn phí</span><br>trong vòng 5 phút</h2>
+      <p>Điền thông tin — chuyên viên DBV247 sẽ liên hệ ngay để giúp bạn chọn đúng gói bảo hiểm phù hợp nhất.</p>
+      <div class="lead-promise">
+        <div class="lead-promise-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Tư vấn 1-1, không phí, không ràng buộc
+        </div>
+        <div class="lead-promise-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Nhận chương trình ưu đãi hiện có từ DBV
+        </div>
+        <div class="lead-promise-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Hỗ trợ hồ sơ bồi thường trọn vẹn
+        </div>
+        <div class="lead-promise-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Thông tin được bảo mật tuyệt đối
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="lead-form-box">
+      <h3>Để lại thông tin, chúng tôi gọi lại ngay</h3>
+      <form id="lead-form" name="lead-form" data-netlify="true" onsubmit="submitLead(event)">
+        <input type="hidden" name="form-name" value="lead-form">
+        <div class="lf-row">
+          <div class="lf-group">
+            <label class="lf-label" for="lf-name">Họ và tên</label>
+            <input class="lf-input" id="lf-name" name="name" type="text" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="lf-group">
+            <label class="lf-label" for="lf-phone">Số điện thoại</label>
+            <input class="lf-input" id="lf-phone" name="phone" type="tel" placeholder="0912 345 678" required>
+          </div>
+        </div>
+        <div class="lf-group">
+          <label class="lf-label" for="lf-need">Nhu cầu bảo hiểm</label>
+          <select class="lf-select" id="lf-need" name="need" required>
+            <option value="" disabled selected>Chọn loại bảo hiểm...</option>
+            <option value="xe-oto">Xe ô tô</option>
+            <option value="suc-khoe">Sức khỏe</option>
+            <option value="tai-san">Tài sản</option>
+            <option value="du-lich">Du lịch</option>
+            <option value="hang-hai">Hàng hải</option>
+            <option value="trach-nhiem">Trách nhiệm</option>
+            <option value="khac">Khác</option>
+          </select>
+        </div>
+        <button class="lf-submit" type="submit">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          Gửi thông tin tư vấn
+        </button>
+        <p class="lf-note">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Thông tin của bạn được bảo mật theo chính sách DBV247
+        </p>
+      </form>
+      <div class="lf-success" id="lf-success">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        <h4>Đã nhận thông tin!</h4>
+        <p>Chuyên viên sẽ gọi lại cho bạn trong vòng 5–10 phút.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- STICKY MOBILE BAR -->
 <div class="mob-bar">
@@ -451,18 +606,15 @@ function filterCat(cat, chipEl) {
   const cards = document.querySelectorAll('.pcard');
 
   if (cat === 'all') {
-    // "Tất cả": chỉ hiện HOT, ẩn các section con (tránh trùng lặp & trang quá dài)
+    // Chỉ hiện HOT, ẩn các section con
     document.getElementById('sec-hot').style.display = '';
     sections.forEach(s => {
       if (s.id !== 'sec-hot') s.style.display = 'none';
     });
     cards.forEach(c => c.classList.remove('hidden'));
-    // Hiện thêm nút "Xem tất cả danh mục" gợi ý filter
-    document.getElementById('show-all-hint').style.display = 'flex';
   } else {
     // Filter theo danh mục: ẩn HOT, hiện section tương ứng
     document.getElementById('sec-hot').style.display = 'none';
-    document.getElementById('show-all-hint').style.display = 'none';
     sections.forEach(s => {
       if (s.id === 'sec-hot') return;
       const visible = [...s.querySelectorAll('.pcard')].some(c => (c.dataset.cat || '').split(' ').includes(cat));
@@ -480,9 +632,7 @@ function filterCat(cat, chipEl) {
 function showAllSections() {
   document.querySelectorAll('.cat-section').forEach(s => s.style.display = '');
   document.querySelectorAll('.pcard').forEach(c => c.classList.remove('hidden'));
-  document.getElementById('show-all-hint').style.display = 'none';
   document.querySelectorAll('.f-chip').forEach(c => c.classList.remove('active'));
-  // Không active chip nào = đang xem tất cả thật sự
 }
 
 function scrollToCatalog() {
@@ -508,6 +658,41 @@ document.getElementById('cat-search').addEventListener('input', function() {
   });
   checkEmpty();
 });
+
+function toggleCatDropdown(e) {
+  e.stopPropagation();
+  document.getElementById('cat-dropdown').classList.toggle('open');
+}
+function closeCatDropdown() {
+  document.getElementById('cat-dropdown').classList.remove('open');
+  // Đóng cả sub-menu
+  document.querySelectorAll('.cat-dd-sub.open').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.cat-dd-parent.open').forEach(el => el.classList.remove('open'));
+}
+function toggleSubMenu(btn) {
+  const subId = 'sub-sanpham';
+  const sub = document.getElementById(subId);
+  const isOpen = sub.classList.contains('open');
+  sub.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.hdr-cat-wrap')) closeCatDropdown();
+});
+
+function submitLead(e) {
+  e.preventDefault();
+  const form = document.getElementById('lead-form');
+  const btn = form.querySelector('.lf-submit');
+  btn.textContent = 'Đang gửi...'; btn.disabled = true;
+  const data = new FormData(form);
+  fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(data).toString()
+  }).then(() => {
+    form.style.display = 'none';
+    document.getElementById('lf-success').style.display = 'block';
+  }).catch(() => { form.submit(); });
+}
 
 function clearSearch() {
   document.getElementById('cat-search').value = '';

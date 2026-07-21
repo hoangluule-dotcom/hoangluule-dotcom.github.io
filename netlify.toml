@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+
+[build.processing]
+  skip_processing = false
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+
+# Bỏ qua secret scanning cho file Google Maps (key được restrict theo domain)
+[secrets]
+  [[secrets.ignored_files]]
+    path = "servicemap.html"
