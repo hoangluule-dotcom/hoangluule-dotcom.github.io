@@ -1,809 +1,1321 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="no-js">
 <head>
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta charset="UTF-8"/>
-  <link rel="canonical" href="https://www.dbv247.com.vn/bao-hiem-suc-khoe"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Bảo Hiểm An Tâm Vui Khỏe | DBV Insurance</title>
-<meta name="description" content="Bảo hiểm sức khỏe An Tâm Vui Khỏe DBV — bảo vệ toàn diện, phí linh hoạt, thủ tục bồi thường dễ dàng, nhận bảo hiểm cho người đã mắc bệnh ung thư."/>
+<title>Bảo Hiểm Sức Khỏe DBV An Tâm Vui Khỏe — Bảo Lãnh Viện Phí, Chỉ Từ 1.200đ/Ngày | DBV247</title>
+<meta name="description" content="Bảo hiểm chăm sóc sức khỏe DBV An Tâm Vui Khỏe: bảo lãnh viện phí không cần ứng tiền, nội trú đến 120 triệu/năm, nhận từ 60 ngày tuổi đến 65 tuổi. Phí chỉ từ 419.000đ/năm."/>
+<meta name="robots" content="noindex"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-/* ── HEADER ── */
-.hdr{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06);border-bottom:1px solid var(--bd)}
-.hdr-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;gap:20px}
-.hdr-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
-.hdr-nav{display:flex;align-items:center;gap:18px;flex:1;overflow:hidden}
-.hdr-nav a{color:var(--tm);font-size:13px;font-weight:500;text-decoration:none;transition:.15s;white-space:nowrap}
-.hdr-nav a:hover{color:var(--g)}
-.hdr-cta{background:var(--gold);color:#fff!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important;font-size:13px!important;text-decoration:none!important;white-space:nowrap;flex-shrink:0;transition:.15s}
-.hdr-cta:hover{background:var(--goldd)!important;transform:translateY(-1px)}
-.hdr-allprod{color:var(--g);font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 14px;border-radius:20px;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;margin-left:auto}
-.hdr-allprod:hover{background:var(--g);color:#fff}
-@media(max-width:768px){.hdr-nav,.hdr-cta{display:none!important}.hdr-inner{gap:12px}}
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --g:#007437;--gp:#005a2b;--gl:#E8F5E9;
   --gold:#E8920A;--goldd:#c97d08;
   --navy:#1B3A5C;--dk:#1A4D32;
   --tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
-  --bd:#E2E8F0;--bg:#ffffff;--white:#ffffff;
-  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
-  --sh:0 4px 24px rgba(0,0,0,.08);
-  --sh2:0 8px 40px rgba(0,0,0,.13);
+  --bd:#E2E8F0;--bg:#f7f9fc;
+  --r8:8px;--r12:12px;--r16:16px;
+  --sh:0 4px 24px rgba(0,0,0,.08);--sh2:0 8px 40px rgba(0,0,0,.13);
 }
 html{overflow-x:clip;scroll-behavior:smooth}
-body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--white);line-height:1.6;overflow-x:clip}
+body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;line-height:1.6;padding-bottom:88px}
+@media(min-width:769px){body{padding-bottom:0}}
 
-/* HEADER */
-/* USP BAR */
-.usp-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:12px 0}
-.usp-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
-.usp-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#2d6a4f}
-.usp-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+/* ── HEADER ── */
+.hdr{background:#fff;position:sticky;top:0;z-index:300;box-shadow:0 1px 0 var(--bd),0 2px 16px rgba(0,0,0,.06)}
+.hdr-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;height:auto;gap:12px}
+.hdr-logo img{height:85px;width:auto;display:block}
+.hdr-nav{display:none;gap:4px}
+@media(min-width:992px){.hdr-nav{display:flex}}
+.hdr-nav a{color:#444;text-decoration:none;font-size:13px;font-weight:500;padding:6px 10px;border-radius:6px;transition:.2s;white-space:nowrap}
+.hdr-nav a:hover{color:var(--g);background:var(--gl)}
+.hdr-cta{background:var(--gold);color:#fff;font-weight:700;padding:8px 16px;border-radius:8px;font-size:13px;text-decoration:none;display:none;white-space:nowrap}
+@media(min-width:992px){.hdr-cta{display:inline-block}}
+.hdr-allprod{margin-left:auto;color:var(--g);font-size:12px;font-weight:700;text-decoration:none;border:1.5px solid var(--g);padding:7px 12px;border-radius:20px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;transition:.2s}
+.hdr-allprod:hover{background:var(--g);color:#fff}
 
-/* HERO */
-.hero{background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 50%,#fafffe 100%);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;opacity:.1}
-.hero-inner{max-width:1200px;margin:0 auto;padding:64px 24px 56px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;position:relative;z-index:1;width:100%}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.5px}
-.hero-h1{font-size:clamp(2rem,3.5vw,3rem);font-weight:800;color:var(--dk);line-height:1.18;margin-bottom:20px;letter-spacing:-.5px}
+/* ── MOBILE STICKY BAR ── */
+.mob-bar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1.5px solid var(--bd);padding:10px 16px;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.12)}
+@media(min-width:769px){.mob-bar{display:none}}
+.mob-bar-zalo{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;border:2px solid #0068ff;color:#0068ff;font-weight:700;font-size:14px;padding:12px;border-radius:10px;text-decoration:none}
+.mob-bar-cta{flex:2;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;padding:12px;border-radius:10px;text-decoration:none;border:none;font-family:inherit;cursor:pointer}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#edf7f1 0%,#f7fcf9 60%,#fff 100%);padding:48px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;opacity:.05}
+.hero-inner{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+@media(min-width:992px){.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:18px}
+.hero-h1{font-size:clamp(1.7rem,4.5vw,2.7rem);font-weight:800;color:var(--dk);line-height:1.2;margin-bottom:16px}
 .hero-h1 em{color:var(--gold);font-style:normal}
-.hero-sub{color:var(--tm);font-size:15.5px;line-height:1.8;margin-bottom:32px}
-.hero-stats{display:flex;gap:24px;flex-wrap:wrap}
-.hero-stat-num{font-size:1.8rem;font-weight:800;color:var(--g);line-height:1}
-.hero-stat-lbl{font-size:11px;color:var(--tm);margin-top:3px}
-
-/* FORM CARD */
-.form-card{background:#fff;border-radius:16px;padding:32px;box-shadow:0 12px 48px rgba(0,0,0,.2)}
-.form-card-title{font-size:1.15rem;font-weight:800;color:var(--dk);margin-bottom:4px}
-.form-card-sub{font-size:13px;color:var(--tm);margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--bd)}
-.fg{margin-bottom:14px}
-.fg label{display:block;font-size:12px;font-weight:600;color:var(--tx);margin-bottom:5px;letter-spacing:.3px}
-.fg input,.fg select{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--tx);background:#fff;outline:none;transition:.2s;appearance:none}
+.hero-sub{color:var(--tm);font-size:15px;line-height:1.8;margin-bottom:24px}
+.hero-stats{display:flex;gap:0;border:1.5px solid var(--bd);border-radius:var(--r12);overflow:hidden;margin-bottom:28px;background:#fff}
+.hero-stat{flex:1;padding:14px 12px;text-align:center;border-right:1px solid var(--bd)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-num{font-size:1.15rem;font-weight:800;color:var(--g);line-height:1.1}
+.hero-stat-lbl{font-size:10.5px;color:var(--tm);margin-top:3px;line-height:1.4}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.hero-ctas a{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:13px 20px;border-radius:30px;text-decoration:none;transition:.2s;font-family:'Be Vietnam Pro',sans-serif;white-space:nowrap}
+.hero-cta-main{background:var(--g);color:#fff;box-shadow:0 4px 20px rgba(0,116,55,.3);flex:1}
+.hero-cta-main:hover{background:var(--gp);transform:translateY(-1px)}
+.hero-cta-sec{background:#fff;color:var(--dk);border:2px solid var(--g);flex:1}
+.hero-cta-sec:hover{background:var(--gl)}
+.hero-form-col{display:none}
+@media(min-width:992px){.hero-form-col{display:block}}
+.form-card{background:#fff;border-radius:var(--r16);padding:28px;box-shadow:var(--sh2);border:1px solid var(--bd)}
+.form-card-title{font-size:1rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.form-card-sub{font-size:12.5px;color:var(--tm);margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--ts);margin-bottom:4px;letter-spacing:.4px;text-transform:uppercase}
+.fg input,.fg select{width:100%;padding:10px 12px;border:1.5px solid var(--bd);border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--tx);background:#fff;outline:none;transition:.2s;appearance:none}
 .fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23718096' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .fg input:focus,.fg select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
-.btn-primary{width:100%;background:var(--g);color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:14px;padding:14px;border:none;border-radius:8px;cursor:pointer;transition:.2s;margin-top:2px}
-.btn-primary:hover{background:var(--gp);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,116,55,.3)}
-.form-disc{font-size:10px;color:var(--ts);text-align:center;margin-top:8px;line-height:1.5}
-.form-succ{text-align:center;display:none;padding:18px;background:var(--gl);border-radius:var(--r12);font-weight:600;color:var(--g);font-size:14px;margin-top:8px}
+.btn-submit{width:100%;background:var(--g);color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:14px;padding:13px;border:none;border-radius:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.btn-submit:hover{background:var(--gp)}
+.form-disc{font-size:10.5px;color:var(--ts);text-align:center;margin-top:8px}
+.form-succ{display:none;background:var(--gl);border-radius:var(--r12);padding:16px;text-align:center;font-weight:700;color:var(--g);font-size:14px;margin-top:8px}
 
-/* SECTION BASE */
-.sec{padding:72px 0}
-.sec-inner{max-width:1200px;margin:0 auto;padding:0 24px}
-.sec-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
-.sec-h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--dk);line-height:1.2;margin-bottom:12px}
-.sec-sub{font-size:15px;color:var(--tm);max-width:680px;line-height:1.75}
+/* ── SECTION BASE ── */
+.sec{padding:56px 0}
+@media(min-width:769px){.sec{padding:72px 0}}
+.sec-inner{max-width:1200px;margin:0 auto;padding:0 20px}
+.sec-head{text-align:center;margin-bottom:32px}
+.sec-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.7px;text-transform:uppercase;margin-bottom:10px}
+.sec-h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:var(--dk);line-height:1.2;margin-bottom:10px}
+.sec-sub{font-size:14px;color:var(--tm);max-width:680px;margin:0 auto;line-height:1.75}
 
-/* WAIT TIMES */
-.wait-sec{background:#f8fafb;padding:72px 0}
-.wait-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
-.wait-card{background:#fff;border-radius:var(--r16);padding:28px;border:2px solid var(--bd);text-align:center;transition:.3s}
-.wait-card:hover{border-color:var(--g);box-shadow:var(--sh)}
-.wait-days{font-size:3rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:6px}
-.wait-label{font-size:13px;font-weight:700;color:var(--dk);margin-bottom:8px}
-.wait-desc{font-size:13px;color:var(--tm);line-height:1.6}
+/* ── MOBILE COLLAPSE ── */
+/* Checkbox-hack: hoạt động thuần CSS, không cần JavaScript.
+   Mỗi khối dùng 1 <input type="checkbox" class="mob-chk"> ẩn + <label class="mob-toggle-btn"> thay cho <button onclick=...>.
+   Vẫn giữ JS toggleMob() làm lớp bổ trợ (đổi nhãn text) nhưng KHÔNG còn là điều kiện bắt buộc để mở/đóng. */
+.mob-chk{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.mob-collapse{overflow:hidden;transition:max-height .35s ease;max-height:0}
+/* .mob-collapse có thể là sibling trực tiếp của checkbox HOẶC nằm lồng bên trong 1 sibling (vd .risk-grid) */
+.mob-chk:checked ~ .mob-collapse{max-height:3000px}
+.mob-chk:checked ~ * .mob-collapse{max-height:3000px}
+@media(min-width:769px){.mob-collapse{max-height:none!important;overflow:visible;display:contents}}
+.mob-toggle-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--gl);border:1.5px solid rgba(0,116,55,.25);color:var(--g);font-weight:700;font-size:13.5px;padding:13px;border-radius:10px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;margin-top:16px;transition:.2s;-webkit-tap-highlight-color:rgba(0,116,55,.15);touch-action:manipulation;user-select:none}
+.mob-toggle-btn:hover{background:#d4edda}
+.mob-toggle-btn svg{transition:.3s;pointer-events:none}
+.mob-toggle-btn .lbl-open{display:inline}
+.mob-toggle-btn .lbl-close{display:none}
+.mob-chk:checked ~ .mob-toggle-btn svg{transform:rotate(180deg)}
+.mob-chk:checked ~ .mob-toggle-btn .lbl-open{display:none}
+.mob-chk:checked ~ .mob-toggle-btn .lbl-close{display:inline}
+@media(min-width:769px){.mob-toggle-btn{display:none}}
+.why-more-inner{display:contents}
 
-/* BENEFITS */
-.ben-sec{padding:72px 0}
-.ben-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
-.ben-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);padding:28px;transition:.3s;display:flex;gap:16px}
-.ben-card:hover{border-color:var(--g);box-shadow:var(--sh)}
-.ben-icon{width:48px;height:48px;border-radius:12px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g)}
-.ben-h4{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:8px}
-.ben-body{font-size:14px;color:var(--tm);line-height:1.7}
-.ben-full{grid-column:1/-1;background:linear-gradient(135deg,var(--gl),#f0fdf4);border-color:var(--g);align-items:center;padding:32px}
-.ben-full .ben-icon{width:56px;height:56px;background:rgba(0,116,55,.15)}
-.ben-full .ben-h4{font-size:17px;color:var(--g)}
+/* ── AUDIENCE ── */
+.aud-sec{background:var(--bg)}
+.aud-scroll{display:flex;gap:12px;overflow-x:auto;padding:4px 0 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x}
+.aud-scroll::-webkit-scrollbar{display:none}
+@media(min-width:769px){.aud-scroll{display:none}}
+.aud-pill{flex-shrink:0;background:#fff;border:1.5px solid var(--bd);border-radius:var(--r12);padding:14px 16px;min-width:160px;text-align:center}
+.aud-pill.star{border-color:var(--gold);background:linear-gradient(180deg,#fffdf6,#fff)}
+.aud-pill-icon{width:36px;height:36px;background:var(--gl);border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;color:var(--g)}
+.aud-pill-title{font-size:12.5px;font-weight:700;color:var(--dk)}
+.aud-pill-note{font-size:11px;color:var(--ts);margin-top:4px;line-height:1.4}
+.aud-grid{display:none;grid-template-columns:repeat(5,1fr);gap:16px}
+@media(min-width:769px){.aud-grid{display:grid}}
+.aud-card{background:#fff;border-radius:var(--r12);border:1.5px solid var(--bd);padding:22px 18px;transition:.3s;position:relative}
+.aud-card:hover{border-color:var(--g);box-shadow:var(--sh);transform:translateY(-3px)}
+.aud-card.star{border-color:rgba(232,146,10,.5);background:linear-gradient(180deg,#fffdf6,#fff)}
+.aud-ribbon{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;white-space:nowrap}
+.aud-icon{width:44px;height:44px;border-radius:12px;background:var(--gl);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:var(--g)}
+.aud-title{font-size:13.5px;font-weight:700;color:var(--dk);margin-bottom:6px}
+.aud-body{font-size:12px;color:var(--tm);line-height:1.6}
+.aud-note{font-size:11px;color:var(--ts);margin-top:8px;padding-top:8px;border-top:1px dashed var(--bd)}
 
-/* PACKAGES */
-.pkg-sec{background:#f8fafb;padding:72px 0}
-.pkg-tabs{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
-.pkg-tab{padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--bd);background:#fff;color:var(--tm);transition:.2s;font-family:'Be Vietnam Pro',sans-serif}
-.pkg-tab.active{background:var(--g);color:#fff;border-color:var(--g)}
-.pkg-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.pkg-card{background:#fff;border-radius:var(--r16);padding:24px 20px;border:2px solid var(--bd);position:relative;transition:.3s;text-align:center}
-.pkg-card:hover{box-shadow:var(--sh2)}
-.pkg-card.featured{border-color:var(--g)}
-.pkg-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap}
-.pkg-tier{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--ts);text-transform:uppercase;margin-bottom:4px}
-.pkg-name{font-size:1.3rem;font-weight:800;color:var(--dk);margin-bottom:4px}
-.pkg-price{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:16px}
-.pkg-list{list-style:none;text-align:left;display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
-.pkg-list li{font-size:12px;color:var(--tm);display:flex;align-items:flex-start;gap:6px;line-height:1.5}
-.pkg-list li::before{content:'✓';color:var(--g);font-weight:700;font-size:10px;margin-top:2px;flex-shrink:0}
-.pkg-cta{display:block;text-align:center;padding:10px;border-radius:var(--r8);font-weight:700;font-size:12px;cursor:pointer;border:none;width:100%;font-family:'Be Vietnam Pro',sans-serif;transition:.2s}
-.pkg-cta.primary{background:var(--g);color:#fff}
-.pkg-cta.primary:hover{background:var(--gp)}
-.pkg-cta.outline{background:transparent;color:var(--g);border:1.5px solid var(--g)}
-.pkg-cta.outline:hover{background:var(--gl)}
+/* ── RISK ── */
+.risk-sec{background:#fff}
+.risk-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:769px){.risk-grid{grid-template-columns:repeat(3,1fr)}}
+.risk-card{background:#fff;border-radius:var(--r16);border:1.5px solid rgba(192,57,43,.25);padding:18px 18px;transition:.3s}
+.risk-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.risk-num{font-size:1.45rem;font-weight:800;color:#c0392b;line-height:1.1}
+.risk-lbl{font-size:13.5px;font-weight:700;color:var(--dk);margin-top:6px}
+.risk-body{font-size:12.5px;color:var(--tm);line-height:1.6;margin-top:6px}
+.risk-close{margin-top:24px;background:linear-gradient(135deg,var(--gl),#f0faf4);border:1px solid rgba(0,116,55,.2);border-radius:var(--r12);padding:16px 20px;font-size:14px;color:var(--dk);font-weight:600;text-align:center}
 
-/* PRICE TABLE */
-.price-table{width:100%;border-collapse:collapse;margin-top:28px;font-size:13px}
-.price-table th{background:var(--dk);color:#fff;padding:12px 14px;text-align:left;font-weight:700;font-size:12px}
-.price-table th:first-child{border-radius:8px 0 0 0}
-.price-table th:last-child{border-radius:0 8px 0 0}
-.price-table td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle}
-.price-table tr:hover td{background:var(--gl)}
-.price-table .hl{color:var(--g);font-weight:700}
+/* ── PLANS ── */
+/* Radio-hack: 5 input radio ẩn + label làm tab. Hoạt động thuần CSS, không cần JS. */
+.plan-sec{background:var(--bg)}
+.plan-radio{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.plan-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.plan-tabs::-webkit-scrollbar{display:none}
+@media(min-width:769px){.plan-tabs{display:none}}
+.plan-tab{flex-shrink:0;padding:7px 14px;border-radius:20px;border:1.5px solid var(--bd);background:#fff;font-size:12.5px;font-weight:700;color:var(--tm);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:.2s;white-space:nowrap;touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,116,55,.15);user-select:none;display:inline-block}
+.plan-tab.active{background:var(--g);color:#fff;border-color:var(--g)}
+.plan-tab.star{border-color:var(--gold);color:var(--gold)}
+.plan-tab.star.active{background:var(--g);color:#fff;border-color:var(--g)}
+.plan-cards{display:flex;flex-direction:column;gap:0}
+/* Hiện đúng panel theo radio được chọn */
+.plan-card-panel{display:none}
+#pr0:checked ~ .plan-cards .plan-card-panel[data-plan="0"],
+#pr1:checked ~ .plan-cards .plan-card-panel[data-plan="1"],
+#pr2:checked ~ .plan-cards .plan-card-panel[data-plan="2"],
+#pr3:checked ~ .plan-cards .plan-card-panel[data-plan="3"],
+#pr4:checked ~ .plan-cards .plan-card-panel[data-plan="4"]{display:block}
+/* Đổi trạng thái active của tab tương ứng */
+#pr0:checked ~ .plan-tabs label[for="pr0"],
+#pr1:checked ~ .plan-tabs label[for="pr1"],
+#pr2:checked ~ .plan-tabs label[for="pr2"],
+#pr3:checked ~ .plan-tabs label[for="pr3"],
+#pr4:checked ~ .plan-tabs label[for="pr4"]{background:var(--g);color:#fff;border-color:var(--g)}
+@media(min-width:769px){.plan-cards{display:none}}
+.plan-card-panel{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);padding:20px;box-shadow:var(--sh)}
+.plan-card-panel.star-panel{border-color:var(--g);background:linear-gradient(180deg,#f2fbf5,#fff)}
+.plan-name{font-size:1rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.plan-badge{display:inline-block;background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:14px}
+.plan-rows{display:flex;flex-direction:column;gap:0}
+.plan-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd);font-size:13px;gap:12px}
+.plan-row:last-child{border-bottom:none}
+.plan-row-lbl{color:var(--tm);flex:1}
+.plan-row-val{font-weight:700;color:var(--dk);text-align:right;flex-shrink:0}
+.plan-row-val.green{color:var(--g)}
+.plan-row-val.red{color:#c0392b}
+.plan-cta-row{margin-top:16px;display:flex;gap:10px}
+.plan-cta-row a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;transition:.2s}
+.plan-btn-main{background:var(--g);color:#fff}
+.plan-btn-zalo{background:#fff;border:1.5px solid var(--bd);color:var(--dk)}
+.tbl-wrap{display:none;overflow-x:auto;border-radius:var(--r16);box-shadow:var(--sh);background:#fff}
+@media(min-width:769px){.tbl-wrap{display:block}}
+.plan-table{width:100%;min-width:820px;border-collapse:collapse}
+.plan-table th{background:var(--dk);color:#fff;padding:13px 12px;font-size:12.5px;font-weight:700;text-align:center;white-space:nowrap}
+.plan-table th:first-child{text-align:left;min-width:220px}
+.plan-table th.scol{background:var(--g)}
+.plan-table th.scol .rb{display:block;font-size:9.5px;color:#ffe9c4;font-weight:700}
+.plan-table td{padding:11px 12px;font-size:12.5px;border-bottom:1px solid var(--bd);text-align:center;color:var(--tx)}
+.plan-table td:first-child{text-align:left;font-weight:600;color:var(--dk)}
+.plan-table tr:nth-child(even) td{background:#f8fafb}
+.plan-table td.scell{background:#f2fbf5!important;font-weight:700;color:var(--g)}
+.td-x{color:#c0392b;font-weight:600}
+.td-v{color:var(--g);font-weight:700}
+.plan-note{font-size:12px;color:var(--ts);margin-top:14px;font-style:italic;text-align:center;line-height:1.6}
 
-/* PROCESS */
-.process-sec{background:#f7f9fc;padding:72px 0}
-.process-sec .sec-tag{background:var(--gl);color:var(--g)}
-.process-sec .sec-h2{color:var(--dk)}
-.process-sec .sec-sub{color:var(--tm)}
-.steps-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:48px;position:relative}
-.steps-row::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.2),rgba(232,146,10,.6),rgba(255,255,255,.2));z-index:0}
-.step{text-align:center;position:relative;z-index:1;padding:0 12px}
-.step-num{width:56px;height:56px;border-radius:50%;background:var(--g);border:2px solid var(--g);color:#fff;font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 4px rgba(0,116,55,.3)}
-.step-h4{font-size:13px;font-weight:700;color:var(--dk);margin-bottom:6px;line-height:1.4}
-.step-body{font-size:12px;color:var(--tm);line-height:1.55}
+/* ── CALCULATOR ── */
+.calc-sec{background:linear-gradient(135deg,var(--navy),#132d47);padding:56px 0}
+@media(min-width:769px){.calc-sec{padding:72px 0}}
+.calc-head .sec-tag{background:rgba(255,255,255,.12);color:#ffd9a0}
+.calc-head .sec-h2{color:#fff}
+.calc-head .sec-sub{color:rgba(255,255,255,.75)}
+.calc-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:var(--r16);padding:24px;margin-top:28px}
+@media(min-width:769px){.calc-card{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;padding:32px}}
+.calc-form .fg label{color:rgba(255,255,255,.85)}
+.calc-form .fg input,.calc-form .fg select{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff}
+.calc-form .fg select option{background:var(--navy)}
+.calc-checks{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.calc-check{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;cursor:pointer;transition:.2s}
+.calc-check:hover{background:rgba(255,255,255,.12)}
+.calc-check input{width:17px;height:17px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.calc-check span{font-size:13px;color:rgba(255,255,255,.9);font-weight:600}
+.calc-check small{font-size:11px;color:rgba(255,255,255,.55);display:block;font-weight:400}
+.calc-check.disabled{opacity:.4;pointer-events:none}
+.calc-result{background:#fff;border-radius:var(--r12);padding:22px;margin-top:20px;text-align:center}
+@media(min-width:769px){.calc-result{margin-top:0}}
+.calc-fee-lbl{font-size:11.5px;font-weight:700;color:var(--tm);letter-spacing:.5px;text-transform:uppercase}
+.calc-fee{font-size:2rem;font-weight:800;color:var(--g);line-height:1.15;margin:8px 0 2px}
+.calc-perday{font-size:12px;color:var(--tm)}
+.calc-info{font-size:12.5px;color:var(--dk);background:var(--gl);border-radius:8px;padding:10px 12px;margin-top:14px;line-height:1.55;text-align:left}
+.calc-cta-btn{width:100%;margin-top:14px;background:var(--gold);color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:13.5px;padding:13px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:.2s}
+.calc-cta-btn:hover{background:var(--goldd)}
+.calc-note{font-size:11px;color:rgba(255,255,255,.5);margin-top:14px;text-align:center;line-height:1.6}
+.calc-nojs-notice{display:none;font-size:12px;color:#ffe9c4;background:rgba(232,146,10,.18);border:1px solid rgba(232,146,10,.4);border-radius:8px;padding:10px 12px;margin-top:12px;line-height:1.6;text-align:left}
+.no-js .calc-nojs-notice{display:block}
+.no-js .calc-fee-lbl::after{content:' (mức tham khảo — gói Vàng, 18–40 tuổi)';font-weight:400;font-size:10px;text-transform:none;letter-spacing:0}
 
-/* FAQ */
-.faq-sec{padding:72px 0}
-.faq-list{margin-top:40px;display:flex;flex-direction:column;gap:8px;max-width:800px;margin-left:auto;margin-right:auto}
-.faq-item{background:#fff;border-radius:var(--r12);border:1.5px solid var(--bd);overflow:hidden}
-.faq-q{width:100%;text-align:left;background:none;border:none;padding:18px 20px;font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:600;color:var(--dk);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:.2s}
-.faq-q:hover{color:var(--g)}
-.arr{font-size:12px;color:var(--ts);transition:.3s;flex-shrink:0}
-.faq-item.open .arr{transform:rotate(180deg)}
-.faq-a{padding:0 20px;font-size:14px;color:var(--tm);line-height:1.75;max-height:0;overflow:hidden;transition:.35s ease}
-.faq-item.open .faq-a{max-height:300px;padding:0 20px 18px}
+/* ── GUARANTEE (bảo lãnh viện phí) ── */
+.sch-sec{background:#fff}
+@media(min-width:769px){
+  .sch-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start}
+}
+.sch-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+@media(min-width:769px){.sch-list{grid-template-columns:1fr}}
+.sch-item{display:flex;flex-direction:column;gap:8px;align-items:flex-start;background:#f8fafb;border:1.5px solid var(--bd);border-radius:var(--r12);padding:14px}
+@media(min-width:769px){.sch-item{flex-direction:row;gap:12px;padding:14px 16px}}
+.sch-num{width:26px;height:26px;border-radius:50%;background:var(--g);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sch-head{display:flex;align-items:flex-start;gap:10px}
+.step-head{display:flex;align-items:flex-start;gap:10px}
+@media(min-width:769px){.step-head{flex-direction:column;gap:12px}}
+.sch-t{font-size:13.5px;font-weight:700;color:var(--dk);line-height:1.35;text-wrap:balance}
+.sch-b{font-size:12.5px;color:var(--tm);line-height:1.6;margin-top:8px}
+.sch-box{background:linear-gradient(180deg,#f2fbf5,#fff);border:1.5px solid rgba(0,116,55,.3);border-radius:var(--r16);padding:24px;margin-top:24px}
+@media(min-width:769px){.sch-box{margin-top:0}}
+.sch-box-badge{display:inline-block;background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.sch-box-big{font-size:1.35rem;font-weight:800;color:var(--dk);line-height:1.3;margin-bottom:10px}
+.sch-box-big em{color:var(--gold);font-style:normal}
+.sch-tip{margin-top:14px;background:#fffbf0;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 14px;font-size:12.5px;color:var(--tm);line-height:1.6}
 
-/* FINAL CTA */
-.cta-final{background:linear-gradient(135deg,#1B3A5C,#132d47);padding:80px 0}
-.cta-final-inner{max-width:720px;margin:0 auto;padding:0 24px;text-align:center}
-.cta-final h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;color:#fff;margin-bottom:16px;line-height:1.2}
-.cta-final p{font-size:15px;color:rgba(255,255,255,.78);margin-bottom:36px;line-height:1.75}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-cta-a{background:var(--gold);color:#fff;font-weight:700;font-size:15px;padding:16px 32px;border:none;border-radius:30px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;box-shadow:0 4px 20px rgba(232,146,10,.4);transition:.2s;display:inline-block}
-.btn-cta-a:hover{background:var(--goldd);transform:translateY(-2px)}
-.btn-cta-b{background:transparent;color:#fff;font-weight:700;font-size:15px;padding:16px 32px;border:2px solid rgba(255,255,255,.4);border-radius:30px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;transition:.2s;display:inline-block}
-.btn-cta-b:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
-.cta-promises{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:24px}
-.cta-prom{font-size:12px;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:6px}
-.cta-prom::before{content:'✓';color:var(--gold);font-weight:700}
+/* ── PROCESS ── */
+.proc-sec{background:var(--bg)}
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+@media(min-width:769px){.steps-grid{grid-template-columns:repeat(4,1fr);gap:20px}}
+.step-card{background:#fff;border-radius:var(--r16);border:1.5px solid var(--bd);padding:16px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+@media(min-width:769px){.step-card{flex-direction:column;align-items:center;text-align:center;padding:28px 20px}}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--g);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+@media(min-width:769px){.step-num{margin:0 auto 12px;width:48px;height:48px}}
+.step-h4{font-size:13.5px;font-weight:700;color:var(--dk);margin-bottom:0;line-height:1.35;text-wrap:balance}
+.step-body{font-size:12.5px;color:var(--tm);line-height:1.65;margin-top:8px}
+.emg-card{margin-top:24px;background:linear-gradient(135deg,var(--navy),#255770);border-radius:var(--r16);padding:24px;color:#fff}
+@media(min-width:769px){.emg-card{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;padding:28px 32px}}
+.emg-t{font-size:1.05rem;font-weight:800;margin-bottom:8px}
+.emg-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.emg-item{font-size:12px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:5px}
+.emg-item::before{content:'✓';color:var(--gold);font-weight:700}
+.emg-lines{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+@media(min-width:769px){.emg-lines{margin-top:0}}
+.emg-line{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r12);padding:12px 16px}
+.emg-line-lbl{font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;font-weight:700;letter-spacing:.4px}
+.emg-line-num{font-size:1.1rem;font-weight:800;color:#ffd9a0}
+.emg-line-num a{color:#ffd9a0;text-decoration:none}
 
-/* FOOTER */
-.footer{background:#fff;padding:48px 0 24px;color:#4a5568;border-top:1px solid #E2E8F0}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 24px}
-.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
-.f-desc{font-size:13px;line-height:1.65;margin-bottom:14px;color:#4a5568}
-.f-tel{color:var(--g);font-weight:700;font-size:18px;text-decoration:none;display:block;margin-bottom:5px}
-.f-email{color:#718096;font-size:13px;text-decoration:none}
-.f-h4{font-size:13px;font-weight:700;color:#1C1C1C;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
-.f-links{list-style:none;display:flex;flex-direction:column;gap:8px}
-.f-links a{color:#4a5568;font-size:13px;text-decoration:none;transition:.2s}
+/* ── WHY US ── */
+.why-sec{background:var(--bg)}
+.why-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:769px){.why-grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+.why-card{background:#fff;border-radius:var(--r12);border:1.5px solid var(--bd);padding:20px;display:flex;gap:14px;align-items:flex-start;transition:.3s}
+.why-card:hover{border-color:var(--g);box-shadow:var(--sh)}
+.why-icon{width:46px;height:46px;border-radius:12px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g)}
+.why-title{font-size:14px;font-weight:800;color:var(--dk);margin-bottom:5px}
+.why-body{font-size:12.5px;color:var(--tm);line-height:1.65}
+
+/* ── ACCORDION (native <details>/<summary> — hoạt động không cần JS) ── */
+.acc-sec{padding:56px 0}
+@media(min-width:769px){.acc-sec{padding:72px 0}}
+.acc-list{margin-top:28px;display:flex;flex-direction:column;gap:8px;max-width:800px;margin-left:auto;margin-right:auto}
+.acc-item{background:#fff;border-radius:var(--r12);border:1.5px solid var(--bd);overflow:hidden}
+.acc-item.warn-style{border-color:rgba(232,146,10,.35);background:#fdfdf7}
+.acc-q{width:100%;text-align:left;background:none;border:none;padding:15px 18px;font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:600;color:var(--dk);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:.2s;min-height:52px;list-style:none;-webkit-tap-highlight-color:rgba(0,116,55,.12);touch-action:manipulation}
+.acc-q::-webkit-details-marker{display:none}
+.acc-q:hover{color:var(--g)}
+.acc-arr{color:var(--ts);transition:.3s;flex-shrink:0;pointer-events:none}
+.acc-item[open] .acc-arr{transform:rotate(180deg)}
+.acc-a{padding:0 18px 16px;font-size:13.5px;color:var(--tm);line-height:1.75}
+
+/* ── CTA FINAL ── */
+.cta-fin{background:linear-gradient(135deg,var(--navy),#132d47);padding:56px 0}
+@media(min-width:769px){.cta-fin{padding:80px 0}}
+.cta-fin-inner{max-width:700px;margin:0 auto;padding:0 20px}
+.cta-fin h2{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2;text-align:center}
+.cta-fin p{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:24px;line-height:1.75;text-align:center}
+.cta-fin-form{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r16);padding:24px}
+.cta-fin-form .fg label{color:rgba(255,255,255,.85)}
+.cta-fin-form .fg input,.cta-fin-form .fg select{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff}
+.cta-fin-form .fg input::placeholder{color:rgba(255,255,255,.45)}
+.cta-fin-form .fg select option{background:var(--navy)}
+.cta-fin-form .btn-submit{background:var(--gold)}
+.cta-fin-form .btn-submit:hover{background:var(--goldd)}
+.cta-trust{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.cta-trust-item{font-size:12px;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:5px}
+.cta-trust-item::before{content:'✓';color:var(--gold);font-weight:700}
+.cta-mob-only{display:block;text-align:center}
+@media(min-width:769px){.cta-mob-only{display:none}}
+.cta-desk-only{display:none}
+@media(min-width:769px){.cta-desk-only{display:block}}
+.zalo-big-btn{display:flex;align-items:center;justify-content:center;gap:12px;background:var(--gold);color:#fff;font-weight:800;font-size:1rem;padding:18px 32px;border-radius:14px;text-decoration:none;transition:.2s;margin:0 auto}
+.zalo-big-btn:hover{background:var(--goldd);transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+.footer{background:#fff;padding:48px 0 24px;border-top:1px solid var(--bd)}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 20px}
+.footer-top{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:28px}
+@media(min-width:576px){.footer-top{grid-template-columns:1fr 1fr}}
+@media(min-width:992px){.footer-top{grid-template-columns:2fr 1fr 1fr 1fr}}
+.f-desc{font-size:12.5px;line-height:1.65;margin-bottom:12px;color:var(--tm)}
+.f-tel{color:var(--g);font-weight:700;font-size:17px;text-decoration:none;display:block;margin-bottom:4px}
+.f-email{color:var(--ts);font-size:12.5px;text-decoration:none}
+.f-h4{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:7px}
+.f-links a{color:var(--tm);font-size:12.5px;text-decoration:none;transition:.2s}
 .f-links a:hover{color:var(--g)}
-.f-bottom{border-top:1px solid #E2E8F0;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.f-copy{font-size:12px;color:#718096}
-.f-lic{font-size:11px;color:#a0aec0}
+.f-bottom{border-top:1px solid var(--bd);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.f-copy{font-size:11.5px;color:var(--ts)}
 
-/* FLOATING CTA */
-.float-cta{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-.float-btn{background:var(--gold);color:#fff;font-weight:700;font-size:13px;padding:12px 20px;border-radius:30px;text-decoration:none;box-shadow:0 4px 20px rgba(232,146,10,.4);display:flex;align-items:center;gap:8px;transition:.2s;animation:pulse 2.5s infinite;cursor:pointer;border:none;font-family:'Be Vietnam Pro',sans-serif}
-.float-btn:hover{background:var(--goldd);transform:scale(1.05)}
-.float-zalo{background:var(--navy);width:44px;height:44px;border-radius:50%;box-shadow:0 4px 16px rgba(44,74,124,.4);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;transition:.2s}
+/* ── FLOAT CTA (desktop) ── */
+.float-cta{position:fixed;bottom:24px;right:24px;z-index:200;display:none;flex-direction:column;align-items:flex-end;gap:8px}
+@media(min-width:769px){.float-cta{display:flex}}
+#floatFormWrap{display:none;position:absolute;bottom:56px;right:0;width:260px}
+.float-btn{background:var(--gold)!important;color:#fff;font-weight:700;font-size:13px;padding:12px 20px;border-radius:30px;text-decoration:none;box-shadow:0 4px 16px rgba(232,146,10,.4);display:flex;align-items:center;gap:8px;cursor:pointer;border:none;font-family:'Be Vietnam Pro',sans-serif;transition:.2s}
+.float-btn:hover{background:var(--goldd)!important;transform:scale(1.03)}
+.float-zalo{background:#fff;border:2px solid var(--bd);width:48px;height:48px;border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:11px;font-weight:800;color:#0068ff;transition:.2s}
 .float-zalo:hover{transform:scale(1.1)}
-@keyframes pulse{0%,100%{box-shadow:0 4px 20px rgba(46,125,50,.4)}50%{box-shadow:0 4px 30px rgba(46,125,50,.7)}}
 
-/* RESPONSIVE */
-@media(max-width:1024px){
-  .pkg-grid{grid-template-columns:repeat(3,1fr)}
-  .wait-grid{grid-template-columns:repeat(2,1fr)}
-  .ben-grid{grid-template-columns:1fr}
-  .steps-row{grid-template-columns:1fr 1fr;gap:24px}
-  .steps-row::before{display:none}
-  .footer-top{grid-template-columns:1fr 1fr}
+/* ══ HEADER SYNC ══ */
+.hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:78px;gap:8px}
+.hdr-logo{flex-shrink:0;margin-right:24px;text-decoration:none}
+.hdr-logo img{height:66px;width:auto;display:block}
+.hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
+.hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
+.hdr-nav a:hover{color:var(--g);background:var(--gl)}
+.hdr-nav a.active{color:var(--g);font-weight:700;position:relative}
+.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g);border-radius:2px}
+.hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap;background:none;cursor:pointer;font-family:inherit}
+.btn-catalog-hdr:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+.btn-login{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-login:hover{border-color:var(--g);color:var(--g)}
+.btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--gold);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-consult-hdr:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
+.hdr-cat-wrap{position:relative;display:inline-flex}
+@media(min-width:641px){.hdr-cat-wrap{display:none}}
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
+.cat-dropdown.open{display:block}
+.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.cat-dd-item:hover{background:var(--gl);color:var(--g)}
+.cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
+.cat-dd-parent{font-weight:600}
+.cat-dd-parent.open .dd-arr{transform:rotate(180deg)}
+.cat-dd-sub{display:none;border-left:2px solid var(--gl);margin:2px 4px 4px 20px;padding:2px 0}
+.cat-dd-sub.open{display:block}
+.cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
+.cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
+.nav-dd-wrap{position:relative;display:inline-flex}
+.nav-dd{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--bd);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:6px;min-width:190px;z-index:500}
+.nav-dd-wrap:hover .nav-dd{display:block}
+.nav-dd a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;text-decoration:none;color:#1C1C1C;font-size:13px;font-weight:500;transition:.15s;white-space:nowrap}
+.nav-dd a:hover{background:var(--gl);color:var(--g)}
+@media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
+@media(max-width:640px){
+  .hdr-inner{padding:0 16px}
+  .hdr-logo img{height:54px}
+  .hdr-nav{display:none}
+  .btn-login{display:none}
+  .btn-consult-hdr{display:none}
+  .hdr-actions{margin-left:auto}
+  .btn-catalog-hdr .btn-cat-text{display:none}
+  .btn-catalog-hdr{padding:8px 10px;border-radius:10px}
 }
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;gap:32px}
-  }
-@media(max-width:600px){
-  .pkg-grid{grid-template-columns:1fr}
-  .wait-grid{grid-template-columns:1fr}
-  .ben-grid{grid-template-columns:1fr}
-  .ben-full{flex-direction:column}
-  .cta-btns{flex-direction:column;align-items:center}
-  .usp-inner{gap:16px}
-  .footer-top{grid-template-columns:1fr}
-}
+/* ══ END HEADER SYNC ══ */
 
-/* ── ALL PRODUCTS BUTTON ── */
-@media(max-width:480px){}
-@media(max-width:640px){.hdr-allprod span{display:none}}
-@media(max-width:480px){}
+/* ══ FOOTER SYNC ══ */
+.ftr{background:#f4f7f5;border-top:1px solid var(--bd);margin-top:0}
+.ftr-inner{max-width:1280px;margin:0 auto;padding:28px 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+.ftr-logo{height:88px;width:auto;display:block;margin-bottom:18px}
+.ftr-brand-desc{font-size:13px;color:var(--ts);line-height:1.7;margin-bottom:12px}
+.ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:8px;line-height:1.5}
+.ftr-info a:hover{color:var(--g)}
+.ftr-info a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0;margin-top:2px}
+.ftr-col h4,.ftr-contact h4{font-size:11px;font-weight:700;color:var(--dk);text-transform:uppercase;letter-spacing:.7px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.ftr-col a{display:block;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:10px;line-height:1.5;transition:.15s}
+.ftr-col a:hover{color:var(--g);padding-left:4px}
+.ftr-social{display:flex;gap:10px;margin-bottom:24px}
+.ftr-social a{width:38px;height:38px;border-radius:50%;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a:hover{background:var(--g);transform:translateY(-2px)}
+.ftr-social svg{width:17px;height:17px;fill:#fff}
+.ftr-phone-label{font-size:11px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ftr-hotline{font-size:22px;font-weight:800;color:var(--g);text-decoration:none;letter-spacing:-.5px;display:block;line-height:1.2}
+.ftr-hotline:hover{color:var(--gd,#005a2b)}
+.ftr-copy{border-top:1px solid var(--bd)}
+.ftr-copy-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ts)}
+.ftr-copy-inner a{color:var(--ts);text-decoration:none}
+.ftr-copy-inner a:hover{color:var(--g)}
+@media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
+@media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 20px 28px}.ftr-copy-inner{padding:14px 20px;flex-direction:column;text-align:center}}
+/* ══ END FOOTER SYNC ══ */
+
 </style>
 </head>
 <body>
 
+<!-- Netlify forms -->
+<form name="dbv-suckhoe" netlify netlify-honeypot="bot-field" hidden>
+  <input name="san-pham"/><input name="dien-thoai"/><input name="ho-ten"/><input name="bao-ve-ai"/><input name="nhom-tuoi"/><input name="goi-quan-tam"/>
+</form>
+<form name="dbv-float-sk" netlify netlify-honeypot="bot-field" hidden>
+  <input name="san-pham"/><input name="dien-thoai"/>
+</form>
+
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV Insurance" style="height:85px;width:auto;display:block"/></a>
+    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
     <nav class="hdr-nav">
-      <a href="#wait">Thời gian chờ</a>
-      <a href="#benefits">Quyền lợi</a>
-      <a href="#packages">Gói bảo hiểm</a>
-      <a href="#process">Quy trình</a>
-      <a href="#faq">FAQ</a>
+      <div class="nav-dd-wrap">
+        <a href="/san-pham">Sản phẩm <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <div class="nav-dd">
+          <a href="/bao-hiem-vat-chat-oto">Xe ô tô</a>
+          <a href="/bao-hiem-suc-khoe">Sức khỏe</a>
+          <a href="/bao-hiem-tai-san">Tài sản</a>
+          <a href="/bao-hiem-du-lich">Du lịch</a>
+          <a href="/bao-hiem-hang-hai">Hàng hải</a>
+        </div>
+      </div>
+      <a href="/boi-thuong">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
     </nav>
-    <a href="https://zalo.me/1283738895804393564" class="hdr-cta" target="_blank" rel="noopener">Liên hệ tư vấn</a>
-    <a href="/san-pham" class="hdr-allprod"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Tất cả sản phẩm</a>
+    <div class="hdr-actions">
+      <div class="hdr-cat-wrap">
+        <button class="btn-catalog-hdr" onclick="toggleCatDropdown(event)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="btn-cat-text">Danh mục</span>
+        </button>
+        <div class="cat-dropdown" id="cat-dropdown">
+          <button class="cat-dd-item cat-dd-parent" onclick="toggleSubMenu(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            Sản phẩm
+            <svg class="dd-arr" viewBox="0 0 24 24" width="12" height="12" style="margin-left:auto;stroke:currentColor;fill:none;stroke-width:2;transition:.2s"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-dd-sub" id="sub-sanpham">
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-vat-chat-oto" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe ô tô</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Sức khỏe</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-tai-san" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-du-lich" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>Du lịch</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-hang-hai" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải</a>
+          </div>
+          <div class="cat-dd-sep"></div>
+          <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Bồi thường</a>
+          <a class="cat-dd-item" href="/servicemap" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="19" x2="10" y2="19"/><line x1="14" y1="19" x2="17" y2="19"/></svg>Mạng lưới dịch vụ</a>
+          <a class="cat-dd-item" href="/ve-dbv" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/></svg>Về DBV247</a>
+        </div>
+      </div>
+      <a href="tel:0869656561" class="btn-login">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        0869 656 561
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="btn-consult-hdr" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Nhận tư vấn
+      </a>
+    </div>
   </div>
 </header>
 
-<!-- USP BAR -->
-<div class="usp-bar">
-  <div class="usp-inner">
-    <span class="usp-item"><span class="usp-dot"></span>Phí linh hoạt, nhiều gói lựa chọn</span>
-    <span class="usp-item"><span class="usp-dot"></span>Bảo lãnh viện phí dễ dàng</span>
-    <span class="usp-item"><span class="usp-dot"></span>Nhận bảo hiểm cả người ung thư</span>
-    <span class="usp-item"><span class="usp-dot"></span>Hỗ trợ 24/7</span>
-  </div>
+<!-- MOBILE STICKY BAR -->
+<div class="mob-bar">
+  <a href="https://zalo.me/1283738895804393564" class="mob-bar-zalo" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Chat Zalo
+  </a>
+  <button class="mob-bar-cta" onclick="document.getElementById('cta-form').scrollIntoView({behavior:'smooth'})">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Nhận báo giá miễn phí
+  </button>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow">Giấy phép Bộ Tài chính số 49/GD/KDBH</div>
-      <h1 class="hero-h1">Một lần nhập viện không làm bạn <em>mất đi sự an tâm tài chính</em></h1>
-      <p class="hero-sub">Bảo hiểm DBV Care (An Tâm Vui Khỏe) dành cho cá nhân và gia đình, bảo vệ toàn diện cho tử vong, thương tật, chi phí y tế do tai nạn và ốm đau — với phí linh hoạt và thủ tục bồi thường đơn giản.</p>
+      <div class="hero-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Bảo hiểm Chăm sóc Sức khỏe · QĐ 909/QĐ-DBV
+      </div>
+      <h1 class="hero-h1">Bảo Hiểm Sức Khỏe DBV An Tâm Vui Khỏe —<br><em>Viện Phí Có DBV Lo</em>, Cả Nhà An Tâm</h1>
+      <p class="hero-sub">Bảo lãnh viện phí <strong>không cần ứng tiền mặt</strong> · Quyền lợi nội trú đến <strong>120 triệu/năm</strong> · Nhận bảo hiểm từ 60 ngày tuổi đến 65 tuổi. Tư vấn 1:1 chọn đúng gói — không mua thừa.</p>
       <div class="hero-stats">
-        <div><div class="hero-stat-num">18+</div><div class="hero-stat-lbl">Năm kinh nghiệm</div></div>
-        <div><div class="hero-stat-num">60 ngày</div><div class="hero-stat-lbl">Tuổi tham gia tối thiểu</div></div>
-        <div><div class="hero-stat-num">500tr+</div><div class="hero-stat-lbl">Bảo hiểm tử vong/tai nạn</div></div>
-        <div><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Hỗ trợ sự cố</div></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">500 triệu</div>
+          <div class="hero-stat-lbl">Bảo vệ tai nạn tối đa<br/>(gói Kim Cương)</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">~1.200đ</div>
+          <div class="hero-stat-lbl">Phí mỗi ngày từ<br/>(gói Đồng, 18–40 tuổi)</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">15 ngày</div>
+          <div class="hero-stat-lbl">Cam kết giải quyết<br/>bồi thường tối đa</div>
+        </div>
+      </div>
+      <div class="hero-ctas">
+        <a href="#cta-form" class="hero-cta-main">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Nhận tư vấn &amp; báo giá miễn phí
+        </a>
+        <a href="#quyen-loi" class="hero-cta-sec">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          Xem bảng quyền lợi 5 gói
+        </a>
+      </div>
+    </div>
+    <!-- Form: desktop only -->
+    <div class="hero-form-col">
+      <div class="form-card">
+        <div class="form-card-title">Nhận Tư Vấn &amp; Báo Giá Miễn Phí</div>
+        <div class="form-card-sub">Tư vấn 1:1 · đúng gói · báo giá trong 15 phút</div>
+        <div class="fg"><label>Họ và tên</label><input type="text" id="h-name" placeholder="Nhập họ và tên..."/></div>
+        <div class="fg"><label>Số điện thoại *</label><input type="tel" id="h-phone" placeholder="09xx xxx xxx"/></div>
+        <div class="fg">
+          <label>Bạn muốn bảo vệ ai? *</label>
+          <select id="h-who">
+            <option value="">— Chọn đối tượng —</option>
+            <option>Bản thân tôi</option>
+            <option>Con nhỏ</option>
+            <option>Vợ/chồng</option>
+            <option>Bố mẹ</option>
+            <option>Cả gia đình</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Độ tuổi người được bảo hiểm</label>
+          <select id="h-age">
+            <option value="">— Chọn nhóm tuổi —</option>
+            <option>60 ngày – 4 tuổi</option>
+            <option>5 – 10 tuổi</option>
+            <option>11 – 17 tuổi</option>
+            <option>18 – 40 tuổi</option>
+            <option>41 – 50 tuổi</option>
+            <option>51 – 65 tuổi</option>
+          </select>
+        </div>
+        <button class="btn-submit" onclick="submitHero()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Nhận tư vấn 1:1 miễn phí
+        </button>
+        <div class="form-disc">🔒 Thông tin được bảo mật tuyệt đối</div>
+        <div class="form-succ" id="h-succ">✓ Đã ghi nhận! Chuyên viên sẽ gọi lại trong 15 phút.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: AUDIENCE -->
+<section class="sec aud-sec" id="doi-tuong">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-tag">Chọn đúng gói — Tiết kiệm đúng chỗ</span>
+      <h2 class="sec-h2">Bạn Muốn Bảo Vệ Ai Trước Rủi Ro Viện Phí?</h2>
+      <p class="sec-sub">Mỗi người thân có nhu cầu bảo vệ khác nhau — chọn đúng ngay từ đầu.</p>
+    </div>
+    <!-- Mobile: horizontal scroll pills -->
+    <div class="aud-scroll">
+      <div class="aud-pill star">
+        <div class="aud-pill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M12 9v6"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <div class="aud-pill-title">Con nhỏ</div>
+        <div class="aud-pill-note">Từ 60 ngày tuổi, mua kèm bố/mẹ</div>
+      </div>
+      <div class="aud-pill">
+        <div class="aud-pill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="aud-pill-title">Bản thân</div>
+        <div class="aud-pill-note">18–40 tuổi: phí rẻ nhất, từ 419k/năm</div>
+      </div>
+      <div class="aud-pill">
+        <div class="aud-pill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="aud-pill-title">Vợ/chồng</div>
+        <div class="aud-pill-note">Thêm thai sản đến 20 triệu</div>
+      </div>
+      <div class="aud-pill">
+        <div class="aud-pill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="aud-pill-title">Bố mẹ</div>
+        <div class="aud-pill-note">Nhận bảo hiểm đến 65 tuổi</div>
+      </div>
+      <div class="aud-pill">
+        <div class="aud-pill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <div class="aud-pill-title">Cả gia đình</div>
+        <div class="aud-pill-note">Một hợp đồng, bảo vệ đồng bộ</div>
+      </div>
+    </div>
+    <!-- Desktop: card grid -->
+    <div class="aud-grid">
+      <div class="aud-card star">
+        <div class="aud-ribbon"> Được chọn nhiều nhất</div>
+        <div class="aud-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M12 9v6"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <div class="aud-title">Con nhỏ (từ 60 ngày tuổi)</div>
+        <div class="aud-body">Trẻ hay ốm vặt, viêm hô hấp, nằm viện bất chợt. Tham gia cùng bố/mẹ với chương trình quyền lợi tương đương.</div>
+        <div class="aud-note">Gợi ý: Vàng / Bạch Kim + Ngoại trú</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="aud-title">Bản thân (18–40 tuổi)</div>
+        <div class="aud-body">Tuổi có mức phí rẻ nhất — chỉ từ 419.000đ/năm. Mua sớm để vượt thời gian chờ trước khi cần đến.</div>
+        <div class="aud-note">Gợi ý: Vàng · Cân bằng phí/quyền lợi</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="aud-title">Vợ/chồng &amp; kế hoạch sinh con</div>
+        <div class="aud-body">Thêm quyền lợi thai sản đến 20 triệu. Lưu ý: quyền lợi sinh đẻ cần tham gia trước ngày sinh ít nhất 270 ngày.</div>
+        <div class="aud-note">Gợi ý: Bạch Kim + Thai sản</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="aud-title">Bố mẹ (41–65 tuổi)</div>
+        <div class="aud-body">Tuổi càng cao, rủi ro nằm viện càng lớn. DBV nhận bảo hiểm đến 65 tuổi — đừng để lỡ cửa sổ tham gia.</div>
+        <div class="aud-note">Gợi ý: Bạch Kim / Kim Cương</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <div class="aud-title">Cả gia đình</div>
+        <div class="aud-body">Bảo vệ đồng bộ trong một hợp đồng. Con dưới 6 tuổi mua kèm bố/mẹ — không chịu phụ phí 30% mua độc lập.</div>
+        <div class="aud-note">Gợi ý: Tư vấn 1:1 thiết kế theo ngân sách</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK SECTION -->
+<section class="sec risk-sec" id="rui-ro">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-tag">Rủi ro tài chính thực tế</span>
+      <h2 class="sec-h2">Không Bảo Hiểm — Một Đợt Nằm Viện, Bay Cả Năm Tích Lũy</h2>
+    </div>
+        <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-num">30 – 80 triệu</div>
+        <div class="risk-lbl">Một ca phẫu thuật tại bệnh viện tư</div>
+      </div>
+      <div id="risk-more" style="display:contents">
+        <div class="risk-card">
+          <div class="risk-num">15 – 30 triệu</div>
+          <div class="risk-lbl">Một đợt viêm phổi của trẻ nhỏ</div>
+        </div>
+        <div class="risk-card">
+          <div class="risk-num">4 – 8 triệu/ngày</div>
+          <div class="risk-lbl">Tiền giường phòng dịch vụ — BHYT không gánh</div>
+        </div>
+      </div>
+    </div>
+    <div class="risk-close" style="margin-top:24px">Với phí chỉ từ <strong>~1.200đ/ngày</strong> — DBV gánh thay bạn rủi ro viện phí tới <strong>120 triệu/năm</strong>.</div>
+  </div>
+</section>
+
+<!-- PLANS SECTION -->
+<section class="sec plan-sec" id="quyen-loi">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-tag">Giải pháp — 5 chương trình bảo hiểm</span>
+      <h2 class="sec-h2">So Sánh Quyền Lợi 5 Gói An Tâm Vui Khỏe <small style="font-size:.55em;font-weight:600;color:var(--tm)">(Đơn vị: đồng/năm)</small></h2>
+      <p class="sec-sub">Chọn gói vừa nhu cầu — không mua thừa, không thiếu bảo vệ.</p>
+    </div>
+
+    <!-- MOBILE: Tab + Card per plan (radio-hack, thuần CSS) -->
+    <input type="radio" name="plan-radio" class="plan-radio" id="pr0">
+    <input type="radio" name="plan-radio" class="plan-radio" id="pr1">
+    <input type="radio" name="plan-radio" class="plan-radio" id="pr2" checked>
+    <input type="radio" name="plan-radio" class="plan-radio" id="pr3">
+    <input type="radio" name="plan-radio" class="plan-radio" id="pr4">
+    <div class="plan-tabs">
+      <label class="plan-tab" for="pr0" onclick="switchPlan(0)">Đồng</label>
+      <label class="plan-tab" for="pr1" onclick="switchPlan(1)">Bạc</label>
+      <label class="plan-tab star" for="pr2" onclick="switchPlan(2)"> Vàng</label>
+      <label class="plan-tab" for="pr3" onclick="switchPlan(3)">Bạch Kim</label>
+      <label class="plan-tab" for="pr4" onclick="switchPlan(4)">Kim Cương</label>
+    </div>
+    <div class="plan-cards">
+      <div class="plan-card-panel" data-plan="0">
+        <div class="plan-name">Gói Đồng</div>
+        <div class="plan-rows">
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do tai nạn</span><span class="plan-row-val">25 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do bệnh</span><span class="plan-row-val">25 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nội trú, phẫu thuật do bệnh</span><span class="plan-row-val">15 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Chi phí y tế do tai nạn</span><span class="plan-row-val">7,5 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tiền giường/ngày (tối đa 60 ngày)</span><span class="plan-row-val">750.000đ</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Bảo lãnh viện phí</span><span class="plan-row-val red">✗ Không</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nha khoa (tùy chọn)</span><span class="plan-row-val red">—</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phí/năm (18–40 tuổi)</span><span class="plan-row-val green">419.000đ</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phù hợp nhất</span><span class="plan-row-val" style="font-size:11.5px;text-align:right">Ngân sách tối thiểu, bảo vệ cơ bản</span></div>
+        </div>
+        <div class="plan-cta-row">
+          <a href="#cta-form" class="plan-btn-main" onclick="pickPlan('Đồng')">Nhận báo giá</a>
+          <a href="https://zalo.me/1283738895804393564" class="plan-btn-zalo" target="_blank">Hỏi Zalo</a>
+        </div>
+      </div>
+      <div class="plan-card-panel" data-plan="1">
+        <div class="plan-name">Gói Bạc</div>
+        <div class="plan-rows">
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do tai nạn</span><span class="plan-row-val">50 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do bệnh</span><span class="plan-row-val">50 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nội trú, phẫu thuật do bệnh</span><span class="plan-row-val">30 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Chi phí y tế do tai nạn</span><span class="plan-row-val">15 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tiền giường/ngày (tối đa 60 ngày)</span><span class="plan-row-val">1,5 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Bảo lãnh viện phí</span><span class="plan-row-val green">✓ Nội trú</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nha khoa (tùy chọn)</span><span class="plan-row-val red">—</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phí/năm (18–40 tuổi)</span><span class="plan-row-val green">837.000đ</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phù hợp nhất</span><span class="plan-row-val" style="font-size:11.5px;text-align:right">Người trẻ bắt đầu có bảo lãnh viện phí</span></div>
+        </div>
+        <div class="plan-cta-row">
+          <a href="#cta-form" class="plan-btn-main" onclick="pickPlan('Bạc')">Nhận báo giá</a>
+          <a href="https://zalo.me/1283738895804393564" class="plan-btn-zalo" target="_blank">Hỏi Zalo</a>
+        </div>
+      </div>
+      <div class="plan-card-panel star-panel" data-plan="2">
+        <div class="plan-name">Gói Vàng</div>
+        <div class="plan-badge"> Cân bằng phí/quyền lợi — chọn nhiều nhất</div>
+        <div class="plan-rows">
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do tai nạn</span><span class="plan-row-val green">100 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do bệnh</span><span class="plan-row-val green">100 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nội trú, phẫu thuật do bệnh</span><span class="plan-row-val green">50 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Chi phí y tế do tai nạn</span><span class="plan-row-val">30 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tiền giường/ngày (tối đa 60 ngày)</span><span class="plan-row-val">2,5 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Bảo lãnh viện phí</span><span class="plan-row-val green">✓ Nội trú</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nha khoa (tùy chọn)</span><span class="plan-row-val">1,5 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phí/năm (18–40 tuổi)</span><span class="plan-row-val green">1.484.000đ</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phù hợp nhất</span><span class="plan-row-val" style="font-size:11.5px;text-align:right">Gia đình trẻ, dân văn phòng</span></div>
+        </div>
+        <div class="plan-cta-row">
+          <a href="#cta-form" class="plan-btn-main" onclick="pickPlan('Vàng')">Nhận báo giá</a>
+          <a href="https://zalo.me/1283738895804393564" class="plan-btn-zalo" target="_blank">Hỏi Zalo</a>
+        </div>
+      </div>
+      <div class="plan-card-panel" data-plan="3">
+        <div class="plan-name">Gói Bạch Kim</div>
+        <div class="plan-rows">
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do tai nạn</span><span class="plan-row-val">200 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do bệnh</span><span class="plan-row-val">200 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nội trú, phẫu thuật do bệnh</span><span class="plan-row-val">100 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Chi phí y tế do tai nạn</span><span class="plan-row-val">50 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tiền giường/ngày (tối đa 60 ngày)</span><span class="plan-row-val">4 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Bảo lãnh viện phí</span><span class="plan-row-val green">✓ Nội trú + Ngoại trú + Nha khoa</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nha khoa (tùy chọn)</span><span class="plan-row-val">3 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phí/năm (18–40 tuổi)</span><span class="plan-row-val green">2.573.000đ</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phù hợp nhất</span><span class="plan-row-val" style="font-size:11.5px;text-align:right">Khám viện tư/quốc tế thường xuyên</span></div>
+        </div>
+        <div class="plan-cta-row">
+          <a href="#cta-form" class="plan-btn-main" onclick="pickPlan('Bạch Kim')">Nhận báo giá</a>
+          <a href="https://zalo.me/1283738895804393564" class="plan-btn-zalo" target="_blank">Hỏi Zalo</a>
+        </div>
+      </div>
+      <div class="plan-card-panel" data-plan="4">
+        <div class="plan-name">Gói Kim Cương</div>
+        <div class="plan-rows">
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do tai nạn</span><span class="plan-row-val green">500 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tử vong/TTTBVV do bệnh</span><span class="plan-row-val">300 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nội trú, phẫu thuật do bệnh</span><span class="plan-row-val green">120 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Chi phí y tế do tai nạn</span><span class="plan-row-val">60 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Tiền giường/ngày (tối đa 60 ngày)</span><span class="plan-row-val">4,8 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Bảo lãnh viện phí</span><span class="plan-row-val green">✓ Nội trú + Ngoại trú + Nha khoa</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Nha khoa (tùy chọn)</span><span class="plan-row-val">3 triệu</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phí/năm (18–40 tuổi)</span><span class="plan-row-val green">3.215.000đ</span></div>
+          <div class="plan-row"><span class="plan-row-lbl">Phù hợp nhất</span><span class="plan-row-val" style="font-size:11.5px;text-align:right">Bảo vệ tối đa, chủ doanh nghiệp</span></div>
+        </div>
+        <div class="plan-cta-row">
+          <a href="#cta-form" class="plan-btn-main" onclick="pickPlan('Kim Cương')">Nhận báo giá</a>
+          <a href="https://zalo.me/1283738895804393564" class="plan-btn-zalo" target="_blank">Hỏi Zalo</a>
+        </div>
       </div>
     </div>
 
-    <!-- FORM -->
-    <div class="form-card" id="hero-form">
-      <div class="form-card-title">Nhận tư vấn gói bảo hiểm phù hợp</div>
-      <div class="form-card-sub">Chuyên viên DBV phản hồi trong 15 phút — miễn phí, không ràng buộc</div>
-      <div class="fg">
-        <label>Số điện thoại</label>
-        <input type="tel" id="f-phone" placeholder="Nhập số điện thoại để nhận tư vấn"/>
-      </div>
-      <div class="fg">
-        <label>Nhóm tuổi</label>
-        <select id="f-age">
-          <option value="">— Chọn nhóm tuổi —</option>
-          <option>60 ngày – 4 tuổi</option>
-          <option>Trên 4 – 10 tuổi</option>
-          <option>Trên 10 – 17 tuổi</option>
-          <option>Trên 17 – 40 tuổi</option>
-          <option>Trên 40 – 50 tuổi</option>
-          <option>Trên 50 – 65 tuổi</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label>Gói quan tâm</label>
-        <select id="f-pkg">
-          <option value="">— Chọn gói bảo hiểm —</option>
-          <option>Đồng (Cơ bản)</option>
-          <option>Bạc</option>
-          <option>Vàng (Phổ biến)</option>
-          <option>Bạch Kim</option>
-          <option>Kim Cương (Cao cấp)</option>
-        </select>
-      </div>
-      <button class="btn-primary" id="form-submit-btn" onclick="submitForm()">Nhận tư vấn miễn phí</button>
-      <div class="form-disc">Thông tin được bảo mật · Không có cam kết mua hàng</div>
+    <!-- DESKTOP: Full table -->
+    <div class="tbl-wrap">
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Quyền lợi chính</th>
+            <th>Đồng</th>
+            <th>Bạc</th>
+            <th class="scol">Vàng<span class="rb"> Chọn nhiều nhất</span></th>
+            <th>Bạch Kim</th>
+            <th>Kim Cương</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tử vong/TTTBVV do tai nạn</td><td>25tr</td><td>50tr</td><td class="scell">100tr</td><td>200tr</td><td>500tr</td></tr>
+          <tr><td>Tử vong/TTTBVV do bệnh</td><td>25tr</td><td>50tr</td><td class="scell">100tr</td><td>200tr</td><td>300tr</td></tr>
+          <tr><td>Nội trú, phẫu thuật do bệnh</td><td>15tr</td><td>30tr</td><td class="scell">50tr</td><td>100tr</td><td>120tr</td></tr>
+          <tr><td>Chi phí y tế do tai nạn</td><td>7,5tr</td><td>15tr</td><td class="scell">30tr</td><td>50tr</td><td>60tr</td></tr>
+          <tr><td>Tiền giường/ngày (tối đa 60 ngày/năm)</td><td>750k</td><td>1,5tr</td><td class="scell">2,5tr</td><td>4tr</td><td>4,8tr</td></tr>
+          <tr><td>Ngoại trú/năm (tùy chọn)</td><td>1,2tr</td><td>2,4tr</td><td class="scell">4tr</td><td>8tr</td><td>9,6tr</td></tr>
+          <tr><td>Thai sản/năm (tùy chọn, 18–50 tuổi)</td><td>4,5tr</td><td>7tr</td><td class="scell">10tr</td><td>15tr</td><td>20tr</td></tr>
+          <tr><td>Nha khoa/năm (tùy chọn)</td><td class="td-x">—</td><td class="td-x">—</td><td class="scell">1,5tr</td><td>3tr</td><td>3tr</td></tr>
+          <tr><td><strong>Bảo lãnh viện phí</strong></td><td class="td-x">✗</td><td class="td-v">✓ Nội trú</td><td class="scell td-v">✓ Nội trú</td><td class="td-v">✓ NT+NgT+NK</td><td class="td-v">✓ NT+NgT+NK</td></tr>
+          <tr><td><strong>Phí/năm (18–40 tuổi)</strong></td><td><strong>419k</strong></td><td><strong>837k</strong></td><td class="scell"><strong>1.484k</strong></td><td><strong>2.573k</strong></td><td><strong>3.215k</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="plan-note">Quyền lợi chi trả theo giới hạn phụ từng hạng mục · Đồng chi trả 30% áp dụng một số trường hợp tại cơ sở tư nhân/quốc tế (bệnh hô hấp trẻ ≤4 tuổi, nha khoa, thai sản theo mốc thời gian) · Chi tiết theo Quy tắc bảo hiểm QĐ 909/QĐ-DBV ngày 01/07/2025</p>
+  </div>
+</section>
 
-      <!-- KẾT QUẢ PHÍ -->
-      <div id="form-result" style="display:none;margin-top:16px">
-        <div style="background:linear-gradient(135deg,#1A4D32,#007437);border-radius:12px;padding:18px 20px;color:#fff;margin-bottom:12px">
-          <div style="font-size:11px;font-weight:600;letter-spacing:.8px;opacity:.75;text-transform:uppercase;margin-bottom:6px">Phí bảo hiểm của bạn</div>
-          <div id="res-pkg-name" style="font-size:1.1rem;font-weight:800;margin-bottom:2px"></div>
-          <div id="res-age-label" style="font-size:12px;opacity:.8;margin-bottom:12px"></div>
-          <div style="display:flex;align-items:baseline;gap:6px">
-            <span id="res-price" style="font-size:2rem;font-weight:800;color:#E8920A;line-height:1"></span>
-            <span style="font-size:13px;opacity:.8">/năm</span>
+<!-- CALCULATOR -->
+<section class="sec calc-sec" id="tinh-phi">
+  <div class="sec-inner">
+    <div class="sec-head calc-head">
+      <span class="sec-tag">Minh bạch trước khi quyết định</span>
+      <h2 class="sec-h2">Tính Phí Bảo Hiểm Của Bạn Ngay</h2>
+      <p class="sec-sub">Chọn thông tin — biết phí chính xác trong 5 giây. Không cần để lại số điện thoại.</p>
+    </div>
+    <div class="calc-card">
+      <div class="calc-form">
+        <div class="fg"><label>Độ tuổi người được bảo hiểm</label>
+          <select id="c-age" onchange="calcFee()">
+            <option value="0">Từ 60 ngày tuổi đến 4 tuổi</option>
+            <option value="1">Từ đủ 5 đến 10 tuổi</option>
+            <option value="2">Từ đủ 11 đến 17 tuổi</option>
+            <option value="3" selected>Từ đủ 18 đến 40 tuổi</option>
+            <option value="4">Từ đủ 41 đến 50 tuổi</option>
+            <option value="5">Từ đủ 51 đến 65 tuổi</option>
+          </select>
+        </div>
+        <div class="fg"><label>Gói bảo hiểm</label>
+          <select id="c-plan" onchange="calcFee()">
+            <option value="0">Đồng</option>
+            <option value="1">Bạc</option>
+            <option value="2" selected>Vàng </option>
+            <option value="3">Bạch Kim</option>
+            <option value="4">Kim Cương</option>
+          </select>
+        </div>
+        <div class="fg"><label>Quyền lợi bổ sung (tùy chọn)</label>
+          <div class="calc-checks">
+            <label class="calc-check" id="chk-nt-wrap">
+              <input type="checkbox" id="chk-ngoaitru" onchange="calcFee()"/>
+              <span>Điều trị ngoại trú<small>Khám bệnh, thuốc kê đơn, xét nghiệm — đến 9,6tr/năm</small></span>
+            </label>
+            <label class="calc-check" id="chk-ts-wrap">
+              <input type="checkbox" id="chk-thaisan" onchange="calcFee()"/>
+              <span>Thai sản<small>Sinh thường, sinh mổ, tai biến sản khoa — áp dụng 18–50 tuổi</small></span>
+            </label>
+            <label class="calc-check" id="chk-nk-wrap">
+              <input type="checkbox" id="chk-nhakhoa" onchange="calcFee()"/>
+              <span>Nha khoa<small>Khám, trám, điều trị tủy, nhổ răng bệnh lý — từ gói Vàng</small></span>
+            </label>
           </div>
-          <div style="border-top:1px solid rgba(255,255,255,.2);margin-top:12px;padding-top:12px;font-size:12px;opacity:.85;line-height:1.6" id="res-benefits"></div>
         </div>
-        <div style="background:#E8F5E9;border-radius:10px;padding:12px 14px;font-size:12px;color:#1A4D32;font-weight:600;display:flex;align-items:center;gap:8px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Chuyên viên DBV sẽ liên hệ lại trong 15 phút!
+        <div class="fg"><label>Số người tham gia</label>
+          <select id="c-qty" onchange="calcFee()">
+            <option value="1">1 người</option><option value="2">2 người</option>
+            <option value="3">3 người</option><option value="4">4 người</option><option value="5">5 người</option>
+          </select>
         </div>
-        <button onclick="resetForm()" style="width:100%;margin-top:10px;background:transparent;border:1.5px solid var(--bd);border-radius:8px;padding:10px;font-family:'Be Vietnam Pro',sans-serif;font-size:12px;color:var(--tm);font-weight:600;cursor:pointer">&#8592; Tính lại</button>
+      </div>
+      <div class="calc-result" id="calc-result">
+        <div class="calc-fee-lbl">Phí bảo hiểm ước tính /năm</div>
+        <div class="calc-fee" id="calc-fee">1.484.000đ</div>
+        <div class="calc-perday" id="calc-perday">≈ 4.100đ/ngày — chưa bằng ly trà đá</div>
+        <div class="calc-info" id="calc-info">Gói Vàng · Nội trú 50tr + Tai nạn 100tr + Bảo lãnh nội trú — cân bằng nhất</div>
+        <div class="calc-nojs-notice">Đây là mức phí tham khảo mặc định. Để đổi tuổi/gói/quyền lợi và xem phí chính xác, vui lòng mở link web (không mở file), hoặc nhắn Zalo — chuyên viên tính giúp bạn trong 5 phút.</div>
+        <a href="#cta-form" class="calc-cta-btn" id="calc-cta" onclick="pickFromCalc()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Giữ mức phí này — nhận tư vấn ngay
+        </a>
+        <div class="calc-note" style="color:var(--ts)">Trẻ dưới 6 tuổi tham gia cùng bố/mẹ với chương trình tương đương.<br/>Tham gia độc lập: phí +30%. Phí chính thức theo Phụ lục 03 QĐ 909/QĐ-DBV.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WAIT TIMES -->
-<section class="wait-sec" id="wait">
+<!-- GUARANTEE: BẢO LÃNH VIỆN PHÍ -->
+<section class="sec sch-sec" id="bao-lanh">
   <div class="sec-inner">
-    <span class="sec-tag">Thời gian chờ</span>
-    <h2 class="sec-h2">Hiệu Lực Bảo Hiểm Theo Từng Quyền Lợi</h2>
-    <p class="sec-sub">Bảo hiểm có hiệu lực sau thời gian chờ kể từ ngày bắt đầu thời hạn bảo hiểm lần đầu hoặc tái tục không liên tục.</p>
-    <div class="wait-grid">
-      <div class="wait-card">
-        <div class="wait-days">30</div>
-        <div class="wait-label">Ngày chờ</div>
-        <div class="wait-desc">Điều trị ốm đau, bệnh thông thường; viêm nướu/lợi và lấy cao răng</div>
-      </div>
-      <div class="wait-card">
-        <div class="wait-days">60</div>
-        <div class="wait-label">Ngày chờ</div>
-        <div class="wait-desc">Điều trị liên quan đến bệnh hô hấp ở trẻ em từ 4 tuổi trở xuống</div>
-      </div>
-      <div class="wait-card">
-        <div class="wait-days">90</div>
-        <div class="wait-label">Ngày chờ</div>
-        <div class="wait-desc">Tử vong do ốm đau; điều trị bất thường trong quá trình mang thai; nha khoa bệnh lý</div>
-      </div>
-      <div class="wait-card">
-        <div class="wait-days">270</div>
-        <div class="wait-label">Ngày chờ</div>
-        <div class="wait-desc">Sinh đẻ, sinh mổ, sinh khó bằng forceps/giác hút, tai biến sản khoa</div>
-      </div>
-      <div class="wait-card">
-        <div class="wait-days">365</div>
-        <div class="wait-label">Ngày chờ</div>
-        <div class="wait-desc">Điều trị hoặc tử vong do bệnh đặc biệt, bệnh/thương tật có sẵn</div>
-      </div>
-      <div class="wait-card" style="border-color:var(--g);background:linear-gradient(135deg,var(--gl),#f0fdf4)">
-        <div class="wait-days" style="color:var(--g)">0</div>
-        <div class="wait-label">Ngày chờ</div>
-        <div class="wait-desc">Bảo hiểm tai nạn — hiệu lực ngay lập tức cho tử vong/thương tật/CPYT do tai nạn</div>
-      </div>
+    <div class="sec-head" style="text-align:left;margin-bottom:0">
+      <span class="sec-tag">Quyền lợi đắt giá nhất</span>
+      <h2 class="sec-h2">Nằm Viện Không Cần Ứng Tiền — Bảo Lãnh Viện Phí Hoạt Động Thế Nào?</h2>
     </div>
-  </div>
-</section>
-
-<!-- BENEFITS -->
-<section class="ben-sec" id="benefits">
-  <div class="sec-inner">
-    <span class="sec-tag">Quyền lợi bảo hiểm</span>
-    <h2 class="sec-h2">DBV Bảo Vệ Bạn Toàn Diện</h2>
-    <p class="sec-sub">Từ chi phí nằm viện đến phẫu thuật, từ cấp cứu đến chăm sóc sau xuất viện — chúng tôi đồng hành cùng bạn trong mọi tình huống sức khỏe.</p>
-    <div class="ben-grid">
-      <div class="ben-card ben-full">
-        <div class="ben-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <div>
-          <div class="ben-h4">Bảo hiểm toàn diện tai nạn &amp; bệnh tật</div>
-          <div class="ben-body">Bảo vệ tử vong và thương tật vĩnh viễn lên đến 500 triệu đồng do tai nạn, 300 triệu đồng do bệnh — cùng chi phí y tế thực tế phát sinh. Quy tắc bảo hiểm rõ ràng, bồi thường minh bạch theo Quyết định 909/QĐ-DBV ngày 01/07/2025.</div>
+    <div id="sch-content">
+    <div class="sch-inner" style="margin-top:24px">
+      <div>
+        <div class="sch-list">
+          <div class="sch-item"><div class="sch-head"><div class="sch-num">1</div><div class="sch-t">Xuất trình thẻ bảo hiểm DBV tại bệnh viện</div></div><div class="sch-b">Trong hệ thống bệnh viện bảo lãnh, bạn chỉ cần thẻ bảo hiểm + giấy tờ tùy thân khi làm thủ tục nhập viện.</div></div>
+          <div class="sch-item"><div class="sch-head"><div class="sch-num">2</div><div class="sch-t">DBV xác nhận trực tiếp với bệnh viện</div></div><div class="sch-b">Bộ phận bảo lãnh của DBV làm việc thẳng với bệnh viện về phạm vi và hạn mức được chi trả.</div></div>
+          <div class="sch-item"><div class="sch-head"><div class="sch-num">3</div><div class="sch-t">Bạn an tâm điều trị — không đặt cọc viện phí</div></div><div class="sch-b">Phần thuộc phạm vi bảo hiểm DBV thanh toán trực tiếp với bệnh viện. Bạn chỉ trả phần ngoài phạm vi (nếu có).</div></div>
+          <div class="sch-item"><div class="sch-head"><div class="sch-num">4</div><div class="sch-t">Ký xác nhận khi xuất viện — xong</div></div><div class="sch-b">Không phải giữ cả tập hóa đơn, không chờ hoàn tiền với phần chi phí đã được bảo lãnh.</div></div>
         </div>
       </div>
-      <div class="ben-card">
-        <div class="ben-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        </div>
-        <div>
-          <div class="ben-h4">Chi phí nằm viện &amp; phẫu thuật</div>
-          <div class="ben-body">Thanh toán tiền giường, thuốc, xét nghiệm, phẫu thuật nội trú và ngoại trú. Giới hạn chi phí từ 750.000 đến 4.800.000 đồng/ngày tùy gói. Phẫu thuật tối đa 120 triệu đồng/năm (gói Kim Cương).</div>
-        </div>
-      </div>
-      <div class="ben-card">
-        <div class="ben-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <div>
-          <div class="ben-h4">Điều trị trước &amp; sau xuất viện</div>
-          <div class="ben-body">Thanh toán chi phí khám, xét nghiệm trong vòng 45 ngày trước nhập viện và 45 ngày sau xuất viện. Bao gồm cả dịch vụ y tá chăm sóc tại nhà trong vòng 15 ngày sau khi xuất viện.</div>
-        </div>
-      </div>
-      <div class="ben-card">
-        <div class="ben-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
-        <div>
-          <div class="ben-h4">Thai sản &amp; sinh đẻ</div>
-          <div class="ben-body">Bảo hiểm sinh thường, sinh mổ, tai biến sản khoa và các biến chứng trong thai kỳ. Quyền lợi thai sản tối đa 20 triệu đồng/năm (gói Kim Cương), áp dụng cho độ tuổi 17–50.</div>
-        </div>
-      </div>
-      <div class="ben-card">
-        <div class="ben-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
-        </div>
-        <div>
-          <div class="ben-h4">Điều trị ngoại trú &amp; nha khoa</div>
-          <div class="ben-body">Thanh toán chi phí khám, thuốc, xét nghiệm ngoại trú tối đa 5 lần/năm. Quyền lợi nha khoa bao gồm trám răng, điều trị tủy, nhổ răng bệnh lý, lấy cao răng — tối đa 3 triệu đồng/năm.</div>
-        </div>
-      </div>
-      <div class="ben-card">
-        <div class="ben-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div>
-          <div class="ben-h4">Chăm sóc trẻ sơ sinh &amp; vật lý trị liệu</div>
-          <div class="ben-body">Thanh toán chi phí dưỡng nhi trong 7 ngày sau sinh và phục hồi chức năng/vật lý trị liệu theo chỉ định bác sĩ. Hỗ trợ chi phí mai táng 2,5 triệu đồng khi tử vong tại bệnh viện.</div>
+      <div>
+        <div class="sch-box">
+          <div class="sch-box-badge">Áp dụng từ gói Bạc trở lên</div>
+          <div class="sch-box-big">Gói Bạch Kim &amp; Kim Cương — bảo lãnh cả <em>Nội trú, Ngoại trú và Nha khoa</em></div>
+          <p style="font-size:13px;color:var(--tm);line-height:1.7">Gói Bạc &amp; Vàng: bảo lãnh nội trú. Trường hợp không dùng bảo lãnh: nộp hồ sơ — DBV giải quyết trong <strong>tối đa 15 ngày làm việc</strong>, ứng trước bồi thường đến <strong>10 triệu đồng</strong> trong tình huống nhập viện đặc biệt.</p>
+          <div class="sch-tip">
+            <strong>Lưu ý:</strong> Danh sách bệnh viện bảo lãnh được DBV cập nhật liên tục — nhắn Zalo để nhận danh sách mới nhất tại khu vực của bạn.
+          </div>
+          <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-weight:700;font-size:13.5px;padding:12px 24px;border-radius:30px;text-decoration:none;margin-top:16px;transition:.2s" onmouseover="this.style.background='var(--gp)'" onmouseout="this.style.background='var(--g)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Kiểm tra bệnh viện gần bạn
+          </a>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- PACKAGES -->
-<section class="pkg-sec" id="packages">
-  <div class="sec-inner">
-    <span class="sec-tag">Bảng phí & quyền lợi</span>
-    <h2 class="sec-h2">5 Gói Bảo Hiểm Linh Hoạt</h2>
-    <p class="sec-sub">Chọn gói phù hợp với nhu cầu và ngân sách — từ bảo vệ cơ bản đến toàn diện cao cấp.</p>
-
-    <div class="pkg-tabs" id="pkg-tabs">
-      <button class="pkg-tab active" onclick="showAge(this, 0)">17–40 tuổi</button>
-      <button class="pkg-tab" onclick="showAge(this, 1)">0–4 tuổi</button>
-      <button class="pkg-tab" onclick="showAge(this, 2)">4–10 tuổi</button>
-      <button class="pkg-tab" onclick="showAge(this, 3)">10–17 tuổi</button>
-      <button class="pkg-tab" onclick="showAge(this, 4)">40–50 tuổi</button>
-      <button class="pkg-tab" onclick="showAge(this, 5)">50–65 tuổi</button>
-    </div>
-
-    <div class="pkg-grid">
-      <div class="pkg-card">
-        <div class="pkg-tier">Gói</div>
-        <div class="pkg-name">Đồng</div>
-        <div class="pkg-price" id="p0">419.000 đ/năm</div>
-        <ul class="pkg-list">
-          <li>Tử vong/TT tai nạn: 25 triệu</li>
-          <li>Tử vong/TT bệnh: 25 triệu</li>
-          <li>CPYT tai nạn: 7,5 triệu</li>
-          <li>Nội trú do bệnh: 15 triệu</li>
-          <li>Không bảo lãnh viện phí</li>
-        </ul>
-        <button class="pkg-cta outline" onclick="scrollToForm()">Đăng ký</button>
-      </div>
-      <div class="pkg-card">
-        <div class="pkg-tier">Gói</div>
-        <div class="pkg-name">Bạc</div>
-        <div class="pkg-price" id="p1">837.000 đ/năm</div>
-        <ul class="pkg-list">
-          <li>Tử vong/TT tai nạn: 50 triệu</li>
-          <li>Tử vong/TT bệnh: 50 triệu</li>
-          <li>CPYT tai nạn: 15 triệu</li>
-          <li>Nội trú do bệnh: 30 triệu</li>
-          <li>Không bảo lãnh viện phí</li>
-        </ul>
-        <button class="pkg-cta outline" onclick="scrollToForm()">Đăng ký</button>
-      </div>
-      <div class="pkg-card featured">
-        <div class="pkg-badge">Phổ biến nhất</div>
-        <div class="pkg-tier">Gói</div>
-        <div class="pkg-name">Vàng</div>
-        <div class="pkg-price" id="p2">1.484.000 đ/năm</div>
-        <ul class="pkg-list">
-          <li>Tử vong/TT tai nạn: 100 triệu</li>
-          <li>Tử vong/TT bệnh: 100 triệu</li>
-          <li>CPYT tai nạn: 30 triệu</li>
-          <li>Nội trú do bệnh: 50 triệu</li>
-          <li>Bảo lãnh nội trú</li>
-        </ul>
-        <button class="pkg-cta primary" onclick="scrollToForm()">Đăng ký ngay</button>
-      </div>
-      <div class="pkg-card">
-        <div class="pkg-tier">Gói</div>
-        <div class="pkg-name">Bạch Kim</div>
-        <div class="pkg-price" id="p3">2.573.000 đ/năm</div>
-        <ul class="pkg-list">
-          <li>Tử vong/TT tai nạn: 200 triệu</li>
-          <li>Tử vong/TT bệnh: 200 triệu</li>
-          <li>CPYT tai nạn: 50 triệu</li>
-          <li>Nội trú do bệnh: 100 triệu</li>
-          <li>Bảo lãnh nội trú + ngoại trú</li>
-        </ul>
-        <button class="pkg-cta outline" onclick="scrollToForm()">Đăng ký</button>
-      </div>
-      <div class="pkg-card">
-        <div class="pkg-tier">Gói</div>
-        <div class="pkg-name">Kim Cương</div>
-        <div class="pkg-price" id="p4">3.215.000 đ/năm</div>
-        <ul class="pkg-list">
-          <li>Tử vong/TT tai nạn: 500 triệu</li>
-          <li>Tử vong/TT bệnh: 300 triệu</li>
-          <li>CPYT tai nạn: 60 triệu</li>
-          <li>Nội trú do bệnh: 120 triệu</li>
-          <li>Bảo lãnh toàn diện</li>
-        </ul>
-        <button class="pkg-cta outline" onclick="scrollToForm()">Đăng ký</button>
-      </div>
-    </div>
-
-    <!-- PRICE TABLE -->
-    <h3 style="font-size:1.1rem;font-weight:700;color:var(--dk);margin-top:48px;margin-bottom:4px">Biểu Phí Chi Tiết Theo Nhóm Tuổi (Đơn vị: đồng)</h3>
-    <p style="font-size:13px;color:var(--tm);margin-bottom:0">Phí bảo hiểm quyền lợi chính — chưa bao gồm quyền lợi bổ sung (ngoại trú, nha khoa, thai sản)</p>
-    <table class="price-table">
-      <thead>
-        <tr>
-          <th>Nhóm tuổi</th>
-          <th>Đồng</th>
-          <th>Bạc</th>
-          <th>Vàng</th>
-          <th>Bạch Kim</th>
-          <th>Kim Cương</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>60 ngày – 4 tuổi</td><td>670.000</td><td>1.339.000</td><td>2.374.000</td><td>4.116.000</td><td class="hl">5.143.000</td></tr>
-        <tr><td>4 – 10 tuổi</td><td>502.000</td><td>1.004.000</td><td>1.781.000</td><td>3.087.000</td><td class="hl">3.857.000</td></tr>
-        <tr><td>10 – 17 tuổi</td><td>460.000</td><td>920.000</td><td>1.633.000</td><td>2.830.000</td><td class="hl">3.536.000</td></tr>
-        <tr><td>17 – 40 tuổi</td><td>419.000</td><td>837.000</td><td>1.484.000</td><td>2.573.000</td><td class="hl">3.215.000</td></tr>
-        <tr><td>40 – 50 tuổi</td><td>502.000</td><td>1.004.000</td><td>1.781.000</td><td>3.087.000</td><td class="hl">3.857.000</td></tr>
-        <tr><td>50 – 65 tuổi</td><td>544.000</td><td>1.088.000</td><td>1.929.000</td><td>3.345.000</td><td class="hl">4.179.000</td></tr>
-      </tbody>
-    </table>
+    </div><!-- /sch-content -->
   </div>
 </section>
 
 <!-- PROCESS -->
-<section class="process-sec" id="process">
+<section class="sec proc-sec" id="quy-trinh">
   <div class="sec-inner">
-    <span class="sec-tag">Quy trình</span>
-    <h2 class="sec-h2">Tham Gia Bảo Hiểm Chỉ 5 Bước</h2>
-    <p class="sec-sub">Từ đăng ký đến được bảo vệ — nhanh chóng và đơn giản.</p>
-    <div class="steps-row">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-h4">Liên hệ tư vấn</div>
-        <div class="step-body">Gọi điện hoặc điền form để nhận tư vấn miễn phí từ chuyên viên DBV</div>
+    <div class="sec-head">
+      <span class="sec-tag">Nhanh — và đồng hành sau bán</span>
+      <h2 class="sec-h2">4 Bước — Từ Tư Vấn Đến Khi Được Bảo Vệ</h2>
+    </div>
+    <div id="proc-content">
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-head"><div class="step-num">1</div><div class="step-h4">Tư vấn 1:1 chọn gói</div></div></div>
+      <div class="step-card"><div class="step-head"><div class="step-num">2</div><div class="step-h4">Khai báo sức khỏe trung thực</div></div></div>
+      <div class="step-card"><div class="step-head"><div class="step-num">3</div><div class="step-h4">Thanh toán &amp; nhận Giấy chứng nhận</div></div></div>
+      <div class="step-card"><div class="step-head"><div class="step-num">4</div><div class="step-h4">Đồng hành khi có sự kiện</div></div></div>
+    </div>
+    <div class="emg-card">
+      <div>
+        <div class="emg-t">Đường Dây Hỗ Trợ Bồi Thường — Lúc Nằm Viện Cần Nhất</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7">Nhập viện, cần bảo lãnh, hay chuẩn bị hồ sơ bồi thường — gọi ngay. Đội ngũ DBV hướng dẫn từng bước, xử lý trực tiếp với bệnh viện.</p>
+        <div class="emg-list">
+          <div class="emg-item">Bảo lãnh viện phí trực tiếp</div>
+          <div class="emg-item">Hướng dẫn hồ sơ tận tình</div>
+          <div class="emg-item">Ứng trước bồi thường đến 10 triệu</div>
+          <div class="emg-item">Giải quyết tối đa 15 ngày làm việc</div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-h4">Chọn gói phù hợp</div>
-        <div class="step-body">Chuyên viên tư vấn gói bảo hiểm phù hợp với nhu cầu và ngân sách</div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-h4">Ký hợp đồng</div>
-        <div class="step-body">Hoàn tất hồ sơ và ký Hợp đồng bảo hiểm với DBV</div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-h4">Đóng phí &amp; nhận thẻ</div>
-        <div class="step-body">Thanh toán phí bảo hiểm và nhận thẻ bảo lãnh viện phí (nếu có)</div>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <div class="step-h4">Được bảo vệ</div>
-        <div class="step-body">Bảo hiểm có hiệu lực sau thời gian chờ theo từng quyền lợi</div>
+      <div class="emg-lines">
+        <div class="emg-line"><div class="emg-line-lbl">Hotline tư vấn &amp; hỗ trợ</div><div class="emg-line-num"><a href="tel:0869656561">0869 656 561</a></div></div>
+        <div class="emg-line"><div class="emg-line-lbl">Hotline bồi thường DBV</div><div class="emg-line-num"><a href="tel:19009697">1900 969 790</a></div></div>
       </div>
     </div>
+    </div><!-- /proc-content -->
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="sec why-sec">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-tag">Cam kết DBV247</span>
+      <h2 class="sec-h2">4 Lý Do Hàng Nghìn Gia Đình Chọn Chúng Tôi</h2>
+    </div>
+    <div id="why-content">
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div><div class="why-title">Tư vấn 1:1 — không bán thừa</div><div class="why-body">Phân tích nhu cầu thật của gia đình bạn, đề xuất gói vừa đủ. Không ép mua gói cao hơn nhu cầu.</div></div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><div class="why-title">Bảo lãnh viện phí — không ứng tiền</div><div class="why-body">Từ gói Bạc trở lên, DBV thanh toán trực tiếp với bệnh viện trong hệ thống bảo lãnh. Bạn chỉ tập trung điều trị.</div></div>
+      </div>
+      <div class="why-more-inner" id="why-more">
+        <div class="why-card">
+          <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><div class="why-title">Cam kết 15 ngày giải quyết bồi thường</div><div class="why-body">Tối đa 15 ngày làm việc kể từ khi nhận đủ hồ sơ hợp lệ — có cơ chế ứng trước đến 10 triệu trong tình huống nhập viện đặc biệt.</div></div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div><div class="why-title">Minh bạch điều khoản trước khi mua</div><div class="why-body">Gửi đầy đủ Quy tắc bảo hiểm gốc QĐ 909/QĐ-DBV, nói rõ cả điểm loại trừ và thời gian chờ — để bạn quyết định với thông tin đầy đủ.</div></div>
+        </div>
+      </div>
+    </div>
+    </div><!-- /why-content -->
+  </div>
+</section>
+
+<!-- NOTES -->
+<section class="acc-sec" style="background:#fffdf7" id="luu-y">
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-tag" style="background:#fff8e7;color:var(--gold)">Minh bạch trước khi mua</span>
+      <h2 class="sec-h2">5 Lưu Ý Quan Trọng</h2>
+    </div>
+    <div id="notes-content">
+    <div class="acc-list">
+      <details class="acc-item warn-style"><summary class="acc-q">Thời gian chờ — mua càng sớm càng có lợi<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Tai nạn: bảo vệ ngay từ ngày hiệu lực. Ốm đau, bệnh thông thường: 30 ngày. Bệnh có sẵn; tử vong, thương tật vĩnh viễn do bệnh có sẵn: 12 tháng. Thai sản: 270 ngày với sinh đẻ, 60 ngày với sảy thai cần can thiệp theo chỉ định bác sĩ. Đừng đợi "sắp cần" mới mua — lúc đó thời gian chờ mới bắt đầu tính.</div></details>
+      <details class="acc-item warn-style"><summary class="acc-q">Bệnh đặc biệt loại trừ trong năm đầu tiên<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Ung thư, u bướu, bệnh tim, tiểu đường, sỏi tiết niệu, viêm gan A/B/C... thuộc nhóm "bệnh đặc biệt" — loại trừ trong năm đầu tham gia (áp dụng hợp đồng dưới 50 người). Tái tục liên tục từ năm thứ hai: được bảo hiểm bình thường. Đây chính là lý do nên duy trì hợp đồng đều đặn, không để gián đoạn.</div></details>
+      <details class="acc-item warn-style"><summary class="acc-q">Đồng chi trả tại bệnh viện tư/quốc tế một số trường hợp<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Trẻ từ 4 tuổi trở xuống điều trị bệnh hô hấp tại cơ sở tư nhân/quốc tế, khoa dịch vụ bệnh viện công: đồng chi trả 30%. Nha khoa: đồng chi trả 30% tại cơ sở tư nhân/quốc tế. Thai sản: đồng chi trả 50% nếu sự kiện xảy ra từ ngày 271–365, 30% sau 365 ngày tại cơ sở tư nhân/quốc tế. Chuyên viên sẽ tính giúp bạn con số thực nhận trước khi mua.</div></details>
+      <details class="acc-item warn-style"><summary class="acc-q">Khai báo sức khỏe trung thực — điều kiện bảo vệ quyền lợi<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Theo Quy tắc, kê khai không trung thực khiến hợp đồng mất hiệu lực và phí đã đóng không được hoàn lại. Ngược lại: khai đúng — đủ ngay từ đầu thì kể cả bệnh có sẵn vẫn được chi trả sau thời gian chờ 12 tháng. Hãy để chuyên viên hướng dẫn bạn khai đúng cách.</div></details>
+      <details class="acc-item warn-style"><summary class="acc-q">Thông báo sự kiện trong 120 ngày — nộp hồ sơ trong 12 tháng<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Thông báo cho DBV trong vòng 120 ngày kể từ ngày tai nạn/ra viện/khám bệnh; gửi đủ chứng từ trong vòng 12 tháng. Quá hạn có thể bị từ chối một phần hoặc toàn bộ. Cách an toàn nhất: cứ nằm viện là nhắn Zalo hoặc gọi hotline 0869 656 561 ngay — chúng tôi nhắc và hướng dẫn hồ sơ giúp bạn.</div></details>
+    </div>
+    </div><!-- /notes-content -->
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq-sec" id="faq">
+<section class="acc-sec" style="background:var(--bg)" id="faq">
   <div class="sec-inner">
-    <span class="sec-tag">Câu hỏi thường gặp</span>
-    <h2 class="sec-h2" style="text-align:center">Giải Đáp Thắc Mắc</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Ai có thể tham gia bảo hiểm An Tâm Vui Khỏe?
-          <span class="arr">▼</span>
+    <div class="sec-head">
+      <span class="sec-tag">Giải đáp nhanh</span>
+      <h2 class="sec-h2">Câu Hỏi Thường Gặp</h2>
+    </div>
+    <div id="faq-content">
+    <div class="acc-list">
+      <details class="acc-item"><summary class="acc-q">Tôi từng có bệnh — có mua được không? Có được chi trả không?<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Được nhận bảo hiểm nếu không thuộc nhóm từ chối (đang bị ung thư, tâm thần, phong, thương tật vĩnh viễn từ 80% trở lên). Bệnh có sẵn được chi trả sau thời gian chờ 12 tháng — điều kiện duy nhất là khai báo trung thực ngay từ đầu.</div></details>
+      <details class="acc-item"><summary class="acc-q">Mua cho con nhỏ thế nào?<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Nhận từ 60 ngày tuổi. Trẻ dưới 6 tuổi tham gia cùng bố/mẹ với chương trình quyền lợi tương đương — nếu mua độc lập, phí tăng 30%. Lưu ý: bệnh hô hấp ở trẻ từ 4 tuổi trở xuống điều trị tại viện tư/quốc tế áp dụng đồng chi trả 30%.</div></details>
+      <details class="acc-item"><summary class="acc-q">Nằm viện xong bao lâu nhận được tiền?<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Có bảo lãnh viện phí (từ gói Bạc): không cần chờ — DBV thanh toán thẳng với bệnh viện. Tự nộp hồ sơ: DBV giải quyết trong tối đa 15 ngày làm việc kể từ khi nhận đủ hồ sơ hợp lệ. Tình huống nhập viện đặc biệt: có cơ chế ứng trước bồi thường đến 10 triệu đồng.</div></details>
+      <details class="acc-item"><summary class="acc-q">Phí có tăng theo tuổi không?<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Phí tính theo 6 nhóm tuổi công bố sẵn trong biểu phí — rẻ nhất ở nhóm 18–40 tuổi (419.000đ – 3.215.000đ/năm tùy gói). Khi sang nhóm tuổi mới, phí điều chỉnh theo đúng biểu phí công khai, minh bạch — không phụ thu ngẫu nhiên.</div></details>
+      <details class="acc-item"><summary class="acc-q">Đang khỏe mạnh, mua bây giờ có phí không?<span class="acc-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class="acc-a">Ngược lại — lúc khỏe là lúc duy nhất bạn mua được giá chuẩn và "chạy" xong các thời gian chờ trước khi cần dùng. Đợi đến khi có bệnh mới mua: hoặc thuộc diện loại trừ, hoặc chờ 12 tháng, hoặc không được nhận bảo hiểm. Bảo hiểm sức khỏe là sản phẩm phải mua trước khi cần.</div></details>
+    </div>
+    </div><!-- /faq-content -->
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-fin" id="cta-form">
+  <div class="cta-fin-inner">
+    <h2>Để Lại Thông Tin — Chuyên Viên Gọi Lại Trong 15 Phút</h2>
+    <p>Miễn phí · Không ép mua · Báo giá chính xác theo tuổi · Nhận kèm bảng quyền lợi đầy đủ</p>
+    <!-- Mobile: Zalo big button -->
+    <div class="cta-mob-only">
+      <a href="https://zalo.me/1283738895804393564" class="zalo-big-btn" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Chat Zalo để nhận tư vấn ngay
+      </a>
+      <p style="font-size:12px;color:rgba(255,255,255,.6);margin-top:14px;text-align:center">Hoặc gọi trực tiếp: <a href="tel:0869656561" style="color:var(--gold);font-weight:700">0869 656 561</a></p>
+    </div>
+    <!-- Desktop: full form -->
+    <div class="cta-desk-only">
+      <div class="cta-fin-form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="fg"><label>Họ và tên</label><input type="text" id="c-name" placeholder="Nhập họ và tên..."/></div>
+          <div class="fg"><label>Số điện thoại *</label><input type="tel" id="c-phone" placeholder="09xx xxx xxx"/></div>
+          <div class="fg"><label>Bạn muốn bảo vệ ai? *</label>
+            <select id="c-who">
+              <option value="">— Chọn đối tượng —</option>
+              <option>Bản thân tôi</option><option>Con nhỏ</option>
+              <option>Vợ/chồng</option><option>Bố mẹ</option><option>Cả gia đình</option>
+            </select>
+          </div>
+          <div class="fg"><label>Gói quan tâm</label>
+            <select id="c-goi">
+              <option value="">— Chưa rõ, cần tư vấn —</option>
+              <option>Đồng</option><option>Bạc</option><option>Vàng </option>
+              <option>Bạch Kim</option><option>Kim Cương</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="submitCta()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Gửi yêu cầu — nhận báo giá trong 15 phút
         </button>
-        <div class="faq-a">Công dân Việt Nam hoặc người nước ngoài đang cư trú hợp pháp tại Việt Nam, từ đủ 60 ngày tuổi đến 65 tuổi. Trẻ dưới 6 tuổi phải có bố/mẹ cùng tham gia trong cùng một hợp đồng. DBV vẫn nhận bảo hiểm cho người đã mắc bệnh ung thư nhưng không chi trả quyền lợi liên quan đến ung thư.</div>
+        <div class="form-succ" id="c-succ">✓ Đã ghi nhận! Chuyên viên sẽ gọi lại trong 15 phút.</div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Thời gian chờ là gì và áp dụng như thế nào?
-          <span class="arr">▼</span>
-        </button>
-        <div class="faq-a">Thời gian chờ là khoảng thời gian sau khi hợp đồng có hiệu lực mà bạn chưa được hưởng một số quyền lợi cụ thể. Ví dụ: bệnh thông thường phải chờ 30 ngày, sinh đẻ phải chờ 270 ngày. Riêng tai nạn không có thời gian chờ — hiệu lực ngay lập tức.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Bảo lãnh viện phí hoạt động như thế nào?
-          <span class="arr">▼</span>
-        </button>
-        <div class="faq-a">Gói Vàng trở lên hỗ trợ bảo lãnh viện phí nội trú tại các cơ sở y tế trong mạng lưới. Gói Bạch Kim và Kim Cương bảo lãnh cả nội trú, ngoại trú và nha khoa. Với gói Đồng và Bạc, bạn thanh toán trước và nộp hồ sơ bồi thường sau trong vòng 120 ngày.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Bệnh có sẵn có được bảo hiểm không?
-          <span class="arr">▼</span>
-        </button>
-        <div class="faq-a">Với hợp đồng dưới 50 người, bệnh có sẵn có thời gian chờ 12 tháng kể từ ngày tham gia. Sau 12 tháng, bệnh có sẵn được bảo hiểm bình thường. Với hợp đồng từ 50 người trở lên, không áp dụng thời gian chờ cho bệnh có sẵn (trừ trường hợp đang điều trị nội trú khi ký hợp đồng).</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Thủ tục bồi thường cần những giấy tờ gì?
-          <span class="arr">▼</span>
-        </button>
-        <div class="faq-a">Cần: Giấy yêu cầu bồi thường theo mẫu DBV, giấy ra viện, giấy chứng nhận phẫu thuật (nếu có), chỉ định xét nghiệm/X-quang, sổ khám bệnh, hóa đơn thanh toán gốc, và bằng chứng lao động (nếu yêu cầu bồi thường lương). DBV giải quyết trong vòng 15 ngày làm việc kể từ khi nhận đủ hồ sơ.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Có thể bổ sung quyền lợi ngoại trú, nha khoa, thai sản không?
-          <span class="arr">▼</span>
-        </button>
-        <div class="faq-a">Có. Đây là các quyền lợi bổ sung (tăng phí). Ngoại trú áp dụng từ 284.000–2.949.000 đồng/năm tùy gói và nhóm tuổi. Nha khoa từ gói Vàng trở lên: 520.000–1.512.000 đồng/năm. Thai sản (17–50 tuổi): 945.000–4.032.000 đồng/năm tùy gói.</div>
+      <div class="cta-trust">
+        <div class="cta-trust-item">Tư vấn hoàn toàn miễn phí</div>
+        <div class="cta-trust-item">Không ép mua</div>
+        <div class="cta-trust-item">Bảo mật thông tin tuyệt đối</div>
+        <div class="cta-trust-item">Gửi Quy tắc gốc để đối chiếu</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<div class="cta-final">
-  <div class="cta-final-inner">
-    <h2>Bắt Đầu Bảo Vệ Sức Khỏe Của Bạn Hôm Nay</h2>
-    <p>Với mức phí từ 419.000 đồng/năm, bạn đã có thể yên tâm trước những rủi ro sức khỏe bất ngờ. Liên hệ DBV ngay để được tư vấn miễn phí.</p>
-    <div class="cta-btns">
-      <button class="btn-cta-a" onclick="scrollToForm()">Đăng Ký Ngay</button>
-      <a href="tel:0869 656 561" class="btn-cta-b">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        0869 656 561
-      </a>
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="ftr-inner">
+    <div class="ftr-brand">
+      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV trực thuộc chi nhánh DBV Thành Đô</p>
+      <div class="ftr-info">
+        <a href="#">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          BT20-C37, TDP 20, Phường Thanh Xuân, TP Hà Nội, Việt Nam
+        </a>
+        <a href="tel:0869656561">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          0869 656 561
+        </a>
+        <a href="mailto:dbvi247@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          dbvi247@gmail.com
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          MST: 0102737963-059
+        </a>
+      </div>
     </div>
-    <div class="cta-promises">
-      <span class="cta-prom">Tư vấn miễn phí</span>
-      <span class="cta-prom">Không ràng buộc</span>
-      <span class="cta-prom">Phản hồi trong 15 phút</span>
-      <span class="cta-prom">Được cấp phép Bộ Tài chính</span>
+    <div class="ftr-col">
+      <h4>Sản phẩm</h4>
+      <a href="/bao-hiem-vat-chat-oto">Bảo hiểm Xe ô tô</a>
+      <a href="/bao-hiem-tnds-xemay">Bảo hiểm Xe máy</a>
+      <a href="/bao-hiem-suc-khoe">Bảo hiểm Sức khỏe</a>
+      <a href="/bao-hiem-du-lich">Bảo hiểm Du lịch</a>
+      <a href="/bao-hiem-tai-san">Bảo hiểm Tài sản</a>
+      <a href="/bao-hiem-hang-hai">Bảo hiểm Hàng hải</a>
+    </div>
+    <div class="ftr-col">
+      <h4>Công ty</h4>
+      <a href="/san-pham">Sản phẩm</a>
+      <a href="/boi-thuong">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
+    </div>
+    <div class="ftr-contact">
+      <h4>Kết nối với chúng tôi</h4>
+      <div class="ftr-social">
+        <a href="https://www.facebook.com/TapdoanbaohiemDBV" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" aria-label="Zalo">
+          <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@tapdoanbaohiemdbv" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@TapdoanBaohiemDBV" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1a1a"/></svg>
+        </a>
+      </div>
+      <p class="ftr-phone-label">Liên hệ DBV247</p>
+      <a href="tel:0869656561" class="ftr-hotline">0869 656 561</a>
     </div>
   </div>
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <img src="/Logo header Footer.png" alt="DBV247" style="height:120px;width:auto;display:block;margin-bottom:14px;">
-        <div class="f-desc">
-          <strong style="color:var(--dk,#1B3A5C);font-size:13.5px">DBV247</strong> – Kênh tư vấn bảo hiểm online trực thuộc<br>
-          <span style="font-size:12.5px">Công ty cổ phần Tập đoàn Bảo hiểm DBV – Chi nhánh Thành Đô</span>
-        </div>
-        <div class="f-desc" style="font-size:12.5px;line-height:1.9;margin-top:6px">
-          <span style="opacity:.75">MST:</span> <span data-cms="tax-code">0102737963-059</span><br>
-          <span style="opacity:.75">Địa chỉ:</span> <span data-cms="address">BT20-C37, TDP 20, Phường Thanh Xuân, Thành phố Hà Nội</span>
-        </div>
-        <a href="tel:0869656561" class="f-tel">0869 656 561</a>
-        <a href="mailto:dbvi247@gmail.com" class="f-email">dbvi247@gmail.com</a>
+  <div class="ftr-copy">
+    <div class="ftr-copy-inner">
+      <span>Copyright © 2025 DBV247. All rights reserved.</span>
+      <div style="display:flex;gap:16px">
+        <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+        <a href="/dieu-khoan-su-dung">Điều khoản sử dụng</a>
       </div>
-      <div>
-        <div class="f-h4">Sản Phẩm</div>
-        <ul class="f-links">
-          <li><a href="https://www.dbv247.com.vn/bao-hiem-xnk">BH Hàng Hóa XNK</a></li>
-          <li><a href="https://www.dbv247.com.vn/bao-hiem-vat-chat-oto">BH Vật Chất Ô Tô</a></li>
-          <li><a href="https://www.dbv247.com.vn/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a></li>
-          <li><a href="/san-pham">Xem tất cả sản phẩm</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-h4">Hỗ Trợ</div>
-        <ul class="f-links">
-          <li><a href="#process">Quy trình bồi thường</a></li>
-          <li><a href="#faq">Câu hỏi thường gặp</a></li>
-          <li><a href="#hero-form">Liên hệ tư vấn</a></li>
-          <li><a href="#">Điều khoản bảo hiểm</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-h4">Liên Hệ</div>
-        <ul class="f-links">
-          <li><a href="tel:0869656561">📞 0869 656 561</a></li>
-          <li><a href="mailto:dbvi247@gmail.com">✉️ dbvi247@gmail.com</a></li>
-          <li><a href="https://zalo.me/1283738895804393564">💬 Zalo: 0869 656 561</a></li>
-          <li><a href="https://www.dbv247.com.vn">🌐 www.dbv247.com.vn</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="f-bottom">
-      <div class="f-copy">© 2025 DBV247 – Kênh tư vấn bảo hiểm online. Bảo lưu mọi quyền.</div>
-      <div class="f-lic">Được cấp phép hoạt động bởi Bộ Tài chính Việt Nam</div>
     </div>
   </div>
 </footer>
 
-<!-- FLOATING CTA -->
+<!-- FLOAT CTA (desktop) -->
 <div class="float-cta" id="floatCta">
+  <div id="floatFormWrap" style="display:none;position:absolute;bottom:56px;right:0;width:260px">
+    <div style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,.2)">
+      <div style="font-size:13px;font-weight:800;color:var(--dk);margin-bottom:10px">Gọi lại cho tôi</div>
+      <div style="display:flex;gap:6px;margin-bottom:8px">
+        <input type="tel" id="float-phone" placeholder="Số điện thoại..." style="flex:1;min-height:44px;padding:9px 10px;border:1.5px solid var(--bd);border-radius:6px;font-size:16px;font-family:inherit;outline:none"/>
+        <button onclick="submitFloat()" style="background:var(--g);color:#fff;font-weight:700;font-size:13px;padding:9px 12px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;font-family:inherit">Gửi</button>
+      </div>
+      <div id="float-succ" style="display:none;font-size:12px;color:var(--g);font-weight:600">✓ Đã nhận! DBV sẽ gọi lại sớm nhất.</div>
+    </div>
+  </div>
   <div style="display:flex;gap:8px;align-items:center;justify-content:flex-end">
-    <a href="tel:0869656561" class="float-btn" style="animation:none">
+    <a href="https://zalo.me/1283738895804393564" class="float-zalo" target="_blank" rel="noopener" title="Chat Zalo">Zalo</a>
+    <button class="float-btn" onclick="toggleFloatForm()">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Gọi Ngay
-    </a>
-    <a href="https://zalo.me/1283738895804393564" class="float-zalo" title="Chat Zalo" style="background:#fff;border:2px solid #e2e8f0;box-shadow:0 4px 16px rgba(0,0,0,.18),0 0 0 1px rgba(0,116,55,.12);width:48px;height:48px;">
-      <img src="data:image/jpeg;base64,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" alt="Zalo" style="width:36px;height:36px;object-fit:contain;border-radius:4px;"/>
-    </a>
+      Tư vấn ngay
+    </button>
   </div>
 </div>
 
 <script>
-const priceData = [
-  [419000, 837000, 1484000, 2573000, 3215000],
-  [670000, 1339000, 2374000, 4116000, 5143000],
-  [502000, 1004000, 1781000, 3087000, 3857000],
-  [460000, 920000, 1633000, 2830000, 3536000],
-  [502000, 1004000, 1781000, 3087000, 3857000],
-  [544000, 1088000, 1929000, 3345000, 4179000],
+// ── PLAN TAB SWITCHER (mobile) ──
+var planTabs = document.querySelectorAll('.plan-tab');
+var planPanels = document.querySelectorAll('.plan-card-panel');
+function switchPlan(idx){
+  planTabs.forEach(function(t,i){ t.classList.toggle('active', i===idx); });
+  planPanels.forEach(function(p,i){ p.classList.toggle('active', i===idx); });
+}
+// Lưu gói khách chọn để truyền vào form
+var pickedPlan = '';
+function pickPlan(name){ pickedPlan = name; var s=document.getElementById('c-goi'); if(s){ for(var i=0;i<s.options.length;i++){ if(s.options[i].text.indexOf(name)===0){ s.selectedIndex=i; break; } } } }
+
+// ── MOBILE COLLAPSE TOGGLE ──
+function toggleMob(id, btnId, labelOpen, labelClose){
+  var el = document.getElementById(id);
+  var btn = document.getElementById(btnId);
+  var isCollapsed = el.classList.contains('collapsed');
+  if(isCollapsed){
+    el.classList.remove('collapsed');
+    btn.classList.add('open');
+    btn.childNodes[0].textContent = labelClose + ' ';
+  } else {
+    el.classList.add('collapsed');
+    btn.classList.remove('open');
+    btn.childNodes[0].textContent = labelOpen + ' ';
+  }
+}
+
+// ── ACCORDION ──
+function toggleAccItem(btn){
+  var item = btn.closest('.acc-item');
+  item.classList.toggle('open');
+}
+
+// ── CALCULATOR — Biểu phí Phụ lục 03, QĐ 909/QĐ-DBV (đơn vị: nghìn đồng) ──
+// Nhóm tuổi: [0]60ng-4t [1]5-10t [2]11-17t [3]18-40t [4]41-50t [5]51-65t
+// Gói:       [0]Đồng [1]Bạc [2]Vàng [3]Bạch Kim [4]Kim Cương
+var FEE_MAIN=[
+  [670,1339,2374,4116,5143],
+  [502,1004,1781,3087,3857],
+  [460,920,1633,2830,3536],
+  [419,837,1484,2573,3215],
+  [502,1004,1781,3087,3857],
+  [544,1088,1929,3345,4179]
 ];
-const pkgIds = ['p0','p1','p2','p3','p4'];
-const ageLabels = ['17 – 40 tuổi','60 ngày – 4 tuổi','4 – 10 tuổi','10 – 17 tuổi','40 – 50 tuổi','50 – 65 tuổi'];
-const pkgNames = ['Gói Đồng','Gói Bạc','Gói Vàng','Gói Bạch Kim','Gói Kim Cương'];
-const pkgBenefits = [
-  'Tử vong/TT tai nạn: 25 triệu · Tử vong/TT bệnh: 25 triệu<br>CPYT tai nạn: 7,5 triệu · Nội trú bệnh: 15 triệu',
-  'Tử vong/TT tai nạn: 50 triệu · Tử vong/TT bệnh: 50 triệu<br>CPYT tai nạn: 15 triệu · Nội trú bệnh: 30 triệu',
-  'Tử vong/TT tai nạn: 100 triệu · Tử vong/TT bệnh: 100 triệu<br>CPYT tai nạn: 30 triệu · Nội trú bệnh: 50 triệu · Bảo lãnh nội trú',
-  'Tử vong/TT tai nạn: 200 triệu · Tử vong/TT bệnh: 200 triệu<br>CPYT tai nạn: 50 triệu · Nội trú bệnh: 100 triệu · Bảo lãnh nội trú + ngoại trú',
-  'Tử vong/TT tai nạn: 500 triệu · Tử vong/TT bệnh: 300 triệu<br>CPYT tai nạn: 60 triệu · Nội trú bệnh: 120 triệu · Bảo lãnh toàn diện',
+var FEE_NGOAITRU=[
+  [454,908,1512,3024,3629],
+  [341,681,1134,2268,2722],
+  [312,624,1040,2079,2495],
+  [284,567,945,1890,2268],
+  [341,681,1134,2268,2722],
+  [369,738,1229,2457,2949]
 ];
-function fmt(n){return n.toLocaleString('vi-VN') + ' đ/năm';}
-function showAge(btn, idx){
-  document.querySelectorAll('.pkg-tab').forEach(function(t){t.classList.remove('active');});
-  btn.classList.add('active');
-  var d = priceData[idx];
-  pkgIds.forEach(function(id,i){ document.getElementById(id).textContent = fmt(d[i]); });
+var FEE_THAISAN=[945,1512,2520,3360,4032]; // chỉ nhóm tuổi 3,4 (18-50)
+var FEE_NHAKHOA=[ // chỉ gói Vàng(2), Bạch Kim(3), Kim Cương(4)
+  [756,1512,1512],
+  [567,1134,1134],
+  [520,1040,1040],
+  [473,945,945],
+  [567,1134,1134],
+  [615,1229,1229]
+];
+var PLAN_NAMES=['Đồng','Bạc','Vàng','Bạch Kim','Kim Cương'];
+var PLAN_INFO=[
+  'Gói Đồng · Nội trú 15tr + Tai nạn 25tr — bảo vệ cơ bản, phí tối thiểu',
+  'Gói Bạc · Nội trú 30tr + Bảo lãnh viện phí nội trú',
+  'Gói Vàng · Nội trú 50tr + Tai nạn 100tr + Bảo lãnh nội trú — cân bằng nhất',
+  'Gói Bạch Kim · Nội trú 100tr + Bảo lãnh cả Nội trú, Ngoại trú, Nha khoa',
+  'Gói Kim Cương · Nội trú 120tr + Tai nạn 500tr — bảo vệ tối đa'
+];
+function calcFee(){
+  var a=parseInt(document.getElementById('c-age').value);
+  var p=parseInt(document.getElementById('c-plan').value);
+  var q=parseInt(document.getElementById('c-qty').value)||1;
+  var ckNT=document.getElementById('chk-ngoaitru');
+  var ckTS=document.getElementById('chk-thaisan');
+  var ckNK=document.getElementById('chk-nhakhoa');
+  // Điều kiện hiển thị quyền lợi bổ sung
+  var tsOk=(a===3||a===4);
+  var nkOk=(p>=2);
+  document.getElementById('chk-ts-wrap').classList.toggle('disabled',!tsOk);
+  document.getElementById('chk-nk-wrap').classList.toggle('disabled',!nkOk);
+  if(!tsOk) ckTS.checked=false;
+  if(!nkOk) ckNK.checked=false;
+  // Tính phí
+  var fee=FEE_MAIN[a][p];
+  var extras=[];
+  if(ckNT.checked){ fee+=FEE_NGOAITRU[a][p]; extras.push('Ngoại trú'); }
+  if(ckTS.checked && tsOk){ fee+=FEE_THAISAN[p]; extras.push('Thai sản'); }
+  if(ckNK.checked && nkOk){ fee+=FEE_NHAKHOA[a][p-2]; extras.push('Nha khoa'); }
+  var total=fee*q*1000;
+  var perday=Math.round(total/365/100)*100;
+  document.getElementById('calc-fee').textContent=total.toLocaleString('vi-VN')+'đ';
+  document.getElementById('calc-perday').textContent='≈ '+perday.toLocaleString('vi-VN')+'đ/ngày'+(q>1?' cho '+q+' người':'')+' — chưa bằng ly trà đá';
+  var info=document.getElementById('calc-info');
+  info.style.display='block';
+  info.innerHTML='<strong>'+PLAN_INFO[p]+'</strong>'+(extras.length?'<br/>+ Quyền lợi thêm: '+extras.join(', '):'');
+  document.getElementById('calc-cta').style.display='flex';
 }
-function submitForm(){
-  var p = document.getElementById('f-phone').value.trim();
-  if(!p){ alert('Vui lòng nhập số điện thoại.'); return; }
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Sức Khỏe DBVCare','dien-thoai':p}).toString()});
-  var ageEl = document.getElementById('f-age');
-  var pkgEl = document.getElementById('f-pkg');
-  var ageIdx = ageEl.selectedIndex - 1;
-  var pkgIdx = pkgEl.selectedIndex - 1;
-  if(ageIdx < 0){ alert('Vui lòng chọn nhóm tuổi.'); return; }
-  if(pkgIdx < 0){ alert('Vui lòng chọn gói bảo hiểm.'); return; }
-  var price = priceData[ageIdx][pkgIdx];
-  document.getElementById('res-pkg-name').textContent = pkgNames[pkgIdx];
-  document.getElementById('res-age-label').textContent = 'Nhóm tuổi: ' + ageLabels[ageIdx];
-  document.getElementById('res-price').textContent = price.toLocaleString('vi-VN') + ' đ';
-  document.getElementById('res-benefits').innerHTML = pkgBenefits[pkgIdx];
-  document.getElementById('form-result').style.display = 'block';
-  document.getElementById('form-submit-btn').style.display = 'none';
-  document.querySelector('.form-disc').style.display = 'none';
-  document.querySelectorAll('.fg').forEach(function(el){ el.style.display = 'none'; });
-  document.getElementById('form-result').scrollIntoView({behavior:'smooth', block:'center'});
+function pickFromCalc(){
+  var p=parseInt(document.getElementById('c-plan').value);
+  pickPlan(PLAN_NAMES[p]);
 }
-function resetForm(){
-  document.getElementById('form-result').style.display = 'none';
-  document.getElementById('form-submit-btn').style.display = 'block';
-  document.querySelector('.form-disc').style.display = 'block';
-  document.querySelectorAll('.fg').forEach(function(el){ el.style.display = 'block'; });
+
+// ── FORMS ──
+function netlifyPost(formName, data){
+  var params = {'form-name': formName};
+  Object.assign(params, data);
+  fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(params).toString()});
 }
-function toggleFaq(btn){
-  var item = btn.parentElement;
-  var wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
-  if(!wasOpen) item.classList.add('open');
+function submitHero(){
+  var p=document.getElementById('h-phone').value.trim();
+  if(!p){document.getElementById('h-phone').focus();return;}
+  netlifyPost('dbv-suckhoe',{'san-pham':'BH Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('h-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('h-who').value,'nhom-tuoi':document.getElementById('h-age').value,'goi-quan-tam':pickedPlan});
+  document.getElementById('h-succ').style.display='block';
 }
-function scrollToForm(){
-  document.getElementById('hero-form').scrollIntoView({behavior:'smooth'});
+function submitCta(){
+  var p=document.getElementById('c-phone').value.trim();
+  if(!p){document.getElementById('c-phone').focus();return;}
+  netlifyPost('dbv-suckhoe',{'san-pham':'BH Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('c-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('c-who').value,'nhom-tuoi':'','goi-quan-tam':document.getElementById('c-goi').value||pickedPlan});
+  document.getElementById('c-succ').style.display='block';
 }
 function toggleFloatForm(){
-  var w = document.getElementById('floatFormWrap');
-  w.style.display = w.style.display === 'block' ? 'none' : 'block';
+  var w=document.getElementById('floatFormWrap');
+  w.style.display=w.style.display==='block'?'none':'block';
+  if(w.style.display==='block') document.getElementById('float-phone').focus();
 }
 function submitFloat(){
-  var p = document.getElementById('float-phone').value.trim();
-  if(!p){ document.getElementById('float-phone').focus(); return; }
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Sức Khỏe DBVCare','dien-thoai':p}).toString()});
-  document.getElementById('float-phone').disabled = true;
-  document.querySelector('#floatFormWrap button').style.display = 'none';
-  document.getElementById('float-succ').style.display = 'block';
-  setTimeout(function(){
-    document.getElementById('floatFormWrap').style.display = 'none';
-    document.getElementById('float-phone').disabled = false;
-    document.getElementById('float-phone').value = '';
-    document.getElementById('float-succ').style.display = 'none';
-    document.querySelector('#floatFormWrap button').style.display = 'block';
-  }, 3500);
+  var p=document.getElementById('float-phone').value.trim();
+  if(!p)return;
+  netlifyPost('dbv-float-sk',{'san-pham':'BH Sức Khỏe An Tâm Vui Khỏe','dien-thoai':p});
+  document.getElementById('float-succ').style.display='block';
+  setTimeout(function(){document.getElementById('floatFormWrap').style.display='none';document.getElementById('float-phone').value='';document.getElementById('float-succ').style.display='none';},3000);
 }
-document.addEventListener('click', function(e){
-  var wrap = document.getElementById('floatFormWrap');
-  if(wrap.style.display === 'block' && !document.getElementById('floatCta').contains(e.target)){
-    wrap.style.display = 'none';
-  }
+document.addEventListener('click',function(e){
+  var cta=document.getElementById('floatCta');
+  var wrap=document.getElementById('floatFormWrap');
+  if(wrap&&wrap.style.display==='block'&&cta&&!cta.contains(e.target)) wrap.style.display='none';
 });
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener('click', function(e){
-    var t = document.querySelector(a.getAttribute('href'));
-    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
-  });
-});
+// Khởi động máy tính phí
+calcFee();
 </script>
-<script src="/site-settings.js" defer></script>
 </body>
 </html>

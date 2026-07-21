@@ -47,7 +47,7 @@ img{max-width:100%;height:auto;display:block}
 }
 @media(min-width:768px){ :root{ --gap-section:64px; } }
 
-html{width:100%;overflow-x:clip}body{width:100%;overflow-x:clip}
+html,body{width:100%;overflow-x:hidden}
 body{
   font-family:'Be Vietnam Pro',sans-serif;
   color:var(--tx);
@@ -74,6 +74,11 @@ button{font-family:inherit;cursor:pointer}
 .sec-head{margin-bottom:32px}
 .sec-head.center{text-align:center;margin-left:auto;margin-right:auto}
 .sec-head.center .sec-sub{margin-left:auto;margin-right:auto}
+/* Căn giữa chỉ trên web (desktop >=768px), mobile giữ căn trái */
+@media(min-width:768px){
+  .sec-head.center-web{text-align:center;margin-left:auto;margin-right:auto}
+  .sec-head.center-web .sec-sub{margin-left:auto;margin-right:auto}
+}
 
 /* ============================================
    HEADER
@@ -187,6 +192,38 @@ button{font-family:inherit;cursor:pointer}
 .card-body{font-size:1rem;color:var(--tm);line-height:1.65}
 .card-note{display:inline-block;background:#fffbf0;border:1px solid rgba(232,146,10,.3);color:var(--goldd);font-size:1rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px}
 
+/* Eligibility cards (Đủ điều kiện / Không áp dụng) */
+.elig-title{
+  display:block;
+  font-size:1rem;font-weight:800;
+  padding:10px 16px;border-radius:var(--r8);
+  margin-bottom:14px;
+}
+.elig-title.elig-ok{background:var(--gl);color:var(--g)}
+.elig-title.elig-warn{background:#fffbf0;color:var(--goldd)}
+.elig-body{display:flex;flex-direction:column;gap:10px}
+.elig-body>div{
+  position:relative;
+  padding-left:26px;
+}
+.elig-body>div::before{
+  content:'';
+  position:absolute;left:0;top:2px;
+  width:18px;height:18px;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+}
+/* Đủ điều kiện: tích xanh */
+.elig-body-ok>div::before{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23007437' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+}
+/* Không áp dụng: icon cảnh báo */
+.elig-body-warn>div::before{
+  top:1px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23E8920A' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/%3E%3Cline x1='12' y1='9' x2='12' y2='13'/%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'/%3E%3C/svg%3E");
+}
+
 .callout{background:var(--gl);border-radius:var(--r12);padding:16px 20px;font-size:1rem;color:var(--dk);font-weight:600;text-align:center;line-height:1.6}
 .exclude-note{background:#fffbf0;border-left:3px solid var(--gold);border-radius:0 var(--r8) var(--r8) 0;padding:14px 18px;font-size:1rem;color:var(--tm);line-height:1.65}
 
@@ -200,6 +237,8 @@ button{font-family:inherit;cursor:pointer}
 .highlight-age{font-size:1rem;color:var(--ts);font-weight:600;margin-bottom:4px}
 .highlight-price{font-size:1.6rem;font-weight:800;color:var(--g);margin-bottom:2px}
 .highlight-price span{font-size:1rem;font-weight:600;color:var(--tm)}
+/* Bản giá mobile ẩn trên desktop */
+.price-mobile{display:none}
 .highlight-list{margin-top:12px;display:flex;flex-direction:column;gap:6px}
 .highlight-item{font-size:1rem;color:var(--tx);display:flex;align-items:flex-start;gap:8px}
 .highlight-item svg{flex-shrink:0;margin-top:3px}
@@ -221,17 +260,29 @@ button{font-family:inherit;cursor:pointer}
 /* Desktop table (>=768px) */
 .programs-table-wrap{display:none}
 @media(min-width:768px){
-  .programs-table-wrap{display:block;overflow-x:auto;border-radius:var(--r16);box-shadow:var(--sh);-webkit-overflow-scrolling:touch}
-  table.programs{width:100%;min-width:640px;border-collapse:collapse;background:#fff}
-  table.programs th{background:var(--navy);color:#fff;padding:12px 14px;font-size:.8rem;font-weight:700;text-align:left;white-space:nowrap}
-  table.programs td{padding:11px 14px;font-size:.82rem;border-bottom:1px solid var(--bd);color:var(--tx)}
+  .programs-table-wrap{display:block;overflow-x:auto;border-radius:var(--r16);box-shadow:var(--sh);-webkit-overflow-scrolling:touch;border:1px solid var(--bd)}
+  table.programs{width:100%;min-width:680px;border-collapse:collapse;background:#fff}
+  table.programs th{background:var(--navy);color:#fff;padding:15px 16px;font-size:.82rem;font-weight:700;text-align:left;white-space:nowrap}
+  table.programs th:first-child{padding-left:20px}
+  table.programs td{padding:13px 16px;font-size:.85rem;border-bottom:1px solid #eef1f4;color:var(--tx);white-space:nowrap}
+  table.programs td:first-child{padding-left:20px;color:var(--tm)}
   table.programs tr:last-child td{border-bottom:none}
-  table.programs tr:nth-child(even) td{background:#f8fafb}
+  /* Hàng nhóm màu xanh */
+  table.programs tr.group-row td{
+    background:var(--g);color:#fff;font-weight:800;
+    font-size:.8rem;letter-spacing:.5px;text-transform:uppercase;
+    padding:11px 20px;border-bottom:none;
+  }
+  /* Số quyền lợi & phí chính nổi bật */
   table.programs .rate{font-weight:800;color:var(--g)}
+  /* Hàng phí chính 16-60 tuổi: in đậm nhãn + nền nhạt */
+  table.programs tr.fee-main td{background:#f4faf6}
+  table.programs tr.fee-main td:first-child{font-weight:800;color:var(--dk)}
 }
 /* Mobile program cards (<768px) */
 .programs-cards{display:block}
 @media(min-width:768px){ .programs-cards{display:none} }
+.programs-swipe-hint{display:none}
 .program-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r12);padding:16px;margin-bottom:12px}
 .program-card-title{font-size:.95rem;font-weight:800;color:var(--dk);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
 .program-row{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;padding:5px 0;color:var(--tm)}
@@ -260,6 +311,34 @@ button{font-family:inherit;cursor:pointer}
 .step-num{width:44px;height:44px;border-radius:50%;background:var(--g);color:#fff;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 0 0 4px rgba(0,116,55,.15)}
 .step-title{font-size:1rem;font-weight:700;color:var(--dk);margin-bottom:8px}
 .step-body{font-size:1rem;color:var(--tm);line-height:1.6}
+
+/* ============================================
+   CLAIM STEPS (5 bước bồi thường)
+   Web: 5 cột ngang | Mobile: vertical stepper
+   ============================================ */
+/* ----- WEB (mặc định >=768px sẽ là 5 cột) ----- */
+.claim-steps{display:grid;grid-template-columns:1fr;gap:16px}
+.claim-step{
+  background:#f7f9fb;border:1.5px solid var(--bd);border-radius:var(--r16);
+  padding:24px 20px;text-align:center;position:relative;
+}
+.claim-num{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--g);color:#fff;font-size:1.1rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 14px;box-shadow:0 0 0 4px rgba(0,116,55,.15);
+}
+.claim-title{font-size:1rem;font-weight:700;color:var(--dk);margin-bottom:8px;line-height:1.35}
+.claim-body{font-size:.95rem;color:var(--tm);line-height:1.6}
+.claim-note{
+  margin-top:24px;background:var(--gl);border-radius:var(--r12);
+  padding:16px 20px;text-align:center;font-weight:600;color:var(--dk);
+  font-size:1rem;line-height:1.5;
+}
+@media(min-width:768px){
+  .claim-steps{grid-template-columns:repeat(5,1fr);gap:14px}
+  .claim-body{font-size:.875rem}
+}
 
 /* ============================================
    FAQ
@@ -401,89 +480,372 @@ button{font-family:inherit;cursor:pointer}
   .hero-grid{gap:64px}
   :root{ --gap-section:72px; }
 }
-</style>
 
-<style>
-/* ============ DBV standard header sync ============ */
-/* ── Table group rows ──────────────────────────────────────────── */
-.tbl-group-row td,.tbl-group-row td *{
-  background:var(--g);color:#fff!important;
-  font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  padding:8px 14px;border:none
-}
-.tbl-group-row.tbl-group-fee td,.tbl-group-row.tbl-group-fee td *{
-  background:var(--gp);color:#fff!important;
-}
-.tbl-fee-row td{background:#f8fdf9}
-.tbl-fee-highlight td{background:#edf7f1;font-weight:700}
-.tbl-fee-sub td{color:var(--ts);font-size:.88rem}
-.programs tr:not(.tbl-group-row):hover td{background:var(--gl)!important}
-/* ── Footer layout fix ─────────────────────────────────────────── */
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 20px}
-@media(min-width:768px){.footer-inner{padding:0 32px}}
-@media(min-width:1200px){.footer-inner{padding:0 40px}}
-.footer-top{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:28px}
-@media(min-width:576px){.footer-top{grid-template-columns:1fr 1fr}}
-@media(min-width:992px){.footer-top{grid-template-columns:2fr 1fr 1fr 1fr}}
-/* ── Float CTA — mobile only ─────────────────────────────────────── */
-.float-cta{display:none!important}
-#floatFormWrap{display:none;position:absolute;bottom:56px;right:0}
+/* ============================================
+   MOBILE-APP MODE  (<=480px)
+   Thu nhỏ toàn bộ typography / spacing / card / button
+   theo tư duy mobile-app native. Không ảnh hưởng desktop/tablet.
+   Giữ input & CTA chính >=44-48px cho touch + chống zoom iOS.
+   ============================================ */
+@media(max-width:480px){
 
-.hdr{height:auto}
-.hdr-inner{height:auto;padding:4px 0;align-items:center;gap:12px}
-.hdr-logo img{height:85px!important;width:auto!important}
-.hdr-actions{display:flex;align-items:center;gap:8px}
-.hdr-call{display:none!important}
-.hdr-allprod{
-  display:inline-flex;align-items:center;gap:5px;
-  margin-left:auto;
-  background:var(--gl);color:var(--g);
-  font-size:.8rem;font-weight:700;padding:7px 12px;
-  border-radius:20px;text-decoration:none;white-space:nowrap;
-  border:1.5px solid rgba(0,116,55,.25);transition:.2s;
+  /* ---- BASE: giảm gốc chữ & giãn dòng ---- */
+  body{font-size:14px;line-height:1.55;padding-bottom:60px}
+  :root{ --gap-section:28px; }
+
+  /* ---- SPACING: cắt padding section, container hẹp hơn ---- */
+  .container{padding:0 16px}
+  .section{padding:26px 0}
+  .sec-head{margin-bottom:20px}
+
+  /* ---- SECTION HEADINGS ---- */
+  .sec-tag{font-size:.68rem;padding:4px 11px;margin-bottom:8px;letter-spacing:.4px}
+  .sec-h2{font-size:1.32rem;line-height:1.28;margin-bottom:7px}
+  .sec-sub{font-size:.85rem;line-height:1.55}
+
+  /* ---- HEADER: gọn hơn ---- */
+  .hdr-inner{height:52px}
+  .hdr-logo img{height:26px}
+  .hdr-call{width:40px;height:40px}
+  /* Ẩn trust-strip trên mobile theo yêu cầu */
+  .trust-strip{display:none}
+
+  /* ---- Ẩn các phần không cần trên mobile ---- */
+  .hide-mobile{display:none !important}
+
+  /* ---- BUTTONS: kích thước phù hợp cho web mobile ---- */
+  .btn{min-height:44px;padding:11px 16px;font-size:.88rem;border-radius:22px;gap:6px}
+  .btn-lg{min-height:46px;padding:12px 18px;font-size:.9rem}
+  .btn-row{gap:9px}
+
+  /* ---- HERO ---- */
+  .hero{padding:22px 0 26px}
+  .hero-grid{gap:22px}
+  .hero-eyebrow{font-size:.72rem;padding:5px 11px;margin-bottom:12px;gap:6px}
+  .hero-h1{font-size:1.6rem;line-height:1.22;margin-bottom:11px}
+  .hero-sub{font-size:.9rem;line-height:1.55;margin-bottom:15px}
+  .disease-pills{gap:6px;margin-bottom:15px}
+  .disease-pill{font-size:.75rem;padding:5px 11px}
+  .hero-tip{font-size:.8rem;padding:10px 13px;margin-bottom:16px}
+  .hero-badges{font-size:.75rem;gap:6px 14px;margin-top:12px}
+
+  /* ---- HERO FORM CARD ---- */
+  .form-card{padding:18px;border-radius:14px}
+  .form-card-title{font-size:.98rem}
+  .form-card-sub{font-size:.8rem;margin-bottom:14px;padding-bottom:11px}
+  .form-grid{gap:11px}
+  .fg label{font-size:.8rem;margin-bottom:5px}
+  .fg input,.fg select{min-height:44px;padding:10px 12px}   /* giữ 16px chống zoom iOS */
+  .form-disc{font-size:.72rem;margin-top:8px}
+  .form-succ{font-size:.85rem;padding:13px}
+
+  /* ---- CARDS ---- */
+  .grid,.grid-2,.grid-4{gap:12px}
+  .card{padding:15px;border-radius:12px}
+  .card-icon{width:38px;height:38px;border-radius:10px;margin-bottom:9px}
+  .card-icon svg{width:20px;height:20px}
+  .card-title{font-size:.9rem;margin-bottom:5px}
+  .card-body{font-size:.82rem;line-height:1.55}
+  .card-note{font-size:.72rem;padding:2px 8px;margin-bottom:6px}
+  .elig-title{font-size:.9rem;padding:8px 13px;margin-bottom:11px}
+  .elig-body{gap:8px}
+  .elig-body>div{padding-left:23px}
+  .elig-body>div::before{width:16px;height:16px}
+  .callout{font-size:.85rem;padding:13px 16px}
+  .exclude-note{font-size:.82rem;padding:11px 14px}
+
+  /* ---- HIGHLIGHT (giá): 2 card chia 2 CỘT đều nhau ---- */
+  .highlight-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+    padding-top:12px;
+  }
+  .highlight-card{
+    padding:12px 11px;border-radius:12px;
+  }
+  .highlight-badge{font-size:.6rem;padding:3px 8px;top:-10px;left:11px}
+  /* Bỏ dòng "Chương trình 2..." trên mobile */
+  .highlight-age{display:none}
+  .highlight-price{font-size:1.15rem;line-height:1.15}
+  /* Số tiền và đơn vị cùng 1 dòng (bỏ display:block) */
+  .highlight-price span{font-size:.68rem;display:inline;font-weight:600}
+  /* Card 2: hiện bản giá đã gộp (392.000), ẩn bản 349.000 + 43.000 */
+  .price-desktop{display:none}
+  .price-mobile{display:block}
+  .highlight-item{font-size:.72rem;gap:5px;line-height:1.4}
+  .highlight-list{gap:8px;margin-top:9px}
+  /* Ẩn 2 box ghi chú (💰 tiền mặt / 👶 tay chân miệng) trên mobile */
+  .highlight-card .benefit-tip{display:none}
+
+  /* ---- PROGRAM CARDS (mobile): 6 CT hiện NGANG, vuốt trái/phải ---- */
+  /* Bỏ nút thu gọn + luôn hiện panel trên mobile */
+  .expand-toggle{display:none}
+  #expand-panel{display:block !important;margin-top:14px}
+  .programs-swipe-hint{
+    display:block;text-align:center;
+    font-size:.75rem;color:var(--ts);
+    margin:2px 0 8px;font-weight:600;
+  }
+  .programs-cards{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:2px 0 8px;
+    scrollbar-width:none;
+  }
+  .programs-cards::-webkit-scrollbar{display:none}
+  .program-card{
+    flex:0 0 100%;          /* 1 card chiếm trọn màn hình */
+    scroll-snap-align:center;
+    padding:18px 16px;border-radius:14px;margin-bottom:0;
+  }
+  .program-card-title{font-size:1.02rem;margin-bottom:11px;padding-bottom:9px}
+  .program-row{font-size:.88rem;padding:7px 0}
+  .price-note{margin-top:6px}
+
+  /* ---- CALCULATOR ---- */
+  .calc-box{padding:16px;border-radius:14px}
+  .calc-check{font-size:.85rem;margin-bottom:16px;gap:9px}
+  .calc-result{padding:15px 16px}
+  .calc-row{font-size:.85rem}
+  .calc-total-row{font-size:1rem}
+  .price-note{font-size:.78rem;margin-top:10px}
+
+  /* ---- STEPS: grid 2 cột (B1 trái, B2 phải, B3 dưới B1) ---- */
+  .steps-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .step-card{padding:16px 12px;border-radius:14px}
+  .step-num{width:34px;height:34px;font-size:.95rem;margin-bottom:9px}
+  .step-title{font-size:.85rem;margin-bottom:5px}
+  .step-body{font-size:.76rem;line-height:1.45}
+
+  /* ---- CLAIM STEPS: Vertical Stepper trên mobile ---- */
+  .claim-steps{
+    display:block;
+    grid-template-columns:none;
+    position:relative;
+    padding-left:6px;
+  }
+  .claim-step{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    text-align:left;
+    background:transparent;
+    border:none;
+    border-radius:0;
+    padding:0 0 22px 0;
+    position:relative;
+  }
+  /* Đường nối dọc giữa các bước */
+  .claim-step::before{
+    content:'';
+    position:absolute;
+    left:16px;top:34px;bottom:-2px;
+    width:2px;
+    background:rgba(0,116,55,.2);
+  }
+  .claim-step:last-child{padding-bottom:0}
+  .claim-step:last-child::before{display:none}
+  .claim-num{
+    width:34px;height:34px;
+    font-size:.9rem;
+    margin:0;
+    flex-shrink:0;
+    box-shadow:0 0 0 3px rgba(0,116,55,.15);
+    position:relative;z-index:1;
+  }
+  .claim-content{padding-top:5px}
+  .claim-title{font-size:.9rem;margin-bottom:4px}
+  .claim-body{font-size:.8rem;line-height:1.5}
+  .claim-note{margin-top:18px;font-size:.85rem;padding:13px 16px}
+
+  /* ---- FAQ ---- */
+  .faq-list{gap:7px}
+  .faq-q{padding:13px 15px;font-size:.87rem;gap:10px}
+  .faq-a{font-size:.83rem;line-height:1.6}
+  .faq-item.open .faq-a{padding:0 15px 13px}
+
+  /* ---- CTA FINAL ---- */
+  .cta-final .lead{font-size:.85rem}
+  .cta-trust{font-size:.82rem;margin:11px 0 16px}
+  .cta-form-box{padding:16px;border-radius:14px}
+  .trust-row{gap:9px 18px;margin-top:18px}
+  .trust-row-item{font-size:.78rem}
+
+  /* ---- WHY US ---- */
+  .whyus-row{gap:13px;margin-top:26px;padding-top:22px}
+  .whyus-icon{font-size:1.15rem}
+  .whyus-text{font-size:.8rem}
+  .whyus-text strong{font-size:.82rem}
+
+  /* ---- FOOTER ---- */
+  .footer{padding:30px 0 16px}
+  .footer-grid{gap:22px;margin-bottom:22px}
+  .f-tel{font-size:1.05rem}
+  .f-email{font-size:.82rem}
+  .f-h4{font-size:.8rem;margin-bottom:10px}
+  .f-links{gap:7px}
+  .f-links a{font-size:.83rem}
+  .f-copy{font-size:.76rem}
+  .f-disc{font-size:.74rem}
+
+  /* ---- STICKY BOTTOM BAR ---- */
+  .sticky-bottom{padding:7px 12px}
+  .sticky-bottom a,.sticky-bottom button{min-height:44px;font-size:.82rem;padding:9px 10px}
 }
-.hdr-allprod svg{flex-shrink:0}
-.hdr-allprod:hover{background:var(--g);color:#fff}
-@media(max-width:768px){
-  .hdr-nav,.hdr-cta{display:none!important}
-  .hdr-allprod{margin-left:auto}
+
+/* Màn hình rất nhỏ (<=360px): siết thêm một nấc */
+@media(max-width:360px){
+  .hero-h1{font-size:1.42rem}
+  .sec-h2{font-size:1.22rem}
+  .highlight-price{font-size:1.28rem}
+  .disease-pill{font-size:.72rem;padding:4px 9px}
 }
-/* ============ float-btn gold ============ */
-.float-btn{
-  background:var(--gold)!important;
-  box-shadow:0 4px 20px rgba(232,146,10,.4)!important;
-  animation:none!important;
+
+/* ══ HEADER SYNC ══ */
+.hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:78px;gap:8px}
+.hdr-logo{flex-shrink:0;margin-right:24px;text-decoration:none}
+.hdr-logo img{height:66px;width:auto;display:block}
+.hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
+.hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
+.hdr-nav a:hover{color:var(--g);background:var(--gl)}
+.hdr-nav a.active{color:var(--g);font-weight:700;position:relative}
+.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g);border-radius:2px}
+.hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap;background:none;cursor:pointer;font-family:inherit}
+.btn-catalog-hdr:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+.btn-login{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-login:hover{border-color:var(--g);color:var(--g)}
+.btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--gold);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-consult-hdr:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
+.hdr-cat-wrap{position:relative;display:inline-flex}
+@media(min-width:641px){.hdr-cat-wrap{display:none}}
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
+.cat-dropdown.open{display:block}
+.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.cat-dd-item:hover{background:var(--gl);color:var(--g)}
+.cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
+.cat-dd-parent{font-weight:600}
+.cat-dd-parent.open .dd-arr{transform:rotate(180deg)}
+.cat-dd-sub{display:none;border-left:2px solid var(--gl);margin:2px 4px 4px 20px;padding:2px 0}
+.cat-dd-sub.open{display:block}
+.cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts)}
+.cat-dd-sub-item:hover{color:var(--g);background:var(--gl)}
+.nav-dd-wrap{position:relative;display:inline-flex}
+.nav-dd{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--bd);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:6px;min-width:190px;z-index:500}
+.nav-dd-wrap:hover .nav-dd{display:block}
+.nav-dd a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;text-decoration:none;color:#1C1C1C;font-size:13px;font-weight:500;transition:.15s;white-space:nowrap}
+.nav-dd a:hover{background:var(--gl);color:var(--g)}
+@media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
+@media(max-width:640px){
+  .hdr-inner{padding:0 16px}
+  .hdr-logo img{height:54px}
+  .hdr-nav{display:none}
+  .btn-login{display:none}
+  .btn-consult-hdr{display:none}
+  .hdr-actions{margin-left:auto}
+  .btn-catalog-hdr .btn-cat-text{display:none}
+  .btn-catalog-hdr{padding:8px 10px;border-radius:10px}
 }
-.float-btn:hover{background:var(--goldd)!important}
+/* ══ END HEADER SYNC ══ */
+
+/* ══ FOOTER SYNC ══ */
+.ftr{background:#f4f7f5;border-top:1px solid var(--bd);margin-top:0}
+.ftr-inner{max-width:1280px;margin:0 auto;padding:28px 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+.ftr-logo{height:88px;width:auto;display:block;margin-bottom:18px}
+.ftr-brand-desc{font-size:13px;color:var(--ts);line-height:1.7;margin-bottom:12px}
+.ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:8px;line-height:1.5}
+.ftr-info a:hover{color:var(--g)}
+.ftr-info a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0;margin-top:2px}
+.ftr-col h4,.ftr-contact h4{font-size:11px;font-weight:700;color:var(--dk);text-transform:uppercase;letter-spacing:.7px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.ftr-col a{display:block;font-size:13px;color:var(--tm);text-decoration:none;margin-bottom:10px;line-height:1.5;transition:.15s}
+.ftr-col a:hover{color:var(--g);padding-left:4px}
+.ftr-social{display:flex;gap:10px;margin-bottom:24px}
+.ftr-social a{width:38px;height:38px;border-radius:50%;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a:hover{background:var(--g);transform:translateY(-2px)}
+.ftr-social svg{width:17px;height:17px;fill:#fff}
+.ftr-phone-label{font-size:11px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ftr-hotline{font-size:22px;font-weight:800;color:var(--g);text-decoration:none;letter-spacing:-.5px;display:block;line-height:1.2}
+.ftr-hotline:hover{color:var(--gd,#005a2b)}
+.ftr-copy{border-top:1px solid var(--bd)}
+.ftr-copy-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ts)}
+.ftr-copy-inner a{color:var(--ts);text-decoration:none}
+.ftr-copy-inner a:hover{color:var(--g)}
+@media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
+@media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 20px 28px}.ftr-copy-inner{padding:14px 20px;flex-direction:column;text-align:center}}
+/* ══ END FOOTER SYNC ══ */
+
 </style>
 </head>
 <body>
 
-<!-- Netlify form detectors -->
-<form name="dbv-tuvan" netlify netlify-honeypot="bot-field" hidden>
-  <input name="san-pham"/><input name="dien-thoai"/><input name="ho-ten"/><input name="email"/><input name="so-nguoi"/>
-</form>
-<form name="dbv-float" netlify netlify-honeypot="bot-field" hidden>
-  <input name="san-pham"/><input name="dien-thoai"/>
-</form>
 
 <!-- HEADER -->
 <header class="hdr">
-  <div class="container hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV Insurance" style="height:85px;width:auto;display:block"/></a>
+  <div class="hdr-inner">
+    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
     <nav class="hdr-nav">
-      <a href="#quyen-loi-gia">Quyền lợi &amp; Giá</a>
-      <a href="#tinh-phi">Tính phí</a>
-      <a href="#quy-trinh">Quy trình</a>
-      <a href="#luu-y">Cần biết</a>
-      <a href="#faq">FAQ</a>
+      <div class="nav-dd-wrap">
+        <a href="/san-pham">Sản phẩm <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <div class="nav-dd">
+          <a href="/bao-hiem-vat-chat-oto">Xe ô tô</a>
+          <a href="/bao-hiem-suc-khoe">Sức khỏe</a>
+          <a href="/bao-hiem-tai-san">Tài sản</a>
+          <a href="/bao-hiem-du-lich">Du lịch</a>
+          <a href="/bao-hiem-hang-hai">Hàng hải</a>
+        </div>
+      </div>
+      <a href="/boi-thuong">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
     </nav>
-    <a href="https://zalo.me/1283738895804393564" class="hdr-cta" target="_blank" rel="noopener">Liên hệ tư vấn</a>
-    <a href="/san-pham" class="hdr-allprod"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Tất cả sản phẩm</a>
+    <div class="hdr-actions">
+      <div class="hdr-cat-wrap">
+        <button class="btn-catalog-hdr" onclick="toggleCatDropdown(event)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="btn-cat-text">Danh mục</span>
+        </button>
+        <div class="cat-dropdown" id="cat-dropdown">
+          <button class="cat-dd-item cat-dd-parent" onclick="toggleSubMenu(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            Sản phẩm
+            <svg class="dd-arr" viewBox="0 0 24 24" width="12" height="12" style="margin-left:auto;stroke:currentColor;fill:none;stroke-width:2;transition:.2s"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cat-dd-sub" id="sub-sanpham">
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-vat-chat-oto" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe ô tô</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Sức khỏe</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-tai-san" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-du-lich" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>Du lịch</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/bao-hiem-hang-hai" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải</a>
+          </div>
+          <div class="cat-dd-sep"></div>
+          <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Bồi thường</a>
+          <a class="cat-dd-item" href="/servicemap" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="19" x2="10" y2="19"/><line x1="14" y1="19" x2="17" y2="19"/></svg>Mạng lưới dịch vụ</a>
+          <a class="cat-dd-item" href="/ve-dbv" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/></svg>Về DBV247</a>
+        </div>
+      </div>
+      <a href="tel:0869656561" class="btn-login">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        0869 656 561
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="btn-consult-hdr" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Nhận tư vấn
+      </a>
+    </div>
   </div>
 </header>
-
-
 
 <!-- TRUST STRIP -->
 <div class="trust-strip">
@@ -517,7 +879,7 @@ button{font-family:inherit;cursor:pointer}
         <p class="hero-sub">1 lần nằm viện có thể tốn vài triệu đồng — chỉ từ dưới 5.000đ/tháng (CT1, 16-60 tuổi) để yên tâm cả năm cho cả gia đình.</p>
 
         <div class="hero-tip">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;vertical-align:middle;color:var(--gold)"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg> Có <strong>30 ngày thời gian chờ</strong> — đăng ký sớm để được bảo vệ trọn vẹn trước khi mùa dịch đến.
+          💡 Có <strong>30 ngày thời gian chờ</strong> — đăng ký sớm để được bảo vệ trọn vẹn trước khi mùa dịch đến.
         </div>
 
         <div class="btn-row">
@@ -528,9 +890,9 @@ button{font-family:inherit;cursor:pointer}
           <a href="tel:0869656561" class="btn btn-outline btn-lg">Gọi ngay 0869 656 561</a>
         </div>
 
-        <div class="hero-badges">
-          <div class="hero-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;vertical-align:middle"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> GCN điện tử ngay sau thanh toán</div>
-          <div class="hero-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Tư vấn 24/7</div>
+        <div class="hero-badges hide-mobile">
+          <div class="hero-badge">GCN điện tử ngay sau thanh toán</div>
+          <div class="hero-badge">🕐 Tư vấn 24/7</div>
         </div>
       </div>
 
@@ -548,10 +910,6 @@ button{font-family:inherit;cursor:pointer}
               <input type="tel" id="h-phone" placeholder="09xx xxx xxx"/>
             </div>
             <div class="fg">
-              <label for="h-email">Email</label>
-              <input type="email" id="h-email" placeholder="email@example.com"/>
-            </div>
-            <div class="fg">
               <label for="h-people">Số người cần bảo hiểm</label>
               <select id="h-people">
                 <option value="">— Chọn số người —</option>
@@ -566,8 +924,8 @@ button{font-family:inherit;cursor:pointer}
           <button class="btn btn-green" style="width:100%;margin-top:14px" onclick="submitForm('hero')">
             Đăng Ký Tư Vấn Ngay
           </button>
-          <div class="form-succ" id="hero-succ"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--g);border-radius:50%;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> Đã ghi nhận! Chuyên viên DBV Thành Đô sẽ liên hệ bạn sớm nhất.</div>
-          <p class="form-disc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;vertical-align:middle;opacity:.6"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Thông tin của bạn được bảo mật tuyệt đối, không chia sẻ với bên thứ ba.</p>
+          <div class="form-succ" id="hero-succ">✅ Đã ghi nhận! Chuyên viên DBV Thành Đô sẽ liên hệ bạn sớm nhất.</div>
+          <p class="form-disc">🔒 Thông tin của bạn được bảo mật tuyệt đối, không chia sẻ với bên thứ ba.</p>
         </div>
       </div>
     </div>
@@ -577,7 +935,7 @@ button{font-family:inherit;cursor:pointer}
 <!-- ============ SECTION 2: BAO VE GI / GIA BAO NHIEU ============ -->
 <section class="section section-alt" id="quyen-loi-gia">
   <div class="container">
-    <div class="sec-head">
+    <div class="sec-head center-web">
       <span class="sec-tag">Quyền lợi &amp; Biểu phí</span>
       <h2 class="sec-h2">Bảo Vệ Gì? Giá Bao Nhiêu?</h2>
       <p class="sec-sub">Mức phổ biến nhất — đủ dùng cho phần lớn gia đình. Có 6 chương trình để lựa chọn theo nhu cầu.</p>
@@ -593,20 +951,21 @@ button{font-family:inherit;cursor:pointer}
           <div class="highlight-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Trợ cấp nằm viện: 50.000đ/ngày (tối đa 1.500.000đ/năm)</div>
         </div>
         <div class="callout benefit-tip" style="margin-top:14px;text-align:left;padding:12px 14px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;vertical-align:middle;color:var(--g)"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg> Khoản trợ cấp này là <strong>tiền mặt</strong> — bù đắp thu nhập bị mất những ngày không thể đi làm, không cần hóa đơn chứng minh.
+          💰 Khoản trợ cấp này là <strong>tiền mặt</strong> — bù đắp thu nhập bị mất những ngày không thể đi làm, không cần hóa đơn chứng minh.
         </div>
       </div>
 
       <div class="highlight-card">
         <span class="highlight-badge">Phổ biến · 01-15 tuổi</span>
         <div class="highlight-age">Chương trình 2 + Ngoại trú</div>
-        <div class="highlight-price">349.000<span>+ 43.000đ/năm</span></div>
+        <div class="highlight-price price-desktop">349.000<span>+ 43.000đ/năm</span></div>
+        <div class="highlight-price price-mobile">392.000<span>đ/năm</span></div>
         <div class="highlight-list">
           <div class="highlight-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Nằm viện điều trị: 4.000.000đ/năm</div>
           <div class="highlight-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Điều trị ngoại trú: 2.000.000đ/năm (5 lần/năm)</div>
         </div>
         <div class="callout benefit-tip" style="margin-top:14px;text-align:left;padding:12px 14px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;vertical-align:middle;color:var(--g)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Tay chân miệng, cúm ở trẻ thường điều trị tại nhà — nên mua thêm <strong>Quyền lợi ngoại trú</strong> để được bảo vệ đầy đủ.
+          👶 Tay chân miệng, cúm ở trẻ thường điều trị tại nhà — nên mua thêm <strong>Quyền lợi ngoại trú</strong> để được bảo vệ đầy đủ.
         </div>
       </div>
     </div>
@@ -616,44 +975,29 @@ button{font-family:inherit;cursor:pointer}
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
 
+    <p class="programs-swipe-hint">← Vuốt ngang để xem 6 chương trình →</p>
+
     <div class="expand-panel" id="expand-panel">
       <!-- Desktop/tablet table -->
       <div class="programs-table-wrap">
         <table class="programs">
-          <thead>
-            <tr>
-              <th style="width:36%">Quyền lợi / Phí</th>
-              <th>CT1</th><th>CT2</th><th>CT3</th><th>CT4</th><th>CT5</th><th>CT6</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Quyền lợi / Phí</th><th>CT1</th><th>CT2</th><th>CT3</th><th>CT4</th><th>CT5</th><th>CT6</th></tr></thead>
           <tbody>
-            <!-- GROUP 1: Benefits -->
-            <tr class="tbl-group-row">
-              <td colspan="7">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Quyền lợi bảo hiểm
-              </td>
-            </tr>
+            <tr class="group-row"><td colspan="7">QUYỀN LỢI BẢO HIỂM</td></tr>
             <tr><td>Nằm viện điều trị (STBH/năm)</td><td class="rate">2.000.000</td><td class="rate">4.000.000</td><td class="rate">6.000.000</td><td class="rate">7.000.000</td><td class="rate">11.500.000</td><td class="rate">16.000.000</td></tr>
             <tr><td>Trợ cấp nằm viện /ngày</td><td>50.000</td><td>50.000</td><td>50.000</td><td>100.000</td><td>150.000</td><td>200.000</td></tr>
             <tr><td>Trợ cấp nằm viện /năm (tối đa)</td><td>1.500.000</td><td>1.500.000</td><td>1.500.000</td><td>3.000.000</td><td>4.500.000</td><td>6.000.000</td></tr>
             <tr><td>Điều trị ngoại trú (STBH/năm)*</td><td>1.000.000</td><td>2.000.000</td><td>3.000.000</td><td>3.500.000</td><td>5.750.000</td><td>8.000.000</td></tr>
             <tr><td>Giới hạn/lần khám*</td><td>200.000</td><td>400.000</td><td>600.000</td><td>700.000</td><td>1.150.000</td><td>1.600.000</td></tr>
-            <!-- GROUP 2: Fees -->
-            <tr class="tbl-group-row tbl-group-fee">
-              <td colspan="7">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>
-                Phí bảo hiểm hằng năm
-              </td>
-            </tr>
-            <tr class="tbl-fee-row"><td>Phí chính · 01-15 tuổi (đ/năm)</td><td>184.000</td><td>349.000</td><td>515.000</td><td>615.000</td><td>1.008.000</td><td>1.398.000</td></tr>
-            <tr class="tbl-fee-row tbl-fee-highlight"><td>Phí chính · 16-60 tuổi (đ/năm)</td><td class="rate">58.000</td><td class="rate">111.000</td><td class="rate">164.000</td><td class="rate">195.000</td><td class="rate">318.000</td><td class="rate">441.000</td></tr>
-            <tr class="tbl-fee-row tbl-fee-sub"><td>Phí bổ sung* · 01-15 tuổi (đ/năm)</td><td>22.000</td><td>43.000</td><td>64.000</td><td>75.000</td><td>122.000</td><td>170.000</td></tr>
-            <tr class="tbl-fee-row tbl-fee-sub"><td>Phí bổ sung* · 16-60 tuổi (đ/năm)</td><td>7.000</td><td>14.000</td><td>21.000</td><td>24.000</td><td>39.000</td><td>54.000</td></tr>
+            <tr class="group-row"><td colspan="7">PHÍ BẢO HIỂM HẰNG NĂM</td></tr>
+            <tr><td>Phí chính · 01-15 tuổi (đ/năm)</td><td>184.000</td><td>349.000</td><td>515.000</td><td>615.000</td><td>1.008.000</td><td>1.398.000</td></tr>
+            <tr class="fee-main"><td>Phí chính · 16-60 tuổi (đ/năm)</td><td class="rate">58.000</td><td class="rate">111.000</td><td class="rate">164.000</td><td class="rate">195.000</td><td class="rate">318.000</td><td class="rate">441.000</td></tr>
+            <tr><td>Phí bổ sung* · 01-15 tuổi (đ/năm)</td><td>22.000</td><td>43.000</td><td>64.000</td><td>75.000</td><td>122.000</td><td>170.000</td></tr>
+            <tr><td>Phí bổ sung* · 16-60 tuổi (đ/năm)</td><td>7.000</td><td>14.000</td><td>21.000</td><td>24.000</td><td>39.000</td><td>54.000</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> Vuốt ngang để xem đầy đủ bảng</div>
+      <div class="table-scroll-hint">→ Vuốt ngang để xem đầy đủ bảng</div>
 
       <!-- Mobile stacked cards -->
       <div class="programs-cards">
@@ -753,7 +1097,6 @@ button{font-family:inherit;cursor:pointer}
       <button class="btn btn-green" style="width:100%" onclick="scrollToForm()">
         Đăng Ký Tư Vấn Với Mức Phí Này
       </button>
-      <p class="price-note">* Mức phí tham khảo theo biểu phí chính thức của DBV. Liên hệ DBV Thành Đô để được tư vấn chính xác nhất.</p>
     </div>
   </div>
 </section>
@@ -789,47 +1132,84 @@ button{font-family:inherit;cursor:pointer}
 <!-- ============ SECTION 5: CAN BIET TRUOC KHI MUA ============ -->
 <section class="section" id="luu-y">
   <div class="container">
-    <div class="sec-head">
+    <div class="sec-head center-web">
       <span class="sec-tag">Minh bạch quyền lợi</span>
       <h2 class="sec-h2">Cần Biết Trước Khi Mua</h2>
       <p class="sec-sub">Thông tin rõ ràng, đầy đủ để bạn yên tâm quyết định.</p>
     </div>
 
     <div class="grid-2">
-      <div class="card" style="border-color:var(--g)">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-          <div class="card-icon" style="margin-bottom:0;flex-shrink:0">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div class="card-title" style="margin-bottom:0">Đủ điều kiện</div>
-        </div>
-        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg><span>Từ đủ <strong>01 – 60 tuổi</strong>. Trẻ 01-15 tuổi phải đăng ký cùng cha hoặc mẹ, chương trình tương đương hoặc thấp hơn.</span></div>
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg><span>Thời gian chờ: <strong>30 ngày</strong> kể từ ngày hợp đồng có hiệu lực.</span></div>
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg><span>Mỗi người tham gia tối đa <strong>01 hợp đồng</strong> tại 01 thời điểm.</span></div>
+      <div class="card elig-card" style="border-color:var(--g)">
+        <div class="elig-title elig-ok">Đủ điều kiện</div>
+        <div class="card-body elig-body elig-body-ok">
+          <div>Từ đủ <strong>01 – 60 tuổi</strong>. Trẻ 01-15 tuổi phải đăng ký cùng cha hoặc mẹ, chương trình tương đương hoặc thấp hơn.</div>
+          <div>Thời gian chờ: <strong>30 ngày</strong> kể từ ngày hợp đồng có hiệu lực.</div>
+          <div>Mỗi người tham gia tối đa <strong>01 hợp đồng</strong> tại 01 thời điểm.</div>
         </div>
       </div>
 
-      <div class="card" style="border-color:var(--gold)">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-          <div class="card-icon warn" style="margin-bottom:0;flex-shrink:0">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div class="card-title" style="margin-bottom:0">Không áp dụng</div>
+      <div class="card elig-card" style="border-color:var(--gold)">
+        <div class="elig-title elig-warn">Không áp dụng</div>
+        <div class="card-body elig-body elig-body-warn">
+          <div>Bệnh ngoài danh mục 5 bệnh nhiệt đới, chi phí thai sản.</div>
+          <div>Điều trị tại spa, viện dưỡng lão hoặc nơi không phải cơ sở y tế hợp pháp.</div>
+          <div>Thực phẩm chức năng, vitamin, khám sức khỏe định kỳ/tổng quát.</div>
+          <div>Dịch bệnh/đại dịch được WHO hoặc Nhà nước công bố chính thức.</div>
+          <div>Người đang mắc ung thư, tâm thần, phong, hoặc thương tật vĩnh viễn từ 80% trở lên.</div>
         </div>
-        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Bệnh ngoài danh mục 5 bệnh nhiệt đới, chi phí thai sản.</span></div>
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Điều trị tại spa, viện dưỡng lão hoặc nơi không phải cơ sở y tế hợp pháp.</span></div>
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Thực phẩm chức năng, vitamin, khám sức khỏe định kỳ/tổng quát.</span></div>
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Dịch bệnh/đại dịch được WHO hoặc Nhà nước công bố chính thức.</span></div>
-          <div style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Người đang mắc ung thư, tâm thần, phong, hoặc thương tật vĩnh viễn từ 80% trở lên.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5B: QUY TRÌNH 5 BƯỚC BỒI THƯỜNG ============ -->
+<section class="section" id="quy-trinh-boi-thuong">
+  <div class="container">
+    <div class="sec-head center-web">
+      <span class="sec-tag">Quy trình đơn giản</span>
+      <h2 class="sec-h2">Chỉ 5 Bước — Bồi Thường Qua Ứng Dụng DBV Connect</h2>
+      <p class="sec-sub">Không cần đến văn phòng — toàn bộ quy trình thực hiện ngay trên điện thoại.</p>
+    </div>
+
+    <div class="claim-steps">
+      <div class="claim-step">
+        <div class="claim-num">1</div>
+        <div class="claim-content">
+          <div class="claim-title">Nhập thông tin đối tượng &amp; rủi ro</div>
+          <div class="claim-body">Chọn hợp đồng, nhập thông tin người được bảo hiểm và loại rủi ro (ốm bệnh…).</div>
+        </div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-num">2</div>
+        <div class="claim-content">
+          <div class="claim-title">Tải chứng từ yêu cầu bồi thường</div>
+          <div class="claim-body">Chụp/tải lên Giấy yêu cầu trả tiền bảo hiểm và Giấy chứng nhận hợp đồng.</div>
+        </div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-num">3</div>
+        <div class="claim-content">
+          <div class="claim-title">Nhập thông tin thanh toán</div>
+          <div class="claim-body">Chọn hình thức nhận tiền: chuyển khoản hoặc tiền mặt.</div>
+        </div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-num">4</div>
+        <div class="claim-content">
+          <div class="claim-title">Tải chứng từ y tế</div>
+          <div class="claim-body">Tải ảnh/scan sổ khám, toa thuốc, kết quả xét nghiệm liên quan.</div>
+        </div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-num">5</div>
+        <div class="claim-content">
+          <div class="claim-title">Ký xác nhận bằng OTP</div>
+          <div class="claim-body">Nhập mã OTP và hoàn tất ký điện tử ngay trên ứng dụng.</div>
         </div>
       </div>
     </div>
 
-    <div class="exclude-note" style="margin-top:20px">
-      <strong>Khi cần bồi thường:</strong> tạo yêu cầu ngay trên ứng dụng <strong>DBV Connect</strong> — thông báo tổn thất trong vòng 30 ngày, nộp hồ sơ trong 12 tháng, xử lý tối đa <strong>15 ngày làm việc</strong>.
-    </div>
+    <div class="claim-note">🕐 Kết quả xử lý trong tối đa <strong>15 ngày làm việc</strong> kể từ khi nhận đủ hồ sơ hợp lệ.</div>
   </div>
 </section>
 
@@ -844,28 +1224,28 @@ button{font-family:inherit;cursor:pointer}
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Thời gian chờ của bảo hiểm là bao lâu?</span>
-          <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          <span class="arr">▼</span>
         </button>
         <div class="faq-a">30 ngày kể từ ngày hợp đồng có hiệu lực. Nếu phát sinh chi phí điều trị trong 30 ngày đầu tiên, bảo hiểm sẽ không chi trả cho quyền lợi đó.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Ai đủ điều kiện tham gia?</span>
-          <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          <span class="arr">▼</span>
         </button>
         <div class="faq-a">Người từ đủ 01 đến 60 tuổi. Trẻ em 01-15 tuổi phải đăng ký cùng cha hoặc mẹ, chương trình tương đương hoặc thấp hơn. Không áp dụng cho người đang mắc ung thư, tâm thần, phong, hoặc thương tật vĩnh viễn từ 80% trở lên.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Nếu quên thông báo tổn thất trong 30 ngày thì sao?</span>
-          <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          <span class="arr">▼</span>
         </button>
         <div class="faq-a">Theo Quy tắc bảo hiểm, cần thông báo tổn thất trong vòng 30 ngày kể từ ngày ra viện hoặc ngày khám bệnh. Nếu không thông báo đúng hạn (trừ bất khả kháng), DBV có thể giảm trừ một phần hoặc toàn bộ số tiền bồi thường.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span>Có được bồi thường nếu bệnh được công bố thành dịch không?</span>
-          <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          <span class="arr">▼</span>
         </button>
         <div class="faq-a">Không. Bảo hiểm không chi trả chi phí phát sinh do hậu quả trực tiếp hoặc gián tiếp của dịch bệnh, đại dịch hoặc tình trạng y tế khẩn cấp được WHO hoặc cơ quan Nhà nước công bố chính thức.</div>
       </div>
@@ -878,7 +1258,6 @@ button{font-family:inherit;cursor:pointer}
   <div class="container">
     <h2>Để Lại Thông Tin — Nhận Tư Vấn Miễn Phí</h2>
     <p class="lead">Chuyên viên DBV Thành Đô liên hệ tư vấn 1-1 <strong style="color:var(--gold)">nhanh chóng</strong> — không làm phiền, không ép mua.</p>
-    <div class="cta-trust"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--g);border-radius:50%;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> Thanh toán xong — nhận Giấy chứng nhận điện tử ngay lập tức, không cần chờ đợi.</div>
 
     <div class="cta-form-box">
       <div class="form-grid two-col">
@@ -889,10 +1268,6 @@ button{font-family:inherit;cursor:pointer}
         <div class="fg">
           <label for="c-phone">Số điện thoại *</label>
           <input type="tel" id="c-phone" placeholder="09xx xxx xxx"/>
-        </div>
-        <div class="fg">
-          <label for="c-email">Email</label>
-          <input type="email" id="c-email" placeholder="email@example.com"/>
         </div>
         <div class="fg">
           <label for="c-people">Số người cần bảo hiểm</label>
@@ -906,11 +1281,10 @@ button{font-family:inherit;cursor:pointer}
           </select>
         </div>
       </div>
-      <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener"
-         class="btn btn-gold" style="width:100%;margin-top:14px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Liên Hệ Tư Vấn Qua Zalo
-      </a>
+      <button class="btn btn-gold" style="width:100%;margin-top:14px" onclick="submitForm('cta')">
+        Đăng Ký Tư Vấn Miễn Phí Ngay
+      </button>
+      <div class="form-succ" id="cta-succ">✅ Đã ghi nhận! Chuyên viên DBV Thành Đô sẽ liên hệ bạn sớm nhất.</div>
     </div>
 
     <div class="trust-row">
@@ -919,21 +1293,21 @@ button{font-family:inherit;cursor:pointer}
       <div class="trust-row-item">Bảo mật thông tin tuyệt đối</div>
     </div>
 
-    <div class="whyus-row">
+    <div class="whyus-row hide-mobile">
       <div class="whyus-item">
-        <div class="whyus-icon" style="display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="whyus-icon">🎯</div>
         <div class="whyus-text"><strong>Sản phẩm phù hợp</strong>Đúng nhu cầu, ngân sách gia đình bạn</div>
       </div>
       <div class="whyus-item">
-        <div class="whyus-icon" style="display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;vertical-align:middle;color:var(--g)"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg></div>
+        <div class="whyus-icon">💰</div>
         <div class="whyus-text"><strong>Giá tốt</strong>Chỉ từ dưới 5.000đ/tháng</div>
       </div>
       <div class="whyus-item">
-        <div class="whyus-icon" style="display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="whyus-icon">🤝</div>
         <div class="whyus-text"><strong>Tư vấn 1-1</strong>Giải thích rõ quyền lợi trước khi ký</div>
       </div>
       <div class="whyus-item">
-        <div class="whyus-icon" style="display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="whyus-icon"></div>
         <div class="whyus-text"><strong>Đồng hành sau bán</strong>Hỗ trợ hồ sơ đến khi nhận tiền</div>
       </div>
     </div>
@@ -943,83 +1317,103 @@ button{font-family:inherit;cursor:pointer}
 </main>
 
 <!-- FOOTER -->
-<!-- FOOTER -->
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <img src="/Logo header Footer.png" alt="DBV247" style="height:120px;width:auto;display:block;margin-bottom:14px;">
-        <div class="f-desc">
-          <strong style="color:var(--dk,#1B3A5C);font-size:13.5px">DBV247</strong> – Kênh tư vấn bảo hiểm online trực thuộc<br>
-          <span style="font-size:12.5px">Công ty cổ phần Tập đoàn Bảo hiểm DBV – Chi nhánh Thành Đô</span>
-        </div>
-        <div class="f-desc" style="font-size:12.5px;line-height:1.9;margin-top:6px">
-          <span style="opacity:.75">MST:</span> <span data-cms="tax-code">0102737963-059</span><br>
-          <span style="opacity:.75">Địa chỉ:</span> <span data-cms="address">BT20-C37, TDP 20, Phường Thanh Xuân, Thành phố Hà Nội</span>
-        </div>
-        <a href="tel:0869656561" class="f-tel">0869 656 561</a>
-        <a href="mailto:dbvi247@gmail.com" class="f-email">dbvi247@gmail.com</a>
-      </div>
-      <div>
-        <div class="f-h4">Sản Phẩm</div>
-        <ul class="f-links">
-          <li><a href="https://www.dbv247.com.vn/bao-hiem-xnk">BH Hàng Hóa XNK</a></li>
-          <li><a href="https://www.dbv247.com.vn/bao-hiem-vat-chat-oto">BH Vật Chất Ô Tô</a></li>
-          <li><a href="https://www.dbv247.com.vn/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a></li>
-          <li><a href="/san-pham">Xem tất cả sản phẩm</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-h4">Hỗ Trợ</div>
-        <ul class="f-links">
-          <li><a href="#process">Quy trình bồi thường</a></li>
-          <li><a href="#faq">Câu hỏi thường gặp</a></li>
-          <li><a href="#hero-form">Liên hệ tư vấn</a></li>
-          <li><a href="#">Điều khoản bảo hiểm</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-h4">Liên Hệ</div>
-        <ul class="f-links">
-          <li><a href="tel:0869656561"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 0869 656 561</a></li>
-          <li><a href="mailto:dbvi247@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> dbvi247@gmail.com</a></li>
-          <li><a href="https://zalo.me/1283738895804393564"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Zalo: 0869 656 561</a></li>
-          <li><a href="https://www.dbv247.com.vn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> www.dbv247.com.vn</a></li>
-        </ul>
+<footer class="ftr">
+  <div class="ftr-inner">
+    <div class="ftr-brand">
+      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV trực thuộc chi nhánh DBV Thành Đô</p>
+      <div class="ftr-info">
+        <a href="#">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          BT20-C37, TDP 20, Phường Thanh Xuân, TP Hà Nội, Việt Nam
+        </a>
+        <a href="tel:0869656561">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          0869 656 561
+        </a>
+        <a href="mailto:dbvi247@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          dbvi247@gmail.com
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          MST: 0102737963-059
+        </a>
       </div>
     </div>
-    <div class="f-bottom">
-      <div class="f-copy">© 2025 DBV247 – Kênh tư vấn bảo hiểm online. Bảo lưu mọi quyền.</div>
-      <div class="f-lic">Được cấp phép hoạt động bởi Bộ Tài chính Việt Nam</div>
+    <div class="ftr-col">
+      <h4>Sản phẩm</h4>
+      <a href="/bao-hiem-vat-chat-oto">Bảo hiểm Xe ô tô</a>
+      <a href="/bao-hiem-tnds-xemay">Bảo hiểm Xe máy</a>
+      <a href="/bao-hiem-suc-khoe">Bảo hiểm Sức khỏe</a>
+      <a href="/bao-hiem-du-lich">Bảo hiểm Du lịch</a>
+      <a href="/bao-hiem-tai-san">Bảo hiểm Tài sản</a>
+      <a href="/bao-hiem-hang-hai">Bảo hiểm Hàng hải</a>
+    </div>
+    <div class="ftr-col">
+      <h4>Công ty</h4>
+      <a href="/san-pham">Sản phẩm</a>
+      <a href="/boi-thuong">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/ve-dbv">Về DBV247</a>
+    </div>
+    <div class="ftr-contact">
+      <h4>Kết nối với chúng tôi</h4>
+      <div class="ftr-social">
+        <a href="https://www.facebook.com/TapdoanbaohiemDBV" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" aria-label="Zalo">
+          <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@tapdoanbaohiemdbv" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@TapdoanBaohiemDBV" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1a1a"/></svg>
+        </a>
+      </div>
+      <p class="ftr-phone-label">Liên hệ DBV247</p>
+      <a href="tel:0869656561" class="ftr-hotline">0869 656 561</a>
+    </div>
+  </div>
+  <div class="ftr-copy">
+    <div class="ftr-copy-inner">
+      <span>Copyright © 2025 DBV247. All rights reserved.</span>
+      <div style="display:flex;gap:16px">
+        <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+        <a href="/dieu-khoan-su-dung">Điều khoản sử dụng</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <!-- STICKY BOTTOM CTA (mobile) -->
 <div class="sticky-bottom" role="region" aria-label="Thao tác nhanh">
-  <a href="tel:0869656561" class="btn btn-outline" style="border-radius:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Gọi ngay</a>
+  <a href="tel:0869656561" class="btn btn-outline" style="border-radius:8px">Gọi ngay</a>
   <a href="#dang-ky" class="btn btn-green" style="border-radius:8px">Đăng ký tư vấn</a>
 </div>
 
-<!-- FLOATING CTA -->
+<!-- FLOATING CTA (desktop) -->
 <div class="float-cta" id="floatCta">
-  <div id="floatFormWrap" style="display:none;position:absolute;bottom:56px;right:0;width:260px;max-width:calc(100vw - 48px)">
-    <div style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,.2)">
-      <div style="font-size:13px;font-weight:800;color:var(--dk);margin-bottom:10px">Gọi lại cho tôi trong 15 phút</div>
-      <div class="fg" style="margin-bottom:10px">
-        <input type="tel" id="float-phone" placeholder="Số điện thoại *" style="width:100%;min-height:44px;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:16px;font-family:inherit"/>
+  <div class="float-form-wrap" id="floatFormWrap">
+    <div class="float-form-card">
+      <div class="float-form-title">Nhận tư vấn nhanh</div>
+      <div class="float-form-row">
+        <input type="tel" id="float-phone" placeholder="Số điện thoại..."/>
+        <button onclick="submitFloat()">Gửi</button>
       </div>
-      <button onclick="submitFloat()" style="width:100%;min-height:44px;background:var(--g);color:#fff;font-weight:700;font-size:.85rem;border:none;border-radius:8px;cursor:pointer;font-family:inherit">Gửi — nhận tư vấn 1:1</button>
-      <div id="float-succ" style="display:none;text-align:center;font-size:.8rem;font-weight:600;color:var(--g);margin-top:8px">&#10003; Đã nhận! DBV sẽ gọi lại bạn sớm nhất.</div>
+      <div class="float-succ" id="float-succ">✓ Đã nhận! Chúng tôi sẽ gọi lại sớm nhất.</div>
     </div>
   </div>
-  <div style="display:flex;gap:8px;align-items:center;justify-content:flex-end">
-    <a href="https://zalo.me/1283738895804393564" class="float-zalo" target="_blank" rel="noopener" title="Chat Zalo" style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:#fff;border:2px solid #e2e8f0;border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,.18),0 0 0 1px rgba(0,116,55,.12);text-decoration:none;font-weight:700;font-size:.72rem;color:#0068ff;flex-shrink:0">Zalo</a>
+  <div style="display:flex;gap:8px;align-items:center">
     <button class="float-btn" onclick="toggleFloatForm()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Tư vấn ngay
+      Tư vấn miễn phí
     </button>
+    <a href="https://zalo.me/1283738895804393564" class="float-zalo" title="Chat Zalo" aria-label="Chat Zalo">
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABIAEgDASIAAhEBAxEB/8QAHAAAAQQDAQAAAAAAAAAAAAAAAAIGBwgBAwUE/8QAOhAAAQMEAAIJAQUFCQAAAAAAAQIDBAAFBhEHEggTITFBUWFxgSIUMjORoUJSkrLSFRgjJUNTorGz/8QAGwEAAgMBAQEAAAAAAAAAAAAABAUAAwYBAgf/xAAxEQABAwIEBAQEBwEAAAAAAAABAAIDBBEFEiExQWFxkQZCUaETFLHBFSIyUoHh8PH/2gAMAwEAAhEDEQA/ALl15bpcIVrguzrhKZixmk8zjrqwlKR6k0XafEtdtkXGc8liNGbU664ruSkDZNQtw6mT+LGfyMluqFox2yOD+zoKvuKfPalax3KWkfUfIlIHd2sKOgM8b53m0bNzzOwHM+25QdTVCJ7Ymi73bD6k8gpriSDLjNyGkqQ24nmT1iClWj5pPaPntrbyr8XD8ClgaFFLyiwkciv9xVHKvwcPyKXRUXUjbie8BQ9KUhQUOys0hxPbzp7FD9aiiXRWEK5k7oqKKFOlnkDkLFYFgYcKDcnyt7R72m9HXsVFP5U7uj/Z0WfhVZxycrsxszHT5lw7H/HlHxUO9Lt9S83tkff0tWzmHupxX9IqxmItJYxS0sI+43BZQPYNpFa/EW/L4BSxt87nOP8AGg9iFn6M/GxWZ58oAC6ex5is7HmKivJMCzJ25XC5tcVbhbYS3XH0s9WQiO3snl3zgaSPH0pt8EEZhfMtk3h/MLvcsYtzi22nZBKEz18uuxBJ0kb3vf7vjvSpuExOp3ztnacouRZ252FyLXPXnsEca+RszYnREZjpqO++yniiovuvHDEodwfjRIl3ujEZXLImQowWy35/USNj17vLdcXiJxMh5Fwnv90xCZc4T1vkx2jI0WVHmcHakg70R56rzDgNc97A6MtDiBcjQXIAv3XqTFKZrXFrgSATYcvRTVRTDu/EKy4hiFkkXyRIkTZsNotR2U9Y++rkTs69z3k958TScI4rY9k15FkVGuFouigVNxrgz1anBrf0nZ2dduuw+W6G/C6sxGZsZLBfW3puenqeCt+dgziMuAceHVPtP0ukeY3RQv8AER80UAi1VvpaDfESGPO1o/8ARyrE8O5qLhgVimoPMHbewo+/IAf1Bqv3S5jqRnNrk9vK7buUH1S4rf8AMKkHosZCi54EuyOOAybS8UBPj1SyVIP58w+K3uLUxl8OUszfJv0Nx9QFlaCYR4xPGfN9v6XF4t5rAyjK04C1f41osjK/86nuOhPWcp7WEefb2H19Enbycv2GTMNk4dhl+tRmO256Lb40d8cxV1atAeveSfc13pHDzB5D7j7+K2hx11ZWtaoySVKJ2ST5k1vtOEYjabg3cLZjlsiSmt8jzUdKVJ2NHR8OzspHLX0BgZHGHjJqB+Wxd6nifsNAmbKSqErnvLTm0vrcD0H+3UZ8G88wewcNmbRdpjFonwOdE6LIbKXFucx2da2skaGu8a14VGsORElcHuIcm3sdREevEZyO1+42XNpT8DQqzd1w/FrrcBcLlj1rlyxr/GejJUo67tkjt+ayrEcYVDnQzYbcY89YcltfZ08ryh3KUO4kUZBj1JDI+ZrHZnua43IIGVwcQNBzsSh5MLqJGNjc5tmtLRprqLa/0oakS4mL8VsVyPJ0EWiRjzEeHKWkqbjvBA3vyPaf49+deviVfLLmnELDLdiEhq43SHcEyHpkb6ksMJIKgV+I7N+mvM1M0+zWmfahaptuiyYKUhIjutBSAANDQPdrwrRj2NWDH0LRZLPBt4c++WGQkq9z3mhW4zBdsxYfiNaWjUZbG4BItfjqNirjh0tjGHDI4gnTXht234LpL/Fb9z/1RWV/io+aKzicqGOljjzk/E4N+YbKlWx4pe0O5pzQ37BQT+dQlwcyibiue2+XFBcalOpiSWd/iNrUB+YOlD29auddIMW5W6RAmspejSG1Nutq7lJI0RVXLnirHCPiGzer7a593sjDnW212OUgFwdqQ6T3KT368SAR4ivofhrFYpcOlw2YZjY5R+6/Ac76/wDFkcaoJGVjKyM2Fxc+luPSytYKKrPkPSXuLnKiwY1HjgKBUua8XCRvtHKjWvfZp14h0jMWntoayGFLs0jsClpSX2T67T9Q+U/NZqXwzicUfxDEegsT2CdMxmie/KH/AGCm2imta+IuC3JAVDyyzr3+yuUlCvyUQa6C8rxhCeZeR2dKfMzmgP5qUOpZmGzmEHoUeJ43C4cO67NFMa98XOHVpSov5TBfWP8ATiEvqPp9AP61xsX4i3jiFdPs+IWZ6DZWV6lXickb0P2GWxsFZ8ySE95HcCQ3DKoxmVzC1o4nQe+/QXKqNbBmDA65PAan/dVJ6fqdJ8ANUUpCQhISPDzooBFLNee4wYdxhuw58ZmTGdTyuNOoCkqHkQaKK6CQbhcIBFioay/o6Yxc31ybFcJVlWo76rXXMj2BIUP4qY8ro0ZOlZ+y5DaHU+BcbdQf0Boop/T+J8TgblEtxzAPudfdK5cFopDcst00Wj+7XmR77zYT7rd/orfF6M+SKWBKyCzMp8S204s/qBRRRB8X4oR+sdgqhgFEPKe5T6xHo6YtbHkSL5OlXpaTvqiOpZJ9UpJUflVTJb4US3w2ocGM1GjNJ5W2mkBKEDyAHYKKKSVmI1Va7NUPLvp22TGnpIaYWiaAt9FFFBIlf//Z" alt="Zalo" width="28" height="28" loading="lazy"/>
+    </a>
   </div>
 </div>
 
@@ -1077,10 +1471,19 @@ function submitForm(which){
   var p = phoneEl.value.trim();
   if(!p){ alert('Vui lòng nhập số điện thoại.'); phoneEl.focus(); return; }
   var nm = document.getElementById(prefix+'-name').value.trim();
-  var em = document.getElementById(prefix+'-email') ? document.getElementById(prefix+'-email').value.trim() : '';
-  var ppl = document.getElementById(prefix+'-people') ? document.getElementById(prefix+'-people').value : '';
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Bệnh Nhiệt Đới','dien-thoai':p,'ho-ten':nm,'email':em,'so-nguoi':ppl}).toString()});
+  var ppl = document.getElementById(prefix+'-people').value;
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      access_key:'4a200f57-1b34-4482-93d3-41531ab59898',
+      subject:'[DBV] BH Benh Nhiet Doi - Thanh Do',
+      from_name:'Landing Page DBV Benh Nhiet Doi (v2)',
+      'Họ tên':nm,'Số điện thoại':p,'Số người cần bảo hiểm':ppl,
+      'Form': which === 'hero' ? 'Hero Form' : 'CTA Form',
+      'Trang':window.location.href
+    })
+  });
   var succEl = document.getElementById(which+'-succ');
   succEl.style.display = 'block';
   phoneEl.closest(which==='hero' ? '.form-card' : '.cta-form-box').querySelector('button.btn').style.display='none';
@@ -1088,8 +1491,8 @@ function submitForm(which){
 
 function toggleFloatForm(){
   var w = document.getElementById('floatFormWrap');
-  var isOpen = w.style.display === 'block';
-  w.style.display = isOpen ? 'none' : 'block';
+  var isOpen = w.classList.contains('open');
+  w.classList.toggle('open');
   if(!isOpen) setTimeout(function(){ document.getElementById('float-phone').focus(); }, 50);
 }
 
@@ -1097,24 +1500,32 @@ function submitFloat(){
   var el = document.getElementById('float-phone');
   var p = el.value.trim();
   if(!p){ el.focus(); return; }
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:new URLSearchParams({'form-name':'dbv-float','san-pham':'Bảo Hiểm Bệnh Nhiệt Đới','dien-thoai':p}).toString()});
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      access_key:'4a200f57-1b34-4482-93d3-41531ab59898',
+      subject:'[DBV] BH Benh Nhiet Doi - Thanh Do (Float)',
+      from_name:'Landing Page DBV Benh Nhiet Doi (v2)',
+      'Số điện thoại':p,'Form':'Float Form','Trang':window.location.href
+    })
+  });
   el.disabled = true;
-  document.querySelector('#floatFormWrap button').style.display='none';
+  document.querySelector('.float-form-row button').style.display='none';
   document.getElementById('float-succ').style.display='block';
   setTimeout(function(){
-    document.getElementById('floatFormWrap').style.display='none';
+    document.getElementById('floatFormWrap').classList.remove('open');
     el.disabled=false; el.value='';
     document.getElementById('float-succ').style.display='none';
-    document.querySelector('#floatFormWrap button').style.display='block';
+    document.querySelector('.float-form-row button').style.display='block';
   },3500);
 }
 
 document.addEventListener('click', function(e){
   var wrap = document.getElementById('floatFormWrap');
   var cta = document.getElementById('floatCta');
-  if(wrap && wrap.style.display === 'block' && cta && !cta.contains(e.target)){
-    wrap.style.display = 'none';
+  if(wrap && wrap.classList.contains('open') && cta && !cta.contains(e.target)){
+    wrap.classList.remove('open');
   }
 });
 
@@ -1127,5 +1538,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 });
 </script>
+
+
 </body>
-</html>                                                                                                                                                           
+</html>
