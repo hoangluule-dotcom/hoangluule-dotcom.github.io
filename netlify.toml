@@ -13,3 +13,7 @@
 [secrets]
   [[secrets.ignored_files]]
     path = "servicemap.html"
+
+# Bỏ qua scanning cho các env vars dùng process.env (không hardcode trong source)
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "DASHBOARD_KEY,NETLIFY_ACCESS_TOKEN,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID"
