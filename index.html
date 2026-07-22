@@ -22,9 +22,9 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
 /* ══ HEADER ══ */
 .hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
-.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:78px;gap:8px}
+.hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:60px;gap:8px}
 .hdr-logo{flex-shrink:0;margin-right:24px}
-.hdr-logo img{height:66px;width:auto;display:block}
+.hdr-logo img{height:48px;width:auto;display:block}
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
 .hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
@@ -42,8 +42,8 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .btn-consult-hdr:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){
-  .hdr-inner{padding:0 16px}
-  .hdr-logo img{height:54px}
+  .hdr-inner{padding:0 16px;height:60px}
+  .hdr-logo img{height:44px}
   .hdr-nav{display:none}
   .btn-login{display:none}
   .btn-consult-hdr{display:none}
@@ -51,7 +51,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   .hdr-actions{margin-left:auto}
   /* Icon only */
   .btn-catalog-hdr .btn-cat-text{display:none}
-  .btn-catalog-hdr{padding:8px 10px;border-radius:10px}
+  .btn-catalog-hdr{padding:7px 9px;border-radius:9px}
 }
 
 /* ══ CATEGORY DROPDOWN (nav menu) ══ */
@@ -93,13 +93,12 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .hero-h1{font-size:clamp(2rem,3.5vw,3.2rem);font-weight:900;color:var(--dk);line-height:1.15;margin-bottom:16px;text-shadow:0 2px 8px rgba(255,255,255,.8),0 0 20px rgba(255,255,255,.6)}
 .hero-h1 span{color:var(--g)}
 .hero-sub{font-size:15px;color:#111;margin-bottom:32px;max-width:460px;line-height:1.7;text-shadow:0 1px 4px rgba(255,255,255,.7),0 0 12px rgba(255,255,255,.5)}
-.hero-need{font-size:13px;font-weight:700;color:var(--tm);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;text-shadow:0 1px 4px rgba(255,255,255,.7)}
-.hero-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
-.hcat{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;border:1.5px solid var(--bd);border-radius:var(--r12);background:#fff;text-decoration:none;color:var(--tm);font-size:13px;font-weight:600;transition:.2s;cursor:pointer}
-.hcat:hover{border-color:var(--g);color:var(--g);background:var(--gl);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,116,55,.1)}
-.hcat-icon{width:42px;height:42px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center}
-.hcat-icon svg{width:22px;height:22px;stroke:var(--g);stroke-width:1.8;fill:none}
-.hcat-arr{font-size:11px;color:var(--ts);font-weight:400;margin-top:2px}
+.hero-usps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+.husp{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border:1.5px solid rgba(255,255,255,.65);border-radius:var(--r12);background:rgba(255,255,255,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.husp-icon{width:36px;height:36px;border-radius:9px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.husp-icon svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+.husp-label{font-size:12.5px;font-weight:700;color:var(--dk);line-height:1.3}
+.husp-sub{font-size:11px;color:var(--tm);line-height:1.4}
 .hero-cta-row{display:flex;align-items:center;gap:12px;margin-bottom:36px}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-weight:700;font-size:14px;padding:13px 28px;border-radius:30px;text-decoration:none;transition:.2s}
 .btn-primary:hover{background:var(--gd);box-shadow:0 6px 24px rgba(0,116,55,.3);transform:translateY(-1px)}
@@ -136,17 +135,18 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   .hero-inner{min-height:460px}
   .hero-left{padding:48px 24px 48px 24px;max-width:100%}
   .hero-visual::after{background:none}
-  .hero-cats{grid-template-columns:repeat(2,1fr)}
+  .hero-usps{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:640px){
   .hero{min-height:380px}
   .hero-inner{min-height:380px}
   .hero-visual::after{background:none}
   .hero-left{padding:32px 16px 32px}
-  .hero-cats{grid-template-columns:repeat(4,1fr);gap:7px}
-  .hcat{padding:10px 6px;font-size:11px}
-  .hcat-icon{width:34px;height:34px;border-radius:8px}
-  .hcat-icon svg{width:18px;height:18px}
+  .hero-usps{grid-template-columns:repeat(2,1fr);gap:7px}
+  .husp{padding:10px 10px}
+  .husp-icon{width:30px;height:30px;border-radius:7px}
+  .husp-icon svg{width:15px;height:15px}
+  .husp-sub{display:none}
   .hero-cta-row{flex-direction:column;align-items:stretch}
   .btn-primary,.btn-secondary{justify-content:center}
   .hero-partners{flex-wrap:wrap;gap:12px}
@@ -232,6 +232,42 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .mob-call{background:var(--gl);color:var(--g);border:1.5px solid var(--g)}
 .mob-zalo{background:var(--zalo);color:#fff}
 
+
+/* ══ EXPERTS SECTION ══ */
+.experts{padding:72px 32px;background:#fff}
+.experts-inner{max-width:1280px;margin:0 auto}
+.team-container{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.team-full-img{width:100%;height:auto;display:block}
+.team-overlay{position:absolute;inset:0;background:linear-gradient(to left,rgba(5,30,12,.92) 0%,rgba(5,30,12,.78) 35%,rgba(5,30,12,.28) 65%,transparent 85%);display:flex;align-items:center;justify-content:flex-end;padding:48px 52px}
+.team-ov-content{max-width:460px}
+.sec-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.3);padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.4px}
+.sec-tag svg{flex-shrink:0;stroke:#4ade80;fill:none;stroke-width:2.5}
+.sec-h2{font-size:clamp(1.5rem,2.5vw,2rem);font-weight:900;color:#fff;line-height:1.2;margin-bottom:12px}
+.sec-h2 span{color:#4ade80}
+.sec-sub{font-size:14px;color:rgba(255,255,255,.78);max-width:400px;line-height:1.7;margin-bottom:28px}
+.team-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.team-stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-radius:12px;padding:14px 16px}
+.team-stat-label{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.team-stat-val{font-size:13px;font-weight:700;color:#fff;line-height:1.4}
+.team-pledge{display:flex;align-items:center;gap:10px;padding:13px 16px;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.25);border-radius:12px;font-size:13px;font-weight:700;color:#4ade80;margin-bottom:24px}
+.team-pledge svg{width:17px;height:17px;stroke:#4ade80;fill:none;stroke-width:2;flex-shrink:0}
+.btn-orange{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;padding:13px 28px;border-radius:30px;text-decoration:none;transition:.2s}
+.btn-orange:hover{background:var(--goldd);box-shadow:0 6px 24px rgba(232,146,10,.4);transform:translateY(-1px)}
+@media(max-width:860px){.team-overlay{padding:32px 36px}.team-ov-content{max-width:340px}}
+@media(max-width:640px){
+  .experts{padding:32px 16px}
+  /* Mobile: stack image on top, content below (fully readable) */
+  .team-container{border-radius:14px}
+  .team-full-img{min-height:200px;object-fit:cover;object-position:center top}
+  .team-overlay{position:relative;background:linear-gradient(135deg,#052e16,#0f4a27);justify-content:flex-start;align-items:flex-start;padding:24px 20px}
+  .team-ov-content{max-width:100%}
+  .team-stats{grid-template-columns:1fr 1fr;gap:8px}
+  .team-stat{padding:10px 12px}
+  .team-stat-val{font-size:12px}
+  .sec-h2{font-size:1.3rem}
+  .sec-sub{font-size:13px;margin-bottom:20px}
+  .team-pledge{padding:10px 14px;font-size:12px;margin-bottom:18px}
+}
 
 /* ══ LEAD FORM ══ */
 .lead-section{background:linear-gradient(135deg,var(--g) 0%,#005a2b 100%);padding:56px 32px;position:relative;overflow:hidden}
@@ -333,7 +369,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 <section class="hero">
   <!-- Background image — full bleed -->
   <div class="hero-visual">
-    <img class="hero-banner-img" src="banner-hero.png" alt="Banner DBV247">
+    <img class="hero-banner-img" src="banner-hero.webp" alt="Banner DBV247">
   </div>
   <div class="hero-inner">
     <div class="hero-left">
@@ -344,32 +380,31 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
       <h1 class="hero-h1">Bảo hiểm dễ mua,<br><span>bồi thường</span> dễ nhận</h1>
       <p class="hero-sub">Tư vấn đúng sản phẩm, hỗ trợ hồ sơ bồi thường trọn vẹn — DBV247 ở đây cho đến khi bạn hoàn toàn an tâm.</p>
 
-      <p class="hero-need">Bạn cần bảo hiểm cho</p>
-      <div class="hero-cats">
-        <a class="hcat" href="#" onclick="filterCat('xe');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
-          Xe ô tô
-          <span class="hcat-arr">→</span>
-        </a>
-        <a class="hcat" href="#" onclick="filterCat('conguoi');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-          Sức khỏe
-          <span class="hcat-arr">→</span>
-        </a>
-        <a class="hcat" href="#" onclick="filterCat('taisan');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-          Tài sản
-          <span class="hcat-arr">→</span>
-        </a>
-        <a class="hcat" href="#" onclick="filterCat('conguoi');scrollToCatalog();return false">
-          <div class="hcat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          Du lịch
-          <span class="hcat-arr">→</span>
-        </a>
+      <div class="hero-usps">
+        <div class="husp">
+          <div class="husp-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+          <div class="husp-label">Sản phẩm phù hợp</div>
+          <div class="husp-sub">Tư vấn đúng nhu cầu, đúng ngân sách</div>
+        </div>
+        <div class="husp">
+          <div class="husp-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="husp-label">Chi phí tối ưu</div>
+          <div class="husp-sub">So sánh & chọn gói tiết kiệm nhất</div>
+        </div>
+        <div class="husp">
+          <div class="husp-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="husp-label">Tư vấn 1-1</div>
+          <div class="husp-sub">Chuyên viên riêng, hỗ trợ trực tiếp</div>
+        </div>
+        <div class="husp">
+          <div class="husp-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="husp-label">Cam kết đồng hành</div>
+          <div class="husp-sub">Hỗ trợ bồi thường đến khi giải quyết xong</div>
+        </div>
       </div>
 
       <div class="hero-cta-row">
-        <a href="#catalog" class="btn-primary" onclick="scrollToCatalog();return false">
+        <a href="#catalog" class="btn-orange" onclick="scrollToCatalog();return false">
           Xem tất cả sản phẩm
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -383,28 +418,6 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
   </div>
 </section>
-
-<!-- ══ STATS ══ -->
-<div class="stats">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="stat-icon"><svg viewBox="0 0 24 24" stroke="var(--g)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div><div class="stat-num">18+</div><div class="stat-lbl">Năm kinh nghiệm</div></div>
-    </div>
-    <div class="stat">
-      <div class="stat-icon"><svg viewBox="0 0 24 24" stroke="var(--gold)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div><div class="stat-num">2 triệu+</div><div class="stat-lbl">Khách hàng tin tưởng</div></div>
-    </div>
-    <div class="stat">
-      <div class="stat-icon"><svg viewBox="0 0 24 24" stroke="var(--g)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-      <div><div class="stat-num">98%</div><div class="stat-lbl">Hồ sơ bồi thường xử lý nhanh</div></div>
-    </div>
-    <div class="stat">
-      <div class="stat-icon"><svg viewBox="0 0 24 24" stroke="var(--gold)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg></div>
-      <div><div class="stat-num">24/7</div><div class="stat-lbl">Hỗ trợ tư vấn tận tâm</div></div>
-    </div>
-  </div>
-</div>
 
 <!-- ══ CATALOG ══ -->
 <div class="catalog" id="catalog">
@@ -503,6 +516,48 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
     <p>Thử từ khoá khác hoặc <a href="https://zalo.me/1283738895804393564" style="color:var(--g);font-weight:600">nhắn Zalo</a> để được tư vấn trực tiếp.</p>
   </div>
 </div>
+
+<!-- ══ EXPERTS ══ -->
+<section class="experts">
+  <div class="experts-inner">
+    <div class="team-container">
+      <img class="team-full-img" src="doi-ngu-chuyen-gia.webp" alt="Đội ngũ chuyên gia DBV247" loading="lazy">
+      <div class="team-overlay">
+        <div class="team-ov-content">
+          <div class="sec-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Đội ngũ chuyên gia
+          </div>
+          <h2 class="sec-h2">Tư vấn viên <span>đồng hành</span><br>cùng bạn</h2>
+          <p class="sec-sub">Mỗi khách hàng được kết nối với một chuyên viên có chuyên môn phù hợp — từ tư vấn ban đầu đến hỗ trợ bồi thường tận nơi.</p>
+          <div class="team-stats">
+            <div class="team-stat">
+              <div class="team-stat-label">Số lượng</div>
+              <div class="team-stat-val">20 tư vấn viên</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-label">Trình độ</div>
+              <div class="team-stat-val">Đại học / Sau đại học chuyên ngành Bảo hiểm</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-label">Kinh nghiệm</div>
+              <div class="team-stat-val">Trên 10 năm trong ngành</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-label">Phương thức</div>
+              <div class="team-stat-val">1 chuyên viên – 1 khách hàng (1:1)</div>
+            </div>
+          </div>
+          <div class="team-pledge">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            Cam kết: Tin cậy · Chuyên môn · Trách nhiệm
+          </div>
+          <a href="tel:0869656561" class="btn-orange">Kết nối với tư vấn viên ngay</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ LEAD FORM ══ -->
 <section class="lead-section">
