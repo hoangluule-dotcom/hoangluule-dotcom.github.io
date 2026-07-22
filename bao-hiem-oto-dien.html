@@ -128,13 +128,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .sec-h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--dk);margin-bottom:12px;line-height:1.2}
 .sec-sub{font-size:15px;color:var(--tm);max-width:680px;line-height:1.7;margin-bottom:40px}
 
-/* ── TRUST BAR ── */
-.trust-bar{background:var(--dk);padding:32px 0}
-.trust-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.trust-item{text-align:center}
-.trust-num{font-size:2rem;font-weight:800;color:#fff;line-height:1}
-.trust-unit{font-size:1rem;font-weight:700;color:var(--gold)}
-.trust-lbl{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px}
 
 /* ── PAIN SECTION ── */
 .pain{background:#fff}
@@ -149,11 +142,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .pain-h4{font-size:15px;font-weight:800;color:var(--dk);margin-bottom:6px}
 .pain-body{font-size:13.5px;color:var(--tm);line-height:1.6}
 .pain-cost-tag{display:inline-block;background:#FEF3C7;color:#92400E;font-size:12px;font-weight:700;padding:3px 10px;border-radius:10px;margin-top:8px}
-.pain-insight{background:linear-gradient(135deg,#fff8ed,#fffbf3);border:1.5px solid rgba(232,146,10,.3);border-radius:var(--r16);padding:28px 32px;margin-top:16px}
-.pain-insight-title{font-size:14px;font-weight:800;color:var(--gold);margin-bottom:12px}
-.pain-insight-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-.pain-insight-list li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--tx)}
-.pain-insight-list li::before{content:'';flex-shrink:0}
 
 /* ── SOLUTION / COVERAGE ── */
 .sol-sec{background:var(--gl)}
@@ -213,14 +201,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .faq-item.open .faq-a{max-height:400px}
 .faq-a-inner{padding:0 20px 16px;font-size:13.5px;color:var(--tm);line-height:1.7}
 
-/* ── COMMITMENT ── */
-.commit-sec{background:#fff}
-.commit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.commit-card{border:1.5px solid var(--bd);border-radius:var(--r12);padding:22px}
-.commit-num{font-size:2.5rem;font-weight:900;color:rgba(0,116,55,.12);line-height:1;margin-bottom:8px}
-.commit-h4{font-size:15px;font-weight:800;color:var(--dk);margin-bottom:8px}
-.commit-body{font-size:13.5px;color:var(--tm);line-height:1.6}
-
 /* ── CTA FINAL ── */
 .cta-final{background:linear-gradient(135deg,var(--dk),#0d3320);padding:72px 0;text-align:center}
 .cta-final-inner{max-width:640px;margin:0 auto;padding:0 24px}
@@ -232,47 +212,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .btn-cta-b{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);padding:16px 32px;border-radius:40px;font-weight:700;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.2s}
 .btn-cta-b:hover{background:rgba(255,255,255,.1)}
 
-/* ── CONTACT FORM ── */
-.contact-sec{background:#f8fafb;padding:64px 0}
-.contact-inner{max-width:640px;margin:0 auto;padding:0 24px}
-.contact-card{background:#fff;border-radius:var(--r16);padding:36px;box-shadow:var(--sh)}
-.contact-h3{font-size:1.3rem;font-weight:800;color:var(--dk);margin-bottom:6px}
-.contact-sub{font-size:14px;color:var(--ts);margin-bottom:24px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fg{margin-bottom:14px}
-.fg label{display:block;font-size:12px;font-weight:600;color:var(--tx);margin-bottom:5px}
-.fg input,.fg select,.fg textarea{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--tx);outline:none;transition:.2s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
-.fg textarea{resize:vertical;min-height:80px}
-.btn-form{width:100%;background:var(--g);color:#fff;border:none;padding:14px;border-radius:var(--r8);font-family:'Be Vietnam Pro',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;transition:.2s}
-.btn-form:hover{background:var(--gp)}
-.form-disc{font-size:12px;color:var(--ts);text-align:center;margin-top:10px}
-.succ-msg{display:none;text-align:center;padding:24px;background:var(--gl);border-radius:var(--r12);color:var(--g);font-weight:700;font-size:15px}
 
-/* ── STICKY BAR ── */
-.sticky-bar{position:fixed;bottom:-80px;left:0;right:0;background:var(--dk);padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:200;transition:.4s;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(0,0,0,.2)}
-.sticky-bar.show{bottom:0}
-body.sticky-shown{padding-bottom:60px}
-.sticky-bar-txt{color:#fff;font-size:13px;font-weight:600;white-space:nowrap}
-.sticky-bar input{padding:8px 12px;border-radius:6px;border:none;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;outline:none;width:180px}
-.sticky-bar button{background:var(--gold);color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:700;font-size:13px;cursor:pointer}
-.sticky-bar-close{background:transparent!important;color:rgba(255,255,255,.6)!important;font-size:20px!important;padding:4px 8px!important}
-.sticky-succ{color:#a7f3d0;font-weight:600;font-size:13px;display:none}
-
-/* ── EXIT POPUP ── */
-.exit-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center}
-.exit-overlay.open{display:flex}
-.exit-popup{background:#fff;border-radius:var(--r16);padding:32px;max-width:420px;width:90%;position:relative;text-align:center}
-.exit-popup-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ts)}
-.exit-popup-icon{width:48px;height:48px;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
-.ep-badge{display:inline-flex;align-items:center;gap:4px;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:4px 10px;border-radius:10px;margin-bottom:10px}
-.exit-popup h3{font-size:1.1rem;font-weight:800;color:var(--dk);margin-bottom:8px;line-height:1.3}
-.exit-popup p{font-size:13px;color:var(--tm);margin-bottom:16px;line-height:1.6}
-.exit-popup input{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;outline:none;margin-bottom:10px}
-.exit-popup input:focus{border-color:var(--g)}
-.ep-submit{width:100%;background:var(--g);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;margin-bottom:8px}
-.ep-skip{background:none;border:none;color:var(--ts);font-size:12px;cursor:pointer;text-decoration:underline}
-.ep-succ{color:var(--g);font-weight:700;font-size:14px;display:none}
 
 /* ── FLOAT CTA ── */
 .float-cta{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
@@ -306,13 +246,11 @@ body.sticky-shown{padding-bottom:60px}
 
 @media(max-width:900px){
   .hero-inner{grid-template-columns:1fr}
-  .trust-inner{grid-template-columns:repeat(2,1fr)}
   .pain-grid{grid-template-columns:1fr}
   .ql-grid{grid-template-columns:1fr}
   .pkg-grid{grid-template-columns:1fr}
   .proc-grid{grid-template-columns:repeat(2,1fr)}
   .proc-grid::before{display:none}
-  .commit-grid{grid-template-columns:1fr}
   .brand-grid{grid-template-columns:repeat(3,1fr)}
   .footer-top{grid-template-columns:1fr 1fr}
   .form-row{grid-template-columns:1fr}
@@ -438,8 +376,6 @@ body.sticky-shown{padding-bottom:60px}
 <div class="usp-bar">
   <div class="usp-inner">
     <span class="usp-item"><span class="usp-dot"></span>Hỗ trợ đầy đủ VinFast, BYD, Mercedes EQ, BMW i</span>
-    <span class="usp-item"><span class="usp-dot"></span>Bảo vệ hệ thống pin & cháy nổ điện</span>
-    <span class="usp-item"><span class="usp-dot"></span>Thủy kích điện — bồi thường không từ chối</span>
     <span class="usp-item"><span class="usp-dot"></span>Cấp đơn trong ngày · Garage ủy quyền toàn quốc</span>
   </div>
 </div>
@@ -570,16 +506,6 @@ body.sticky-shown{padding-bottom:60px}
   </div>
 </section>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-inner">
-    <div class="trust-item"><div class="trust-num">500<span class="trust-unit">+</span></div><div class="trust-lbl">Xe điện đã bảo hiểm tại DBV</div></div>
-    <div class="trust-item"><div class="trust-num">98<span class="trust-unit">%</span></div><div class="trust-lbl">Hồ sơ bồi thường thành công</div></div>
-    <div class="trust-item"><div class="trust-num">15<span class="trust-unit">p</span></div><div class="trust-lbl">Phản hồi tư vấn sau khi để lại SĐT</div></div>
-    <div class="trust-item"><div class="trust-num">17<span class="trust-unit">+</span></div><div class="trust-lbl">Năm kinh nghiệm bảo hiểm ô tô</div></div>
-  </div>
-</div>
-
 <!-- PAIN SECTION -->
 <section class="sec pain" id="pain">
   <div class="sec-inner">
@@ -611,15 +537,6 @@ body.sticky-shown{padding-bottom:60px}
         <div class="pain-body">Nhiều công ty bảo hiểm chưa có quy trình riêng cho xe điện. Khi xảy ra sự cố liên quan đến pin hay hệ thống điện, họ có thể từ chối với lý do "không thuộc phạm vi".</div>
         <span class="pain-cost-tag">DBV: quy trình riêng, cam kết rõ ràng</span>
       </div>
-    </div>
-    <div class="pain-insight">
-      <div class="pain-insight-title">Xe điện tại Việt Nam đang tăng trưởng nhanh</div>
-      <ul class="pain-insight-list">
-        <li>VinFast bán hàng chục nghìn xe VF5, VF6, VF7, VF8 mỗi năm — số lượng xe điện trên đường tăng mạnh</li>
-        <li>BYD, MG, Mercedes EQ, BMW i đang mở rộng thị phần tại Việt Nam với tốc độ nhanh</li>
-        <li>Nghị định bảo hiểm bắt buộc áp dụng cho xe điện như xe xăng — nhưng bảo hiểm vật chất là sự lựa chọn thông minh để bảo vệ tài sản có giá trị lớn</li>
-        <li>DBV đã xử lý hàng trăm hồ sơ bồi thường xe điện, hiểu rõ từng dòng xe và từng rủi ro đặc thù</li>
-      </ul>
     </div>
   </div>
 </section>
@@ -803,32 +720,6 @@ body.sticky-shown{padding-bottom:60px}
   </div>
 </section>
 
-<!-- COMMITMENT -->
-<section class="sec commit-sec" style="background:#fff">
-  <div class="sec-inner">
-    <span class="sec-tag">Cam kết DBV</span>
-    <h2 class="sec-h2">Bồi thường xe điện — cam kết, không vòng vo</h2>
-    <p class="sec-sub">DBV hiểu rằng chủ xe điện cần một đối tác bảo hiểm thật sự am hiểu công nghệ mới.</p>
-    <div class="commit-grid">
-      <div class="commit-card">
-        <div class="commit-num">01</div>
-        <div class="commit-h4">Không từ chối bồi thường thiếu căn cứ</div>
-        <div class="commit-body">Với xe điện, phạm vi bồi thường được ghi rõ trong hợp đồng. DBV không dùng lý do mơ hồ để từ chối — đặc biệt với sự cố pin và hệ thống điện.</div>
-      </div>
-      <div class="commit-card">
-        <div class="commit-num">02</div>
-        <div class="commit-h4">Garage ủy quyền chính hãng — không phải garage bất kỳ</div>
-        <div class="commit-body">Chúng tôi hỗ trợ sửa tại garage ủy quyền VinFast, BYD và các hãng khác — đảm bảo phụ tùng chính hãng, kỹ thuật viên được đào tạo bài bản về xe điện.</div>
-      </div>
-      <div class="commit-card">
-        <div class="commit-num">03</div>
-        <div class="commit-h4">Quy trình xử lý hồ sơ xe điện riêng biệt</div>
-        <div class="commit-body">DBV có đội ngũ giám định viên được đào tạo về xe điện — hiểu rõ cấu tạo hệ thống pin, motor và các bộ phận đặc thù để đánh giá đúng thiệt hại.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section class="sec faq-sec" id="faq">
   <div class="sec-inner">
@@ -880,44 +771,11 @@ body.sticky-shown{padding-bottom:60px}
   </div>
 </section>
 
-<!-- CONTACT FORM -->
-<section class="contact-sec" id="contact">
-  <div class="contact-inner">
-    <div class="contact-card">
-      <div class="contact-h3">Nhận tư vấn & báo giá chính thức</div>
-      <div class="contact-sub">Chuyên viên DBV hiểu xe điện sẽ liên hệ trong 30 phút — miễn phí, không ràng buộc</div>
-      <form id="lf" onsubmit="return false;">
-        <div class="form-row">
-          <div class="fg"><label>Họ và tên</label><input type="text" id="fn" placeholder="Nguyễn Văn A"/></div>
-          <div class="fg"><label>Số điện thoại *</label><input type="tel" id="ph" placeholder="0912 345 678"/></div>
-        </div>
-        <div class="form-row">
-          <div class="fg">
-            <label>Dòng xe điện</label>
-            <select id="cv">
-              <option value="">— Chọn xe —</option>
-              <optgroup label="VinFast"><option>VF3</option><option>VF5</option><option>VF6</option><option>VF7</option><option>VF8</option><option>VF9</option><option>VFE34</option></optgroup>
-              <optgroup label="BYD"><option>BYD Dolphin</option><option>BYD Atto 2</option><option>BYD Atto 3</option><option>BYD Seal</option><option>BYD Han</option><option>BYD Sealion 6</option><option>BYD Sealion 8</option></optgroup>
-              <optgroup label="Hãng khác"><option>Mercedes EQB/EQE/EQS</option><option>BMW i4 / iX3</option><option>Audi E-Tron</option><option>MG4 EV</option><option>Xe điện khác</option></optgroup>
-            </select>
-          </div>
-          <div class="fg"><label>Năm sản xuất</label><input type="text" id="cy" placeholder="2024"/></div>
-        </div>
-        <div class="fg"><label>Ghi chú thêm (gói muốn mua, câu hỏi...)</label><textarea id="nt" placeholder="Ví dụ: Muốn thêm gói BS06 thủy kích điện, xe đang ở TP.HCM..."></textarea></div>
-        <input type="hidden" id="f-car-val" value=""/>
-        <button type="submit" class="btn-form" id="btn-contact">Gửi yêu cầu tư vấn →</button>
-        <div class="form-disc">Thông tin bảo mật · Chuyên viên DBV gọi lại trong 30 phút</div>
-      </form>
-      <div class="succ-msg" id="succ"></div>
-    </div>
-  </div>
-</section>
-
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
       <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
-      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV trực thuộc chi nhánh DBV Thành Đô</p>
+      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1019,35 +877,6 @@ body.sticky-shown{padding-bottom:60px}
 <div class="lightbox" id="lightbox" onclick="closeLB()">
   <button class="lightbox-close" onclick="closeLB()">✕</button>
   <img id="lbImg" src="" alt=""/>
-</div>
-
-<!-- STICKY BAR -->
-<div class="sticky-bar" id="stickyBar">
-  <span class="sticky-bar-txt">Tính phí bảo hiểm xe điện của bạn:</span>
-  <input type="tel" id="sticky-phone" placeholder="Nhập số điện thoại..."/>
-  <button onclick="submitSticky()">Báo Giá Ngay</button>
-  <button class="sticky-bar-close" onclick="closeSticky()" title="Đóng">×</button>
-  <div class="sticky-succ" id="sticky-succ">✓ Chuyên viên DBV gọi lại trong 15 phút!</div>
-</div>
-
-<!-- EXIT INTENT POPUP -->
-<div class="exit-overlay" id="exitOverlay">
-  <div class="exit-popup">
-    <button class="exit-popup-close" onclick="closeExit()">×</button>
-    <div class="exit-popup-icon">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--g)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    </div>
-    <span class="ep-badge">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Gọi lại trong 15 phút
-    </span>
-    <h3>Chờ chút — nhận báo giá xe điện trước khi rời đi</h3>
-    <p>Để lại số điện thoại, chuyên viên DBV am hiểu xe điện sẽ tư vấn và báo giá phù hợp. Miễn phí, không ràng buộc.</p>
-    <input type="tel" id="exit-phone" placeholder="Số điện thoại của bạn"/>
-    <button class="ep-submit" onclick="submitExit()">Nhận Báo Giá Miễn Phí →</button>
-    <div class="ep-succ" id="ep-succ">✓ Đã ghi nhận! Chuyên viên DBV sẽ gọi lại trong 15 phút.</div>
-    <br/><button class="ep-skip" onclick="closeExit()">Không cần, tôi sẽ tự tìm hiểu thêm</button>
-  </div>
 </div>
 
 <script>
@@ -1309,53 +1138,6 @@ function toggleFaq(el){
   if(!isOpen)item.classList.add('open');
 }
 
-/* ── STICKY BAR ── */
-let stickyDismissed=false,stickyShown=false;
-window.addEventListener('scroll',function(){
-  if(stickyDismissed)return;
-  const bar=document.getElementById('stickyBar');
-  if(window.scrollY>400&&!stickyShown){bar.classList.add('show');document.body.classList.add('sticky-shown');stickyShown=true;}
-});
-function closeSticky(){document.getElementById('stickyBar').classList.remove('show');document.body.classList.remove('sticky-shown');stickyDismissed=true;}
-async function submitSticky(){
-  const p=document.getElementById('sticky-phone').value.trim();
-  if(!p){document.getElementById('sticky-phone').focus();return;}
-  await sendLead({phone:p,source:'Sticky Bar xe điện'});
-  document.getElementById('sticky-phone').style.display='none';
-  document.querySelector('.sticky-bar button:not(.sticky-bar-close)').style.display='none';
-  document.querySelector('.sticky-bar-txt').style.display='none';
-  document.getElementById('sticky-succ').style.display='block';
-  setTimeout(closeSticky,3000);
-}
-
-/* ── EXIT INTENT ── */
-let exitShown=false;
-document.addEventListener('mouseleave',function(e){
-  if(e.clientY<10&&!exitShown&&!sessionStorage.getItem('exitShown')){
-    exitShown=true;sessionStorage.setItem('exitShown','1');
-    document.getElementById('exitOverlay').classList.add('open');
-  }
-});
-let lastScrollY=0;
-window.addEventListener('scroll',function(){
-  const curr=window.scrollY;
-  if(lastScrollY-curr>80&&curr>300&&!exitShown&&!sessionStorage.getItem('exitShown')){
-    exitShown=true;sessionStorage.setItem('exitShown','1');
-    document.getElementById('exitOverlay').classList.add('open');
-  }
-  lastScrollY=curr;
-});
-function closeExit(){document.getElementById('exitOverlay').classList.remove('open');}
-async function submitExit(){
-  const p=document.getElementById('exit-phone').value.trim();
-  if(!p){document.getElementById('exit-phone').focus();return;}
-  await sendLead({phone:p,source:'Exit Intent xe điện'});
-  document.getElementById('exit-phone').style.display='none';
-  document.querySelector('.ep-submit').style.display='none';
-  document.querySelector('.ep-skip').style.display='none';
-  document.getElementById('ep-succ').style.display='block';
-  setTimeout(closeExit,3000);
-}
 async function submitHeroLead(){
   const p=document.getElementById('hero-phone').value.trim();
   if(!p){document.getElementById('hero-phone').focus();return;}
@@ -1383,13 +1165,11 @@ function submitFloat(){
   var sc=document.getElementById('float-succ');if(sc){sc.style.display='block';}
   setTimeout(function(){var w=document.getElementById('floatFormWrap');if(w)w.style.display='none';},3000);
 }
-['sticky-phone','exit-phone','hero-phone','float-phone'].forEach(id=>{
+['hero-phone','float-phone'].forEach(id=>{
   const el=document.getElementById(id);
   if(el)el.addEventListener('keydown',function(e){
     if(e.key==='Enter'){
-      if(id==='sticky-phone')submitSticky();
-      else if(id==='exit-phone')submitExit();
-      else if(id==='hero-phone')submitHeroLead();
+      if(id==='hero-phone')submitHeroLead();
       else if(id==='float-phone')submitFloat();
     }
   });
@@ -1398,7 +1178,7 @@ function closeLB(){
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow='';
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();closeExit();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();}});
 </script>
 <script src="/site-settings.js" defer></script>
 

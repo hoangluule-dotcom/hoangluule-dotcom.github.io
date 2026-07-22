@@ -21,7 +21,8 @@ html{overflow-x:clip;scroll-behavior:smooth}
 body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;line-height:1.6}
 
 /* ══ HEADER ══ */
-.hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
+.hdr{background:transparent;border-bottom:1px solid transparent;position:fixed;top:0;left:0;right:0;z-index:300;transition:background .25s,border-color .25s,box-shadow .25s}
+.hdr.scrolled{background:#fff;border-bottom:1px solid var(--bd);box-shadow:0 2px 12px rgba(0,0,0,.06)}
 .hdr-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:60px;gap:8px}
 .hdr-logo{flex-shrink:0;margin-right:24px}
 .hdr-logo img{height:48px;width:auto;display:block}
@@ -81,11 +82,11 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 
 
 /* ══ HERO ══ */
-.hero{position:relative;overflow:hidden;min-height:560px;padding:0;background:#fff}
-.hero-visual{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero{position:relative;overflow:hidden;padding:0;background:#fff}
+.hero-visual{position:relative;z-index:0;line-height:0}
 .hero-visual::after{content:'';position:absolute;inset:0;background:none}
-.hero-banner-img{width:100%;height:100%;object-fit:cover;object-position:right center;display:block}
-.hero-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto;min-height:560px;display:flex;align-items:center}
+.hero-banner-img{width:100%;height:auto;display:block}
+.hero-inner{position:absolute;top:0;left:0;right:0;bottom:0;margin:0 auto;max-width:1280px;z-index:1;display:flex;align-items:center}
 .hero-left{padding:72px 48px 72px 32px;max-width:620px}
 /* Left */
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid rgba(232,146,10,.3);color:var(--goldd);font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:24px;letter-spacing:.3px;text-shadow:0 1px 3px rgba(255,255,255,.6)}
@@ -129,21 +130,20 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .b-teal svg{stroke:#fff;fill:none;stroke-width:2}
 
 @media(max-width:900px){
-  .hero{min-height:460px}
-  .hero-inner{min-height:460px}
   .hero-left{padding:48px 24px 48px 24px;max-width:100%}
-  .hero-visual::after{background:none}
 }
 @media(max-width:640px){
-  .hero{min-height:380px}
-  .hero-inner{min-height:380px}
-  .hero-visual::after{background:none}
-  .hero-banner-img{object-position:left center}
-  .hero-left{padding:32px 16px 32px}
-  .hero-usps{gap:8px 16px}
-  .husp{font-size:12.5px}
-  .hero-cta-row{flex-direction:column;align-items:stretch}
-  .btn-primary,.btn-secondary,.btn-orange{justify-content:center}
+  .hero{min-height:100svh}
+  .hero-visual{position:absolute;inset:0;overflow:hidden}
+  .hero-banner-img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+  .hero-inner{position:absolute;inset:0;height:100%;max-width:100%;align-items:flex-start}
+  .hero-left{padding:72px 20px 16px;max-width:100%}
+  .hero-h1{font-size:1.35rem;margin-bottom:8px}
+  .hero-sub{font-size:12.5px;margin-bottom:14px;line-height:1.5}
+  .hero-usps{grid-template-columns:1fr;gap:5px;margin-bottom:14px}
+  .husp{font-size:12px}
+  .hero-cta-row .btn-secondary{display:none}
+  .btn-orange{justify-content:center}
   .hero-partners{flex-wrap:wrap;gap:12px}
 }
 
@@ -211,8 +211,8 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .pcard-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px 14px}
 .btn-det{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--g);border:1.5px solid var(--g);border-radius:8px;padding:8px 4px;text-decoration:none;transition:.18s;gap:3px}
 .btn-det:hover{background:var(--g);color:#fff}
-.btn-zalo{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;background:var(--zalo);border-radius:8px;padding:8px 4px;text-decoration:none;transition:.18s;gap:5px}
-.btn-zalo:hover{background:#0055cc}
+.btn-zalo{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;background:var(--gold);border-radius:8px;padding:8px 4px;text-decoration:none;transition:.18s;gap:5px}
+.btn-zalo:hover{background:var(--goldd)}
 .btn-zalo svg{width:13px;height:13px;fill:#fff;flex-shrink:0}
 
 /* Empty state */
@@ -364,13 +364,16 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 <section class="hero">
   <!-- Background image — full bleed -->
   <div class="hero-visual">
-    <img class="hero-banner-img" src="banner-hero.webp" alt="Banner DBV247">
+    <picture>
+      <source media="(max-width:640px)" srcset="banner-hero-mobile.webp">
+      <img class="hero-banner-img" src="banner-hero.webp" alt="Banner DBV247">
+    </picture>
   </div>
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-badge">
         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Kênh tư vấn bảo hiểm trực tuyến của Tập đoàn DBV
+        Bảo hiểm trực tuyến Tập đoàn DBV - CN Thành Đô
       </div>
       <h1 class="hero-h1">Bảo hiểm dễ mua,<br><span>bồi thường</span> dễ nhận</h1>
       <p class="hero-sub">Tư vấn đúng sản phẩm, hỗ trợ hồ sơ bồi thường trọn vẹn — DBV247 ở đây cho đến khi bạn hoàn toàn an tâm.</p>
@@ -736,6 +739,14 @@ function checkEmpty() {
   const any = [...document.querySelectorAll('.pcard')].some(c => !c.classList.contains('hidden'));
   document.getElementById('empty-state').classList.toggle('show', !any);
 }
+
+// Transparent header → white on scroll
+(function(){
+  var hdr = document.querySelector('.hdr');
+  function onScroll(){hdr.classList.toggle('scrolled', window.scrollY > 10);}
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
 </script>
 
 <!-- ══ FOOTER ══ -->
@@ -744,7 +755,7 @@ function checkEmpty() {
     <!-- Cột 1: Brand -->
     <div class="ftr-brand">
       <img src="Logo header Footer.png" alt="DBV247" class="ftr-logo">
-      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV trực thuộc chi nhánh DBV Thành Đô</p>
+      <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
