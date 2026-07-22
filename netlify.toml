@@ -17,3 +17,4 @@
 # Bỏ qua scanning cho các env vars dùng process.env (không hardcode trong source)
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "DASHBOARD_KEY,NETLIFY_ACCESS_TOKEN,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID"
+  SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyC85LOYsngItz49WJYalPzgSCGzXS-rU8E"
