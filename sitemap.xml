@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Trang chủ -->
+  <url>
+    <loc>https://dbv247.com.vn/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Trang tổng hợp sản phẩm -->
+  <url>
+    <loc>https://dbv247.com.vn/san-pham</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Bảo hiểm xe -->
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-vat-chat-oto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tnds-oto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-oto-dien</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tnds-xemay</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Bảo hiểm sức khỏe & con người -->
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-suc-khoe</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tai-nan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-benh-nhiet-doi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bảo hiểm du lịch -->
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-du-lich-quoc-te</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-du-lich-noi-dia</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Bảo hiểm tài sản -->
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-chay-no-chung-cu</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-chay-no-hkd</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-hoa-hoan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-moi-rui-ro</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-xay-dung</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bảo hiểm hàng hóa & vận chuyển -->
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-van-chuyen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-xnk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-buu-gui</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-than-tau-noi-dia</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Bảo hiểm trách nhiệm nghề nghiệp -->
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tnc</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tncc</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tnn-kcb</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tnn-ls</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/bao-hiem-tnn-tvtk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Các trang hỗ trợ -->
+  <url>
+    <loc>https://dbv247.com.vn/boi-thuong</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/servicemap</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/ve-dbv</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

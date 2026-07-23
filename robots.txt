@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /index-test
+Disallow: /bao-hiem-du-lich-quoc-te-demo
+
+Sitemap: https://dbv247.com.vn/sitemap.xml
