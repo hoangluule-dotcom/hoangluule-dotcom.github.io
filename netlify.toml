@@ -8,6 +8,9 @@
   for = "/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
 # Bỏ qua secret scanning cho file Google Maps (key được restrict theo domain)
 [secrets]
