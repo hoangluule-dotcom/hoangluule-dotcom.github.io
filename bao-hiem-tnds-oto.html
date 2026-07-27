@@ -152,6 +152,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .fee-preview-vat{font-size:11px;color:var(--ts);margin-top:3px}
 
 /* ── SECTION BASE ── */
+.mob-sec-hdr{display:none}
 .sec{padding:72px 0}
 .sec-inner{max-width:1200px;margin:0 auto;padding:0 24px}
 .sec-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
@@ -466,6 +467,21 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 /* ══ END FOOTER SYNC ══ */
 
 .mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);padding:10px 16px;z-index:400;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}@media(max-width:640px){.mob-bar{display:flex}}.mob-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;padding:11px;border-radius:10px;text-decoration:none}.mob-call{background:var(--gl);color:var(--g);border:1.5px solid var(--g)}.mob-zalo{background:var(--zalo);color:#fff}@media(max-width:640px){.float-cta{display:none!important}}
+@media(max-width:640px){
+/* ── Mobile accordion: Bồi thường / Loại trừ / FAQ ── */
+/* Section mobile accordion — card style */
+section.mob-sec{padding:0!important;margin:12px 16px!important;background:#fff!important;border:1.5px solid var(--bd);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden;transition:border-color .25s,box-shadow .25s}
+section.mob-sec.open{border-color:var(--g);box-shadow:0 6px 22px rgba(0,116,55,.14)}
+.mob-sec-hdr{display:flex!important;width:100%;align-items:center;gap:11px;padding:15px 14px;font-family:'Be Vietnam Pro',sans-serif;font-size:14.5px;font-weight:700;color:var(--dk);background:linear-gradient(90deg,rgba(0,116,55,.055),rgba(0,116,55,0) 65%);border:none;cursor:pointer;text-align:left;line-height:1.35;-webkit-tap-highlight-color:transparent}
+.mob-sec-hdr::before{content:"";width:4px;height:22px;border-radius:3px;background:var(--g);flex-shrink:0}
+.mob-sec-hdr:active{background:rgba(0,116,55,.09)}
+section.mob-sec.open .mob-sec-hdr{border-bottom:1px solid var(--bd)}
+.mob-arr{margin-left:auto;width:26px;height:26px;border-radius:50%;background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;transition:transform .3s,background .25s,color .25s;flex-shrink:0}
+section.mob-sec.open .mob-arr{transform:rotate(180deg);background:var(--g);color:#fff}
+section.mob-sec .sec-inner{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0!important}
+section.mob-sec.open .sec-inner{max-height:5000px;padding:18px 14px 24px!important}
+section.mob-sec>.sec-inner>.sec-tag,section.mob-sec>.sec-inner>.sec-h2,section.mob-sec>.sec-inner>.sec-sub{display:none!important}
+}
 </style>
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -899,7 +915,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 5 — BỒI THƯỜNG -->
-<section class="claim-sec" id="claim">
+<section class="claim-sec mob-sec" id="claim">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Hướng dẫn bồi thường<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
     <span class="sec-tag">Hướng dẫn bồi thường</span>
     <h2 class="sec-h2">Khi Tai Nạn Xảy Ra — Làm Gì Ngay Lập Tức?</h2>
@@ -1043,7 +1060,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 6b — ĐỐI TƯỢNG & LOẠI TRỪ -->
-<section class="sec" id="exclusions" style="background:#fff">
+<section class="sec mob-sec" id="exclusions" style="background:#fff">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Loại trừ bảo hiểm<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
     <span class="sec-tag">Minh bạch điều khoản</span>
     <h2 class="sec-h2">Đối Tượng &amp; Những Trường Hợp Loại Trừ</h2>
@@ -1100,7 +1118,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 7 — FAQ -->
-<section class="faq-sec" id="faq">
+<section class="faq-sec mob-sec" id="faq">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Câu hỏi thường gặp<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
     <span class="sec-tag" style="display:block;text-align:center;">Câu hỏi thường gặp</span>
     <h2 class="sec-h2" style="text-align:center;">Những Điều Khách Hàng Hay Hỏi Nhất</h2>
@@ -1341,11 +1360,29 @@ function submitCta(){
   document.getElementById('cta-succ').style.display='block';
   document.getElementById('cta-submit').style.display='none';
 }
+function toggleMobSec(btn){
+  var sec=btn.parentElement;
+  if(!sec||sec.tagName!=='SECTION')sec=btn.closest('section');
+  if(!sec)return;
+  var inner=sec.querySelector('.sec-inner');
+  var isOpen=sec.classList.toggle('open');
+  if(inner)inner.style.maxHeight=isOpen?(inner.scrollHeight+400)+'px':'0';
+}
+function refreshMobSec(el){
+  var sec=el.closest?el.closest('section.mob-sec'):null;
+  if(!sec||!sec.classList.contains('open'))return;
+  var inner=sec.querySelector('.sec-inner');
+  if(!inner)return;
+  inner.style.maxHeight='none';
+  var h=inner.scrollHeight;
+  inner.style.maxHeight=(h+400)+'px';
+}
 function toggleFaq(btn){
   var item=btn.parentElement;
   var wasOpen=item.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
   if(!wasOpen)item.classList.add('open');
+  setTimeout(function(){refreshMobSec(btn);},380);
 }
 function showPriceTab(tab){
   document.querySelectorAll('.price-tab').forEach(function(t){t.classList.remove('active');});

@@ -243,10 +243,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .f-copy{font-size:12px;color:var(--ts)}
 .f-disc{font-size:11px;color:#a0aec0;max-width:640px;line-height:1.5}
 
-/* FLOATING CTA */
-
-50%{box-shadow:0 4px 30px rgba(46,125,50,.7)}}
-
+.mob-sec-hdr{display:none}
 /* RESPONSIVE */
 @media(max-width:1024px){
   .hero-inner{grid-template-columns:1fr}
@@ -536,8 +533,30 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .float-zalo{background:var(--navy);width:44px;height:44px;border-radius:50%;box-shadow:0 4px 16px rgba(44,74,124,.4);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;transition:.2s}
 .float-zalo:hover{transform:scale(1.1)}
 @keyframes pulse{0%,100%{box-shadow:0 4px 20px rgba(46,125,50,.4)}
+50%{box-shadow:0 4px 30px rgba(46,125,50,.7)}}
 .float-cta{display:none!important}
 @media(max-width:640px){.float-cta{display:none!important}}
+@media(max-width:640px){
+/* Form fixes */
+.form-card{padding:18px 16px}
+.calc-lead{background:rgba(0,116,55,.06)!important;border:1px dashed rgba(0,116,55,.3)!important}
+#cta-form-grid{grid-template-columns:1fr!important}
+/* Section mobile accordion */
+/* Section mobile accordion — card style */
+section.mob-sec{padding:0!important;margin:12px 16px!important;background:#fff!important;border:1.5px solid var(--bd);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden;transition:border-color .25s,box-shadow .25s}
+section.mob-sec.open{border-color:var(--g);box-shadow:0 6px 22px rgba(0,116,55,.14)}
+.mob-sec-hdr{display:flex!important;width:100%;align-items:center;gap:11px;padding:15px 14px;font-family:'Be Vietnam Pro',sans-serif;font-size:14.5px;font-weight:700;color:var(--dk);background:linear-gradient(90deg,rgba(0,116,55,.055),rgba(0,116,55,0) 65%);border:none;cursor:pointer;text-align:left;line-height:1.35;-webkit-tap-highlight-color:transparent}
+.mob-sec-hdr::before{content:"";width:4px;height:22px;border-radius:3px;background:var(--g);flex-shrink:0}
+.mob-sec-hdr:active{background:rgba(0,116,55,.09)}
+section.mob-sec.open .mob-sec-hdr{border-bottom:1px solid var(--bd)}
+.mob-arr{margin-left:auto;width:26px;height:26px;border-radius:50%;background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:10px;line-height:1;transition:transform .3s,background .25s,color .25s;flex-shrink:0}
+section.mob-sec.open .mob-arr{transform:rotate(180deg);background:var(--g);color:#fff}
+section.mob-sec .sec-inner{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0!important}
+section.mob-sec.open .sec-inner{max-height:5000px;padding:18px 14px 24px!important}
+section.mob-sec .sec-hdr-block{display:none!important}
+/* Quyen loi chinh: hien full, khong accordion */
+#quyen-loi{padding:26px 0 30px!important}
+}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -660,15 +679,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   </div>
 </header>
 
-<!-- USP BAR -->
-<div class="usp-bar">
-  <div class="usp-inner">
-    <div class="usp-item"><span class="usp-dot"></span>Bồi thường trong 30 ngày — cam kết bằng Quy tắc bảo hiểm</div>
-    <div class="usp-item"><span class="usp-dot"></span>1.500+ gara liên kết chính hãng toàn quốc</div>
-    <div class="usp-item"><span class="usp-dot"></span>Ưu đãi đến 10% xe gia đình tại Hà Nội</div>
-    <div class="usp-item"><span class="usp-dot"></span>Hotline bồi thường 24/7: 1900 969 690</div>
-  </div>
-</div>
 
 <!-- SECTION 1: HERO -->
 <section class="hero" id="top">
@@ -699,9 +709,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="10" y2="11"/><line x1="14" y1="11" x2="16" y2="11"/><line x1="8" y1="16" x2="10" y2="16"/><line x1="14" y1="16" x2="16" y2="16"/></svg>
           Tính phí xe của bạn<span class="cta-extra"> — 30 giây</span>
         </a>
-        <a href="tel:1900969690" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dk);font-weight:700;font-size:14px;padding:14px 28px;border-radius:30px;text-decoration:none;border:2px solid var(--g);transition:.2s;font-family:'Be Vietnam Pro',sans-serif" onmouseover="this.style.background='var(--gl)'" onmouseout="this.style.background='transparent'">
+        <a href="tel:0869656561" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dk);font-weight:700;font-size:14px;padding:14px 28px;border-radius:30px;text-decoration:none;border:2px solid var(--g);transition:.2s;font-family:'Be Vietnam Pro',sans-serif" onmouseover="this.style.background='var(--gl)'" onmouseout="this.style.background='transparent'">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          1900 969 690
+          0869 656 561
         </a>
       </div>
       <div class="m-hide" style="font-size:11.5px;color:var(--ts);margin-top:14px">*Mức giảm thực tế theo từng phân khúc xe, đảm bảo tuân thủ biểu phí và tỷ lệ phí thuần được phê chuẩn. Sản phẩm theo Quy tắc Bảo hiểm kết hợp xe ô tô — QĐ 905A/2025/QĐ-DBV.</div>
@@ -848,9 +858,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 5: ĐKBS -->
-<section class="sec-pad sec-alt" id="dkbs">
+<section class="sec-pad sec-alt mob-sec" id="dkbs">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Quyền lợi bảo hiểm bổ sung<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
-    <div style="text-align:center">
+    <div class="sec-hdr-block" style="text-align:center">
       <span class="sec-tag">"May đo" theo nhu cầu thực tế</span>
       <h2 class="sec-h2">Chọn Thêm Quyền Lợi Đúng Nỗi Lo Của Bạn</h2>
     </div>
@@ -871,9 +882,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 6: QUY TRÌNH BỒI THƯỜNG -->
-<section class="sec-pad" id="boi-thuong">
+<section class="sec-pad mob-sec" id="boi-thuong">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Quy trình bồi thường<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
-    <div style="text-align:center">
+    <div class="sec-hdr-block" style="text-align:center">
       <span class="sec-tag">Trả lời thẳng nỗi lo "mua dễ, đòi khó"</span>
       <h2 class="sec-h2">Quy Trình Bồi Thường Minh Bạch — Cam Kết Bằng Văn Bản</h2>
     </div>
@@ -890,9 +902,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 7: LOẠI TRỪ MINH BẠCH -->
-<section class="sec-pad sec-alt" id="loai-tru">
+<section class="sec-pad sec-alt mob-sec" id="loai-tru">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Loại trừ bảo hiểm<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
-    <div style="text-align:center">
+    <div class="sec-hdr-block" style="text-align:center">
       <span class="sec-tag">Minh bạch điều khoản</span>
       <h2 class="sec-h2">DBV Nói Rõ Trước Khi Bạn Mua — Không Để Bất Ngờ Khi Bồi Thường</h2>
       <p class="sec-sub m-hide">Những trường hợp loại trừ khách cá nhân hay gặp nhất (Điều 10 &amp; Điều 13 Quy tắc):</p>
@@ -912,9 +925,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 8: ƯU ĐÃI & TÁI TỤC -->
-<section class="sec-pad" id="uu-dai">
+<section class="sec-pad mob-sec" id="uu-dai">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Ưu đãi &amp; Chính sách tái tục<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
-    <div style="text-align:center">
+    <div class="sec-hdr-block" style="text-align:center">
       <span class="sec-tag">Lái xe an toàn — phí càng rẻ</span>
       <h2 class="sec-h2">Ưu Đãi Phí &amp; Chính Sách Tái Tục</h2>
     </div>
@@ -930,9 +944,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 9: CASE STUDY -->
-<section class="sec-pad sec-alt" id="thuc-te">
+<section class="sec-pad sec-alt mob-sec" id="thuc-te">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Case bồi thường thực tế<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
-    <div style="text-align:center">
+    <div class="sec-hdr-block" style="text-align:center">
       <span class="sec-tag">Không hứa suông — nhìn vào việc đã làm</span>
       <h2 class="sec-h2">Khi Rủi Ro Thật Xảy Ra, DBV Đã Làm Gì?</h2>
     </div>
@@ -958,9 +973,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </section>
 
 <!-- SECTION 10: FAQ -->
-<section class="faq-sec sec-pad" id="faq">
+<section class="faq-sec sec-pad mob-sec" id="faq">
+  <button class="mob-sec-hdr" onclick="toggleMobSec(this)">Câu hỏi thường gặp<span class="mob-arr">▼</span></button>
   <div class="sec-inner">
-    <div style="text-align:center">
+    <div class="sec-hdr-block" style="text-align:center">
       <span class="sec-tag">Giải đáp nhanh</span>
       <h2 class="sec-h2">Câu Hỏi Thường Gặp</h2>
     </div>
@@ -1007,7 +1023,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
     <h2>Nhận Tư Vấn Miễn Phí Trong Ngày</h2>
     <p>Báo giá chính xác theo xe của bạn · Kiểm tra miễn phí điều khoản hợp đồng cũ trước khi tái tục</p>
     <div class="cta-form">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
+      <div id="cta-form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
         <div class="fg">
           <label>HỌ VÀ TÊN</label>
           <input type="text" id="cta-name" placeholder="Nhập họ và tên..."/>
@@ -1037,7 +1053,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
       </button>
       <div class="form-succ" id="cta-succ">✓ Đã nhận thông tin! Chuyên viên DBV247 sẽ gọi lại trong 15 phút (giờ làm việc).</div>
       <div class="cta-prom">
-        <div class="cta-prom-item">📞 Hotline 24/7: <a href="tel:1900969690" style="color:inherit;font-weight:800">1900 969 690</a></div>
+        <div class="cta-prom-item">📞 Hotline 24/7: <a href="tel:0869656561" style="color:inherit;font-weight:800">0869 656 561</a></div>
         <div class="cta-prom-item">💬 <a href="https://zalo.me/0869656561" target="_blank" rel="noopener" style="color:inherit;font-weight:800">Chat Zalo — gửi ảnh đăng kiểm nhận báo giá</a></div>
         <div class="cta-prom-item">✉️ <a href="mailto:dbvi247@gmail.com" style="color:inherit;font-weight:800">dbvi247@gmail.com</a></div>
       </div>
@@ -1283,6 +1299,14 @@ function toggleAcc(btn){
   var wasOpen=item.classList.contains('open');
   list.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
   if(!wasOpen)item.classList.add('open');
+}
+function toggleMobSec(btn){
+  var sec=btn.parentElement;
+  if(!sec||sec.tagName!=='SECTION')sec=btn.closest('section');
+  if(!sec)return;
+  var inner=sec.querySelector('.sec-inner');
+  var isOpen=sec.classList.toggle('open');
+  if(inner){inner.style.maxHeight=isOpen?(inner.scrollHeight+200)+'px':'0';}
 }
 calcFee();
 </script>

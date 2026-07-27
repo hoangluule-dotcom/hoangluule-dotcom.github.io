@@ -229,11 +229,20 @@ main{background:#f0fdf4}
 .empty h3{font-size:16px;font-weight:700;color:var(--tm);margin-bottom:8px}
 
 /* ══ STICKY MOBILE BAR ══ */
-.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);padding:10px 16px;z-index:400;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);padding:8px 12px;z-index:400;gap:8px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
 @media(max-width:640px){.mob-bar{display:flex}}
-.mob-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;padding:11px;border-radius:10px;text-decoration:none}
+.mob-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;font-weight:700;padding:9px 4px;border-radius:10px;text-decoration:none;white-space:nowrap}
 .mob-call{background:var(--gl);color:var(--g);border:1.5px solid var(--g)}
-.mob-zalo{background:var(--zalo);color:#fff}
+.mob-zalo{background:#0068FF;color:#fff}
+.mob-messenger{background:#0084FF;color:#fff}
+
+/* ══ FLOATING CTA (DESKTOP ONLY) ══ */
+.float-cta{position:fixed;right:20px;bottom:120px;z-index:390;display:flex;flex-direction:column;gap:12px;align-items:center}
+@media(max-width:640px){.float-cta{display:none}}
+.float-btn{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;overflow:hidden;flex-shrink:0}
+.float-btn:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.float-btn-zalo{background:transparent;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.float-btn-messenger{background:#0084FF}
 
 
 /* ══ EXPERTS SECTION ══ */
@@ -306,23 +315,23 @@ main{background:#f0fdf4}
 .ftr{background:#0f2515;border-top:none;margin-top:0}
 .ftr-inner{max-width:1280px;margin:0 auto;padding:28px 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
 .ftr-logo{height:88px;width:auto;display:block;margin-bottom:18px}
-.ftr-brand-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:12px}
-.ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;margin-bottom:8px;line-height:1.5}
+.ftr-brand-desc{font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:12px}
+.ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;margin-bottom:8px;line-height:1.5}
 .ftr-info a:hover{color:#fff}
 .ftr-info a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0;margin-top:2px}
-.ftr-col h4,.ftr-contact h4{font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.7px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1)}
-.ftr-col a{display:block;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;margin-bottom:10px;line-height:1.5;transition:.15s}
+.ftr-col h4,.ftr-contact h4{font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.15)}
+.ftr-col a{display:block;font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;margin-bottom:10px;line-height:1.5;transition:.15s}
 .ftr-col a:hover{color:#E8920A;padding-left:4px}
 .ftr-social{display:flex;gap:10px;margin-bottom:24px}
-.ftr-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
 .ftr-social a:hover{background:#E8920A;transform:translateY(-2px)}
 .ftr-social svg{width:17px;height:17px;fill:#fff}
-.ftr-phone-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ftr-phone-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .ftr-hotline{font-size:22px;font-weight:800;color:#E8920A;text-decoration:none;letter-spacing:-.5px;display:block;line-height:1.2}
-.ftr-hotline:hover{color:#c97d08}
-.ftr-copy{border-top:1px solid rgba(255,255,255,.1)}
-.ftr-copy-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:rgba(255,255,255,.4)}
-.ftr-copy-inner a{color:rgba(255,255,255,.4);text-decoration:none}
+.ftr-hotline:hover{color:#fff}
+.ftr-copy{border-top:1px solid rgba(255,255,255,.15)}
+.ftr-copy-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:rgba(255,255,255,.5)}
+.ftr-copy-inner a{color:rgba(255,255,255,.5);text-decoration:none}
 .ftr-copy-inner a:hover{color:#fff}
 @media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
 @media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 20px 28px}.ftr-copy-inner{padding:14px 20px;flex-direction:column;text-align:center}}
@@ -725,6 +734,18 @@ main{background:#f0fdf4}
 
 </main>
 
+<!-- FLOATING CTA (DESKTOP ONLY) -->
+<div class="float-cta" role="complementary" aria-label="Liên hệ nhanh">
+  <a href="https://zalo.me/1283738895804393564" class="float-btn float-btn-zalo" target="_blank" rel="noopener" aria-label="Nhắn tin Zalo">
+    <img src="/Icon_of_Zalo.svg" alt="Zalo" width="36" height="36">
+  </a>
+  <a href="https://m.me/1108459929024761" class="float-btn float-btn-messenger" target="_blank" rel="noopener" aria-label="Nhắn tin Facebook Messenger">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 2C7.82 2 2 7.43 2 14.1c0 3.95 1.97 7.46 5.03 9.78V28l4.55-2.51c1.22.34 2.5.51 3.87.51 7.18 0 13-5.43 13-12.1S22.18 2 15 2zm1.28 16.28-3.27-3.5-6.38 3.5 7.02-7.46 3.35 3.5 6.3-3.5-7.02 7.46z" fill="#fff"/>
+    </svg>
+  </a>
+</div>
+
 <!-- STICKY MOBILE BAR -->
 <div class="mob-bar">
   <a href="tel:0869656561" class="mob-call">
@@ -732,8 +753,12 @@ main{background:#f0fdf4}
     Gọi ngay
   </a>
   <a href="https://zalo.me/1283738895804393564" class="mob-zalo" target="_blank" rel="noopener">
-    <svg width="15" height="15" viewBox="0 0 32 32" fill="#fff"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
+    <img src="/Icon_of_Zalo.svg" alt="" width="18" height="18" aria-hidden="true">
     Nhắn Zalo
+  </a>
+  <a href="https://m.me/1108459929024761" class="mob-messenger" target="_blank" rel="noopener">
+    <svg width="15" height="15" viewBox="0 0 30 30" fill="none"><path d="M15 2C7.82 2 2 7.43 2 14.1c0 3.95 1.97 7.46 5.03 9.78V28l4.55-2.51c1.22.34 2.5.51 3.87.51 7.18 0 13-5.43 13-12.1S22.18 2 15 2zm1.28 16.28-3.27-3.5-6.38 3.5 7.02-7.46 3.35 3.5 6.3-3.5-7.02 7.46z" fill="#fff"/></svg>
+    Messenger
   </a>
 </div>
 
