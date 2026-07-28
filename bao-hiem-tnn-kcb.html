@@ -10,7 +10,7 @@
 <meta name="description" content="Bảo hiểm trách nhiệm nghề nghiệp trong khám chữa bệnh — bảo vệ cơ sở y tế và người hành nghề trước rủi ro bồi thường do sai sót chuyên môn, chi trả cả chi phí pháp lý. Đáp ứng nghĩa vụ mua bảo hiểm theo Luật Khám bệnh, chữa bệnh. Tư vấn miễn phí."/>
 <meta name="keywords" content="bảo hiểm trách nhiệm nghề nghiệp khám chữa bệnh, bảo hiểm trách nhiệm nghề nghiệp bác sĩ, bảo hiểm trách nhiệm y tế, bảo hiểm trách nhiệm bệnh viện, bảo hiểm sai sót y khoa, medical malpractice insurance, bảo hiểm trách nhiệm nghề nghiệp DBV"/>
 <meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://www.dbv247.com.vn/bao-hiem-tnn-kcb"/>
+<link rel="canonical" href="https://dbv247.com.vn/bao-hiem-tnn-kcb"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Bảo Hiểm Trách Nhiệm Nghề Nghiệp Trong Khám Chữa Bệnh | DBV"/>
 <meta property="og:description" content="DBV bảo vệ cơ sở y tế và người hành nghề trước trách nhiệm bồi thường do sai sót chuyên môn trong khám chữa bệnh — bao gồm cả chi phí pháp lý."/>
@@ -979,6 +979,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 
 <script>
+function _show(id){var e=document.getElementById(id);if(e)e.style.display='block';}
+function _hide(sel){var e=document.querySelector(sel);if(e)e.style.display='none';}
+
 function fv(id){var e=document.getElementById(id);if(!e)return'';
  if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
  if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
@@ -989,8 +992,8 @@ function submitForm(){
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm TN Nghề Nghiệp KCB','dien-thoai':p,'loai-hinh':fv('f-facility'),'muc-quan-tam':fv('f-limit')}).toString()});
   /* TODO: ket noi form voi CRM / email / Google Sheet cua DBV */
-  document.getElementById('form-succ').style.display='block';
-  document.querySelector('#hero-form .btn-primary').style.display='none';
+  _show('form-succ');
+  _hide('#hero-form .btn-primary');
 }
 function toggleFaq(btn){
   var item=btn.parentElement;
@@ -1014,8 +1017,8 @@ function submitFloat(){
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-float','san-pham':'Bảo Hiểm TN Nghề Nghiệp KCB','dien-thoai':p}).toString()});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-facility').disabled=true;
-  document.querySelector('#floatFormWrap button').style.display='none';
-  document.getElementById('float-succ').style.display='block';
+  _hide('#floatFormWrap button');
+  _show('float-succ');
   setTimeout(function(){
     document.getElementById('floatFormWrap').style.display='none';
     document.getElementById('float-phone').disabled=false;
@@ -1086,5 +1089,24 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   </a>
 </div>
 
+<script>
+/* dbv-applink-fix — Zalo & Messenger dùng Universal Link (iOS) / App Link (Android).
+   Cơ chế này KHÔNG kích hoạt khi link mở ở tab mới, khi đó máy chỉ tải trang web
+   rồi đẩy người dùng sang App Store / CH Play. Vì vậy trên di động phải bỏ
+   target="_blank" để bấm là mở thẳng ứng dụng. Desktop giữ nguyên tab mới. */
+(function(){
+  if(!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
+  function fix(){
+    var list = document.querySelectorAll('a[target="_blank"][href*="zalo.me"], a[target="_blank"][href*="m.me"]');
+    for(var i = 0; i < list.length; i++) list[i].removeAttribute('target');
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix);
+  else fix();
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[target="_blank"]') : null;
+    if(a && /zalo\.me|m\.me/.test(a.href)) a.removeAttribute('target');
+  }, true);
+})();
+</script>
 </body>
 </html>

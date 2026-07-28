@@ -889,6 +889,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </footer>
 
 <script>
+function _show(id){var e=document.getElementById(id);if(e)e.style.display='block';}
+function _hide(sel){var e=document.querySelector(sel);if(e)e.style.display='none';}
+
 function fv(id){var e=document.getElementById(id);if(!e)return'';
  if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
  if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
@@ -898,8 +901,8 @@ function submitForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm TNDS Chủ Xe Máy','dien-thoai':p,'loai-xe':fv('f-cc'),'thoi-han':fv('f-duration')}).toString()});
-  document.getElementById('form-succ').style.display='block';
-  document.querySelector('.btn-primary').style.display='none';
+  _show('form-succ');
+  _hide('.btn-primary');
 }
 function toggleFaq(btn){
   var item=btn.parentElement;
@@ -922,8 +925,8 @@ function submitFloat(){
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-float','san-pham':'Bảo Hiểm TNDS Chủ Xe Máy','dien-thoai':p}).toString()});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-cc').disabled=true;
-  document.querySelector('#floatFormWrap button').style.display='none';
-  document.getElementById('float-succ').style.display='block';
+  _hide('#floatFormWrap button');
+  _show('float-succ');
   setTimeout(function(){
     document.getElementById('floatFormWrap').style.display='none';
     document.getElementById('float-phone').disabled=false;
@@ -994,5 +997,24 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   </a>
 </div>
 
+<script>
+/* dbv-applink-fix — Zalo & Messenger dùng Universal Link (iOS) / App Link (Android).
+   Cơ chế này KHÔNG kích hoạt khi link mở ở tab mới, khi đó máy chỉ tải trang web
+   rồi đẩy người dùng sang App Store / CH Play. Vì vậy trên di động phải bỏ
+   target="_blank" để bấm là mở thẳng ứng dụng. Desktop giữ nguyên tab mới. */
+(function(){
+  if(!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
+  function fix(){
+    var list = document.querySelectorAll('a[target="_blank"][href*="zalo.me"], a[target="_blank"][href*="m.me"]');
+    for(var i = 0; i < list.length; i++) list[i].removeAttribute('target');
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix);
+  else fix();
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[target="_blank"]') : null;
+    if(a && /zalo\.me|m\.me/.test(a.href)) a.removeAttribute('target');
+  }, true);
+})();
+</script>
 </body>
 </html>

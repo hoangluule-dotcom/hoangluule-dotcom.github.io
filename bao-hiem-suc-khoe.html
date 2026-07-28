@@ -1189,6 +1189,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
 <!-- FLOAT CTA (desktop) -->
 
 <script>
+function _show(id){var e=document.getElementById(id);if(e)e.style.display='block';}
+function _hide(sel){var e=document.querySelector(sel);if(e)e.style.display='none';}
+
 // ── PLAN TAB SWITCHER (mobile) ──
 var planTabs = document.querySelectorAll('.plan-tab');
 var planPanels = document.querySelectorAll('.plan-card-panel');
@@ -1302,13 +1305,13 @@ function submitHero(){
   var p=document.getElementById('h-phone').value.trim();
   if(!p){document.getElementById('h-phone').focus();return;}
   netlifyPost('dbv-suckhoe',{'san-pham':'Bảo Hiểm Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('h-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('h-who').value,'nhom-tuoi':document.getElementById('h-age').value,'goi-quan-tam':pickedPlan});
-  document.getElementById('h-succ').style.display='block';
+  _show('h-succ');
 }
 function submitCta(){
   var p=document.getElementById('c-phone').value.trim();
   if(!p){document.getElementById('c-phone').focus();return;}
   netlifyPost('dbv-suckhoe',{'san-pham':'Bảo Hiểm Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('c-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('c-who').value,'nhom-tuoi':'','goi-quan-tam':document.getElementById('c-goi').value||pickedPlan});
-  document.getElementById('c-succ').style.display='block';
+  _show('c-succ');
 }
 function toggleFloatForm(){
   var w=document.getElementById('floatFormWrap');
@@ -1319,7 +1322,7 @@ function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p)return;
   netlifyPost('dbv-float-sk',{'san-pham':'Bảo Hiểm Sức Khỏe An Tâm Vui Khỏe','dien-thoai':p});
-  document.getElementById('float-succ').style.display='block';
+  _show('float-succ');
   setTimeout(function(){document.getElementById('floatFormWrap').style.display='none';document.getElementById('float-phone').value='';document.getElementById('float-succ').style.display='none';},3000);
 }
 document.addEventListener('click',function(e){
@@ -1365,5 +1368,24 @@ calcFee();
   </a>
 </div>
 
+<script>
+/* dbv-applink-fix — Zalo & Messenger dùng Universal Link (iOS) / App Link (Android).
+   Cơ chế này KHÔNG kích hoạt khi link mở ở tab mới, khi đó máy chỉ tải trang web
+   rồi đẩy người dùng sang App Store / CH Play. Vì vậy trên di động phải bỏ
+   target="_blank" để bấm là mở thẳng ứng dụng. Desktop giữ nguyên tab mới. */
+(function(){
+  if(!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
+  function fix(){
+    var list = document.querySelectorAll('a[target="_blank"][href*="zalo.me"], a[target="_blank"][href*="m.me"]');
+    for(var i = 0; i < list.length; i++) list[i].removeAttribute('target');
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix);
+  else fix();
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[target="_blank"]') : null;
+    if(a && /zalo\.me|m\.me/.test(a.href)) a.removeAttribute('target');
+  }, true);
+})();
+</script>
 </body>
 </html>
