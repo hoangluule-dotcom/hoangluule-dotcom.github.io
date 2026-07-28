@@ -435,7 +435,7 @@ main{background:#fff}
     "url": "https://dbv247.com.vn",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://dbv247.com.vn/Logo%20header%20Footer.png"
+      "url": "https://dbv247.com.vn/logo-dbv247.png"
     },
     "image": "https://dbv247.com.vn/banner-hero.webp",
     "description": "Chi nhánh Thành Đô của Tập đoàn DBV – tư vấn và mua bảo hiểm trực tuyến: xe ô tô, sức khỏe, du lịch, tài sản, trách nhiệm nghề nghiệp.",
@@ -489,6 +489,9 @@ main{background:#fff}
   gtag('js', new Date());
   gtag('config', 'G-DY2WX5NWWC');
 </script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 <form name="dbv-tuvan" netlify netlify-honeypot="bot-field" hidden>
@@ -565,7 +568,7 @@ main{background:#fff}
 <header class="hdr" role="banner">
   <!-- Main nav -->
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="Logo header Footer.png" alt="DBV247 – Trang chủ" width="auto" height="48"></a>
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247 – Trang chủ" width="auto" height="48"></a>
     <nav class="hdr-nav">
       <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -641,7 +644,7 @@ main{background:#fff}
         <div class="hf-field">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <label class="sr-only" for="hf-phone">Số điện thoại</label>
-          <input class="hf-input" id="hf-phone" name="phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" required>
+          <input class="hf-input" id="hf-phone" name="phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" required inputmode="tel" maxlength="15" aria-label="Số điện thoại">
         </div>
         <div class="hf-field">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -814,11 +817,11 @@ main{background:#fff}
         <div class="lf-row">
           <div class="lf-group">
             <label class="lf-label" for="lf-name">Họ và tên</label>
-            <input class="lf-input" id="lf-name" name="name" type="text" placeholder="Nguyễn Văn A" autocomplete="name" required>
+            <input class="lf-input" id="lf-name" name="name" type="text" placeholder="Nguyễn Văn A" autocomplete="name" required aria-label="Họ và tên">
           </div>
           <div class="lf-group">
             <label class="lf-label" for="lf-phone">Số điện thoại</label>
-            <input class="lf-input" id="lf-phone" name="phone" type="tel" placeholder="0912 345 678" autocomplete="tel" required>
+            <input class="lf-input" id="lf-phone" name="phone" type="tel" placeholder="0912 345 678" autocomplete="tel" required inputmode="tel" maxlength="15" aria-label="Số điện thoại">
           </div>
         </div>
         <div class="lf-group">
@@ -1073,7 +1076,7 @@ function checkEmpty() {
   <div class="ftr-inner">
     <!-- Cột 1: Brand -->
     <div class="ftr-brand">
-      <img src="Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
@@ -1141,7 +1144,7 @@ function checkEmpty() {
     <div class="ftr-copy-inner">
       <span>Copyright © 2025 DBV247. All rights reserved.</span>
       <div style="display:flex;gap:16px">
-        <span>Chính sách bảo mật</span>
+        <a href="/chinh-sach-bao-mat" style="color:inherit;text-decoration:none">Chính sách bảo mật</a>
         <span>Điều khoản sử dụng</span>
       </div>
     </div>

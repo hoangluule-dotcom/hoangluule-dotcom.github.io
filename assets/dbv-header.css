@@ -1,0 +1,152 @@
+/* ============================================================================
+   DBV247 — HEADER TRÊN ĐIỆN THOẠI
+   Đổi icon "Danh mục" thành hamburger + thêm nút tìm kiếm.
+   TẤT CẢ chỉ áp dụng cho màn hình từ 640px trở xuống. Máy tính giữ nguyên.
+   ============================================================================ */
+
+/* Nút tìm kiếm do JavaScript chèn vào — mặc định ẩn, chỉ hiện ở điện thoại */
+.dbv-btn-search { display: none; }
+
+@media (max-width: 640px) {
+
+  /* --- 1. Đổi icon 4 ô vuông thành hamburger --- */
+  .btn-catalog-hdr > svg { display: none; }
+
+  .btn-catalog-hdr::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231C1C1C' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M3 12h18'/%3E%3Cpath d='M3 18h18'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  /* --- 2. Vùng bấm đủ lớn cho ngón tay (tối thiểu 44x44) --- */
+  .btn-catalog-hdr {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 10px;
+  }
+
+  /* --- 3. Nút tìm kiếm, đặt bên trái hamburger --- */
+  .dbv-btn-search {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-radius: 10px;
+    border: 1.5px solid var(--bd, #E2E8F0);
+    background: #fff;
+    color: var(--tx, #1C1C1C);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: .18s;
+  }
+  .dbv-btn-search:active { background: var(--gl, #e8f5e9); border-color: var(--g, #007437); }
+  .dbv-btn-search svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+  .hdr-actions { gap: 8px; }
+}
+
+/* ============================================================================
+   LỚP PHỦ TÌM KIẾM
+   Không giới hạn theo kích thước màn hình vì chỉ mở được từ nút ở điện thoại.
+   ============================================================================ */
+
+.dbv-search-lop {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .18s ease;
+}
+.dbv-search-lop.mo { opacity: 1; visibility: visible; }
+
+.dbv-search-thanh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--bd, #E2E8F0);
+  flex-shrink: 0;
+}
+
+.dbv-search-o {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: 16px;            /* 16px để iOS không tự phóng to trang khi gõ */
+  color: var(--tx, #1C1C1C);
+  border: 1.5px solid var(--bd, #E2E8F0);
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+}
+.dbv-search-o:focus { border-color: var(--g, #007437); box-shadow: 0 0 0 3px rgba(0,116,55,.10); }
+.dbv-search-o::placeholder { color: #a0aec0; }
+
+.dbv-search-dong {
+  min-width: 44px; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer;
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  color: var(--tm, #4a5568); padding: 0 4px; flex-shrink: 0;
+}
+
+.dbv-search-than { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 12px 24px; }
+
+.dbv-search-nhan {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--ts, #718096);
+  margin: 12px 4px 8px;
+}
+
+.dbv-search-mucs { display: flex; flex-direction: column; gap: 2px; }
+
+.dbv-search-muc {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 10px; border-radius: 10px;
+  text-decoration: none; color: inherit;
+  min-height: 44px;
+}
+.dbv-search-muc:active { background: var(--gl, #e8f5e9); }
+.dbv-search-muc-ten { font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+.dbv-search-muc-mo  { font-size: 12px; color: var(--tm, #4a5568); line-height: 1.45; margin-top: 2px; }
+.dbv-search-muc mark { background: #FFF3D1; color: inherit; padding: 0 1px; border-radius: 2px; }
+
+.dbv-search-the {
+  flex-shrink: 0; font-size: 10px; font-weight: 800;
+  padding: 3px 7px; border-radius: 20px; white-space: nowrap;
+  align-self: flex-start; margin-top: 2px;
+}
+.dbv-search-the.hot      { background: #FFEDD5; color: #C2410C; }
+.dbv-search-the.moi      { background: var(--gl, #e8f5e9); color: var(--g, #007437); }
+.dbv-search-the.batbuoc  { background: #E0E7FF; color: #3730A3; }
+
+.dbv-search-trong { padding: 32px 16px; text-align: center; color: var(--tm, #4a5568); font-size: 14px; line-height: 1.6; }
+.dbv-search-trong strong { color: var(--tx, #1C1C1C); }
+
+.dbv-search-goiy { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 4px 8px; }
+.dbv-search-chip {
+  font-family: inherit; font-size: 13px; font-weight: 600;
+  padding: 9px 14px; min-height: 40px;
+  border: 1.5px solid var(--bd, #E2E8F0); border-radius: 20px;
+  background: #fff; color: var(--tx, #1C1C1C); cursor: pointer;
+}
+.dbv-search-chip:active { background: var(--gl, #e8f5e9); border-color: var(--g, #007437); }
+
+/* Khóa cuộn trang nền khi lớp phủ đang mở */
+body.dbv-khoa-cuon { overflow: hidden; }

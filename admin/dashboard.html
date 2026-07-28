@@ -80,6 +80,15 @@ a{color:var(--g);text-decoration:none}
 .sc-d.up{color:var(--g);font-weight:600}
 .sc-d.dgr{color:var(--red);font-weight:600}
 
+/* ══ CHUYỂN CHẾ ĐỘ XEM ══ */
+.views{display:inline-flex;background:#fff;border:1px solid var(--bd);border-radius:11px;padding:4px;gap:4px;margin-bottom:18px}
+.vbtn{padding:9px 18px;border-radius:8px;border:none;background:transparent;color:var(--tm);font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:7px;transition:.18s;white-space:nowrap}
+.vbtn:hover{color:var(--g)}
+.vbtn.on{background:var(--g);color:#fff}
+.vbtn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.vbtn .vn{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:rgba(0,0,0,.08)}
+.vbtn.on .vn{background:rgba(255,255,255,.26)}
+
 /* ══ PANEL ══ */
 .panel{background:#fff;border:1px solid var(--bd);border-radius:var(--r12);overflow:hidden}
 .panel-head{padding:16px 18px;border-bottom:1px solid var(--bd)}
@@ -130,6 +139,15 @@ tbody tr.active{background:var(--gl)}
 .btn-claim svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.5}
 .c-time{font-size:12px;color:var(--ts);white-space:nowrap}
 .empty-row td{text-align:center;padding:48px 16px;color:var(--ts)}
+/* Cột hợp đồng */
+.c-money{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.c-money small{display:block;font-size:11px;font-weight:600;color:var(--g);margin-top:2px}
+.c-policy{font-size:12px;font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--tm)}
+.c-none{color:var(--ts);font-style:italic;font-size:12px}
+.r-hieu-luc{background:var(--gl);color:var(--g)}
+.r-sap-tai-tuc{background:var(--gold-bg);color:var(--goldd)}
+.r-het-han{background:var(--red-bg);color:var(--red)}
+.r-chua-ro{background:#f1f3f5;color:var(--ts)}
 
 /* ══ DRAWER ══ */
 .ov{position:fixed;inset:0;background:rgba(15,37,21,.45);z-index:200;opacity:0;pointer-events:none;transition:opacity .22s}
@@ -258,40 +276,18 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
 
   <div class="wrap">
 
-    <div class="stats">
-      <div class="sc" onclick="setStage('moi')">
-        <div class="sc-top">
-          <div class="sc-l">Lead mới</div>
-          <div class="sc-ic i-new"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div>
-        </div>
-        <div class="sc-v" id="stNew">–</div>
-        <div class="sc-d" id="stNewSub">Chưa ai nhận</div>
-      </div>
-      <div class="sc" onclick="setLateFilter()">
-        <div class="sc-top">
-          <div class="sc-l">Quá hạn gọi</div>
-          <div class="sc-ic i-late"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-        </div>
-        <div class="sc-v" id="stLate">–</div>
-        <div class="sc-d dgr">Chưa gọi quá 4 giờ</div>
-      </div>
-      <div class="sc" onclick="setStage('dang-tu-van')">
-        <div class="sc-top">
-          <div class="sc-l">Đang chăm sóc</div>
-          <div class="sc-ic i-care"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-        </div>
-        <div class="sc-v" id="stCare">–</div>
-        <div class="sc-d" id="stCareSub">Đã liên hệ + đang tư vấn</div>
-      </div>
-      <div class="sc" onclick="setStage('chot')">
-        <div class="sc-top">
-          <div class="sc-l">Chốt hợp đồng</div>
-          <div class="sc-ic i-won"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        </div>
-        <div class="sc-v" id="stWon">–</div>
-        <div class="sc-d up" id="stWonSub">Tổng đã chốt</div>
-      </div>
+    <div class="views">
+      <button class="vbtn on" id="vLead" onclick="setView('lead')">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+        Lead đang xử lý <span class="vn" id="vnLead">0</span>
+      </button>
+      <button class="vbtn" id="vCus" onclick="setView('customer')">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Khách hàng <span class="vn" id="vnCus">0</span>
+      </button>
     </div>
+
+    <div class="stats" id="stats"></div>
 
     <div class="panel" id="panel">
       <div class="panel-head">
@@ -320,15 +316,7 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
       </div>
       <div class="tbl-scroll">
         <table>
-          <thead>
-            <tr>
-              <th style="min-width:170px">Khách hàng</th>
-              <th style="min-width:150px">Sản phẩm quan tâm</th>
-              <th style="min-width:150px">Trạng thái</th>
-              <th style="min-width:140px">Phụ trách</th>
-              <th style="min-width:110px">Nhận lúc</th>
-            </tr>
-          </thead>
+          <thead id="thead"></thead>
           <tbody id="tbody">
             <tr class="empty-row"><td colspan="5">Đang tải dữ liệu...</td></tr>
           </tbody>
@@ -390,6 +378,35 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
         <label class="lbl" for="dNext">Hẹn liên hệ lại</label>
         <input class="ctrl" type="datetime-local" id="dNext">
       </div>
+
+      <!-- Chỉ hiện khi trạng thái = Chốt hợp đồng -->
+      <div id="contractBox" style="display:none;background:#f7f9fb;border-radius:10px;padding:13px;margin-bottom:11px">
+        <div class="dr-sec-h" style="margin-bottom:10px">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Thông tin hợp đồng
+        </div>
+        <div class="row2" style="margin-bottom:10px">
+          <div>
+            <label class="lbl" for="dPolicy">Số GCN / hợp đồng</label>
+            <input class="ctrl" type="text" id="dPolicy" placeholder="VD: DBV-2026-00123">
+          </div>
+          <div>
+            <label class="lbl" for="dExpiry">Ngày hết hạn</label>
+            <input class="ctrl" type="date" id="dExpiry">
+          </div>
+        </div>
+        <div class="row2">
+          <div>
+            <label class="lbl" for="dPremium">Phí bảo hiểm (VNĐ)</label>
+            <input class="ctrl" type="text" inputmode="numeric" id="dPremium" placeholder="0" oninput="fmtMoneyInput(this)">
+          </div>
+          <div>
+            <label class="lbl" for="dCommission">Hoa hồng (VNĐ)</label>
+            <input class="ctrl" type="text" inputmode="numeric" id="dCommission" placeholder="0" oninput="fmtMoneyInput(this)">
+          </div>
+        </div>
+      </div>
+
       <div>
         <label class="lbl" for="dNote">Ghi chú lần này</label>
         <textarea class="ctrl" id="dNote" placeholder="Ví dụ: Đã gọi, khách đang so sánh giá, hẹn gọi lại chiều mai..."></textarea>
@@ -428,7 +445,8 @@ var STAFF = [
   "Lưu Lê Hoàng",
   "Phạm An"
 ];
-var SLA_HOURS = 4;   // lead mới chưa ai gọi quá số giờ này thì báo đỏ
+var SLA_HOURS = 4;    // lead mới chưa ai gọi quá số giờ này thì báo đỏ
+var RENEW_DAYS = 45;  // còn dưới số ngày này thì báo "sắp tái tục"
 
 var STAGES = {
   'moi':         { label: 'Mới',           cls: 's-moi' },
@@ -437,7 +455,17 @@ var STAGES = {
   'chot':        { label: 'Chốt hợp đồng', cls: 's-chot' },
   'khong-thanh': { label: 'Không thành',   cls: 's-khong-thanh' }
 };
-var STAGE_ORDER = ['moi','da-lien-he','dang-tu-van','chot','khong-thanh'];
+/* Tab của chế độ "Lead đang xử lý" — bỏ "chot" vì đã chuyển sang Khách hàng */
+var STAGE_ORDER = ['moi','da-lien-he','dang-tu-van','khong-thanh'];
+
+/* Trạng thái tái tục, suy ra từ ngày hết hạn hợp đồng */
+var RENEW = {
+  'hieu-luc':     { label:'Đang hiệu lực', cls:'r-hieu-luc' },
+  'sap-tai-tuc':  { label:'Sắp tái tục',   cls:'r-sap-tai-tuc' },
+  'het-han':      { label:'Đã hết hạn',    cls:'r-het-han' },
+  'chua-ro':      { label:'Chưa rõ hạn',   cls:'r-chua-ro' }
+};
+var RENEW_ORDER = ['sap-tai-tuc','hieu-luc','het-han','chua-ro'];
 
 var FIELD_LABELS = {
   'name':'Họ tên', 'ho-ten':'Họ tên', 'phone':'Số điện thoại', 'dien-thoai':'Số điện thoại',
@@ -468,6 +496,7 @@ var LEADS = [];
 var CARE  = {};
 var ME = '';
 var ACCESS_KEY = '';
+var curView = 'lead';   // 'lead' = phễu bán hàng | 'customer' = khách đã ký
 var curStage = 'all';
 var curLead = null;
 var lateOnly = false;
@@ -527,7 +556,51 @@ function leadProduct(s){
   return NEED_LABELS[v] || v || '—';
 }
 function careOf(id){
-  return CARE[id] || { stage:'moi', owner:null, nextFollowUp:null, activities:[] };
+  return CARE[id] || { stage:'moi', owner:null, nextFollowUp:null,
+    policyNo:null, expiryDate:null, premium:null, commission:null, activities:[] };
+}
+
+/* ══ TIỀN TỆ ══ */
+function money(n){
+  if(n === null || n === undefined || n === '') return '';
+  return Number(n).toLocaleString('vi-VN');
+}
+function moneyShort(n){
+  if(!n) return '';
+  n = Number(n);
+  if(n >= 1000000000) return (n/1000000000).toFixed(n % 1000000000 === 0 ? 0 : 1).replace('.',',') + ' tỷ';
+  if(n >= 1000000)    return (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 1).replace('.',',') + ' tr';
+  if(n >= 1000)       return Math.round(n/1000) + 'k';
+  return String(n);
+}
+function parseMoney(s){
+  var d = String(s === null || s === undefined ? '' : s).replace(/[^0-9]/g,'');
+  return d ? Number(d) : null;
+}
+/* Tự chèn dấu phân cách khi gõ số tiền */
+function fmtMoneyInput(el){
+  var n = parseMoney(el.value);
+  el.value = n === null ? '' : n.toLocaleString('vi-VN');
+}
+
+/* ══ TÁI TỤC ══ */
+function daysUntil(iso){
+  if(!iso) return null;
+  var d = new Date(iso);
+  if(isNaN(d.getTime())) return null;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var target = new Date(d); target.setHours(0,0,0,0);
+  return Math.round((target - today) / 86400000);
+}
+function renewState(care){
+  var d = daysUntil(care.expiryDate);
+  if(d === null) return 'chua-ro';
+  if(d < 0) return 'het-han';
+  if(d <= RENEW_DAYS) return 'sap-tai-tuc';
+  return 'hieu-luc';
+}
+function isCustomer(lead){
+  return (careOf(lead.id).stage || 'moi') === 'chot';
 }
 
 /* ══ ĐĂNG NHẬP ══ */
@@ -640,19 +713,62 @@ function setLateFilter(){
   if(p) p.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-function renderTabs(){
-  var counts = { all: LEADS.length };
-  for(var i = 0; i < STAGE_ORDER.length; i++) counts[STAGE_ORDER[i]] = 0;
-  LEADS.forEach(function(l){
-    var st = careOf(l.id).stage || 'moi';
-    counts[st] = (counts[st] || 0) + 1;
-  });
+/* Chuyển giữa 2 chế độ xem */
+function setView(v){
+  if(curView === v) return;
+  curView = v;
+  curStage = 'all';
+  lateOnly = false;
+  document.getElementById('vLead').classList.toggle('on', v === 'lead');
+  document.getElementById('vCus').classList.toggle('on', v === 'customer');
+  document.getElementById('fSort').innerHTML = (v === 'lead')
+    ? '<option value="new">Mới nhất trước</option><option value="old">Cũ nhất trước</option><option value="urgent">Ưu tiên xử lý</option>'
+    : '<option value="expiry">Sắp hết hạn trước</option><option value="new">Mới nhất trước</option><option value="premium">Phí cao nhất</option>';
+  document.getElementById('q').placeholder = (v === 'lead')
+    ? 'Tìm tên, số điện thoại, sản phẩm...'
+    : 'Tìm tên, SĐT, số GCN...';
+  renderTabs();
+  render();
+}
 
-  var html = '<button class="tab' + ((curStage === 'all' && !lateOnly) ? ' on' : '') + '" onclick="setStage(\'all\')">Tất cả <span class="n">' + counts.all + '</span></button>';
-  STAGE_ORDER.forEach(function(s){
-    html += '<button class="tab' + (curStage === s ? ' on' : '') + '" onclick="setStage(\'' + s + '\')">' + esc(STAGES[s].label) + ' <span class="n">' + (counts[s] || 0) + '</span></button>';
+/* Danh sách gốc theo chế độ đang xem */
+function baseList(){
+  return LEADS.filter(function(l){
+    return curView === 'customer' ? isCustomer(l) : !isCustomer(l);
   });
+}
+
+function renderTabs(){
+  var base = baseList();
+  var html = '';
+
+  if(curView === 'lead'){
+    var counts = { all: base.length };
+    STAGE_ORDER.forEach(function(s){ counts[s] = 0; });
+    base.forEach(function(l){
+      var st = careOf(l.id).stage || 'moi';
+      counts[st] = (counts[st] || 0) + 1;
+    });
+    html = '<button class="tab' + ((curStage === 'all' && !lateOnly) ? ' on' : '') + '" onclick="setStage(\'all\')">Tất cả <span class="n">' + counts.all + '</span></button>';
+    STAGE_ORDER.forEach(function(s){
+      html += '<button class="tab' + (curStage === s ? ' on' : '') + '" onclick="setStage(\'' + s + '\')">' + esc(STAGES[s].label) + ' <span class="n">' + (counts[s] || 0) + '</span></button>';
+    });
+  } else {
+    var rc = { all: base.length };
+    RENEW_ORDER.forEach(function(r){ rc[r] = 0; });
+    base.forEach(function(l){
+      var r = renewState(careOf(l.id));
+      rc[r] = (rc[r] || 0) + 1;
+    });
+    html = '<button class="tab' + (curStage === 'all' ? ' on' : '') + '" onclick="setStage(\'all\')">Tất cả <span class="n">' + rc.all + '</span></button>';
+    RENEW_ORDER.forEach(function(r){
+      html += '<button class="tab' + (curStage === r ? ' on' : '') + '" onclick="setStage(\'' + r + '\')">' + esc(RENEW[r].label) + ' <span class="n">' + (rc[r] || 0) + '</span></button>';
+    });
+  }
+
   document.getElementById('tabs').innerHTML = html;
+  document.getElementById('vnLead').textContent = LEADS.filter(function(l){ return !isCustomer(l); }).length;
+  document.getElementById('vnCus').textContent = LEADS.filter(isCustomer).length;
 }
 
 function isLate(lead){
@@ -691,7 +807,7 @@ function clearFilters(){
   document.getElementById('q').value = '';
   document.getElementById('fProduct').value = '';
   document.getElementById('fOwner').value = '';
-  document.getElementById('fSort').value = 'new';
+  document.getElementById('fSort').selectedIndex = 0;
   curStage = 'all';
   lateOnly = false;
   renderTabs();
@@ -704,10 +820,18 @@ function filtered(){
   var fo = document.getElementById('fOwner').value;
   var sort = document.getElementById('fSort').value;
 
-  var out = LEADS.filter(function(l){
+  var out = baseList().filter(function(l){
     var c = careOf(l.id);
     if(lateOnly && !isLate(l)) return false;
-    if(curStage !== 'all' && (c.stage || 'moi') !== curStage) return false;
+
+    if(curStage !== 'all'){
+      if(curView === 'lead'){
+        if((c.stage || 'moi') !== curStage) return false;
+      } else {
+        if(renewState(c) !== curStage) return false;
+      }
+    }
+
     if(fp){
       var p = leadProduct(l);
       if(!p || p === '—') p = '(Không rõ)';
@@ -716,18 +840,28 @@ function filtered(){
     if(fo === '__none__' && c.owner) return false;
     if(fo && fo !== '__none__' && c.owner !== fo) return false;
     if(q){
-      var hay = (leadName(l) + ' ' + leadPhone(l) + ' ' + leadProduct(l) + ' ' + (c.owner || '')).toLowerCase();
+      var hay = (leadName(l) + ' ' + leadPhone(l) + ' ' + leadProduct(l) + ' '
+               + (c.owner || '') + ' ' + (c.policyNo || '')).toLowerCase();
       if(hay.indexOf(q) === -1) return false;
     }
     return true;
   });
 
   out.sort(function(a,b){
+    var ca = careOf(a.id), cb = careOf(b.id);
     if(sort === 'old') return new Date(a.created_at) - new Date(b.created_at);
+    if(sort === 'premium') return (cb.premium || 0) - (ca.premium || 0);
+    if(sort === 'expiry'){
+      var da = daysUntil(ca.expiryDate), db = daysUntil(cb.expiryDate);
+      if(da === null && db === null) return new Date(b.created_at) - new Date(a.created_at);
+      if(da === null) return 1;
+      if(db === null) return -1;
+      return da - db;
+    }
     if(sort === 'urgent'){
       var la = isLate(a) ? 1 : 0, lb = isLate(b) ? 1 : 0;
       if(la !== lb) return lb - la;
-      var oa = careOf(a.id).owner ? 1 : 0, ob = careOf(b.id).owner ? 1 : 0;
+      var oa = ca.owner ? 1 : 0, ob = cb.owner ? 1 : 0;
       if(oa !== ob) return oa - ob;
     }
     return new Date(b.created_at) - new Date(a.created_at);
@@ -742,71 +876,158 @@ function render(){
   var hasFilter = document.getElementById('q').value.trim()
     || document.getElementById('fProduct').value
     || document.getElementById('fOwner').value
-    || document.getElementById('fSort').value !== 'new'
+    || document.getElementById('fSort').selectedIndex !== 0
     || curStage !== 'all' || lateOnly;
   document.getElementById('btnClear').style.display = hasFilter ? 'inline-flex' : 'none';
 
   var list = filtered();
   var tb = document.getElementById('tbody');
+  var th = document.getElementById('thead');
+
+  th.innerHTML = (curView === 'lead')
+    ? '<tr><th style="min-width:170px">Khách hàng</th><th style="min-width:150px">Sản phẩm quan tâm</th>'
+      + '<th style="min-width:150px">Trạng thái</th><th style="min-width:140px">Phụ trách</th>'
+      + '<th style="min-width:110px">Nhận lúc</th></tr>'
+    : '<tr><th style="min-width:170px">Khách hàng</th><th style="min-width:145px">Sản phẩm</th>'
+      + '<th style="min-width:155px">Hiệu lực</th><th style="min-width:120px">Phí / Hoa hồng</th>'
+      + '<th style="min-width:130px">Phụ trách</th></tr>';
 
   if(!list.length){
-    tb.innerHTML = '<tr class="empty-row"><td colspan="5">Không có lead nào khớp bộ lọc.<br><br>'
+    var msg = curView === 'customer' ? 'Chưa có khách hàng nào khớp bộ lọc.' : 'Không có lead nào khớp bộ lọc.';
+    tb.innerHTML = '<tr class="empty-row"><td colspan="5">' + msg + '<br><br>'
       + '<button class="btn-g" onclick="clearFilters()">Xoá tất cả bộ lọc</button></td></tr>';
     return;
   }
 
-  var rows = list.map(function(l){
-    var c = careOf(l.id);
-    var st = STAGES[c.stage || 'moi'] || STAGES['moi'];
-    var slaHtml = '';
+  tb.innerHTML = list.map(function(l){
+    return curView === 'lead' ? rowLead(l) : rowCustomer(l);
+  }).join('');
+}
 
-    if(isLate(l)){
-      slaHtml = '<div class="sla late"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Chưa gọi · ' + Math.floor(hoursSince(l.created_at)) + ' giờ</div>';
-    } else if(c.nextFollowUp){
-      var dt = new Date(c.nextFollowUp);
-      var over = dt.getTime() < Date.now();
-      slaHtml = '<div class="sla ' + (over ? 'late' : 'warn') + '"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + (over ? 'Quá hẹn: ' : 'Hẹn: ') + dt.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) + '</div>';
-    } else if(c.activities && c.activities.length){
-      slaHtml = '<div class="sla ok">Cập nhật ' + ago(c.activities[0].at) + '</div>';
-    }
+/* Một dòng ở chế độ Lead */
+function rowLead(l){
+  var c = careOf(l.id);
+  var st = STAGES[c.stage || 'moi'] || STAGES['moi'];
+  var slaHtml = '';
 
-    var ownHtml = c.owner
-      ? '<div class="own"><div class="own-av">' + esc(initials(c.owner)) + '</div>' + esc(c.owner) + '</div>'
-      : '<button class="btn-claim" onclick="event.stopPropagation();claimLead(\'' + esc(l.id) + '\')"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nhận lead</button>';
+  if(isLate(l)){
+    slaHtml = '<div class="sla late"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Chưa gọi · ' + Math.floor(hoursSince(l.created_at)) + ' giờ</div>';
+  } else if(c.nextFollowUp){
+    var dt = new Date(c.nextFollowUp);
+    var over = dt.getTime() < Date.now();
+    slaHtml = '<div class="sla ' + (over ? 'late' : 'warn') + '"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + (over ? 'Quá hẹn: ' : 'Hẹn: ') + dt.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) + '</div>';
+  } else if(c.activities && c.activities.length){
+    slaHtml = '<div class="sla ok">Cập nhật ' + ago(c.activities[0].at) + '</div>';
+  }
 
-    return '<tr class="' + (curLead === l.id ? 'active' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
-      + '<td><div class="c-name">' + esc(leadName(l)) + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div></td>'
-      + '<td><div class="c-prod">' + esc(leadProduct(l)) + '</div><div class="c-src">' + esc(l.form_name || '') + '</div></td>'
-      + '<td><span class="pill ' + st.cls + '">' + esc(st.label) + '</span>' + slaHtml + '</td>'
-      + '<td>' + ownHtml + '</td>'
-      + '<td><div class="c-time">' + ago(l.created_at) + '</div></td>'
-      + '</tr>';
-  });
+  var ownHtml = c.owner
+    ? '<div class="own"><div class="own-av">' + esc(initials(c.owner)) + '</div>' + esc(c.owner) + '</div>'
+    : '<button class="btn-claim" onclick="event.stopPropagation();claimLead(\'' + esc(l.id) + '\')"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nhận lead</button>';
 
-  tb.innerHTML = rows.join('');
+  return '<tr class="' + (curLead === l.id ? 'active' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
+    + '<td><div class="c-name">' + esc(leadName(l)) + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div></td>'
+    + '<td><div class="c-prod">' + esc(leadProduct(l)) + '</div><div class="c-src">' + esc(l.form_name || '') + '</div></td>'
+    + '<td><span class="pill ' + st.cls + '">' + esc(st.label) + '</span>' + slaHtml + '</td>'
+    + '<td>' + ownHtml + '</td>'
+    + '<td><div class="c-time">' + ago(l.created_at) + '</div></td>'
+    + '</tr>';
+}
+
+/* Một dòng ở chế độ Khách hàng */
+function rowCustomer(l){
+  var c = careOf(l.id);
+  var r = renewState(c);
+  var d = daysUntil(c.expiryDate);
+
+  var expHtml = '';
+  if(d === null){
+    expHtml = '<div class="sla ok">Chưa nhập ngày hết hạn</div>';
+  } else if(d < 0){
+    expHtml = '<div class="sla late"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Hết hạn ' + Math.abs(d) + ' ngày trước</div>';
+  } else if(d <= RENEW_DAYS){
+    expHtml = '<div class="sla warn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Còn ' + d + ' ngày</div>';
+  } else {
+    expHtml = '<div class="sla ok">Còn ' + d + ' ngày</div>';
+  }
+
+  var moneyHtml = c.premium
+    ? '<div class="c-money">' + moneyShort(c.premium) + (c.commission ? '<small>HH ' + moneyShort(c.commission) + '</small>' : '') + '</div>'
+    : '<div class="c-none">Chưa nhập</div>';
+
+  return '<tr class="' + (curLead === l.id ? 'active' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
+    + '<td><div class="c-name">' + esc(leadName(l)) + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div>'
+      + (c.policyNo ? '<div class="c-policy">' + esc(c.policyNo) + '</div>' : '') + '</td>'
+    + '<td><div class="c-prod">' + esc(leadProduct(l)) + '</div></td>'
+    + '<td><span class="pill ' + RENEW[r].cls + '">' + esc(RENEW[r].label) + '</span>' + expHtml + '</td>'
+    + '<td>' + moneyHtml + '</td>'
+    + '<td>' + (c.owner
+        ? '<div class="own"><div class="own-av">' + esc(initials(c.owner)) + '</div>' + esc(c.owner) + '</div>'
+        : '<span class="c-none">Chưa gán</span>') + '</td>'
+    + '</tr>';
+}
+
+var ICONS = {
+  inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+  alert:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  check:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+  refresh:'<polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>',
+  money:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
+};
+
+function card(icoCls, ico, label, value, sub, subCls, onclick){
+  return '<div class="sc"' + (onclick ? ' onclick="' + onclick + '"' : '') + '>'
+    + '<div class="sc-top"><div class="sc-l">' + label + '</div>'
+    + '<div class="sc-ic ' + icoCls + '"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">' + ICONS[ico] + '</svg></div></div>'
+    + '<div class="sc-v">' + value + '</div>'
+    + '<div class="sc-d ' + (subCls || '') + '">' + sub + '</div></div>';
 }
 
 function renderStats(){
-  var nNew = 0, nLate = 0, nCare = 0, nWon = 0, nUnclaimed = 0, nOverdue = 0;
-  LEADS.forEach(function(l){
-    var c = careOf(l.id);
-    var s = c.stage || 'moi';
-    if(s === 'moi'){ nNew++; if(!c.owner) nUnclaimed++; }
-    if(isLate(l)) nLate++;
-    if(s === 'da-lien-he' || s === 'dang-tu-van'){
-      nCare++;
-      if(c.nextFollowUp && new Date(c.nextFollowUp).getTime() < Date.now()) nOverdue++;
-    }
-    if(s === 'chot') nWon++;
-  });
-  document.getElementById('stNew').textContent = nNew;
-  document.getElementById('stNewSub').textContent = nUnclaimed + ' chưa ai nhận';
-  document.getElementById('stLate').textContent = nLate;
-  document.getElementById('stCare').textContent = nCare;
-  document.getElementById('stCareSub').textContent = nOverdue ? (nOverdue + ' quá hẹn gọi lại') : 'Đã liên hệ + đang tư vấn';
-  document.getElementById('stWon').textContent = nWon;
-  var rate = LEADS.length ? Math.round(nWon / LEADS.length * 100) : 0;
-  document.getElementById('stWonSub').textContent = 'Tỷ lệ chuyển đổi ' + rate + '%';
+  var wrap = document.getElementById('stats');
+
+  if(curView === 'lead'){
+    var nNew = 0, nLate = 0, nCare = 0, nUnclaimed = 0, nOverdue = 0;
+    var pipeline = LEADS.filter(function(l){ return !isCustomer(l); });
+    pipeline.forEach(function(l){
+      var c = careOf(l.id);
+      var s = c.stage || 'moi';
+      if(s === 'moi'){ nNew++; if(!c.owner) nUnclaimed++; }
+      if(isLate(l)) nLate++;
+      if(s === 'da-lien-he' || s === 'dang-tu-van'){
+        nCare++;
+        if(c.nextFollowUp && new Date(c.nextFollowUp).getTime() < Date.now()) nOverdue++;
+      }
+    });
+    var nWon = LEADS.filter(isCustomer).length;
+    var rate = LEADS.length ? Math.round(nWon / LEADS.length * 100) : 0;
+
+    wrap.innerHTML =
+        card('i-new',  'inbox', 'Lead mới',      nNew,  nUnclaimed + ' chưa ai nhận', '', "setStage('moi')")
+      + card('i-late', 'alert', 'Quá hạn gọi',   nLate, 'Chưa gọi quá ' + SLA_HOURS + ' giờ', 'dgr', 'setLateFilter()')
+      + card('i-care', 'chat',  'Đang chăm sóc', nCare, nOverdue ? (nOverdue + ' quá hẹn gọi lại') : 'Đã liên hệ + đang tư vấn', nOverdue ? 'dgr' : '', "setStage('dang-tu-van')")
+      + card('i-won',  'check', 'Đã chốt',       nWon,  'Tỷ lệ chuyển đổi ' + rate + '%', 'up', "setView('customer')");
+
+  } else {
+    var cus = LEADS.filter(isCustomer);
+    var nTotal = cus.length, nRenew = 0, nExpired = 0, sumPre = 0, sumCom = 0, nNoDate = 0;
+    cus.forEach(function(l){
+      var c = careOf(l.id);
+      var r = renewState(c);
+      if(r === 'sap-tai-tuc') nRenew++;
+      if(r === 'het-han') nExpired++;
+      if(r === 'chua-ro') nNoDate++;
+      sumPre += Number(c.premium || 0);
+      sumCom += Number(c.commission || 0);
+    });
+
+    wrap.innerHTML =
+        card('i-won',  'users',   'Tổng khách hàng', nTotal,  nNoDate ? (nNoDate + ' chưa nhập hạn') : 'Đã ký hợp đồng', nNoDate ? 'dgr' : '', "setStage('all')")
+      + card('i-late', 'refresh', 'Sắp tái tục',     nRenew,  'Còn dưới ' + RENEW_DAYS + ' ngày', 'dgr', "setStage('sap-tai-tuc')")
+      + card('i-care', 'alert',   'Đã hết hạn',      nExpired,'Cần liên hệ gấp', nExpired ? 'dgr' : '', "setStage('het-han')")
+      + card('i-new',  'money',   'Tổng phí',        moneyShort(sumPre) || '0', 'Hoa hồng ' + (moneyShort(sumCom) || '0'), 'up', null);
+  }
 }
 
 /* ══ NHẬN LEAD ══ */
@@ -858,6 +1079,13 @@ function openDrawer(id){
   document.getElementById('dNext').value = c.nextFollowUp ? toLocalInput(c.nextFollowUp) : '';
   document.getElementById('dNote').value = '';
 
+  // Trường hợp đồng
+  document.getElementById('dPolicy').value = c.policyNo || '';
+  document.getElementById('dExpiry').value = c.expiryDate ? toDateInput(c.expiryDate) : '';
+  document.getElementById('dPremium').value = c.premium ? money(c.premium) : '';
+  document.getElementById('dCommission').value = c.commission ? money(c.commission) : '';
+  toggleContractBox();
+
   renderTimeline(c, lead);
 
   document.getElementById('ov').classList.add('on');
@@ -892,6 +1120,18 @@ function toLocalInput(iso){
     return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
   }catch(e){ return ''; }
 }
+function toDateInput(iso){
+  try{
+    var d = new Date(iso);
+    var p = function(n){ return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate());
+  }catch(e){ return ''; }
+}
+/* Mục hợp đồng chỉ hiện khi trạng thái là "Chốt hợp đồng" */
+function toggleContractBox(){
+  var isChot = document.getElementById('dStage').value === 'chot';
+  document.getElementById('contractBox').style.display = isChot ? 'block' : 'none';
+}
 
 function closeDrawer(){
   document.getElementById('ov').classList.remove('on');
@@ -915,6 +1155,15 @@ function saveCare(){
     owner: owner,
     nextFollowUp: next ? new Date(next).toISOString() : null
   };
+
+  // Trường hợp đồng — chỉ gửi khi ở trạng thái đã chốt
+  if(stage === 'chot'){
+    var expiry = document.getElementById('dExpiry').value;
+    patch.policyNo   = document.getElementById('dPolicy').value.trim() || null;
+    patch.expiryDate = expiry ? new Date(expiry + 'T00:00:00').toISOString() : null;
+    patch.premium    = parseMoney(document.getElementById('dPremium').value);
+    patch.commission = parseMoney(document.getElementById('dCommission').value);
+  }
 
   var activity = null;
   if(note){
@@ -966,22 +1215,45 @@ function exportCsv(){
   var list = filtered();
   if(!list.length){ toast('Không có dữ liệu để xuất', true); return; }
 
-  var rows = [['Thoi gian','Ho ten','So dien thoai','San pham','Trang thai','Phu trach','Hen lien he lai','Ghi chu moi nhat','Nguon']];
-  list.forEach(function(l){
-    var c = careOf(l.id);
-    var lastNote = (c.activities && c.activities[0]) ? c.activities[0].text : '';
-    rows.push([
-      fmtDate(l.created_at),
-      leadName(l),
-      leadPhone(l),
-      leadProduct(l),
-      (STAGES[c.stage || 'moi'] || STAGES['moi']).label,
-      c.owner || 'Chua ai nhan',
-      c.nextFollowUp ? fmtDate(c.nextFollowUp) : '',
-      lastNote,
-      l.form_name || ''
-    ]);
-  });
+  var rows, fname;
+
+  if(curView === 'customer'){
+    fname = 'dbv247-khach-hang-';
+    rows = [['Ho ten','So dien thoai','San pham','So GCN','Ngay het han','Con lai (ngay)','Tinh trang','Phi bao hiem','Hoa hong','Phu trach','Ngay ky']];
+    list.forEach(function(l){
+      var c = careOf(l.id);
+      var d = daysUntil(c.expiryDate);
+      rows.push([
+        leadName(l), leadPhone(l), leadProduct(l),
+        c.policyNo || '',
+        c.expiryDate ? fmtDate(c.expiryDate).split(' ')[1] || fmtDate(c.expiryDate) : '',
+        d === null ? '' : d,
+        RENEW[renewState(c)].label,
+        c.premium || 0,
+        c.commission || 0,
+        c.owner || '',
+        fmtDate(l.created_at)
+      ]);
+    });
+  } else {
+    fname = 'dbv247-leads-';
+    rows = [['Thoi gian','Ho ten','So dien thoai','San pham','Trang thai','Phu trach','Hen lien he lai','Ghi chu moi nhat','Nguon']];
+    list.forEach(function(l){
+      var c = careOf(l.id);
+      var lastNote = (c.activities && c.activities[0]) ? c.activities[0].text : '';
+      rows.push([
+        fmtDate(l.created_at),
+        leadName(l),
+        leadPhone(l),
+        leadProduct(l),
+        (STAGES[c.stage || 'moi'] || STAGES['moi']).label,
+        c.owner || 'Chua ai nhan',
+        c.nextFollowUp ? fmtDate(c.nextFollowUp) : '',
+        lastNote,
+        l.form_name || ''
+      ]);
+    });
+  }
 
   var csv = rows.map(function(r){
     return r.map(function(v){
@@ -992,16 +1264,19 @@ function exportCsv(){
   var blob = new Blob([String.fromCharCode(0xFEFF) + csv], { type:'text/csv;charset=utf-8;' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'dbv247-leads-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.download = fname + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   URL.revokeObjectURL(a.href);
-  toast('Đã xuất ' + list.length + ' lead');
+  toast('Đã xuất ' + list.length + (curView === 'customer' ? ' khách hàng' : ' lead'));
 }
 
 /* ══ KHỞI ĐỘNG ══ */
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeDrawer();
 });
+
+// Đổi trạng thái trong panel → hiện/ẩn mục hợp đồng ngay
+document.getElementById('dStage').addEventListener('change', toggleContractBox);
 
 fillStaffSelects();
 

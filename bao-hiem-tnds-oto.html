@@ -550,12 +550,23 @@ section.mob-sec>.sec-inner>.sec-tag,section.mob-sec>.sec-inner>.sec-h2,section.m
   }
 ]
 </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DY2WX5NWWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DY2WX5NWWC');
+</script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247"></a>
     <nav class="hdr-nav">
       <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -686,11 +697,11 @@ section.mob-sec>.sec-inner>.sec-tag,section.mob-sec>.sec-inner>.sec-h2,section.m
         <div class="wz-summary" id="wz-summary" style="display:none"></div>
         <div class="fg">
           <label>HỌ VÀ TÊN</label>
-          <input type="text" id="f-name" placeholder="Nhập họ và tên..."/>
+          <input type="text" id="f-name" placeholder="Nhập họ và tên..." autocomplete="name" aria-label="Họ và tên"/>
         </div>
         <div class="fg">
           <label>SỐ ĐIỆN THOẠI *</label>
-          <input type="tel" id="f-phone" placeholder="09xx xxx xxx"/>
+          <input type="tel" id="f-phone" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/>
         </div>
         <div class="fg">
           <label>NHU CẦU</label>
@@ -1154,11 +1165,11 @@ section.mob-sec>.sec-inner>.sec-tag,section.mob-sec>.sec-inner>.sec-h2,section.m
       <div class="cta-form-row">
         <div class="cta-fg">
           <label>SỐ ĐIỆN THOẠI *</label>
-          <input type="tel" id="cta-phone" placeholder="09xx xxx xxx"/>
+          <input type="tel" id="cta-phone" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/>
         </div>
         <div class="cta-fg">
           <label>SỐ CHỖ / TRỌNG TẢI</label>
-          <input type="text" id="cta-seats" placeholder="VD: 5 chỗ / 1,5 tấn"/>
+          <input type="text" id="cta-seats" placeholder="VD: 5 chỗ / 1,5 tấn" aria-label="VD: 5 chỗ / 1,5 tấn"/>
         </div>
         <div class="cta-fg">
           <label>LOẠI HÌNH</label>
@@ -1186,7 +1197,7 @@ section.mob-sec>.sec-inner>.sec-tag,section.mob-sec>.sec-inner>.sec-h2,section.m
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
-      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
@@ -1427,7 +1438,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
   window.toggleCatDropdown=toggleCatDropdown;
   window.closeCatDropdown=closeCatDropdown;
-  window.toggleSubMenu=toggleSubMenu;
 })();
 </script>
 

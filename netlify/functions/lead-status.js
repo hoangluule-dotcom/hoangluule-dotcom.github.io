@@ -95,6 +95,21 @@ exports.handler = async function (event) {
       return json(400, { error: "Trạng thái không hợp lệ: " + patch.stage });
     }
 
+    // Làm sạch dữ liệu hợp đồng
+    if (patch.policyNo !== undefined) {
+      patch.policyNo = patch.policyNo ? String(patch.policyNo).trim().slice(0, 80) : null;
+    }
+    ["premium", "commission"].forEach(function (k) {
+      if (patch[k] === undefined) return;
+      if (patch[k] === null || patch[k] === "") { patch[k] = null; return; }
+      const n = Number(patch[k]);
+      patch[k] = isFinite(n) && n >= 0 ? Math.round(n) : null;
+    });
+    if (patch.expiryDate !== undefined && patch.expiryDate) {
+      const d = new Date(patch.expiryDate);
+      patch.expiryDate = isNaN(d.getTime()) ? null : d.toISOString();
+    }
+
     try {
       const records = (await store.get(BLOB_KEY, { type: "json" })) || {};
       const now = new Date().toISOString();
@@ -103,6 +118,10 @@ exports.handler = async function (event) {
         stage: "moi",
         owner: null,
         nextFollowUp: null,
+        policyNo: null,     // số GCN / hợp đồng
+        expiryDate: null,   // ngày hết hạn — dùng để nhắc tái tục
+        premium: null,      // phí bảo hiểm (VNĐ)
+        commission: null,   // hoa hồng (VNĐ)
         activities: [],
         createdAt: now,
       };

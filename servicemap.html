@@ -185,12 +185,15 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
   gtag('js', new Date());
   gtag('config', 'G-DY2WX5NWWC');
 </script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="index.html" class="hdr-logo"><img src="Logo header Footer.png" alt="DBV247"></a>
+    <a href="index.html" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247"></a>
     <nav class="hdr-nav">
       <a href="/san-pham">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -245,7 +248,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
     </div>
     <div class="search-row">
       <select id="province"><option value="">Tất cả tỉnh/thành</option></select>
-      <input id="q" type="text" placeholder="Tìm theo tên hoặc địa chỉ điểm giao dịch...">
+      <input id="q" type="text" placeholder="Tìm theo tên hoặc địa chỉ điểm giao dịch..." aria-label="Tìm theo tên hoặc địa chỉ điểm giao dịch...">
       <button class="search-btn" id="searchBtn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Tìm kiếm</button>
     </div>
   </div>
@@ -289,11 +292,11 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
         <div class="lf-row">
           <div class="lf-group">
             <label class="lf-label" for="lf-name">Họ và tên</label>
-            <input class="lf-input" id="lf-name" name="name" type="text" placeholder="Nguyễn Văn A" required>
+            <input class="lf-input" id="lf-name" name="name" type="text" placeholder="Nguyễn Văn A" required autocomplete="name" aria-label="Họ và tên">
           </div>
           <div class="lf-group">
             <label class="lf-label" for="lf-phone">Số điện thoại</label>
-            <input class="lf-input" id="lf-phone" name="phone" type="tel" placeholder="0912 345 678" required>
+            <input class="lf-input" id="lf-phone" name="phone" type="tel" placeholder="0912 345 678" required autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại">
           </div>
         </div>
         <div class="lf-group">
@@ -327,7 +330,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
-      <img src="Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>BT20-C37, TDP 20, Phường Thanh Xuân, TP Hà Nội, Việt Nam</a>

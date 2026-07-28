@@ -371,13 +371,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   gtag('js', new Date());
   gtag('config', 'G-DY2WX5NWWC');
 </script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247"></a>
     <nav class="hdr-nav">
       <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -461,11 +464,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
         <div class="form-card-sub">Chuyên viên DBV247 liên hệ trong 24 giờ làm việc — không làm phiền, không ép mua</div>
         <div class="fg">
           <label>HỌ TÊN CHỦ HỘ KINH DOANH</label>
-          <input type="text" id="f-name" placeholder="Nhập họ và tên..."/>
+          <input type="text" id="f-name" placeholder="Nhập họ và tên..." autocomplete="name" aria-label="Họ và tên"/>
         </div>
         <div class="fg">
           <label>SỐ ĐIỆN THOẠI *</label>
-          <input type="tel" id="f-phone" placeholder="09xx xxx xxx"/>
+          <input type="tel" id="f-phone" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/>
         </div>
         <div class="fg">
           <label>LOẠI HÌNH KINH DOANH *</label>
@@ -854,11 +857,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div class="fg">
           <label>HỌ TÊN CHỦ HỘ KINH DOANH</label>
-          <input type="text" id="cta-name" placeholder="Họ và tên..."/>
+          <input type="text" id="cta-name" placeholder="Họ và tên..." autocomplete="name" aria-label="Họ và tên"/>
         </div>
         <div class="fg">
           <label>SỐ ĐIỆN THOẠI *</label>
-          <input type="tel" id="cta-phone" placeholder="09xx xxx xxx"/>
+          <input type="tel" id="cta-phone" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
@@ -890,7 +893,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
       </div>
       <div class="fg">
         <label>GHI CHÚ THÊM (không bắt buộc)</label>
-        <input type="text" id="cta-note" placeholder="Diện tích cơ sở, giá trị tài sản ước tính, câu hỏi cụ thể..."/>
+        <input type="text" id="cta-note" placeholder="Diện tích cơ sở, giá trị tài sản ước tính, câu hỏi cụ thể..." aria-label="Diện tích cơ sở, giá trị tài sản ước tính, câu hỏi cụ thể..."/>
       </div>
       <button class="btn-primary" onclick="submitCtaForm()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
@@ -950,7 +953,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
-      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
@@ -1110,7 +1113,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
   window.toggleCatDropdown=toggleCatDropdown;
   window.closeCatDropdown=closeCatDropdown;
-  window.toggleSubMenu=toggleSubMenu;
 })();
 </script>
 

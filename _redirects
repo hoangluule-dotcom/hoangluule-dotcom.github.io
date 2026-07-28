@@ -25,3 +25,10 @@
 /baohiemxnk                /bao-hiem-xnk                 301
 /baohiem-benhnhietdoi /bao-hiem-benh-nhiet-doi 301
 /baohiem-benh-nhiet-doi /bao-hiem-benh-nhiet-doi 301
+
+# --- Bổ sung 28/07/2026: các liên kết danh mục trong footer đang trả về 404.
+#     Tạm điều hướng về trang danh mục sản phẩm để không mất khách.
+#     Nên thay bằng trang danh mục riêng cho từng nhóm khi có nội dung.
+/bao-hiem-du-lich          /san-pham                    302
+/bao-hiem-hang-hai         /san-pham                    302
+/bao-hiem-tai-san          /san-pham                    302

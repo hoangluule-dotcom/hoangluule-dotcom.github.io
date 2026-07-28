@@ -559,6 +559,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   gtag('js', new Date());
   gtag('config', 'G-DY2WX5NWWC');
 </script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 <a href="#main" class="skip-link">Bỏ qua điều hướng, vào nội dung chính</a>
@@ -566,7 +569,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 <!-- ═══════════ HEADER ═══════════ -->
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247"></a>
     <nav class="hdr-nav">
       <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -645,15 +648,15 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
         <div class="form-card-sub">Chuyên viên DBV Thành Đô liên hệ trong 15 phút — không làm phiền, không ép mua</div>
         <div class="fg">
           <label for="f-name">HỌ TÊN</label>
-          <input type="text" id="f-name" name="fullname" autocomplete="name" placeholder="Nhập họ và tên..."/>
+          <input type="text" id="f-name" name="fullname" autocomplete="name" placeholder="Nhập họ và tên..." aria-label="Họ và tên"/>
         </div>
         <div class="fg">
           <label for="f-phone">SỐ ĐIỆN THOẠI *</label>
-          <input type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel" required aria-required="true" placeholder="09xx xxx xxx"/>
+          <input type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel" required aria-required="true" placeholder="09xx xxx xxx" maxlength="15" aria-label="Số điện thoại"/>
         </div>
         <div class="fg">
           <label for="f-area">DIỆN TÍCH CĂN HỘ (M²) — KHÔNG BẮT BUỘC</label>
-          <input type="number" id="f-area" name="area" inputmode="numeric" placeholder="Ví dụ: 75" min="20" max="500"/>
+          <input type="number" id="f-area" name="area" inputmode="numeric" placeholder="Ví dụ: 75" min="20" max="500" aria-label="Ví dụ: 75"/>
         </div>
         <button class="btn-primary" type="button" onclick="submitHeroForm()">Nhận báo giá miễn phí →</button>
         <div class="form-succ" id="hero-succ">✓ Đã nhận thông tin! DBV sẽ gọi lại trong 15 phút.</div>
@@ -1019,15 +1022,15 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
     <div class="cta-form">
       <div class="fg">
         <label for="cta-name">HỌ TÊN</label>
-        <input type="text" id="cta-name" name="fullname" autocomplete="name" placeholder="Nhập họ và tên..."/>
+        <input type="text" id="cta-name" name="fullname" autocomplete="name" placeholder="Nhập họ và tên..." aria-label="Họ và tên"/>
       </div>
       <div class="fg">
         <label for="cta-phone">SỐ ĐIỆN THOẠI *</label>
-        <input type="tel" id="cta-phone" name="phone" autocomplete="tel" inputmode="tel" required aria-required="true" placeholder="09xx xxx xxx"/>
+        <input type="tel" id="cta-phone" name="phone" autocomplete="tel" inputmode="tel" required aria-required="true" placeholder="09xx xxx xxx" maxlength="15" aria-label="Số điện thoại"/>
       </div>
       <div class="fg">
         <label for="cta-area">DIỆN TÍCH CĂN HỘ (M²) — KHÔNG BẮT BUỘC</label>
-        <input type="number" id="cta-area" name="area" inputmode="numeric" placeholder="Ví dụ: 75" min="20" max="500"/>
+        <input type="number" id="cta-area" name="area" inputmode="numeric" placeholder="Ví dụ: 75" min="20" max="500" aria-label="Ví dụ: 75"/>
       </div>
       <button class="btn-primary" type="button" onclick="submitCtaForm()">Nhận báo giá miễn phí →</button>
       <div class="form-succ" id="cta-succ">✓ Đã nhận thông tin! DBV sẽ gọi lại trong 15 phút.</div>
@@ -1045,7 +1048,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
-      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">

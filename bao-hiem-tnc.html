@@ -376,13 +376,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   gtag('js', new Date());
   gtag('config', 'G-DY2WX5NWWC');
 </script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247"></a>
     <nav class="hdr-nav">
       <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -468,7 +471,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
       </div>
       <div class="fg">
         <label>Số điện thoại</label>
-        <input type="tel" id="f-phone" placeholder="Nhập số điện thoại để nhận tư vấn"/>
+        <input type="tel" id="f-phone" placeholder="Nhập số điện thoại để nhận tư vấn" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/>
       </div>
       <button class="btn-primary" onclick="submitForm()">Nhận Tư Vấn &amp; Báo Giá</button>
       <div class="form-disc">Thông tin được bảo mật · Không có cam kết mua hàng</div>
@@ -910,7 +913,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
-      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
@@ -1058,7 +1061,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
   window.toggleCatDropdown=toggleCatDropdown;
   window.closeCatDropdown=closeCatDropdown;
-  window.toggleSubMenu=toggleSubMenu;
 })();
 </script>
 

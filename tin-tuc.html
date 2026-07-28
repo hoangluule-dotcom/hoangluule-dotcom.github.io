@@ -216,12 +216,15 @@ a{color:inherit}
   gtag('js', new Date());
   gtag('config', 'G-DY2WX5NWWC');
 </script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247"></a>
     <nav class="hdr-nav">
       <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -282,7 +285,7 @@ a{color:inherit}
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
-      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
@@ -385,7 +388,7 @@ a{color:inherit}
       card.className = 'news-card';
       card.onclick = function(){ location.hash = '#post-' + i; };
       var photoHtml = post.cover
-        ? '<img src="' + escapeHtml(post.cover) + '" alt="' + escapeHtml(post.title) + '">'
+        ? '<img src="' + escapeHtml(post.cover) + '" alt="' + escapeHtml(post.title) + '" loading="lazy" decoding="async">'
         : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>';
       card.innerHTML =
         '<div class="news-card-photo">' + photoHtml + '</div>' +
@@ -454,7 +457,6 @@ a{color:inherit}
   });
   window.toggleCatDropdown=toggleCatDropdown;
   window.closeCatDropdown=closeCatDropdown;
-  window.toggleSubMenu=toggleSubMenu;
 })();
 </script>
 

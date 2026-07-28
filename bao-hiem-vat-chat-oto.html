@@ -647,13 +647,16 @@ section.mob-sec .sec-hdr-block{display:none!important}
   gtag('js', new Date());
   gtag('config', 'G-DY2WX5NWWC');
 </script>
+<script src="/assets/dbv-tracking.js" defer></script>
+<link rel="stylesheet" href="/assets/dbv-header.css">
+<script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-inner">
-    <a href="/" class="hdr-logo"><img src="/Logo header Footer.png" alt="DBV247"></a>
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247"></a>
     <nav class="hdr-nav">
       <a href="/san-pham" class="active">Sản phẩm</a>
       <a href="/boi-thuong">Bồi thường</a>
@@ -729,15 +732,15 @@ section.mob-sec .sec-hdr-block{display:none!important}
         <div class="form-card-sub m-hide">Chuyên viên DBV247 gọi lại trong 15 phút (giờ làm việc) — tư vấn đúng nhu cầu, không ép mua</div>
         <div class="fg">
           <label>HỌ VÀ TÊN</label>
-          <input type="text" id="f-name" placeholder="Nhập họ và tên..."/>
+          <input type="text" id="f-name" placeholder="Nhập họ và tên..." autocomplete="name" aria-label="Họ và tên"/>
         </div>
         <div class="fg">
           <label>SỐ ĐIỆN THOẠI *</label>
-          <input type="tel" id="f-phone" placeholder="09xx xxx xxx"/>
+          <input type="tel" id="f-phone" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/>
         </div>
         <div class="fg">
           <label>DÒNG XE &amp; NĂM SẢN XUẤT</label>
-          <input type="text" id="f-car" placeholder="VD: VinFast VF8 2024, Mazda CX-5 2021..."/>
+          <input type="text" id="f-car" placeholder="VD: VinFast VF8 2024, Mazda CX-5 2021..." aria-label="VD: VinFast VF8 2024, Mazda CX-5 2021..."/>
         </div>
         <div class="fg">
           <label>NHU CẦU *</label>
@@ -819,8 +822,8 @@ section.mob-sec .sec-hdr-block{display:none!important}
         <div class="calc-fee" id="c-fee">—</div>
         <div class="calc-brk" id="c-brk">Nhập giá trị xe để tính phí.</div>
         <div class="calc-lead" style="margin-top: 0px;">
-          <div class="fg"><input type="text" id="cl-name" placeholder="Họ và tên"/></div>
-          <div class="fg"><input type="tel" id="cl-phone" placeholder="Số điện thoại *"/></div>
+          <div class="fg"><input type="text" id="cl-name" placeholder="Họ và tên" autocomplete="name" aria-label="Họ và tên"/></div>
+          <div class="fg"><input type="tel" id="cl-phone" placeholder="Số điện thoại *" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/></div>
           <button class="btn-primary" style="width:100%" onclick="submitCalcLead()">Gọi lại cho tôi trong 15 phút</button>
           <div class="form-succ" id="cl-succ" style="padding:10px;font-size:12.5px">✓ Đã gửi! Chuyên viên DBV247 sẽ gọi lại kèm mức phí bạn vừa tính.</div>
         </div>
@@ -1033,15 +1036,15 @@ section.mob-sec .sec-hdr-block{display:none!important}
       <div id="cta-form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
         <div class="fg">
           <label>HỌ VÀ TÊN</label>
-          <input type="text" id="cta-name" placeholder="Nhập họ và tên..."/>
+          <input type="text" id="cta-name" placeholder="Nhập họ và tên..." autocomplete="name" aria-label="Họ và tên"/>
         </div>
         <div class="fg">
           <label>SỐ ĐIỆN THOẠI *</label>
-          <input type="tel" id="cta-phone" placeholder="09xx xxx xxx"/>
+          <input type="tel" id="cta-phone" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại"/>
         </div>
         <div class="fg">
           <label>DÒNG XE &amp; NĂM SẢN XUẤT</label>
-          <input type="text" id="cta-car" placeholder="VD: Toyota Cross 2023..."/>
+          <input type="text" id="cta-car" placeholder="VD: Toyota Cross 2023..." aria-label="VD: Toyota Cross 2023..."/>
         </div>
         <div class="fg">
           <label>NHU CẦU *</label>
@@ -1072,7 +1075,7 @@ section.mob-sec .sec-hdr-block{display:none!important}
 <footer class="ftr">
   <div class="ftr-inner">
     <div class="ftr-brand">
-      <img src="/Logo header Footer.png" alt="DBV247" class="ftr-logo">
+      <img src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
       <p class="ftr-brand-desc" style="color:#1C1C1C;font-weight:500">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
       <div class="ftr-info">
         <a href="#">
