@@ -301,6 +301,9 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
             <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input type="text" id="q" placeholder="Tìm tên, số điện thoại, sản phẩm..." oninput="render()">
           </div>
+          <select class="sel" id="fProduct" onchange="render()">
+            <option value="">Tất cả sản phẩm</option>
+          </select>
           <select class="sel" id="fOwner" onchange="render()">
             <option value="">Tất cả người phụ trách</option>
           </select>
@@ -309,6 +312,10 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
             <option value="old">Cũ nhất trước</option>
             <option value="urgent">Ưu tiên xử lý</option>
           </select>
+          <button class="btn-g" id="btnClear" onclick="clearFilters()" style="display:none">
+            <svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Xoá lọc
+          </button>
         </div>
       </div>
       <div class="tbl-scroll">
@@ -593,6 +600,7 @@ function loadAll(isFirst){
     LEADS = L.j.submissions || [];
     CARE = (C.ok && C.j.records) ? C.j.records : {};
     if(isFirst) enterApp();
+    fillProductFilter();
     renderTabs();
     render();
     if(!isFirst) toast('Đã tải lại dữ liệu');
@@ -645,8 +653,47 @@ function isLate(lead){
   return (c.stage || 'moi') === 'moi' && hoursSince(lead.created_at) > SLA_HOURS;
 }
 
+/* Dựng danh sách sản phẩm từ dữ liệu thật, kèm số lượng lead mỗi loại.
+   Giữ nguyên lựa chọn hiện tại khi tải lại dữ liệu. */
+function fillProductFilter(){
+  var sel = document.getElementById('fProduct');
+  var keep = sel.value;
+
+  var counts = {};
+  LEADS.forEach(function(l){
+    var p = leadProduct(l);
+    if(!p || p === '—') p = '(Không rõ)';
+    counts[p] = (counts[p] || 0) + 1;
+  });
+
+  var names = Object.keys(counts).sort(function(a,b){
+    if(counts[b] !== counts[a]) return counts[b] - counts[a];
+    return a.localeCompare(b, 'vi');
+  });
+
+  var html = '<option value="">Tất cả sản phẩm (' + LEADS.length + ')</option>';
+  names.forEach(function(n){
+    html += '<option value="' + esc(n) + '">' + esc(n) + ' (' + counts[n] + ')</option>';
+  });
+  sel.innerHTML = html;
+
+  if(keep && names.indexOf(keep) !== -1) sel.value = keep;
+}
+
+function clearFilters(){
+  document.getElementById('q').value = '';
+  document.getElementById('fProduct').value = '';
+  document.getElementById('fOwner').value = '';
+  document.getElementById('fSort').value = 'new';
+  curStage = 'all';
+  lateOnly = false;
+  renderTabs();
+  render();
+}
+
 function filtered(){
   var q = document.getElementById('q').value.trim().toLowerCase();
+  var fp = document.getElementById('fProduct').value;
   var fo = document.getElementById('fOwner').value;
   var sort = document.getElementById('fSort').value;
 
@@ -654,6 +701,11 @@ function filtered(){
     var c = careOf(l.id);
     if(lateOnly && !isLate(l)) return false;
     if(curStage !== 'all' && (c.stage || 'moi') !== curStage) return false;
+    if(fp){
+      var p = leadProduct(l);
+      if(!p || p === '—') p = '(Không rõ)';
+      if(p !== fp) return false;
+    }
     if(fo === '__none__' && c.owner) return false;
     if(fo && fo !== '__none__' && c.owner !== fo) return false;
     if(q){
@@ -679,11 +731,20 @@ function filtered(){
 /* ══ HIỂN THỊ ══ */
 function render(){
   renderStats();
+
+  var hasFilter = document.getElementById('q').value.trim()
+    || document.getElementById('fProduct').value
+    || document.getElementById('fOwner').value
+    || document.getElementById('fSort').value !== 'new'
+    || curStage !== 'all' || lateOnly;
+  document.getElementById('btnClear').style.display = hasFilter ? 'inline-flex' : 'none';
+
   var list = filtered();
   var tb = document.getElementById('tbody');
 
   if(!list.length){
-    tb.innerHTML = '<tr class="empty-row"><td colspan="5">Không có lead nào khớp bộ lọc.</td></tr>';
+    tb.innerHTML = '<tr class="empty-row"><td colspan="5">Không có lead nào khớp bộ lọc.<br><br>'
+      + '<button class="btn-g" onclick="clearFilters()">Xoá tất cả bộ lọc</button></td></tr>';
     return;
   }
 

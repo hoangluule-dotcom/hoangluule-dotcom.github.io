@@ -1175,7 +1175,7 @@ var TARIFF={
    {max:Infinity, base:[0.91,0.92,1.05,1.05], bs02:[0.20,0.30,0.40,null]}
   ]}
 };
-var MIN_FEE=6000000, W3F_KEY='4a200f57-1b34-4482-93d3-41531ab59898';
+var MIN_FEE=6000000;
 var lastCalc='';
 
 function fmtVal(el){
@@ -1252,9 +1252,11 @@ function calcFee(){
 /* ===== FORMS (Web3Forms) ===== */
 function validPhone(p){return /^(0|\+84)\d{9,10}$/.test(p.replace(/[\s.]/g,''));}
 function post(subject,data){
-  data.access_key=W3F_KEY;data.subject=subject;data.from_name='Landing Page DBV247';
-  data['Trang']=window.location.href;
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+  var d={'form-name':/float/i.test(subject)?'dbv-float':'dbv-tuvan',
+         'san-pham':String(subject).replace(/^\[DBV\]\s*/,''),
+         'Trang':location.href};
+  for(var k in data)d[k]=data[k];
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
 }
 function submitHeroForm(){
   var p=document.getElementById('f-phone').value.trim();

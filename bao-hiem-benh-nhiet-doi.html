@@ -1424,6 +1424,12 @@ button{font-family:inherit;cursor:pointer}
 
 
 <script>
+function netlifyPost(formName,data){
+  var d={'form-name':formName,'Trang':location.href};
+  for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']=String(data[k]).replace(/^\[DBV\]\s*/,'');continue;}d[k]=data[k];}
+  return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
+}
+
 var mainFee = {"01-15":[184000,349000,515000,615000,1008000,1398000], "16-60":[58000,111000,164000,195000,318000,441000]};
 var suppFee = {"01-15":[22000,43000,64000,75000,122000,170000], "16-60":[7000,14000,21000,24000,39000,54000]};
 
@@ -1478,18 +1484,13 @@ function submitForm(which){
   if(!p){ alert('Vui lòng nhập số điện thoại.'); phoneEl.focus(); return; }
   var nm = document.getElementById(prefix+'-name').value.trim();
   var ppl = document.getElementById(prefix+'-people').value;
-  fetch('https://api.web3forms.com/submit',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({
-      access_key:'4a200f57-1b34-4482-93d3-41531ab59898',
+  netlifyPost('dbv-tuvan',{
       subject:'[DBV] BH Benh Nhiet Doi - Thanh Do',
       from_name:'Landing Page DBV Benh Nhiet Doi (v2)',
       'Họ tên':nm,'Số điện thoại':p,'Số người cần bảo hiểm':ppl,
       'Form': which === 'hero' ? 'Hero Form' : 'CTA Form',
       'Trang':window.location.href
-    })
-  });
+    });
   var succEl = document.getElementById(which+'-succ');
   succEl.style.display = 'block';
   phoneEl.closest(which==='hero' ? '.form-card' : '.cta-form-box').querySelector('button.btn').style.display='none';
@@ -1506,16 +1507,11 @@ function submitFloat(){
   var el = document.getElementById('float-phone');
   var p = el.value.trim();
   if(!p){ el.focus(); return; }
-  fetch('https://api.web3forms.com/submit',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({
-      access_key:'4a200f57-1b34-4482-93d3-41531ab59898',
+  netlifyPost('dbv-float',{
       subject:'[DBV] BH Benh Nhiet Doi - Thanh Do (Float)',
       from_name:'Landing Page DBV Benh Nhiet Doi (v2)',
       'Số điện thoại':p,'Form':'Float Form','Trang':window.location.href
-    })
-  });
+    });
   el.disabled = true;
   document.querySelector('.float-form-row button').style.display='none';
   document.getElementById('float-succ').style.display='block';

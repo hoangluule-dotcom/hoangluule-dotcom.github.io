@@ -1341,6 +1341,12 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 
 <script>
+function netlifyPost(formName,data){
+  var d={'form-name':formName,'Trang':location.href};
+  for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']=String(data[k]).replace(/^\[DBV\]\s*/,'');continue;}d[k]=data[k];}
+  return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
+}
+
 /* ===== BIEU PHI (USD) — Chuong trinh DLQT kenh Tele, 15 khung thoi gian (index 14 = hop dong nam) ===== */
 var RATES={
  sea:{
@@ -1391,25 +1397,24 @@ function saveCalcToNote(){
 }
 
 /* ===== FORMS (Web3Forms) ===== */
-var W3F_KEY='4a200f57-1b34-4482-93d3-41531ab59898';
 function submitHeroForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:W3F_KEY,subject:'[DBV] BH Du Lịch Quốc Tế - Hero',from_name:'Landing Page DBV247','Họ tên':document.getElementById('f-name').value.trim(),'Số điện thoại':p,'Điểm đến':document.getElementById('f-dest').value,'Thời gian đi':document.getElementById('f-time').value,'Mục đích':document.getElementById('f-purpose').value,'Form':'Hero Form','Trang':window.location.href})});
+  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Du Lịch Quốc Tế - Hero',from_name:'Landing Page DBV247','Họ tên':document.getElementById('f-name').value.trim(),'Số điện thoại':p,'Điểm đến':document.getElementById('f-dest').value,'Thời gian đi':document.getElementById('f-time').value,'Mục đích':document.getElementById('f-purpose').value,'Form':'Hero Form','Trang':window.location.href});
   document.getElementById('form-succ').style.display='block';
   document.querySelector('#hero-form .btn-primary').style.display='none';
 }
 function submitCtaForm(){
   var p=document.getElementById('cta-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:W3F_KEY,subject:'[DBV] BH Du Lịch Quốc Tế - CTA',from_name:'Landing Page DBV247','Họ tên':document.getElementById('cta-name').value.trim(),'Số điện thoại':p,'Điểm đến':document.getElementById('cta-dest').value,'Mục đích':document.getElementById('cta-purpose').value,'Ghi chú':document.getElementById('cta-note').value.trim(),'Form':'CTA Form','Trang':window.location.href})});
+  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Du Lịch Quốc Tế - CTA',from_name:'Landing Page DBV247','Họ tên':document.getElementById('cta-name').value.trim(),'Số điện thoại':p,'Điểm đến':document.getElementById('cta-dest').value,'Mục đích':document.getElementById('cta-purpose').value,'Ghi chú':document.getElementById('cta-note').value.trim(),'Form':'CTA Form','Trang':window.location.href});
   document.getElementById('cta-succ').style.display='block';
   document.querySelector('.cta-form .btn-primary').style.display='none';
 }
 function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p){document.getElementById('float-phone').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:W3F_KEY,subject:'[DBV] BH Du Lịch Quốc Tế - Float',from_name:'Landing Page DBV247','Số điện thoại':p,'Mục đích':document.getElementById('float-purpose').value,'Form':'Float Form','Trang':window.location.href})});
+  netlifyPost('dbv-float',{subject:'[DBV] BH Du Lịch Quốc Tế - Float',from_name:'Landing Page DBV247','Số điện thoại':p,'Mục đích':document.getElementById('float-purpose').value,'Form':'Float Form','Trang':window.location.href});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-purpose').disabled=true;
   document.querySelector('#floatFormWrap .btn-primary').style.display='none';

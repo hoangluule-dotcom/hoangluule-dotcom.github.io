@@ -20,8 +20,27 @@ const { getStore } = require("@netlify/blobs");
 
 const STORE_NAME = "dbv247-leads";
 const BLOB_KEY = "care-records";
+const SITE_ID = "df7ffacd-8e52-4769-b95b-23c978b36e29"; // site "dbv247" trên Netlify
 
 const STAGES = ["moi", "da-lien-he", "dang-tu-van", "chot", "khong-thanh"];
+
+/* Mở kho Blobs.
+   Bình thường Netlify tự cấp thông tin kết nối cho function. Nếu runtime chưa
+   cấp (lỗi MissingBlobsEnvironmentError) thì truyền tay siteID + token. */
+function openStore() {
+  try {
+    return getStore({ name: STORE_NAME, consistency: "strong" });
+  } catch (err) {
+    const siteID = process.env.SITE_ID || SITE_ID;
+    const token = process.env.NETLIFY_ACCESS_TOKEN;
+    if (!token) {
+      throw new Error(
+        "Netlify Blobs chưa sẵn sàng và thiếu NETLIFY_ACCESS_TOKEN để kết nối thủ công."
+      );
+    }
+    return getStore({ name: STORE_NAME, siteID: siteID, token: token, consistency: "strong" });
+  }
+}
 
 function json(statusCode, payload) {
   return {
@@ -45,9 +64,9 @@ exports.handler = async function (event) {
 
   let store;
   try {
-    store = getStore({ name: STORE_NAME, consistency: "strong" });
+    store = openStore();
   } catch (err) {
-    return json(500, { error: "Không khởi tạo được Netlify Blobs: " + String(err) });
+    return json(500, { error: "Không khởi tạo được Netlify Blobs: " + String(err.message || err) });
   }
 
   // ── Đọc toàn bộ bản ghi chăm sóc ──
