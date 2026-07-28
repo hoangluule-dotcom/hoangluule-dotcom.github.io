@@ -1425,7 +1425,7 @@ button{font-family:inherit;cursor:pointer}
 
 <script>
 function netlifyPost(formName,data){
-  var d={'form-name':formName,'Trang':location.href};
+  var d={'form-name':formName,'trang':location.href};
   for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']=String(data[k]).replace(/^\[DBV\]\s*/,'');continue;}d[k]=data[k];}
   return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
 }
@@ -1486,10 +1486,9 @@ function submitForm(which){
   var ppl = document.getElementById(prefix+'-people').value;
   netlifyPost('dbv-tuvan',{
       subject:'[DBV] BH Benh Nhiet Doi - Thanh Do',
-      from_name:'Landing Page DBV Benh Nhiet Doi (v2)',
-      'Họ tên':nm,'Số điện thoại':p,'Số người cần bảo hiểm':ppl,
-      'Form': which === 'hero' ? 'Hero Form' : 'CTA Form',
-      'Trang':window.location.href
+      'ho-ten':nm,'dien-thoai':p,'so-nguoi':ppl,
+      'nguon': which === 'hero' ? 'Hero Form' : 'CTA Form',
+      'trang':window.location.href
     });
   var succEl = document.getElementById(which+'-succ');
   succEl.style.display = 'block';
@@ -1509,8 +1508,7 @@ function submitFloat(){
   if(!p){ el.focus(); return; }
   netlifyPost('dbv-float',{
       subject:'[DBV] BH Benh Nhiet Doi - Thanh Do (Float)',
-      from_name:'Landing Page DBV Benh Nhiet Doi (v2)',
-      'Số điện thoại':p,'Form':'Float Form','Trang':window.location.href
+      'dien-thoai':p,'nguon':'Float Form','trang':window.location.href
     });
   el.disabled = true;
   document.querySelector('.float-form-row button').style.display='none';

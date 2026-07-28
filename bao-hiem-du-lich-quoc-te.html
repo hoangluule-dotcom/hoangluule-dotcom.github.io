@@ -1342,7 +1342,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 <script>
 function netlifyPost(formName,data){
-  var d={'form-name':formName,'Trang':location.href};
+  var d={'form-name':formName,'trang':location.href};
   for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']=String(data[k]).replace(/^\[DBV\]\s*/,'');continue;}d[k]=data[k];}
   return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
 }
@@ -1400,21 +1400,21 @@ function saveCalcToNote(){
 function submitHeroForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
-  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Du Lịch Quốc Tế - Hero',from_name:'Landing Page DBV247','Họ tên':document.getElementById('f-name').value.trim(),'Số điện thoại':p,'Điểm đến':document.getElementById('f-dest').value,'Thời gian đi':document.getElementById('f-time').value,'Mục đích':document.getElementById('f-purpose').value,'Form':'Hero Form','Trang':window.location.href});
+  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Du Lịch Quốc Tế - Hero','ho-ten':document.getElementById('f-name').value.trim(),'dien-thoai':p,'diem-den':document.getElementById('f-dest').value,'thoi-gian':document.getElementById('f-time').value,'muc-dich':document.getElementById('f-purpose').value,'nguon':'Hero Form','trang':window.location.href});
   document.getElementById('form-succ').style.display='block';
   document.querySelector('#hero-form .btn-primary').style.display='none';
 }
 function submitCtaForm(){
   var p=document.getElementById('cta-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
-  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Du Lịch Quốc Tế - CTA',from_name:'Landing Page DBV247','Họ tên':document.getElementById('cta-name').value.trim(),'Số điện thoại':p,'Điểm đến':document.getElementById('cta-dest').value,'Mục đích':document.getElementById('cta-purpose').value,'Ghi chú':document.getElementById('cta-note').value.trim(),'Form':'CTA Form','Trang':window.location.href});
+  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Du Lịch Quốc Tế - CTA','ho-ten':document.getElementById('cta-name').value.trim(),'dien-thoai':p,'diem-den':document.getElementById('cta-dest').value,'muc-dich':document.getElementById('cta-purpose').value,'ghi-chu':document.getElementById('cta-note').value.trim(),'nguon':'CTA Form','trang':window.location.href});
   document.getElementById('cta-succ').style.display='block';
   document.querySelector('.cta-form .btn-primary').style.display='none';
 }
 function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p){document.getElementById('float-phone').focus();return;}
-  netlifyPost('dbv-float',{subject:'[DBV] BH Du Lịch Quốc Tế - Float',from_name:'Landing Page DBV247','Số điện thoại':p,'Mục đích':document.getElementById('float-purpose').value,'Form':'Float Form','Trang':window.location.href});
+  netlifyPost('dbv-float',{subject:'[DBV] BH Du Lịch Quốc Tế - Float','dien-thoai':p,'muc-dich':document.getElementById('float-purpose').value,'nguon':'Float Form','trang':window.location.href});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-purpose').disabled=true;
   document.querySelector('#floatFormWrap .btn-primary').style.display='none';

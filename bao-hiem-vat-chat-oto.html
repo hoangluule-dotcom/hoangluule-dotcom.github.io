@@ -1254,32 +1254,32 @@ function validPhone(p){return /^(0|\+84)\d{9,10}$/.test(p.replace(/[\s.]/g,''));
 function post(subject,data){
   var d={'form-name':/float/i.test(subject)?'dbv-float':'dbv-tuvan',
          'san-pham':String(subject).replace(/^\[DBV\]\s*/,''),
-         'Trang':location.href};
+         'trang':location.href};
   for(var k in data)d[k]=data[k];
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
 }
 function submitHeroForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!validPhone(p)){alert('Vui lòng nhập số điện thoại hợp lệ.');return;}
-  post('[DBV] BH Vật chất xe ô tô - Hero',{'Họ tên':document.getElementById('f-name').value.trim(),'Số điện thoại':p,'Dòng xe':document.getElementById('f-car').value.trim(),'Nhu cầu':document.getElementById('f-need').value,'Form':'Hero Form'});
+  post('[DBV] BH Vật chất xe ô tô - Hero',{'ho-ten':document.getElementById('f-name').value.trim(),'dien-thoai':p,'xe':document.getElementById('f-car').value.trim(),'nhu-cau':document.getElementById('f-need').value,'nguon':'Hero Form'});
   document.getElementById('f-succ').style.display='block';
 }
 function submitCalcLead(){
   var p=document.getElementById('cl-phone').value.trim();
   if(!validPhone(p)){alert('Vui lòng nhập số điện thoại hợp lệ.');return;}
-  post('[DBV] BH Vật chất xe ô tô - Calculator',{'Họ tên':document.getElementById('cl-name').value.trim(),'Số điện thoại':p,'Kết quả tính phí':lastCalc,'Form':'Calculator Lead'});
+  post('[DBV] BH Vật chất xe ô tô - Calculator',{'ho-ten':document.getElementById('cl-name').value.trim(),'dien-thoai':p,'ket-qua-tinh-phi':lastCalc,'nguon':'Calculator Lead'});
   document.getElementById('cl-succ').style.display='block';
 }
 function submitCtaForm(){
   var p=document.getElementById('cta-phone').value.trim();
   if(!validPhone(p)){alert('Vui lòng nhập số điện thoại hợp lệ.');return;}
-  post('[DBV] BH Vật chất xe ô tô - CTA',{'Họ tên':document.getElementById('cta-name').value.trim(),'Số điện thoại':p,'Dòng xe':document.getElementById('cta-car').value.trim(),'Nhu cầu':document.getElementById('cta-need').value,'Kết quả tính phí (nếu có)':lastCalc,'Form':'CTA Form'});
+  post('[DBV] BH Vật chất xe ô tô - CTA',{'ho-ten':document.getElementById('cta-name').value.trim(),'dien-thoai':p,'xe':document.getElementById('cta-car').value.trim(),'nhu-cau':document.getElementById('cta-need').value,'ket-qua-tinh-phi':lastCalc,'nguon':'CTA Form'});
   document.getElementById('cta-succ').style.display='block';
 }
 function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!validPhone(p)){alert('Vui lòng nhập số điện thoại hợp lệ.');return;}
-  post('[DBV] BH Vật chất xe ô tô - Float',{'Số điện thoại':p,'Nhu cầu':document.getElementById('float-need').value,'Form':'Float Form'});
+  post('[DBV] BH Vật chất xe ô tô - Float',{'dien-thoai':p,'nhu-cau':document.getElementById('float-need').value,'nguon':'Float Form'});
   document.getElementById('float-succ').style.display='block';
 }
 function toggleFloatForm(){

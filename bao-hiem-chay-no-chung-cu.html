@@ -1116,7 +1116,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 <script>
 function netlifyPost(formName,data){
-  var d={'form-name':formName,'Trang':location.href};
+  var d={'form-name':formName,'trang':location.href};
   for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']=String(data[k]).replace(/^\[DBV\]\s*/,'');continue;}d[k]=data[k];}
   return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
 }
@@ -1160,7 +1160,7 @@ function submitHeroForm(){
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   var nm=document.getElementById('f-name').value.trim();
   var area=document.getElementById('f-area').value.trim();
-  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Cháy Nổ Chung Cư - Hero Form',from_name:'Landing Page DBV Thành Đô','Họ tên':nm,'Số điện thoại':p,'Diện tích (m2)':area,'Form':'Hero Form','Trang':window.location.href});
+  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Cháy Nổ Chung Cư - Hero Form','ho-ten':nm,'dien-thoai':p,'dien-tich':area,'nguon':'Hero Form','trang':window.location.href});
   document.getElementById('hero-succ').style.display='block';
   document.querySelector('#hero-form .btn-primary').style.display='none';
 }
@@ -1169,7 +1169,7 @@ function submitCtaForm(){
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   var nm=document.getElementById('cta-name').value.trim();
   var area=document.getElementById('cta-area').value.trim();
-  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Cháy Nổ Chung Cư - CTA Form',from_name:'Landing Page DBV Thành Đô','Họ tên':nm,'Số điện thoại':p,'Diện tích (m2)':area,'Form':'CTA Form','Trang':window.location.href});
+  netlifyPost('dbv-tuvan',{subject:'[DBV] BH Cháy Nổ Chung Cư - CTA Form','ho-ten':nm,'dien-thoai':p,'dien-tich':area,'nguon':'CTA Form','trang':window.location.href});
   document.getElementById('cta-succ').style.display='block';
   document.querySelector('.cta-form .btn-primary').style.display='none';
 }
