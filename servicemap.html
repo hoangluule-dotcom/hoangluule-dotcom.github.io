@@ -283,6 +283,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
     <div class="lead-form-box">
       <h3>Để lại thông tin, chúng tôi gọi lại ngay</h3>
       <form id="lead-form" name="lead-form" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="submitLead(event)">
+      <input type="hidden" name="trang"/>
         <input type="hidden" name="form-name" value="lead-form">
       <input type="hidden" name="bot-field"/>
         <div class="lf-row">
@@ -509,7 +510,7 @@ document.addEventListener("DOMContentLoaded",function(){
 function toggleCatDropdown(e){e.stopPropagation();document.getElementById('cat-dropdown').classList.toggle('open');}
 function closeCatDropdown(){var d=document.getElementById('cat-dropdown');if(d)d.classList.remove('open');}
 document.addEventListener('click',function(e){if(!e.target.closest('.hdr-cat-wrap'))closeCatDropdown();});
-function submitLead(e){e.preventDefault();var form=document.getElementById('lead-form');var btn=form.querySelector('.lf-submit');btn.textContent='Đang gửi...';btn.disabled=true;var data=new FormData(form);fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(data).toString()}).then(function(){form.style.display='none';document.getElementById('lf-success').style.display='block';}).catch(function(){form.submit();});}
+function submitLead(e){e.preventDefault();var form=document.getElementById('lead-form');var btn=form.querySelector('.lf-submit');btn.textContent='Đang gửi...';btn.disabled=true;var data=new FormData(form);data.set('trang',location.href);fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(data).toString()}).then(function(){form.style.display='none';document.getElementById('lf-success').style.display='block';}).catch(function(){form.submit();});}
 </script>
 </body>
 </html>

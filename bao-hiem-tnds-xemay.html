@@ -889,10 +889,15 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </footer>
 
 <script>
+function fv(id){var e=document.getElementById(id);if(!e)return'';
+ if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
+ if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
+ return (e.value||'').trim();}
+
 function submitForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm TNDS Chủ Xe Máy','dien-thoai':p}).toString()});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm TNDS Chủ Xe Máy','dien-thoai':p,'loai-xe':fv('f-cc'),'thoi-han':fv('f-duration')}).toString()});
   document.getElementById('form-succ').style.display='block';
   document.querySelector('.btn-primary').style.display='none';
 }

@@ -119,6 +119,27 @@ main{background:#fff}
 .husp:first-child{padding-left:0}
 .husp:last-child{border-right:none;padding-right:0}
 .hero-cta-row{display:flex;align-items:center;gap:12px;margin-bottom:0}
+
+/* ══ FORM NHANH TRÊN BANNER (đặt dưới USP) ══ */
+.hero-form-wrap{max-width:580px}
+.hero-form{display:flex;gap:8px;align-items:stretch;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(0,116,55,.18);border-radius:14px;padding:8px;box-shadow:0 6px 28px rgba(0,0,0,.10)}
+.hf-field{position:relative;display:flex;align-items:center;flex:1;min-width:0}
+.hf-field svg{position:absolute;left:11px;width:15px;height:15px;stroke:var(--ts);fill:none;stroke-width:2;pointer-events:none}
+.hf-input,.hf-select{width:100%;height:44px;padding:0 12px 0 33px;border:1.5px solid var(--bd);border-radius:9px;font-family:inherit;font-size:14px;color:var(--tx);background:#fff;outline:none;transition:.18s;-webkit-appearance:none;appearance:none}
+.hf-input::placeholder{color:var(--ts)}
+.hf-input:focus,.hf-select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
+.hf-select{padding-right:30px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.hf-btn{height:44px;padding:0 20px;border:none;border-radius:9px;background:var(--gold);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;transition:.18s;flex-shrink:0}
+.hf-btn:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.4)}
+.hf-btn:disabled{opacity:.6;cursor:not-allowed}
+.hf-btn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5;flex-shrink:0}
+.hf-note{font-size:11.5px;color:var(--tm);margin-top:8px;display:flex;align-items:center;gap:5px;text-shadow:0 1px 5px rgba(255,255,255,.9)}
+.hf-note svg{width:12px;height:12px;stroke:var(--g);fill:none;stroke-width:2;flex-shrink:0}
+.hf-success{display:none;align-items:center;gap:10px;background:rgba(255,255,255,.96);border:1px solid var(--g);border-radius:14px;padding:16px 18px;box-shadow:0 6px 28px rgba(0,116,55,.14)}
+.hf-success.show{display:flex}
+.hf-success svg{width:26px;height:26px;stroke:var(--g);fill:none;stroke-width:2;flex-shrink:0}
+.hf-success b{display:block;font-size:14px;color:var(--dk);margin-bottom:2px}
+.hf-success span{font-size:12.5px;color:var(--tm)}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-weight:700;font-size:14px;padding:13px 28px;border-radius:30px;text-decoration:none;transition:.2s}
 .btn-primary:hover{background:var(--gd);box-shadow:0 6px 24px rgba(0,116,55,.3);transform:translateY(-1px)}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--tm);font-weight:600;font-size:14px;padding:12px 24px;border-radius:30px;border:1.5px solid var(--bd);text-decoration:none;transition:.2s}
@@ -163,6 +184,21 @@ main{background:#fff}
   .hero-usps{grid-template-columns:repeat(4,1fr)}
   .husp{font-size:.72rem;padding:2px 8px;line-height:1.3}
   .hero-cta-row .btn-secondary{display:none}
+  /* Mobile: ẩn nút xem sản phẩm (đã có ở danh mục ngay dưới), ưu tiên form */
+  .hero-cta-row{display:none}
+  /* Form: SĐT + nhu cầu chung 1 hàng, nút riêng 1 hàng */
+  .hero-form-wrap{max-width:100%}
+  .hero-form{flex-wrap:wrap;gap:7px;padding:7px;border-radius:12px}
+  .hf-field{flex:1 1 calc(50% - 4px);min-width:0}
+  .hf-input,.hf-select{height:40px;font-size:13px;padding-left:30px}
+  .hf-field svg{left:9px;width:14px;height:14px}
+  .hf-select{padding-right:26px;background-position:right 8px center}
+  .hf-btn{flex:1 1 100%;height:40px;font-size:13.5px;justify-content:center}
+  .hf-note{font-size:10.5px;margin-top:6px}
+  .hf-success{padding:13px 14px;border-radius:12px}
+  .hf-success svg{width:22px;height:22px}
+  .hf-success b{font-size:13px}
+  .hf-success span{font-size:11.5px}
   .btn-orange{justify-content:center}
   .hero-partners{flex-wrap:wrap;gap:12px}
 }
@@ -196,8 +232,6 @@ main{background:#fff}
 .f-chip:hover{border-color:var(--g);background:var(--gl)}
 .f-chip.active{background:var(--g);color:#fff;border-color:var(--g)}
 .f-chip.active svg{stroke:#fff}
-.f-count{font-size:.68rem;font-weight:700;padding:1px 6px;border-radius:8px;background:rgba(0,116,55,.1)}
-.f-chip.active .f-count{background:rgba(255,255,255,.25)}
 @media(min-width:768px){ .f-chip{padding:13px 22px;font-size:.9rem} }
 
 /* Section titles */
@@ -484,6 +518,9 @@ main{background:#fff}
   <input type="text" name="tinh-thanh"/>
   <input type="text" name="trang"/>
   <input type="text" name="xe"/>
+  <input type="text" name="loai-hinh"/>
+  <input type="text" name="muc-quan-tam"/>
+  <input type="text" name="thoi-han"/>
 </form>
 <form name="dbv-float" netlify netlify-honeypot="bot-field" hidden>
   <input type="hidden" name="form-name" value="dbv-float"/>
@@ -500,6 +537,9 @@ main{background:#fff}
   <input type="text" name="san-pham"/>
   <input type="text" name="trang"/>
   <input type="text" name="xe"/>
+  <input type="text" name="loai-hinh"/>
+  <input type="text" name="muc-quan-tam"/>
+  <input type="text" name="thoi-han"/>
 </form>
 <form name="dbv-suckhoe" netlify netlify-honeypot="bot-field" hidden>
   <input type="hidden" name="form-name" value="dbv-suckhoe"/>
@@ -510,12 +550,14 @@ main{background:#fff}
   <input type="text" name="ho-ten"/>
   <input type="text" name="nhom-tuoi"/>
   <input type="text" name="san-pham"/>
+  <input type="text" name="trang"/>
 </form>
 <form name="dbv-float-sk" netlify netlify-honeypot="bot-field" hidden>
   <input type="hidden" name="form-name" value="dbv-float-sk"/>
   <input type="text" name="bot-field"/>
   <input type="text" name="dien-thoai"/>
   <input type="text" name="san-pham"/>
+  <input type="text" name="trang"/>
 </form>
 <a class="skip-link" href="#catalog">Bỏ qua điều hướng, đến nội dung chính</a>
 
@@ -591,6 +633,50 @@ main{background:#fff}
       <div class="husp">Cam kết<br>đồng hành</div>
     </div>
 
+    <!-- Form nhanh: SĐT + nhu cầu (đặt dưới USP) -->
+    <div class="hero-form-wrap">
+      <form class="hero-form" id="hero-form" name="hero-form" data-netlify="true" data-netlify-honeypot="hf-bot" onsubmit="submitHero(event)">
+        <input type="hidden" name="form-name" value="hero-form">
+        <input type="text" name="hf-bot" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="hf-field">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <label class="sr-only" for="hf-phone">Số điện thoại</label>
+          <input class="hf-input" id="hf-phone" name="phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" required>
+        </div>
+        <div class="hf-field">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <label class="sr-only" for="hf-need">Nhu cầu bảo hiểm</label>
+          <select class="hf-select" id="hf-need" name="need" required>
+            <option value="" disabled selected>Nhu cầu bảo hiểm</option>
+            <option value="xe-oto">Xe ô tô</option>
+            <option value="xe-may">Xe máy</option>
+            <option value="suc-khoe">Sức khỏe</option>
+            <option value="tai-san">Tài sản</option>
+            <option value="du-lich">Du lịch</option>
+            <option value="hang-hai">Hàng hải</option>
+            <option value="trach-nhiem">Trách nhiệm</option>
+            <option value="khac">Khác</option>
+          </select>
+        </div>
+        <button class="hf-btn" type="submit">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          Nhận tư vấn
+        </button>
+      </form>
+      <p class="hf-note">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Miễn phí · Bảo mật thông tin
+      </p>
+
+      <div class="hf-success" id="hf-success" role="status">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        <div>
+          <b>Đã nhận thông tin!</b>
+          <span>Chuyên viên sẽ gọi lại trong vòng 5–10 phút.</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -608,11 +694,11 @@ main{background:#fff}
 
   <div class="filter-wrap">
     <button class="f-chip active" data-f="all" onclick="filterCat('all',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Được mua nhiều</button>
-    <button class="f-chip" data-f="xe" onclick="filterCat('xe',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe cơ giới <span class="f-count">4</span></button>
-    <button class="f-chip" data-f="hanghai" onclick="filterCat('hanghai',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải <span class="f-count">4</span></button>
-    <button class="f-chip" data-f="taisan" onclick="filterCat('taisan',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản & Kỹ thuật <span class="f-count">6</span></button>
-    <button class="f-chip" data-f="conguoi" onclick="filterCat('conguoi',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Du lịch & Con người <span class="f-count">5</span></button>
-    <button class="f-chip" data-f="trachnhiem" onclick="filterCat('trachnhiem',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M3 18l9-3 9 3"/><path d="M3 6c0 3.314 2.686 6 6 6s6-2.686 6-6"/><path d="M15 18c0 3.314 2.686 6 6 6s6-2.686 6-6" transform="translate(-6,-6)"/></svg>Trách nhiệm <span class="f-count">4</span></button>
+    <button class="f-chip" data-f="xe" onclick="filterCat('xe',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l3-4h12l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Xe cơ giới</button>
+    <button class="f-chip" data-f="hanghai" onclick="filterCat('hanghai',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.75 4.4 2 6"/><path d="M12 10V2l3 3-3-3-3 3"/></svg>Hàng hải</button>
+    <button class="f-chip" data-f="taisan" onclick="filterCat('taisan',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài sản & Kỹ thuật</button>
+    <button class="f-chip" data-f="conguoi" onclick="filterCat('conguoi',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Du lịch & Con người</button>
+    <button class="f-chip" data-f="trachnhiem" onclick="filterCat('trachnhiem',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M3 18l9-3 9 3"/><path d="M3 6c0 3.314 2.686 6 6 6s6-2.686 6-6"/><path d="M15 18c0 3.314 2.686 6 6 6s6-2.686 6-6" transform="translate(-6,-6)"/></svg>Trách nhiệm</button>
   </div>
 
   <!-- HOT -->
@@ -722,6 +808,7 @@ main{background:#fff}
     <div class="lead-form-box">
       <h3>Để lại thông tin, chúng tôi gọi lại ngay</h3>
       <form id="lead-form" name="lead-form" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="submitLead(event)">
+      <input type="hidden" name="trang"/>
         <input type="hidden" name="form-name" value="lead-form">
         <input type="text" name="bot-field" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="lf-row">
@@ -767,10 +854,6 @@ main{background:#fff}
       <div class="trust-row-item">
         <svg width="13" height="13" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         Tư vấn hoàn toàn miễn phí
-      </div>
-      <div class="trust-row-item">
-        <svg width="13" height="13" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Không ép mua
       </div>
       <div class="trust-row-item">
         <svg width="13" height="13" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -896,12 +979,42 @@ function submitLead(e) {
   const btn = form.querySelector('.lf-submit');
   btn.textContent = 'Đang gửi...'; btn.disabled = true;
   const data = new FormData(form);
+  data.set('trang', location.href);
   fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
     body: new URLSearchParams(data).toString()
   }).then(() => {
     form.style.display = 'none';
     document.getElementById('lf-success').style.display = 'block';
   }).catch(() => { form.submit(); });
+}
+
+// Form nhanh trên banner
+function submitHero(e) {
+  e.preventDefault();
+  const form = document.getElementById('hero-form');
+  const btn = form.querySelector('.hf-btn');
+  const original = btn.innerHTML;
+  btn.textContent = 'Đang gửi...';
+  btn.disabled = true;
+
+  const data = new FormData(form);
+  data.set('trang', location.href);
+  data.set('nguon', 'Form banner trang chủ');
+
+  fetch('/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(data).toString()
+  }).then(() => {
+    form.style.display = 'none';
+    const note = document.querySelector('.hf-note');
+    if (note) note.style.display = 'none';
+    document.getElementById('hf-success').classList.add('show');
+  }).catch(() => {
+    btn.innerHTML = original;
+    btn.disabled = false;
+    form.submit();
+  });
 }
 
 function clearSearch() {

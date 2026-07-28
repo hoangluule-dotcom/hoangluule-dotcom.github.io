@@ -1294,20 +1294,20 @@ function pickFromCalc(){
 
 // ── FORMS ──
 function netlifyPost(formName, data){
-  var params = {'form-name': formName};
+  var params = {'form-name': formName, 'trang': location.href};
   Object.assign(params, data);
   fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(params).toString()});
 }
 function submitHero(){
   var p=document.getElementById('h-phone').value.trim();
   if(!p){document.getElementById('h-phone').focus();return;}
-  netlifyPost('dbv-suckhoe',{'san-pham':'BH Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('h-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('h-who').value,'nhom-tuoi':document.getElementById('h-age').value,'goi-quan-tam':pickedPlan});
+  netlifyPost('dbv-suckhoe',{'san-pham':'Bảo Hiểm Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('h-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('h-who').value,'nhom-tuoi':document.getElementById('h-age').value,'goi-quan-tam':pickedPlan});
   document.getElementById('h-succ').style.display='block';
 }
 function submitCta(){
   var p=document.getElementById('c-phone').value.trim();
   if(!p){document.getElementById('c-phone').focus();return;}
-  netlifyPost('dbv-suckhoe',{'san-pham':'BH Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('c-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('c-who').value,'nhom-tuoi':'','goi-quan-tam':document.getElementById('c-goi').value||pickedPlan});
+  netlifyPost('dbv-suckhoe',{'san-pham':'Bảo Hiểm Sức Khỏe An Tâm Vui Khỏe','ho-ten':document.getElementById('c-name').value,'dien-thoai':p,'bao-ve-ai':document.getElementById('c-who').value,'nhom-tuoi':'','goi-quan-tam':document.getElementById('c-goi').value||pickedPlan});
   document.getElementById('c-succ').style.display='block';
 }
 function toggleFloatForm(){
@@ -1318,7 +1318,7 @@ function toggleFloatForm(){
 function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p)return;
-  netlifyPost('dbv-float-sk',{'san-pham':'BH Sức Khỏe An Tâm Vui Khỏe','dien-thoai':p});
+  netlifyPost('dbv-float-sk',{'san-pham':'Bảo Hiểm Sức Khỏe An Tâm Vui Khỏe','dien-thoai':p});
   document.getElementById('float-succ').style.display='block';
   setTimeout(function(){document.getElementById('floatFormWrap').style.display='none';document.getElementById('float-phone').value='';document.getElementById('float-succ').style.display='none';},3000);
 }

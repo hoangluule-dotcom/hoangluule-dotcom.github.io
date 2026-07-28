@@ -909,6 +909,11 @@ section.mob-sec .sec-hdr-block{display:none!important}
 
 
 <script>
+function fv(id){var e=document.getElementById(id);if(!e)return'';
+ if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
+ if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
+ return (e.value||'').trim();}
+
 /* ── SEND LEAD (Netlify) ── */
 async function sendLead(data){
   var params = {

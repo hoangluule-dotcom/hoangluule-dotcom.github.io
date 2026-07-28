@@ -1256,6 +1256,11 @@ section.mob-sec>.sec-inner>.sec-tag,section.mob-sec>.sec-inner>.sec-h2,section.m
 
 
 <script>
+function fv(id){var e=document.getElementById(id);if(!e)return'';
+ if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
+ if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
+ return (e.value||'').trim();}
+
 var priceMap={
   437000:"437.000 đồng",794000:"794.000 đồng",1270000:"1.270.000 đồng",
   1825000:"1.825.000 đồng",756000:"756.000 đồng",929000:"929.000 đồng",
@@ -1303,8 +1308,7 @@ function submitForm(){
       'dien-thoai':p,
       'loai-xe':carLabel,
       'ho-ten':(nameEl?nameEl.value.trim():''),
-      'dich-vu-them':addons.join(', ')
-    }).toString()
+      'dich-vu-them':addons.join(', '),'nhu-cau':fv('f-need')}).toString()
   });
   document.getElementById('form-succ').style.display='block';
   var sb=document.getElementById('wz-submit');if(sb)sb.style.display='none';
@@ -1322,8 +1326,7 @@ function submitCta(){
       'san-pham':'Bảo Hiểm TNDS Chủ Xe Ô Tô',
       'dien-thoai':p,
       'so-cho':seats,
-      'kinh-doanh':biz
-    }).toString()
+      'kinh-doanh':biz,'loai-xe':fv('f-cartype'),'nhu-cau':fv('f-need'),'ho-ten':fv('f-name')}).toString()
   });
   document.getElementById('cta-succ').style.display='block';
   document.getElementById('cta-submit').style.display='none';

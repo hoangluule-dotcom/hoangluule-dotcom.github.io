@@ -764,6 +764,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 </footer>
 
 <script>
+function fv(id){var e=document.getElementById(id);if(!e)return'';
+ if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
+ if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
+ return (e.value||'').trim();}
+
 function toggleFloatForm(){
   var w=document.getElementById('floatFormWrap');
   var isOpen=w.style.display==='block';
@@ -773,7 +778,7 @@ function toggleFloatForm(){
 function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p){document.getElementById('float-phone').focus();return;}
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Bắt Buộc','dien-thoai':p,'hang-hoa':(document.getElementById('float-goods')||{value:''}).value}).toString()});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Bắt Buộc','dien-thoai':p,'hang-hoa':(document.getElementById('float-goods')||{value:''}).value,'loai-hinh-kd':fv('f-biz')}).toString()});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-goods').disabled=true;
   document.querySelector('#floatFormWrap button').style.display='none';
@@ -816,7 +821,7 @@ async function submitHeroForm(){
   var btn=document.querySelector('#hero-form .btn-primary');
   btn.disabled=true;btn.textContent='Đang gửi...';
   try{
-    await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Bắt Buộc','dien-thoai':p,'ghi-chu':biz?'Loại cơ sở: '+biz:''}).toString()});
+    await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Bắt Buộc','dien-thoai':p,'ghi-chu':biz?'Loại cơ sở: '+biz:'','loai-hinh-kd':fv('f-biz')}).toString()});
     document.getElementById('form-succ').style.display='block';
     btn.style.display='none';
   }catch(e){

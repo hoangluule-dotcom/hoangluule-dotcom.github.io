@@ -1426,7 +1426,7 @@ button{font-family:inherit;cursor:pointer}
 <script>
 function netlifyPost(formName,data){
   var d={'form-name':formName,'trang':location.href};
-  for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']=String(data[k]).replace(/^\[DBV\]\s*/,'');continue;}d[k]=data[k];}
+  for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']='Bảo Hiểm Bệnh Nhiệt Đới';d['nguon']=d['nguon']||String(data[k]).replace(/^\[DBV\]\s*/,'').replace(/^.*?[-–]\s*/,'');continue;}d[k]=data[k];}
   return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
 }
 

@@ -1341,9 +1341,14 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 
 <script>
+function fv(id){var e=document.getElementById(id);if(!e)return'';
+ if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
+ if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
+ return (e.value||'').trim();}
+
 function netlifyPost(formName,data){
   var d={'form-name':formName,'trang':location.href};
-  for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']=String(data[k]).replace(/^\[DBV\]\s*/,'');continue;}d[k]=data[k];}
+  for(var k in data){if(k==='access_key'||k==='from_name')continue;if(k==='subject'){d['san-pham']='Bảo Hiểm Du Lịch Quốc Tế';d['nguon']=d['nguon']||String(data[k]).replace(/^\[DBV\]\s*/,'').replace(/^.*?[-–]\s*/,'');continue;}d[k]=data[k];}
   return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(e){console.warn('lead error',e);});
 }
 

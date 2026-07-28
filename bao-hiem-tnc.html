@@ -980,10 +980,15 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 
 <script>
+function fv(id){var e=document.getElementById(id);if(!e)return'';
+ if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
+ if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
+ return (e.value||'').trim();}
+
 function submitForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Trách Nhiệm Chung','dien-thoai':p}).toString()});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Trách Nhiệm Chung','dien-thoai':p,'loai-hinh':fv('f-facility'),'muc-quan-tam':fv('f-limit')}).toString()});
   /* TODO: ket noi form voi CRM / email / Google Sheet cua DBV */
   document.getElementById('form-succ').style.display='block';
   document.querySelector('#hero-form .btn-primary').style.display='none';

@@ -1020,13 +1020,18 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 
 <script>
+function fv(id){var e=document.getElementById(id);if(!e)return'';
+ if(e.tagName==='SELECT')return e.selectedIndex>0?(e.options[e.selectedIndex].text||'').replace(/\s+/g,' ').trim():'';
+ if(e.type==='checkbox'||e.type==='radio')return e.checked?'Có':'';
+ return (e.value||'').trim();}
+
 function submitHeroForm(){
   var p=document.getElementById('f-phone').value.trim();
   if(!p){alert('Vui lòng nhập số điện thoại.');return;}
   var nm=document.getElementById('f-name').value.trim();
   var biz=document.getElementById('f-biz').value;
   var city=document.getElementById('f-city').value;
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'BH Cháy Nổ Bắt Buộc - HKD','ho-ten':nm,'dien-thoai':p,'loai-hinh-kd':biz,'tinh-thanh':city}).toString()});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Bắt Buộc HKD','ho-ten':fv('f-name'),'dien-thoai':fv('f-phone'),'loai-hinh-kd':fv('f-biz'),'tinh-thanh':fv('f-city')}).toString()});
   document.getElementById('form-succ').style.display='block';
   document.querySelector('#hero-form .btn-primary').style.display='none';
 }
@@ -1037,7 +1042,7 @@ function submitCtaForm(){
   var biz=document.getElementById('cta-biz').value;
   var city=document.getElementById('cta-city').value;
   var note=document.getElementById('cta-note').value.trim();
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'BH Cháy Nổ Bắt Buộc - HKD','ho-ten':nm,'dien-thoai':p,'loai-hinh-kd':biz,'tinh-thanh':city,'ghi-chu':note}).toString()});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Cháy Nổ Bắt Buộc HKD','ho-ten':fv('cta-name'),'dien-thoai':fv('cta-phone'),'loai-hinh-kd':fv('cta-biz'),'tinh-thanh':fv('cta-city'),'ghi-chu':fv('cta-note')}).toString()});
   document.getElementById('cta-succ').style.display='block';
   document.querySelector('.cta-form .btn-primary').style.display='none';
 }
@@ -1057,7 +1062,7 @@ function submitFloat(){
   var p=document.getElementById('float-phone').value.trim();
   if(!p){document.getElementById('float-phone').focus();return;}
   var biz=document.getElementById('float-biz').value;
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-float','san-pham':'BH Cháy Nổ - HKD','dien-thoai':p,'loai-hinh-kd':biz}).toString()});
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'dbv-float','san-pham':'Bảo Hiểm Cháy Nổ Bắt Buộc HKD','dien-thoai':fv('float-phone'),'loai-hinh-kd':fv('float-biz')}).toString()});
   document.getElementById('float-phone').disabled=true;
   document.getElementById('float-biz').disabled=true;
   document.querySelector('#floatFormWrap button').style.display='none';

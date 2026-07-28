@@ -555,6 +555,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
     <div class="lead-form-box">
       <h3>Để lại thông tin, chúng tôi gọi lại ngay</h3>
       <form id="lead-form" name="lead-form" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="submitLead(event)">
+      <input type="hidden" name="trang"/>
         <input type="hidden" name="form-name" value="lead-form">
       <input type="hidden" name="bot-field"/>
         <div class="lf-row">
@@ -704,6 +705,7 @@ function submitLead(e) {
   const btn = form.querySelector('.lf-submit');
   btn.textContent = 'Đang gửi...'; btn.disabled = true;
   const data = new FormData(form);
+  data.set('trang', location.href);
   fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
     body: new URLSearchParams(data).toString()
   }).then(() => {
