@@ -49,6 +49,7 @@ exports.handler = async function (event) {
       const subs = await subRes.json();
       subs.forEach((s) => {
         allSubmissions.push({
+          id: s.id,                 // dùng làm leadId để ghép với dữ liệu chăm sóc
           form_name: form.name,
           created_at: s.created_at,
           data: s.data,

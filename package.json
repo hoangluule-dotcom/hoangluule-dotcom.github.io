@@ -1,0 +1,9 @@
+{
+  "name": "dbv247-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DBV247 — website bảo hiểm trực tuyến + CRM quản lý lead",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
