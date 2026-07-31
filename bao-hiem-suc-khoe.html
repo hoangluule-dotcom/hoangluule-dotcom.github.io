@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="vi" class="no-js">
 <head>
+
 <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53NZ4XR4');</script>
+<!-- End Google Tag Manager -->
 <title>Bảo Hiểm Sức Khỏe DBV An Tâm Vui Khỏe — Bảo Lãnh Viện Phí, Chỉ Từ 1.200đ/Ngày | DBV247</title>
 <link rel="canonical" href="https://dbv247.com.vn/bao-hiem-suc-khoe">
 <meta name="description" content="Bảo hiểm chăm sóc sức khỏe DBV An Tâm Vui Khỏe: bảo lãnh viện phí không cần ứng tiền, nội trú đến 120 triệu/năm, nhận từ 60 ngày tuổi đến 65 tuổi. Phí chỉ từ 419.000đ/năm."/>
@@ -483,19 +492,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
   }
 ]
 </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DY2WX5NWWC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-DY2WX5NWWC');
-</script>
 <script src="/assets/dbv-tracking.js" defer></script>
 <link rel="stylesheet" href="/assets/dbv-header.css">
 <script src="/assets/dbv-menu-search.js" defer></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53NZ4XR4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 
 <!-- Netlify forms -->
 
@@ -704,7 +710,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
         </div>
         <div class="risk-card">
           <div class="risk-num">4 – 8 triệu/ngày</div>
-          <div class="risk-lbl">Tiền giường phòng dịch vụ — BHYT không gánh</div>
+          <div class="risk-lbl">Tiền giường phòng dịch vụ — BHYT không chi trả</div>
         </div>
       </div>
     </div>
@@ -914,7 +920,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#fff;lin
       <div class="calc-result" id="calc-result">
         <div class="calc-fee-lbl">Phí bảo hiểm ước tính /năm</div>
         <div class="calc-fee" id="calc-fee">1.484.000đ</div>
-        <div class="calc-perday" id="calc-perday">≈ 4.100đ/ngày — chưa bằng ly trà đá</div>
+        <div class="calc-perday" id="calc-perday">≈ 4.100đ/ngày</div>
         <div class="calc-info" id="calc-info">Gói Vàng ⭐ · Nội trú 50tr + Tai nạn 100tr + Bảo lãnh nội trú — cân bằng nhất</div>
         <div class="calc-nojs-notice">📌 Đây là mức phí tham khảo mặc định. Để đổi tuổi/gói/quyền lợi và xem phí chính xác, vui lòng mở link web (không mở file), hoặc nhắn Zalo — chuyên viên tính giúp bạn trong 5 phút.</div>
         <a href="#cta-form" class="calc-cta-btn" id="calc-cta" onclick="pickFromCalc()">
@@ -1287,7 +1293,7 @@ function calcFee(){
   var total=fee*q*1000;
   var perday=Math.round(total/365/100)*100;
   document.getElementById('calc-fee').textContent=total.toLocaleString('vi-VN')+'đ';
-  document.getElementById('calc-perday').textContent='≈ '+perday.toLocaleString('vi-VN')+'đ/ngày'+(q>1?' cho '+q+' người':'')+' — chưa bằng ly trà đá';
+  document.getElementById('calc-perday').textContent='≈ '+perday.toLocaleString('vi-VN')+'đ/ngày'+(q>1?' cho '+q+' người':'');
   var info=document.getElementById('calc-info');
   info.style.display='block';
   info.innerHTML='<strong>'+PLAN_INFO[p]+'</strong>'+(extras.length?'<br/>+ Quyền lợi thêm: '+extras.join(', '):'');
