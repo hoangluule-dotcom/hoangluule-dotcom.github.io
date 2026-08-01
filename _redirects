@@ -32,3 +32,7 @@
 /bao-hiem-du-lich          /san-pham                    302
 /bao-hiem-hang-hai         /san-pham                    302
 /bao-hiem-tai-san          /san-pham                    302
+
+# --- Bổ sung 01/08/2026: link 'Điều khoản sử dụng' trong footer đang 404.
+#     Tạm điều hướng sang trang chính sách bảo mật. Nên tạo trang riêng khi có nội dung.
+/dieu-khoan-su-dung        /chinh-sach-bao-mat          302
