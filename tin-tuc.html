@@ -60,6 +60,16 @@ a{color:inherit}
 
 /* NEWS LIST */
 .news-wrap{max-width:1120px;margin:0 auto;padding:56px 32px 90px}
+/* Tab lọc theo nhóm sản phẩm */
+.news-tabs{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:26px;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.news-tabs::-webkit-scrollbar{display:none}
+.news-tab{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:24px;border:1.5px solid var(--bd,#E2E8F0);background:#fff;color:var(--g,#007437);font-family:inherit;font-size:.85rem;font-weight:600;white-space:nowrap;cursor:pointer;transition:.18s;flex-shrink:0}
+.news-tab:hover{border-color:var(--g,#007437);background:var(--gl,#e8f5e9)}
+.news-tab.on{background:var(--g,#007437);border-color:var(--g,#007437);color:#fff}
+.news-tab .n{font-size:.7rem;font-weight:700;padding:1px 7px;border-radius:10px;background:rgba(0,116,55,.1)}
+.news-tab.on .n{background:rgba(255,255,255,.26)}
+.news-card-cat{display:inline-block;font-size:.66rem;font-weight:700;color:var(--g,#007437);background:var(--gl,#e8f5e9);padding:3px 9px;border-radius:10px;margin-bottom:8px}
+@media(max-width:600px){.news-tab{padding:8px 14px;font-size:.78rem}}
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .news-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);overflow:hidden;cursor:pointer;transition:.25s;display:flex;flex-direction:column}
 .news-card:hover{box-shadow:var(--sh2);transform:translateY(-4px);border-color:rgba(0,116,55,.3)}
@@ -123,8 +133,7 @@ a{color:inherit}
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
 .hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
-.hdr-nav a.active{color:var(--g);font-weight:700;position:relative}
-.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g);border-radius:2px}
+.hdr-nav a.active{color:var(--g);font-weight:700}
 .hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 .hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
 .btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap;background:none;cursor:pointer;font-family:inherit}
@@ -257,17 +266,16 @@ a{color:inherit}
 }
 </script>
 <style id="dbv-layout">
-/* ══ HEADER ══ */
-.hdr{background:transparent;border-bottom:1px solid transparent;position:fixed;top:0;left:0;right:0;z-index:300;transition:background .25s,border-color .25s,box-shadow .25s}
-.hdr.scrolled{background:#fff;border-bottom:1px solid var(--bd,#E2E8F0);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+:where(.hdr){background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd,#E2E8F0)}
 .hdr-inner{max-width:var(--container,1400px);margin:0 auto;padding:0 40px;display:flex;align-items:center;height:60px;gap:8px}
 .hdr-logo{flex-shrink:0;margin-right:24px}
 .hdr-logo img{height:48px;width:auto;display:block}
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
 .hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g,#007437);background:var(--gl,#e8f5e9)}
-.hdr-nav a.active{color:var(--g,#007437);font-weight:700;position:relative}
-.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g,#007437);border-radius:2px}
+/* Mục đang xem chỉ đổi màu và in đậm. Trước đây có thêm gạch ngang ::after đặt
+   bottom:-20px — rơi hẳn ra ngoài header nên đè lên nội dung phía dưới. */
+.hdr-nav a.active{color:var(--g,#007437);font-weight:700}
 .hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 .hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:16px}
 .hdr-search{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd,#E2E8F0);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1C1C1C;transition:.18s}
@@ -281,7 +289,9 @@ a{color:inherit}
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){.hdr-inner{padding:0 16px;height:60px}.hdr-logo img{height:44px}.hdr-nav{display:none}.btn-login{display:none}.btn-consult-hdr{display:none}/* Đẩy actions sát phải khi nav ẩn */
   .hdr-actions{margin-left:auto}/* Icon only */
-  .btn-catalog-hdr .btn-cat-text{display:none}.btn-catalog-hdr{padding:7px 9px;border-radius:9px}}
+  .btn-catalog-hdr .btn-cat-text{display:none}.btn-catalog-hdr{padding:7px 9px;border-radius:9px}/* Ẩn nút tìm kiếm trên mobile: ô tìm sản phẩm nằm ngay trong phần Danh mục
+     phía dưới, nên nút này chỉ chiếm chỗ mà không thêm giá trị gì */
+  .hdr-search{display:none}}
 /* ══ CATEGORY DROPDOWN (nav menu) ══ */
 .cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
 .cat-dropdown.open{display:block}
@@ -338,6 +348,11 @@ a{color:inherit}
 .ftr-copy-inner a:hover{color:var(--g,#007437)}
 @media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
 @media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 16px 28px}.ftr-copy-inner{padding:14px 16px;flex-direction:column;text-align:center}}
+</style>
+<style id="dbv-hero">
+/* Chuẩn hoá banner: 4 trang cùng kích thước và cùng tông màu thương hiệu */
+.news-hero{min-height:300px;display:flex;flex-direction:column;justify-content:center;padding:60px 32px;box-sizing:border-box;background:linear-gradient(135deg,rgba(26,46,26,.84) 0%,rgba(0,116,55,.76) 60%,rgba(0,90,43,.68) 100%),url('/banner-hero.webp') center 45%/cover no-repeat;}
+@media(max-width:768px){.news-hero{min-height:210px;padding:40px 18px}}
 </style>
 </head>
 <body>
@@ -460,8 +475,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- NEWS LIST -->
 <div class="news-wrap" id="newsListWrap">
+  <div class="news-tabs" id="newsTabs" role="tablist" aria-label="Lọc bài viết theo nhóm sản phẩm"></div>
   <div class="news-grid" id="newsGrid"></div>
-  <div class="news-empty" id="newsEmpty" style="display:none">Hiện chưa có bài viết nào. Vào <a href="/admin" style="color:var(--g);font-weight:700">/admin</a> để đăng bài đầu tiên.</div>
+  <div class="news-empty" id="newsEmpty" style="display:none">Hiện chưa có bài viết nào trong nhóm này.</div>
 </div>
 
 <!-- ARTICLE DETAIL -->
@@ -562,6 +578,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var grid = document.getElementById('newsGrid');
   var emptyMsg = document.getElementById('newsEmpty');
   var posts = [];
+  var cats = [];
+  var curCat = 'all';
+  var tabsWrap = document.getElementById('newsTabs');
 
   function escapeHtml(s){
     return String(s || '').replace(/[&<>"']/g, function(c){
@@ -576,26 +595,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return d;
   }
 
+  function renderTabs(){
+    if(!tabsWrap) return;
+    var html = '<button class="news-tab' + (curCat === 'all' ? ' on' : '') +
+               '" role="tab" data-cat="all">Tất cả <span class="n">' + posts.length + '</span></button>';
+    cats.forEach(function(c){
+      html += '<button class="news-tab' + (curCat === c.key ? ' on' : '') +
+              '" role="tab" data-cat="' + escapeHtml(c.key) + '">' +
+              escapeHtml(c.label) + ' <span class="n">' + c.count + '</span></button>';
+    });
+    tabsWrap.innerHTML = html;
+    Array.prototype.forEach.call(tabsWrap.querySelectorAll('.news-tab'), function(btn){
+      btn.addEventListener('click', function(){
+        curCat = btn.getAttribute('data-cat');
+        renderTabs();
+        renderList();
+      });
+    });
+  }
+
   function renderList(){
     articleWrap.style.display = 'none';
     listWrap.style.display = 'block';
     grid.innerHTML = '';
-    if(!posts.length){
+
+    var list = posts.filter(function(p){
+      return curCat === 'all' || p.cat === curCat;
+    });
+
+    if(!list.length){
       emptyMsg.style.display = 'block';
       return;
     }
     emptyMsg.style.display = 'none';
-    posts.forEach(function(post, i){
-      var card = document.createElement('div');
+
+    list.forEach(function(post){
+      // Bài viết là trang HTML riêng nên dùng thẻ <a> — người đọc mở tab mới,
+      // lưu link, và Google lần theo được. Thẻ <div> + onclick mất hết những thứ đó.
+      var card = document.createElement('a');
       card.className = 'news-card';
-      card.onclick = function(){ location.hash = '#post-' + i; };
+      card.href = post.url;
       var photoHtml = post.cover
         ? '<img src="' + escapeHtml(post.cover) + '" alt="' + escapeHtml(post.title) + '" loading="lazy" decoding="async">'
         : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>';
       card.innerHTML =
         '<div class="news-card-photo">' + photoHtml + '</div>' +
         '<div class="news-card-body">' +
-          '<div class="news-card-date">' + escapeHtml(formatDate(post.date)) + '</div>' +
+          (post.catLabel ? '<span class="news-card-cat">' + escapeHtml(post.catLabel) + '</span>' : '') +
+          (post.date ? '<div class="news-card-date">' + escapeHtml(formatDate(post.date)) + '</div>' : '') +
           '<div class="news-card-title">' + escapeHtml(post.title) + '</div>' +
           '<div class="news-card-excerpt">' + escapeHtml(post.excerpt) + '</div>' +
           '<div class="news-card-more">Đọc tiếp →</div>' +
@@ -628,17 +675,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   window.addEventListener('hashchange', route);
 
-  fetch('/content/news.json')
+  // Danh mục do scripts/build_news_index.py sinh ra từ các file trong tin-tuc/.
+  // Thêm bài mới thì chạy lại script đó, không phải sửa tay chỗ này.
+  fetch('/content/articles.json')
     .then(function(r){ return r.json(); })
     .then(function(data){
-      posts = (data.posts || []).slice().sort(function(a,b){
-        return (b.date || '').localeCompare(a.date || '');
-      });
+      posts = data.posts || [];
+      cats = data.categories || [];
+      renderTabs();
       route();
     })
     .catch(function(){
-      emptyMsg.textContent = 'Không tải được tin tức. Vui lòng thử lại sau.';
+      emptyMsg.textContent = 'Không tải được danh sách bài viết. Vui lòng thử lại sau.';
       emptyMsg.style.display = 'block';
+      listWrap.style.display = 'block';
     });
 })();
 </script>

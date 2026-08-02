@@ -411,8 +411,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
 .hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
-.hdr-nav a.active{color:var(--g);font-weight:700;position:relative}
-.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g);border-radius:2px}
+.hdr-nav a.active{color:var(--g);font-weight:700}
 .hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 .hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
 .btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap;background:none;cursor:pointer;font-family:inherit}
@@ -571,17 +570,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 <link rel="stylesheet" href="/assets/dbv-header.css">
 <script src="/assets/dbv-menu-search.js" defer></script>
 <style id="dbv-layout">
-/* ══ HEADER ══ */
-.hdr{background:transparent;border-bottom:1px solid transparent;position:fixed;top:0;left:0;right:0;z-index:300;transition:background .25s,border-color .25s,box-shadow .25s}
-.hdr.scrolled{background:#fff;border-bottom:1px solid var(--bd,#E2E8F0);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+:where(.hdr){background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd,#E2E8F0)}
 .hdr-inner{max-width:var(--container,1400px);margin:0 auto;padding:0 40px;display:flex;align-items:center;height:60px;gap:8px}
 .hdr-logo{flex-shrink:0;margin-right:24px}
 .hdr-logo img{height:48px;width:auto;display:block}
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
 .hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g,#007437);background:var(--gl,#e8f5e9)}
-.hdr-nav a.active{color:var(--g,#007437);font-weight:700;position:relative}
-.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g,#007437);border-radius:2px}
+/* Mục đang xem chỉ đổi màu và in đậm. Trước đây có thêm gạch ngang ::after đặt
+   bottom:-20px — rơi hẳn ra ngoài header nên đè lên nội dung phía dưới. */
+.hdr-nav a.active{color:var(--g,#007437);font-weight:700}
 .hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 .hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:16px}
 .hdr-search{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd,#E2E8F0);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1C1C1C;transition:.18s}
@@ -595,7 +593,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){.hdr-inner{padding:0 16px;height:60px}.hdr-logo img{height:44px}.hdr-nav{display:none}.btn-login{display:none}.btn-consult-hdr{display:none}/* Đẩy actions sát phải khi nav ẩn */
   .hdr-actions{margin-left:auto}/* Icon only */
-  .btn-catalog-hdr .btn-cat-text{display:none}.btn-catalog-hdr{padding:7px 9px;border-radius:9px}}
+  .btn-catalog-hdr .btn-cat-text{display:none}.btn-catalog-hdr{padding:7px 9px;border-radius:9px}/* Ẩn nút tìm kiếm trên mobile: ô tìm sản phẩm nằm ngay trong phần Danh mục
+     phía dưới, nên nút này chỉ chiếm chỗ mà không thêm giá trị gì */
+  .hdr-search{display:none}}
 /* ══ CATEGORY DROPDOWN (nav menu) ══ */
 .cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
 .cat-dropdown.open{display:block}

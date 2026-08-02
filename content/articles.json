@@ -1,0 +1,107 @@
+{
+  "categories": [
+    {
+      "key": "xe",
+      "label": "Xe cơ giới",
+      "count": 5
+    },
+    {
+      "key": "taisan",
+      "label": "Tài sản & Kỹ thuật",
+      "count": 1
+    },
+    {
+      "key": "conguoi",
+      "label": "Du lịch & Con người",
+      "count": 1
+    },
+    {
+      "key": "chung",
+      "label": "Kiến thức chung",
+      "count": 2
+    }
+  ],
+  "posts": [
+    {
+      "title": "Bảo hiểm cháy nổ chung cư theo Nghị định 67/2023: Ai bắt buộc mua và phí bao nhiêu?",
+      "excerpt": "Chủ sở hữu căn hộ chung cư bắt buộc mua bảo hiểm cháy nổ theo Nghị định 67/2023/NĐ-CP. Tỷ lệ phí 0,05%/năm nếu có hệ thống chữa cháy tự động, 0,1%/năm nếu không. Hướng dẫn đầy đủ phạm vi, mức khấu trừ và hồ sơ bồi thường.",
+      "cover": "/nha-chung-cu.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67",
+      "cat": "taisan",
+      "catLabel": "Tài sản & Kỹ thuật"
+    },
+    {
+      "title": "Bảo hiểm DBV có tốt không? Đánh giá uy tín & Quy trình bồi thường",
+      "excerpt": "Đánh giá Bảo hiểm DBV: giấy phép Bộ Tài chính, quy mô 18+ năm, mạng lưới 1.500+ gara liên kết và cam kết thời gian bồi thường thực tế theo từng nghiệp vụ.",
+      "cover": "/doi-ngu-chuyen-gia.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/bao-hiem-dbv-co-tot-khong",
+      "cat": "xe",
+      "catLabel": "Xe cơ giới"
+    },
+    {
+      "title": "Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026",
+      "excerpt": "Xin visa Schengen bắt buộc phải có bảo hiểm du lịch mức tối thiểu 30.000 EUR, hiệu lực toàn bộ 29 nước Schengen và phủ kín thời gian lưu trú. Hướng dẫn 5 yêu cầu bắt buộc, lỗi khiến hồ sơ bị từ chối và cách mua.",
+      "cover": "/du-lich-quoc-te.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/bao-hiem-du-lich-xin-visa-schengen",
+      "cat": "conguoi",
+      "catLabel": "Du lịch & Con người"
+    },
+    {
+      "title": "Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ",
+      "excerpt": "Pin xe điện được bồi thường khi hư hỏng do tai nạn, va chạm, cháy nổ — nhưng bị loại trừ nếu pin tự hỏng do lỗi kỹ thuật hoặc suy giảm dung lượng tự nhiên. Phân tích 3 nhóm rủi ro và checklist trước khi ký hợp đồng.",
+      "cover": "/than-vo-oto-dien.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong",
+      "cat": "xe",
+      "catLabel": "Xe cơ giới"
+    },
+    {
+      "title": "Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026",
+      "excerpt": "Phí bảo hiểm vật chất ô tô 2026 dao động 1,2%–1,8% giá trị xe/năm. Hướng dẫn công thức tính phí, bảng phí tham khảo theo giá trị xe, 6 yếu tố làm tăng giảm phí và 5 cách tiết kiệm hợp pháp.",
+      "cover": "/than-vo-oto.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu",
+      "cat": "xe",
+      "catLabel": "Xe cơ giới"
+    },
+    {
+      "title": "Tổng hợp Biểu phí & Quy tắc các gói Bảo hiểm DBV mới nhất",
+      "excerpt": "Tổng hợp các quyết định ban hành quy tắc và biểu phí Bảo hiểm DBV đang áp dụng, bảng phí TNDS bắt buộc theo Nghị định 67/2023 và cách tính phí vật chất xe.",
+      "cover": "/tnds-oto.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv",
+      "cat": "chung",
+      "catLabel": "Kiến thức chung"
+    },
+    {
+      "title": "Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024",
+      "excerpt": "Không có bảo hiểm TNDS bắt buộc bị phạt 100.000–200.000đ với xe máy và 400.000–600.000đ với ô tô theo Nghị định 168/2024/NĐ-CP. Chi tiết mức phạt, căn cứ pháp lý và thiệt hại thực sự lớn hơn tiền phạt.",
+      "cover": "/tnds-oto.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026",
+      "cat": "xe",
+      "catLabel": "Xe cơ giới"
+    },
+    {
+      "title": "Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố",
+      "excerpt": "Hướng dẫn từng bước khai báo bồi thường Bảo hiểm DBV: việc cần làm trong 24h đầu, hồ sơ theo từng nghiệp vụ xe, sức khỏe, du lịch và thời gian nhận tiền.",
+      "cover": "/than-vo-oto.webp",
+      "date": "2026-08-01",
+      "url": "/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv",
+      "cat": "chung",
+      "catLabel": "Kiến thức chung"
+    },
+    {
+      "title": "Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết",
+      "excerpt": "Tổng hợp kinh nghiệm thực tế khi sử dụng bảo hiểm xe ô tô: cách chọn gói phù hợp, quy trình bồi thường nhanh, những lỗi cần tránh và mẹo tiết kiệm phí bảo hiểm.",
+      "cover": "/than-vo-oto.webp",
+      "date": "2026-07-23",
+      "url": "/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto",
+      "cat": "xe",
+      "catLabel": "Xe cơ giới"
+    }
+  ]
+}

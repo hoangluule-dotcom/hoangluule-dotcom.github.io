@@ -13,7 +13,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-53NZ4XR4');</script>
 <!-- End Google Tag Manager -->
 <meta name="google-site-verification" content="tkLb-61GRi72aV0BqxfX1Ygl0r6iiXM4c8k87rarVrU">
-<title>Bảo hiểm DBV | DBV247 – Tập đoàn Bảo hiểm DBV, Chi nhánh Thành Đô</title>
+<title>Bảo hiểm DBV CN Thành Đô - Kênh Cấp Đơn &amp; Tư Vấn Trực Tuyến DBV247</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,8 +55,9 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
 .hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
-.hdr-nav a.active{color:var(--g);font-weight:700;position:relative}
-.hdr-nav a.active::after{content:"";position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--g);border-radius:2px}
+/* Mục đang xem chỉ đổi màu và in đậm. Trước đây có thêm gạch ngang ::after đặt
+   bottom:-20px — rơi hẳn ra ngoài header nên đè lên nội dung phía dưới. */
+.hdr-nav a.active{color:var(--g);font-weight:700}
 .hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 .hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:16px}
 .hdr-search{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1C1C1C;transition:.18s}
@@ -79,6 +80,9 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
   /* Icon only */
   .btn-catalog-hdr .btn-cat-text{display:none}
   .btn-catalog-hdr{padding:7px 9px;border-radius:9px}
+  /* Ẩn nút tìm kiếm trên mobile: ô tìm sản phẩm nằm ngay trong phần Danh mục
+     phía dưới, nên nút này chỉ chiếm chỗ mà không thêm giá trị gì */
+  .hdr-search{display:none}
 }
 
 /* ══ CATEGORY DROPDOWN (nav menu) ══ */
@@ -113,7 +117,9 @@ main{background:#fff}
 .hero-visual{position:relative;z-index:0;line-height:0}
 .hero-visual::after{content:'';position:absolute;inset:0;background:none}
 .hero-banner-img{width:100%;height:auto;display:block}
-.hero-inner{position:absolute;top:0;left:0;right:0;bottom:0;margin:0 auto;max-width:var(--container);z-index:1;display:flex;flex-direction:column;justify-content:center;gap:32px;padding:0 40px}
+/* padding-top chừa chỗ cho header cố định cao 60px. Không có nó thì nội dung
+   căn giữa sẽ trồi lên nằm dưới header — chữ trên banner đè lẫn với menu. */
+.hero-inner{position:absolute;top:0;left:0;right:0;bottom:0;margin:0 auto;max-width:var(--container);z-index:1;display:flex;flex-direction:column;justify-content:center;gap:32px;padding:84px 40px 40px}
 .hero-left{max-width:620px;padding:0}
 /* Left */
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid rgba(232,146,10,.3);color:var(--goldd);font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:24px;letter-spacing:.3px;text-shadow:0 1px 3px rgba(255,255,255,.6)}
@@ -178,14 +184,14 @@ main{background:#fff}
 .b-gold svg{stroke:#fff;fill:none;stroke-width:2}
 
 @media(max-width:900px){
-  .hero-inner{padding:0 24px;gap:24px}
+  .hero-inner{padding:80px 24px 32px;gap:24px}
   .hero-left{max-width:100%}
 }
 @media(max-width:640px){
   .hero{min-height:100vh;min-height:100svh}
   .hero-visual{position:absolute;inset:0;overflow:hidden}
   .hero-banner-img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
-  .hero-inner{position:absolute;inset:0;height:100%;max-width:100%;justify-content:flex-start;padding:72px 20px 16px;gap:20px}
+  .hero-inner{position:absolute;inset:0;height:100%;max-width:100%;justify-content:flex-start;padding:84px 20px 16px;gap:18px}
   .hero-left{max-width:100%}
   .hero-h1{font-size:1.85rem;margin-bottom:10px;line-height:1.18}
   .hero-sub{font-size:.85rem;margin-bottom:16px;line-height:1.55}
@@ -437,10 +443,21 @@ main{background:#fff}
 @media(max-width:900px){.brandinfo-grid{grid-template-columns:1fr;gap:28px}.bi-facts{position:static}}
 @media(max-width:600px){.brandinfo{padding:44px 0}.brandinfo-inner{padding:0 16px}}
 
+
+/* Liên kết tới bài viết chuyên sâu — cụm internal link cuối phần giới thiệu */
+.bi-links{margin-top:36px;padding-top:28px;border-top:1px solid var(--bd)}
+.bi-links h3{font-size:1rem;font-weight:800;color:var(--dk);margin-bottom:16px}
+.bi-links-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.bi-link-card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#fff;border:1px solid var(--bd);border-radius:12px;text-decoration:none;transition:.18s}
+.bi-link-card:hover{border-color:var(--g);box-shadow:0 6px 22px rgba(0,116,55,.10);transform:translateY(-2px)}
+.bi-link-tag{font-size:.66rem;font-weight:700;color:var(--g);background:var(--gl);padding:3px 9px;border-radius:10px;align-self:flex-start}
+.bi-link-card b{font-size:.92rem;font-weight:700;color:var(--dk);line-height:1.35}
+.bi-link-card span:last-child{font-size:.78rem;color:var(--tm);line-height:1.55}
+@media(max-width:900px){.bi-links-grid{grid-template-columns:1fr}}
 </style>
 
 <!-- ══ SEO META ══ -->
-<meta name="description" content="Bảo hiểm DBV (tiền thân VNI, mã AIC) – DBV247 là kênh tư vấn và mua bảo hiểm DBV trực tuyến của chi nhánh Thành Đô: xe ô tô, xe máy, sức khỏe, du lịch, tài sản, hàng hải, trách nhiệm. Tư vấn miễn phí 0869 656 561.">
+<meta name="description" content="Kênh tư vấn &amp; cấp đơn Bảo hiểm DBV trực tuyến 24/7, bồi thường minh bạch (DBV Chi nhánh Thành Đô). Bảo hiểm vật chất ô tô, sức khỏe, hàng hóa với phí ưu đãi.">
 <meta name="robots" content="index, follow">
 <meta name="keywords" content="bảo hiểm DBV, DBV bảo hiểm, bao hiem dbv, dbv bao hiem, DBV247, bảo hiểm DBV247, Tập đoàn Bảo hiểm DBV, mua bảo hiểm DBV online, bảo hiểm DBV Hà Nội, bảo hiểm DBV chi nhánh Thành Đô, bảo hiểm VNI, bảo hiểm AIC">
 <meta name="geo.region" content="VN-HN">
@@ -469,29 +486,21 @@ main{background:#fff}
 <script type="application/ld+json">
 [
   {
-    "@context": "https://schema.org",
-    "@type": [
-      "InsuranceAgency",
-      "LocalBusiness"
-    ],
+    "@type": "InsuranceAgency",
     "@id": "https://dbv247.com.vn/#organization",
-    "name": "DBV247 – Bảo hiểm DBV Chi nhánh Thành Đô",
+    "name": "Bảo hiểm DBV",
     "alternateName": [
-      "DBV247",
-      "Bảo hiểm DBV247",
+      "Tập đoàn Bảo hiểm DBV",
       "Bảo hiểm DBV Thành Đô",
-      "DBV Thành Đô"
+      "DBV247",
+      "Bảo hiểm Hàng không DBV"
     ],
-    "url": "https://dbv247.com.vn",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://dbv247.com.vn/logo-dbv247.png"
-    },
+    "url": "https://dbv247.com.vn/",
+    "logo": "https://dbv247.com.vn/logo-dbv247.png",
     "image": "https://dbv247.com.vn/banner-hero.webp",
-    "description": "DBV247 là kênh tư vấn và mua bảo hiểm DBV trực tuyến của Chi nhánh Thành Đô, thuộc Công ty Cổ phần Tập đoàn Bảo hiểm DBV: bảo hiểm xe ô tô, xe máy, sức khỏe, du lịch, tài sản, hàng hải và trách nhiệm.",
-    "slogan": "Bảo hiểm dễ mua, bồi thường dễ nhận",
-    "telephone": "+840869656561",
-    "email": "dbvi247@gmail.com",
+    "description": "Kênh tư vấn và cấp đơn Bảo hiểm DBV trực tuyến thuộc Công ty Cổ phần Tập đoàn Bảo hiểm DBV - Chi nhánh Thành Đô.",
+    "telephone": "+84-869-656-561",
+    "taxID": "0102737963-059",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "BT20-C37, TDP 20, Phường Thanh Xuân",
@@ -500,88 +509,31 @@ main{background:#fff}
       "postalCode": "100000",
       "addressCountry": "VN"
     },
-    "taxID": "0102737963-059",
-    "parentOrganization": {
-      "@type": "Organization",
-      "@id": "https://dbvi.com.vn/#organization",
-      "name": "Công ty Cổ phần Tập đoàn Bảo hiểm DBV",
-      "alternateName": [
-        "Bảo hiểm DBV",
-        "Tập đoàn Bảo hiểm DBV",
-        "DBV Insurance",
-        "VNI",
-        "Bảo hiểm Hàng không"
-      ],
-      "url": "https://dbvi.com.vn",
-      "foundingDate": "2008",
-      "tickerSymbol": "AIC",
-      "sameAs": [
-        "https://www.tiktok.com/@tapdoanbaohiemdbv",
-        "https://www.youtube.com/@TapdoanBaohiemDBV",
-        "https://www.facebook.com/TapdoanbaohiemDBV/"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Hà Nội",
-        "addressCountry": "VN"
-      }
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 21.002,
+      "longitude": 105.805
     },
-    "areaServed": [
-      {
-        "@type": "City",
-        "name": "Hà Nội"
-      },
-      {
-        "@type": "Country",
-        "name": "Việt Nam"
-      }
-    ],
-    "priceRange": "₫₫",
+    "priceRange": "$$",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
     "sameAs": [
       "https://www.facebook.com/people/B%E1%BA%A3o-hi%E1%BB%83m-DBVI-247/61590966449840/",
+      "https://www.youtube.com/@TapdoanBaohiemDBV",
+      "https://www.tiktok.com/@tapdoanbaohiemdbv",
       "https://zalo.me/1283738895804393564"
-    ],
-    "knowsAbout": [
-      "Bảo hiểm DBV",
-      "Bảo hiểm trách nhiệm dân sự xe cơ giới",
-      "Bảo hiểm vật chất ô tô",
-      "Bảo hiểm ô tô điện",
-      "Bảo hiểm cháy nổ bắt buộc",
-      "Bảo hiểm sức khỏe",
-      "Bảo hiểm du lịch quốc tế",
-      "Bảo hiểm hàng hóa xuất nhập khẩu",
-      "Bảo hiểm trách nhiệm nghề nghiệp"
-    ],
-    "contactPoint": [
-      {
-        "@type": "ContactPoint",
-        "telephone": "+840869656561",
-        "contactType": "customer service",
-        "areaServed": "VN",
-        "availableLanguage": [
-          "Vietnamese"
-        ]
-      }
-    ],
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "08:00",
-        "closes": "17:30"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "08:00",
-        "closes": "12:00"
-      }
     ]
   },
   {
@@ -792,8 +744,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Bảo hiểm trực tuyến Tập đoàn DBV - CN Thành Đô
       </div>
-      <h1 class="hero-h1">Bảo hiểm dễ mua,<br><span>bồi thường</span> dễ nhận</h1>
-      <p class="hero-sub">Tư vấn đúng sản phẩm, hỗ trợ hồ sơ bồi thường trọn vẹn</p>
+      <h1 class="hero-h1">Tập đoàn Bảo hiểm DBV<br><span>Tư vấn bảo hiểm trực tuyến DBV247</span></h1>
+      <p class="hero-sub">Bảo hiểm dễ mua, bồi thường dễ nhận — tư vấn đúng sản phẩm, hỗ trợ hồ sơ trọn vẹn</p>
 
       <div class="hero-cta-row">
         <a href="#catalog" class="btn-orange" onclick="scrollToCatalog();return false">
@@ -1316,6 +1268,28 @@ function checkEmpty() {
         <div class="bi-fact"><span>Hotline</span><b><a href="tel:0869656561">0869 656 561</a></b></div>
         <p class="bi-note">Số liệu cập nhật đến tháng 3/2026 theo công bố của doanh nghiệp và báo cáo tài chính công khai. Xem thêm tại <a href="/ve-dbv">trang Về DBV247</a> hoặc website chính thức của Tập đoàn: <a href="https://dbvi.com.vn" target="_blank" rel="noopener">dbvi.com.vn</a>.</p>
       </aside>
+    </div>
+
+    <!-- Liên kết tới bài viết chuyên sâu -->
+    <div class="bi-links">
+      <h3>Tìm hiểu sâu hơn</h3>
+      <div class="bi-links-grid">
+        <a href="/tin-tuc/bao-hiem-dbv-co-tot-khong" class="bi-link-card">
+          <span class="bi-link-tag">Đánh giá &amp; uy tín</span>
+          <b>Bảo hiểm DBV có tốt không?</b>
+          <span>Giấy phép, quy mô, mạng lưới gara và cam kết thời gian bồi thường</span>
+        </a>
+        <a href="/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv" class="bi-link-card">
+          <span class="bi-link-tag">Hướng dẫn bồi thường</span>
+          <b>Thủ tục khai báo khi xảy ra sự cố</b>
+          <span>Việc cần làm trong 24 giờ đầu và hồ sơ theo từng nghiệp vụ</span>
+        </a>
+        <a href="/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv" class="bi-link-card">
+          <span class="bi-link-tag">Biểu phí &amp; quy tắc</span>
+          <b>Biểu phí và quy tắc mới nhất</b>
+          <span>Các quyết định đang áp dụng, bảng phí TNDS và cách tính phí vật chất xe</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
