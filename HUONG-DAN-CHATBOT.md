@@ -39,6 +39,7 @@ Hai biến dưới đây là tuỳ chọn, không khai thì dùng mặc định:
 |---|---|---|
 | `GEMINI_MODEL` | `gemini-3.6-flash` | Đổi model mà không cần sửa code |
 | `CHAT_MAX_PER_HOUR` | `30` | Số lượt tối đa mỗi người mỗi giờ |
+| `CHAT_MAX_PER_DAY` | `150` | Số lượt tối đa toàn site mỗi ngày |
 
 Muốn rẻ hơn thì đặt `GEMINI_MODEL` = `gemini-3.5-flash-lite`. Muốn trả lời sâu
 hơn thì `gemini-3.5-flash`. Google đổi tên model khá thường xuyên — khi model
@@ -54,7 +55,46 @@ Biến môi trường chỉ có hiệu lực sau khi build lại. Netlify → **
 
 ## 2. Chi phí
 
-Mỗi lượt hỏi gửi đi khoảng 7.400 token. Với Gemini Flash, giá hiện tại rơi vào khoảng **50–80 đồng một lượt hỏi**. 1.000 lượt hỏi trong tháng tốn dưới 100.000 đồng.
+**Hiện tại đang chạy hoàn toàn miễn phí.** Với lưu lượng dự kiến khoảng 300 lượt/tháng
+(~10 lượt/ngày), hạn mức miễn phí của Gemini thừa sức gánh. **Không cần bật
+Cloud Billing.**
+
+Chỉ cần cân nhắc trả phí khi nào:
+
+- Lượng khách hỏi vượt khoảng 100 lượt/ngày, hoặc
+- Bạn thấy chatbot báo lỗi vào buổi chiều đều đặn (dấu hiệu chạm hạn mức Google)
+
+Khi đó mới bật thanh toán để lên Tier 1. Chi phí tham khảo: mỗi lượt hỏi gửi đi
+khoảng 7.400 token đầu vào, ước chừng **50–150 đồng một lượt**. 1.000 lượt trong
+tháng khoảng 100.000 đồng.
+
+> **Gói Gemini Pro cá nhân KHÔNG dùng được cho chatbot này.**
+> Quyền lợi của gói AI Pro chỉ áp dụng trong giao diện web của AI Studio (khi bạn
+> ngồi chat thử trong Playground). Gọi API từ website được tính riêng hoàn toàn.
+> Xem [Google AI Plans](https://ai.google.dev/gemini-api/docs/google-ai-plans).
+
+### Hai lớp chặn để bảo vệ hạn mức miễn phí
+
+| Lớp | Mặc định | Chặn chuyện gì |
+|---|---|---|
+| Theo IP, theo giờ | 30 lượt | Một người ngồi gõ liên tục |
+| Toàn site, theo ngày | 150 lượt | Một đợt spam đốt sạch quota, chatbot chết cả ngày |
+
+Trần theo ngày đếm theo **giờ Thái Bình Dương**, trùng nhịp reset của Google.
+Chạm trần tự đặt thì khách nhận được lời nhắn tử tế kèm số hotline; để Google
+chặn thì chỉ nhận về lỗi kỹ thuật.
+
+Với 10 lượt/ngày, bạn còn cách trần rất xa. Cứ để nguyên mặc định.
+
+> ### Chế độ suy nghĩ ăn token
+>
+> Các model Gemini 3 mặc định bật "thinking", và **token suy nghĩ bị tính tiền
+> như token trả lời**, đồng thời trừ vào ngân sách đầu ra. Nếu để ngân sách hẹp
+> thì model nghĩ hết sạch rồi câu trả lời bị cắt ngang giữa chừng.
+>
+> Code đã đặt `thinkingLevel: "low"` và nới ngân sách lên 2.400 token nên không
+> còn bị cắt. Muốn tiết kiệm hơn nữa thì đặt `GEMINI_MODEL` =
+> `gemini-3.5-flash-lite` — model này mặc định suy nghĩ ở mức tối thiểu.
 
 Google có hạn mức miễn phí cho Gemini Flash, nhưng giới hạn số lượt mỗi ngày. Nếu website đông khách thì nên bật thanh toán trong Google AI Studio để không bị chặn giữa chừng.
 
@@ -149,6 +189,7 @@ Vài lỗi hay gặp:
 | `Gemini 404: models/... is not found` | Tên model sai hoặc đã bị khai tử → sửa `GEMINI_MODEL` |
 | `Gemini 429` | Hết hạn mức miễn phí → bật thanh toán trong AI Studio |
 | `Gemini 400: API key not valid` | Khoá sai hoặc đã bị xoá |
+| `finishReason: MAX_TOKENS` | Model nghĩ hết ngân sách → đổi sang `gemini-3.5-flash-lite` |
 | Báo thiếu `GEMINI_API_KEY` | Sai tên biến, hoặc chưa deploy lại sau khi thêm biến |
 
 Ngoài ra Netlify → **Functions** → `chat` có toàn bộ log, xem được cả khi không

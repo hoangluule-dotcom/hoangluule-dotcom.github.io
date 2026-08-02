@@ -110,7 +110,9 @@ function buildSystemPrompt(pages) {
     "5. Nếu khách đang gặp sự cố cần bồi thường gấp, đưa ngay hotline 1900 969 690 (24/7) lên đầu câu trả lời.",
     "",
     "== CÁCH TRẢ LỜI ==",
-    "- Ngắn gọn: 2–5 câu hoặc vài gạch đầu dòng. Không viết thành bài.",
+    "- Ngắn gọn nhưng phải đủ ý: 3–6 câu, hoặc tối đa 6 gạch đầu dòng. Không viết thành bài dài.",
+    "- Nếu khách hỏi \"có những loại nào\", \"gồm những gì\" thì LIỆT KÊ ĐỦ các mục có trong tư liệu, đừng bỏ dở giữa chừng.",
+    "- Luôn viết trọn vẹn câu cuối cùng. Không bao giờ dừng giữa một danh sách đang liệt kê.",
     "- Kèm đúng 1 đường dẫn trang liên quan nếu có, viết dạng markdown [tên trang](/đường-dẫn).",
     "- Sau khi trả lời, nếu câu hỏi thuộc loại cần báo giá hoặc cần xem hồ sơ, mời khách để lại số điện thoại để tư vấn viên gọi lại, hoặc gọi 0869 656 561.",
     "- Câu hỏi ngoài phạm vi bảo hiểm và DBV247 (thời tiết, chính trị, code, chuyện riêng...) thì từ chối lịch sự và kéo về chủ đề bảo hiểm.",
@@ -144,10 +146,29 @@ function openStore() {
   }
 }
 
-/* Chatbot công khai thì ai cũng gõ được, kể cả script tự động. Không giới hạn
-   thì hoá đơn token có thể bị đẩy lên rất nhanh. */
+/* Hạn mức miễn phí của Google reset lúc nửa đêm giờ Thái Bình Dương.
+   Đếm theo đúng múi giờ đó thì trần tự đặt của mình mới trùng nhịp với trần
+   của Google, không bị lệch nửa ngày. */
+function pacificDay() {
+  try {
+    return new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
+  } catch (err) {
+    // Môi trường thiếu dữ liệu múi giờ — lùi về UTC, lệch vài giờ vẫn hơn là hỏng
+    return new Date().toISOString().slice(0, 10);
+  }
+}
+
+/* Hai lớp chặn lạm dụng:
+   - Theo IP theo giờ: ngăn một người ngồi gõ liên tục.
+   - Theo toàn site theo ngày: ngăn một đợt spam đốt sạch hạn mức miễn phí của
+     Google rồi chatbot chết cả ngày với khách thật.
+
+   Lớp thứ hai quan trọng ở gói miễn phí. Chạm trần tự đặt thì mình còn kiểm
+   soát được lời nhắn cho khách; để Google chặn thì chỉ nhận về lỗi 429 khô khan. */
 async function checkRate(ip) {
-  const limit = parseInt(process.env.CHAT_MAX_PER_HOUR || "30", 10);
+  const perHour = parseInt(process.env.CHAT_MAX_PER_HOUR || "30", 10);
+  const perDay = parseInt(process.env.CHAT_MAX_PER_DAY || "150", 10);
+
   let store;
   try {
     store = openStore();
@@ -160,22 +181,35 @@ async function checkRate(ip) {
     const now = Date.now();
     const data = (await store.get(RATE_KEY, { type: "json" })) || {};
 
-    // Dọn các IP đã quá 1 giờ để file không phình mãi
+    // ── Trần theo ngày cho toàn site ──
+    const today = pacificDay();
+    const g = data.__global && data.__global.day === today
+      ? data.__global
+      : { day: today, count: 0 };
+
+    if (g.count >= perDay) {
+      console.warn("chat.js: cham tran ngay (" + perDay + " luot).");
+      return { ok: false, daily: true };
+    }
+
+    // ── Trần theo IP theo giờ ──
     Object.keys(data).forEach((k) => {
-      if (now - data[k].start > 3600000) delete data[k];
+      if (k !== "__global" && now - data[k].start > 3600000) delete data[k];
     });
 
     const rec = data[ip] && now - data[ip].start <= 3600000
       ? data[ip]
       : { start: now, count: 0 };
 
-    if (rec.count >= limit) {
+    if (rec.count >= perHour) {
       const phut = Math.ceil((3600000 - (now - rec.start)) / 60000);
       return { ok: false, minutes: phut };
     }
 
     rec.count += 1;
+    g.count += 1;
     data[ip] = rec;
+    data.__global = g;
     await store.setJSON(RATE_KEY, data);
     return { ok: true };
   } catch (err) {
@@ -202,25 +236,46 @@ async function askGemini(systemPrompt, history, question) {
     }));
   contents.push({ role: "user", parts: [{ text: question }] });
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-    body: JSON.stringify({
+  /* Các model Gemini 3 mặc định BẬT chế độ suy nghĩ, và token suy nghĩ tính
+     chung vào maxOutputTokens. Để ngân sách hẹp thì model nghĩ hết sạch, câu
+     trả lời bị cắt ngang giữa chừng — đúng lỗi đã gặp.
+     Hai việc phải làm cùng lúc:
+       1. hạ mức suy nghĩ xuống "low" (chatbot tra cứu tư liệu, không cần nghĩ sâu)
+       2. nới ngân sách để phần nghĩ còn lại không lấn vào câu trả lời      */
+  function payload(withThinking) {
+    const gen = {
+      temperature: 0.3,        // thấp để bám tư liệu, đỡ bịa
+      maxOutputTokens: 2400,
+      topP: 0.9,
+    };
+    if (withThinking) gen.thinkingConfig = { thinkingLevel: "low" };
+    return JSON.stringify({
       system_instruction: { parts: [{ text: systemPrompt }] },
       contents: contents,
-      generationConfig: {
-        temperature: 0.3,        // thấp để bám tư liệu, đỡ bịa
-        maxOutputTokens: 700,
-        topP: 0.9,
-      },
+      generationConfig: gen,
       safetySettings: [
         { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
         { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
         { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
         { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
       ],
-    }),
-  });
+    });
+  }
+
+  const headers = { "Content-Type": "application/json", "x-goog-api-key": key };
+  let res = await fetch(url, { method: "POST", headers: headers, body: payload(true) });
+
+  // Model cũ (2.5 trở về trước) không hiểu thinkingLevel và trả 400. Thử lại
+  // không kèm tham số đó thay vì để cả chatbot chết vì một tuỳ chọn.
+  if (res.status === 400) {
+    const first = await res.text();
+    if (/thinking/i.test(first)) {
+      console.warn("chat.js: model khong ho tro thinkingLevel, goi lai khong kem.");
+      res = await fetch(url, { method: "POST", headers: headers, body: payload(false) });
+    } else {
+      throw new Error("Gemini 400: " + first.slice(0, 300));
+    }
+  }
 
   if (!res.ok) {
     const body = await res.text();
@@ -230,12 +285,29 @@ async function askGemini(systemPrompt, history, question) {
   const data = await res.json();
   const cand = data.candidates && data.candidates[0];
   const parts = cand && cand.content && cand.content.parts;
-  const text = parts ? parts.map((p) => p.text || "").join("").trim() : "";
+  // Bỏ các phần đánh dấu là suy nghĩ, chỉ lấy câu trả lời thật
+  const text = parts
+    ? parts.filter((p) => !p.thought).map((p) => p.text || "").join("").trim()
+    : "";
 
   if (!text) {
-    throw new Error("Gemini không trả về nội dung (finishReason: " +
-      (cand ? cand.finishReason : "không rõ") + ")");
+    const why = cand ? cand.finishReason : "không rõ";
+    throw new Error("Gemini không trả về nội dung (finishReason: " + why + ")" +
+      (why === "MAX_TOKENS"
+        ? " — model dùng hết ngân sách token cho phần suy nghĩ. Hạ GEMINI_MODEL " +
+          "xuống gemini-3.5-flash-lite hoặc nới maxOutputTokens."
+        : ""));
   }
+
+  // Vẫn bị cắt thì cắt gọn tới câu hoàn chỉnh cuối, đỡ hơn là bỏ lửng giữa từ
+  if (cand && cand.finishReason === "MAX_TOKENS") {
+    console.warn("chat.js: cau tra loi bi cat (MAX_TOKENS).");
+    const cut = Math.max(text.lastIndexOf("."), text.lastIndexOf("?"),
+                         text.lastIndexOf("!"), text.lastIndexOf("\n"));
+    const trimmed = cut > 60 ? text.slice(0, cut + 1) : text;
+    return trimmed + "\n\nAnh/chị muốn em nói kỹ hơn phần nào ạ?";
+  }
+
   return text;
 }
 
@@ -278,9 +350,11 @@ exports.handler = async function (event) {
   const rate = await checkRate(ip);
   if (!rate.ok) {
     return json(429, {
-      error:
-        "Anh/chị đã hỏi khá nhiều trong 1 giờ qua. Vui lòng thử lại sau " +
-        rate.minutes + " phút, hoặc gọi trực tiếp 0869 656 561 để được hỗ trợ ngay.",
+      error: rate.daily
+        ? "Trợ lý hôm nay đã phục vụ hết lượt. Anh/chị gọi 0869 656 561 hoặc nhắn Zalo " +
+          "để tư vấn viên hỗ trợ trực tiếp — nhanh hơn cả chat ạ."
+        : "Anh/chị đã hỏi khá nhiều trong 1 giờ qua. Vui lòng thử lại sau " +
+          rate.minutes + " phút, hoặc gọi trực tiếp 0869 656 561 để được hỗ trợ ngay.",
     });
   }
 

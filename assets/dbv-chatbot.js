@@ -52,6 +52,26 @@
     "@keyframes dbvcPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.25);opacity:.75}}",
     "@media(prefers-reduced-motion:reduce){#dbvchat-dot{animation:none}}",
 
+    /* Lời chào cạnh nút chat. Đặt fixed riêng thay vì lồng trong nút vì nút là
+       hình tròn có overflow bo góc — nhét bong bóng vào trong sẽ bị cắt. */
+    "#dbvchat-hello{position:fixed;right:86px;bottom:65px;z-index:394;max-width:210px;",
+      "background:#fff;border:1px solid #d7e6dd;border-radius:18px;padding:9px 30px 9px 15px;",
+      "font-size:.82rem;line-height:1.35;color:#1C1C1C;cursor:pointer;",
+      "box-shadow:0 4px 16px rgba(0,0,0,.13);opacity:0;transform:translateX(8px);",
+      "transition:opacity .35s ease,transform .35s ease;pointer-events:none}",
+    "#dbvchat-hello.show{opacity:1;transform:none;pointer-events:auto}",
+    "#dbvchat-hello:hover{border-color:#007437}",
+    /* Mũi nhọn chỉ sang nút chat: 2 lớp để có viền mảnh giống bong bóng */
+    "#dbvchat-hello::before,#dbvchat-hello::after{content:'';position:absolute;top:50%;",
+      "margin-top:-7px;border:7px solid transparent;border-left-width:8px}",
+    "#dbvchat-hello::before{right:-16px;border-left-color:#d7e6dd}",
+    "#dbvchat-hello::after{right:-14px;border-left-color:#fff}",
+    "#dbvchat-hello b{display:block;font-weight:700;color:var(--g,#007437);margin-bottom:1px}",
+    "#dbvchat-hellox{position:absolute;top:4px;right:5px;width:19px;height:19px;border:none;",
+      "background:#f1f5f2;color:#718096;border-radius:50%;cursor:pointer;padding:0;line-height:0;",
+      "display:flex;align-items:center;justify-content:center}",
+    "#dbvchat-hellox:hover{background:#e2e8f0;color:#1C1C1C}",
+
     "#dbvchat-panel{position:fixed;right:20px;bottom:122px;z-index:396;width:370px;max-width:calc(100vw - 32px);",
       "height:520px;max-height:calc(100vh - 190px);background:#fff;border-radius:16px;",
       "box-shadow:0 16px 50px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden;",
@@ -121,7 +141,10 @@
     "@media(max-width:640px){",
       "#dbvchat-btn{width:50px;height:50px;right:14px;bottom:66px}",
       "#dbvchat-panel{right:8px;left:8px;width:auto;bottom:66px;height:auto;top:66px;max-height:none;border-radius:14px}",
+      "#dbvchat-hello{right:72px;bottom:74px;max-width:168px;font-size:.75rem;padding:7px 26px 7px 12px}",
     "}",
+    // Màn hình quá hẹp thì bong bóng lấn hết bề ngang, thà bỏ đi
+    "@media(max-width:340px){#dbvchat-hello{display:none}}",
   ].join("");
 
   /* ── Dựng khung ───────────────────────────────────────────────────────── */
@@ -140,6 +163,12 @@
       '<svg class="dbvc-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">' +
         '<path d="M18 6 6 18M6 6l12 12"/></svg>' +
     '</button>' +
+    '<div id="dbvchat-hello" role="button" tabindex="0" aria-label="Mở khung chat tư vấn">' +
+      '<b>Xin chào!</b>Anh/chị cần tư vấn bảo hiểm gì ạ?' +
+      '<button id="dbvchat-hellox" type="button" aria-label="Ẩn lời chào">' +
+        '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+      '</button>' +
+    '</div>' +
     '<div id="dbvchat-panel" role="dialog" aria-label="Chat tư vấn DBV247" aria-modal="false">' +
       '<div id="dbvchat-head">' +
         '<div class="dbvc-av">' +
@@ -177,7 +206,49 @@
   var $ = function (id) { return document.getElementById(id); };
   var btn = $("dbvchat-btn"), panel = $("dbvchat-panel"), body = $("dbvchat-body"),
       sug = $("dbvchat-sug"), form = $("dbvchat-form"), input = $("dbvchat-input"),
-      send = $("dbvchat-send"), leadBox = $("dbvchat-lead"), dot = $("dbvchat-dot");
+      send = $("dbvchat-send"), leadBox = $("dbvchat-lead"), dot = $("dbvchat-dot"),
+      hello = $("dbvchat-hello");
+
+  /* ── Lời chào cạnh nút chat ───────────────────────────────────────────── */
+
+  function hideHello() {
+    if (hello) { hello.classList.remove("show"); }
+  }
+
+  // Khách đã bấm tắt thì không chào lại trong phiên duyệt web này nữa. Sang
+  // lần truy cập sau mới hiện lại — chào mãi sau khi bị tắt là phiền.
+  var helloOff = false;
+  try { helloOff = sessionStorage.getItem("dbvchat-hello-off") === "1"; } catch (e) {}
+
+  if (hello && !helloOff) {
+    // Chờ một nhịp cho trang tải xong, bong bóng trượt ra mới thấy chuyển động
+    setTimeout(function () {
+      if (panel.classList.contains("show")) return;
+      hello.classList.add("show");
+
+      /* Trên điện thoại bong bóng chiếm gần nửa bề ngang màn hình. Mời chào thì
+         cần, nhưng chiếm chỗ mãi thì phiền — nên tự thu lại sau 8 giây, nút chat
+         tròn vẫn còn đó. Desktop thừa chỗ nên để nguyên. */
+      if (window.matchMedia("(max-width:640px)").matches) {
+        setTimeout(hideHello, 8000);
+      }
+    }, 1200);
+  }
+
+  if (hello) {
+    hello.onclick = function (e) {
+      if (e.target.closest("#dbvchat-hellox")) return;
+      toggle(true);
+    };
+    hello.onkeydown = function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(true); }
+    };
+    $("dbvchat-hellox").onclick = function (e) {
+      e.stopPropagation();
+      hideHello();
+      try { sessionStorage.setItem("dbvchat-hello-off", "1"); } catch (err) {}
+    };
+  }
 
   /* ── Hiển thị tin nhắn ────────────────────────────────────────────────── */
 
@@ -199,6 +270,9 @@
       });
     h = h.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
     h = h.replace(/^\s*[-*]\s+/gm, "• ");
+    // Dấu ** lẻ còn sót (khi câu trả lời bị cắt ngang) thì bỏ đi, để nguyên
+    // thì khách nhìn thấy ký tự markdown thô ngay trong tin nhắn.
+    h = h.replace(/\*\*/g, "");
     return h;
   }
 
@@ -338,6 +412,8 @@
     btn.setAttribute("aria-label", willOpen ? "Đóng khung chat tư vấn" : "Mở khung chat tư vấn");
     if (willOpen) {
       if (dot) dot.remove();
+      // Đã mở chat thì khách biết có trợ lý rồi, không cần bong bóng chào nữa
+      hideHello();
       if (!opened) {
         opened = true;
         add("bot", GREETING);
