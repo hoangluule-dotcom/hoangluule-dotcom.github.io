@@ -37,14 +37,17 @@
 
   /* ── CSS ──────────────────────────────────────────────────────────────── */
   var css = [
-    "#dbvchat-btn{position:fixed;right:20px;bottom:56px;z-index:395;width:56px;height:56px;border-radius:50%;",
-      "border:none;cursor:pointer;background:linear-gradient(135deg,#007437,#005a2b);",
-      "box-shadow:0 6px 20px rgba(0,116,55,.4);display:flex;align-items:center;justify-content:center;",
+    /* Nền trắng viền xanh: mascot màu xanh lá đặt trên nút xanh thì chìm nghỉm,
+       còn trắng trơn thì mất hút trên các khối nội dung nền trắng của trang. */
+    "#dbvchat-btn{position:fixed;right:20px;bottom:56px;z-index:395;width:58px;height:58px;border-radius:50%;",
+      "border:3px solid #007437;cursor:pointer;background:#fff;overflow:hidden;",
+      "box-shadow:0 6px 20px rgba(0,116,55,.32);display:flex;align-items:center;justify-content:center;",
       "transition:transform .2s,box-shadow .2s;padding:0}",
-    "#dbvchat-btn:hover{transform:scale(1.07);box-shadow:0 8px 26px rgba(0,116,55,.5)}",
+    "#dbvchat-btn:hover{transform:scale(1.07);box-shadow:0 8px 26px rgba(0,116,55,.45)}",
     "#dbvchat-btn:focus-visible{outline:3px solid #E8920A;outline-offset:3px}",
+    "#dbvchat-mascot{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}",
     "#dbvchat-btn .dbvc-close{display:none}",
-    "#dbvchat-btn.open .dbvc-open{display:none}",
+    "#dbvchat-btn.open #dbvchat-mascot{display:none}",
     "#dbvchat-btn.open .dbvc-close{display:block}",
     /* chấm đỏ mời chào, tắt khi đã mở lần đầu */
     "#dbvchat-dot{position:absolute;top:2px;right:2px;width:12px;height:12px;border-radius:50%;",
@@ -80,8 +83,9 @@
 
     "#dbvchat-head{background:linear-gradient(135deg,#007437,#005a2b);color:#fff;padding:13px 16px;",
       "display:flex;align-items:center;gap:10px;flex-shrink:0}",
-    "#dbvchat-head .dbvc-av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);",
-      "display:flex;align-items:center;justify-content:center;flex-shrink:0}",
+    "#dbvchat-head .dbvc-av{width:36px;height:36px;border-radius:50%;background:#fff;",
+      "display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}",
+    "#dbvchat-head .dbvc-av img{width:100%;height:100%;object-fit:contain;display:block}",
     "#dbvchat-head b{font-size:.92rem;display:block;line-height:1.3}",
     "#dbvchat-head span{font-size:.72rem;opacity:.85;display:flex;align-items:center;gap:5px}",
     "#dbvchat-head i{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block}",
@@ -157,10 +161,8 @@
   wrap.innerHTML =
     '<button id="dbvchat-btn" type="button" aria-label="Mở khung chat tư vấn" aria-expanded="false">' +
       '<span id="dbvchat-dot"></span>' +
-      '<svg class="dbvc-open" width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">' +
-        '<path d="M12 2C6.48 2 2 6.02 2 11c0 2.6 1.23 4.93 3.2 6.55L4.5 21.5l4.2-2.2c1.03.28 2.14.43 3.3.43 5.52 0 10-4.02 10-9S17.52 2 12 2zM8 12.2a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4zm4 0a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4zm4 0a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4z"/>' +
-      '</svg>' +
-      '<svg class="dbvc-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">' +
+      '<img id="dbvchat-mascot" src="/mascot-chat.webp" alt="" width="52" height="52" aria-hidden="true">' +
+      '<svg class="dbvc-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#007437" stroke-width="2.8" stroke-linecap="round" aria-hidden="true">' +
         '<path d="M18 6 6 18M6 6l12 12"/></svg>' +
     '</button>' +
     '<div id="dbvchat-hello" role="button" tabindex="0" aria-label="Mở khung chat tư vấn">' +
@@ -172,8 +174,7 @@
     '<div id="dbvchat-panel" role="dialog" aria-label="Chat tư vấn DBV247" aria-modal="false">' +
       '<div id="dbvchat-head">' +
         '<div class="dbvc-av">' +
-          '<svg width="19" height="19" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">' +
-          '<path d="M12 2 3 6v6c0 5 3.8 9.3 9 10 5.2-.7 9-5 9-10V6l-9-4zm0 5a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm0 11.5c-2 0-3.8-1-4.9-2.6.1-1.6 3.3-2.5 4.9-2.5s4.8.9 4.9 2.5A5.9 5.9 0 0112 18.5z"/></svg>' +
+          '<img src="/mascot-chat.webp" alt="" width="34" height="34" aria-hidden="true">' +
         '</div>' +
         '<div><b>Trợ lý DBV247</b><span><i></i>Thường trả lời ngay</span></div>' +
         '<button id="dbvchat-min" type="button" aria-label="Thu nhỏ khung chat">' +
