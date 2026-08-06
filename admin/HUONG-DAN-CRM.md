@@ -183,7 +183,36 @@ Nút "Xuất CSV" xuất theo chế độ đang xem. Ở mục Khách hàng, fil
 
 ---
 
-## 6. Vì sao nên ghi phí bảo hiểm
+## 6. Dọn bớt lead rác
+
+Lead spam, số điện thoại sai, người bấm nhầm hai lần — để lẫn trong danh sách thì tỷ lệ chuyển đổi trông tệ hơn thực tế và nhân viên mất công gọi.
+
+**Cách làm:** tích vào ô vuông đầu mỗi dòng (tích ở dòng tiêu đề để chọn tất cả dòng đang hiện), rồi bấm **Ẩn khỏi danh sách** ở thanh xanh hiện lên phía trên bảng.
+
+### Ẩn không phải là xoá
+
+Dữ liệu gốc vẫn nằm nguyên ở Netlify Forms. Ẩn chỉ là một dấu đánh trong kho lưu, nên mọi thao tác đều đảo ngược được.
+
+Mục đã ẩn sẽ biến mất khỏi:
+
+- Danh sách chính
+- Bộ đếm trên các tab và trên hai nút Lead / Khách hàng
+- Thẻ chỉ số và tỷ lệ chuyển đổi
+- File CSV xuất ra
+
+### Khôi phục
+
+Bấm tab **Đã ẩn** ở cuối dãy tab (viền nét đứt). Chọn mục cần lấy lại rồi bấm **Khôi phục về danh sách**.
+
+Mỗi mục bị ẩn đều ghi rõ **ai ẩn và lúc nào**, hiện ngay dưới tên khách. Sáu người dùng chung một mật khẩu nên không ghi lại thì sau này không lần ra được ai đã dọn nhầm của ai. Thao tác ẩn và khôi phục cũng vào lịch sử hoạt động trong ngăn chi tiết.
+
+### Lưu ý
+
+Ẩn được cả ở tab Lead lẫn tab Khách hàng. Nhưng ẩn một khách đã ký hợp đồng thì **mất luôn cảnh báo tái tục** của khách đó — đến hạn sẽ không ai nhắc. Chỉ nên ẩn khách đã ký khi hợp đồng thực sự chấm dứt và không định bán lại.
+
+---
+
+## 7. Vì sao nên ghi phí bảo hiểm
 
 Không phải để chấm công nhân viên, mà để trả lời câu hỏi: tiền quảng cáo nên đổ vào dòng sản phẩm nào.
 
@@ -193,7 +222,7 @@ Kết hợp bộ lọc sản phẩm với cột phí, bạn biết được dòn
 
 ---
 
-## 7. Nếu sau này cần nâng cấp
+## 8. Nếu sau này cần nâng cấp
 
 Thiết kế hiện tại phù hợp với đội nhỏ và tin tưởng nhau. Khi nào cần những thứ sau thì nên chuyển sang Supabase:
 

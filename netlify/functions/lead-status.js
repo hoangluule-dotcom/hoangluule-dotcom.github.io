@@ -95,6 +95,16 @@ exports.handler = async function (event) {
       return json(400, { error: "Trạng thái không hợp lệ: " + patch.stage });
     }
 
+    /* Ẩn lead khỏi danh sách. Chỉ là một cờ trong Blobs — dữ liệu gốc ở Netlify
+       Forms không hề bị đụng tới, nên lỡ tay vẫn khôi phục được.
+       Ghi kèm ai ẩn và lúc nào: 6 nhân viên dùng chung một mật khẩu, không ghi
+       lại thì sau này không lần ra được ai đã dọn nhầm của ai. */
+    if (patch.hidden !== undefined) {
+      patch.hidden = patch.hidden === true || patch.hidden === "true";
+      patch.hiddenAt = patch.hidden ? new Date().toISOString() : null;
+      patch.hiddenBy = patch.hidden ? String(actor).slice(0, 100) : null;
+    }
+
     // Làm sạch dữ liệu hợp đồng
     if (patch.policyNo !== undefined) {
       patch.policyNo = patch.policyNo ? String(patch.policyNo).trim().slice(0, 80) : null;
@@ -122,6 +132,9 @@ exports.handler = async function (event) {
         expiryDate: null,   // ngày hết hạn — dùng để nhắc tái tục
         premium: null,      // phí bảo hiểm (VNĐ)
         commission: null,   // hoa hồng (VNĐ)
+        hidden: false,      // ẩn khỏi danh sách (khôi phục được)
+        hiddenAt: null,
+        hiddenBy: null,
         activities: [],
         createdAt: now,
       };

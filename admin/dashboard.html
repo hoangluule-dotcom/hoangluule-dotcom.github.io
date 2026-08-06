@@ -98,6 +98,26 @@ a{color:var(--g);text-decoration:none}
 .tab.on{background:var(--g);color:#fff;border-color:var(--g)}
 .tab .n{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:rgba(0,0,0,.07)}
 .tab.on .n{background:rgba(255,255,255,.26)}
+/* Tab "Đã ẩn" tách khỏi nhóm tab trạng thái bằng vạch dọc — nó là chế độ xem
+   khác hẳn, không phải một bước trong phễu bán hàng. */
+.tab.tab-hid{margin-left:auto;border-style:dashed;color:var(--ts)}
+.tab.tab-hid.on{background:var(--tm);border-color:var(--tm);color:#fff;border-style:solid}
+
+/* ══ CHỌN NHIỀU DÒNG ══ */
+.cbcell{width:38px;padding-left:16px !important;padding-right:0 !important}
+.cbcell input{width:16px;height:16px;cursor:pointer;accent-color:var(--g);margin:0;display:block}
+.bulkbar{display:none;align-items:center;gap:12px;padding:10px 18px;background:var(--gl);
+  border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.bulkbar.on{display:flex}
+.bulk-n{font-size:13px;font-weight:700;color:var(--gd)}
+.bulk-act{padding:6px 14px;border-radius:8px;font-size:12.5px;font-weight:700;border:none;
+  background:var(--g);color:#fff;cursor:pointer}
+.bulk-act:hover{background:var(--gd)}
+.bulk-clr{padding:6px 12px;border-radius:8px;font-size:12.5px;font-weight:600;
+  border:1px solid var(--bd);background:#fff;color:var(--tm);cursor:pointer}
+.bulk-clr:hover{border-color:var(--tm)}
+tr.sel-row{background:var(--gl) !important}
+.hid-note{font-size:11.5px;color:var(--ts);margin-top:3px}
 .tools{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
 .search{display:flex;align-items:center;gap:8px;border:1.5px solid var(--bd);border-radius:9px;padding:0 12px;height:38px;flex:1;min-width:200px;max-width:340px;transition:.2s}
 .search:focus-within{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.07)}
@@ -314,11 +334,16 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
           </button>
         </div>
       </div>
+      <div class="bulkbar" id="bulkbar">
+        <span class="bulk-n" id="bulkN">Đã chọn 0</span>
+        <button class="bulk-act" id="bulkAct" onclick="bulkHide()"></button>
+        <button class="bulk-clr" onclick="clearSel()">Bỏ chọn</button>
+      </div>
       <div class="tbl-scroll">
         <table>
           <thead id="thead"></thead>
           <tbody id="tbody">
-            <tr class="empty-row"><td colspan="5">Đang tải dữ liệu...</td></tr>
+            <tr class="empty-row"><td colspan="6">Đang tải dữ liệu...</td></tr>
           </tbody>
         </table>
       </div>
@@ -500,6 +525,9 @@ var curView = 'lead';   // 'lead' = phễu bán hàng | 'customer' = khách đã
 var curStage = 'all';
 var curLead = null;
 var lateOnly = false;
+var showHidden = false;  // đang mở tab "Đã ẩn" hay không
+var SEL = [];            // id các dòng đang được tích chọn
+var bulkBusy = false;    // đang chạy ẩn/khôi phục hàng loạt
 
 /* ══ TIỆN ÍCH ══ */
 function esc(s){
@@ -699,6 +727,8 @@ function loadAll(isFirst){
 function setStage(s){
   curStage = s;
   lateOnly = false;
+  showHidden = false;   // bấm tab trạng thái là quay về danh sách bình thường
+  SEL = [];
   renderTabs();
   render();
   var p = document.getElementById('panel');
@@ -719,6 +749,8 @@ function setView(v){
   curView = v;
   curStage = 'all';
   lateOnly = false;
+  showHidden = false;
+  SEL = [];
   document.getElementById('vLead').classList.toggle('on', v === 'lead');
   document.getElementById('vCus').classList.toggle('on', v === 'customer');
   document.getElementById('fSort').innerHTML = (v === 'lead')
@@ -734,9 +766,84 @@ function setView(v){
 /* Danh sách gốc theo chế độ đang xem */
 function baseList(){
   return LEADS.filter(function(l){
+    // Mục đã ẩn chỉ xuất hiện khi đang mở tab "Đã ẩn". Nhờ vậy chúng cũng tự
+    // rơi khỏi thống kê, bộ đếm tab và file CSV — vì tất cả đều đi qua đây.
+    if(!!careOf(l.id).hidden !== showHidden) return false;
     return curView === 'customer' ? isCustomer(l) : !isCustomer(l);
   });
 }
+
+/* ══ CHỌN NHIỀU DÒNG ══ */
+function isSel(id){ return SEL.indexOf(id) !== -1; }
+
+function toggleSel(id, ev){
+  if(ev) ev.stopPropagation();   // bấm ô tích thì đừng mở luôn ngăn chi tiết
+  var i = SEL.indexOf(id);
+  if(i === -1) SEL.push(id); else SEL.splice(i, 1);
+  render();
+}
+
+function toggleSelAll(ev){
+  if(ev) ev.stopPropagation();
+  var ids = filtered().map(function(l){ return l.id; });
+  var allOn = ids.length && ids.every(isSel);
+  SEL = allOn ? [] : ids;
+  render();
+}
+
+function clearSel(){ SEL = []; render(); }
+
+function renderBulk(){
+  // Đang chạy ẩn hàng loạt thì đừng vẽ lại nút — postCare gọi render() sau mỗi
+  // mục, sẽ xoá mất chữ "Đang xử lý..." và bật lại nút giữa chừng.
+  if(bulkBusy) return;
+  var bar = document.getElementById('bulkbar');
+  bar.classList.toggle('on', SEL.length > 0);
+  if(!SEL.length) return;
+  document.getElementById('bulkN').textContent = 'Đã chọn ' + SEL.length;
+  document.getElementById('bulkAct').textContent = showHidden
+    ? 'Khôi phục về danh sách'
+    : 'Ẩn khỏi danh sách';
+  document.getElementById('bulkAct').onclick = showHidden ? bulkRestore : bulkHide;
+}
+
+/* Ẩn / khôi phục hàng loạt.
+   Chỉ ghi một cờ trong Blobs — dữ liệu gốc ở Netlify Forms không bị đụng tới,
+   nên mọi thao tác ở đây đều đảo ngược được. */
+function bulkSetHidden(hide){
+  var ids = SEL.slice();
+  if(!ids.length) return;
+
+  if(hide && !confirm('Ẩn ' + ids.length + ' mục khỏi danh sách?\n\n'
+      + 'Dữ liệu vẫn được giữ nguyên. Bạn xem lại và khôi phục ở tab "Đã ẩn".')) return;
+
+  var done = 0, fail = 0;
+  var btn = document.getElementById('bulkAct');
+  bulkBusy = true;
+  btn.disabled = true;
+  btn.textContent = 'Đang xử lý...';
+
+  ids.forEach(function(id){
+    postCare(id,
+      { hidden: hide },
+      { type: 'note', text: hide ? 'Ẩn khỏi danh sách' : 'Khôi phục về danh sách' },
+      function(){ step(); },
+      function(){ fail++; step(); }
+    );
+  });
+
+  function step(){
+    if(++done < ids.length) return;
+    bulkBusy = false;
+    btn.disabled = false;
+    SEL = [];
+    render();
+    if(fail) toast(fail + '/' + ids.length + ' mục không lưu được', true);
+    else toast(hide ? 'Đã ẩn ' + ids.length + ' mục' : 'Đã khôi phục ' + ids.length + ' mục');
+  }
+}
+function bulkHide(){ bulkSetHidden(true); }
+function bulkRestore(){ bulkSetHidden(false); }
 
 function renderTabs(){
   var base = baseList();
@@ -766,9 +873,28 @@ function renderTabs(){
     });
   }
 
+  // Tab "Đã ẩn" đứng riêng ở cuối: nó là chế độ xem khác, không phải một bước
+  // trong phễu. Đếm theo đúng chế độ xem đang mở để con số khớp với nội dung.
+  var nHid = LEADS.filter(function(l){
+    if(!careOf(l.id).hidden) return false;
+    return curView === 'customer' ? isCustomer(l) : !isCustomer(l);
+  }).length;
+  html += '<button class="tab tab-hid' + (showHidden ? ' on' : '') + '" onclick="setHiddenView(!showHidden)">'
+        + 'Đã ẩn <span class="n">' + nHid + '</span></button>';
+
   document.getElementById('tabs').innerHTML = html;
-  document.getElementById('vnLead').textContent = LEADS.filter(function(l){ return !isCustomer(l); }).length;
-  document.getElementById('vnCus').textContent = LEADS.filter(isCustomer).length;
+  document.getElementById('vnLead').textContent = LEADS.filter(function(l){ return !isCustomer(l) && !careOf(l.id).hidden; }).length;
+  document.getElementById('vnCus').textContent = LEADS.filter(function(l){ return isCustomer(l) && !careOf(l.id).hidden; }).length;
+}
+
+/* Bật/tắt chế độ xem mục đã ẩn */
+function setHiddenView(on){
+  showHidden = on;
+  curStage = 'all';
+  lateOnly = false;
+  SEL = [];
+  renderTabs();
+  render();
 }
 
 function isLate(lead){
@@ -884,24 +1010,47 @@ function render(){
   var tb = document.getElementById('tbody');
   var th = document.getElementById('thead');
 
+  var allOn = list.length && list.every(function(l){ return isSel(l.id); });
+  var cbTh = '<th class="cbcell"><input type="checkbox" onclick="toggleSelAll(event)"'
+           + (allOn ? ' checked' : '') + ' title="Chọn tất cả dòng đang hiện"></th>';
+
   th.innerHTML = (curView === 'lead')
-    ? '<tr><th style="min-width:170px">Khách hàng</th><th style="min-width:150px">Sản phẩm quan tâm</th>'
+    ? '<tr>' + cbTh + '<th style="min-width:170px">Khách hàng</th><th style="min-width:150px">Sản phẩm quan tâm</th>'
       + '<th style="min-width:150px">Trạng thái</th><th style="min-width:140px">Phụ trách</th>'
       + '<th style="min-width:110px">Nhận lúc</th></tr>'
-    : '<tr><th style="min-width:170px">Khách hàng</th><th style="min-width:145px">Sản phẩm</th>'
+    : '<tr>' + cbTh + '<th style="min-width:170px">Khách hàng</th><th style="min-width:145px">Sản phẩm</th>'
       + '<th style="min-width:155px">Hiệu lực</th><th style="min-width:120px">Phí / Hoa hồng</th>'
       + '<th style="min-width:130px">Phụ trách</th></tr>';
 
   if(!list.length){
-    var msg = curView === 'customer' ? 'Chưa có khách hàng nào khớp bộ lọc.' : 'Không có lead nào khớp bộ lọc.';
-    tb.innerHTML = '<tr class="empty-row"><td colspan="5">' + msg + '<br><br>'
-      + '<button class="btn-g" onclick="clearFilters()">Xoá tất cả bộ lọc</button></td></tr>';
+    var msg = showHidden
+      ? 'Chưa có mục nào bị ẩn.'
+      : (curView === 'customer' ? 'Chưa có khách hàng nào khớp bộ lọc.' : 'Không có lead nào khớp bộ lọc.');
+    tb.innerHTML = '<tr class="empty-row"><td colspan="6">' + msg
+      + (showHidden ? '' : '<br><br><button class="btn-g" onclick="clearFilters()">Xoá tất cả bộ lọc</button>')
+      + '</td></tr>';
+    renderBulk();
     return;
   }
 
   tb.innerHTML = list.map(function(l){
     return curView === 'lead' ? rowLead(l) : rowCustomer(l);
   }).join('');
+  renderBulk();
+}
+
+/* Ô tích đầu mỗi dòng — dùng chung cho cả hai chế độ xem */
+function cbTd(id){
+  return '<td class="cbcell"><input type="checkbox" onclick="toggleSel(\'' + esc(id) + '\',event)"'
+       + (isSel(id) ? ' checked' : '') + '></td>';
+}
+
+/* Dòng bị ẩn thì cho biết ai ẩn và lúc nào — 6 người dùng chung mật khẩu,
+   không ghi lại thì không lần ra được ai đã dọn nhầm của ai. */
+function hidNote(c){
+  if(!c.hidden) return '';
+  return '<div class="hid-note">Ẩn bởi ' + esc(c.hiddenBy || 'không rõ')
+       + (c.hiddenAt ? ' · ' + ago(c.hiddenAt) : '') + '</div>';
 }
 
 /* Một dòng ở chế độ Lead */
@@ -924,8 +1073,9 @@ function rowLead(l){
     ? '<div class="own"><div class="own-av">' + esc(initials(c.owner)) + '</div>' + esc(c.owner) + '</div>'
     : '<button class="btn-claim" onclick="event.stopPropagation();claimLead(\'' + esc(l.id) + '\')"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nhận lead</button>';
 
-  return '<tr class="' + (curLead === l.id ? 'active' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
-    + '<td><div class="c-name">' + esc(leadName(l)) + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div></td>'
+  return '<tr class="' + (curLead === l.id ? 'active ' : '') + (isSel(l.id) ? 'sel-row' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
+    + cbTd(l.id)
+    + '<td><div class="c-name">' + esc(leadName(l)) + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div>' + hidNote(c) + '</td>'
     + '<td><div class="c-prod">' + esc(leadProduct(l)) + '</div><div class="c-src">' + esc(l.form_name || '') + '</div></td>'
     + '<td><span class="pill ' + st.cls + '">' + esc(st.label) + '</span>' + slaHtml + '</td>'
     + '<td>' + ownHtml + '</td>'
@@ -954,9 +1104,10 @@ function rowCustomer(l){
     ? '<div class="c-money">' + moneyShort(c.premium) + (c.commission ? '<small>HH ' + moneyShort(c.commission) + '</small>' : '') + '</div>'
     : '<div class="c-none">Chưa nhập</div>';
 
-  return '<tr class="' + (curLead === l.id ? 'active' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
+  return '<tr class="' + (curLead === l.id ? 'active ' : '') + (isSel(l.id) ? 'sel-row' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
+    + cbTd(l.id)
     + '<td><div class="c-name">' + esc(leadName(l)) + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div>'
-      + (c.policyNo ? '<div class="c-policy">' + esc(c.policyNo) + '</div>' : '') + '</td>'
+      + (c.policyNo ? '<div class="c-policy">' + esc(c.policyNo) + '</div>' : '') + hidNote(c) + '</td>'
     + '<td><div class="c-prod">' + esc(leadProduct(l)) + '</div></td>'
     + '<td><span class="pill ' + RENEW[r].cls + '">' + esc(RENEW[r].label) + '</span>' + expHtml + '</td>'
     + '<td>' + moneyHtml + '</td>'
