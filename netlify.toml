@@ -7,6 +7,23 @@
 [build.processing]
   skip_processing = false
 
+# ── Chặn tệp nội bộ ─────────────────────────────────────────────────────────
+# Netlify đưa MỌI tệp trong thư mục này lên internet, không chỉ trang web.
+# Tài liệu hướng dẫn và script nội bộ đã được chuyển ra ngoài thư mục deploy,
+# nhưng giữ các luật dưới đây làm lớp chặn dự phòng — lỡ tay để sót một tệp
+# thì nó bị trả 404 thay vì phơi ra cho ai cũng đọc được.
+[[redirects]]
+  from = "/*.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/*.py"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
