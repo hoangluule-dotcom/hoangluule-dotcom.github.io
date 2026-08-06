@@ -79,6 +79,11 @@
 
   <!-- Bảo hiểm tài sản -->
   <url>
+    <loc>https://dbv247.com.vn/bao-hiem-chay-no</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dbv247.com.vn/bao-hiem-chay-no-chung-cu</loc>
     <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
