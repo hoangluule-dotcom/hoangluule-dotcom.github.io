@@ -1,7 +1,75 @@
+# ── Bot tìm kiếm thông thường ───────────────────────────────────────────────
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /index-test
 Disallow: /bao-hiem-du-lich-quoc-te-demo
+
+# ── Bot của các trợ lý AI ───────────────────────────────────────────────────
+# Khai báo TƯỜNG MINH để cho phép, thay vì dựa vào luật "User-agent: *".
+# Lý do: đây là các bot thu thập nội dung để trả lời câu hỏi người dùng.
+# Muốn DBV247 được trích dẫn khi ai đó hỏi ChatGPT/Gemini/Perplexity về bảo
+# hiểm thì bắt buộc phải cho các bot này đọc. KHÔNG chặn, trừ khi có chủ trương
+# khác từ Tập đoàn.
+
+# OpenAI — ChatGPT
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+
+# Anthropic — Claude
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /admin/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin/
+
+# Google — Gemini và AI Overviews
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin/
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /admin/
+
+# Microsoft Copilot
+User-agent: bingbot
+Allow: /
+Disallow: /admin/
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin/
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+Disallow: /admin/
+
+# Common Crawl — nguồn dữ liệu huấn luyện nhiều mô hình sử dụng
+User-agent: CCBot
+Allow: /
+Disallow: /admin/
 
 Sitemap: https://dbv247.com.vn/sitemap.xml
