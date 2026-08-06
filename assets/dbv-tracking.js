@@ -46,6 +46,31 @@ var DBV_CAUHINH = {
     window.gtag = function () { window.dataLayer.push(arguments); };
   }
 
+  /* ---------- Gửi sự kiện đi đúng đường ----------------------------------
+     GA4 của site được nạp QUA GTM chứ không gắn thẳng vào trang. Trong tình
+     huống đó, lệnh gtag('event', ...) không tới được GA4 — đã kiểm chứng:
+     báo cáo Thời gian thực chỉ thấy page_view, session_start, first_visit,
+     còn click_phone và generate_lead thì không bao giờ xuất hiện.
+
+     Đường đúng là đẩy vào dataLayer để GTM bắt được, rồi GTM chuyển tiếp
+     sang GA4. Vẫn gọi thêm gtag() vì Google Ads được nạp trực tiếp bởi
+     chính file này, không đi qua GTM.                                      */
+  function guiSuKien(ten, thamSo) {
+    var data = thamSo || {};
+
+    // (1) Cho GTM → GA4
+    var payload = { event: ten };
+    for (var k in data) {
+      if (Object.prototype.hasOwnProperty.call(data, k)) payload[k] = data[k];
+    }
+    window.dataLayer.push(payload);
+
+    // (2) Cho Google Ads (nếu đã điền mã) — không ảnh hưởng nếu chưa có
+    gtag('event', ten, data);
+
+    log('SỰ KIỆN →', ten, data);
+  }
+
   /* ---------- Nạp Google Ads (chỉ khi đã điền mã) ---------- */
   if (DBV_CAUHINH.googleAdsId) {
     var s = document.createElement('script');
@@ -112,7 +137,7 @@ var DBV_CAUHINH = {
     var sanPham = duLieu['san-pham'] || tenSanPhamTheoTrang();
     var nguon   = duLieu['nguon'] || duLieu['form-name'] || 'không rõ';
 
-    gtag('event', 'generate_lead', {
+    guiSuKien('generate_lead', {
       san_pham: sanPham,
       vi_tri_form: nguon,
       trang: location.pathname,
@@ -137,7 +162,7 @@ var DBV_CAUHINH = {
     if (f.dataset.dbvDaBao === '1') return;
     f.dataset.dbvDaBao = '1';
     setTimeout(function () { f.dataset.dbvDaBao = ''; }, 3000);
-    gtag('event', 'generate_lead', {
+    guiSuKien('generate_lead', {
       san_pham: tenSanPhamTheoTrang(),
       vi_tri_form: f.getAttribute('name') || 'form',
       trang: location.pathname
@@ -155,7 +180,7 @@ var DBV_CAUHINH = {
     var href = a.getAttribute('href') || '';
 
     if (href.indexOf('tel:') === 0) {
-      gtag('event', 'click_phone', {
+      guiSuKien('click_phone', {
         so_dien_thoai: href.replace('tel:', ''),
         trang: location.pathname
       });
@@ -170,14 +195,14 @@ var DBV_CAUHINH = {
     }
 
     if (href.indexOf('zalo.me') !== -1) {
-      gtag('event', 'click_zalo', { trang: location.pathname });
+      guiSuKien('click_zalo', { trang: location.pathname });
       fb('Contact', { method: 'zalo' });
       log('BẤM ZALO');
       return;
     }
 
     if (href.indexOf('m.me') !== -1 || href.indexOf('messenger.com') !== -1) {
-      gtag('event', 'click_messenger', { trang: location.pathname });
+      guiSuKien('click_messenger', { trang: location.pathname });
       fb('Contact', { method: 'messenger' });
     }
   }, true);
@@ -196,7 +221,7 @@ var DBV_CAUHINH = {
     [25, 50, 75, 90].forEach(function (m) {
       if (!moc[m] && phanTram >= m) {
         moc[m] = true;
-        gtag('event', 'scroll_' + m, { trang: location.pathname });
+        guiSuKien('scroll_' + m, { trang: location.pathname });
         log('CUỘN', m + '%');
       }
     });
@@ -358,7 +383,7 @@ var DBV_CAUHINH = {
   /* Cho phép gọi thủ công từ bất kỳ đâu: DBV.baoSuKien('ten_su_kien', {...}) */
   window.DBV = window.DBV || {};
   window.DBV.baoSuKien = function (ten, thamSo) {
-    gtag('event', ten, thamSo || {});
+    guiSuKien(ten, thamSo || {});
     log('SỰ KIỆN THỦ CÔNG →', ten, thamSo);
   };
 

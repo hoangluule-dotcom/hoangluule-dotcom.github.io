@@ -4,6 +4,7 @@
   <!-- Trang chủ -->
   <url>
     <loc>https://dbv247.com.vn/</loc>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,6 +12,7 @@
   <!-- Trang tổng hợp sản phẩm -->
   <url>
     <loc>https://dbv247.com.vn/san-pham</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -18,21 +20,25 @@
   <!-- Bảo hiểm xe -->
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-vat-chat-oto</loc>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tnds-oto</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-oto-dien</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tnds-xemay</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -40,16 +46,19 @@
   <!-- Bảo hiểm sức khỏe & con người -->
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-suc-khoe</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tai-nan</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-benh-nhiet-doi</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -57,11 +66,13 @@
   <!-- Bảo hiểm du lịch -->
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-du-lich-quoc-te</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-du-lich-noi-dia</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -69,26 +80,31 @@
   <!-- Bảo hiểm tài sản -->
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-chay-no-chung-cu</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-chay-no-hkd</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-hoa-hoan</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-moi-rui-ro</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-xay-dung</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -96,21 +112,25 @@
   <!-- Bảo hiểm hàng hóa & vận chuyển -->
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-van-chuyen</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-xnk</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-buu-gui</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-than-tau-noi-dia</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -118,26 +138,31 @@
   <!-- Bảo hiểm trách nhiệm nghề nghiệp -->
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tnc</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tncc</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tnn-kcb</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tnn-ls</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/bao-hiem-tnn-tvtk</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -145,21 +170,25 @@
   <!-- Các trang hỗ trợ -->
   <url>
     <loc>https://dbv247.com.vn/boi-thuong</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/servicemap</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/tin-tuc</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://dbv247.com.vn/ve-dbv</loc>
+    <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

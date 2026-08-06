@@ -15,9 +15,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-53NZ4XR4');</script>
 <!-- End Google Tag Manager -->
-<title>Tin tức – DBV Insurance | Kiến thức &amp; thông tin bảo hiểm</title>
+<title>Cẩm nang bảo hiểm: phí, quy định &amp; bồi thường 2026 | DBV247</title>
 <link rel="canonical" href="https://dbv247.com.vn/tin-tuc">
-<meta name="description" content="Tin tức, thông báo và kiến thức bảo hiểm từ DBV247 – cập nhật liên tục.">
+<meta name="description" content="Hướng dẫn chi tiết về phí bảo hiểm ô tô, mức phạt không có bảo hiểm xe, quy định cháy nổ chung cư NĐ 67 và thủ tục bồi thường — cập nhật theo quy định 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
@@ -84,16 +84,6 @@ a{color:inherit}
 .news-empty{text-align:center;padding:60px 20px;color:var(--ts);font-size:14px}
 @media(max-width:900px){.news-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.news-grid{grid-template-columns:1fr}.news-wrap{padding:40px 16px 60px}}
-
-/* ARTICLE DETAIL */
-.article-wrap{max-width:760px;margin:0 auto;padding:48px 32px 90px;display:none}
-.article-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--g);text-decoration:none;margin-bottom:24px}
-.article-back:hover{text-decoration:underline}
-.article-date{font-size:12px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
-.article-title{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:900;color:var(--dk);line-height:1.3;margin-bottom:20px}
-.article-cover{width:100%;max-height:380px;object-fit:cover;border-radius:var(--r16);margin-bottom:28px}
-.article-body{font-size:15.5px;color:var(--tm);line-height:1.85;white-space:pre-line}
-@media(max-width:600px){.article-wrap{padding:32px 16px 60px}}
 
 /* FOOTER (đồng bộ với trang chủ) */
 .footer{background:#fff;padding:56px 0 0;border-top:1px solid var(--bd)}
@@ -226,6 +216,9 @@ a{color:inherit}
 .guide-card h3{font-size:16px;font-weight:800;color:var(--dk);line-height:1.35;margin-bottom:9px}
 .guide-card p{font-size:13px;color:var(--ts);line-height:1.6;flex:1;margin-bottom:14px}
 .guide-card-more{font-size:12.5px;font-weight:700;color:var(--g)}
+/* .guide-card đặt display:flex nên đè mất [hidden] mặc định của trình duyệt.
+   Không có dòng này thì bấm tab lọc mà thẻ vẫn hiện nguyên. */
+.guide-card[hidden],.news-empty[hidden]{display:none}
 @media(max-width:900px){.guide-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.guide-grid{grid-template-columns:1fr}.guide-wrap{padding:40px 16px 8px}}
 
@@ -234,8 +227,8 @@ a{color:inherit}
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dbv247.com.vn/tin-tuc">
-<meta property="og:title" content="Tin tức">
-<meta property="og:description" content="Tin tức, thông báo và kiến thức bảo hiểm từ DBV247 – cập nhật liên tục.">
+<meta property="og:title" content="Cẩm nang bảo hiểm DBV247 – Phí, quy định &amp; bồi thường 2026">
+<meta property="og:description" content="Hướng dẫn chi tiết về phí bảo hiểm ô tô, mức phạt không có bảo hiểm xe, quy định cháy nổ chung cư NĐ 67 và thủ tục bồi thường — cập nhật theo quy định 2026.">
 <meta property="og:image" content="https://dbv247.com.vn/banner-hero.webp">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -244,27 +237,80 @@ a{color:inherit}
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tin tức">
-<meta name="twitter:description" content="Tin tức, thông báo và kiến thức bảo hiểm từ DBV247 – cập nhật liên tục.">
+<meta name="twitter:title" content="Cẩm nang bảo hiểm DBV247 – Phí, quy định &amp; bồi thường 2026">
+<meta name="twitter:description" content="Hướng dẫn chi tiết về phí bảo hiểm ô tô, mức phạt không có bảo hiểm xe, quy định cháy nổ chung cư NĐ 67 và thủ tục bồi thường — cập nhật theo quy định 2026.">
 <meta name="twitter:image" content="https://dbv247.com.vn/banner-hero.webp">
 <script src="/assets/dbv-tracking.js" defer></script>
 <link rel="stylesheet" href="/assets/dbv-header.css">
 <script src="/assets/dbv-menu-search.js" defer></script>
-<script type="application/ld+json">
+<!-- Schema do scripts/build_news_index.py sinh ra. Đừng sửa tay phần giữa hai
+     mốc — chạy lại script là bị ghi đè. -->
+<!-- DBV:NEWS-SCHEMA:START -->
+      <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Cẩm nang bảo hiểm DBV247",
+  "numberOfItems": 9,
   "itemListElement": [
-    {"@type":"ListItem","position":1,"url":"https://dbv247.com.vn/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu","name":"Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026"},
-    {"@type":"ListItem","position":2,"url":"https://dbv247.com.vn/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026","name":"Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 (NĐ 168/2024)"},
-    {"@type":"ListItem","position":3,"url":"https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67","name":"Bảo hiểm cháy nổ chung cư theo NĐ 67/2023: Ai bắt buộc mua? Phí bao nhiêu?"},
-    {"@type":"ListItem","position":4,"url":"https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-xin-visa-schengen","name":"Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn"},
-    {"@type":"ListItem","position":5,"url":"https://dbv247.com.vn/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong","name":"Bảo hiểm ô tô điện: Pin có được bồi thường không?"},
-    {"@type":"ListItem","position":6,"url":"https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto","name":"Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả"}
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67",
+      "name": "Bảo hiểm cháy nổ chung cư theo Nghị định 67/2023: Ai bắt buộc mua và phí bao nhiêu?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-dbv-co-tot-khong",
+      "name": "Bảo hiểm DBV có tốt không? Đánh giá uy tín & Quy trình bồi thường"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-xin-visa-schengen",
+      "name": "Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong",
+      "name": "Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu",
+      "name": "Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://dbv247.com.vn/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv",
+      "name": "Tổng hợp Biểu phí & Quy tắc các gói Bảo hiểm DBV mới nhất"
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://dbv247.com.vn/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026",
+      "name": "Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://dbv247.com.vn/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv",
+      "name": "Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố"
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto",
+      "name": "Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết"
+    }
   ]
 }
 </script>
+      <!-- DBV:NEWS-SCHEMA:END -->
 <style id="dbv-layout">
 :where(.hdr){background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd,#E2E8F0)}
 .hdr-inner{max-width:var(--container,1400px);margin:0 auto;padding:0 40px;display:flex;align-items:center;height:60px;gap:8px}
@@ -408,89 +454,118 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p>Cập nhật thông báo, chương trình ưu đãi và kiến thức bảo hiểm hữu ích từ đội ngũ DBV247</p>
 </section>
 
-<!-- CẨM NANG BẢO HIỂM (HTML tĩnh — crawler đọc được, không cần JS) -->
-<section class="guide-wrap">
+<!-- ══ CẨM NANG BẢO HIỂM ══
+     Toàn bộ thẻ bài viết và tab lọc là HTML tĩnh do
+     scripts/build_news_index.py sinh ra từ các file trong tin-tuc/.
+     Trước đây phần này dựng bằng JavaScript từ articles.json, đồng thời lại có
+     một khối 6 thẻ hardcode ở trên — kết quả là 6 bài hiện hai lần trên cùng
+     trang, và crawler không chạy JS thì không thấy bài nào.
+     Thêm bài mới: bỏ file HTML vào tin-tuc/ rồi chạy lại script, không sửa tay. -->
+<section class="guide-wrap" id="newsListWrap">
   <div class="guide-head">
     <div class="guide-label">Cẩm nang bảo hiểm</div>
     <h2>Hướng dẫn &amp; giải đáp chuyên sâu</h2>
     <p>Các bài viết chuyên sâu do đội ngũ chuyên gia DBV247 biên soạn, cập nhật theo quy định pháp luật hiện hành.</p>
   </div>
-  <div class="guide-grid">
-      <a class="guide-card" href="/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu">
-        <img src="/than-vo-oto.webp" alt="Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026" loading="lazy" decoding="async">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức bảo hiểm xe</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026</h3>
-          <p>Phí dao động 1,2%–1,8% giá trị xe/năm. Công thức tính, bảng phí theo giá trị xe, 6 yếu tố ảnh hưởng và 5 cách giảm phí hợp pháp.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" href="/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026">
-        <img src="/tnds-oto.webp" alt="Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 (NĐ 168/2024)" loading="lazy" decoding="async">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Pháp lý &amp; Quy định</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 (NĐ 168/2024)</h3>
-          <p>Xe máy 100.000–200.000đ, ô tô 400.000–600.000đ. Căn cứ pháp lý, mức trách nhiệm bảo hiểm và biểu phí TNDS bắt buộc.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" href="/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67">
-        <img src="/nha-chung-cu.webp" alt="Bảo hiểm cháy nổ chung cư theo NĐ 67/2023: Ai bắt buộc mua? Phí bao nhiêu?" loading="lazy" decoding="async">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Pháp lý &amp; Quy định</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm cháy nổ chung cư theo NĐ 67/2023: Ai bắt buộc mua? Phí bao nhiêu?</h3>
-          <p>Tỷ lệ phí 0,05%–0,1%/năm. Phân định trách nhiệm chủ đầu tư và cư dân, phạm vi chi trả, loại trừ và hồ sơ bồi thường.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" href="/tin-tuc/bao-hiem-du-lich-xin-visa-schengen">
-        <img src="/du-lich-quoc-te.webp" alt="Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn" loading="lazy" decoding="async">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Visa</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn</h3>
-          <p>Năm yêu cầu bắt buộc của hợp đồng, sáu lỗi khiến hồ sơ bị từ chối và hướng dẫn chọn thời hạn bảo hiểm.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" href="/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong">
-        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm ô tô điện: Pin có được bồi thường không?" loading="lazy" decoding="async">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức bảo hiểm xe</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm ô tô điện: Pin có được bồi thường không?</h3>
-          <p>Ba nhóm rủi ro về pin, khi nào được bồi thường và khi nào bị loại trừ, xe thuê pin, sạc gây cháy và checklist trước khi ký.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" href="/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto">
-        <img src="/than-vo-oto.webp" alt="Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả" loading="lazy" decoding="async">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức bảo hiểm xe</span><span class="guide-card-date">23/07/2026</span></div>
-          <h3>Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả</h3>
-          <p>Chọn gói phù hợp, xử lý hiện trường khi tai nạn, quy trình bồi thường từng bước và những lỗi thường gặp cần tránh.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
+
+  <div class="news-tabs" id="newsTabs" role="tablist" aria-label="Lọc bài viết theo nhóm sản phẩm">
+      <!-- DBV:NEWS-TABS:START -->
+      <button class="news-tab on" type="button" role="tab" aria-selected="true" data-cat="all">Tất cả <span class="n">9</span></button>
+      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="xe">Xe cơ giới <span class="n">5</span></button>
+      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="taisan">Tài sản &amp; Kỹ thuật <span class="n">1</span></button>
+      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="conguoi">Du lịch &amp; Con người <span class="n">1</span></button>
+      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="chung">Kiến thức chung <span class="n">2</span></button>
+      <!-- DBV:NEWS-TABS:END -->
   </div>
+
+  <div class="guide-grid" id="newsGrid">
+      <!-- DBV:NEWS-CARDS:START -->
+      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67">
+        <img src="/nha-chung-cu.webp" alt="Bảo hiểm cháy nổ chung cư theo Nghị định 67/2023: Ai bắt buộc mua và phí bao nhiêu?" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm cháy nổ chung cư theo Nghị định 67/2023: Ai bắt buộc mua và phí bao nhiêu?</h3>
+          <p>Chủ sở hữu căn hộ chung cư bắt buộc mua bảo hiểm cháy nổ theo Nghị định 67/2023/NĐ-CP. Tỷ lệ phí 0,05%/năm nếu có hệ thống chữa cháy tự động, 0,1%/năm nếu không. Hướng dẫn đầy đủ phạm vi, mức khấu trừ và hồ sơ bồi thường.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-dbv-co-tot-khong">
+        <img src="/doi-ngu-chuyen-gia.webp" alt="Bảo hiểm DBV có tốt không? Đánh giá uy tín &amp; Quy trình bồi thường" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm DBV có tốt không? Đánh giá uy tín &amp; Quy trình bồi thường</h3>
+          <p>Đánh giá Bảo hiểm DBV: giấy phép Bộ Tài chính, quy mô 18+ năm, mạng lưới 1.500+ gara liên kết và cam kết thời gian bồi thường thực tế theo từng nghiệp vụ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-xin-visa-schengen">
+        <img src="/du-lich-quoc-te.webp" alt="Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026</h3>
+          <p>Xin visa Schengen bắt buộc phải có bảo hiểm du lịch mức tối thiểu 30.000 EUR, hiệu lực toàn bộ 29 nước Schengen và phủ kín thời gian lưu trú. Hướng dẫn 5 yêu cầu bắt buộc, lỗi khiến hồ sơ bị từ chối và cách mua.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong">
+        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ</h3>
+          <p>Pin xe điện được bồi thường khi hư hỏng do tai nạn, va chạm, cháy nổ — nhưng bị loại trừ nếu pin tự hỏng do lỗi kỹ thuật hoặc suy giảm dung lượng tự nhiên. Phân tích 3 nhóm rủi ro và checklist trước khi ký hợp đồng.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu">
+        <img src="/than-vo-oto.webp" alt="Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026</h3>
+          <p>Phí bảo hiểm vật chất ô tô 2026 dao động 1,2%–1,8% giá trị xe/năm. Hướng dẫn công thức tính phí, bảng phí tham khảo theo giá trị xe, 6 yếu tố làm tăng giảm phí và 5 cách tiết kiệm hợp pháp.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="chung" href="/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv">
+        <img src="/tnds-oto.webp" alt="Tổng hợp Biểu phí &amp; Quy tắc các gói Bảo hiểm DBV mới nhất" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Tổng hợp Biểu phí &amp; Quy tắc các gói Bảo hiểm DBV mới nhất</h3>
+          <p>Tổng hợp các quyết định ban hành quy tắc và biểu phí Bảo hiểm DBV đang áp dụng, bảng phí TNDS bắt buộc theo Nghị định 67/2023 và cách tính phí vật chất xe.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026">
+        <img src="/tnds-oto.webp" alt="Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024</h3>
+          <p>Không có bảo hiểm TNDS bắt buộc bị phạt 100.000–200.000đ với xe máy và 400.000–600.000đ với ô tô theo Nghị định 168/2024/NĐ-CP. Chi tiết mức phạt, căn cứ pháp lý và thiệt hại thực sự lớn hơn tiền phạt.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="chung" href="/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv">
+        <img src="/than-vo-oto.webp" alt="Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố</h3>
+          <p>Hướng dẫn từng bước khai báo bồi thường Bảo hiểm DBV: việc cần làm trong 24h đầu, hồ sơ theo từng nghiệp vụ xe, sức khỏe, du lịch và thời gian nhận tiền.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto">
+        <img src="/than-vo-oto.webp" alt="Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">23/07/2026</span></div>
+          <h3>Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết</h3>
+          <p>Tổng hợp kinh nghiệm thực tế khi sử dụng bảo hiểm xe ô tô: cách chọn gói phù hợp, quy trình bồi thường nhanh, những lỗi cần tránh và mẹo tiết kiệm phí bảo hiểm.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <!-- DBV:NEWS-CARDS:END -->
+  </div>
+
+  <div class="news-empty" id="newsEmpty" hidden>Hiện chưa có bài viết nào trong nhóm này.</div>
 </section>
-
-<!-- NEWS LIST -->
-<div class="news-wrap" id="newsListWrap">
-  <div class="news-tabs" id="newsTabs" role="tablist" aria-label="Lọc bài viết theo nhóm sản phẩm"></div>
-  <div class="news-grid" id="newsGrid"></div>
-  <div class="news-empty" id="newsEmpty" style="display:none">Hiện chưa có bài viết nào trong nhóm này.</div>
-</div>
-
-<!-- ARTICLE DETAIL -->
-<div class="article-wrap" id="articleWrap">
-  <a href="/tin-tuc" class="article-back" id="articleBack">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    Quay lại danh sách tin tức
-  </a>
-  <div class="article-date" id="articleDate"></div>
-  <h1 class="article-title" id="articleTitle"></h1>
-  <img class="article-cover" id="articleCover" style="display:none">
-  <div class="article-body" id="articleBody"></div>
-</div>
 
 <footer class="ftr">
   <div class="ftr-inner">
@@ -573,123 +648,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>
 (function(){
-  var listWrap = document.getElementById('newsListWrap');
-  var articleWrap = document.getElementById('articleWrap');
-  var grid = document.getElementById('newsGrid');
-  var emptyMsg = document.getElementById('newsEmpty');
-  var posts = [];
-  var cats = [];
-  var curCat = 'all';
+  // Lọc bài theo nhóm sản phẩm.
+  //
+  // Các thẻ đã có sẵn trong HTML nên script chỉ ẩn/hiện, không dựng lại DOM.
+  // Nghĩa là tắt JavaScript thì vẫn đọc được đủ 9 bài — chỉ mất nút lọc.
   var tabsWrap = document.getElementById('newsTabs');
+  var grid     = document.getElementById('newsGrid');
+  var emptyMsg = document.getElementById('newsEmpty');
+  if(!tabsWrap || !grid) return;
 
-  function escapeHtml(s){
-    return String(s || '').replace(/[&<>"']/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.guide-card'));
+  var tabs  = Array.prototype.slice.call(tabsWrap.querySelectorAll('.news-tab'));
+
+  function apply(cat){
+    var shown = 0;
+    cards.forEach(function(card){
+      var match = (cat === 'all' || card.getAttribute('data-cat') === cat);
+      card.hidden = !match;
+      if(match) shown++;
     });
+    tabs.forEach(function(t){
+      var on = t.getAttribute('data-cat') === cat;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if(emptyMsg) emptyMsg.hidden = shown > 0;
   }
 
-  function formatDate(d){
-    if(!d) return '';
-    var parts = d.split('-');
-    if(parts.length === 3) return parts[2] + '/' + parts[1] + '/' + parts[0];
-    return d;
-  }
-
-  function renderTabs(){
-    if(!tabsWrap) return;
-    var html = '<button class="news-tab' + (curCat === 'all' ? ' on' : '') +
-               '" role="tab" data-cat="all">Tất cả <span class="n">' + posts.length + '</span></button>';
-    cats.forEach(function(c){
-      html += '<button class="news-tab' + (curCat === c.key ? ' on' : '') +
-              '" role="tab" data-cat="' + escapeHtml(c.key) + '">' +
-              escapeHtml(c.label) + ' <span class="n">' + c.count + '</span></button>';
-    });
-    tabsWrap.innerHTML = html;
-    Array.prototype.forEach.call(tabsWrap.querySelectorAll('.news-tab'), function(btn){
-      btn.addEventListener('click', function(){
-        curCat = btn.getAttribute('data-cat');
-        renderTabs();
-        renderList();
-      });
-    });
-  }
-
-  function renderList(){
-    articleWrap.style.display = 'none';
-    listWrap.style.display = 'block';
-    grid.innerHTML = '';
-
-    var list = posts.filter(function(p){
-      return curCat === 'all' || p.cat === curCat;
-    });
-
-    if(!list.length){
-      emptyMsg.style.display = 'block';
-      return;
-    }
-    emptyMsg.style.display = 'none';
-
-    list.forEach(function(post){
-      // Bài viết là trang HTML riêng nên dùng thẻ <a> — người đọc mở tab mới,
-      // lưu link, và Google lần theo được. Thẻ <div> + onclick mất hết những thứ đó.
-      var card = document.createElement('a');
-      card.className = 'news-card';
-      card.href = post.url;
-      var photoHtml = post.cover
-        ? '<img src="' + escapeHtml(post.cover) + '" alt="' + escapeHtml(post.title) + '" loading="lazy" decoding="async">'
-        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>';
-      card.innerHTML =
-        '<div class="news-card-photo">' + photoHtml + '</div>' +
-        '<div class="news-card-body">' +
-          (post.catLabel ? '<span class="news-card-cat">' + escapeHtml(post.catLabel) + '</span>' : '') +
-          (post.date ? '<div class="news-card-date">' + escapeHtml(formatDate(post.date)) + '</div>' : '') +
-          '<div class="news-card-title">' + escapeHtml(post.title) + '</div>' +
-          '<div class="news-card-excerpt">' + escapeHtml(post.excerpt) + '</div>' +
-          '<div class="news-card-more">Đọc tiếp →</div>' +
-        '</div>';
-      grid.appendChild(card);
-    });
-  }
-
-  function renderArticle(i){
-    var post = posts[i];
-    if(!post){ location.hash = ''; return; }
-    listWrap.style.display = 'none';
-    articleWrap.style.display = 'block';
-    document.getElementById('articleDate').textContent = formatDate(post.date);
-    document.getElementById('articleTitle').textContent = post.title;
-    var cover = document.getElementById('articleCover');
-    if(post.cover){ cover.src = post.cover; cover.style.display = 'block'; }
-    else { cover.style.display = 'none'; }
-    document.getElementById('articleBody').textContent = post.body || post.excerpt || '';
-    document.title = post.title + ' – Tin tức DBV Insurance';
-    window.scrollTo(0,0);
-  }
-
-  function route(){
-    var h = location.hash || '';
-    var m = h.match(/^#post-(\d+)$/);
-    if(m) renderArticle(parseInt(m[1], 10));
-    else renderList();
-  }
-
-  window.addEventListener('hashchange', route);
-
-  // Danh mục do scripts/build_news_index.py sinh ra từ các file trong tin-tuc/.
-  // Thêm bài mới thì chạy lại script đó, không phải sửa tay chỗ này.
-  fetch('/content/articles.json')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      posts = data.posts || [];
-      cats = data.categories || [];
-      renderTabs();
-      route();
-    })
-    .catch(function(){
-      emptyMsg.textContent = 'Không tải được danh sách bài viết. Vui lòng thử lại sau.';
-      emptyMsg.style.display = 'block';
-      listWrap.style.display = 'block';
-    });
+  tabsWrap.addEventListener('click', function(e){
+    var btn = e.target.closest('.news-tab');
+    if(btn) apply(btn.getAttribute('data-cat'));
+  });
 })();
 </script>
 
