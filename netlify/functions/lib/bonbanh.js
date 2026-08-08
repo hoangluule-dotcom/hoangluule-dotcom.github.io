@@ -32,8 +32,17 @@ const GOC = "https://bonbanh.com";
 const UA =
   "DBV247-PriceBot/1.0 (+https://dbv247.com.vn/dinh-gia-xe-oto; lien-he@dbv247.com.vn)";
 
-const TIMEOUT_MS = 12000;
-const NGHI_GIUA_2_REQUEST_MS = 1200; // lịch sự với máy chủ của họ
+/* Function đồng bộ của Netlify bị cắt sau 10 GIÂY. Mọi con số dưới đây phải
+   nằm gọn trong đó, kể cả trường hợp xấu nhất là phải dò slug.
+
+   Lỗi đã từng có: timeout 12s cho MỘT request, cộng nghỉ 1,2s giữa các lần dò.
+   Mercedes-Benz C-Class sinh 9 tổ hợp URL -> ~20 giây -> Netlify cắt ngang,
+   trình duyệt nhận lỗi mạng, trang lặng lẽ lùi về bảng giá nội bộ mà không ai
+   biết vì sao. */
+const TIMEOUT_MS = 6000;             // một request đơn lẻ
+const NGAN_SACH_TONG_MS = 8000;      // toàn bộ lần gọi, chừa 2s trả kết quả
+const NGHI_GIUA_2_REQUEST_MS = 900;  // khi đã biết slug, chỉ nghỉ giữa các trang
+const NGHI_KHI_DO_SLUG_MS = 150;     // lúc dò slug thì gấp, nghỉ ngắn thôi
 
 /* ── Tiện ích ────────────────────────────────────────────────────────────── */
 
@@ -380,16 +389,27 @@ async function docGiaThiTruong(p) {
 
   const hangUV = slugDaBiet?.hang
     ? [slugDaBiet.hang]
-    : [DOI_TEN.hang[hang], ...ungVienSlug(hang)].filter(Boolean);
+    : [...new Set([DOI_TEN.hang[hang], ...ungVienSlug(hang)].filter(Boolean))];
   const dongUV = slugDaBiet?.dong
     ? [slugDaBiet.dong]
-    : [DOI_TEN.dong[dong], ...ungVienSlug(dong)].filter(Boolean);
+    : [...new Set([DOI_TEN.dong[dong], ...ungVienSlug(dong)].filter(Boolean))];
+
+  /* Trần số tổ hợp được dò trong một lần gọi. Ứng viên xếp theo thứ tự khả dĩ
+     giảm dần, nên cắt đuôi hầu như không mất gì mà chặn được trường hợp
+     3 × 3 = 9 tổ hợp kéo dài quá giới hạn của Netlify. */
+  const TRAN_TO_HOP = 6;
+
+  const batDau = Date.now();
+  const conThoiGian = () => Date.now() - batDau < NGAN_SACH_TONG_MS;
 
   const daThu = [];
   let dungHang = null, dungDong = null, html = "", url = "", tongTin = null;
+  let hetGio = false;
 
   ngoai: for (const h of hangUV) {
     for (const d of dongUV) {
+      if (daThu.length >= TRAN_TO_HOP) { hetGio = true; break ngoai; }
+      if (!conThoiGian()) { hetGio = true; break ngoai; }
       const u = duongDan(h, d, nam);
       const r = await taiTrang(u);
       daThu.push({ url: u, ma: r.ma });
@@ -401,22 +421,29 @@ async function docGiaThiTruong(p) {
           break ngoai;
         }
       }
-      await nghi(NGHI_GIUA_2_REQUEST_MS);
+      /* Đang dò thì nghỉ ngắn. Chỉ dò một lần cho mỗi dòng xe rồi ghi nhớ,
+         nên đây không phải là kiểu gọi dồn dập kéo dài. */
+      await nghi(NGHI_KHI_DO_SLUG_MS);
     }
   }
 
   if (!dungHang) {
     return {
       ok: false,
-      ly_do: "khong_tim_thay",
-      chan_doan: { da_thu: daThu.slice(0, 6) }
+      ly_do: hetGio ? "het_thoi_gian" : "khong_tim_thay",
+      thong_diep: hetGio
+        ? "Hết ngân sách thời gian khi dò địa chỉ trang. Bấm tra lại — lần sau đã nhớ được địa chỉ nên sẽ nhanh."
+        : "Không tìm thấy dòng xe này trên Bonbanh.",
+      chan_doan: { da_thu: daThu.slice(0, 6), giay: Math.round((Date.now() - batDau) / 100) / 10 }
     };
   }
 
   let tin = hopNhat(bocTuTitle(html), bocTuText(html));
 
-  /* Lấy thêm trang 2, 3… nếu tin trang 1 còn ít mà tổng tin thì nhiều. */
+  /* Lấy thêm trang 2, 3… nếu tin trang 1 còn ít mà tổng tin thì nhiều.
+     Chỉ đi tiếp khi còn thời gian — thà ít tin còn hơn bị Netlify cắt. */
   for (let tr = 2; tr <= soTrang && tongTin && tin.length < Math.min(tongTin, 40); tr++) {
+    if (!conThoiGian()) break;
     await nghi(NGHI_GIUA_2_REQUEST_MS);
     const r = await taiTrang(`${url}/page,${tr}`);
     if (!r.ok) break;

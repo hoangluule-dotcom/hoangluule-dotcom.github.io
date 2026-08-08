@@ -53,9 +53,21 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#eef2f6;
 .chip span span{color:var(--ts);font-size:11px;line-height:1.5}
 .chip.dis{opacity:.45;cursor:not-allowed;background:#f7fafc}
 .gia-box{background:var(--gl);border:1px solid rgba(0,116,55,.25);border-radius:10px;padding:11px 13px;margin-bottom:13px}
+.gia-box.noibo{background:#fff5f5;border-color:#fbb}
 .gia-box .lb{font-size:10.5px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.5px}
+.gia-box.noibo .lb{color:#9b2c2c}
 .gia-box .vl{font-size:17px;font-weight:800;color:var(--dk);margin-top:1px}
 .gia-box .sb{font-size:11px;color:var(--tm);margin-top:2px;line-height:1.5}
+.gia-box .fix{margin-top:9px;display:flex;gap:7px;flex-wrap:wrap}
+.gia-box .fix button{background:#9b2c2c;color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.gia-box .fix button:hover{filter:brightness(1.15)}
+.gia-box .fix .alt{background:#fff;color:#9b2c2c;border:1.5px solid #fbb}
+
+/* Banner chưa nhập khoá — cố tình to và khó bỏ qua */
+.nokey{background:#9b2c2c;color:#fff;padding:12px 22px;display:none;align-items:center;justify-content:space-between;gap:14px;font-size:13px;flex-wrap:wrap}
+.nokey.on{display:flex}
+.nokey b{font-weight:800}
+.nokey button{background:#fff;color:#9b2c2c;border:none;border-radius:7px;padding:8px 16px;font-family:inherit;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap}
 .spin{display:inline-block;width:11px;height:11px;border:2px solid rgba(27,58,92,.2);border-top-color:var(--navy);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-1px;margin-right:5px}
 @keyframes sp{to{transform:rotate(360deg)}}
 
@@ -104,6 +116,11 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
     <button id="b-key"><span class="key-dot key-off" id="key-dot"></span>Khoá</button>
     <button id="b-reset">Làm mới</button>
   </div>
+</div>
+
+<div class="nokey" id="nokey">
+  <div><b>Chưa nhập khoá nội bộ</b> — giá trị xe đang lấy từ bảng nội bộ (có thể đã cũ), không phải giá thị trường.</div>
+  <button id="b-nokey">Nhập khoá ngay</button>
 </div>
 
 <div class="shell">
@@ -222,12 +239,23 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
 
   /* ── Khoá ────────────────────────────────────────────────────────────── */
   function coKhoa(){return sessionStorage.getItem('dbv_key')||'';}
-  function veKhoa(){$('key-dot').className='key-dot '+(coKhoa()?'key-on':'key-off');}
-  $('b-key').onclick=function(){
-    var k=prompt('Nhập khoá nội bộ (DASHBOARD_KEY):',coKhoa());
+  function veKhoa(){
+    var c=!!coKhoa();
+    $('key-dot').className='key-dot '+(c?'key-on':'key-off');
+    /* Banner đỏ chiếm nguyên chiều ngang. Chấm đỏ nhỏ trên thanh công cụ dễ
+       bị bỏ qua — đã có người dùng cả buổi mà không biết mình đang xem giá cũ. */
+    $('nokey').classList.toggle('on',!c);
+  }
+  function hoiKhoa(){
+    var k=prompt('Nhập khoá nội bộ (DASHBOARD_KEY) để tra giá thị trường:',coKhoa());
     if(k!==null){sessionStorage.setItem('dbv_key',k.trim());veKhoa();if(ban)tra();}
-  };
+  }
+  $('b-key').onclick=hoiKhoa;
+  $('b-nokey').onclick=hoiKhoa;
   veKhoa();
+  /* Hỏi ngay khi mở trang nếu chưa có khoá — để không ai lỡ báo giá bằng
+     số liệu cũ rồi mới phát hiện. */
+  if(!coKhoa()) setTimeout(hoiKhoa,400);
   $('b-reset').onclick=function(){location.reload();};
 
   /* ── Số có dấu chấm ──────────────────────────────────────────────────── */
@@ -305,14 +333,47 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
     if(ban)return {gia:E.traCuu(ban,0).gia_tri,nguon:'csdl'};
     return null;
   }
+  /* Nói thẳng vì sao không có giá thị trường, kèm nút xử lý ngay tại chỗ.
+     Trước đây chỉ ghi "bảng giá nội bộ" — nhân viên không biết là hỏng hay
+     bình thường, nên cứ thế báo giá bằng số cũ. */
+  function lyDoLui(){
+    var t=tt&&tt.trang_thai;
+    if(t==='thieu_khoa')  return {vi:'Chưa nhập khoá nội bộ nên không gọi được máy chủ tra giá.', nut:'khoa'};
+    if(t==='loi')         return {vi:'Không gọi được máy chủ tra giá'+(tt.thong_diep?' ('+tt.thong_diep+')':'')+'.', nut:'thu_lai'};
+    if(t==='khong_co')    return {vi:(tt.thong_diep||'Không tra được giá thị trường cho xe này.'), nut:'thu_lai'};
+    return {vi:'Chưa tra giá thị trường.', nut:'thu_lai'};
+  }
+
   function datGia(){
     var g=giaHienTai(); if(!g)return;
-    $('gia-box').style.display='block';
-    $('gia-lb').textContent=g.nguon==='thi_truong'?'Giá trị xe theo thị trường':'Giá trị xe theo dữ liệu nội bộ';
+    var box=$('gia-box'), dangTra=tt&&tt.trang_thai==='dang_tra';
+    box.style.display='block';
+    box.classList.toggle('noibo', g.nguon!=='thi_truong' && !dangTra);
+
+    $('gia-lb').textContent = g.nguon==='thi_truong'
+      ? 'Giá trị xe theo thị trường'
+      : (dangTra?'Đang tra giá thị trường':'⚠ Đang dùng giá nội bộ, KHÔNG phải giá thị trường');
     $('gia-vl').textContent=E.dinhDangVND(g.gia);
-    $('gia-sb').innerHTML = g.nguon==='thi_truong'
-      ? tt.so_tin+' tin rao trên '+tt.nguon+(tt.muc==='phien_ban'?' · phiên bản '+tt.phien_ban_khop:' · gộp cả dòng xe')
-      : (tt&&tt.trang_thai==='dang_tra'?'<span class="spin"></span>đang tra thị trường…':'bảng giá nội bộ '+(META?META.capnhat:''));
+
+    var fix=document.getElementById('gia-fix');
+    if(g.nguon==='thi_truong'){
+      $('gia-sb').innerHTML=tt.so_tin+' tin rao trên '+tt.nguon
+        +(tt.muc==='phien_ban'?' · phiên bản '+tt.phien_ban_khop:' · gộp cả dòng xe')
+        +(tt.tu_cache?' · bản quét sẵn '+tt.tuoi_gio+'h trước':' · vừa tra');
+      if(fix)fix.remove();
+    }else if(dangTra){
+      $('gia-sb').innerHTML='<span class="spin"></span>đang đọc tin rao trên Bonbanh…';
+      if(fix)fix.remove();
+    }else{
+      var l=lyDoLui();
+      $('gia-sb').innerHTML='<b>'+l.vi+'</b><br>Số đang hiện là bảng giá nội bộ cập nhật '+(META?META.capnhat:'—')+'.';
+      if(!fix){fix=document.createElement('div');fix.id='gia-fix';fix.className='fix';box.appendChild(fix);}
+      fix.innerHTML = (l.nut==='khoa'?'<button id="fx-khoa">Nhập khoá</button>':'')
+        +'<button class="alt" id="fx-thu">Thử tra lại</button>';
+      var a=document.getElementById('fx-khoa'); if(a)a.onclick=hoiKhoa;
+      document.getElementById('fx-thu').onclick=function(){tra();};
+    }
+
     $('f-stbh').value=String(g.gia).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
     $('src-badge').innerHTML = g.nguon==='thi_truong'
       ? '<span class="badge b-tt">GIÁ THỊ TRƯỜNG</span>'
@@ -327,9 +388,16 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
     fetch('/.netlify/functions/gia-thi-truong?hang='+encodeURIComponent(elHang.value)
       +'&dong='+encodeURIComponent(elDong.value)+'&nam='+ban[0]
       +'&phien_ban='+encodeURIComponent(ban[1]||''),{headers:{'x-dashboard-key':key}})
-      .then(function(r){if(r.status===401){sessionStorage.removeItem('dbv_key');veKhoa();throw new Error('Khoá sai');}return r.json();})
+      .then(function(r){
+        if(r.status===401){sessionStorage.removeItem('dbv_key');veKhoa();throw new Error('khoá không đúng');}
+        if(r.status===500)throw new Error('máy chủ chưa cấu hình DASHBOARD_KEY');
+        if(!r.ok)throw new Error('máy chủ trả mã '+r.status);
+        return r.json();
+      })
       .then(function(j){if(ban!==xeLuc)return;tt=j.ok?Object.assign({trang_thai:'co'},j):Object.assign({trang_thai:'khong_co'},j);datGia();})
-      .catch(function(){if(ban!==xeLuc)return;tt={trang_thai:'khong_co'};datGia();});
+      /* Giữ nguyên câu lỗi thay vì nuốt đi — đây là manh mối duy nhất để biết
+         hỏng ở đâu khi ngồi xa máy. */
+      .catch(function(e){if(ban!==xeLuc)return;tt={trang_thai:'loi',thong_diep:e.message||String(e)};datGia();});
   }
 
   /* ── Bước 2: tính phí ────────────────────────────────────────────────── */
