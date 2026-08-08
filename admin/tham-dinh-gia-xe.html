@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<title>Tra giá trị xe ô tô — Công cụ nội bộ DBV247</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;--gold:#E8920A;--goldd:#c97d08;
+  --navy:#1B3A5C;--dk:#1A4D32;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--sh:0 4px 24px rgba(0,0,0,.08);
+}
+body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#eef2f6;line-height:1.6;font-size:14px}
+
+.tb{background:var(--navy);color:#fff;padding:0 22px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:50}
+.tb-l{display:flex;align-items:center;gap:12px}
+.tb img{height:30px}
+.tb h1{font-size:15px;font-weight:700}
+.tb .tag{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;color:#ffd9a0;letter-spacing:.5px}
+.tb-r{display:flex;gap:8px}
+.tb-r a,.tb-r button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:7px;cursor:pointer;text-decoration:none;transition:.18s}
+.tb-r a:hover,.tb-r button:hover{background:rgba(255,255,255,.24)}
+.tb-r .prim{background:var(--gold);border-color:var(--gold)}
+.tb-r .prim:hover{background:var(--goldd)}
+.tb-r button:disabled{opacity:.45;cursor:not-allowed}
+
+.shell{max-width:1280px;margin:0 auto;padding:20px;display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+.panel{background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:var(--sh)}
+.panel>h2{font-size:13px;font-weight:800;color:var(--dk);padding:15px 18px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.panel>h2 small{font-size:11px;font-weight:600;color:var(--ts)}
+.panel-b{padding:18px}
+
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--tm);margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 11px;border:1.5px solid var(--bd);border-radius:8px;font-family:inherit;font-size:13.5px;background:#fff;color:var(--tx)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
+.fg select:disabled{background:#f4f6f8;color:#a0aec0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.sep{border-top:1px dashed var(--bd);margin:4px 0 14px}
+.sec-lbl{font-size:10.5px;font-weight:800;color:var(--ts);letter-spacing:.7px;text-transform:uppercase;margin-bottom:10px}
+.hint{font-size:10.5px;color:var(--ts);margin-top:4px;line-height:1.5}
+.btn{width:100%;background:#fff;color:var(--tm);border:1.5px solid var(--bd);border-radius:9px;padding:11px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer;transition:.18s}
+.btn:hover{background:#f7fafc;color:var(--dk)}
+
+/* Result */
+.rs-top{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:14px;padding:18px;border-bottom:1px solid var(--bd)}
+.rs-box{border:1px solid var(--bd);border-radius:11px;padding:14px 16px;background:#fbfdfe}
+.rs-box.main{background:linear-gradient(150deg,#f0fdf4,#fff);border-color:rgba(0,116,55,.3)}
+.rs-box .lb{font-size:10.5px;font-weight:700;color:var(--ts);letter-spacing:.6px;text-transform:uppercase}
+.rs-box .vl{font-size:1.15rem;font-weight:800;color:var(--dk);line-height:1.2;margin-top:4px;letter-spacing:-.4px}
+.rs-box.main .vl{color:var(--g);font-size:1.85rem}
+.rs-box .sb{font-size:11.5px;color:var(--tm);margin-top:3px}
+
+table.tb2{width:100%;border-collapse:collapse;font-size:13px}
+table.tb2 th{background:#f7fafc;text-align:left;padding:9px 16px;font-size:11px;font-weight:700;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--bd)}
+table.tb2 td{padding:9px 16px;border-bottom:1px solid #edf2f7;color:var(--tm)}
+table.tb2 td.r{text-align:right;font-weight:700;color:var(--dk);white-space:nowrap}
+
+.empty{padding:80px 20px;text-align:center;color:var(--ts);font-size:13px;line-height:1.8}
+.empty svg{opacity:.25;margin-bottom:14px}
+.badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.3px}
+.b-db{background:var(--gl);color:var(--g)}
+.b-ut{background:#fffaf0;color:#b45309;border:1px solid #f6d8a8}
+.note{background:#fffaf0;border:1px solid #f6d8a8;border-radius:10px;padding:11px 13px;font-size:11.5px;color:#7a4c05;line-height:1.65;margin:16px 18px 18px}
+
+/* Giá thị trường realtime */
+.mk{border-top:1px solid var(--bd);padding:16px 18px;background:#fbfdfe}
+.mk-hd{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.mk-hd h3{font-size:12px;font-weight:800;color:var(--dk);text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:8px}
+.mk-btn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:8px 15px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:.18s;white-space:nowrap}
+.mk-btn:hover{background:#16324e}
+.mk-btn:disabled{opacity:.5;cursor:not-allowed}
+.mk-body{font-size:12.5px;color:var(--tm);line-height:1.7}
+.mk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.mk-cell{border:1px solid var(--bd);border-radius:9px;padding:10px 12px;background:#fff}
+.mk-cell .lb{font-size:10px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.5px}
+.mk-cell .vl{font-size:15px;font-weight:800;color:var(--dk);margin-top:2px}
+.mk-cell.hi .vl{color:var(--navy);font-size:1.25rem}
+.mk-cmp{border-radius:9px;padding:11px 13px;font-size:12.5px;line-height:1.7;margin-bottom:10px}
+.mk-cmp.ok{background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--dk)}
+.mk-cmp.warn{background:#fffaf0;border:1px solid #f6d8a8;color:#7a4c05}
+.mk-cmp.bad{background:#fff5f5;border:1px solid #fbb;color:#9b2c2c}
+.mk-cmp b{font-weight:800}
+.mk-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.mk-act button{background:#fff;border:1.5px solid var(--bd);color:var(--tm);border-radius:8px;padding:7px 13px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.mk-act button:hover{border-color:var(--g);color:var(--g)}
+.mk-src{font-size:10.5px;color:var(--ts);margin-top:9px;line-height:1.6}
+.mk-src a{color:var(--navy);font-weight:700}
+.mk-idle{color:var(--ts);font-size:12px;line-height:1.7}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:800px){.mk-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Chứng thư in */
+#ct{display:none}
+@media print{
+  body{background:#fff}
+  .tb,.shell{display:none!important}
+  #ct{display:block!important;font-size:12.5px}
+  @page{size:A4;margin:16mm}
+}
+#ct .ct-hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2.5px solid var(--g);padding-bottom:12px;margin-bottom:18px}
+#ct .ct-hd img{height:44px}
+#ct h2{font-size:17px;font-weight:800;color:var(--dk);text-align:center;margin:16px 0 4px;text-transform:uppercase;letter-spacing:.5px}
+#ct .ct-sub{text-align:center;font-size:11.5px;color:var(--tm);margin-bottom:18px}
+#ct table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px}
+#ct table th,#ct table td{border:1px solid #cbd5e0;padding:6px 9px;text-align:left}
+#ct table th{background:#f0f4f8;font-weight:700;color:var(--dk);width:36%}
+#ct .ct-big{background:#f0fdf4;border:1.5px solid var(--g);border-radius:8px;padding:12px 16px;text-align:center;margin:14px 0}
+#ct .ct-big .lb{font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+#ct .ct-big .vl{font-size:22px;font-weight:800;color:var(--g);margin-top:3px}
+#ct .ct-ft{margin-top:22px;font-size:10.5px;color:var(--tm);line-height:1.7;border-top:1px solid #cbd5e0;padding-top:10px}
+#ct .ct-sign{display:flex;justify-content:space-between;margin-top:28px;font-size:11.5px;text-align:center}
+#ct .ct-sign div{width:45%}
+#ct .ct-sign b{display:block;margin-bottom:52px}
+
+@media(max-width:1100px){.shell{grid-template-columns:1fr}.rs-top{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="tb">
+  <div class="tb-l">
+    <img src="/logo-dbv247.png" alt="DBV247"/>
+    <h1>Tra giá trị xe ô tô</h1>
+    <span class="tag">NỘI BỘ</span>
+  </div>
+  <div class="tb-r">
+    <a href="/dinh-gia-xe-oto" target="_blank">Bản khách hàng ↗</a>
+    <button id="b-copy" disabled>Sao chép</button>
+    <button id="b-reset">Làm mới</button>
+    <button class="prim" id="b-print" disabled>In phiếu / PDF</button>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- INPUT -->
+  <div class="panel">
+    <h2>Thông tin tra cứu <small id="db-info">đang tải…</small></h2>
+    <div class="panel-b">
+
+      <div class="sec-lbl">Hồ sơ</div>
+      <div class="g2">
+        <div class="fg"><label>Mã hồ sơ</label><input id="i-ma" placeholder="TĐ-2026-001"/></div>
+        <div class="fg"><label>Ngày lập</label><input id="i-ngay" type="date"/></div>
+      </div>
+      <div class="g2">
+        <div class="fg"><label>Khách hàng</label><input id="i-kh" placeholder="Họ tên / Công ty"/></div>
+        <div class="fg"><label>Biển số</label><input id="i-bs" placeholder="30A-123.45"/></div>
+      </div>
+
+      <div class="sep"></div>
+      <div class="sec-lbl">Xe cần tra</div>
+
+      <div class="fg"><label>Hãng xe</label><select id="f-hang"><option value="">Đang tải…</option></select></div>
+      <div class="fg"><label>Dòng xe</label><select id="f-dong" disabled><option value="">— Chọn hãng —</option></select></div>
+      <div class="fg"><label>Năm sản xuất</label><select id="f-nam" disabled><option value="">— Chọn dòng xe —</option></select></div>
+      <div class="fg"><label>Phiên bản</label><select id="f-ver" disabled><option value="">— Chọn năm —</option></select></div>
+
+      <div class="sep"></div>
+      <div class="sec-lbl">Điều chỉnh của thẩm định viên</div>
+
+      <div class="fg">
+        <label>Mức điều chỉnh (%)</label>
+        <input id="i-dc" type="number" step="1" value="0" placeholder="0"/>
+        <div class="hint">Để trống hoặc 0 nếu lấy nguyên giá CSDL. Nhập số âm khi xe có ODO cao, tai nạn, ngập nước, chạy dịch vụ; số dương khi xe đặc biệt tốt. <b>Bắt buộc ghi lý do.</b></div>
+      </div>
+      <div class="fg"><label>Lý do điều chỉnh &amp; ghi chú</label><textarea id="i-note" rows="3" placeholder="VD: ODO 210.000 km, sơn lại 2 cánh cửa, lốp còn 40%…"></textarea></div>
+
+      <button class="btn" id="b-clear-dc">Xoá điều chỉnh, lấy nguyên giá CSDL</button>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="panel">
+    <h2>Kết quả <small id="out-src">—</small></h2>
+
+    <div class="empty" id="out-empty">
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2v-3.28a2 2 0 0 0-.4-1.2l-2.1-2.8A2 2 0 0 0 16.9 9H5a2 2 0 0 0-2 2v6h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg>
+      <div>Chọn đủ <b>hãng → dòng xe → năm SX → phiên bản</b>.<br/>Kết quả hiện ngay, không cần bấm nút.</div>
+    </div>
+
+    <div id="out-live" style="display:none">
+      <div class="rs-top">
+        <div class="rs-box main">
+          <div class="lb">Giá trị xe</div>
+          <div class="vl" id="o-gia">—</div>
+          <div class="sb" id="o-vnd">—</div>
+        </div>
+        <div class="rs-box">
+          <div class="lb">Khoảng giao dịch</div>
+          <div class="vl" id="o-range">—</div>
+          <div class="sb" id="o-bien">—</div>
+        </div>
+        <div class="rs-box">
+          <div class="lb">Phí vật chất tham khảo</div>
+          <div class="vl" id="o-phi">—</div>
+          <div class="sb">1,2% – 1,5% giá trị xe/năm</div>
+        </div>
+      </div>
+
+      <table class="tb2">
+        <tbody id="o-rows"></tbody>
+      </table>
+
+      <!-- GIÁ THỊ TRƯỜNG REALTIME -->
+      <div class="mk">
+        <div class="mk-hd">
+          <h3>Giá rao thực tế trên thị trường <span class="badge b-db" id="mk-tag" style="display:none">—</span></h3>
+          <button class="mk-btn" id="mk-run">Tra giá thị trường</button>
+        </div>
+        <div class="mk-body">
+          <div class="mk-idle" id="mk-idle">
+            Đối chiếu giá CSDL với tin rao đang đăng trên Bonbanh.com. Kết quả quét sẵn hàng tuần nên thường trả về tức thì.
+          </div>
+          <div id="mk-out" style="display:none"></div>
+        </div>
+      </div>
+
+      <div class="note" id="o-note">
+        Đây là <b>giá tham chiếu thị trường</b> phục vụ xác định số tiền bảo hiểm, không thay thế chứng thư thẩm định giá của tổ chức có chức năng thẩm định giá theo Luật Giá.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHIẾU IN -->
+<div id="ct">
+  <div class="ct-hd">
+    <img src="/logo-dbv247.png" alt="DBV247"/>
+    <div style="text-align:right;font-size:10.5px;color:#4a5568;line-height:1.6">
+      <b style="color:#1A4D32;font-size:12px">DBV247</b><br/>Hotline: 0869 656 561<br/>dbv247.com.vn
+    </div>
+  </div>
+  <h2>Phiếu tham chiếu giá trị xe ô tô</h2>
+  <div class="ct-sub">Số: <b id="c-ma">—</b> · Ngày: <b id="c-ngay">—</b></div>
+
+  <table>
+    <tr><th>Khách hàng</th><td id="c-kh">—</td></tr>
+    <tr><th>Biển kiểm soát</th><td id="c-bs">—</td></tr>
+    <tr><th>Hãng / dòng xe</th><td id="c-xe">—</td></tr>
+    <tr><th>Phiên bản</th><td id="c-ver">—</td></tr>
+    <tr><th>Năm sản xuất</th><td id="c-nam">—</td></tr>
+    <tr><th>Nhiên liệu / số chỗ</th><td id="c-nl">—</td></tr>
+  </table>
+
+  <div class="ct-big">
+    <div class="lb">Giá trị xe tham chiếu</div>
+    <div class="vl" id="c-gia">—</div>
+    <div style="font-size:11px;color:#4a5568;margin-top:3px" id="c-range">—</div>
+  </div>
+
+  <table>
+    <tr><th>Giá trị theo cơ sở dữ liệu</th><td id="c-nen">—</td></tr>
+    <tr id="c-mk-row" style="display:none"><th>Đối chiếu giá rao thị trường</th><td id="c-mk">—</td></tr>
+    <tr><th>Điều chỉnh của thẩm định viên</th><td id="c-dc">—</td></tr>
+    <tr><th>Lý do điều chỉnh / ghi chú</th><td id="c-note">—</td></tr>
+    <tr><th>Số tiền bảo hiểm đề xuất</th><td id="c-stbh">—</td></tr>
+    <tr><th>Phí bảo hiểm vật chất tham khảo</th><td id="c-phi">—</td></tr>
+  </table>
+
+  <div class="ct-sign">
+    <div><b>Người lập phiếu</b>(Ký, ghi rõ họ tên)</div>
+    <div><b>Khách hàng xác nhận</b>(Ký, ghi rõ họ tên)</div>
+  </div>
+
+  <div class="ct-ft">
+    Phiếu này là <b>giá tham chiếu thị trường</b> do DBV247 lập trên cơ sở dữ liệu giá xe cập nhật ngày <span id="c-capnhat">13/05/2026</span>. Phiếu phục vụ mục đích xác định số tiền bảo hiểm; <b>không phải là chứng thư thẩm định giá</b> theo quy định của Luật Giá và không có giá trị làm căn cứ pháp lý về giá.
+  </div>
+</div>
+
+<script src="/assets/dinh-gia-engine.js"></script>
+<script>
+(function(){
+  var E=window.DinhGiaXe, DB=null, META=null, ban=null, k=null;
+  function $(id){return document.getElementById(id);}
+  var elHang=$('f-hang'),elDong=$('f-dong'),elNam=$('f-nam'),elVer=$('f-ver');
+
+  $('i-ngay').value=new Date().toISOString().slice(0,10);
+  $('i-ma').value='TĐ-'+new Date().getFullYear()+'-'+String(Math.floor(Math.random()*900+100));
+
+  function opt(sel,arr,ph){sel.innerHTML='<option value="">'+ph+'</option>'+arr.map(function(x){
+    return '<option value="'+String(x.v).replace(/"/g,'&quot;')+'">'+x.t+'</option>';}).join('');}
+  function reset(sel,ph){sel.innerHTML='<option value="">'+ph+'</option>';sel.disabled=true;}
+  function an(){ban=null;k=null;$('out-live').style.display='none';$('out-empty').style.display='block';
+    $('b-print').disabled=true;$('b-copy').disabled=true;$('out-src').textContent='—';
+    /* Đổi xe thì số liệu thị trường của xe cũ không còn đúng — xoá đi ngay,
+       để sót lại là thẩm định viên đọc nhầm sang xe khác. */
+    mkData=null;
+    var o=$('mk-out'); if(o){o.style.display='none';$('mk-idle').style.display='block';$('mk-tag').style.display='none';}}
+
+  E.napDB('/data/gia-xe-db.json').then(function(j){
+    DB=j.data;META=j.meta;
+    $('db-info').textContent=j.meta.so_ban_ghi.toLocaleString('vi-VN')+' bản ghi · '+j.meta.capnhat;
+    $('c-capnhat').textContent=j.meta.capnhat.split('-').reverse().join('/');
+    opt(elHang,Object.keys(DB).map(function(b){return{v:b,t:b};}),'— Chọn hãng —');
+    elHang.disabled=false;
+  }).catch(function(){$('db-info').textContent='LỖI TẢI CSDL';});
+
+  elHang.onchange=function(){
+    reset(elDong,'— Chọn dòng xe —');reset(elNam,'— Chọn năm SX —');reset(elVer,'— Chọn phiên bản —');an();
+    if(!this.value)return;
+    opt(elDong,Object.keys(DB[this.value]).map(function(m){return{v:m,t:m};}),'— Chọn dòng xe —');
+    elDong.disabled=false;
+  };
+  elDong.onchange=function(){
+    reset(elNam,'— Chọn năm SX —');reset(elVer,'— Chọn phiên bản —');an();
+    if(!this.value)return;
+    var yrs=[];DB[elHang.value][this.value].forEach(function(r){if(yrs.indexOf(r[0])<0)yrs.push(r[0]);});
+    yrs.sort(function(a,b){return b-a;});
+    opt(elNam,yrs.map(function(y){return{v:y,t:y};}),'— Chọn năm SX —');elNam.disabled=false;
+  };
+  elNam.onchange=function(){
+    reset(elVer,'— Chọn phiên bản —');an();
+    if(!this.value)return;
+    var y=+this.value,rows=DB[elHang.value][elDong.value].filter(function(r){return r[0]===y;});
+    opt(elVer,rows.map(function(r,i){return{v:i,t:(r[1]||'Bản tiêu chuẩn')+' — '+E.dinhDangVND(r[2])};}),'— Chọn phiên bản —');
+    elVer.disabled=false;
+    if(rows.length===1){elVer.value='0';elVer.onchange();}
+  };
+  elVer.onchange=function(){
+    if(this.value===''){an();return;}
+    var y=+elNam.value,rows=DB[elHang.value][elDong.value].filter(function(r){return r[0]===y;});
+    ban=rows[+this.value];ve();
+  };
+
+  $('i-dc').oninput=function(){if(ban)ve();};
+  $('b-clear-dc').onclick=function(){$('i-dc').value=0;if(ban)ve();};
+  $('b-reset').onclick=function(){location.reload();};
+
+  function dc(){var v=parseFloat($('i-dc').value);return isNaN(v)?0:v/100;}
+
+  function ve(){
+    k=E.traCuu(ban,dc());
+    if(!k)return;
+    $('out-empty').style.display='none';$('out-live').style.display='block';
+    $('b-print').disabled=false;$('b-copy').disabled=false;
+    $('out-src').innerHTML=k.uoc_tinh
+      ? '<span class="badge b-ut">ƯỚC TÍNH</span> suy từ giá niêm yết'
+      : '<span class="badge b-db">CSDL</span> bản ghi gốc';
+
+    $('o-gia').textContent=E.dinhDangVND(k.gia_tri);
+    $('o-vnd').textContent=E.dinhDangSo(k.gia_tri)+' VNĐ';
+    $('o-range').textContent=E.dinhDangVND(k.gia_min)+' – '+E.dinhDangVND(k.gia_max);
+    $('o-bien').textContent='biên độ '+Math.round((k.gia_min/k.gia_tri-1)*100)+'% … +'+Math.round((k.gia_max/k.gia_tri-1)*100)+'%';
+    $('o-phi').textContent=E.dinhDangVND(k.phi_bh_thap)+' – '+E.dinhDangVND(k.phi_bh_cao);
+
+    var nen=E.traCuu(ban,0);
+    var h='';
+    h+=row('Xe',elHang.value+' '+elDong.value+' '+k.nam+' — '+k.phien_ban);
+    h+=row('Tuổi xe / nhiên liệu / số chỗ',(k.tuoi_xe===0?'Xe mới':k.tuoi_xe+' năm')+' · '+(k.nhien_lieu||'—')+' · '+(k.so_ghe?k.so_ghe+' chỗ':'—'));
+    h+=row('Giá trị theo CSDL',E.dinhDangVND(nen.gia_tri));
+    if(k.gia_niem_yet){
+      h+=row('Giá niêm yết khi mới',E.dinhDangVND(k.gia_niem_yet));
+      h+=row('Còn lại so với xe mới',Math.round(k.ty_le_con_lai*100)+'%');
+    }
+    if(k.dieu_chinh!==0)
+      h+=row('Điều chỉnh của thẩm định viên',E.phanTram(k.dieu_chinh)+' → '+E.dinhDangVND(k.gia_tri));
+    h+=row('Số tiền bảo hiểm đề xuất',E.dinhDangVND(k.gia_tri));
+    $('o-rows').innerHTML=h;
+
+    var canLyDo = k.dieu_chinh!==0 && !$('i-note').value.trim();
+    $('o-note').innerHTML = canLyDo
+      ? '⚠ <b>Đang có điều chỉnh '+E.phanTram(k.dieu_chinh)+' nhưng chưa ghi lý do.</b> Phiếu in sẽ để trống mục này — hãy điền trước khi gửi khách.'
+      : 'Đây là <b>giá tham chiếu thị trường</b> phục vụ xác định số tiền bảo hiểm, không thay thế chứng thư thẩm định giá của tổ chức có chức năng thẩm định giá theo Luật Giá.';
+  }
+  function row(a,b){return '<tr><td>'+a+'</td><td class="r">'+b+'</td></tr>';}
+
+  $('i-note').oninput=function(){if(k)ve();};
+
+  $('b-copy').onclick=function(){
+    if(!k)return;
+    var t='THAM CHIẾU GIÁ TRỊ XE — DBV247\n'
+      +'Hồ sơ: '+$('i-ma').value+' · Ngày: '+$('i-ngay').value+'\n'
+      +'Khách hàng: '+($('i-kh').value||'—')+' · Biển số: '+($('i-bs').value||'—')+'\n'
+      +'Xe: '+elHang.value+' '+elDong.value+' '+k.nam+' — '+k.phien_ban+'\n'
+      +'Nhiên liệu/số chỗ: '+(k.nhien_lieu||'—')+' / '+(k.so_ghe||'—')+'\n---\n'
+      +'Giá trị theo CSDL: '+E.dinhDangVND(E.traCuu(ban,0).gia_tri)+'\n'
+      +(k.dieu_chinh!==0?'Điều chỉnh: '+E.phanTram(k.dieu_chinh)+' ('+($('i-note').value||'chưa ghi lý do')+')\n':'')
+      +'GIÁ TRỊ XE: '+E.dinhDangVND(k.gia_tri)+' ('+E.dinhDangSo(k.gia_tri)+' VNĐ)\n'
+      +'Khoảng giao dịch: '+E.dinhDangVND(k.gia_min)+' – '+E.dinhDangVND(k.gia_max)+'\n'
+      +'Số tiền bảo hiểm đề xuất: '+E.dinhDangVND(k.gia_tri)+'\n'
+      +'Phí vật chất 1,2–1,5%/năm: '+E.dinhDangVND(k.phi_bh_thap)+' – '+E.dinhDangVND(k.phi_bh_cao)
+      +(k.uoc_tinh?'\n(*) Dòng xe ước tính từ giá niêm yết, không có trong CSDL gốc.':'');
+    navigator.clipboard.writeText(t).then(function(){
+      var b=$('b-copy'),o=b.textContent;b.textContent='✓ Đã chép';setTimeout(function(){b.textContent=o;},1500);
+    });
+  };
+
+  /* ── Giá thị trường realtime ─────────────────────────────────────────────
+     Gọi /.netlify/functions/gia-thi-truong. Hàm này đòi khoá DASHBOARD_KEY,
+     lưu trong sessionStorage nên chỉ hỏi một lần mỗi phiên làm việc.        */
+  var mkData=null;
+
+  function khoaAdmin(){
+    var k=sessionStorage.getItem('dbv_key');
+    if(!k){
+      k=prompt('Nhập khoá nội bộ (DASHBOARD_KEY) để tra giá thị trường:');
+      if(k) sessionStorage.setItem('dbv_key',k);
+    }
+    return k;
+  }
+
+  $('mk-run').onclick=function(){
+    if(!ban){alert('Chọn xe trước đã.');return;}
+    var key=khoaAdmin(); if(!key)return;
+    var btn=this, cu=btn.textContent;
+    btn.disabled=true; btn.innerHTML='<span class="spin"></span>Đang tra…';
+    $('mk-idle').style.display='none';
+
+    fetch('/.netlify/functions/gia-thi-truong?hang='+encodeURIComponent(elHang.value)
+          +'&dong='+encodeURIComponent(elDong.value)+'&nam='+ban[0]
+          +'&phien_ban='+encodeURIComponent(ban[1]||''),
+          {headers:{'x-dashboard-key':key}})
+      .then(function(r){
+        if(r.status===401){sessionStorage.removeItem('dbv_key');throw new Error('Khoá không đúng — thử lại.');}
+        return r.json();
+      })
+      .then(function(j){ mkData=j; veThiTruong(j); })
+      .catch(function(e){
+        $('mk-out').style.display='block';
+        $('mk-out').innerHTML='<div class="mk-cmp bad">Không tra được: '+(e.message||e)+'</div>';
+      })
+      .finally(function(){ btn.disabled=false; btn.textContent=cu; });
+  };
+
+  function veThiTruong(j){
+    var box=$('mk-out'); box.style.display='block';
+    var tag=$('mk-tag'); tag.style.display='inline-block';
+
+    if(!j.ok){
+      tag.className='badge b-ut'; tag.textContent='KHÔNG CÓ DỮ LIỆU';
+      box.innerHTML='<div class="mk-cmp warn"><b>'+(j.thong_diep||'Không lấy được dữ liệu.')+'</b><br>'
+        +'Giữ nguyên giá CSDL và tự kiểm tra thủ công trên Bonbanh nếu cần.</div>'
+        +(j.chan_doan?'<div class="mk-src">Chẩn đoán: <code>'+JSON.stringify(j.chan_doan).slice(0,220)+'</code></div>':'');
+      return;
+    }
+
+    var doTC={cao:'ĐỘ TIN CẬY CAO',trung_binh:'TIN CẬY TRUNG BÌNH',thap:'TIN CẬY THẤP'}[j.do_tin_cay]||'—';
+    tag.className='badge '+(j.do_tin_cay==='cao'?'b-db':'b-ut'); tag.textContent=doTC;
+
+    var nen=E.traCuu(ban,0).gia_tri;
+    var lech=(j.trung_vi-nen)/nen;
+    var lechPT=Math.round(lech*1000)/10;
+    var theoPB=j.muc==='phien_ban';
+
+    var h='<div class="mk-grid">'
+      +cell('Trung vị tin rao',E.dinhDangVND(j.trung_vi),true)
+      +cell('Khoảng phổ biến',E.dinhDangVND(j.q1)+' – '+E.dinhDangVND(j.q3))
+      +cell('Số tin ghi nhận',j.so_tin+(j.so_tin_bi_loai?' (loại '+j.so_tin_bi_loai+')':''))
+      +cell('ODO trung vị',j.odo_trung_vi?E.dinhDangSo(j.odo_trung_vi)+' km':'—')
+      +'</div>';
+
+    /* So sánh chỉ có nghĩa khi hai bên cùng một phiên bản. Gộp cả dòng xe rồi
+       đem so với giá của một phiên bản là so hai đơn vị khác nhau — phải nói
+       rõ để thẩm định viên không tin nhầm con số. */
+    if(theoPB){
+      var muc=Math.abs(lech)<0.08?'ok':(Math.abs(lech)<0.15?'warn':'bad');
+      var chieu=lech>0?'CAO hơn':'THẤP hơn';
+      h+='<div class="mk-cmp '+muc+'">'
+        +'Khớp phiên bản <b>'+j.phien_ban_khop+'</b> trên Bonbanh với <b>'+(ban[1]||'bản tiêu chuẩn')+'</b> trong CSDL.<br>'
+        +'Giá CSDL <b>'+E.dinhDangVND(nen)+'</b> · Trung vị tin rao <b>'+E.dinhDangVND(j.trung_vi)+'</b> → '
+        +'CSDL đang <b>'+chieu+' '+Math.abs(lechPT)+'%</b>.<br>'
+        +(muc==='ok'
+          ? 'Chênh lệch trong ngưỡng bình thường — dùng giá CSDL được.'
+          : muc==='warn'
+            ? 'Lệch đáng kể. Cân nhắc điều chỉnh, nhất là khi số tin từ 6 trở lên.'
+            : 'Lệch lớn. Nên lấy theo thị trường và ghi rõ lý do vào phiếu.')
+        +'</div>';
+    } else {
+      h+='<div class="mk-cmp warn">'
+        +'<b>Không khớp được phiên bản.</b> Số liệu trên là trung vị của <b>tất cả phiên bản</b> '
+        +elDong.value+' đời '+j.nam+' gộp lại, trong khi giá CSDL <b>'+E.dinhDangVND(nen)+'</b> là của riêng '
+        +'<b>'+(ban[1]||'bản tiêu chuẩn')+'</b>.<br>'
+        +'Hai con số này không cùng đơn vị so sánh — <b>đừng lấy chênh lệch giữa chúng làm mức điều chỉnh.</b> '
+        +'Xem bảng từng phiên bản bên dưới để tự đối chiếu.'
+        +'</div>';
+    }
+
+    /* Bảng từng phiên bản — chỗ thẩm định viên tự kiểm chứng được. */
+    if(j.theo_phien_ban&&j.theo_phien_ban.length>1){
+      h+='<table class="tb2" style="margin-bottom:10px"><thead><tr>'
+        +'<th>Phiên bản trên Bonbanh</th><th style="text-align:right">Số tin</th>'
+        +'<th style="text-align:right">Trung vị</th><th style="text-align:right">Khoảng phổ biến</th>'
+        +'</tr></thead><tbody>';
+      j.theo_phien_ban.forEach(function(p){
+        var la=theoPB&&p.ten===j.phien_ban_khop;
+        h+='<tr'+(la?' style="background:var(--gl)"':'')+'>'
+          +'<td>'+(la?'<b>'+p.ten+'</b> ← khớp':p.ten)+'</td>'
+          +'<td class="r">'+p.so_tin+'</td>'
+          +'<td class="r">'+E.dinhDangVND(p.trung_vi)+'</td>'
+          +'<td class="r" style="font-weight:400">'+E.dinhDangVND(p.q1)+' – '+E.dinhDangVND(p.q3)+'</td>'
+          +'</tr>';
+      });
+      h+='</tbody></table>';
+    }
+
+    /* Nút áp giá chỉ hiện khi khớp được phiên bản. Cho phép áp mức lệch tính
+       từ số liệu gộp cả dòng xe là mời thẩm định viên phạm đúng cái lỗi mà
+       phần khớp phiên bản sinh ra để tránh. */
+    h+='<div class="mk-act">';
+    if(theoPB&&j.so_tin>=4)
+      h+='<button id="mk-apply">Lấy theo giá thị trường ('+(lechPT>0?'+':'')+lechPT+'%)</button>';
+    h+='<button id="mk-fresh">Bỏ cache, tra lại</button></div>';
+
+    h+='<div class="mk-src">Nguồn: <b>'+j.nguon+'</b>'
+      +' · mức so sánh: <b>'+(theoPB?'theo phiên bản':'cả dòng xe')+'</b>'
+      +(j.url_goc?' · <a href="'+j.url_goc+'" target="_blank" rel="noopener nofollow">xem tin rao gốc ↗</a>':'')
+      +' · đọc lúc '+new Date(j.doc_luc).toLocaleString('vi-VN')
+      +(j.tu_cache?' (bản quét sẵn, '+j.tuoi_gio+' giờ trước)':' (vừa tra)')
+      +'<br>Chỉ lưu số liệu thống kê, không lưu nội dung tin đăng. Giá rao thường cao hơn giá chốt thực tế 3–8%.'
+      +(j.canh_bao?'<br><b style="color:#b45309">'+j.canh_bao+'</b>':'')
+      +'</div>';
+
+    box.innerHTML=h;
+
+    var ap=$('mk-apply');
+    if(ap) ap.onclick=function(){
+      $('i-dc').value=lechPT;
+      var cu=$('i-note').value.trim();
+      var them='Điều chỉnh theo giá rao thị trường phiên bản '+j.phien_ban_khop
+        +' (trung vị '+E.dinhDangVND(j.trung_vi)+', '+j.so_tin+' tin trên '+j.nguon
+        +', tra ngày '+new Date(j.doc_luc).toLocaleDateString('vi-VN')+').';
+      $('i-note').value=cu?cu+' '+them:them;
+      ve();
+      $('mk-run').click();
+    };
+    var fr=$('mk-fresh');
+    if(fr) fr.onclick=function(){
+      var key=khoaAdmin(); if(!key)return;
+      this.disabled=true; this.textContent='Đang tra…';
+      fetch('/.netlify/functions/gia-thi-truong?moi=1&hang='+encodeURIComponent(elHang.value)
+            +'&dong='+encodeURIComponent(elDong.value)+'&nam='+ban[0],
+            {headers:{'x-dashboard-key':key}})
+        .then(function(r){return r.json();}).then(veThiTruong)
+        .catch(function(e){alert('Lỗi: '+e.message);});
+    };
+  }
+
+  function cell(lb,vl,hi){
+    return '<div class="mk-cell'+(hi?' hi':'')+'"><div class="lb">'+lb+'</div><div class="vl">'+vl+'</div></div>';
+  }
+
+  $('b-print').onclick=function(){
+    if(!k)return;
+    $('c-ma').textContent=$('i-ma').value||'—';
+    $('c-ngay').textContent=($('i-ngay').value||'').split('-').reverse().join('/');
+    $('c-kh').textContent=$('i-kh').value||'—';
+    $('c-bs').textContent=$('i-bs').value||'—';
+    $('c-xe').textContent=elHang.value+' '+elDong.value;
+    $('c-ver').textContent=k.phien_ban;
+    $('c-nam').textContent=k.nam+(k.uoc_tinh?' (giá ước tính từ giá niêm yết)':'');
+    $('c-nl').textContent=(k.nhien_lieu||'—')+' / '+(k.so_ghe||'—')+' chỗ';
+    $('c-gia').textContent=E.dinhDangVND(k.gia_tri)+' ('+E.dinhDangSo(k.gia_tri)+' VNĐ)';
+    $('c-range').textContent='Khoảng giao dịch ghi nhận: '+E.dinhDangVND(k.gia_min)+' – '+E.dinhDangVND(k.gia_max);
+    $('c-nen').textContent=E.dinhDangVND(E.traCuu(ban,0).gia_tri);
+    /* Có đối chiếu thị trường thì ghi vào phiếu — để khách thấy con số dựa
+       trên tin rao thật, không phải bảng giá nội bộ nào đó. */
+    if(mkData&&mkData.ok&&mkData.muc==='phien_ban'){
+      $('c-mk-row').style.display='';
+      $('c-mk').textContent='Phiên bản '+mkData.phien_ban_khop+': trung vị '+E.dinhDangVND(mkData.trung_vi)
+        +' (khoảng phổ biến '+E.dinhDangVND(mkData.q1)+' – '+E.dinhDangVND(mkData.q3)+')'
+        +' từ '+mkData.so_tin+' tin rao trên '+mkData.nguon
+        +', tra ngày '+new Date(mkData.doc_luc).toLocaleDateString('vi-VN');
+    } else {
+      /* Số liệu gộp cả dòng xe không đưa vào phiếu gửi khách — trên giấy nó
+         trông y hệt số liệu theo phiên bản, mà lại không so sánh được. */
+      $('c-mk-row').style.display='none';
+    }
+    $('c-dc').textContent=k.dieu_chinh!==0?E.phanTram(k.dieu_chinh):'Không điều chỉnh';
+    $('c-note').textContent=$('i-note').value||'Không';
+    $('c-stbh').textContent=E.dinhDangVND(k.gia_tri);
+    $('c-phi').textContent=E.dinhDangVND(k.phi_bh_thap)+' – '+E.dinhDangVND(k.phi_bh_cao)+'/năm (1,2% – 1,5% giá trị xe)';
+    window.print();
+  };
+})();
+</script>
+</body>
+</html>

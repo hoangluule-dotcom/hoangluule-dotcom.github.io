@@ -7,6 +7,14 @@
 [build.processing]
   skip_processing = false
 
+# ── Quét giá thị trường xe cũ ───────────────────────────────────────────────
+# 03:00 sáng thứ Hai hàng tuần (giờ UTC — tức 10:00 sáng thứ Hai giờ VN).
+# Quét trước để trang thẩm định nội bộ trả kết quả tức thì, đồng thời dồn tải
+# vào một khung giờ thay vì mỗi lượt khách một request sang Bonbanh.
+# Kết quả lưu ở Netlify Blobs store "dbv247-gia-xe".
+[functions."gia-thi-truong-cron"]
+  schedule = "0 3 * * 1"
+
 # ── Chặn tệp nội bộ ─────────────────────────────────────────────────────────
 # Netlify đưa MỌI tệp trong thư mục này lên internet, không chỉ trang web.
 # Tài liệu hướng dẫn và script nội bộ đã được chuyển ra ngoài thư mục deploy,
