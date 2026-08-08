@@ -8,12 +8,19 @@
   skip_processing = false
 
 # ── Quét giá thị trường xe cũ ───────────────────────────────────────────────
-# 03:00 sáng thứ Hai hàng tuần (giờ UTC — tức 10:00 sáng thứ Hai giờ VN).
-# Quét trước để trang thẩm định nội bộ trả kết quả tức thì, đồng thời dồn tải
-# vào một khung giờ thay vì mỗi lượt khách một request sang Bonbanh.
-# Kết quả lưu ở Netlify Blobs store "dbv247-gia-xe".
+# Chạy MỖI GIỜ, mỗi lượt chỉ quét 10 cặp (dòng xe × năm).
+#
+# Vì sao lô nhỏ chạy dày thay vì lô lớn chạy tuần: scheduled function của
+# Netlify bị cắt sau 30 GIÂY. Quét 120 mục một lượt là chắc chắn bị giết giữa
+# chừng — ghi được vài mục rồi chết, mà không có lỗi nào hiện ra ngoài.
+#
+# 24 lượt/ngày × 10 mục = 240 mục/ngày, phủ hết 780 cặp trong ~3,5 ngày.
+# Dữ liệu tươi hơn bản quét tuần, và không lượt nào chạm giới hạn 30 giây.
+#
+# Lưu ý: KHÔNG gọi hàm này bằng URL được — Netlify chặn scheduled function.
+# Muốn chạy tay: Netlify > Functions > gia-thi-truong-cron > nút "Run now".
 [functions."gia-thi-truong-cron"]
-  schedule = "0 3 * * 1"
+  schedule = "0 * * * *"
 
 # ── Chặn tệp nội bộ ─────────────────────────────────────────────────────────
 # Netlify đưa MỌI tệp trong thư mục này lên internet, không chỉ trang web.

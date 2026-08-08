@@ -37,8 +37,3 @@
 #     Tạm điều hướng sang trang chính sách bảo mật. Nên tạo trang riêng khi có nội dung.
 /dieu-khoan-su-dung        /chinh-sach-bao-mat          302
 
-# --- Bổ sung 07/08/2026: công cụ định giá xe ô tô. Gom các biến thể slug về một URL.
-/dinh-gia-xe               /dinh-gia-xe-oto             301
-/dinh-gia-oto              /dinh-gia-xe-oto             301
-/tham-dinh-gia-xe          /dinh-gia-xe-oto             301
-/dinh-gia-xe-cu            /dinh-gia-xe-oto             301

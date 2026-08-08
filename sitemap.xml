@@ -9,14 +9,6 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Công cụ định giá xe ô tô -->
-  <url>
-    <loc>https://dbv247.com.vn/dinh-gia-xe-oto</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
   <!-- Trang tổng hợp sản phẩm -->
   <url>
     <loc>https://dbv247.com.vn/san-pham</loc>

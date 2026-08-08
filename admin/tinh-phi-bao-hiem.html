@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<title>Tính phí bảo hiểm xe ô tô — Công cụ nội bộ DBV247</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;--gold:#E8920A;--goldd:#c97d08;
+  --navy:#1B3A5C;--dk:#1A4D32;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--sh:0 4px 24px rgba(0,0,0,.08);
+}
+body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#eef2f6;line-height:1.6;font-size:14px}
+
+.tb{background:var(--navy);color:#fff;padding:0 22px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:50}
+.tb-l{display:flex;align-items:center;gap:12px}
+.tb img{height:30px}
+.tb h1{font-size:15px;font-weight:700}
+.tb .tag{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;color:#ffd9a0;letter-spacing:.5px}
+.tb-r{display:flex;gap:8px;align-items:center}
+.tb-r a,.tb-r button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:7px;cursor:pointer;text-decoration:none;transition:.18s}
+.tb-r a:hover,.tb-r button:hover{background:rgba(255,255,255,.24)}
+.key-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.key-on{background:#68d391}.key-off{background:#fc8181}
+
+.shell{max-width:1320px;margin:0 auto;padding:20px;display:grid;grid-template-columns:390px 1fr;gap:20px;align-items:start}
+.panel{background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
+.panel>h2{font-size:13px;font-weight:800;color:var(--dk);padding:15px 18px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.panel>h2 small{font-size:11px;font-weight:600;color:var(--ts)}
+.panel-b{padding:18px}
+
+.step{font-size:10.5px;font-weight:800;color:#fff;background:var(--navy);border-radius:20px;padding:2px 9px;letter-spacing:.5px;margin-right:7px}
+.sec-lbl{font-size:10.5px;font-weight:800;color:var(--ts);letter-spacing:.7px;text-transform:uppercase;margin:0 0 10px}
+.sep{border-top:1px dashed var(--bd);margin:16px 0 14px}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--tm);margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 11px;border:1.5px solid var(--bd);border-radius:8px;font-family:inherit;font-size:13.5px;background:#fff;color:var(--tx)}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
+.fg select:disabled,.fg input:disabled{background:#f4f6f8;color:#a0aec0}
+.fg .hint{font-size:10.5px;color:var(--ts);margin-top:4px;line-height:1.5}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.chips{display:flex;flex-direction:column;gap:8px}
+.chip{display:flex;gap:9px;align-items:flex-start;border:1.5px solid var(--bd);border-radius:9px;padding:9px 11px;cursor:pointer;transition:.15s;font-size:12.5px}
+.chip:hover{border-color:var(--g)}
+.chip input{margin-top:3px;flex-shrink:0;width:15px;height:15px;accent-color:var(--g)}
+.chip b{display:block;font-weight:700;color:var(--dk);font-size:12.5px}
+.chip span span{color:var(--ts);font-size:11px;line-height:1.5}
+.chip.dis{opacity:.45;cursor:not-allowed;background:#f7fafc}
+.gia-box{background:var(--gl);border:1px solid rgba(0,116,55,.25);border-radius:10px;padding:11px 13px;margin-bottom:13px}
+.gia-box .lb{font-size:10.5px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.5px}
+.gia-box .vl{font-size:17px;font-weight:800;color:var(--dk);margin-top:1px}
+.gia-box .sb{font-size:11px;color:var(--tm);margin-top:2px;line-height:1.5}
+.spin{display:inline-block;width:11px;height:11px;border:2px solid rgba(27,58,92,.2);border-top-color:var(--navy);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-1px;margin-right:5px}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* Kết quả */
+.hero{padding:24px 20px;border-bottom:1px solid var(--bd);background:linear-gradient(160deg,#f0fdf4,#fff 65%)}
+.hero .lb{font-size:11px;font-weight:700;color:var(--ts);letter-spacing:.7px;text-transform:uppercase}
+.hero .vl{font-size:2.6rem;font-weight:800;color:var(--g);line-height:1.1;letter-spacing:-1.2px;margin:4px 0 2px}
+.hero .sb{font-size:13px;color:var(--tm)}
+.hero-act{margin-top:15px;display:flex;gap:9px;flex-wrap:wrap}
+.hero-act button{background:var(--g);color:#fff;border:none;border-radius:9px;padding:11px 18px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer}
+.hero-act button:hover{background:var(--gp)}
+.hero-act .alt{background:#fff;color:var(--tm);border:1.5px solid var(--bd)}
+.hero-act .alt:hover{background:#f7fafc;color:var(--dk)}
+
+table.tb2{width:100%;border-collapse:collapse;font-size:13px}
+table.tb2 th{background:#f7fafc;text-align:left;padding:9px 20px;font-size:11px;font-weight:700;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--bd)}
+table.tb2 td{padding:9px 20px;border-bottom:1px solid #edf2f7;color:var(--tm)}
+table.tb2 td.r{text-align:right;font-weight:700;color:var(--dk);white-space:nowrap}
+table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-top:1.5px solid var(--bd)}
+
+.msg{margin:16px 20px;border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.7}
+.msg.ok{background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--dk)}
+.msg.warn{background:#fffaf0;border:1px solid #f6d8a8;color:#7a4c05}
+.msg.bad{background:#fff5f5;border:1px solid #fbb;color:#9b2c2c}
+.msg.info{background:#f7fafc;border:1px solid var(--bd);color:var(--tm)}
+.msg b{font-weight:800}
+.empty{padding:80px 20px;text-align:center;color:var(--ts);font-size:13px;line-height:1.8}
+.empty svg{opacity:.25;margin-bottom:14px}
+.zalo-pre{margin:0 20px 18px;background:#f7fafc;border:1px solid var(--bd);border-radius:10px;padding:13px 15px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--tm);white-space:pre-wrap;line-height:1.65;max-height:260px;overflow:auto}
+.badge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px}
+.b-tt{background:var(--gl);color:var(--g);border:1px solid rgba(0,116,55,.3)}
+.b-ut{background:#fffaf0;color:#b45309;border:1px solid #f6d8a8}
+@media(max-width:1100px){.shell{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="tb">
+  <div class="tb-l">
+    <img src="/logo-dbv247.png" alt="DBV247"/>
+    <h1>Tính phí bảo hiểm xe ô tô</h1>
+    <span class="tag">NỘI BỘ</span>
+  </div>
+  <div class="tb-r">
+    <a href="/admin/tham-dinh-gia-xe">Chỉ tra giá xe ↗</a>
+    <button id="b-key"><span class="key-dot key-off" id="key-dot"></span>Khoá</button>
+    <button id="b-reset">Làm mới</button>
+  </div>
+</div>
+
+<div class="shell">
+
+  <div class="panel">
+    <h2>Nhập liệu <small id="db-info">đang tải…</small></h2>
+    <div class="panel-b">
+
+      <div class="sec-lbl"><span class="step">BƯỚC 1</span>Xe và giá trị</div>
+
+      <div class="fg"><label>Sản phẩm</label>
+        <select id="f-sp">
+          <option value="xang">Vật chất ô tô (xăng / dầu)</option>
+          <option value="dien">Vật chất ô tô điện</option>
+        </select>
+      </div>
+
+      <div class="fg"><label>Hãng xe</label><select id="f-hang"><option value="">Đang tải…</option></select></div>
+      <div class="fg"><label>Dòng xe</label><select id="f-dong" disabled><option value="">— Chọn hãng —</option></select></div>
+      <div class="g2">
+        <div class="fg"><label>Năm sản xuất</label><select id="f-nam" disabled><option value="">—</option></select></div>
+        <div class="fg"><label>Năm ĐK lần đầu</label><select id="f-namdk"><option value="">—</option></select></div>
+      </div>
+      <div class="fg"><label>Phiên bản</label><select id="f-ver" disabled><option value="">— Chọn năm —</option></select></div>
+
+      <div class="gia-box" id="gia-box" style="display:none">
+        <div class="lb" id="gia-lb">Giá trị xe</div>
+        <div class="vl" id="gia-vl">—</div>
+        <div class="sb" id="gia-sb">—</div>
+      </div>
+
+      <div class="fg"><label>Số tiền bảo hiểm (sửa được)</label>
+        <input id="f-stbh" type="text" inputmode="numeric" placeholder="0"/>
+        <div class="hint">Tự điền từ giá tra được. Sửa tay nếu khách thoả thuận khác.</div>
+      </div>
+
+      <div class="sep"></div>
+      <div class="sec-lbl"><span class="step">BƯỚC 2</span>Điều kiện tính phí</div>
+
+      <div class="fg"><label>Nhóm xe theo biểu phí</label>
+        <select id="f-nhom">
+          <option value="nkd">Xe chở người không KDVT đến 9 chỗ</option>
+          <option value="kd">Xe KDVT đến 9 chỗ / taxi công nghệ</option>
+          <option value="pv">Xe pickup / xe van</option>
+        </select>
+      </div>
+
+      <div class="fg" id="wrap-kv"><label>Khu vực đăng ký</label>
+        <select id="f-kv"><option value="hn">Hà Nội</option><option value="khac">Tỉnh / thành khác</option></select>
+        <div class="hint">Ưu đãi 10% chỉ áp cho xe không KDVT, sản phẩm xăng/dầu.</div>
+      </div>
+
+      <div id="wrap-pin" style="display:none">
+        <div class="fg"><label>Bộ pin</label>
+          <select id="f-pin"><option value="mua">Mua đứt — pin thuộc sở hữu</option><option value="thue">Thuê pin — không bảo hiểm pin</option></select>
+        </div>
+        <div class="fg" id="wrap-pinval" style="display:none"><label>Giá trị bộ pin</label>
+          <input id="f-pinval" type="text" inputmode="numeric" placeholder="0"/>
+          <div class="hint">Số tiền bảo hiểm sẽ trừ đi phần này.</div>
+        </div>
+      </div>
+
+      <div class="sec-lbl" style="margin-top:16px">Điều khoản bổ sung</div>
+      <div class="chips">
+        <label class="chip" id="chip01"><input type="checkbox" id="d-bs01" checked/><span><b>BS01 — Thay mới không khấu hao</b><span>Phụ tùng thay mới bồi thường 100%</span></span></label>
+        <label class="chip" id="chip02"><input type="checkbox" id="d-bs02" checked/><span><b>BS02 — Chọn garage chính hãng</b><span>Sửa tại cơ sở uỷ quyền của hãng</span></span></label>
+        <label class="chip" id="chip06"><input type="checkbox" id="d-bs06" checked/><span><b>BS06 — Thuỷ kích</b><span>Điện, động cơ khi xe đi vùng ngập</span></span></label>
+      </div>
+
+      <div class="sep"></div>
+      <div class="sec-lbl">Khách hàng (tuỳ chọn)</div>
+      <div class="g2">
+        <div class="fg"><label>Tên khách</label><input id="i-kh" placeholder="Nguyễn Văn A"/></div>
+        <div class="fg"><label>Biển số</label><input id="i-bs" placeholder="30A-123.45"/></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Kết quả <small id="src-badge"></small></h2>
+
+    <div class="empty" id="out-empty">
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2v-3.28a2 2 0 0 0-.4-1.2l-2.1-2.8A2 2 0 0 0 16.9 9H5a2 2 0 0 0-2 2v6h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg>
+      <div>Chọn <b>hãng → dòng xe → năm SX → phiên bản</b>.<br/>Hệ thống tra giá thị trường rồi tính phí theo biểu phí QĐ 219/2026.</div>
+    </div>
+
+    <div id="out-live" style="display:none">
+      <div class="hero">
+        <div class="lb">Phí bảo hiểm vật chất</div>
+        <div class="vl" id="r-phi">—</div>
+        <div class="sb" id="r-phi-sb">—</div>
+        <div class="hero-act">
+          <button id="b-zalo">Chép báo phí gửi Zalo</button>
+          <button class="alt" id="b-so">Chép riêng số tiền</button>
+        </div>
+      </div>
+
+      <table class="tb2"><tbody id="r-rows"></tbody></table>
+
+      <div class="msg" id="r-msg"></div>
+
+      <div class="sec-lbl" style="margin:0 20px 8px">Nội dung sẽ chép</div>
+      <div class="zalo-pre" id="r-zalo">—</div>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/dinh-gia-engine.js"></script>
+<script src="/assets/bieu-phi-dbv.js"></script>
+<script>
+(function(){
+  var E=window.DinhGiaXe, P=window.BieuPhiDBV;
+  var DB=null, META=null, ban=null, tt=null, zaloText='';
+  function $(id){return document.getElementById(id);}
+  var elHang=$('f-hang'),elDong=$('f-dong'),elNam=$('f-nam'),elVer=$('f-ver'),elNamDK=$('f-namdk');
+
+  /* ── Khoá ────────────────────────────────────────────────────────────── */
+  function coKhoa(){return sessionStorage.getItem('dbv_key')||'';}
+  function veKhoa(){$('key-dot').className='key-dot '+(coKhoa()?'key-on':'key-off');}
+  $('b-key').onclick=function(){
+    var k=prompt('Nhập khoá nội bộ (DASHBOARD_KEY):',coKhoa());
+    if(k!==null){sessionStorage.setItem('dbv_key',k.trim());veKhoa();if(ban)tra();}
+  };
+  veKhoa();
+  $('b-reset').onclick=function(){location.reload();};
+
+  /* ── Số có dấu chấm ──────────────────────────────────────────────────── */
+  function dinhDangO(el){
+    var d=(el.value||'').replace(/[^0-9]/g,'');
+    el.value=d.replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+  }
+  function docO(el){return parseInt((el.value||'').replace(/[^0-9]/g,''),10)||0;}
+  $('f-stbh').oninput=function(){dinhDangO(this);tinh();};
+  $('f-pinval').oninput=function(){dinhDangO(this);tinh();};
+
+  /* ── Nạp CSDL xe ─────────────────────────────────────────────────────── */
+  function opt(sel,arr,ph){sel.innerHTML='<option value="">'+ph+'</option>'+arr.map(function(x){
+    return '<option value="'+String(x.v).replace(/"/g,'&quot;')+'">'+x.t+'</option>';}).join('');}
+  function reset(sel,ph){sel.innerHTML='<option value="">'+ph+'</option>';sel.disabled=true;}
+  function an(){ban=null;tt=null;$('out-live').style.display='none';$('out-empty').style.display='block';
+    $('gia-box').style.display='none';$('src-badge').innerHTML='';}
+
+  E.napDB('/data/gia-xe-db.json').then(function(j){
+    DB=j.data;META=j.meta;
+    $('db-info').textContent=j.meta.so_ban_ghi.toLocaleString('vi-VN')+' bản ghi · '+j.meta.capnhat;
+    opt(elHang,Object.keys(DB).map(function(b){return{v:b,t:b};}),'— Chọn hãng —');
+    elHang.disabled=false;
+  }).catch(function(){$('db-info').textContent='LỖI TẢI CSDL';});
+
+  elHang.onchange=function(){
+    reset(elDong,'— Chọn dòng xe —');reset(elNam,'—');reset(elVer,'— Chọn phiên bản —');an();
+    if(!this.value)return;
+    opt(elDong,Object.keys(DB[this.value]).map(function(m){return{v:m,t:m};}),'— Chọn dòng xe —');
+    elDong.disabled=false;
+  };
+  elDong.onchange=function(){
+    reset(elNam,'—');reset(elVer,'— Chọn phiên bản —');an();
+    if(!this.value)return;
+    var yrs=[];DB[elHang.value][this.value].forEach(function(r){if(yrs.indexOf(r[0])<0)yrs.push(r[0]);});
+    yrs.sort(function(a,b){return b-a;});
+    opt(elNam,yrs.map(function(y){return{v:y,t:y};}),'—');elNam.disabled=false;
+  };
+  elNam.onchange=function(){
+    reset(elVer,'— Chọn phiên bản —');an();
+    if(!this.value)return;
+    var y=+this.value,rows=DB[elHang.value][elDong.value].filter(function(r){return r[0]===y;});
+    opt(elVer,rows.map(function(r,i){return{v:i,t:(r[1]||'Bản tiêu chuẩn')};}),'— Chọn phiên bản —');
+    elVer.disabled=false;
+    /* Năm đăng ký mặc định bằng năm SX — xe thường đăng ký ngay trong năm.
+       Nhân viên sửa được vì xe tồn kho có thể đăng ký năm sau. */
+    var nam=[];for(var k=y;k<=new Date().getFullYear();k++)nam.push({v:k,t:k});
+    opt(elNamDK,nam,'—'); elNamDK.value=String(y);
+    if(rows.length===1){elVer.value='0';elVer.onchange();}
+  };
+  elVer.onchange=function(){
+    if(this.value===''){an();return;}
+    var y=+elNam.value,rows=DB[elHang.value][elDong.value].filter(function(r){return r[0]===y;});
+    ban=rows[+this.value]; tt=null;
+    datGia(); tra();
+  };
+  elNamDK.onchange=tinh;
+
+  /* ── Sản phẩm xăng/dầu vs điện ───────────────────────────────────────── */
+  $('f-sp').onchange=function(){
+    var dien=this.value==='dien';
+    $('wrap-pin').style.display=dien?'block':'none';
+    $('wrap-kv').style.display=dien?'none':'block';
+    tinh();
+  };
+  $('f-pin').onchange=function(){
+    $('wrap-pinval').style.display=this.value==='thue'?'block':'none';
+    tinh();
+  };
+  ['f-nhom','f-kv','d-bs01','d-bs02','d-bs06'].forEach(function(id){$(id).onchange=tinh;});
+
+  /* ── Bước 1: lấy giá trị xe ──────────────────────────────────────────── */
+  function giaHienTai(){
+    if(tt&&tt.trang_thai==='co')return {gia:tt.trung_vi,nguon:'thi_truong'};
+    if(ban)return {gia:E.traCuu(ban,0).gia_tri,nguon:'csdl'};
+    return null;
+  }
+  function datGia(){
+    var g=giaHienTai(); if(!g)return;
+    $('gia-box').style.display='block';
+    $('gia-lb').textContent=g.nguon==='thi_truong'?'Giá trị xe theo thị trường':'Giá trị xe theo dữ liệu nội bộ';
+    $('gia-vl').textContent=E.dinhDangVND(g.gia);
+    $('gia-sb').innerHTML = g.nguon==='thi_truong'
+      ? tt.so_tin+' tin rao trên '+tt.nguon+(tt.muc==='phien_ban'?' · phiên bản '+tt.phien_ban_khop:' · gộp cả dòng xe')
+      : (tt&&tt.trang_thai==='dang_tra'?'<span class="spin"></span>đang tra thị trường…':'bảng giá nội bộ '+(META?META.capnhat:''));
+    $('f-stbh').value=String(g.gia).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+    $('src-badge').innerHTML = g.nguon==='thi_truong'
+      ? '<span class="badge b-tt">GIÁ THỊ TRƯỜNG</span>'
+      : '<span class="badge b-ut">GIÁ NỘI BỘ</span>';
+    tinh();
+  }
+  function tra(){
+    if(!ban)return;
+    var key=coKhoa(); if(!key){tt={trang_thai:'thieu_khoa'};datGia();return;}
+    tt={trang_thai:'dang_tra'};datGia();
+    var xeLuc=ban;
+    fetch('/.netlify/functions/gia-thi-truong?hang='+encodeURIComponent(elHang.value)
+      +'&dong='+encodeURIComponent(elDong.value)+'&nam='+ban[0]
+      +'&phien_ban='+encodeURIComponent(ban[1]||''),{headers:{'x-dashboard-key':key}})
+      .then(function(r){if(r.status===401){sessionStorage.removeItem('dbv_key');veKhoa();throw new Error('Khoá sai');}return r.json();})
+      .then(function(j){if(ban!==xeLuc)return;tt=j.ok?Object.assign({trang_thai:'co'},j):Object.assign({trang_thai:'khong_co'},j);datGia();})
+      .catch(function(){if(ban!==xeLuc)return;tt={trang_thai:'khong_co'};datGia();});
+  }
+
+  /* ── Bước 2: tính phí ────────────────────────────────────────────────── */
+  function tinh(){
+    if(!ban)return;
+    var dien=$('f-sp').value==='dien';
+    var nhom=$('f-nhom').value;
+    var V=docO($('f-stbh'));
+    var kq=P.tinhPhi({
+      nhom_xe:nhom, gia_tri_xe:V, nam_dang_ky:elNamDK.value||ban[0],
+      khu_vuc:$('f-kv').value, xe_dien:dien,
+      gia_tri_pin: (dien&&$('f-pin').value==='thue')?docO($('f-pinval')):0,
+      bs01:$('d-bs01').checked, bs02:$('d-bs02').checked, bs06:$('d-bs06').checked
+    });
+
+    $('out-empty').style.display='none';
+    $('out-live').style.display='block';
+
+    /* BS02 có thể không thuộc phân cấp cho nhóm tuổi này */
+    var c02=$('chip02'), i02=$('d-bs02');
+    if(kq.ok&&!kq.bs02_duoc_phep){i02.checked=false;i02.disabled=true;c02.classList.add('dis');}
+    else{i02.disabled=false;c02.classList.remove('dis');}
+
+    if(!kq.ok){
+      $('r-phi').textContent='Liên hệ tư vấn';
+      $('r-phi-sb').textContent='—';
+      $('r-rows').innerHTML='';
+      $('r-msg').className='msg bad';
+      $('r-msg').innerHTML='<b>'+kq.thong_diep+'</b><br/>Trình phòng nghiệp vụ phê duyệt trước khi báo giá cho khách.';
+      $('r-zalo').textContent='—'; zaloText='';
+      return;
+    }
+
+    $('r-phi').textContent=P.dinhDangVND(kq.phi)+'/năm';
+    $('r-phi-sb').textContent='Tỷ lệ áp dụng '+P.dinhDangTyLe(kq.ty_le_ap_dung)
+      +' · nhóm tuổi '+kq.ten_nhom_tuoi;
+
+    var h='';
+    function row(a,b,c){return '<tr'+(c?' class="'+c+'"':'')+'><td>'+a+'</td><td class="r">'+b+'</td></tr>';}
+    h+=row('Xe',elHang.value+' '+elDong.value+' '+ban[0]+' — '+(ban[1]||'bản tiêu chuẩn'));
+    h+=row('Nhóm biểu phí',kq.ten_nhom);
+    h+=row('Năm đăng ký lần đầu',elNamDK.value+' ('+kq.ten_nhom_tuoi+')');
+    h+=row('Giá trị xe',P.dinhDangVND(kq.gia_tri_xe));
+    if(kq.gia_tri_pin>0){
+      h+=row('Trừ giá trị bộ pin (thuê)','− '+P.dinhDangVND(kq.gia_tri_pin));
+      h+=row('Số tiền bảo hiểm',P.dinhDangVND(kq.stbh));
+    }
+    h+=row('Tỷ lệ cơ bản',P.dinhDangTyLe(kq.ty_le_co_ban));
+    ['bs01','bs02','bs06'].forEach(function(k){
+      var d=kq.dkbs[k];
+      if(d.ty_le===null){h+=row(P.DKBS[k],'<span style="color:#b45309;font-weight:400">ngoài phân cấp</span>');return;}
+      h+=row(P.DKBS[k], d.chon?'+ '+P.dinhDangTyLe(d.ty_le):'<span style="color:#a0aec0;font-weight:400">không tham gia</span>');
+    });
+    h+=row('Tổng tỷ lệ',P.dinhDangTyLe(kq.ty_le_goc));
+    if(kq.uu_dai_hn) h+=row('Ưu đãi Hà Nội','− 10%');
+    if(kq.cham_san_phi_thuan) h+=row('Sàn phí thuần',P.dinhDangTyLe(kq.phi_thuan));
+    h+=row('<b>Tỷ lệ áp dụng</b>','<b>'+P.dinhDangTyLe(kq.ty_le_ap_dung)+'</b>');
+    h+=row('<b>Phí bảo hiểm năm</b>','<b>'+P.dinhDangVND(kq.phi)+'</b>','tong');
+    $('r-rows').innerHTML=h;
+
+    var canhBao=[];
+    if(kq.ap_phi_toi_thieu)canhBao.push('Đã áp <b>phí tối thiểu</b> theo quy định (phí tính ra thấp hơn mức sàn).');
+    if(kq.cham_san_phi_thuan)canhBao.push('Ưu đãi Hà Nội bị chặn ở <b>sàn phí thuần '+P.dinhDangTyLe(kq.phi_thuan)+'</b>.');
+    if(!kq.bs02_duoc_phep)canhBao.push('<b>BS02 ngoài phân cấp Chi nhánh</b> cho nhóm tuổi này — muốn có phải trình duyệt.');
+    var g=giaHienTai();
+    if(g&&g.nguon!=='thi_truong')canhBao.push('Giá trị xe đang lấy từ <b>bảng nội bộ</b> ('+(META?META.capnhat:'')+'), chưa phải giá thị trường.');
+    if(docO($('f-stbh'))!==(g?g.gia:0))canhBao.push('Số tiền bảo hiểm đã <b>sửa tay</b>, khác giá tra được.');
+
+    $('r-msg').className='msg '+(canhBao.length?'warn':'ok');
+    $('r-msg').innerHTML=canhBao.length
+      ? '⚠ '+canhBao.join('<br/>⚠ ')
+      : 'Phí tính theo <b>'+P.nguon+'</b>. Kiểm tra lại nhóm xe và năm đăng ký trước khi báo khách.';
+
+    /* Text gửi Zalo */
+    var ten=$('i-kh').value.trim(), bs=$('i-bs').value.trim();
+    var d=new Date();
+    var z='BÁO PHÍ BẢO HIỂM VẬT CHẤT Ô TÔ'+(dien?' ĐIỆN':'')+'\n'
+      +(ten?'Khách hàng: '+ten+'\n':'')
+      +(bs?'Biển số: '+bs+'\n':'')
+      +'Xe: '+elHang.value+' '+elDong.value+' '+ban[0]+' — '+(ban[1]||'bản tiêu chuẩn')+'\n'
+      +'Năm đăng ký: '+elNamDK.value+'\n'
+      +'Số tiền bảo hiểm: '+P.dinhDangVND(kq.stbh)+'\n'
+      +'Quyền lợi bổ sung: '+(['bs01','bs02','bs06'].filter(function(k){return kq.dkbs[k].chon;})
+          .map(function(k){return k.toUpperCase();}).join(', ')||'không')+'\n'
+      +'---\n'
+      +'PHÍ BẢO HIỂM: '+P.dinhDangVND(kq.phi)+'/năm\n'
+      +'(tỷ lệ '+P.dinhDangTyLe(kq.ty_le_ap_dung)+', biểu phí QĐ 219/2026)\n'
+      +'---\n'
+      +'Phí trên là tham khảo, chốt chính thức sau khi kiểm tra hồ sơ xe.\n'
+      +'Báo ngày '+d.toLocaleDateString('vi-VN')+' — DBV247 · 0869 656 561';
+    zaloText=z;
+    $('r-zalo').textContent=z;
+  }
+
+  function chep(t,nut){
+    navigator.clipboard.writeText(t).then(function(){
+      var o=nut.textContent;nut.textContent='✓ Đã chép';setTimeout(function(){nut.textContent=o;},1600);
+    });
+  }
+  $('b-zalo').onclick=function(){if(zaloText)chep(zaloText,this);};
+  $('b-so').onclick=function(){
+    var m=/PHÍ BẢO HIỂM: ([\d.]+)đ/.exec(zaloText);
+    if(m)chep(m[1].replace(/\./g,''),this);
+  };
+  ['i-kh','i-bs'].forEach(function(id){$(id).oninput=function(){if(ban)tinh();};});
+})();
+</script>
+</body>
+</html>
