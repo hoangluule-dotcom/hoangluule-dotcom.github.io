@@ -190,9 +190,6 @@ function ungVienSlug(ten) {
    trong CSDL. Tên hai bên không bao giờ trùng khít ("1.5G CVT" bên CSDL vs
    "1.5g" bên Bonbanh), nên dùng khớp mờ có trọng số.                          */
 
-/* Token mã động cơ (1.5e, 2.4g, 2.0) mang nhiều thông tin nhất — nặng gấp 3
-   lần token thường. Hai xe cùng "cvt" nhưng khác máy thì không phải một bản. */
-const TRONG_SO_MA_MAY = 3;
 const TOKEN_HOP_SO = ["mt", "at", "cvt", "dct", "amt"];
 
 function tachToken(ten) {
@@ -200,38 +197,72 @@ function tachToken(ten) {
     .toLowerCase()
     .replace(/[^a-z0-9.]+/g, " ")
     .split(" ")
-    .filter((x) => x && x !== "toyota" && x.length <= 12);
+    .filter((x) => x && x.length <= 12);
 }
 
-function laMaMay(tk) {
-  return /^\d(\.\d)?[a-z]{0,3}$/.test(tk) && /\d/.test(tk);
+/* Tách tên phiên bản thành các đặc trưng có ý nghĩa khác nhau.
+
+   Vì sao phải tách thay vì so token thô: hai bên viết khác nhau một cách có
+   hệ thống. Bonbanh ghi "2.4L" (L = lít), CSDL ghi "2.4G" (G = cấp trang bị).
+   So token thô thì "2.4g" khác "2.4l" nên trượt, trong khi thực chất là cùng
+   một chiếc xe. Ngược lại "2.7" và "2.8l" chỉ khác đúng con số dung tích mà
+   phần còn lại giống hệt, nên điểm vẫn đủ cao để nhận nhầm.
+
+   Lỗi thật đã xảy ra: bản 2.7 Legender bị khớp sang 2.8 Legender, trả về giá
+   của một chiếc xe khác.                                                     */
+function tachDacTrung(ten) {
+  const tk = tachToken(ten);
+  let dungTich = null, danDong = null, hopSo = null, cap = null;
+  const con = [];
+
+  for (const t of tk) {
+    const m = /^(\d(?:\.\d)?)([a-z]{0,3})$/.exec(t);
+    if (m) {
+      if (dungTich === null) dungTich = m[1];
+      /* Chữ "l" sau số là đơn vị lít, không phải cấp trang bị — bỏ đi.
+         Các chữ khác (g, e, v, j) mới là cấp trang bị, phải so. */
+      const chu = m[2];
+      if (chu && chu !== "l" && cap === null) cap = chu;
+      continue;
+    }
+    if (/^4x\d$/.test(t)) { danDong = t; continue; }
+    if (TOKEN_HOP_SO.indexOf(t) >= 0) { hopSo = t; continue; }
+    con.push(t);
+  }
+  return { dungTich, danDong, hopSo, cap, con };
 }
 
-function trongSo(tk) {
-  return laMaMay(tk) ? TRONG_SO_MA_MAY : 1;
-}
-
-function hopSoCua(tokens) {
-  return tokens.find((t) => TOKEN_HOP_SO.indexOf(t) >= 0) || null;
-}
-
-/* Hệ số Dice có trọng số, phạt nặng khi hộp số mâu thuẫn. */
-function diemKhop(tenA, tenB) {
-  const a = tachToken(tenA), b = tachToken(tenB);
+function diceToken(a, b) {
+  if (!a.length && !b.length) return 1;
   if (!a.length || !b.length) return 0;
-
   const setB = new Set(b);
   let chung = 0;
   const daDem = new Set();
-  for (const t of a) {
-    if (setB.has(t) && !daDem.has(t)) { chung += trongSo(t); daDem.add(t); }
-  }
-  const tongA = a.reduce((s, t) => s + trongSo(t), 0);
-  const tongB = b.reduce((s, t) => s + trongSo(t), 0);
-  let d = (2 * chung) / (tongA + tongB);
+  for (const t of a) if (setB.has(t) && !daDem.has(t)) { chung++; daDem.add(t); }
+  return (2 * chung) / (a.length + b.length);
+}
 
-  const hsA = hopSoCua(a), hsB = hopSoCua(b);
-  if (hsA && hsB && hsA !== hsB) d *= 0.4;
+/**
+ * Điểm giống nhau giữa hai tên phiên bản, 0 đến 1.
+ * Dung tích máy và dẫn động là hai thứ KHÔNG được sai — lệch là loại thẳng,
+ * vì đó chính là chỗ phân biệt hai chiếc xe có giá chênh nhau hàng trăm triệu.
+ */
+function diemKhop(tenA, tenB) {
+  const A = tachDacTrung(tenA), B = tachDacTrung(tenB);
+  if (!tachToken(tenA).length || !tachToken(tenB).length) return 0;
+
+  if (A.dungTich && B.dungTich && A.dungTich !== B.dungTich) return 0;
+  if (A.danDong && B.danDong && A.danDong !== B.danDong) return 0;
+
+  let d = 1;
+  if (A.hopSo && B.hopSo && A.hopSo !== B.hopSo) d *= 0.35;
+  if (A.cap && B.cap && A.cap !== B.cap) d *= 0.30;
+
+  /* Phần chữ còn lại: legender, trd, sportivo, limo, gr, s… */
+  d *= 0.55 + 0.45 * diceToken(A.con, B.con);
+
+  /* Thiếu dung tích ở một bên thì bớt tự tin đi một chút. */
+  if (!A.dungTich || !B.dungTich) d *= 0.85;
 
   return Math.round(d * 1000) / 1000;
 }
@@ -258,8 +289,12 @@ function chonPhienBan(theoPhienBan, tenCSDL, toiThieuTin) {
     .map((n) => ({ ...n, diem_khop: diemKhop(tenCSDL, n.ten) }))
     .sort((x, y) => y.diem_khop - x.diem_khop || y.so_tin - x.so_tin);
 
+  /* Ngưỡng 0,6 chứ không phải 0,5. Ở mức 0,5 thì "2.7 LEGENDER 4X4 AT" khớp
+     được sang "2.7l 4x4 at" — cùng máy cùng dẫn động nhưng khác cấp trang bị
+     Legender, giá chênh cả trăm triệu. Mọi ca khớp đúng đều đạt từ 0,85 trở
+     lên, nên nâng ngưỡng không mất gì. */
   const tot = chamDiem[0];
-  if (!tot || tot.diem_khop < 0.5 || tot.so_tin < min) return null;
+  if (!tot || tot.diem_khop < 0.6 || tot.so_tin < min) return null;
   return tot;
 }
 
@@ -532,6 +567,7 @@ module.exports = {
   chonPhienBan,
   diemKhop,
   tachToken,
+  tachDacTrung,
   tenPhienBanTuSlug,
   thongKe,
   ungVienSlug,

@@ -62,6 +62,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:#eef2f6;
 .gia-box .fix button{background:#9b2c2c;color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer}
 .gia-box .fix button:hover{filter:brightness(1.15)}
 .gia-box .fix .alt{background:#fff;color:#9b2c2c;border:1.5px solid #fbb}
+.chontay{margin-top:10px;border-top:1px dashed rgba(155,44,44,.3);padding-top:9px}
+.chontay .ct-lb{font-size:11px;color:#9b2c2c;font-weight:700;margin-bottom:7px;line-height:1.5}
+.chontay button{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid #fbb;border-radius:8px;padding:8px 11px;margin-bottom:6px;font-family:inherit;font-size:12px;color:var(--tm);cursor:pointer}
+.chontay button:hover{border-color:var(--g);color:var(--dk)}
+.chontay button b{color:var(--dk)}
 
 /* Banner chưa nhập khoá — cố tình to và khó bỏ qua */
 .nokey{background:#9b2c2c;color:#fff;padding:12px 22px;display:none;align-items:center;justify-content:space-between;gap:14px;font-size:13px;flex-wrap:wrap}
@@ -271,7 +276,7 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
   function opt(sel,arr,ph){sel.innerHTML='<option value="">'+ph+'</option>'+arr.map(function(x){
     return '<option value="'+String(x.v).replace(/"/g,'&quot;')+'">'+x.t+'</option>';}).join('');}
   function reset(sel,ph){sel.innerHTML='<option value="">'+ph+'</option>';sel.disabled=true;}
-  function an(){ban=null;tt=null;$('out-live').style.display='none';$('out-empty').style.display='block';
+  function an(){ban=null;tt=null;chonTay=null;$('out-live').style.display='none';$('out-empty').style.display='block';
     $('gia-box').style.display='none';$('src-badge').innerHTML='';}
 
   E.napDB('/data/gia-xe-db.json').then(function(j){
@@ -309,7 +314,7 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
   elVer.onchange=function(){
     if(this.value===''){an();return;}
     var y=+elNam.value,rows=DB[elHang.value][elDong.value].filter(function(r){return r[0]===y;});
-    ban=rows[+this.value]; tt=null;
+    ban=rows[+this.value]; tt=null; chonTay=null;
     datGia(); tra();
   };
   elNamDK.onchange=tinh;
@@ -328,9 +333,18 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
   ['f-nhom','f-kv','d-bs01','d-bs02','d-bs06'].forEach(function(id){$(id).onchange=tinh;});
 
   /* ── Bước 1: lấy giá trị xe ──────────────────────────────────────────── */
+  /* Nhân viên tự chọn nhóm phiên bản khi máy không khớp được. */
+  var chonTay=null;
+
+  /* CHỈ dùng giá thị trường khi đã khớp ĐÚNG phiên bản.
+     Lỗi cũ: lấy luôn trung vị gộp cả dòng xe làm số tiền bảo hiểm. Vios 2020
+     gộp ra 317tr trong khi bản 1.5G thật là 383tr — phí tính ra sai theo, mà
+     trên giao diện trông y như bình thường. Thà lùi về bảng nội bộ và nói rõ. */
   function giaHienTai(){
-    if(tt&&tt.trang_thai==='co')return {gia:tt.trung_vi,nguon:'thi_truong'};
-    if(ban)return {gia:E.traCuu(ban,0).gia_tri,nguon:'csdl'};
+    if(chonTay) return {gia:chonTay.trung_vi,nguon:'thi_truong',nhom:chonTay};
+    if(tt&&tt.trang_thai==='co'&&tt.muc==='phien_ban')
+      return {gia:tt.trung_vi,nguon:'thi_truong',nhom:null};
+    if(ban)return {gia:E.traCuu(ban,0).gia_tri,nguon:'csdl',nhom:null};
     return null;
   }
   /* Nói thẳng vì sao không có giá thị trường, kèm nút xử lý ngay tại chỗ.
@@ -341,7 +355,24 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
     if(t==='thieu_khoa')  return {vi:'Chưa nhập khoá nội bộ nên không gọi được máy chủ tra giá.', nut:'khoa'};
     if(t==='loi')         return {vi:'Không gọi được máy chủ tra giá'+(tt.thong_diep?' ('+tt.thong_diep+')':'')+'.', nut:'thu_lai'};
     if(t==='khong_co')    return {vi:(tt.thong_diep||'Không tra được giá thị trường cho xe này.'), nut:'thu_lai'};
+    if(t==='co'&&tt.muc!=='phien_ban')
+      return {vi:'Tra được tin rao nhưng KHÔNG khớp được phiên bản. Không dùng giá gộp cả dòng xe làm số tiền bảo hiểm được — chọn đúng bản bên dưới.', nut:'chon'};
     return {vi:'Chưa tra giá thị trường.', nut:'thu_lai'};
+  }
+
+  /* Danh sách nhóm phiên bản để nhân viên tự chọn khi máy chịu thua. */
+  function veChonTay(box){
+    if(!(tt&&tt.theo_phien_ban&&tt.theo_phien_ban.length))return;
+    var d=document.createElement('div');
+    d.id='gia-chon'; d.className='chontay';
+    d.innerHTML='<div class="ct-lb">Bonbanh đang có các bản sau — chọn bản đúng với xe của khách:</div>'
+      +tt.theo_phien_ban.map(function(p,i){
+        return '<button data-i="'+i+'">'+p.ten+' · '+p.so_tin+' tin · <b>'+E.dinhDangVND(p.trung_vi)+'</b></button>';
+      }).join('');
+    box.appendChild(d);
+    Array.prototype.forEach.call(d.querySelectorAll('button'),function(b){
+      b.onclick=function(){ chonTay=tt.theo_phien_ban[+this.dataset.i]; datGia(); };
+    });
   }
 
   function datGia(){
@@ -355,23 +386,31 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
       : (dangTra?'Đang tra giá thị trường':'⚠ Đang dùng giá nội bộ, KHÔNG phải giá thị trường');
     $('gia-vl').textContent=E.dinhDangVND(g.gia);
 
-    var fix=document.getElementById('gia-fix');
+    var fix=document.getElementById('gia-fix'), ct=document.getElementById('gia-chon');
+    if(fix)fix.remove(); if(ct)ct.remove();
+
     if(g.nguon==='thi_truong'){
-      $('gia-sb').innerHTML=tt.so_tin+' tin rao trên '+tt.nguon
-        +(tt.muc==='phien_ban'?' · phiên bản '+tt.phien_ban_khop:' · gộp cả dòng xe')
-        +(tt.tu_cache?' · bản quét sẵn '+tt.tuoi_gio+'h trước':' · vừa tra');
-      if(fix)fix.remove();
+      $('gia-sb').innerHTML=(g.nhom
+          ? g.nhom.so_tin+' tin rao · bản "'+g.nhom.ten+'" do bạn tự chọn'
+          : tt.so_tin+' tin rao trên '+tt.nguon+' · phiên bản '+tt.phien_ban_khop
+            +(tt.tu_cache?' · bản quét sẵn '+tt.tuoi_gio+'h trước':' · vừa tra'));
+      if(g.nhom){
+        var d=document.createElement('div');d.id='gia-fix';d.className='fix';
+        d.innerHTML='<button class="alt" id="fx-bo">Bỏ chọn tay</button>';
+        box.appendChild(d);
+        document.getElementById('fx-bo').onclick=function(){chonTay=null;datGia();};
+      }
     }else if(dangTra){
       $('gia-sb').innerHTML='<span class="spin"></span>đang đọc tin rao trên Bonbanh…';
-      if(fix)fix.remove();
     }else{
       var l=lyDoLui();
       $('gia-sb').innerHTML='<b>'+l.vi+'</b><br>Số đang hiện là bảng giá nội bộ cập nhật '+(META?META.capnhat:'—')+'.';
-      if(!fix){fix=document.createElement('div');fix.id='gia-fix';fix.className='fix';box.appendChild(fix);}
+      fix=document.createElement('div');fix.id='gia-fix';fix.className='fix';box.appendChild(fix);
       fix.innerHTML = (l.nut==='khoa'?'<button id="fx-khoa">Nhập khoá</button>':'')
         +'<button class="alt" id="fx-thu">Thử tra lại</button>';
       var a=document.getElementById('fx-khoa'); if(a)a.onclick=hoiKhoa;
       document.getElementById('fx-thu').onclick=function(){tra();};
+      if(l.nut==='chon')veChonTay(box);
     }
 
     $('f-stbh').value=String(g.gia).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
@@ -464,6 +503,7 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
     if(!kq.bs02_duoc_phep)canhBao.push('<b>BS02 ngoài phân cấp Chi nhánh</b> cho nhóm tuổi này — muốn có phải trình duyệt.');
     var g=giaHienTai();
     if(g&&g.nguon!=='thi_truong')canhBao.push('Giá trị xe đang lấy từ <b>bảng nội bộ</b> ('+(META?META.capnhat:'')+'), chưa phải giá thị trường.');
+    if(g&&g.nhom)canhBao.push('Phiên bản do <b>bạn tự chọn</b> ("'+g.nhom.ten+'"), không phải máy khớp — kiểm tra lại cho đúng xe của khách.');
     if(docO($('f-stbh'))!==(g?g.gia:0))canhBao.push('Số tiền bảo hiểm đã <b>sửa tay</b>, khác giá tra được.');
 
     $('r-msg').className='msg '+(canhBao.length?'warn':'ok');
