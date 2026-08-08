@@ -76,7 +76,7 @@ function boThe(html) {
     .trim();
 }
 
-/* "310" + "Triệu" -> 310000000 ; "1 tỷ 250" -> 1250000000 */
+/* Đổi một cặp số + đơn vị. "310" + "Triệu" -> 310.000.000 */
 function doiTienVND(so, donVi) {
   const n = parseFloat(String(so).replace(/\./g, "").replace(/,/g, "."));
   if (!isFinite(n)) return 0;
@@ -85,6 +85,62 @@ function doiTienVND(so, donVi) {
   if (d.startsWith("tri")) return Math.round(n * 1e6);
   return 0;
 }
+
+/* ── Đọc giá từ một đoạn chữ ────────────────────────────────────────────────
+   LỖI NGHIÊM TRỌNG ĐÃ TỪNG CÓ — đừng lặp lại:
+
+   Bonbanh viết giá tiền tỷ thành HAI SỐ liền nhau: "1 Tỷ 180 Triệu".
+   Bản cũ chỉ bắt một cặp số+đơn vị:
+     - lấy cặp đầu  -> 1 Tỷ           = 1.000.000.000  (thiếu 180 triệu)
+     - lấy cặp cuối -> 180 Triệu      =   180.000.000  (sai hơn 1 tỷ)
+   Nghĩa là MỌI xe trên 1 tỷ đều bị định giá sai. Honda CR-V 2024 bản e:HEV RS
+   giá thật 1,18 tỷ bị đọc thành đúng 1 tỷ.
+
+   Cách đúng: gom các cặp số+đơn vị ĐỨNG LIỀN NHAU thành một cụm rồi cộng lại.
+   "1 Tỷ 180 Triệu" -> 1e9 + 180e6 = 1.180.000.000                            */
+/* KHÔNG dùng \b sau đơn vị. Trong JavaScript, \b chỉ tính ký tự ASCII là ký
+   tự từ, nên "ỷ" trong "Tỷ" bị coi là không phải chữ — đứng trước dấu cách thì
+   không có ranh giới từ, và "1 Tỷ" không khớp được gì cả. Dùng lookahead loại
+   trừ chữ cái, có kể cả chữ tiếng Việt. */
+const RE_CAP_GIA = /(\d[\d.,]*)\s*(t[yỷỹ]|tri[êệe]u)(?![a-zà-ỹ])/gi;
+
+/**
+ * Tìm tất cả cụm giá trong chuỗi. Hai cặp cách nhau dưới 3 ký tự thì coi là
+ * cùng một cụm ("1 Tỷ 180 Triệu"); xa hơn thì là hai giá khác nhau.
+ * @returns {Array<{gia:number, dau:number, cuoi:number}>}
+ */
+function timCumGia(chuoi) {
+  const s = String(chuoi || "");
+  const cap = [];
+  let m;
+  RE_CAP_GIA.lastIndex = 0;
+  while ((m = RE_CAP_GIA.exec(s)) !== null) {
+    cap.push({ so: m[1], dv: m[2], dau: m.index, cuoi: m.index + m[0].length });
+  }
+  if (!cap.length) return [];
+
+  const cum = [];
+  let hienTai = [cap[0]];
+  for (let i = 1; i < cap.length; i++) {
+    const khoangCach = cap[i].dau - hienTai[hienTai.length - 1].cuoi;
+    const laTyRoiTrieu =
+      boDau(hienTai[hienTai.length - 1].dv).toLowerCase().startsWith("ty") &&
+      boDau(cap[i].dv).toLowerCase().startsWith("tri");
+    if (khoangCach >= 0 && khoangCach <= 3 && laTyRoiTrieu) hienTai.push(cap[i]);
+    else { cum.push(hienTai); hienTai = [cap[i]]; }
+  }
+  cum.push(hienTai);
+
+  return cum.map((c) => ({
+    gia: c.reduce((s2, x) => s2 + doiTienVND(x.so, x.dv), 0),
+    dau: c[0].dau,
+    cuoi: c[c.length - 1].cuoi
+  }));
+}
+
+/* Cụm giá đầu tiên / cuối cùng trong chuỗi. */
+function giaDau(chuoi) { const c = timCumGia(chuoi); return c.length ? c[0].gia : 0; }
+function giaCuoi(chuoi) { const c = timCumGia(chuoi); return c.length ? c[c.length - 1].gia : 0; }
 
 /* ── Thống kê ────────────────────────────────────────────────────────────── */
 
@@ -340,9 +396,13 @@ function bocTuTitle(html) {
   let m;
   while ((m = re.exec(html)) !== null) {
     const [, verSlug, nam, ma, title] = m;
-    const g = /\bgia\s+([\d.,]+)\s*(tri[eệ]u|t[yỷ])/i.exec(boDau(title));
-    if (!g) continue;
-    ra.push({ ma, nam: +nam, ver_slug: verSlug, gia: doiTienVND(g[1], g[2]) });
+    /* Cắt từ chữ "gia " trở đi rồi lấy cụm giá đầu tiên — cụm chứ không phải
+       một cặp số, vì "gia 1 Tỷ 180 Triệu" là một giá duy nhất. */
+    const sau = /\bgia\b/i.exec(boDau(title));
+    if (!sau) continue;
+    const gia = giaDau(title.slice(sau.index));
+    if (!gia) continue;
+    ra.push({ ma, nam: +nam, ver_slug: verSlug, gia });
   }
   return ra;
 }
@@ -358,7 +418,6 @@ function bocTuText(html) {
   const text = boThe(html);
   const ra = [];
   const re = /M[ãa]:\s*(\d{4,})([\s\S]{0,700}?)(?=M[ãa]:\s*\d{4,}|$)/g;
-  const reGia = /([\d][\d.,]*)\s*(Tri[êệe]u|T[yỷỹ])\b/gi;
   let m;
   while ((m = re.exec(text)) !== null) {
     const ma = m[1];
@@ -366,13 +425,9 @@ function bocTuText(html) {
     const truoc = text.slice(Math.max(0, m.index - 400), m.index);
     const kho = boDau(truoc + " " + than).toLowerCase();
 
-    /* Lấy giá cuối cùng trước "Mã:" — gần tin nhất, ít lẫn sang tin kề bên. */
-    let g = null, x;
-    reGia.lastIndex = 0;
-    while ((x = reGia.exec(truoc)) !== null) g = x;
-    if (!g) continue;
-
-    const gia = doiTienVND(g[1], g[2]);
+    /* Cụm giá cuối cùng trước "Mã:" — gần tin nhất, ít lẫn sang tin kề bên.
+       Phải là CỤM chứ không phải một cặp số, để gộp được "1 Tỷ 180 Triệu". */
+    const gia = giaCuoi(truoc);
     if (!gia) continue;
 
     const odo = /da di\s+([\d][\d.,]*)\s*km/.exec(kho);
@@ -575,6 +630,9 @@ module.exports = {
   boThe,
   boDau,
   doiTienVND,
+  timCumGia,
+  giaDau,
+  giaCuoi,
   locNgoaiLai,
   bocTuTitle,
   bocTuText,
