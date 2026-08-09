@@ -39,6 +39,14 @@
   status = 404
   force = true
 
+# Thư mục scripts nằm trong repo để GitHub Actions chạy được, nhưng không có
+# lý do gì để nó xuất hiện trên internet.
+[[redirects]]
+  from = "/scripts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

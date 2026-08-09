@@ -1,0 +1,121 @@
+# Cập nhật bảng giá xe hàng tháng
+#
+#  Chạy 01:00 ngày mùng 2 hàng tháng (giờ Việt Nam), quét giá thị trường rồi
+#  MỞ PULL REQUEST kèm báo cáo thay đổi. Không tự merge — người xem báo cáo
+#  rồi mới quyết định phát hành.
+#
+#  Vì sao qua Pull Request: đây là bước duyệt của con người. Quét sai thì
+#  đóng PR, file đang chạy vẫn nguyên vẹn. Merge nhầm thì git revert.
+#
+#  Chạy tay: tab Actions > chọn workflow này > Run workflow.
+#  Muốn thử nhanh thì đặt "gioi_han" = 20 để chỉ quét 20 cặp xe.
+
+name: Cập nhật bảng giá xe
+
+on:
+  schedule:
+    # 18:00 UTC ngày mùng 1 = 01:00 ngày mùng 2 giờ VN
+    - cron: "0 18 1 * *"
+  workflow_dispatch:
+    inputs:
+      gioi_han:
+        description: "Số cặp xe tối đa (0 = quét đầy đủ)"
+        required: false
+        default: "0"
+      nam_tu:
+        description: "Chỉ quét xe từ đời này trở lại đây"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  quet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Lấy mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Kiểm thử trước khi quét
+        # Parser hỏng thì đừng quét, quét chỉ tốn thời gian và làm phiền
+        # máy chủ người ta.
+        run: |
+          node scripts/test_bat_bien.js
+          node scripts/test_khop_phien_ban.js
+          node scripts/test_gia_ty.js
+
+      - name: Quét giá thị trường
+        id: quet
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.gioi_han }}" ] && [ "${{ github.event.inputs.gioi_han }}" != "0" ]; then
+            ARGS="$ARGS --gioi-han ${{ github.event.inputs.gioi_han }}"
+          fi
+          if [ -n "${{ github.event.inputs.nam_tu }}" ]; then
+            ARGS="$ARGS --nam-tu ${{ github.event.inputs.nam_tu }}"
+          fi
+          set +e
+          node scripts/cap_nhat_gia_thang.js $ARGS
+          echo "ma_thoat=$?" >> $GITHUB_OUTPUT
+          set -e
+
+      - name: Kiểm tra file sinh ra có hợp lệ không
+        run: |
+          node -e "
+            const fs=require('fs');
+            const d=JSON.parse(fs.readFileSync('data/gia-xe-db.json','utf8'));
+            if(!d.data||!d.meta) throw new Error('cấu trúc file hỏng');
+            if(d.meta.so_ban_ghi < 10000) throw new Error('mất dữ liệu: chỉ còn '+d.meta.so_ban_ghi+' bản ghi');
+            console.log('File hợp lệ:', d.meta.so_ban_ghi, 'bản ghi');
+          "
+
+      - name: Xem có gì thay đổi không
+        id: doi
+        run: |
+          if git diff --quiet data/gia-xe-db.json; then
+            echo "co_doi=false" >> $GITHUB_OUTPUT
+            echo "Không có thay đổi nào — không mở PR."
+          else
+            echo "co_doi=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Mở Pull Request
+        if: steps.doi.outputs.co_doi == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          KY=$(date +'%Y-%m')
+          NHANH="cap-nhat-gia-xe/$KY-${{ github.run_number }}"
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$NHANH"
+          git add data/gia-xe-db.json bao-cao-cap-nhat-gia.md
+          git commit -m "Cap nhat bang gia xe ky $KY"
+          git push -u origin "$NHANH"
+
+          TIEUDE="Cập nhật bảng giá xe kỳ $KY"
+          if [ "${{ steps.quet.outputs.ma_thoat }}" = "2" ]; then
+            TIEUDE="⚠ NGHI PARSER HỎNG — $TIEUDE"
+          fi
+
+          gh pr create \
+            --title "$TIEUDE" \
+            --body-file bao-cao-cap-nhat-gia.md \
+            --base main \
+            --head "$NHANH"
+
+      - name: Nhắc khi nghi parser hỏng
+        if: steps.quet.outputs.ma_thoat == '2'
+        run: |
+          echo "::warning::Hơn 60% lượt quét không đạt kiểm tra chất lượng."
+          echo "::warning::Nhiều khả năng trang nguồn đã đổi giao diện — xem kỹ trước khi merge."
