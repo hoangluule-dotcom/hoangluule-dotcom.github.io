@@ -281,7 +281,12 @@ function tachDacTrung(ten) {
       if (chu && chu !== "l" && cap === null) cap = chu;
       continue;
     }
-    if (/^4x\d$/.test(t)) { danDong = t; continue; }
+    /* Dẫn động gồm cả dạng 4x2/4x4 lẫn dạng chữ AWD/4WD/FWD.
+       LỖI THẬT ĐÃ BẮT ĐƯỢC: "L AWD" từng khớp sang nhóm "l" với điểm 0,72 —
+       cùng chữ L, chỉ khác mỗi AWD, mà Dice vẫn cho điểm cao. Kết quả là bản
+       hai cầu 1,113 tỷ bị gán giá bản một cầu 960 triệu. AWD là thông tin dẫn
+       động, phải xử lý ngang hàng với 4x4 chứ không phải một chữ thường. */
+    if (/^4x\d$/.test(t) || /^(awd|4wd|2wd|fwd|rwd)$/.test(t)) { danDong = t; continue; }
     if (TOKEN_HOP_SO.indexOf(t) >= 0) { hopSo = t; continue; }
     con.push(t);
   }
@@ -311,6 +316,10 @@ function diemKhop(tenA, tenB) {
   if (A.danDong && B.danDong && A.danDong !== B.danDong) return 0;
 
   let d = 1;
+
+  /* Một bên ghi dẫn động, bên kia không ghi — đây là khác biệt thật, không
+     phải cách viết. "L AWD" và "L" là hai chiếc xe khác nhau. */
+  if (!!A.danDong !== !!B.danDong) d *= 0.5;
   if (A.hopSo && B.hopSo && A.hopSo !== B.hopSo) d *= 0.35;
   if (A.cap && B.cap && A.cap !== B.cap) d *= 0.30;
 
@@ -387,6 +396,27 @@ async function taiTrang(url) {
    Ba chiến lược độc lập, chạy cả ba rồi hợp nhất theo mã tin. Một chiến lược
    chết vì đổi giao diện thì hai cái còn lại vẫn cho ra số. */
 
+/* Chiến lược 0 — QUAN TRỌNG NHẤT: quét riêng các đường dẫn tin.
+
+   Vì sao phải tách riêng: bản cũ lấy tên phiên bản kèm trong chiến lược A,
+   mà A đòi thẻ <a> có href RỒI MỚI tới title. HTML thật của Bonbanh không
+   xếp thuộc tính theo thứ tự đó, nên A không bắt được gì. Hậu quả: mọi tin
+   rơi hết vào một nhóm tên "khong ro" — Honda CR-V 2024 gom cả 36 tin của
+   bốn phiên bản làm một, trung vị 1,14 tỷ chẳng ứng với chiếc xe nào.
+
+   Đường dẫn thì không thể thiếu, vì thiếu là link không bấm được. Nên quét
+   href độc lập, không phụ thuộc thứ tự thuộc tính hay có title hay không.  */
+function bocSlug(html) {
+  const map = new Map();
+  const re = /\/xe-([a-z0-9._-]+?)-(\d{4})-(\d{4,})(?=["'\s>?#])/gi;
+  let m;
+  while ((m = re.exec(String(html))) !== null) {
+    const [, verSlug, nam, ma] = m;
+    if (!map.has(ma)) map.set(ma, { ma, nam: +nam, ver_slug: verSlug.toLowerCase() });
+  }
+  return [...map.values()];
+}
+
 /* Chiến lược A — thuộc tính title của thẻ <a> trỏ tới trang chi tiết.
    Định dạng: title="Ban xe oto cu Toyota Vios 2020 1.5E MT gia 310 Triệu - TP HCM"
    Đây là chuỗi SEO, ít khi đổi cấu trúc.                                     */
@@ -454,13 +484,22 @@ function bocTongTin(html) {
   return m ? parseInt(m[1].replace(/[.,]/g, ""), 10) : null;
 }
 
-function hopNhat(a, b) {
+/* Hợp nhất nhiều nguồn theo mã tin. Trường nào đã có thì giữ, trường nào
+   thiếu thì lấy từ nguồn sau — nhờ vậy giá lấy từ nguồn này, tên phiên bản
+   lấy từ nguồn kia cũng ghép được thành một bản ghi đủ. */
+function hopNhat(...cacNguon) {
   const map = new Map();
-  for (const x of a) map.set(x.ma, { ...x });
-  for (const y of b) {
-    const cu = map.get(y.ma);
-    if (cu) Object.assign(cu, { ...y, ...cu, so_km: y.so_km || cu.so_km, hop_so: y.hop_so || cu.hop_so });
-    else map.set(y.ma, { ...y });
+  for (const nguon of cacNguon) {
+    for (const x of nguon || []) {
+      if (!x || !x.ma) continue;
+      const cu = map.get(x.ma);
+      if (!cu) { map.set(x.ma, { ...x }); continue; }
+      for (const k of Object.keys(x)) {
+        const cuRong = cu[k] === undefined || cu[k] === null || cu[k] === "" || cu[k] === 0;
+        const moiCo = x[k] !== undefined && x[k] !== null && x[k] !== "" && x[k] !== 0;
+        if (cuRong && moiCo) cu[k] = x[k];
+      }
+    }
   }
   return [...map.values()].filter((x) => x.gia > 0);
 }
@@ -505,7 +544,7 @@ async function docGiaThiTruong(p) {
       daThu.push({ url: u, ma: r.ma });
       if (r.ok) {
         const tong = bocTongTin(r.html);
-        const thu = hopNhat(bocTuTitle(r.html), bocTuText(r.html));
+        const thu = hopNhat(bocSlug(r.html), bocTuTitle(r.html), bocTuText(r.html));
         if (thu.length > 0) {
           dungHang = h; dungDong = d; html = r.html; url = u; tongTin = tong;
           break ngoai;
@@ -528,7 +567,7 @@ async function docGiaThiTruong(p) {
     };
   }
 
-  let tin = hopNhat(bocTuTitle(html), bocTuText(html));
+  let tin = hopNhat(bocSlug(html), bocTuTitle(html), bocTuText(html));
 
   /* Lấy thêm trang 2, 3… nếu tin trang 1 còn ít mà tổng tin thì nhiều.
      Chỉ đi tiếp khi còn thời gian — thà ít tin còn hơn bị Netlify cắt. */
@@ -537,7 +576,7 @@ async function docGiaThiTruong(p) {
     await nghi(NGHI_GIUA_2_REQUEST_MS);
     const r = await taiTrang(`${url}/page,${tr}`);
     if (!r.ok) break;
-    const them = hopNhat(bocTuTitle(r.html), bocTuText(r.html));
+    const them = hopNhat(bocSlug(r.html), bocTuTitle(r.html), bocTuText(r.html));
     if (!them.length) break;
     tin = hopNhat(tin, them);
   }
@@ -579,6 +618,17 @@ async function docGiaThiTruong(p) {
     slug: { hang: dungHang, dong: dungDong },
     tong_hop: { ...tk, odo_trung_vi: odoCuaNhom(dung) },
     theo_phien_ban: theoPhienBan,
+    /* Bản ghi thô của từng tin. Khung nhiều nguồn cần cái này để chạy bộ bất
+       biến — kiểm tra trên số liệu đã gộp thì không phát hiện được gì, vì
+       gộp xong là mất hết dấu vết của lỗi. */
+    tin_tho: dung.map((x) => ({
+      ma: x.ma,
+      gia: x.gia,
+      nam: x.nam || nam,
+      phien_ban: tenPhienBanTuSlug(x.ver_slug, dungHang, dungDong),
+      so_km: x.so_km || 0,
+      hop_so: x.hop_so || ""
+    })),
     doc_luc: new Date().toISOString(),
     chan_doan: {
       doc_duoc: tin.length,
@@ -634,6 +684,7 @@ module.exports = {
   giaDau,
   giaCuoi,
   locNgoaiLai,
+  bocSlug,
   bocTuTitle,
   bocTuText,
   bocTongTin,
