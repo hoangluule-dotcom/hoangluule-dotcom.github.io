@@ -38,12 +38,12 @@ jobs:
 
     steps:
       - name: Lấy mã nguồn
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cài Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Kiểm thử trước khi quét
         # Parser hỏng thì đừng quét, quét chỉ tốn thời gian và làm phiền
@@ -64,8 +64,8 @@ jobs:
             ARGS="$ARGS --nam-tu ${{ github.event.inputs.nam_tu }}"
           fi
           set +e
-          node scripts/cap_nhat_gia_thang.js $ARGS
-          echo "ma_thoat=$?" >> $GITHUB_OUTPUT
+          node scripts/cap_nhat_gia_thang.js $ARGS 2>&1 | tee nhat-ky-quet.txt
+          echo "ma_thoat=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
           set -e
 
       - name: Kiểm tra file sinh ra có hợp lệ không
@@ -77,6 +77,32 @@ jobs:
             if(d.meta.so_ban_ghi < 10000) throw new Error('mất dữ liệu: chỉ còn '+d.meta.so_ban_ghi+' bản ghi');
             console.log('File hợp lệ:', d.meta.so_ban_ghi, 'bản ghi');
           "
+
+      - name: Đưa báo cáo lên trang Summary
+        if: always()
+        run: |
+          {
+            echo "## Nhật ký quét"
+            echo ""
+            echo '```'
+            tail -40 nhat-ky-quet.txt 2>/dev/null || echo "(không có nhật ký)"
+            echo '```'
+            echo ""
+            if [ -f bao-cao-cap-nhat-gia.md ]; then cat bao-cao-cap-nhat-gia.md; fi
+          } >> $GITHUB_STEP_SUMMARY
+
+      - name: Lưu báo cáo lại để xem sau
+        # Chạy kể cả khi không mở PR. Không có bước này thì báo cáo biến mất
+        # cùng runner và không còn cách nào xem lại.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bao-cao-gia-xe
+          path: |
+            bao-cao-cap-nhat-gia.md
+            nhat-ky-quet.txt
+          retention-days: 90
+          if-no-files-found: warn
 
       - name: Xem có gì thay đổi không
         id: doi

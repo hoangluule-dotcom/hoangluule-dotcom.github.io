@@ -179,14 +179,39 @@ async function main() {
   console.log(`  file    : ${path.relative(GOC, FILE_DB)}`);
   console.log(`  báo cáo : ${path.relative(GOC, FILE_BAO_CAO)}`);
 
-  /* Cảnh báo lớn nếu nghi parser hỏng hàng loạt. */
-  const tongLuot = tk.suc_khoe_nguon.reduce((a, s) => a + s.dat + s.hong, 0);
-  const tongHong = tk.suc_khoe_nguon.reduce((a, s) => a + s.hong, 0);
-  if (tongLuot >= 20 && tongHong / tongLuot > 0.6) {
+  /* ── Cảnh báo khi nghi parser hỏng ──────────────────────────────────────
+     LỖI THIẾT KẾ ĐÃ SỬA: bản đầu cộng gộp tỷ lệ hỏng của MỌI nguồn. Carmudi
+     dữ liệu mỏng nên hỏng gần như mọi lượt — đó là chuyện bình thường, đã
+     biết trước. Nhưng cộng chung vào thì tỷ lệ hỏng toàn hệ thống lập tức
+     vượt 60% và chuông kêu, kể cả khi Bonbanh chạy hoàn hảo.
+
+     Chuông báo oan còn tệ hơn không có chuông: vài lần là người ta bỏ qua.
+
+     Giờ chỉ xét nguồn CHÍNH — nguồn cho nhiều dữ liệu nhất. Các nguồn phụ
+     hỏng thì ghi vào báo cáo, không kéo chuông. */
+  console.log("");
+  console.log("Sức khoẻ từng nguồn:");
+  for (const s of tk.suc_khoe_nguon) {
+    const tong = s.dat + s.hong;
+    const ty = tong ? Math.round((s.dat / tong) * 100) : 0;
+    console.log(`  ${s.nguon.padEnd(10)} đạt ${s.dat}/${tong} (${ty}%)${s.vi_pham_pho_bien ? "  · " + s.vi_pham_pho_bien : ""}`);
+  }
+
+  const chinh = [...tk.suc_khoe_nguon].sort((a, b) => b.dat - a.dat)[0];
+  if (chinh) {
+    const tong = chinh.dat + chinh.hong;
+    if (tong >= 15 && chinh.dat / tong < 0.5) {
+      console.log("");
+      console.log(`⚠ CẢNH BÁO: nguồn chính "${chinh.nguon}" chỉ đạt ${chinh.dat}/${tong} lượt.`);
+      console.log("  Nhiều khả năng trang nguồn đã đổi giao diện hoặc đang chặn. Đừng merge.");
+      process.exitCode = 2;
+    }
+  }
+
+  if (tk.da_cap_nhat === 0) {
     console.log("");
-    console.log("⚠ CẢNH BÁO: hơn 60% lượt quét không đạt kiểm tra chất lượng.");
-    console.log("  Nhiều khả năng trang nguồn đã đổi giao diện. Đừng merge PR này.");
-    process.exitCode = 2;
+    console.log("Không dòng nào được cập nhật giá thị trường.");
+    console.log("Nếu tất cả nguồn đều hỏng, kiểm tra xem máy chủ có chặn dải IP của GitHub không.");
   }
 }
 
