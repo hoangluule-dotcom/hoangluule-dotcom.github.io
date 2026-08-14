@@ -101,6 +101,128 @@ var DBV_CAUHINH = {
   }
 
   /* ====================================================================== */
+  /*  0. NGUỒN KHÁCH — khách này đến từ đâu?                                */
+  /*     ------------------------------------------------------------------ */
+  /*     Vấn đề đang giải quyết: lead đổ về CRM chỉ có số điện thoại, không  */
+  /*     biết khách đến từ quảng cáo Google, từ tìm kiếm tự nhiên hay từ     */
+  /*     Facebook. Không biết nguồn thì không tính được chi phí thật cho mỗi */
+  /*     lead, cũng không biết từ khoá nào ra khách.                         */
+  /*                                                                        */
+  /*     Cách làm: đọc tham số trên URL ngay khi khách vào site, cất vào     */
+  /*     localStorage, rồi gắn kèm vào mọi form khách gửi sau đó — kể cả khi */
+  /*     khách đã đi qua nhiều trang hoặc quay lại sau vài ngày.             */
+  /*                                                                        */
+  /*     Mô hình quy công: LẦN CHẠM GẦN NHẤT CÓ NGUỒN (last non-direct).     */
+  /*     Chọn mô hình này để số liệu khớp với cách Google Ads và GA4 tính,   */
+  /*     nhờ vậy đối chiếu ba nơi không bị lệch.                             */
+  /* ====================================================================== */
+
+  var KHOA_LUU_NGUON = 'dbv_nguon_khach';
+  var SO_NGAY_GIU_NGUON = 90;          // bằng cửa sổ quy công của Google Ads
+
+  /* Các máy tìm kiếm — để phân biệt "tìm kiếm tự nhiên" với "trang giới thiệu" */
+  var MAY_TIM_KIEM = /(^|\.)(google|bing|yahoo|duckduckgo|coccoc|yandex|baidu|naver)\./i;
+
+  function tenMienGioiThieu() {
+    try {
+      if (!document.referrer) return '';
+      var h = new URL(document.referrer).hostname;
+      return (h === location.hostname) ? '' : h;   // bỏ qua điều hướng nội bộ
+    } catch (e) { return ''; }
+  }
+
+  /* Đọc tham số nguồn trên URL. Trả về null nếu URL không có tham số nào. */
+  function docNguonTrenURL() {
+    var q;
+    try { q = new URLSearchParams(location.search); } catch (e) { return null; }
+
+    var kq = {}, coThamSo = false;
+
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+      .forEach(function (k) {
+        var v = q.get(k);
+        if (v) { kq[k] = v.slice(0, 150); coThamSo = true; }
+      });
+
+    /* gclid là của Google Ads. Trên iOS, Google thay bằng gbraid/wbraid khi
+       không có quyền theo dõi — gộp chung một chỗ cho đỡ phải nhớ ba tên. */
+    var gclid = q.get('gclid') || q.get('gbraid') || q.get('wbraid');
+    if (gclid) { kq.gclid = gclid.slice(0, 150); coThamSo = true; }
+
+    if (!coThamSo) return null;
+
+    /* Khách bấm quảng cáo nhưng chưa chắc đã gắn UTM — điền mặc định để
+       không bao giờ có lead thiếu nguồn. */
+    if (kq.gclid && !kq.utm_source) { kq.utm_source = 'google'; kq.utm_medium = 'cpc'; }
+
+    kq['trang-vao-dau']    = location.pathname;
+    kq['nguon-gioi-thieu'] = tenMienGioiThieu();
+    return kq;
+  }
+
+  /* Không có tham số trên URL thì suy ra nguồn từ trang giới thiệu. */
+  function suyRaNguon() {
+    var tenMien = tenMienGioiThieu();
+    if (!tenMien) {
+      return {
+        utm_source: '(truc-tiep)',
+        utm_medium: '(khong-xac-dinh)',
+        'trang-vao-dau': location.pathname,
+        'nguon-gioi-thieu': ''
+      };
+    }
+    return {
+      utm_source: tenMien,
+      utm_medium: MAY_TIM_KIEM.test(tenMien) ? 'tim-kiem-tu-nhien' : 'trang-gioi-thieu',
+      'trang-vao-dau': location.pathname,
+      'nguon-gioi-thieu': tenMien
+    };
+  }
+
+  function luuNguon(nguon) {
+    try {
+      localStorage.setItem(KHOA_LUU_NGUON, JSON.stringify({ d: nguon, t: Date.now() }));
+    } catch (e) { /* trình duyệt chặn localStorage — bỏ qua, lead vẫn gửi được */ }
+  }
+
+  function layNguon() {
+    try {
+      var raw = localStorage.getItem(KHOA_LUU_NGUON);
+      if (!raw) return null;
+      var o = JSON.parse(raw);
+      if (!o || !o.t || !o.d) return null;
+      if (Date.now() - o.t > SO_NGAY_GIU_NGUON * 86400000) {
+        localStorage.removeItem(KHOA_LUU_NGUON);   // quá hạn quy công
+        return null;
+      }
+      return o.d;
+    } catch (e) { return null; }
+  }
+
+  /* Chạy ngay khi nạp trang.
+     - Có tham số trên URL  → ghi đè (đây là "lần chạm gần nhất có nguồn").
+     - Không có, và chưa lưu gì → suy ra từ trang giới thiệu.
+     - Không có, nhưng đã lưu rồi → giữ nguyên, không đè bằng "(truc-tiep)". */
+  (function ghiNhanNguon() {
+    var nguonMoi = docNguonTrenURL();
+    if (nguonMoi) { luuNguon(nguonMoi); log('NGUỒN (từ URL) →', nguonMoi); return; }
+    if (!layNguon()) { var n = suyRaNguon(); luuNguon(n); log('NGUỒN (suy ra) →', n); }
+  })();
+
+  /* Đổi nguồn đang lưu thành chuỗi để nối vào body của form. */
+  function chuoiThamSoNguon() {
+    var n = layNguon();
+    if (!n) return '';
+    var s = '';
+    for (var k in n) {
+      if (Object.prototype.hasOwnProperty.call(n, k) && n[k]) {
+        s += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(n[k]);
+      }
+    }
+    return s;
+  }
+
+  /* ====================================================================== */
   /*  1. LEAD — bắt mọi form gửi đi trên toàn site                          */
   /* ====================================================================== */
 
@@ -119,7 +241,9 @@ var DBV_CAUHINH = {
           // đã hiển thị cho khách tại thời điểm họ bấm gửi.
           tuyChon.body = String(tuyChon.body || '')
             + '&dong-y-chinh-sach=' + encodeURIComponent('Đã hiển thị thông báo ' + PHIEN_BAN_CHINH_SACH + ' và người dùng chủ động bấm gửi')
-            + '&thoi-diem-dong-y=' + encodeURIComponent(new Date().toISOString());
+            + '&thoi-diem-dong-y=' + encodeURIComponent(new Date().toISOString())
+            // Nguồn khách — để CRM biết lead này đến từ đâu.
+            + chuoiThamSoNguon();
           baoLead(String(tuyChon.body));
         }
       } catch (e) { log('lỗi khi đọc lead:', e); }
@@ -128,7 +252,18 @@ var DBV_CAUHINH = {
     log('Đã sẵn sàng bắt sự kiện gửi form.');
   }
 
+  /* Mốc thời gian lần báo lead gần nhất — dùng để chống đếm trùng.
+     Lý do cần: form ở trang chủ (hero-form, lead-form) vừa gọi fetch() vừa
+     phát sự kiện submit. Listener submit bên dưới chạy TRƯỚC fetch (do dùng
+     capture), nên nếu không chặn thì một lead bị đếm thành hai. Đây chính là
+     nguyên nhân GA4 báo generate_lead nhiều hơn form_start. */
+  var mocBaoLeadCuoi = 0;
+  function vuaBaoLead() { return (Date.now() - mocBaoLeadCuoi) < 3000; }
+
   function baoLead(body) {
+    if (vuaBaoLead()) { log('Bỏ qua — lead này vừa được báo rồi'); return; }
+    mocBaoLeadCuoi = Date.now();
+
     var duLieu = {};
     try {
       new URLSearchParams(body).forEach(function (v, k) { duLieu[k] = v; });
@@ -136,15 +271,22 @@ var DBV_CAUHINH = {
 
     var sanPham = duLieu['san-pham'] || tenSanPhamTheoTrang();
     var nguon   = duLieu['nguon'] || duLieu['form-name'] || 'không rõ';
+    var ng      = layNguon() || {};
 
     guiSuKien('generate_lead', {
       san_pham: sanPham,
       vi_tri_form: nguon,
       trang: location.pathname,
+      // Nguồn khách — để báo cáo GA4 tách được lead từ quảng cáo và lead tự nhiên
+      nguon_utm:     ng.utm_source   || '',
+      kenh_utm:      ng.utm_medium   || '',
+      chien_dich_utm: ng.utm_campaign || '',
+      tu_khoa_utm:   ng.utm_term     || '',
+      co_gclid:      ng.gclid ? 'co' : 'khong',
       currency: 'VND',
       value: 0
     });
-    log('LEAD →', sanPham, '|', nguon);
+    log('LEAD →', sanPham, '|', nguon, '| nguồn:', ng.utm_source || 'không rõ');
 
     if (DBV_CAUHINH.googleAdsId && DBV_CAUHINH.googleAdsNhanLead) {
       gtag('event', 'conversion', {
@@ -154,7 +296,13 @@ var DBV_CAUHINH = {
     fb('Lead', { content_name: sanPham, content_category: nguon });
   }
 
-  /* Dự phòng: nếu trang nào dùng <form> gửi thẳng (không qua fetch) */
+  /* Dự phòng: nếu trang nào dùng <form> gửi thẳng (không qua fetch).
+
+     Phải chờ rồi mới báo. Listener này dùng capture nên chạy TRƯỚC hàm
+     onsubmit của trang — mà chính hàm đó mới là nơi gọi fetch(). Nếu báo
+     ngay lập tức thì form nào cũng bị đếm hai lần: một lần ở đây, một lần
+     trong lớp bọc fetch. Chờ 800ms rồi kiểm tra lại: nếu fetch đã báo rồi
+     thì thôi, chưa báo thì đây đúng là form gửi thẳng. */
   document.addEventListener('submit', function (e) {
     var f = e.target;
     if (!f || f.tagName !== 'FORM') return;
@@ -162,12 +310,24 @@ var DBV_CAUHINH = {
     if (f.dataset.dbvDaBao === '1') return;
     f.dataset.dbvDaBao = '1';
     setTimeout(function () { f.dataset.dbvDaBao = ''; }, 3000);
-    guiSuKien('generate_lead', {
-      san_pham: tenSanPhamTheoTrang(),
-      vi_tri_form: f.getAttribute('name') || 'form',
-      trang: location.pathname
-    });
-    log('LEAD (form gửi thẳng) →', f.getAttribute('name'));
+
+    var tenForm = f.getAttribute('name') || 'form';
+    setTimeout(function () {
+      if (vuaBaoLead()) { log('Bỏ qua form gửi thẳng — fetch đã báo lead:', tenForm); return; }
+      mocBaoLeadCuoi = Date.now();
+      var ng = layNguon() || {};
+      guiSuKien('generate_lead', {
+        san_pham: tenSanPhamTheoTrang(),
+        vi_tri_form: tenForm,
+        trang: location.pathname,
+        nguon_utm:      ng.utm_source   || '',
+        kenh_utm:       ng.utm_medium   || '',
+        chien_dich_utm: ng.utm_campaign || '',
+        tu_khoa_utm:    ng.utm_term     || '',
+        co_gclid:       ng.gclid ? 'co' : 'khong'
+      });
+      log('LEAD (form gửi thẳng) →', tenForm);
+    }, 800);
   }, true);
 
   /* ====================================================================== */

@@ -219,7 +219,7 @@
   </url>
   <url>
     <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -254,4 +254,48 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/chung-cu-may-tang-phai-mua-bao-hiem-chay-no</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/danh-muc-44-co-so-phai-mua-bao-hiem-chay-no</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/ho-kinh-doanh-nao-bat-buoc-mua-bao-hiem-chay-no</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bieu-phi-bao-hiem-tnds-o-to-2026</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-xin-visa-theo-tung-nuoc</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/dieu-kien-icc-a-b-c-khac-nhau-the-nao</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-moi-rui-ro-tai-san-la-gi</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
