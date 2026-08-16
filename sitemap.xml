@@ -384,4 +384,66 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/cach-tinh-gia-tri-tai-san-khai-bao-can-ho-chung-cu</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/thu-tuc-mua-bao-hiem-chay-no-bat-buoc-cho-doanh-nghiep</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/phi-bao-hiem-chay-no-co-duoc-tinh-vao-chi-phi-duoc-tru</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-tnds-o-to-boi-thuong-bao-nhieu</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/that-lac-hanh-ly-cach-doi-boi-thuong-hang-bay-va-bao-hiem</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-chung-cu-khong-boi-thuong-truong-hop-nao</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/muc-khau-tru-bao-hiem-chay-no-bat-buoc-tinh-the-nao</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-cho-kho-hang-xuong-nho</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/truong-hop-nao-bao-hiem-tnds-khong-boi-thuong</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-theo-doan-cach-tinh-phi-cho-cong-ty-tour</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
