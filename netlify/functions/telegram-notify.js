@@ -17,12 +17,18 @@ const FORM_LABELS = {
   "lead-form":    "Form trang chủ / bản đồ dịch vụ",
   "hero-form":    "Form banner trang chủ",
   "chatbot-lead": "Khung chat tư vấn",
+  "dbv-capdon-dlqt": "🧳 CẤP ĐƠN Du lịch quốc tế (dulich.dbv247.com.vn)",
 };
 
 /* Thứ tự hiển thị — quan trọng trước, phụ sau.
    Hỗ trợ cả hai lối đặt tên (name/ho-ten, phone/dien-thoai). */
 const FIELDS = [
   ["san-pham",         "Sản phẩm"],
+  ["ma-ho-so",         "Mã hồ sơ"],
+  ["tong-phi",         "TỔNG PHÍ"],
+  ["da-chuyen-khoan",  "Khách khai thanh toán"],
+  ["noi-dung-ck",      "Nội dung CK (đối soát)"],
+  ["ngan-hang",        "Tài khoản nhận"],
   ["ten-cong-ty",      "Công ty"],
   ["ho-ten",           "Họ tên"],
   ["name",             "Họ tên"],
@@ -55,6 +61,9 @@ const FIELDS = [
   ["goi-quan-tam",     "Gói quan tâm"],
   ["ket-qua-tinh-phi", "Kết quả tính phí"],
   ["dia-chi",          "Địa chỉ"],
+  ["nguoi-duoc-bh",    "Người được bảo hiểm"],
+  ["nguoi-thu-huong",  "Người thụ hưởng"],
+  ["dong-y-dieu-khoan","Đồng ý quy tắc BH"],
   ["ghi-chu",          "Ghi chú"],
   ["nguon",            "Vị trí form"],
 ];
