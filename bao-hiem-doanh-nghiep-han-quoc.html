@@ -189,6 +189,53 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .kr-trust span{font-size:12.5px;color:rgba(255,255,255,.78);display:flex;align-items:center;gap:7px}
 .kr-trust span::before{content:"✓";color:var(--gold);font-weight:800}
 
+
+/* ══ THẺ LIÊN HỆ SONG NGỮ ══ */
+.lang-row{display:flex;justify-content:flex-end;align-items:center;margin-bottom:20px}
+.ct-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+#contact-2 .ct-wrap{gap:14px;margin-top:18px}
+@media(max-width:760px){.ct-wrap{grid-template-columns:1fr}}
+.ct-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r12);padding:13px 14px;
+  position:relative;overflow:hidden;
+  box-shadow:0 6px 18px rgba(16,40,28,.09),0 1px 3px rgba(16,40,28,.06);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.ct-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--g)}
+.ct-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(16,40,28,.14),0 2px 6px rgba(16,40,28,.08);border-color:rgba(0,116,55,.35)}
+.ct-card:active{transform:translateY(-1px)}
+.ct-card.ko{border-color:rgba(232,146,10,.42);background:#fffdf7;
+  box-shadow:0 6px 18px rgba(150,92,6,.13),0 1px 3px rgba(150,92,6,.08)}
+.ct-card.ko::before{background:var(--gold)}
+.ct-card.ko:hover{box-shadow:0 12px 28px rgba(150,92,6,.2),0 2px 6px rgba(150,92,6,.1);border-color:rgba(232,146,10,.7)}
+.ct-flag{font-size:17px;line-height:1}
+.ct-hd{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.ct-hd b{font-size:13px;font-weight:800;color:var(--dk)}
+.ct-d{font-size:11px;color:var(--ts);line-height:1.45;margin-bottom:9px}
+.ct-tel{display:block;font-size:1.1rem;font-weight:800;color:var(--g);letter-spacing:-.3px;text-decoration:none;line-height:1.2;margin-bottom:8px}
+.ct-card.ko .ct-tel{color:#b8710a}
+.ct-btns{display:flex;gap:8px;flex-wrap:wrap}
+.ct-btn{flex:1;min-width:96px;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 10px;
+  border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;border:1.5px solid transparent;transition:.2s;font-family:inherit;cursor:pointer}
+.ct-btn.call{background:var(--g);color:#fff}
+.ct-btn.call:hover{background:var(--gp)}
+.ct-btn.zalo{background:#fff;color:var(--zalo);border-color:#cfe3ff}
+.ct-btn.zalo:hover{background:#f0f6ff}
+.ct-btn.kcall{background:var(--gold);color:#fff}
+.ct-btn.kcall:hover{background:var(--goldd)}
+.ct-kakao{display:flex;gap:10px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(232,146,10,.32)}
+.ct-kakao.zalo{border-top-color:rgba(0,104,255,.28)}
+.ct-qr{width:62px;height:62px;border-radius:7px;border:1.5px solid var(--bd);background:#fff;flex-shrink:0;display:block;padding:2px}
+#contact-2 .ct-qr{width:88px;height:88px}
+.ct-kx{flex:1;min-width:0}
+.ct-kt{font-size:10.5px;color:var(--tm);line-height:1.45;margin-bottom:6px}
+.ct-kid{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ct-kid code{background:#fff;border:1.5px solid var(--bd);border-radius:6px;padding:3px 8px;font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;color:var(--dk)}
+.ct-cp{background:none;border:none;color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;padding:6px 4px;min-height:32px}
+/* Nút tư vấn tiếng Hàn ở thanh CTA đáy */
+.mob-bar .mob-ko{background:var(--gold,#E8920A);color:#fff;border:none}
+.mob-bar .mob-ko:active{background:var(--goldd,#c97d08)}
+.mob-ko-flag{font-size:15px;line-height:1}
+@media(max-width:360px){.mob-bar a{font-size:12px;padding:11px 6px;gap:4px}}
+@media(prefers-reduced-motion:reduce){.ct-card{transition:none}.ct-card:hover{transform:none}}
 </style>
 <style id="dbv-layout">
 :where(.hdr){background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd,#E2E8F0)}
@@ -517,6 +564,27 @@ function syncCtaLang(l){
     if(tn && tn.nodeType===3 && tn.nodeValue.trim()) tn.nodeValue=' '+lbl+' ';
   }
 }
+/* Thanh CTA đáy của trang này: thay nút Messenger bằng nút gọi tư vấn viên tiếng Hàn.
+   Làm bằng JS thay vì sửa HTML, để mỗi lần chạy sync_layout.py ghi đè thanh CTA
+   chuẩn thì nút tiếng Hàn vẫn tự dựng lại — không phải khôi phục thủ công. */
+function krSwapMobBar(){
+  var bar=document.querySelector('.mob-bar'); if(!bar) return;
+  if(bar.querySelector('.mob-ko')) return;
+  var mess=bar.querySelector('a[href*="m.me"], .mob-messenger');
+  if(!mess) return;
+  var a=document.createElement('a');
+  a.className='mob-ko';
+  a.href='tel:0849499862';
+  a.innerHTML='<span class="mob-ko-flag" aria-hidden="true">\uD83C\uDDF0\uD83C\uDDF7</span>'
+            + '<span data-i18n="mb_ko_call">Tư vấn tiếng Hàn</span>';
+  mess.parentNode.replaceChild(a, mess);
+  if(typeof LANG!=='undefined' && LANG==='ko'){
+    var sp=a.querySelector('[data-i18n]'), d=I18N['mb_ko_call'];
+    if(sp&&d) sp.textContent=d.ko;
+  }
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',krSwapMobBar);
+else krSwapMobBar();
 function krFaq(btn){
   var it=btn.parentElement, was=it.classList.contains('open');
   var all=document.querySelectorAll('.kr-fi');
@@ -643,16 +711,16 @@ function submitKr(){
 
 <div class="mob-bar">
   <a href="tel:0869656561" class="mob-call">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--g)" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--g)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
     Gọi ngay
   </a>
   <a href="https://zalo.me/1283738895804393564" class="mob-zalo" target="_blank" rel="noopener">
     <img src="icon-zalo.webp" alt="" width="18" height="18" aria-hidden="true">
     Nhắn Zalo
   </a>
-  <a href="tel:0849499862" class="mob-ko">
-    <span class="mob-ko-flag" aria-hidden="true">🇰🇷</span>
-    <span data-i18n="mb_ko_call">Tư vấn tiếng Hàn</span>
+  <a href="https://m.me/1108459929024761" class="mob-messenger" target="_blank" rel="noopener">
+    <svg width="15" height="15" viewBox="0 0 30 30" fill="none"><path d="M15 2C7.82 2 2 7.43 2 14.1c0 3.95 1.97 7.46 5.03 9.78V28l4.55-2.51c1.22.34 2.5.51 3.87.51 7.18 0 13-5.43 13-12.1S22.18 2 15 2zm1.28 16.28-3.27-3.5-6.38 3.5 7.02-7.46 3.35 3.5 6.3-3.5-7.02 7.46z" fill="#fff"/></svg>
+    Messenger
   </a>
 </div>
 
