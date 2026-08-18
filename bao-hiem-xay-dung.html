@@ -552,6 +552,14 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .ftr-copy-inner a:hover{color:var(--g,#007437)}
 @media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
 @media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 16px 28px}.ftr-copy-inner{padding:14px 16px;flex-direction:column;text-align:center}}
+/* Mục header dành cho khách Hàn Quốc */
+.hdr-nav a.hdr-nav-kr{color:var(--g,#007437);font-weight:700;background:var(--gl,#E8F5E9);border:1px solid rgba(0,116,55,.22)}
+.hdr-nav a.hdr-nav-kr:hover{background:#dff0e2;border-color:rgba(0,116,55,.4)}
+.hdr-nav a.hdr-nav-kr .kr-fl{font-size:14px;line-height:1}
+@media(max-width:1024px){.hdr-nav a.hdr-nav-kr{display:inline-flex!important}}
+@media(max-width:860px){.hdr-nav a.hdr-nav-kr{display:none!important}}
+.cat-dd-item.cat-dd-kr{color:var(--g,#007437);font-weight:700}
+.cat-dd-item.cat-dd-kr:hover{background:var(--gl,#E8F5E9)}
 </style>
 </head>
 <body>
@@ -571,6 +579,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/tin-tuc">Tin tức &amp; Kinh nghiệm</a>
+      <a href="/bao-hiem-doanh-nghiep-han-quoc" class="hdr-nav-kr" lang="ko" title="Khách hàng Hàn Quốc — 한국 고객"><span class="kr-fl" aria-hidden="true">🇰🇷</span>한국 고객</a>
     </nav>
     <div class="hdr-actions">
       <button class="hdr-search" aria-label="Tìm sản phẩm" onclick="var s=document.getElementById('cat-search');if(s){s.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){s.focus()},400)}else{location.href='/san-pham'}">
@@ -587,6 +596,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Bồi thường</a>
           <a class="cat-dd-item" href="/servicemap" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="19" x2="10" y2="19"/><line x1="14" y1="19" x2="17" y2="19"/></svg>Mạng lưới dịch vụ</a>
           <a class="cat-dd-item" href="/tin-tuc" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9h4"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>Tin tức &amp; Kinh nghiệm</a>
+        <a class="cat-dd-item cat-dd-kr" href="/bao-hiem-doanh-nghiep-han-quoc" onclick="closeCatDropdown()" lang="ko"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg><span>🇰🇷 한국 고객</span></a>
         </div>
       </div>
       <a href="tel:0869656561" class="btn-login">
