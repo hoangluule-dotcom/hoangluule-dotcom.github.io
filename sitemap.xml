@@ -446,4 +446,49 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-tnds-o-to-gia-re-mua-tu-ai</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-xe-may-ven-duong-20k-co-dung-duoc-khong</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/cach-kiem-tra-giay-chung-nhan-bao-hiem-that-hay-gia</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/mua-bao-hiem-tnds-hoan-tien-co-dung-luat-khong</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/mua-bao-hiem-tnds-2-nam-3-nam-co-re-hon-khong</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/dai-ly-bao-hiem-co-duoc-giam-gia-cho-khach-khong</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/mua-bao-hiem-tnds-o-to-o-dau-uy-tin</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

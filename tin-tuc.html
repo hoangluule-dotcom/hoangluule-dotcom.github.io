@@ -200,28 +200,43 @@ a{color:inherit}
 .float-btn-messenger{background:#0084FF}
 
 /* ══ CẨM NANG (static, crawlable) ══ */
-.guide-wrap{max-width:1180px;margin:0 auto;padding:48px 32px 8px}
+.guide-wrap{max-width:1180px;margin:0 auto;padding:40px 32px 8px}
 .guide-head{margin-bottom:24px}
 .guide-head .guide-label{font-size:12px;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
 .guide-head h2{font-size:1.6rem;font-weight:800;color:var(--dk);line-height:1.3;margin-bottom:8px}
 .guide-head p{font-size:14.5px;color:var(--ts);max-width:640px;line-height:1.65}
-.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .guide-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:.25s}
 .guide-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.10);transform:translateY(-4px);border-color:rgba(0,116,55,.3)}
 .guide-card img{width:100%;height:170px;object-fit:cover;display:block}
-.guide-card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
-.guide-card-meta{display:flex;gap:8px;align-items:center;margin-bottom:9px;flex-wrap:wrap}
-.guide-card-cat{font-size:11px;font-weight:800;color:var(--g);background:var(--gl);padding:3px 9px;border-radius:12px;text-transform:uppercase;letter-spacing:.04em}
-.guide-card-date{font-size:11.5px;color:var(--ts);font-weight:600}
-.guide-card h3{font-size:16px;font-weight:800;color:var(--dk);line-height:1.35;margin-bottom:9px}
-.guide-card p{font-size:13px;color:var(--ts);line-height:1.6;flex:1;margin-bottom:14px}
-.guide-card-more{font-size:12.5px;font-weight:700;color:var(--g)}
+.guide-card-body{padding:13px 15px 14px;display:flex;flex-direction:column;flex:1}
+.guide-card-meta{display:flex;gap:7px;align-items:center;margin-bottom:7px;flex-wrap:wrap}
+.guide-card-cat{font-size:10px;font-weight:800;color:var(--g);background:var(--gl);padding:2px 8px;border-radius:11px;text-transform:uppercase;letter-spacing:.04em}
+.guide-card-date{font-size:10.5px;color:var(--ts);font-weight:600}
+.guide-card h3{font-size:14.5px;font-weight:800;color:var(--dk);line-height:1.34;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.68em}
+.guide-card p{font-size:12px;color:var(--ts);line-height:1.55;margin-bottom:9px;flex:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:3.1em}
+.guide-card-more{font-size:11.5px;font-weight:700;color:var(--g);margin-top:auto}
 /* .guide-card đặt display:flex nên đè mất [hidden] mặc định của trình duyệt.
    Không có dòng này thì bấm tab lọc mà thẻ vẫn hiện nguyên. */
 .guide-card[hidden],.news-empty[hidden]{display:none}
 @media(max-width:900px){.guide-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.guide-grid{grid-template-columns:1fr}.guide-wrap{padding:40px 16px 8px}}
 
+
+
+
+/* ══ THẺ TIN TỨC — DẢI MÀU THAY ẢNH BÌA ══
+   Ảnh bìa cũ bị nhiều bài dùng chung. Vẽ dải màu bằng CSS theo data-cat.
+   Giữ <img> trong HTML (chỉ ẩn) để build_news_index.py chạy lại không phá kiểu. */
+.guide-card>img{display:none}
+.guide-card::before{content:"Cẩm nang bảo hiểm";display:flex;align-items:flex-end;height:72px;padding:0 14px 9px;box-sizing:border-box;color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.28);background-repeat:no-repeat;background-position:right -8px top -10px,center;background-size:62px 62px,cover;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/><path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/></svg>"),linear-gradient(135deg,#123f28,#1e7d51)}
+.guide-card:hover::before{filter:brightness(1.08)}
+@media(max-width:600px){.guide-card::before{height:60px;padding:0 12px 8px;font-size:9.5px;background-size:50px 50px,cover}}
+.guide-card[data-cat="xe"]::before{content:"Xe cơ giới";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M5 17h14M6 17v-5l2-4h8l2 4v5'/><circle cx='8.5' cy='17' r='1.8'/><circle cx='15.5' cy='17' r='1.8'/></svg>"),linear-gradient(135deg,#0d3b66,#1f6ea0)}
+.guide-card[data-cat="taisan"]::before{content:"Tài sản & Kỹ thuật";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M3 21h18M5 21V9l7-5 7 5v12M10 21v-6h4v6'/></svg>"),linear-gradient(135deg,#7a3e0a,#c17c11)}
+.guide-card[data-cat="conguoi"]::before{content:"Du lịch & Con người";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M2 20a3 3 0 0 0 3-2 3 3 0 0 1 6 0 3 3 0 0 0 6 0 3 3 0 0 1 5 2'/><path d='M12 3v9M8 7l4-4 4 4'/></svg>"),linear-gradient(135deg,#0f5c3f,#1fa87c)}
+.guide-card[data-cat="chung"]::before{content:"Kiến thức chung";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/><path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/><path d='M9 7h7M9 11h5'/></svg>"),linear-gradient(135deg,#3c3489,#5d54c4)}
+.guide-card-body{padding-top:11px}
 </style>
 
 <!-- Open Graph -->
@@ -480,8 +495,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="news-tabs" id="newsTabs" role="tablist" aria-label="Lọc bài viết theo nhóm sản phẩm">
       <!-- DBV:NEWS-TABS:START -->
-      <button class="news-tab on" type="button" role="tab" aria-selected="true" data-cat="all">Tất cả <span class="n">40</span></button>
-      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="xe">Xe cơ giới <span class="n">10</span></button>
+      <button class="news-tab on" type="button" role="tab" aria-selected="true" data-cat="all">Tất cả <span class="n">47</span></button>
+      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="xe">Xe cơ giới <span class="n">17</span></button>
       <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="taisan">Tài sản &amp; Kỹ thuật <span class="n">19</span></button>
       <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="conguoi">Du lịch &amp; Con người <span class="n">6</span></button>
       <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="chung">Kiến thức chung <span class="n">5</span></button>
@@ -490,6 +505,69 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="guide-grid" id="newsGrid">
       <!-- DBV:NEWS-CARDS:START -->
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-hoan-tien-co-dung-luat-khong">
+        <img src="/tnds-oto.webp" alt="Mua bảo hiểm TNDS được hoàn tiền, tặng quà có đúng luật không?" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">24/09/2026</span></div>
+          <h3>Mua bảo hiểm TNDS được hoàn tiền, tặng quà có đúng luật không?</h3>
+          <p>Điều 75 NĐ 67/2023 cấm khuyến mại, chiết khấu dưới mọi hình thức. Khác hẳn hoàn phí khi huỷ hợp đồng.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-2-nam-3-nam-co-re-hon-khong">
+        <img src="/tnds-xemay.webp" alt="Mua bảo hiểm TNDS 2 năm, 3 năm có rẻ hơn mua từng năm không?" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">24/09/2026</span></div>
+          <h3>Mua bảo hiểm TNDS 2 năm, 3 năm có rẻ hơn mua từng năm không?</h3>
+          <p>Không rẻ hơn. Xe máy 3 năm là 198.000đ, ô tô 5 chỗ 3 năm là 1.442.100đ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/dai-ly-bao-hiem-co-duoc-giam-gia-cho-khach-khong">
+        <img src="/tnds-oto.webp" alt="Đại lý bảo hiểm có được cắt hoa hồng giảm giá cho khách không?" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">24/09/2026</span></div>
+          <h3>Đại lý bảo hiểm có được cắt hoa hồng giảm giá cho khách không?</h3>
+          <p>Hoa hồng là quan hệ giữa doanh nghiệp bảo hiểm và đại lý, không phải phần khách được trừ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-o-to-o-dau-uy-tin">
+        <img src="/tnds-oto.webp" alt="Mua bảo hiểm TNDS ô tô ở đâu uy tín? Sáu tiêu chí để tự chọn" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">24/09/2026</span></div>
+          <h3>Mua bảo hiểm TNDS ô tô ở đâu uy tín? Sáu tiêu chí để tự chọn</h3>
+          <p>Phí giống nhau ở mọi nơi nên không chọn theo giá — sáu tiêu chí thay thế.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-may-ven-duong-20k-co-dung-duoc-khong">
+        <img src="/tnds-xemay.webp" alt="Bảo hiểm xe máy bán ven đường 20.000đ có dùng được không?" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">17/09/2026</span></div>
+          <h3>Bảo hiểm xe máy bán ven đường 20.000đ có dùng được không?</h3>
+          <p>Phí đúng quy định là 66.000đ/năm. Điều 75 NĐ 67/2023 cấm chiết khấu, nên loại 10–20k thường là sản phẩm khác.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/cach-kiem-tra-giay-chung-nhan-bao-hiem-that-hay-gia">
+        <img src="/tnds-oto.webp" alt="Cách kiểm tra giấy chứng nhận bảo hiểm xe thật hay giả: sáu bước" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">17/09/2026</span></div>
+          <h3>Cách kiểm tra giấy chứng nhận bảo hiểm xe thật hay giả: sáu bước</h3>
+          <p>Đối chiếu mức phí, đọc tên sản phẩm, kiểm mã QR, gọi tổng đài tra số đơn.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
+      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-tnds-o-to-gia-re-mua-tu-ai">
+        <img src="/tnds-xemay.webp" alt="Bảo hiểm TNDS ô tô giá rẻ: đừng chỉ tìm nơi bán rẻ, hãy kiểm tra bạn đang mua từ ai" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">10/09/2026</span></div>
+          <h3>Bảo hiểm TNDS ô tô giá rẻ: đừng chỉ tìm nơi bán rẻ, hãy kiểm tra bạn đang mua từ ai</h3>
+          <p>Bảo hiểm TNDS giá rẻ có mua được không? Điều 75 NĐ 67/2023 cấm khuyến mại, chiết khấu dưới mọi hình thức.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a>
       <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-chung-cu-khong-boi-thuong-truong-hop-nao">
         <img src="/nha-chung-cu.webp" alt="Bảo hiểm cháy nổ chung cư không bồi thường trong trường hợp nào?" loading="lazy" decoding="async" width="360" height="170">
         <div class="guide-card-body">
