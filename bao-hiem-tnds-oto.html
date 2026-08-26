@@ -42,6 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "highPrice": 873400,
     "offerCount": 2,
     "availability": "https://schema.org/InStock",
+    "validFrom": "2023-09-06",
     "url": "https://dbv247.com.vn/bao-hiem-tnds-oto",
     "seller": {
       "@id": "https://dbv247.com.vn/#organization"
@@ -769,6 +770,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 
+<!-- ══ FORM ẨN CHO NETLIFY NHẬN DIỆN ĐƠN CẤP TNDS (build-time) ══ -->
+<form name="dbv-capdon-tnds" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="bot-field"><input name="ma-don"><input name="san-pham"><input name="loai-xe">
+  <input name="nhom-xe"><input name="chi-tiet-xe"><input name="so-cho"><input name="thoi-han">
+  <input name="phi-goc"><input name="vat"><input name="tong-phi"><input name="bien-so"><input name="so-khung">
+  <input name="so-may"><input name="hieu-xe"><input name="nam-sx"><input name="ngay-hieu-luc"><input name="ngay-het-han">
+  <input name="ho-ten"><input name="sdt"><input name="email"><input name="dia-chi">
+  <input name="xuat-hoa-don"><input name="ten-cty"><input name="mst"><input name="dia-chi-cty"><input name="email-hd">
+  <input name="dia-chi-giao"><input name="nguoi-nhan"><input name="sdt-nhan"><input name="trang-thai"><textarea name="ghi-chu"></textarea>
+</form>
+
+
 <!-- USP BAR -->
 <div class="usp-bar">
   <div class="usp-inner">
@@ -852,7 +865,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="fee-preview-vat" id="fee-preview-vat"></div>
         </div>
         <div class="cta2">
-          <a href="https://tnds.dbv247.com.vn/" class="cta2-buy">
+          <a href="#cap-don" class="cta2-buy">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
             <span>Mua ngay <b>— cấp đơn online 5 phút</b></span>
           </a>
@@ -941,7 +954,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div style="max-width:430px;margin:26px auto 0">
-      <a href="https://tnds.dbv247.com.vn/" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua ngay — cấp đơn online 5 phút</a>
+      <a href="#cap-don" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua ngay — cấp đơn online 5 phút</a>
       <p style="text-align:center;font-size:12.5px;color:var(--ts);margin-top:9px">Cần tư vấn trước? <a href="#hero-form" style="color:var(--g);font-weight:700">Để lại số, chuyên viên gọi lại</a></p>
     </div>
   </div>
@@ -961,7 +974,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pq"><div class="pq-t">Xe tải dưới 3 tấn</div><div class="pq-n">938.300đ</div><div class="pq-s">đã gồm VAT</div></div>
     </div>
     <div style="max-width:430px;margin:20px auto 4px">
-      <a href="https://tnds.dbv247.com.vn/" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua ngay với mức phí này</a>
+      <a href="#cap-don" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua ngay với mức phí này</a>
     </div>
     <details class="pq-more">
       <summary>Xem đầy đủ biểu phí tất cả loại xe theo Nghị định 67/2023</summary>
@@ -1034,7 +1047,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </tbody>
         </table>
         <div class="price-vat-note">* Chưa bao gồm 10% VAT · Liên hệ DBV để báo giá chính xác theo từng loại xe</div>
-        <div style="max-width:420px;margin:18px auto 0"><a href="https://tnds.dbv247.com.vn/" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua bảo hiểm TNDS ngay</a></div>
+        <div style="max-width:420px;margin:18px auto 0"><a href="#cap-don" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua bảo hiểm TNDS ngay</a></div>
       </div>
     </div>
     </details>
@@ -1054,6 +1067,558 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- SECTION 4 — QUY TRÌNH -->
+<style id="cd-capdon-css">
+
+/* ── Công cụ cấp đơn nhúng trong trang ──
+   Landing page dùng bộ biến màu riêng (không có --gd, --navyd, --g10,
+   --gold-bg, --gap-section). Khai báo lại đầy đủ trong phạm vi #cap-don,
+   nếu thiếu thì các khai báo linear-gradient(var(--navy),var(--navyd))
+   bị trình duyệt loại bỏ → hộp phí và nút bấm mất nền, chữ trắng trên nền trắng. */
+#cap-don{
+  --g:#007437;--gd:#005a2b;--gl:#e8f5e9;--g10:rgba(0,116,55,.10);
+  --gold:#E8920A;--goldd:#c97d08;--gold-bg:#FFF8E7;
+  --navy:#1B3A5C;--navyd:#132d47;
+  --dk:#0f2515;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--bg:#f8fafb;--zalo:#0068ff;
+  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+  --gap-section:48px;
+  scroll-margin-top:70px;
+}
+@media(min-width:768px){ #cap-don{ --gap-section:64px } }
+#cap-don .cd-band{background:linear-gradient(135deg,#0f2515 0%,#005a2b 55%,#007437 100%);color:#fff;padding:38px 16px 96px;text-align:center;position:relative;overflow:hidden}
+#cap-don .cd-band::after{content:"";position:absolute;right:-120px;top:-80px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.05)}
+#cap-don .cd-band-in{position:relative;z-index:2;max-width:820px;margin:0 auto}
+#cap-don .cd-band .tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;font-size:.74rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-bottom:14px}
+#cap-don .cd-band h2{font-size:1.5rem;font-weight:900;line-height:1.25;letter-spacing:-.5px;margin:0 0 10px;color:#fff}
+#cap-don .cd-band h2 em{color:#FFC451;font-style:normal}
+#cap-don .cd-band p{font-size:.95rem;color:rgba(255,255,255,.86);margin:0 auto;max-width:640px;line-height:1.65}
+@media(min-width:768px){ #cap-don .cd-band{padding:52px 16px 120px} #cap-don .cd-band h2{font-size:2.1rem} }
+#cap-don .cd-wrap{margin-top:-70px;margin-bottom:0;padding-bottom:8px}
+/* .why nam trong cot sidebar 330px nen xep doc, khong chia 3 cot nhu trang goc */
+#cap-don .why{grid-template-columns:1fr}
+@media(min-width:700px){ #cap-don .why{grid-template-columns:1fr} }
+@media(min-width:960px){ #cap-don .why{margin-top:16px} }
+@keyframes cdFadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* ═══ SHELL ═══ */
+#cap-don .cd-wrap{max-width:1060px;margin:-70px auto var(--gap-section);padding:0 16px;position:relative;z-index:5}
+#cap-don .cd-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+@media(min-width:960px){ #cap-don .cd-grid{grid-template-columns:1fr 330px;gap:24px} }
+
+#cap-don .cd-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);box-shadow:0 12px 40px rgba(15,37,21,.12);overflow:hidden}
+
+/* progress */
+#cap-don .cd-steps{display:flex;background:var(--bg);border-bottom:1px solid var(--bd);padding:14px 10px;gap:4px}
+#cap-don .cd-step{flex:1;text-align:center;position:relative;min-width:0}
+#cap-don .cd-step-n{width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--bd);color:var(--ts);font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;transition:.25s}
+#cap-don .cd-step-t{font-size:.66rem;font-weight:700;color:var(--ts);line-height:1.25;text-transform:uppercase;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#cap-don .cd-step.on .cd-step-n{background:var(--g);border-color:var(--g);color:#fff;box-shadow:0 0 0 4px var(--g10)}
+#cap-don .cd-step.on .cd-step-t{color:var(--g)}
+#cap-don .cd-step.done .cd-step-n{background:var(--gd);border-color:var(--gd);color:#fff}
+#cap-don .cd-step.done .cd-step-t{color:var(--tm)}
+#cap-don .cd-step:not(:last-child)::after{content:"";position:absolute;top:14px;left:calc(50% + 20px);right:calc(-50% + 20px);height:2px;background:var(--bd)}
+#cap-don .cd-step.done::after{background:var(--gd)}
+@media(min-width:600px){ #cap-don .cd-step-t{font-size:.72rem} }
+
+#cap-don .cd-body{padding:20px 18px 24px}
+@media(min-width:768px){ #cap-don .cd-body{padding:28px 30px 32px} }
+#cap-don .cd-pane{display:none}
+#cap-don .cd-pane.on{display:block;animation:cdFadeUp .28s ease}
+
+
+#cap-don .cd-h{font-size:1.12rem;font-weight:800;color:var(--navy);letter-spacing:-.3px;margin-bottom:4px}
+#cap-don .cd-sub{font-size:.84rem;color:var(--tm);margin-bottom:18px}
+#cap-don .cd-sec{font-size:.72rem;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.7px;margin:22px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--bd)}
+#cap-don .cd-sec:first-child{margin-top:0}
+
+/* fields */
+#cap-don .fld{margin-bottom:14px}
+#cap-don .fld label{display:block;font-size:.71rem;font-weight:800;color:var(--tm);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+#cap-don .fld label i{color:#dc2626;font-style:normal}
+#cap-don .fld input, #cap-don .fld select, #cap-don .fld textarea{width:100%;padding:11px 13px;border:1.5px solid var(--bd);border-radius:var(--r8);font-family:inherit;font-size:.92rem;color:var(--tx);background:#fff;transition:.2s;outline:none}
+#cap-don .fld input:focus, #cap-don .fld select:focus, #cap-don .fld textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px var(--g10)}
+#cap-don .fld input.err, #cap-don .fld select.err{border-color:#dc2626;background:#fef2f2}
+#cap-don .fld .hint{font-size:.73rem;color:var(--ts);margin-top:5px}
+#cap-don .fld .msg{font-size:.75rem;color:#dc2626;font-weight:600;margin-top:5px;display:none}
+#cap-don .fld.bad .msg{display:block}
+#cap-don .row2{display:grid;grid-template-columns:1fr;gap:0 14px}
+@media(min-width:640px){ #cap-don .row2{grid-template-columns:1fr 1fr} #cap-don .row2.r3{grid-template-columns:1fr 1fr 1fr} }
+
+/* vehicle type picker */
+#cap-don .vt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+#cap-don .vt{border:2px solid var(--bd);border-radius:var(--r12);padding:18px 12px;text-align:center;cursor:pointer;transition:.2s;background:#fff}
+#cap-don .vt:hover{border-color:var(--g);transform:translateY(-2px)}
+#cap-don .vt.on{border-color:var(--g);background:var(--gl);box-shadow:0 0 0 3px var(--g10)}
+#cap-don .vt svg{width:38px;height:38px;margin:0 auto 8px;color:var(--g);display:block}
+#cap-don .vt b{display:block;font-size:.92rem;font-weight:800;color:var(--navy)}
+#cap-don .vt small{display:block;font-size:.74rem;color:var(--tm);margin-top:3px}
+
+/* term chips */
+#cap-don .chips{display:flex;gap:9px;flex-wrap:wrap}
+#cap-don .chip{flex:1;min-width:88px;border:2px solid var(--bd);border-radius:var(--r8);padding:10px 8px;text-align:center;cursor:pointer;transition:.2s;background:#fff}
+#cap-don .chip:hover{border-color:var(--g)}
+#cap-don .chip.on{border-color:var(--g);background:var(--gl)}
+#cap-don .chip b{display:block;font-size:.9rem;font-weight:800;color:var(--navy)}
+#cap-don .chip small{display:block;font-size:.68rem;color:var(--tm)}
+#cap-don .chip.on small{color:var(--gd);font-weight:700}
+
+/* fee box */
+#cap-don .fee{background:linear-gradient(135deg,var(--navy),var(--navyd));border-radius:var(--r12);padding:18px;color:#fff;margin-top:20px}
+#cap-don .fee-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.6px;color:rgba(255,255,255,.7);font-weight:700}
+#cap-don .fee-num{font-size:2rem;font-weight:900;color:#FFC451;letter-spacing:-1px;line-height:1.15;margin:2px 0 8px}
+#cap-don .fee-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:10px;display:grid;gap:5px}
+#cap-don .fee-row{display:flex;justify-content:space-between;font-size:.8rem;color:rgba(255,255,255,.85)}
+#cap-don .fee-row b{color:#fff;font-weight:700}
+#cap-don .fee-note{font-size:.72rem;color:rgba(255,255,255,.6);margin-top:9px;line-height:1.5}
+#cap-don .fee.empty{background:var(--bg);border:1.5px dashed var(--bd);color:var(--ts);text-align:center;padding:26px 18px}
+#cap-don .fee.empty .fee-num{color:var(--ts);font-size:1.1rem}
+
+/* coverage strip */
+#cap-don .cov{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+#cap-don .cov div{background:var(--gl);border-radius:var(--r8);padding:11px 12px}
+#cap-don .cov small{display:block;font-size:.68rem;color:var(--gd);font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+#cap-don .cov b{font-size:.95rem;font-weight:800;color:var(--navy)}
+
+/* buttons */
+#cap-don .acts{display:flex;gap:10px;margin-top:24px}
+#cap-don .btn{flex:1;padding:14px 18px;border-radius:var(--r8);font-family:inherit;font-size:.95rem;font-weight:800;border:none;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+#cap-don .btn-p{background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;box-shadow:0 4px 14px rgba(0,116,55,.3)}
+#cap-don .btn-p:hover{transform:translateY(-2px);box-shadow:0 7px 20px rgba(0,116,55,.4)}
+#cap-don .btn-p:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+#cap-don .btn-s{background:#fff;color:var(--tm);border:1.5px solid var(--bd);flex:0 0 auto;min-width:110px}
+#cap-don .btn-s:hover{border-color:var(--g);color:var(--g)}
+#cap-don .btn-z{background:var(--zalo);color:#fff}
+#cap-don .btn-z:hover{filter:brightness(1.08)}
+#cap-don .consult-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+#cap-don .consult-row a{flex:1;min-width:190px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:.88rem;padding:12px 16px;border-radius:var(--r8);transition:.2s}
+#cap-don .cr-zalo{background:var(--gold);color:#fff;box-shadow:0 4px 14px rgba(232,146,10,.3)}
+#cap-don .cr-zalo:hover{background:var(--goldd);transform:translateY(-2px)}
+#cap-don .cr-tel{background:#fff;border:1.5px solid var(--g);color:var(--g)}
+#cap-don .cr-tel:hover{background:var(--gl)}
+
+/* summary sidebar */
+#cap-don .sum{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);overflow:hidden;box-shadow:0 6px 24px rgba(15,37,21,.07)}
+@media(min-width:960px){ #cap-don .sum{position:sticky;top:16px} }
+#cap-don .sum-hd{background:var(--navy);color:#fff;padding:13px 16px;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+#cap-don .sum-bd{padding:14px 16px}
+#cap-don .sum-r{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--bd);font-size:.82rem}
+#cap-don .sum-r:last-of-type{border-bottom:none}
+#cap-don .sum-r span{color:var(--ts);flex:0 0 auto}
+#cap-don .sum-r b{color:var(--tx);font-weight:700;text-align:right;word-break:break-word}
+#cap-don .sum-tot{background:var(--gl);margin:12px -16px -14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+#cap-don .sum-tot span{font-size:.78rem;font-weight:700;color:var(--gd);text-transform:uppercase}
+#cap-don .sum-tot b{font-size:1.28rem;font-weight:900;color:var(--gd);letter-spacing:-.5px}
+#cap-don .sum-empty{color:var(--ts);font-size:.83rem;text-align:center;padding:14px 0}
+
+/* QR pane */
+#cap-don .qr-box{background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r12);padding:20px;text-align:center}
+#cap-don .qr-img{width:100%;max-width:260px;margin:0 auto 14px;border-radius:var(--r8);background:#fff;border:1px solid var(--bd);padding:8px}
+#cap-don .qr-amt{font-size:1.75rem;font-weight:900;color:var(--gd);letter-spacing:-1px;line-height:1.1}
+#cap-don .qr-amt-l{font-size:.72rem;text-transform:uppercase;letter-spacing:.6px;color:var(--tm);font-weight:700}
+#cap-don .qr-bank{margin-top:14px;text-align:left;background:#fff;border-radius:var(--r8);border:1px solid var(--bd);padding:12px 14px;display:grid;gap:7px}
+#cap-don .qr-bank-r{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.83rem}
+#cap-don .qr-bank-r span{color:var(--ts);flex:0 0 auto}
+#cap-don .qr-bank-r b{font-weight:700;text-align:right;overflow-wrap:anywhere;line-height:1.45}
+#cap-don .qr-bank-r.long{align-items:flex-start}
+#cap-don .qr-bank-r.long b{font-size:.79rem;font-weight:600}
+#cap-don .copy{background:var(--gl);border:1px solid var(--g);color:var(--gd);border-radius:6px;padding:2px 8px;font-size:.68rem;font-weight:800;cursor:pointer;font-family:inherit;flex:0 0 auto;transition:.15s}
+#cap-don .copy:hover{background:var(--g);color:#fff}
+#cap-don .qr-timer{margin-top:12px;font-size:.8rem;color:var(--tm);font-weight:600}
+#cap-don .qr-timer b{color:#dc2626;font-variant-numeric:tabular-nums}
+#cap-don .qr-steps{margin-top:16px;text-align:left;background:var(--gold-bg);border:1px solid #F4D9A0;border-radius:var(--r8);padding:13px 15px}
+#cap-don .qr-steps b{display:block;font-size:.78rem;font-weight:800;color:var(--goldd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
+#cap-don .qr-steps ol{margin:0;padding-left:17px;font-size:.82rem;color:var(--tm);line-height:1.75}
+
+#cap-don .note{background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:var(--r8);padding:11px 14px;font-size:.8rem;color:var(--tm);line-height:1.6;margin-top:16px}
+#cap-don .note b{color:var(--goldd)}
+
+/* review list */
+#cap-don .rev{border:1px solid var(--bd);border-radius:var(--r12);overflow:hidden;margin-bottom:6px}
+#cap-don .rev-h{background:var(--bg);padding:9px 14px;font-size:.72rem;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.5px;display:flex;justify-content:space-between;align-items:center}
+#cap-don .rev-h button{background:none;border:none;color:var(--tm);font-family:inherit;font-size:.72rem;font-weight:700;cursor:pointer;text-decoration:underline}
+#cap-don .rev-h button:hover{color:var(--g)}
+#cap-don .rev-b{padding:10px 14px;display:grid;gap:6px}
+#cap-don .rev-r{display:flex;justify-content:space-between;gap:12px;font-size:.83rem}
+#cap-don .rev-r span{color:var(--ts);flex:0 0 auto}
+#cap-don .rev-r b{font-weight:700;text-align:right;word-break:break-word}
+
+#cap-don .chk{display:flex;gap:9px;align-items:flex-start;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r8);padding:12px 14px;cursor:pointer;margin-top:14px}
+#cap-don .chk input{width:17px;height:17px;flex:0 0 auto;margin-top:1px;accent-color:var(--g)}
+#cap-don .chk span{font-size:.83rem;color:var(--tm);line-height:1.55}
+#cap-don .chk a{color:var(--g);font-weight:700;text-decoration:underline}
+
+/* success */
+#cap-don .ok{text-align:center;padding:14px 0}
+#cap-don .ok-ic{width:74px;height:74px;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+#cap-don .ok-ic svg{width:40px;height:40px;color:var(--g)}
+#cap-don .ok h2{font-size:1.35rem;font-weight:900;color:var(--navy);margin-bottom:8px}
+#cap-don .ok p{font-size:.9rem;color:var(--tm);max-width:440px;margin:0 auto 6px}
+#cap-don .ok-code{display:inline-block;background:var(--gl);border:1.5px dashed var(--g);border-radius:var(--r8);padding:9px 20px;margin:16px 0 6px;font-size:1.05rem;font-weight:900;color:var(--gd);letter-spacing:1px}
+#cap-don .ok-next{text-align:left;background:var(--bg);border-radius:var(--r12);padding:16px 18px;margin-top:20px}
+#cap-don .ok-next b{display:block;font-size:.78rem;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+#cap-don .ok-next ul{margin:0;padding-left:18px;font-size:.85rem;color:var(--tm);line-height:1.8}
+#cap-don .ok-ship{text-align:left;background:var(--gold-bg);border:1.5px solid #F4D9A0;border-radius:var(--r12);padding:16px 18px;margin-top:14px}
+#cap-don .ok-ship>b{display:block;font-size:.82rem;font-weight:800;color:var(--goldd);margin-bottom:5px}
+#cap-don .ok-ship>p{font-size:.82rem;color:var(--tm);line-height:1.6;margin-bottom:13px}
+#cap-don .ok-ship-done{display:none;background:var(--gl);border:1px solid var(--g);color:var(--gd);border-radius:var(--r8);padding:11px 13px;font-size:.83rem;font-weight:700;margin-top:10px}
+
+/* trust bar under card */
+#cap-don .why{margin-top:22px;display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:700px){ #cap-don .why{grid-template-columns:repeat(3,1fr)} }
+#cap-don .why div{background:#fff;border:1px solid var(--bd);border-radius:var(--r12);padding:16px}
+#cap-don .why svg{width:24px;height:24px;color:var(--g);margin-bottom:8px}
+#cap-don .why b{display:block;font-size:.88rem;font-weight:800;color:var(--navy);margin-bottom:3px}
+#cap-don .why p{font-size:.8rem;color:var(--tm);line-height:1.55}
+</style>
+
+<!-- ══════════ CÔNG CỤ CẤP ĐƠN TNDS (nhúng trực tiếp) ══════════ -->
+<section id="cap-don">
+  <div class="cd-band">
+    <div class="cd-band-in">
+      <span class="tag">🛡️ Cấp đơn online — Nghị định 67/2023/NĐ-CP</span>
+      <h2>Cấp đơn TNDS ngay tại đây — <em>nhận giấy chứng nhận trong 15 phút</em></h2>
+      <p>Chọn loại xe, hệ thống tính phí theo đúng biểu phí Nhà nước và sinh mã QR chuyển khoản thẳng vào tài khoản Công ty Bảo hiểm DBV. Không rời trang, không qua trung gian.</p>
+    </div>
+  </div>
+<!-- ══════════ WIZARD ══════════ -->
+<div class="cd-wrap">
+<div class="cd-grid">
+
+  <div class="cd-card">
+    <!-- progress -->
+    <div class="cd-steps" id="cdsteps">
+      <div class="cd-step on" data-s="1"><div class="cd-step-n">1</div><div class="cd-step-t">Chọn xe &amp; phí</div></div>
+      <div class="cd-step" data-s="2"><div class="cd-step-n">2</div><div class="cd-step-t">Thông tin xe</div></div>
+      <div class="cd-step" data-s="3"><div class="cd-step-n">3</div><div class="cd-step-t">Chủ xe</div></div>
+      <div class="cd-step" data-s="4"><div class="cd-step-n">4</div><div class="cd-step-t">Thanh toán</div></div>
+    </div>
+
+    <div class="cd-body">
+
+      <!-- ─── BƯỚC 1 ─── -->
+      <div class="cd-pane on" id="cdp1">
+        <div class="cd-h">Xe của bạn là loại nào?</div>
+        <div class="cd-sub">Chọn đúng loại xe để hệ thống áp đúng biểu phí bắt buộc do Nhà nước quy định. Xe gia đình, xe công ty dùng nội bộ đều thuộc nhóm <b>không kinh doanh vận tải</b>.</div>
+
+        <div class="vt-grid">
+          <div class="vt" id="cdvt-oto" onclick="CD.pickVeh('oto')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M9.5 17h5M5 12h14"/></svg>
+            <b>Ô tô</b><small>Xe con, tải, khách, chuyên dùng</small>
+          </div>
+          <div class="vt" id="cdvt-moto" onclick="CD.pickVeh('moto')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M8 17h5l3-6h3M13 11L9.5 7H7M16 11l-2-4h3.5"/></svg>
+            <b>Xe máy / mô tô</b><small>Xe số, tay ga, xe máy điện</small>
+          </div>
+        </div>
+
+        <!-- ô tô -->
+        <div id="cdoto-opts" style="display:none">
+          <div class="cd-sec">Nhóm sử dụng</div>
+          <div class="fld">
+            <label>Xe dùng vào việc gì? <i>*</i></label>
+            <select id="cdf-group" onchange="CD.onGroup()">
+              <option value="">— Chọn nhóm sử dụng —</option>
+              <option value="nkd">Xe chở người KHÔNG kinh doanh vận tải</option>
+              <option value="kd">Xe chở người CÓ kinh doanh vận tải</option>
+              <option value="tai">Xe tải / xe chở hàng</option>
+              <option value="khac">Xe taxi, tập lái, buýt, chuyên dùng, đầu kéo</option>
+            </select>
+            <div class="hint">Xe gia đình, xe công ty dùng nội bộ → chọn "không kinh doanh vận tải".</div>
+          </div>
+          <div class="fld" id="cdwrap-sub">
+            <label>Loại xe cụ thể <i>*</i></label>
+            <select id="cdf-sub" onchange="CD.calc()"><option value="">— Chọn —</option></select>
+          </div>
+          <div class="fld" id="cdwrap-seats" style="display:none">
+            <label>Số chỗ theo đăng ký <i>*</i></label>
+            <input type="number" id="cdf-seats" min="1" max="80" step="1" placeholder="Ví dụ: 16" oninput="CD.calc()">
+            <div class="hint">Ghi đúng số chỗ trên giấy đăng ký xe. Trên 25 chỗ: phí = 4.813.000 + 30.000 × (số chỗ − 25).</div>
+          </div>
+        </div>
+
+        <!-- xe máy -->
+        <div id="cdmoto-opts" style="display:none">
+          <div class="cd-sec">Loại xe máy</div>
+          <div class="fld">
+            <label>Dung tích / chủng loại <i>*</i></label>
+            <select id="cdf-moto" onchange="CD.calc()">
+              <option value="">— Chọn loại xe máy —</option>
+              <option value="m2_50">Mô tô 2 bánh dưới 50 cc</option>
+              <option value="m2_50p">Mô tô 2 bánh từ 50 cc trở lên</option>
+              <option value="mdien">Xe máy điện</option>
+              <option value="m3b">Mô tô 3 bánh</option>
+              <option value="mkhac">Xe gắn máy &amp; xe cơ giới tương tự khác</option>
+            </select>
+            <div class="hint">Xe tay ga, xe số phổ thông (Wave, Vision, SH…) đều từ 50 cc trở lên.</div>
+          </div>
+        </div>
+
+        <!-- thời hạn -->
+        <div id="cdterm-wrap" style="display:none">
+          <div class="cd-sec">Thời hạn bảo hiểm</div>
+          <div class="chips" id="cdchips">
+            <div class="chip on" data-y="1" onclick="CD.pickTerm(this)"><b>1 năm</b><small>Phổ biến</small></div>
+            <div class="chip" data-y="2" onclick="CD.pickTerm(this)"><b>2 năm</b><small>Đỡ phải nhớ</small></div>
+            <div class="chip" data-y="3" onclick="CD.pickTerm(this)"><b>3 năm</b><small>Tiện nhất</small></div>
+          </div>
+          <div class="fld" style="margin-top:14px">
+            <label>Ngày bắt đầu hiệu lực <i>*</i></label>
+            <input type="date" id="cdf-start" onchange="CD.calc()">
+            <div class="hint">Đơn có hiệu lực từ 0h00 ngày bạn chọn. Không nhận ngày trong quá khứ.</div>
+          </div>
+        </div>
+
+        <!-- fee -->
+        <div class="fee empty" id="cdfee">
+          <div class="fee-lbl">Phí bảo hiểm</div>
+          <div class="fee-num">Chọn loại xe để xem phí</div>
+        </div>
+
+        <div class="cov" id="cdcov" style="display:none">
+          <div><small>Bồi thường về người</small><b>150 triệu đ</b><small style="text-transform:none;color:var(--tm);font-weight:500">/người/vụ</small></div>
+          <div><small>Bồi thường tài sản</small><b id="cdcov-ts">100 triệu đ</b><small style="text-transform:none;color:var(--tm);font-weight:500">/vụ</small></div>
+        </div>
+
+        <div class="acts"><button class="btn btn-p" id="cdb1" onclick="CD.go(2)" disabled>Tiếp tục — Nhập thông tin xe →</button></div>
+        <div class="consult-row">
+          <a class="cr-zalo" href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener">💬 Liên hệ tư vấn viên trước khi mua</a>
+          <a class="cr-tel" href="tel:0869656561">📞 0869 656 561</a>
+        </div>
+      </div>
+
+      <!-- ─── BƯỚC 2 ─── -->
+      <div class="cd-pane" id="cdp2">
+        <div class="cd-h">Thông tin xe</div>
+        <div class="cd-sub">Lấy đúng theo Giấy đăng ký xe. Thông tin sai sẽ khiến giấy chứng nhận không có giá trị khi CSGT kiểm tra.</div>
+
+        <div class="fld">
+          <label>Biển kiểm soát</label>
+          <input type="text" id="cdf-plate" placeholder="VD: 30A-123.45 hoặc 29B1-234.56" autocomplete="off">
+          <div class="hint">Xe chưa có biển số? Bỏ trống và ghi "Xe mới chưa đăng ký" ở phần ghi chú bước 3.</div>
+          <div class="msg">Vui lòng nhập biển kiểm soát.</div>
+        </div>
+
+        <div class="row2">
+          <div class="fld">
+            <label>Số khung — 8 ký tự cuối <i>*</i></label>
+            <input type="text" id="cdf-vin" placeholder="VD: XLY922654 → nhập Y922654" maxlength="8" autocomplete="off">
+            <div class="hint">Không cần nhập đủ 17 ký tự, chỉ lấy 8 ký tự cuối cùng.</div>
+            <div class="msg">Nhập 8 ký tự cuối của số khung.</div>
+          </div>
+          <div class="fld">
+            <label>Số máy — 8 ký tự cuối <i>*</i></label>
+            <input type="text" id="cdf-eng" placeholder="VD: L15Z12353689 → nhập 12353689" maxlength="8" autocomplete="off">
+            <div class="hint">Chỉ lấy 8 ký tự cuối trên giấy đăng ký xe.</div>
+            <div class="msg">Nhập 8 ký tự cuối của số máy.</div>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="fld">
+            <label>Hãng &amp; dòng xe</label>
+            <input type="text" id="cdf-brand" placeholder="VD: Toyota Vios / Honda Vision">
+          </div>
+          <div class="fld">
+            <label>Năm sản xuất</label>
+            <input type="number" id="cdf-year" min="1980" max="2027" placeholder="VD: 2021">
+          </div>
+        </div>
+
+        <div class="note">🔎 <b>Mẹo:</b> Số khung và số máy nằm ở mặt sau (hoặc mặt trước) Giấy đăng ký xe, ngay dưới dòng biển số. <b>Chỉ cần 8 ký tự cuối</b> của mỗi dãy — đủ để định danh xe, bạn không phải gõ hết 17 ký tự.</div>
+
+        <div class="acts">
+          <button class="btn btn-s" onclick="CD.go(1)">← Quay lại</button>
+          <button class="btn btn-p" onclick="CD.go(3)">Tiếp tục — Thông tin chủ xe →</button>
+        </div>
+      </div>
+
+      <!-- ─── BƯỚC 3 ─── -->
+      <div class="cd-pane" id="cdp3">
+        <div class="cd-h">Thông tin chủ xe</div>
+        <div class="cd-sub">Đây là thông tin in trên giấy chứng nhận bảo hiểm và dùng để giải quyết bồi thường.</div>
+
+        <div class="fld">
+          <label>Họ và tên chủ xe <i>*</i></label>
+          <input type="text" id="cdf-name" placeholder="Nguyễn Văn A" autocomplete="name">
+          <div class="msg">Vui lòng nhập họ tên.</div>
+        </div>
+
+        <div class="row2">
+          <div class="fld">
+            <label>Số điện thoại <i>*</i></label>
+            <input type="tel" id="cdf-phone" placeholder="09xx xxx xxx" inputmode="tel" maxlength="15" autocomplete="tel">
+            <div class="msg">Số điện thoại chưa đúng định dạng.</div>
+          </div>
+          <div class="fld">
+            <label>Email nhận giấy chứng nhận <i>*</i></label>
+            <input type="email" id="cdf-email" placeholder="ban@email.com" autocomplete="email">
+            <div class="msg">Email chưa đúng định dạng.</div>
+          </div>
+        </div>
+
+        <div class="fld">
+          <label>Địa chỉ</label>
+          <input type="text" id="cdf-addr" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/TP">
+        </div>
+
+        <label class="chk" style="margin-top:4px">
+          <input type="checkbox" id="cdf-vat" onchange="CD.toggleVat()">
+          <span>Tôi cần xuất hoá đơn VAT cho công ty</span>
+        </label>
+
+        <div id="cdvat-box" style="display:none">
+          <div class="cd-sec">Thông tin xuất hoá đơn</div>
+          <div class="row2">
+            <div class="fld"><label>Tên công ty</label><input type="text" id="cdf-cty" placeholder="Công ty TNHH ..."></div>
+            <div class="fld"><label>Mã số thuế</label><input type="text" id="cdf-mst" placeholder="10 hoặc 13 số"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label>Địa chỉ đăng ký kinh doanh</label><input type="text" id="cdf-ctyaddr" placeholder="Theo giấy ĐKKD"></div>
+            <div class="fld"><label>Email nhận hoá đơn</label><input type="email" id="cdf-emailhd" placeholder="ketoan@congty.com"></div>
+          </div>
+        </div>
+
+        <div class="fld" style="margin-top:16px">
+          <label>Ghi chú thêm</label>
+          <textarea id="cdf-note" rows="2" placeholder="Yêu cầu riêng, thời gian nhận cuộc gọi, xe mới chưa có biển..."></textarea>
+        </div>
+
+        <label class="chk">
+          <input type="checkbox" id="cdf-agree" onchange="document.getElementById('cdb3').disabled=!this.checked">
+          <span>Tôi xác nhận thông tin đã khai là đúng và đồng ý với <a href="https://dbv247.com.vn/chinh-sach-bao-mat" target="_blank">Chính sách bảo mật</a> cùng Quy tắc bảo hiểm bắt buộc TNDS chủ xe cơ giới theo NĐ 67/2023/NĐ-CP.</span>
+        </label>
+
+        <div class="acts">
+          <button class="btn btn-s" onclick="CD.go(2)">← Quay lại</button>
+          <button class="btn btn-p" id="cdb3" onclick="CD.go(4)" disabled>Xác nhận &amp; tạo mã thanh toán →</button>
+        </div>
+      </div>
+
+      <!-- ─── BƯỚC 4 ─── -->
+      <div class="cd-pane" id="cdp4">
+        <div class="cd-h">Quét mã QR để thanh toán</div>
+        <div class="cd-sub">Mở app ngân hàng bất kỳ → quét mã dưới đây. Số tiền và nội dung chuyển khoản đã điền sẵn, bạn không cần gõ lại.</div>
+
+        <div class="rev">
+          <div class="rev-h">Đơn bảo hiểm <button onclick="CD.go(1)">Sửa</button></div>
+          <div class="rev-b" id="cdrev-order"></div>
+        </div>
+        <div class="rev">
+          <div class="rev-h">Thông tin xe <button onclick="CD.go(2)">Sửa</button></div>
+          <div class="rev-b" id="cdrev-veh"></div>
+        </div>
+        <div class="rev">
+          <div class="rev-h">Chủ xe <button onclick="CD.go(3)">Sửa</button></div>
+          <div class="rev-b" id="cdrev-own"></div>
+        </div>
+
+        <div class="cd-sec">Mã QR thanh toán</div>
+        <div class="qr-box">
+          <img class="qr-img" id="cdqr-img" alt="Mã QR thanh toán bảo hiểm TNDS">
+          <div class="qr-amt-l">Số tiền cần thanh toán</div>
+          <div class="qr-amt" id="cdqr-amt">—</div>
+
+          <div class="qr-bank">
+            <div class="qr-bank-r"><span>Ngân hàng</span><b id="cdqr-bank-name">—</b></div>
+            <div class="qr-bank-r"><span>Số tài khoản</span><b id="cdqr-acc">—</b><button class="copy" onclick="CD.cp('cdqr-acc',this)">Copy</button></div>
+            <div class="qr-bank-r long"><span>Chủ tài khoản</span><b id="cdqr-owner">—</b></div>
+            <div class="qr-bank-r"><span>Nội dung CK</span><b id="cdqr-info">—</b><button class="copy" onclick="CD.cp('cdqr-info',this)">Copy</button></div>
+          </div>
+          <div style="font-size:.75rem;color:var(--ts);margin-top:8px;line-height:1.5">Quét QR thì mọi thông tin đã điền sẵn. Nếu nhập tay, giữ nguyên nội dung chuyển khoản để hệ thống đối soát tự động.</div>
+
+          <div class="qr-timer">Mã có hiệu lực trong <b id="cdqr-clock">15:00</b></div>
+
+          <div class="qr-steps">
+            <b>Sau khi chuyển khoản</b>
+            <ol>
+              <li>Bấm nút <b>"Tôi đã chuyển khoản"</b> bên dưới.</li>
+              <li>Chuyên viên đối soát và phát hành giấy chứng nhận điện tử.</li>
+              <li>GCN gửi về email &amp; Zalo của bạn — thường trong 15 phút giờ hành chính.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="note">💡 Chưa tiện chuyển khoản ngay? Bấm <b>"Tôi đã chuyển khoản"</b> vẫn lưu đơn của bạn — chuyên viên sẽ liên hệ hỗ trợ thanh toán bằng cách khác (VNPay, Momo, thẻ, thu tại nhà).</div>
+
+        <div class="acts">
+          <button class="btn btn-s" onclick="CD.go(3)">← Quay lại</button>
+          <button class="btn btn-p" id="cdb4" onclick="CD.finish()">✓ Tôi đã chuyển khoản</button>
+        </div>
+      </div>
+
+      <!-- ─── HOÀN TẤT ─── -->
+      <div class="cd-pane" id="cdp5">
+        <div class="ok">
+          <div class="ok-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <h2>Đã nhận đơn của bạn!</h2>
+          <p>Chuyên viên DBV Thành Đô đang đối soát thanh toán và phát hành giấy chứng nhận điện tử.</p>
+          <div class="ok-code" id="cdok-code">—</div>
+          <p style="font-size:.78rem;color:var(--ts)">Mã đơn — vui lòng lưu lại để tra cứu</p>
+
+          <div class="ok-next">
+            <b>Việc tiếp theo</b>
+            <ul>
+              <li>Giấy chứng nhận điện tử gửi về email <b id="cdok-email">—</b></li>
+              <li>Bản mềm gửi kèm qua Zalo số <b id="cdok-phone">—</b></li>
+              <li>Cần bản giấy? Điền địa chỉ ngay bên dưới — chuyển phát miễn phí toàn quốc</li>
+            </ul>
+          </div>
+
+          <div class="ok-ship">
+            <b>📦 Nhận bản bảo hiểm giấy — miễn phí toàn quốc</b>
+            <p>Ấn chỉ giấy có dấu đỏ của Công ty Bảo hiểm DBV, chuyển phát tận nơi và không thu thêm phí. Điền địa chỉ để chúng tôi gửi ngay sau khi đối soát thanh toán.</p>
+            <div class="fld">
+              <label>Địa chỉ nhận bản giấy</label>
+              <input type="text" id="cdf-ship" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/TP" autocomplete="street-address">
+              <div class="msg">Vui lòng nhập địa chỉ nhận.</div>
+            </div>
+            <div class="row2">
+              <div class="fld">
+                <label>Người nhận</label>
+                <input type="text" id="cdf-shipname" placeholder="Bỏ trống nếu là chủ xe">
+              </div>
+              <div class="fld">
+                <label>SĐT người nhận</label>
+                <input type="tel" id="cdf-shipphone" placeholder="Bỏ trống nếu dùng số đã khai" inputmode="tel" maxlength="15">
+              </div>
+            </div>
+            <button class="btn btn-p" style="width:100%" id="cdb5" onclick="CD.guiDiaChi()">Gửi địa chỉ nhận bản giấy</button>
+            <div class="ok-ship-done" id="cdok-ship-done">✅ Đã nhận địa chỉ. Bản giấy sẽ được chuyển phát ngay sau khi đối soát thanh toán.</div>
+          </div>
+
+          <div class="acts">
+            <a class="btn btn-z" id="cdok-zalo" href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener">💬 Gửi biên lai qua Zalo</a>
+            <a class="btn btn-s" href="tel:0869656561" style="flex:1">📞 0869 656 561</a>
+          </div>
+          <div class="acts" style="margin-top:10px">
+            <button class="btn btn-s" style="flex:1" onclick="location.reload()">Cấp đơn cho xe khác</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cd-body -->
+  </div><!-- /cd-card -->
+
+  <!-- SIDEBAR -->
+  <div>
+    <div class="sum">
+      <div class="sum-hd">Tóm tắt đơn</div>
+      <div class="sum-bd">
+        <div id="cdsum-rows"><div class="sum-empty">Chọn loại xe để bắt đầu</div></div>
+        <div class="sum-tot"><span>Tổng thanh toán</span><b id="cdsum-tot">0 đ</b></div>
+      </div>
+    </div>
+
+    <div class="why">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><b>Đúng phí Nhà nước</b><p>Biểu phí lấy nguyên Phụ lục I NĐ 67/2023 — không phụ thu, không chênh lệch.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><b>15 phút có GCN</b><p>Giấy chứng nhận điện tử hợp lệ khi CSGT kiểm tra, gửi ngay qua email &amp; Zalo.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><b>Bồi thường có người theo</b><p>Chuyên viên hiện trường hỗ trợ hồ sơ, tạm ứng tới 70% trong 3 ngày.</p></div>
+    </div>
+  </div>
+
+</div><!-- /cd-grid -->
+</div><!-- /cd-wrap -->
+</section>
+
 <section class="process-sec" id="process">
   <div class="sec-inner">
     <span class="sec-tag">Mua dễ — đòi cũng dễ</span>
@@ -1348,7 +1913,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div style="max-width:430px;margin:28px auto 0">
-      <a href="https://tnds.dbv247.com.vn/" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Yên tâm rồi — mua ngay</a>
+      <a href="#cap-don" class="dbv-buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Yên tâm rồi — mua ngay</a>
     </div>
   </div>
 </section>
@@ -1627,7 +2192,7 @@ function submitFloat(){
 }
 document.addEventListener('click',function(e){
   var wrap=document.getElementById('floatFormWrap');
-  if(wrap.style.display==='block'&&!(document.getElementById('floatCta')&&document.getElementById('floatCta').contains(e.target))){
+  if(wrap&&wrap.style.display==='block'&&!(document.getElementById('floatCta')&&document.getElementById('floatCta').contains(e.target))){
     wrap.style.display='none';
   }
 });
@@ -1755,6 +2320,511 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
+})();
+</script>
+<script id="cd-capdon-js">
+/* Công cụ cấp đơn TNDS — đóng gói trong IIFE, chỉ lộ ra window.CD
+   để không đụng tên hàm với JS sẵn có của landing page. */
+(function(){
+/* ══════════════════════════════════════════════════════════════════════════
+   ⚙️  CẤU HÌNH TÀI KHOẢN NHẬN TIỀN — SỬA 4 DÒNG DƯỚI ĐÂY LÀ CHẠY ĐƯỢC
+   ──────────────────────────────────────────────────────────────────────────
+   bankId : mã ngân hàng theo chuẩn VietQR (BIN hoặc short name).
+            VD: 'VCB' Vietcombank · 'BIDV' · 'TCB' Techcombank · 'MB' MBBank
+                'ACB' · 'VPB' VPBank · 'STB' Sacombank · 'ICB' VietinBank
+            Tra đầy đủ tại https://api.vietqr.io/v2/banks
+   Đổi số tài khoản thì KHÔNG cần sửa gì thêm — mã QR tự sinh lại theo
+   số tiền và mã đơn của từng khách.
+   ══════════════════════════════════════════════════════════════════════════ */
+var BANK = {
+  bankId     : 'TCB',          /* Techcombank — BIN 970407, dùng '970407' cũng được */
+  bankName   : 'Techcombank',
+  accountNo  : '123568568',
+  /* Tên hiện trên trang cho khách đối chiếu */
+  accountName: 'Công ty cổ phần Tập đoàn Bảo hiểm DBV - Chi nhánh DBV Thành Đô',
+  /* Tên không dấu, viết hoa — chuẩn VietQR yêu cầu, đừng thêm dấu vào đây */
+  accountNameQR: 'CONG TY CO PHAN TAP DOAN BAO HIEM DBV - CHI NHANH DBV THANH DO'
+};
+var HOTLINE = '0869656561';
+var ZALO    = 'https://zalo.me/1283738895804393564';
+var QR_MINUTES = 15;
+
+/* ══════════ BIỂU PHÍ — Phụ lục I, Nghị định 67/2023/NĐ-CP ══════════
+   Đơn vị: đồng/năm, CHƯA gồm VAT. Không sửa nếu chưa có nghị định mới. */
+var MOTO = {
+  m2_50 :{t:'Mô tô 2 bánh dưới 50 cc',            f:55000},
+  m2_50p:{t:'Mô tô 2 bánh từ 50 cc trở lên',      f:60000},
+  mdien :{t:'Xe máy điện',                        f:55000},
+  m3b   :{t:'Mô tô 3 bánh',                       f:290000},
+  mkhac :{t:'Xe gắn máy & xe cơ giới tương tự',   f:290000}
+};
+
+/* IV — ô tô KHÔNG kinh doanh vận tải */
+var NKD = {
+  d6    :{t:'Xe dưới 6 chỗ',                      f:437000},
+  c611  :{t:'Xe từ 6 đến 11 chỗ',                 f:794000},
+  c1224 :{t:'Xe từ 12 đến 24 chỗ',                f:1270000},
+  t24   :{t:'Xe trên 24 chỗ',                     f:1825000},
+  pickup:{t:'Pickup / minivan (vừa chở người vừa chở hàng)', f:437000}
+};
+
+/* V — ô tô KINH DOANH vận tải: phí theo số chỗ đăng ký */
+var KD_SEAT = {
+  1:756000,2:756000,3:756000,4:756000,5:756000,
+  6:929000,7:1080000,8:1253000,9:1404000,10:1512000,
+  11:1656000,12:1822000,13:2049000,14:2221000,15:2394000,
+  16:3054000,17:2718000,18:2869000,19:3041000,20:3191000,
+  21:3364000,22:3515000,23:3688000,24:4632000,25:4813000
+};
+function phiKD(seats){
+  seats = parseInt(seats,10);
+  if(!seats || seats < 1) return 0;
+  if(seats <= 25) return KD_SEAT[seats] || 0;
+  return 4813000 + 30000 * (seats - 25);   /* mục V.22 */
+}
+
+/* VI — ô tô chở hàng (xe tải) */
+var TAI = {
+  t3  :{t:'Xe tải dưới 3 tấn',        f:853000},
+  t38 :{t:'Xe tải từ 3 đến 8 tấn',    f:1660000},
+  t815:{t:'Xe tải trên 8 đến 15 tấn', f:2746000},
+  t15 :{t:'Xe tải trên 15 tấn',       f:3200000}
+};
+
+/* VII — các trường hợp tính theo hệ số */
+var KHAC = {
+  taxi   :{t:'Xe taxi',                        base:'kdseat', k:1.70, seats:true,
+           note:'170% phí xe kinh doanh cùng số chỗ (mục VII.2)'},
+  taplai :{t:'Xe tập lái (xe con dưới 6 chỗ)', base:437000,  k:1.20,
+           note:'120% phí xe không KDVT cùng chủng loại (mục VII.1)'},
+  buyt   :{t:'Xe buýt',                        base:'buyt',  k:1.00, seats:true,
+           note:'Bằng phí xe không KDVT cùng số chỗ (mục VII.6)'},
+  cuuthuong:{t:'Xe cứu thương',                base:933000,  k:1.20,
+           note:'120% phí pickup/minivan kinh doanh (mục VII.3a)'},
+  chotien:{t:'Xe chở tiền',                    base:437000,  k:1.20,
+           note:'120% phí xe dưới 6 chỗ không KDVT (mục VII.3b)'},
+  cd3    :{t:'Xe chuyên dùng khác — dưới 3 tấn',  base:853000, k:1.20, note:'120% phí xe tải cùng trọng tải (mục VII.3c)'},
+  cd38   :{t:'Xe chuyên dùng khác — 3 đến 8 tấn', base:1660000,k:1.20, note:'120% phí xe tải cùng trọng tải (mục VII.3c)'},
+  cd815  :{t:'Xe chuyên dùng khác — trên 8 đến 15 tấn', base:2746000,k:1.20, note:'120% phí xe tải cùng trọng tải (mục VII.3c)'},
+  cd15   :{t:'Xe chuyên dùng khác — trên 15 tấn', base:3200000,k:1.20, note:'120% phí xe tải cùng trọng tải (mục VII.3c)'},
+  daukeo :{t:'Đầu kéo rơ-moóc',                base:3200000, k:1.50,
+           note:'150% phí xe tải trên 15 tấn — đã gồm cả rơ-moóc (mục VII.4)'},
+  maykeo :{t:'Máy kéo',                        base:853000,  k:1.20,
+           note:'120% phí xe tải dưới 3 tấn — đã gồm rơ-moóc (mục VII.5)'}
+};
+
+/* phí xe buýt = phí xe không KDVT cùng số chỗ (mục IV) */
+function phiNkdTheoCho(seats){
+  seats = parseInt(seats,10);
+  if(!seats||seats<1) return 0;
+  if(seats < 6)  return 437000;
+  if(seats <= 11) return 794000;
+  if(seats <= 24) return 1270000;
+  return 1825000;
+}
+
+/* ══════════ TRẠNG THÁI ══════════ */
+var S = { veh:'', group:'', sub:'', seats:'', years:1, start:'',
+          phiGoc:0, vat:0, tong:0, label:'', note:'', code:'', sent:false };
+
+var VND = function(n){ return (Math.round(n)||0).toLocaleString('vi-VN') + ' đ'; };
+function $(id){ return document.getElementById(id); }
+function val(id){ var e=$(id); return e ? (e.value||'').trim() : ''; }
+
+/* ══════════ BƯỚC 1 ══════════ */
+function pickVeh(v){
+  S.veh = v; S.group=''; S.sub=''; S.seats='';
+  $('cdvt-oto').classList.toggle('on', v==='oto');
+  $('cdvt-moto').classList.toggle('on', v==='moto');
+  $('cdoto-opts').style.display  = v==='oto'  ? 'block':'none';
+  $('cdmoto-opts').style.display = v==='moto' ? 'block':'none';
+  $('cdterm-wrap').style.display = 'block';
+  $('cdf-group').value=''; $('cdf-moto').value=''; $('cdf-sub').innerHTML='<option value="">— Chọn —</option>';
+  $('cdwrap-seats').style.display='none';
+  $('cdcov-ts').textContent = (v==='moto') ? '50 triệu đ' : '100 triệu đ';
+  if(!$('cdf-start').value) setDefaultDate();
+  calc();
+}
+
+function setDefaultDate(){
+  var d = new Date(); d.setDate(d.getDate()+1);
+  var iso = d.toISOString().slice(0,10);
+  $('cdf-start').value = iso;
+  var t = new Date(); t.setDate(t.getDate());
+  $('cdf-start').min = t.toISOString().slice(0,10);
+}
+
+function onGroup(){
+  var g = $('cdf-group').value; S.group = g;
+  var sel = $('cdf-sub'), html = '<option value="">— Chọn —</option>', needSeats = false;
+  if(g==='nkd'){ for(var k in NKD) html += '<option value="'+k+'">'+NKD[k].t+'</option>'; }
+  else if(g==='kd'){
+    html += '<option value="kdseat">Xe chở người kinh doanh — theo số chỗ</option>';
+    html += '<option value="kdpickup">Pickup / minivan kinh doanh vận tải</option>';
+  }
+  else if(g==='tai'){ for(var k2 in TAI) html += '<option value="'+k2+'">'+TAI[k2].t+'</option>'; }
+  else if(g==='khac'){ for(var k3 in KHAC) html += '<option value="'+k3+'">'+KHAC[k3].t+'</option>'; }
+  sel.innerHTML = html; sel.value=''; S.sub='';
+  $('cdwrap-seats').style.display = 'none';
+  calc();
+}
+
+function pickTerm(el){
+  var c = document.querySelectorAll('#cdchips .chip');
+  for(var i=0;i<c.length;i++) c[i].classList.remove('on');
+  el.classList.add('on');
+  S.years = parseInt(el.getAttribute('data-y'),10) || 1;
+  calc();
+}
+
+/* tính phí gốc 1 năm theo lựa chọn hiện tại */
+function phiNam(){
+  S.note = '';
+  if(S.veh === 'moto'){
+    var m = MOTO[ val('cdf-moto') ];
+    if(!m) return 0;
+    S.label = m.t; return m.f;
+  }
+  var g = $('cdf-group') ? $('cdf-group').value : '';
+  var sub = val('cdf-sub');
+  S.sub = sub;
+  if(!g || !sub) return 0;
+
+  if(g==='nkd'){ S.label = NKD[sub].t; return NKD[sub].f; }
+  if(g==='tai'){ S.label = TAI[sub].t; return TAI[sub].f; }
+
+  if(g==='kd'){
+    if(sub==='kdpickup'){ S.label='Pickup / minivan kinh doanh vận tải'; return 933000; }
+    if(sub==='kdseat'){
+      $('cdwrap-seats').style.display='block';
+      var s = val('cdf-seats');
+      if(!s) return 0;
+      S.label = 'Xe kinh doanh vận tải ' + s + ' chỗ';
+      if(parseInt(s,10) > 25) S.note = 'Trên 25 chỗ: 4.813.000 + 30.000 × (' + s + ' − 25)';
+      return phiKD(s);
+    }
+  }
+
+  if(g==='khac'){
+    var o = KHAC[sub];
+    if(!o) return 0;
+    S.label = o.t; S.note = o.note;
+    if(o.seats){
+      $('cdwrap-seats').style.display='block';
+      var sq = val('cdf-seats');
+      if(!sq) return 0;
+      S.label = o.t + ' — ' + sq + ' chỗ';
+      var b = (o.base==='kdseat') ? phiKD(sq) : phiNkdTheoCho(sq);
+      return Math.round(b * o.k);
+    }
+    return Math.round(o.base * o.k);
+  }
+  return 0;
+}
+
+function calc(){
+  /* hiện/ẩn ô số chỗ */
+  var g = $('cdf-group') ? $('cdf-group').value : '', sub = val('cdf-sub');
+  var needSeats = (S.veh==='oto') && ((g==='kd' && sub==='kdseat') || (g==='khac' && KHAC[sub] && KHAC[sub].seats));
+  $('cdwrap-seats').style.display = needSeats ? 'block' : 'none';
+
+  var base = phiNam();
+  S.phiGoc = Math.round(base * S.years);
+  S.vat    = Math.round(S.phiGoc * 0.10);
+  S.tong   = S.phiGoc + S.vat;
+  S.start  = val('cdf-start');
+
+  var box = $('cdfee');
+  if(!base){
+    box.className = 'fee empty';
+    box.innerHTML = '<div class="fee-lbl">Phí bảo hiểm</div><div class="fee-num">Chọn đủ thông tin để xem phí</div>';
+    $('cdcov').style.display='none';
+    $('cdb1').disabled = true;
+  }else{
+    box.className = 'fee';
+    box.innerHTML =
+      '<div class="fee-lbl">Tổng phí phải trả · '+S.years+' năm</div>'+
+      '<div class="fee-num">'+VND(S.tong)+'</div>'+
+      '<div class="fee-rows">'+
+        '<div class="fee-row"><span>Phí bảo hiểm ('+VND(base)+'/năm × '+S.years+')</span><b>'+VND(S.phiGoc)+'</b></div>'+
+        '<div class="fee-row"><span>Thuế GTGT 10%</span><b>'+VND(S.vat)+'</b></div>'+
+      '</div>'+
+      '<div class="fee-note">'+(S.note? S.note+'<br>' : '')+'Biểu phí Nhà nước quy định tại Phụ lục I, Nghị định 67/2023/NĐ-CP — mọi công ty bảo hiểm đều bán cùng mức phí này.</div>';
+    $('cdcov').style.display='grid';
+    $('cdb1').disabled = !S.start;
+  }
+  drawSummary();
+}
+
+function hetHan(){
+  if(!S.start) return '';
+  var d = new Date(S.start);
+  d.setFullYear(d.getFullYear() + S.years);
+  d.setDate(d.getDate() - 1);
+  return d.toLocaleDateString('vi-VN');
+}
+function ngayVN(iso){ return iso ? new Date(iso).toLocaleDateString('vi-VN') : ''; }
+
+function drawSummary(){
+  var r = $('cdsum-rows');
+  if(!S.tong){ r.innerHTML = '<div class="sum-empty">Chọn loại xe để bắt đầu</div>'; $('cdsum-tot').textContent='0 đ'; return; }
+  var h = '';
+  h += '<div class="sum-r"><span>Sản phẩm</span><b>TNDS bắt buộc</b></div>';
+  h += '<div class="sum-r"><span>Loại xe</span><b>'+S.label+'</b></div>';
+  h += '<div class="sum-r"><span>Thời hạn</span><b>'+S.years+' năm</b></div>';
+  if(S.start) h += '<div class="sum-r"><span>Hiệu lực</span><b>'+ngayVN(S.start)+' → '+hetHan()+'</b></div>';
+  if(val('cdf-plate')) h += '<div class="sum-r"><span>Biển số</span><b>'+val('cdf-plate')+'</b></div>';
+  if(val('cdf-name'))  h += '<div class="sum-r"><span>Chủ xe</span><b>'+val('cdf-name')+'</b></div>';
+  h += '<div class="sum-r"><span>Phí bảo hiểm</span><b>'+VND(S.phiGoc)+'</b></div>';
+  h += '<div class="sum-r"><span>VAT 10%</span><b>'+VND(S.vat)+'</b></div>';
+  r.innerHTML = h;
+  $('cdsum-tot').textContent = VND(S.tong);
+}
+
+/* ══════════ ĐIỀU HƯỚNG ══════════ */
+function go(n){
+  if(n===2 && !S.tong) return;
+  if(n===3 && !validVeh()) return;
+  if(n===4 && !validOwner()) return;
+
+  var p=[1,2,3,4,5];
+  for(var i=0;i<p.length;i++){ var el=$('cdp'+p[i]); if(el) el.classList.remove('on'); }
+  $('cdp'+n).classList.add('on');
+
+  var st = document.querySelectorAll('#cdsteps .cd-step');
+  for(var j=0;j<st.length;j++){
+    var s = parseInt(st[j].getAttribute('data-s'),10);
+    st[j].classList.toggle('on', s===n);
+    st[j].classList.toggle('done', s<n);
+  }
+  if(n===4){ buildReview(); makeQR(); startClock(); }
+  drawSummary();
+  var top = document.querySelector('.cd-wrap');
+  if(top) window.scrollTo({ top: top.offsetTop - 12, behavior:'smooth' });
+}
+
+function mark(id, ok){
+  var e=$(id); if(!e) return ok;
+  e.classList.toggle('err', !ok);
+  if(e.parentNode) e.parentNode.classList.toggle('bad', !ok);
+  return ok;
+}
+function validVeh(){
+  var ok = true;
+  /* Chỉ thu 8 ký tự cuối của số khung / số máy. Cho phép 6–8 để không chặn
+     nhầm những xe có dãy số ngắn hơn 8 ký tự. */
+  var re8 = /^[A-Za-z0-9]{6,8}$/;
+  ok = mark('cdf-vin', re8.test(val('cdf-vin').replace(/[\s.\-]/g,''))) && ok;
+  ok = mark('cdf-eng', re8.test(val('cdf-eng').replace(/[\s.\-]/g,''))) && ok;
+  if(!ok){ var b=document.querySelector('#cdp2 .err'); if(b) b.focus(); }
+  return ok;
+}
+function validOwner(){
+  var ok = true;
+  ok = mark('cdf-name', val('cdf-name').length >= 3) && ok;
+  ok = mark('cdf-phone', /^0\d{8,10}$/.test(val('cdf-phone').replace(/[\s.\-]/g,''))) && ok;
+  ok = mark('cdf-email', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('cdf-email'))) && ok;
+  if(!ok){ var b=document.querySelector('#cdp3 .err'); if(b) b.focus(); }
+  return ok;
+}
+function toggleVat(){ $('cdvat-box').style.display = $('cdf-vat').checked ? 'block' : 'none'; }
+
+/* ══════════ REVIEW ══════════ */
+function row(l,v){ return v ? '<div class="rev-r"><span>'+l+'</span><b>'+v+'</b></div>' : ''; }
+function buildReview(){
+  $('cdrev-order').innerHTML =
+    row('Sản phẩm','Bảo hiểm bắt buộc TNDS chủ xe cơ giới') +
+    row('Loại xe', S.label) +
+    row('Thời hạn', S.years + ' năm') +
+    row('Hiệu lực', ngayVN(S.start) + ' → ' + hetHan()) +
+    row('Phí bảo hiểm', VND(S.phiGoc)) +
+    row('VAT 10%', VND(S.vat)) +
+    row('Tổng thanh toán', VND(S.tong));
+
+  $('cdrev-veh').innerHTML =
+    row('Biển kiểm soát', val('cdf-plate') || 'Chưa có biển số') +
+    row('Số khung (8 số cuối)', val('cdf-vin')) +
+    row('Số máy (8 số cuối)', val('cdf-eng')) +
+    row('Hãng / dòng xe', val('cdf-brand')) +
+    row('Năm sản xuất', val('cdf-year'));
+
+  $('cdrev-own').innerHTML =
+    row('Họ tên', val('cdf-name')) +
+    row('Điện thoại', val('cdf-phone')) +
+    row('Email', val('cdf-email')) +
+    row('Địa chỉ', val('cdf-addr')) +
+    ($('cdf-vat').checked ? row('Hoá đơn VAT', val('cdf-cty') + (val('cdf-mst') ? ' — MST ' + val('cdf-mst') : '')) : '');
+}
+
+/* ══════════ MÃ ĐƠN + QR ══════════ */
+function maDon(){
+  var d = new Date(), p = function(x){ return (x<10?'0':'')+x; };
+  var stamp = String(d.getFullYear()).slice(2) + p(d.getMonth()+1) + p(d.getDate());
+  var rnd = '';
+  var A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  for(var i=0;i<4;i++) rnd += A.charAt(Math.floor(Math.random()*A.length));
+  return 'TNDS' + stamp + rnd;
+}
+
+function makeQR(){
+  if(!S.code) S.code = maDon();
+  /* Nội dung chuyển khoản: "TNDS <biển số>".
+     Xe mới chưa có biển thì thay bằng mã đơn để chuyên viên vẫn đối soát được. */
+  var plate = val('cdf-plate').replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  var info  = 'TNDS ' + (plate || S.code);
+
+  var url = 'https://img.vietqr.io/image/' +
+            encodeURIComponent(BANK.bankId) + '-' +
+            encodeURIComponent(BANK.accountNo) + '-compact2.png' +
+            '?amount=' + S.tong +
+            '&addInfo=' + encodeURIComponent(info) +
+            '&accountName=' + encodeURIComponent(BANK.accountNameQR || BANK.accountName);
+
+  $('cdqr-img').src = url;
+  $('cdqr-amt').textContent = VND(S.tong);
+  $('cdqr-bank-name').textContent = BANK.bankName;
+  $('cdqr-acc').textContent = BANK.accountNo;
+  $('cdqr-owner').textContent = BANK.accountName;
+  $('cdqr-info').textContent = info;
+
+  /* lưu đơn ngay khi tạo QR — không mất lead nếu khách bỏ giữa chừng.
+     Chỉ gửi một lần cho mỗi mã đơn, tránh trùng khi khách quay lại sửa. */
+  if(!S.sent){ S.sent = true; send('Chờ thanh toán'); }
+}
+
+function cp(id, btn){
+  var t = $(id).textContent;
+  var done = function(){ var o=btn.textContent; btn.textContent='Đã copy'; setTimeout(function(){btn.textContent=o;},1400); };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done, done); }
+  else{
+    var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta);
+    ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); done();
+  }
+}
+
+var clockT = null;
+function startClock(){
+  if(clockT) return;
+  var left = QR_MINUTES * 60;
+  var tick = function(){
+    var m = Math.floor(left/60), s = left%60;
+    $('cdqr-clock').textContent = m + ':' + (s<10?'0':'') + s;
+    if(left <= 0){
+      clearInterval(clockT); clockT=null;
+      $('cdqr-clock').textContent = 'đã hết hạn';
+      var w = document.querySelector('.qr-timer');
+      if(w) w.innerHTML = 'Mã đã hết hạn — <a href="javascript:CD.refreshQR()" style="color:var(--g);font-weight:800;text-decoration:underline">tạo mã mới</a>';
+      return;
+    }
+    left--;
+  };
+  tick(); clockT = setInterval(tick, 1000);
+}
+function refreshQR(){
+  S.code=''; S.sent=false;
+  if(clockT){ clearInterval(clockT); clockT=null; }
+  var w = document.querySelector('.qr-timer');
+  if(w) w.innerHTML = 'Mã có hiệu lực trong <b id="cdqr-clock">15:00</b>';
+  makeQR(); startClock();
+}
+
+/* ══════════ GỬI ĐƠN ══════════ */
+function payload(status){
+  return {
+    'form-name'   : 'dbv-capdon-tnds',
+    'ma-don'      : S.code,
+    'san-pham'    : 'Bảo hiểm bắt buộc TNDS chủ xe cơ giới',
+    'loai-xe'     : S.veh === 'moto' ? 'Xe máy / mô tô' : 'Ô tô',
+    'nhom-xe'     : S.group || (S.veh==='moto' ? 'moto' : ''),
+    'chi-tiet-xe' : S.label,
+    'so-cho'      : val('cdf-seats'),
+    'thoi-han'    : S.years + ' năm',
+    'phi-goc'     : String(S.phiGoc),
+    'vat'         : String(S.vat),
+    'tong-phi'    : String(S.tong),
+    'bien-so'     : val('cdf-plate'),
+    'so-khung'    : val('cdf-vin'),
+    'so-may'      : val('cdf-eng'),
+    'hieu-xe'     : val('cdf-brand'),
+    'nam-sx'      : val('cdf-year'),
+    'ngay-hieu-luc': ngayVN(S.start),
+    'ngay-het-han': hetHan(),
+    'ho-ten'      : val('cdf-name'),
+    'sdt'         : val('cdf-phone'),
+    'email'       : val('cdf-email'),
+    'dia-chi'     : val('cdf-addr'),
+    'xuat-hoa-don': $('cdf-vat').checked ? 'Có' : 'Không',
+    'ten-cty'     : val('cdf-cty'),
+    'mst'         : val('cdf-mst'),
+    'dia-chi-cty' : val('cdf-ctyaddr'),
+    'email-hd'    : val('cdf-emailhd'),
+    'dia-chi-giao': val('cdf-ship'),
+    'nguoi-nhan'  : val('cdf-shipname'),
+    'sdt-nhan'    : val('cdf-shipphone'),
+    'trang-thai'  : status,
+    'ghi-chu'     : val('cdf-note')
+  };
+}
+function send(status){
+  try{
+    fetch('/', {
+      method : 'POST',
+      headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+      body   : new URLSearchParams(payload(status)).toString()
+    }).catch(function(){});
+  }catch(e){}
+  try{
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event:'tnds_capdon', trang_thai:status, ma_don:S.code,
+      gia_tri:S.tong, loai_xe:S.label
+    });
+  }catch(e){}
+}
+
+/* Khách điền địa chỉ nhận bản giấy sau khi đã báo chuyển khoản.
+   Gửi thành một bản ghi riêng cùng mã đơn để bộ phận phát hành biết cần in
+   và chuyển phát; không chặn luồng nếu khách bỏ qua. */
+function guiDiaChi(){
+  var a = val('cdf-ship');
+  if(!a){ mark('cdf-ship', false); $('cdf-ship').focus(); return; }
+  mark('cdf-ship', true);
+  var b = $('cdb5');
+  b.disabled = true; b.textContent = 'Đang gửi...';
+  send('Đăng ký nhận bản giấy');
+  $('cdok-ship-done').style.display = 'block';
+  b.style.display = 'none';
+}
+
+function finish(){
+  var b = $('cdb4');
+  b.disabled = true; b.textContent = 'Đang gửi...';
+  send('Khách báo đã chuyển khoản');
+  setTimeout(function(){
+    $('cdok-code').textContent  = S.code;
+    $('cdok-email').textContent = val('cdf-email');
+    $('cdok-phone').textContent = val('cdf-phone');
+    $('cdok-zalo').href = ZALO;
+    go(5);
+    if(clockT){ clearInterval(clockT); clockT=null; }
+  }, 500);
+}
+
+/* ══════════ KHỞI TẠO ══════════ */
+(function(){
+  setDefaultDate();
+  var live = ['cdf-plate','cdf-name'];
+  for(var i=0;i<live.length;i++){
+    var e=$(live[i]); if(e) e.addEventListener('input', drawSummary);
+  }
+  /* viết hoa biển số cho gọn */
+  var pl=$('cdf-plate');
+  if(pl) pl.addEventListener('blur', function(){ this.value = this.value.toUpperCase(); drawSummary(); });
+  var vin=$('cdf-vin');
+  if(vin) vin.addEventListener('blur', function(){ this.value = this.value.toUpperCase(); });
+})();
+window.CD = { pickVeh:pickVeh, onGroup:onGroup, calc:calc, pickTerm:pickTerm, guiDiaChi:guiDiaChi,
+              go:go, toggleVat:toggleVat, cp:cp, finish:finish, refreshQR:refreshQR };
 })();
 </script>
 <script id="dbv-chatbot" src="/assets/dbv-chatbot.js" defer></script>

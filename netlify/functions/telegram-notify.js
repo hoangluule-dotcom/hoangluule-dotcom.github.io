@@ -90,6 +90,13 @@ exports.handler = async function (event) {
 
   const data = sub.data || {};
   const formName = sub.form_name || "";
+
+  /* Đơn cấp TNDS đã có submission-created.js lo (tự chạy, không cần cấu hình,
+     và in ra bản tin riêng đầy đủ số khung/số máy/nội dung đối soát).
+     Nếu hàm này gửi thêm thì mỗi đơn bị báo hai lần trên Telegram. */
+  if (formName === "dbv-capdon-tnds") {
+    return { statusCode: 200, body: "skipped: submission-created.js đã xử lý" };
+  }
   const lines = ["🔔 *DBV247 — Khách hàng mới để lại thông tin*", ""];
   lines.push("Nguồn: " + (FORM_LABELS[formName] || formName || "Không rõ"));
 
