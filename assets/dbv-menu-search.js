@@ -22,6 +22,10 @@ var DBV_SANPHAM = [
     mo: 'Va chạm, lật đổ, cháy nổ, thiên tai, mất cắp bộ phận.',
     tim: 'vat chat than vo oto o to hai chieu 2 chieu bao hiem xe hoi va cham gara' },
 
+  { ten: 'Công Cụ Tính Phí Vật Chất Ô Tô', url: '/tinh-phi-vat-chat-oto', the: 'MỚI',
+    mo: 'Tự động tra giá xe qua Google, tính phí theo đúng biểu phí trong 30 giây.',
+    tim: 'tinh phi bao hiem o to cong cu tra gia xe tu dong online vat chat than vo' },
+
   { ten: 'BH Xe Ô Tô Điện', url: '/bao-hiem-oto-dien', the: 'MỚI',
     mo: 'Bảo vệ pin, bộ sạc, hệ thống điện và TNDS xe điện.',
     tim: 'xe dien oto dien vinfast vf3 vf5 vf6 vf7 vf8 vf9 pin sac ac quy' },
@@ -65,6 +69,10 @@ var DBV_SANPHAM = [
   { ten: 'BH Rủi Ro Xây Dựng', url: '/bao-hiem-xay-dung', the: '',
     mo: 'Công trình, thiết bị và trách nhiệm bên thứ ba khi thi công.',
     tim: 'xay dung cong trinh thi cong lap dat nha thau car ear' },
+
+  { ten: 'BH Xây Dựng Nhà Ở', url: '/bao-hiem-xay-dung-nha-o', the: 'MỚI',
+    mo: 'Nhà ở riêng lẻ: bảo vệ công trình đang xây và trách nhiệm bên thứ ba.',
+    tim: 'xay dung nha o nha rieng le xay nha chu nha cong trinh nha dan' },
 
   { ten: 'BH Trách Nhiệm Chung', url: '/bao-hiem-tnc', the: '',
     mo: 'Trách nhiệm dân sự phát sinh trong hoạt động kinh doanh.',
