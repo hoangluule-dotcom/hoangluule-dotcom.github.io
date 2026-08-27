@@ -136,6 +136,15 @@ QUY TẮC BẮT BUỘC:
    {"tim_thay":boolean,"trung_vi":number,"thap_nhat":number,"cao_nhat":number,
     "so_tin_tham_khao":number,"ghi_chu":string}`;
 
+/* Vì sao KHÔNG bật thinkingConfig ở đây (khác chat.js): hàm này chạy đồng bộ
+   sau một request HTTP của khách, và Netlify giới hạn function đồng bộ ở
+   MẶC ĐỊNH 10 GIÂY (bị nền tảng cắt ngang, trả về lỗi 502 rỗng — không phải
+   lỗi do code mình, nên client không nhận được JSON để hiển thị lý do thật).
+   Google Search grounding tự nó đã tốn vài giây tìm kiếm; cộng thêm bước suy
+   nghĩ (thinking) hoặc gọi lại lần 2 khi model từ chối tham số là hai cách
+   chắc chắn nhất để vượt quá 10 giây đó. Nên: một lượt gọi duy nhất, không
+   thinking, và tự bỏ cuộc ở 7 giây (dưới ngưỡng nền tảng) để còn kịp trả về
+   một JSON lỗi tử tế thay vì bị nền tảng giết ngang không dấu vết. */
 async function timGiaBangGoogleSearch({ hang, dong, nam, phienBan }) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return { ok: false, ly_do: "thieu_GEMINI_API_KEY" };
@@ -150,38 +159,29 @@ async function timGiaBangGoogleSearch({ hang, dong, nam, phienBan }) {
     (phienBan ? ` (phiên bản ${phienBan})` : "") +
     `, năm sản xuất ${nam}. Tìm kiếm Google ngay bây giờ rồi trả JSON theo đúng quy tắc.`;
 
-  function payload(withThinking) {
-    const gen = { temperature: 0, maxOutputTokens: 2000, topP: 0.9 };
-    if (withThinking) gen.thinkingConfig = { thinkingLevel: "low" };
-    return JSON.stringify({
-      system_instruction: { parts: [{ text: CHI_DAN }] },
-      contents: [{ role: "user", parts: [{ text: cauHoi }] }],
-      tools: [{ google_search: {} }],
-      generationConfig: gen,
-      safetySettings: [
-        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
-        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
-        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
-        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
-      ],
-    });
-  }
+  const payload = JSON.stringify({
+    system_instruction: { parts: [{ text: CHI_DAN }] },
+    contents: [{ role: "user", parts: [{ text: cauHoi }] }],
+    tools: [{ google_search: {} }],
+    generationConfig: { temperature: 0, maxOutputTokens: 1200, topP: 0.9 },
+    safetySettings: [
+      { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
+      { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
+      { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
+      { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
+    ],
+  });
 
   const headers = { "Content-Type": "application/json", "x-goog-api-key": key };
   const ctrl = new AbortController();
-  const hetGio = setTimeout(() => ctrl.abort(), 25000);
+  const hetGio = setTimeout(() => ctrl.abort(), 7000);
 
   try {
-    let r = await fetch(url, { method: "POST", headers, body: payload(true), signal: ctrl.signal });
+    const r = await fetch(url, { method: "POST", headers, body: payload, signal: ctrl.signal });
 
-    // Model không hỗ trợ thinkingLevel (< Gemini 3) trả 400 — gọi lại không kèm.
     if (r.status === 400) {
       const first = await r.text();
-      if (/thinking/i.test(first)) {
-        r = await fetch(url, { method: "POST", headers, body: payload(false), signal: ctrl.signal });
-      } else {
-        return { ok: false, ly_do: "gemini_400", chi_tiet: first.slice(0, 300) };
-      }
+      return { ok: false, ly_do: "gemini_400", chi_tiet: first.slice(0, 300) };
     }
 
     if (!r.ok) {
@@ -235,13 +235,35 @@ async function timGiaBangGoogleSearch({ hang, dong, nam, phienBan }) {
       doc_luc: new Date().toISOString(),
     };
   } catch (e) {
-    return { ok: false, ly_do: "ngoai_le", chi_tiet: String(e && e.message) };
+    const hetGioCho = e && (e.name === "AbortError" || /abort/i.test(String(e.message)));
+    return {
+      ok: false,
+      ly_do: hetGioCho ? "het_gio_cho" : "ngoai_le",
+      chi_tiet: String(e && e.message),
+    };
   } finally {
     clearTimeout(hetGio);
   }
 }
 
+/* Toàn bộ logic bên dưới đã tự bắt lỗi ở từng bước, nhưng vẫn bọc thêm một lớp
+   try/catch ngoài cùng: lỡ có gì bất ngờ (vd. lỗi hiếm gặp từ SDK) thì hàm vẫn
+   trả về JSON tử tế thay vì để nền tảng ném ra một trang lỗi 502 rỗng mà cả
+   khách lẫn mình sau này debug đều không biết vì sao. */
 exports.handler = async function (event) {
+  try {
+    return await xuLy(event);
+  } catch (err) {
+    console.error("gia-xe-cong-khai.js: loi khong luong truoc", err);
+    const dk = event.headers && (event.headers["x-dashboard-key"] || "");
+    if (dk && process.env.DASHBOARD_KEY && dk === process.env.DASHBOARD_KEY) {
+      return json(502, { ok: false, ly_do: "loi_khong_luong_truoc", chi_tiet: String(err && err.message) });
+    }
+    return json(502, { ok: false, ly_do: "loi_khong_luong_truoc" });
+  }
+};
+
+async function xuLy(event) {
   if (event.httpMethod !== "GET" && event.httpMethod !== "POST") {
     return json(405, { ok: false, ly_do: "chi_nhan_GET_hoac_POST" });
   }
@@ -304,8 +326,9 @@ exports.handler = async function (event) {
 
   if (!ketQua.ok) {
     const khongTim = ketQua.ly_do === "khong_tim_thay" || ketQua.ly_do === "so_vo_ly";
+    if (!khongTim) console.warn("gia-xe-cong-khai.js:", hang, dong, nam, "->", ketQua.ly_do, ketQua.chi_tiet || "");
     return json(khongTim ? 200 : 502, Object.assign({ tu_cache: false }, ketQua));
   }
 
   return json(200, Object.assign({ tu_cache: false }, ketQua));
-};
+}

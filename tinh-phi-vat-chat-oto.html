@@ -1490,6 +1490,8 @@ function traGiaXe(){
         st.innerHTML='⚠ '+(j.thong_bao||'Đã hết lượt tra trong khoảng thời gian này. Vui lòng tự nhập giá trị xe bên dưới.');
       } else if(j.ly_do==='khong_tim_thay'||j.ly_do==='so_vo_ly'){
         st.innerHTML='Không tìm thấy tin rao phù hợp cho '+hang+' '+dong+' '+nam+'. Vui lòng tự nhập giá trị xe bên dưới (theo hợp đồng mua bán hoặc định giá gần nhất).';
+      } else if(j.ly_do==='het_gio_cho'){
+        st.innerHTML='Tìm kiếm mất quá lâu (quá 7 giây), có thể do xe hiếm hoặc mạng chậm. Bấm tra lại lần nữa, hoặc tự nhập giá trị xe bên dưới.';
       } else {
         st.innerHTML='Công cụ tra giá đang bận, vui lòng tự nhập giá trị xe bên dưới hoặc thử lại sau.';
       }
