@@ -43,8 +43,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "image": "https://dbv247.com.vn/than-vo-oto.webp",
     "datePublished": "2026-07-23",
     "dateModified": "2026-07-23",
-    "author": {"@type": "Organization", "name": "DBV247", "url": "https://dbv247.com.vn"},
-    "publisher": {"@id": "https://dbv247.com.vn/#organization"},
+    "author": {
+      "@type": "Organization",
+      "name": "DBV247",
+      "url": "https://dbv247.com.vn"
+    },
+    "publisher": {
+      "@id": "https://dbv247.com.vn/#organization"
+    },
     "url": "https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto",
     "inLanguage": "vi"
   },
@@ -52,9 +58,71 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://dbv247.com.vn/"},
-      {"@type":"ListItem","position":2,"name":"Tin tức & Kinh nghiệm","item":"https://dbv247.com.vn/tin-tuc"},
-      {"@type":"ListItem","position":3,"name":"Kinh nghiệm sử dụng bảo hiểm xe ô tô","item":"https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto"}
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Trang chủ",
+        "item": "https://dbv247.com.vn/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tin tức & Kinh nghiệm",
+        "item": "https://dbv247.com.vn/tin-tuc"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Kinh nghiệm sử dụng bảo hiểm xe ô tô",
+        "item": "https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Bảo hiểm TNDS và bảo hiểm vật chất xe khác nhau thế nào?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TNDS bắt buộc bồi thường thiệt hại bạn gây ra cho người khác — bắt buộc theo luật, phí khoảng 500.000đ/năm với xe con. Vật chất xe là tự nguyện, bồi thường thiệt hại của chính chiếc xe bạn do đâm va, cháy nổ, thiên tai, mất cắp bộ phận, phí 0,9%–1,5% giá trị xe mỗi năm."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Sau khi xảy ra tai nạn phải làm gì đầu tiên?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Giữ nguyên hiện trường và chụp ảnh, gọi cơ quan công an nếu có thiệt hại về người hoặc tranh chấp, rồi thông báo cho doanh nghiệp bảo hiểm. Thời hạn thông báo là trong vòng 5 ngày làm việc sau sự cố."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Có được tự đưa xe đi sửa trước khi giám định không?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Không nên. Tự sửa trước khi giám định là một trong những lý do phổ biến nhất khiến hồ sơ bị vướng, vì doanh nghiệp bảo hiểm không còn căn cứ xác định mức độ thiệt hại thực tế."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bao lâu thì nhận được tiền bồi thường?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "DBV247 cam kết xử lý trong vòng 30 ngày kể từ khi nhận đủ hồ sơ hợp lệ. Khâu giám định thường mất 1–3 ngày làm việc."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Làm sao giảm phí bảo hiểm vật chất xe một cách hợp lệ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hai cách chính: nâng mức khấu trừ để tự chịu phần thiệt hại ban đầu cao hơn, và giữ lịch sử không phát sinh bồi thường để được chiết khấu khi tái tục. Lưu ý các cách này chỉ áp dụng cho bảo hiểm tự nguyện. Với TNDS bắt buộc, Điều 75 Nghị định 67/2023/NĐ-CP cấm mọi hình thức khuyến mại và chiết khấu."
+        }
+      }
     ]
   }
 ]
@@ -234,6 +302,18 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--wh
 .float-zalo:hover{transform:scale(1.08)}
 .float-zalo svg{width:22px;height:22px;fill:#fff}
 @media(max-width:640px){.float-cta{bottom:16px;right:16px}}
+
+.answer-box{background:linear-gradient(135deg,var(--gl,#f0f9f4),#fff);border:2px solid var(--g,#007437);border-radius:16px;padding:20px 22px;margin:0 0 28px}
+.answer-box h2{font-size:.95rem!important;margin:0 0 10px!important;padding:0!important;border:0!important;color:var(--g,#007437)!important;text-transform:uppercase;letter-spacing:.5px}
+.answer-box p{margin:0 0 10px;font-size:1.02rem;line-height:1.75}
+.answer-box p:last-child{margin-bottom:0}
+.answer-box ul{margin:10px 0 0 18px}.answer-box li{margin-bottom:6px}
+.faq-item{border:1px solid var(--bd,#E2E8F0);border-radius:12px;padding:16px 18px;margin-bottom:12px;background:#fff}
+.faq-q{font-size:1rem;font-weight:800;color:var(--dk,#0f2515);margin-bottom:8px;display:flex;gap:9px;align-items:flex-start}
+.faq-q::before{content:"?";flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--g,#007437);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.faq-a{color:var(--tm,#4A5568);font-size:.95rem;line-height:1.72;padding-left:29px}
+.faq-a p{margin-bottom:8px}.faq-a p:last-child{margin-bottom:0}
+
 </style>
 <script src="/assets/dbv-tracking.js" defer></script>
 <style id="dbv-layout">
@@ -425,10 +505,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- CONTENT -->
   <article class="art-body">
+<div class="answer-box" id="tra-loi-nhanh">
+<h2>Trả lời nhanh</h2>
+<p>Xe ô tô có hai loại bảo hiểm khác hẳn nhau: <strong>TNDS bắt buộc</strong> bảo vệ người khác mà bạn gây thiệt hại, phí khoảng 500.000đ/năm; <strong>vật chất xe</strong> tự nguyện bảo vệ chính chiếc xe của bạn, phí <strong>0,9%–1,5% giá trị xe mỗi năm</strong>.</p>
+<p>Ba việc quyết định bạn có được bồi thường suôn sẻ hay không: <strong>thông báo trong 5 ngày làm việc</strong> sau sự cố, giữ nguyên hiện trường và chụp ảnh, và không tự sửa trước khi giám định.</p>
+<p>Mẹo giảm phí hợp lệ với vật chất xe: <strong>nâng mức khấu trừ</strong>, và giữ lịch sử không bồi thường để được chiết khấu khi tái tục.</p>
+</div>
+
 
     <p>Bảo hiểm xe ô tô là "tấm lưới an toàn" không thể thiếu với mỗi chủ xe — nhưng nhiều người mua xong rồi để đó, đến khi cần lại lúng túng không biết làm gì. Bài viết này tổng hợp kinh nghiệm thực tế từ đội ngũ chuyên gia DBV247, giúp bạn dùng bảo hiểm đúng cách, bồi thường nhanh và tránh những rắc rối không đáng có.</p>
 
-    <hr class="art-divider">
+    
+<h2 id="faq">Câu hỏi thường gặp</h2>
+<div class="faq-item"><div class="faq-q">Bảo hiểm TNDS và bảo hiểm vật chất xe khác nhau thế nào?</div><div class="faq-a"><p>TNDS bắt buộc bồi thường thiệt hại bạn gây ra cho người khác — bắt buộc theo luật, phí khoảng 500.000đ/năm với xe con. Vật chất xe là tự nguyện, bồi thường thiệt hại của chính chiếc xe bạn do đâm va, cháy nổ, thiên tai, mất cắp bộ phận, phí 0,9%–1,5% giá trị xe mỗi năm.</p></div></div>
+<div class="faq-item"><div class="faq-q">Sau khi xảy ra tai nạn phải làm gì đầu tiên?</div><div class="faq-a"><p>Giữ nguyên hiện trường và chụp ảnh, gọi cơ quan công an nếu có thiệt hại về người hoặc tranh chấp, rồi thông báo cho doanh nghiệp bảo hiểm. Thời hạn thông báo là trong vòng 5 ngày làm việc sau sự cố.</p></div></div>
+<div class="faq-item"><div class="faq-q">Có được tự đưa xe đi sửa trước khi giám định không?</div><div class="faq-a"><p>Không nên. Tự sửa trước khi giám định là một trong những lý do phổ biến nhất khiến hồ sơ bị vướng, vì doanh nghiệp bảo hiểm không còn căn cứ xác định mức độ thiệt hại thực tế.</p></div></div>
+<div class="faq-item"><div class="faq-q">Bao lâu thì nhận được tiền bồi thường?</div><div class="faq-a"><p>DBV247 cam kết xử lý trong vòng 30 ngày kể từ khi nhận đủ hồ sơ hợp lệ. Khâu giám định thường mất 1–3 ngày làm việc.</p></div></div>
+<div class="faq-item"><div class="faq-q">Làm sao giảm phí bảo hiểm vật chất xe một cách hợp lệ?</div><div class="faq-a"><p>Hai cách chính: nâng mức khấu trừ để tự chịu phần thiệt hại ban đầu cao hơn, và giữ lịch sử không phát sinh bồi thường để được chiết khấu khi tái tục.</p><p>Lưu ý các cách này chỉ áp dụng cho bảo hiểm tự nguyện. Với TNDS bắt buộc, Điều 75 Nghị định 67/2023/NĐ-CP cấm mọi hình thức khuyến mại và chiết khấu.</p></div></div>
+<hr class="art-divider">
 
     <!-- 1 -->
     <h2 id="phan-biet-hai-loai">1. Phân biệt 2 loại bảo hiểm xe ô tô</h2>

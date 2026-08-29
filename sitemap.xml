@@ -516,4 +516,23 @@
     <priority>0.9</priority>
   </url>
 
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-suc-khoe-thoi-gian-cho-bao-lau</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-suc-khoe-co-chi-tra-benh-co-san-khong</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/mua-bao-hiem-suc-khoe-cho-bo-me-tren-60-tuoi</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
