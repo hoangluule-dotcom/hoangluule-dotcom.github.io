@@ -535,4 +535,48 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-tai-nan-24-24-chi-tra-nhung-gi</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/sot-xuat-huyet-nam-vien-bao-hiem-chi-tra-bao-nhieu</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/xe-ngap-nuoc-thuy-kich-bao-hiem-boi-thuong-the-nao</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/muc-khau-tru-bao-hiem-vat-chat-o-to-nen-chon-bao-nhieu</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-o-to-dien-khac-xe-xang-o-diem-nao</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/xay-nha-dan-sinh-co-can-mua-bao-hiem-khong</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/gui-hang-bi-mat-hong-boi-thuong-the-nao</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
