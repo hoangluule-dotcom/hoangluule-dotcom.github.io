@@ -37,3 +37,5 @@
 #     Tạm điều hướng sang trang chính sách bảo mật. Nên tạo trang riêng khi có nội dung.
 /dieu-khoan-su-dung        /chinh-sach-bao-mat          302
 
+# --- Bổ sung 29/08/2026: đổi tên sản phẩm "nhà ở" -> "nhà dân sinh".
+/bao-hiem-xay-dung-nha-o        /bao-hiem-xay-dung-nha-dan-sinh        301

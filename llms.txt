@@ -27,6 +27,8 @@ bảo hiểm do Tập đoàn Bảo hiểm DBV - CN Thành Đô cấp và chịu 
 ## Xe cơ giới
 
 - [Bảo hiểm TNDS ô tô bắt buộc](https://dbv247.com.vn/bao-hiem-tnds-oto): Bắt buộc theo Nghị định 67/2023/NĐ-CP. Phí từ 480.700đ/năm (xe dưới 6 chỗ không kinh doanh vận tải, gồm VAT). Mức trách nhiệm 150 triệu đồng/người/vụ về sức khỏe, tính mạng và 100 triệu đồng/vụ về tài sản.
+- [Bảo hiểm TNDS xe 5 chỗ](https://dbv247.com.vn/tnds-xe-5-cho): Bắt buộc theo NĐ 67/2023 cho ô tô 5 chỗ không kinh doanh, phí 437.000đ/năm, cấp GCN điện tử 15 phút.
+- [Bảo hiểm TNDS xe 7 chỗ](https://dbv247.com.vn/tnds-xe-7-cho): Bắt buộc theo NĐ 67/2023 cho ô tô 7 chỗ không kinh doanh, phí 794.000đ/năm, cấp GCN điện tử 15 phút.
 - [Bảo hiểm TNDS xe máy bắt buộc](https://dbv247.com.vn/bao-hiem-tnds-xemay): Phí 60.500đ/năm (xe đến 50cc) và 66.000đ/năm (trên 50cc), gồm VAT. Mức trách nhiệm 150 triệu đồng/người/vụ và 50 triệu đồng/vụ về tài sản.
 - [Bảo hiểm vật chất ô tô](https://dbv247.com.vn/bao-hiem-vat-chat-oto): Tự nguyện. Phí 1,2%–1,8% giá trị xe/năm với xe gia đình. Bồi thường trong 30 ngày, 1.500+ gara liên kết.
 - [Bảo hiểm vật chất ô tô điện](https://dbv247.com.vn/bao-hiem-oto-dien): Có điều khoản riêng cho pin và hệ thống điện. Pin được bồi thường khi hư hỏng do nguyên nhân bên ngoài; pin tự lỗi kỹ thuật hoặc suy giảm dung lượng tự nhiên thuộc bảo hành hãng xe.
@@ -50,7 +52,7 @@ bảo hiểm do Tập đoàn Bảo hiểm DBV - CN Thành Đô cấp và chịu 
 - [Bảo hiểm hỏa hoạn và rủi ro đặc biệt](https://dbv247.com.vn/bao-hiem-hoa-hoan): Phạm vi rộng hơn cháy nổ bắt buộc, gồm thiên tai, bão lũ.
 - [Bảo hiểm mọi rủi ro tài sản](https://dbv247.com.vn/bao-hiem-moi-rui-ro): All-risk cho tài sản doanh nghiệp.
 - [Bảo hiểm công trình xây dựng](https://dbv247.com.vn/bao-hiem-xay-dung): Bắt buộc theo Nghị định 67/2023, bảo vệ từ khởi công đến bàn giao.
-- [Bảo hiểm xây dựng nhà ở](https://dbv247.com.vn/bao-hiem-xay-dung-nha-o): Nhà ở riêng lẻ – bảo vệ công trình đang xây trước sập, cháy, thiên tai và trách nhiệm với bên thứ ba; phí tham khảo từ 0,04% giá trị công trình.
+- [Bảo hiểm xây dựng nhà dân sinh](https://dbv247.com.vn/bao-hiem-xay-dung-nha-dan-sinh): Nhà ở riêng lẻ – bảo vệ công trình đang xây trước sập, cháy, thiên tai và trách nhiệm với bên thứ ba; phí tham khảo từ 0,04% giá trị công trình.
 
 ## Hàng hải và hàng hóa
 

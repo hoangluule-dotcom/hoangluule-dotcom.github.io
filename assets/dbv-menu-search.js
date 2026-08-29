@@ -14,6 +14,14 @@ var DBV_SANPHAM = [
     mo: 'Bảo hiểm bắt buộc – trách nhiệm dân sự với bên thứ ba.',
     tim: 'oto o to xe hoi bat buoc tnds trach nhiem dan su cà vẹt phat csgt' },
 
+
+  { ten: 'BH TNDS Xe 5 Chỗ', url: '/tnds-xe-5-cho', the: '',
+    mo: 'Bắt buộc cho ô tô 5 chỗ không kinh doanh — 437.000đ/năm.',
+    tim: 'tnds xe 5 cho o to bat buoc nghi dinh 67 sedan 437000' },
+
+  { ten: 'BH TNDS Xe 7 Chỗ', url: '/tnds-xe-7-cho', the: '',
+    mo: 'Bắt buộc cho ô tô 7 chỗ không kinh doanh — 794.000đ/năm.',
+    tim: 'tnds xe 7 cho o to suv bat buoc nghi dinh 67 794000' },
   { ten: 'BH TNDS Chủ Xe Máy', url: '/bao-hiem-tnds-xemay', the: 'HOT',
     mo: 'Bảo hiểm bắt buộc cho chủ xe máy – cấp đơn trong ngày.',
     tim: 'xe may xemay moto mo to bat buoc tnds 55k 66k phat csgt' },
@@ -70,9 +78,9 @@ var DBV_SANPHAM = [
     mo: 'Công trình, thiết bị và trách nhiệm bên thứ ba khi thi công.',
     tim: 'xay dung cong trinh thi cong lap dat nha thau car ear' },
 
-  { ten: 'BH Xây Dựng Nhà Ở', url: '/bao-hiem-xay-dung-nha-o', the: 'MỚI',
+  { ten: 'BH Xây Dựng Nhà Dân Sinh', url: '/bao-hiem-xay-dung-nha-dan-sinh', the: 'MỚI',
     mo: 'Nhà ở riêng lẻ: bảo vệ công trình đang xây và trách nhiệm bên thứ ba.',
-    tim: 'xay dung nha o nha rieng le xay nha chu nha cong trinh nha dan' },
+    tim: 'xay dung nha dan sinh nha o nha rieng le xay nha chu nha cong trinh nha dan' },
 
   { ten: 'BH Trách Nhiệm Chung', url: '/bao-hiem-tnc', the: '',
     mo: 'Trách nhiệm dân sự phát sinh trong hoạt động kinh doanh.',
