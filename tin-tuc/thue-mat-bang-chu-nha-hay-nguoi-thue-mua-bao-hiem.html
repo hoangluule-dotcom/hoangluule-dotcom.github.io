@@ -410,7 +410,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--wh
      phía dưới, nên nút này chỉ chiếm chỗ mà không thêm giá trị gì */
   .hdr-search{display:none}}
 /* ══ CATEGORY DROPDOWN (nav menu) ══ */
-.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:220px;z-index:500}
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:274px;max-width:calc(100vw - 24px);max-height:calc(100vh - 96px);overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:500}
 .cat-dropdown.open{display:block}
 .cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm,#4a5568);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
 .cat-dd-item:hover{background:var(--gl,#e8f5e9);color:var(--g,#007437)}
@@ -472,6 +472,55 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--wh
 @media(max-width:1024px){.hdr-nav a.hdr-nav-kr{display:inline-flex!important}}
 @media(max-width:860px){.hdr-nav a.hdr-nav-kr{display:none!important}}
 .cat-dd-item.cat-dd-kr{color:var(--g,#007437);font-weight:700}
+/* ── MENU NHIỀU CẤP (đồng bộ toàn site) ── */
+.hdr-nav-item{position:relative;display:inline-flex;align-items:center}
+.hdr-nav-top{display:inline-flex;align-items:center;gap:5px;color:#1C1C1C;font-family:inherit;font-size:14px;font-weight:500;padding:7px 13px;border:none;background:none;border-radius:8px;text-decoration:none;white-space:nowrap;cursor:pointer;transition:.18s}
+.hdr-nav-top:hover,.hdr-nav-item:hover>.hdr-nav-top{color:var(--g,#007437);background:var(--gl,#E8F5E9)}
+.hdr-nav-top.active{color:var(--g,#007437);font-weight:700}
+/* Trang dang xem nam trong menu con -> nut cha cung sang len */
+.hdr-nav-item:has(.hdr-drop .active)>.hdr-nav-top,.hdr-nav-item:has(.hdr-mega-list .active)>.hdr-nav-top{color:var(--g,#007437);font-weight:700}
+.hdr-nav .hdr-drop a.active,.hdr-nav .hdr-mega-list a.active{background:var(--gl,#E8F5E9);color:var(--g,#007437);font-weight:700}
+.hdr-chev{width:13px;height:13px;flex-shrink:0;transition:transform .18s}
+.hdr-nav-item:hover .hdr-chev{transform:rotate(180deg)}
+.hdr-mega,.hdr-drop{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 14px 44px rgba(0,0,0,.14);z-index:500;margin-top:6px}
+.hdr-nav-item:hover>.hdr-mega,.hdr-nav-item:focus-within>.hdr-mega,.hdr-mega.open{display:grid}
+.hdr-nav-item:hover>.hdr-drop,.hdr-nav-item:focus-within>.hdr-drop,.hdr-drop.open{display:block}
+.hdr-nav-item::after{content:"";position:absolute;left:0;right:0;top:100%;height:10px}
+.hdr-mega{width:min(700px,calc(100vw - 40px));grid-template-columns:246px 1fr;gap:4px;padding:10px}
+.hdr-mega-cats{display:flex;flex-direction:column;gap:2px;border-right:1px solid var(--bd,#E2E8F0);padding-right:8px}
+.hdr-mega-cat{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border:none;background:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;color:var(--tm,#4a5568);text-align:left;cursor:pointer;transition:.15s}
+.hdr-mega-cat:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+.hdr-mega-cat.on{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+.hdr-mega-ic{display:flex;flex-shrink:0}
+.hdr-mega-ic svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}
+.hdr-mega-nm{flex:1;line-height:1.3}
+.hdr-mega-n{font-size:11px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:9999px;padding:1px 7px;flex-shrink:0}
+.hdr-mega-cat.on .hdr-mega-n{background:#fff;color:var(--g,#007437)}
+.hdr-mega-prods{padding:2px}
+.hdr-mega-list{display:none;grid-template-columns:1fr 1fr;gap:2px;align-content:start}
+.hdr-mega-list.on{display:grid}
+.hdr-nav .hdr-mega-list a{display:block;padding:8px 10px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--tm,#4a5568);line-height:1.4}
+.hdr-nav .hdr-mega-list a:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+.hdr-nav .hdr-mega-all{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:2px;padding:10px;border-top:1px solid var(--bd,#E2E8F0);border-radius:0 0 10px 10px;font-size:13px;font-weight:700;color:var(--g,#007437)}
+.hdr-nav .hdr-mega-all:hover{background:var(--gl,#E8F5E9)}
+.hdr-mega-all svg{width:15px;height:15px}
+.hdr-drop{min-width:216px;padding:6px}
+.hdr-nav .hdr-drop a{display:block;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--tm,#4a5568)}
+.hdr-nav .hdr-drop a:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+/* Hamburger nhiều cấp */
+.cat-dd-more{justify-content:flex-start}
+.cat-dd-ic{display:flex;flex-shrink:0}
+.cat-dd-ic svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.cat-dd-tx{flex:1;text-align:left;line-height:1.35}
+.cat-dd-n{font-size:10.5px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:9999px;padding:1px 6px}
+.cat-dd-chev{width:13px;height:13px;flex-shrink:0;transition:transform .2s}
+.cat-dd-more.open .cat-dd-chev{transform:rotate(180deg)}
+.cat-dd-more.open{color:var(--g,#007437);background:var(--gl,#E8F5E9)}
+.cat-dd-sub{display:none;padding-left:10px;margin:2px 0 4px;border-left:2px solid var(--gl,#E8F5E9)}
+.cat-dd-sub.open{display:block}
+.cat-dd-lv3{font-size:12px;padding-left:14px}
+.cat-dd-all{font-weight:700;color:var(--g,#007437)}
+.cat-dd-sep{height:1px;background:var(--bd,#E2E8F0);margin:6px 4px}
 .cat-dd-item.cat-dd-kr:hover{background:var(--gl,#E8F5E9)}
 </style>
 </head>
@@ -488,10 +537,67 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247 – Trang chủ" width="auto" height="48"></a>
     <nav class="hdr-nav">
-      <a href="/san-pham">Sản phẩm</a>
-      <a href="/boi-thuong">Bồi thường</a>
-      <a href="/servicemap">Mạng lưới dịch vụ</a>
-      <a href="/tin-tuc" class="active">Tin tức &amp; Kinh nghiệm</a>
+      <div class="hdr-nav-item" data-menu="sp">
+        <a href="/san-pham" class="hdr-nav-top" aria-haspopup="true" aria-expanded="false">Sản phẩm <svg class="hdr-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="hdr-mega">
+          <div class="hdr-mega-cats">
+          <button type="button" class="hdr-mega-cat on" data-g="xe" aria-controls="mg-xe"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Xe Cơ Giới</span><span class="hdr-mega-n">6</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="hanghai" aria-controls="mg-hanghai"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Hàng Hải</span><span class="hdr-mega-n">4</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="taisan" aria-controls="mg-taisan"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Tài Sản &amp; Kỹ Thuật</span><span class="hdr-mega-n">7</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="trachnhiem" aria-controls="mg-trachnhiem"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Trách Nhiệm</span><span class="hdr-mega-n">5</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="conguoi" aria-controls="mg-conguoi"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Du Lịch &amp; Con Người</span><span class="hdr-mega-n">5</span></button>
+          </div>
+          <div class="hdr-mega-prods">
+          <div class="hdr-mega-list on" id="mg-xe" data-g="xe">
+            <a href="/bao-hiem-tnds-oto">BH TNDS Chủ Xe Ô Tô</a>
+            <a href="/tnds-xe-5-cho">BH TNDS Xe Ô Tô 5 Chỗ</a>
+            <a href="/tnds-xe-7-cho">BH TNDS Xe Ô Tô 7 Chỗ</a>
+            <a href="/bao-hiem-tnds-xemay">BH TNDS Chủ Xe Máy</a>
+            <a href="/bao-hiem-vat-chat-oto">BH Vật Chất Ô Tô (Thân Vỏ)</a>
+            <a href="/bao-hiem-oto-dien">BH Xe Ô Tô Điện</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-hanghai" data-g="hanghai">
+            <a href="/bao-hiem-xnk">BH Hàng Hóa Xuất Nhập Khẩu</a>
+            <a href="/bao-hiem-van-chuyen">BH Vận Chuyển Nội Địa</a>
+            <a href="/bao-hiem-buu-gui">BH Bưu Gửi Quốc Tế</a>
+            <a href="/bao-hiem-than-tau-noi-dia">BH Thân Tàu Nội Địa</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-taisan" data-g="taisan">
+            <a href="/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a>
+            <a href="/bao-hiem-chay-no-hkd">BH Cháy Nổ Hộ Kinh Doanh</a>
+            <a href="/bao-hiem-chay-no-chung-cu">BH Cháy Nổ Căn Hộ Chung Cư</a>
+            <a href="/bao-hiem-hoa-hoan">BH Hỏa Hoạn & Rủi Ro Đặc Biệt</a>
+            <a href="/bao-hiem-moi-rui-ro">BH Mọi Rủi Ro Tài Sản</a>
+            <a href="/bao-hiem-xay-dung">BH Rủi Ro Xây Dựng</a>
+            <a href="/bao-hiem-xay-dung-nha-dan-sinh">BH Xây Dựng Nhà Dân Sinh</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-trachnhiem" data-g="trachnhiem">
+            <a href="/bao-hiem-tnc">BH Trách Nhiệm Chung</a>
+            <a href="/bao-hiem-tncc">BH Trách Nhiệm Công Cộng</a>
+            <a href="/bao-hiem-tnn-kcb">BH TNN Nghề Nghiệp – KCB</a>
+            <a href="/bao-hiem-tnn-ls">BH TNN Nghề Nghiệp – LS &amp; CC</a>
+            <a href="/bao-hiem-tnn-tvtk">BH TNN Nghề Nghiệp – TVTK &amp; GS</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-conguoi" data-g="conguoi">
+            <a href="/bao-hiem-du-lich-noi-dia">BH Du Lịch Nội Địa</a>
+            <a href="/bao-hiem-du-lich-quoc-te">BH Du Lịch Quốc Tế</a>
+            <a href="/bao-hiem-benh-nhiet-doi">BH Bệnh Nhiệt Đới</a>
+            <a href="/bao-hiem-suc-khoe">BH Sức Khỏe DBVCare</a>
+            <a href="/bao-hiem-tai-nan">BH Tai Nạn 24 Giờ</a>
+          </div>
+          </div>
+          <a class="hdr-mega-all" href="/san-pham">Xem tất cả sản phẩm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <a href="/cong-tac-vien-dai-ly" class="hdr-nav-top" title="Đại lý/Cộng tác viên">Đại lý/CTV</a>
+      <div class="hdr-nav-item" data-menu="ti">
+        <button type="button" class="hdr-nav-top" aria-haspopup="true" aria-expanded="false">Tiện ích <svg class="hdr-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="hdr-drop">
+          <a href="/boi-thuong">Bồi thường</a>
+          <a href="/servicemap">Mạng lưới dịch vụ</a>
+          <a href="/tin-tuc" class="active">Tin tức &amp; Kinh nghiệm</a>
+        </div>
+      </div>
       <a href="/bao-hiem-doanh-nghiep-han-quoc" class="hdr-nav-kr" lang="ko" title="Khách hàng Hàn Quốc — 한국 고객"><span class="kr-fl" aria-hidden="true">🇰🇷</span>한국 고객</a>
     </nav>
     <div class="hdr-actions">
@@ -504,11 +610,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="btn-cat-text">Danh mục</span>
         </button>
         <div class="cat-dropdown" id="cat-dropdown">
-          <a class="cat-dd-item" href="/san-pham" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Sản phẩm</a>
+          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-sp" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span class="cat-dd-tx">Sản phẩm</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="cat-dd-sub" id="dd-sp">
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-xe" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Xe Cơ Giới</span><span class="cat-dd-n">6</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-xe">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnds-oto" onclick="closeCatDropdown()">BH TNDS Chủ Xe Ô Tô</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/tnds-xe-5-cho" onclick="closeCatDropdown()">BH TNDS Xe Ô Tô 5 Chỗ</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/tnds-xe-7-cho" onclick="closeCatDropdown()">BH TNDS Xe Ô Tô 7 Chỗ</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnds-xemay" onclick="closeCatDropdown()">BH TNDS Chủ Xe Máy</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-vat-chat-oto" onclick="closeCatDropdown()">BH Vật Chất Ô Tô (Thân Vỏ)</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-oto-dien" onclick="closeCatDropdown()">BH Xe Ô Tô Điện</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-hanghai" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Hàng Hải</span><span class="cat-dd-n">4</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-hanghai">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-xnk" onclick="closeCatDropdown()">BH Hàng Hóa Xuất Nhập Khẩu</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-van-chuyen" onclick="closeCatDropdown()">BH Vận Chuyển Nội Địa</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-buu-gui" onclick="closeCatDropdown()">BH Bưu Gửi Quốc Tế</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-than-tau-noi-dia" onclick="closeCatDropdown()">BH Thân Tàu Nội Địa</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-taisan" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Tài Sản &amp; Kỹ Thuật</span><span class="cat-dd-n">7</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-taisan">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-chay-no" onclick="closeCatDropdown()">BH Cháy Nổ Bắt Buộc</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-chay-no-hkd" onclick="closeCatDropdown()">BH Cháy Nổ Hộ Kinh Doanh</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-chay-no-chung-cu" onclick="closeCatDropdown()">BH Cháy Nổ Căn Hộ Chung Cư</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-hoa-hoan" onclick="closeCatDropdown()">BH Hỏa Hoạn & Rủi Ro Đặc Biệt</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-moi-rui-ro" onclick="closeCatDropdown()">BH Mọi Rủi Ro Tài Sản</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-xay-dung" onclick="closeCatDropdown()">BH Rủi Ro Xây Dựng</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-xay-dung-nha-dan-sinh" onclick="closeCatDropdown()">BH Xây Dựng Nhà Dân Sinh</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-trachnhiem" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Trách Nhiệm</span><span class="cat-dd-n">5</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-trachnhiem">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnc" onclick="closeCatDropdown()">BH Trách Nhiệm Chung</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tncc" onclick="closeCatDropdown()">BH Trách Nhiệm Công Cộng</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnn-kcb" onclick="closeCatDropdown()">BH TNN Nghề Nghiệp – KCB</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnn-ls" onclick="closeCatDropdown()">BH TNN Nghề Nghiệp – LS &amp; CC</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnn-tvtk" onclick="closeCatDropdown()">BH TNN Nghề Nghiệp – TVTK &amp; GS</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-conguoi" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Du Lịch &amp; Con Người</span><span class="cat-dd-n">5</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-conguoi">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-du-lich-noi-dia" onclick="closeCatDropdown()">BH Du Lịch Nội Địa</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-du-lich-quoc-te" onclick="closeCatDropdown()">BH Du Lịch Quốc Tế</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-benh-nhiet-doi" onclick="closeCatDropdown()">BH Bệnh Nhiệt Đới</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()">BH Sức Khỏe DBVCare</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tai-nan" onclick="closeCatDropdown()">BH Tai Nạn 24 Giờ</a>
+            </div>
+            <a class="cat-dd-item cat-dd-sub-item cat-dd-all" href="/san-pham" onclick="closeCatDropdown()">Xem tất cả sản phẩm</a>
+          </div>
+          <a class="cat-dd-item" href="/cong-tac-vien-dai-ly" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="cat-dd-tx">Đại lý/Cộng tác viên</span></a>
+          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-ti" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="cat-dd-tx">Tiện ích</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="cat-dd-sub" id="dd-ti">
+            <a class="cat-dd-item cat-dd-sub-item" href="/boi-thuong" onclick="closeCatDropdown()">Bồi thường</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/servicemap" onclick="closeCatDropdown()">Mạng lưới dịch vụ</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/tin-tuc" onclick="closeCatDropdown()">Tin tức &amp; Kinh nghiệm</a>
+          </div>
           <div class="cat-dd-sep"></div>
-          <a class="cat-dd-item" href="/boi-thuong" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Bồi thường</a>
-          <a class="cat-dd-item" href="/servicemap" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.3 14a6 6 0 0 1 11.4 0"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="19" x2="10" y2="19"/><line x1="14" y1="19" x2="17" y2="19"/></svg>Mạng lưới dịch vụ</a>
-          <a class="cat-dd-item" href="/tin-tuc" onclick="closeCatDropdown()"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9h4"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>Tin tức &amp; Kinh nghiệm</a>
         <a class="cat-dd-item cat-dd-kr" href="/bao-hiem-doanh-nghiep-han-quoc" onclick="closeCatDropdown()" lang="ko"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg><span>🇰🇷 한국 고객</span></a>
         </div>
       </div>
@@ -827,6 +982,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/tin-tuc">Tin tức &amp; Kinh nghiệm</a>
+      <a href="/cong-tac-vien-dai-ly">Đại lý/Cộng tác viên</a>
     </div>
 
     <!-- Cột 4: Kết nối -->
@@ -930,21 +1086,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
 </div>
 <script id="dbv-layout-js">
-/* dbv-layout-js — hàm phụ trợ cho header dùng chung.
-
-   Header có menu dropdown gọi toggleCatDropdown() qua onclick. Trang nào chỉ
-   được chèn HTML mà thiếu hàm này thì bấm hamburger sẽ không có phản ứng gì —
-   lỗi câm, không báo gì trên giao diện.
-
-   Các hàm chỉ được định nghĩa nếu trang chưa có, để không đè logic riêng
-   của những trang đã tự xử lý (trang chủ, landing page sản phẩm). */
+/* DBV247 — hàm dùng chung cho header/footer đồng bộ.
+   Chỉ định nghĩa khi trang chưa có, để không đè logic riêng của trang chủ. */
 (function () {
-  if (window.__dbvLayoutJs) return;
-  window.__dbvLayoutJs = 1;
+  'use strict';
 
+  /* ── Hamburger (mobile) ─────────────────────────────────────────── */
   if (typeof window.toggleCatDropdown !== 'function') {
     window.toggleCatDropdown = function (e) {
-      if (e) e.stopPropagation();
+      if (e && e.stopPropagation) e.stopPropagation();
       var d = document.getElementById('cat-dropdown');
       if (d) d.classList.toggle('open');
     };
@@ -954,27 +1104,94 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     window.closeCatDropdown = function () {
       var d = document.getElementById('cat-dropdown');
       if (d) d.classList.remove('open');
-      var subs = document.querySelectorAll('.cat-dd-sub.open');
-      for (var i = 0; i < subs.length; i++) subs[i].classList.remove('open');
+      var i, subs = document.querySelectorAll('.cat-dd-sub.open');
+      for (i = 0; i < subs.length; i++) subs[i].classList.remove('open');
+      var mores = document.querySelectorAll('.cat-dd-more.open');
+      for (i = 0; i < mores.length; i++) mores[i].classList.remove('open');
     };
   }
 
-  // Bấm ra ngoài thì đóng menu — người dùng mong đợi vậy, không cần bấm lại nút
-  document.addEventListener('click', function (e) {
-    var d = document.getElementById('cat-dropdown');
-    if (!d || !d.classList.contains('open')) return;
-    var wrap = e.target && e.target.closest ? e.target.closest('.hdr-cat-wrap') : null;
-    if (!wrap) d.classList.remove('open');
-  });
-
-  // Header trong suốt lúc đầu, chuyển nền trắng khi cuộn xuống
-  var hdr = document.querySelector('.hdr');
-  if (hdr) {
-    var onScroll = function () {
-      hdr.classList.toggle('scrolled', window.scrollY > 10);
+  /* Mở/đóng một nhánh trong hamburger. Các nhánh cùng cấp thu lại. */
+  if (typeof window.toggleCatSub !== 'function') {
+    window.toggleCatSub = function (btn) {
+      if (!btn) return;
+      var sub = document.getElementById(btn.getAttribute('data-sub'));
+      if (!sub) return;
+      var dangMo = sub.classList.contains('open');
+      var cha = btn.parentNode, i;
+      var anhEm = cha.querySelectorAll(':scope > .cat-dd-sub.open');
+      for (i = 0; i < anhEm.length; i++) anhEm[i].classList.remove('open');
+      var nutAnhEm = cha.querySelectorAll(':scope > .cat-dd-more.open');
+      for (i = 0; i < nutAnhEm.length; i++) nutAnhEm[i].classList.remove('open');
+      if (!dangMo) { sub.classList.add('open'); btn.classList.add('open'); }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+  }
+
+  /* ── Menu ngang (desktop) ───────────────────────────────────────── */
+  if (!window.__dbvNavInit) {
+    window.__dbvNavInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      /* Panel Sản phẩm: chọn nhóm thì cột phải đổi theo */
+      var nuts = document.querySelectorAll('.hdr-mega-cat');
+      function chon(nut) {
+        var mega = nut.closest('.hdr-mega'); if (!mega) return;
+        var i, c = mega.querySelectorAll('.hdr-mega-cat');
+        for (i = 0; i < c.length; i++) c[i].classList.remove('on');
+        var l = mega.querySelectorAll('.hdr-mega-list');
+        for (i = 0; i < l.length; i++) l[i].classList.remove('on');
+        nut.classList.add('on');
+        var ds = mega.querySelector('#' + nut.getAttribute('aria-controls'));
+        if (ds) ds.classList.add('on');
+      }
+      for (var i = 0; i < nuts.length; i++) {
+        nuts[i].addEventListener('click', function (e) { e.preventDefault(); chon(this); });
+        nuts[i].addEventListener('mouseenter', function () { chon(this); });
+      }
+
+      /* Thiết bị cảm ứng không có hover — bấm để mở/đóng */
+      var tops = document.querySelectorAll('.hdr-nav-item > button.hdr-nav-top');
+      for (var k = 0; k < tops.length; k++) {
+        tops[k].addEventListener('click', function (e) {
+          e.stopPropagation();
+          var panel = this.parentNode.querySelector('.hdr-drop, .hdr-mega');
+          if (!panel) return;
+          var mo = panel.classList.contains('open');
+          dongMenuNgang();
+          if (!mo) { panel.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+        });
+      }
+    });
+
+    function dongMenuNgang() {
+      var i, p = document.querySelectorAll('.hdr-mega.open, .hdr-drop.open');
+      for (i = 0; i < p.length; i++) p[i].classList.remove('open');
+      var t = document.querySelectorAll('.hdr-nav-top[aria-expanded="true"]');
+      for (i = 0; i < t.length; i++) t[i].setAttribute('aria-expanded', 'false');
+    }
+    window.__dbvDongMenuNgang = dongMenuNgang;
+  }
+
+  /* ── Đóng khi bấm ra ngoài / nhấn Esc — gắn một lần ─────────────── */
+  if (!window.__dbvLayoutOutsideClick) {
+    window.__dbvLayoutOutsideClick = true;
+
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!(t && t.closest)) return;
+      if (!t.closest('.hdr-cat-wrap') && typeof window.closeCatDropdown === 'function') {
+        window.closeCatDropdown();
+      }
+      if (!t.closest('.hdr-nav-item') && window.__dbvDongMenuNgang) {
+        window.__dbvDongMenuNgang();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' && e.keyCode !== 27) return;
+      if (typeof window.closeCatDropdown === 'function') window.closeCatDropdown();
+      if (window.__dbvDongMenuNgang) window.__dbvDongMenuNgang();
+    });
   }
 })();
 </script>
