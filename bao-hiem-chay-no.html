@@ -76,13 +76,45 @@
     "description": "Biểu phí bảo hiểm cháy nổ bắt buộc DBV theo Phụ lục VI Nghị định 105/2025/NĐ-CP sửa đổi Nghị định 67/2023: tỷ lệ phí, mức khấu trừ, danh mục cơ sở bắt buộc mua. Báo phí theo giá trị tài sản.",
     "url": "https://dbv247.com.vn/bao-hiem-chay-no",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "availability": "https://schema.org/InStock",
+      "url": "https://dbv247.com.vn/bao-hiem-chay-no",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "priceCurrency": "VND",
+        "description": "Phí bằng giá trị tài sản nhân tỷ lệ phí từ 0,03% đến 0,1% mỗi năm tuỳ loại hình cơ sở, theo Phụ lục VI Nghị định 105/2025/NĐ-CP. Không có mức phí cố định vì phụ thuộc giá trị tài sản được bảo hiểm."
+      },
+      "description": "Phí tính theo giá trị tài sản, tỷ lệ từ 0,03% đến 0,1% mỗi năm tuỳ loại cơ sở."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Căn cứ pháp lý",
+        "value": "Phụ lục VI Nghị định 105/2025/NĐ-CP sửa đổi Nghị định 67/2023/NĐ-CP"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Tỷ lệ phí",
+        "value": "0,03% – 0,1%/năm trên giá trị tài sản, tuỳ loại hình cơ sở"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Tính chất",
+        "value": "Bảo hiểm bắt buộc với các cơ sở thuộc danh mục quy định"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

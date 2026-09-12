@@ -586,4 +586,17 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/bao-hiem-cong-trinh-xay-dung-thay-doi-gi-tu-1-7-2026</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbv247.com.vn/tin-tuc/chu-dau-tu-hay-nha-thau-phai-mua-bao-hiem-cong-trinh</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

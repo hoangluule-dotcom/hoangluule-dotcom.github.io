@@ -31,13 +31,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "description": "Bảo hiểm ô tô điện DBV có điều khoản riêng cho pin và hệ thống điện, sửa tại xưởng chính hãng. Tư vấn miễn phí theo từng dòng xe: 0869 656 561.",
     "url": "https://dbv247.com.vn/bao-hiem-oto-dien",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "price": "6000000",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31",
+      "url": "https://dbv247.com.vn/bao-hiem-oto-dien",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "priceCurrency": "VND",
+        "minPrice": "6000000",
+        "description": "Phí bằng giá trị xe nhân tỷ lệ phí, tính như xe xăng. Mức 6.000.000đ là phí tối thiểu mỗi xe theo quy định của DBV, đã gồm 3 điều khoản bổ sung."
+      },
+      "description": "Phí tính theo giá trị xe, phí tối thiểu 6.000.000đ mỗi xe đã gồm 3 điều khoản bổ sung. Pin không tính phí riêng."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Phí tối thiểu",
+        "value": "6.000.000đ mỗi xe, đã gồm 3 điều khoản bổ sung"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Bộ pin",
+        "value": "Không tính phí riêng — giá trị pin nằm trong giá trị xe"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Điều khoản bổ sung đáng chú ý",
+        "value": "BS01 thay mới không khấu hao áp dụng cả bộ pin; BS02 sửa tại cơ sở được hãng ủy quyền"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Hãng áp dụng",
+        "value": "VinFast, BYD, Wuling, Tesla và các dòng xe điện, hybrid"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

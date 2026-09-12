@@ -677,13 +677,53 @@ section.mob-sec .sec-hdr-block{display:none!important}
     "description": "Bảo hiểm vật chất ô tô DBV: phí từ 1,2%/năm giá trị xe, bồi thường trong 30 ngày, 1.500+ gara liên kết toàn quốc. Báo phí miễn phí 0869 656 561.",
     "url": "https://dbv247.com.vn/bao-hiem-vat-chat-oto",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "price": "6000000",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31",
+      "url": "https://dbv247.com.vn/bao-hiem-vat-chat-oto",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "priceCurrency": "VND",
+        "minPrice": "6000000",
+        "description": "Phí bằng giá trị xe nhân tỷ lệ phí từ 1,2%/năm. Mức 6.000.000đ là phí tối thiểu mỗi xe theo quy định của DBV, áp dụng cả sau khi đã giảm phí."
+      },
+      "description": "Phí tính theo giá trị xe, tỷ lệ từ 1,2%/năm, phí tối thiểu 6.000.000đ mỗi xe theo quy định của DBV."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Tỷ lệ phí",
+        "value": "Từ 1,2%/năm trên giá trị xe"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Phí tối thiểu",
+        "value": "6.000.000đ mỗi xe theo quy định của DBV"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Mạng lưới sửa chữa",
+        "value": "Hơn 1.500 gara liên kết toàn quốc, chi trả trực tiếp"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Thời gian bồi thường",
+        "value": "Trong 30 ngày kể từ khi nhận đủ hồ sơ hợp lệ"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

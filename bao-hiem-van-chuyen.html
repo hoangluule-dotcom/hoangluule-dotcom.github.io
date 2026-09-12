@@ -449,13 +449,45 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);background:var(--w
     "description": "Bảo hiểm hàng hóa vận chuyển nội địa DBV: bồi thường tổn thất hàng hóa đường bộ, đường thuỷ, đường sắt trong nước. Báo phí theo giá trị lô hàng.",
     "url": "https://dbv247.com.vn/bao-hiem-van-chuyen",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "availability": "https://schema.org/InStock",
+      "url": "https://dbv247.com.vn/bao-hiem-van-chuyen",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "priceCurrency": "VND",
+        "description": "Phí bằng giá trị lô hàng nhân tỷ lệ phí từ 0,04%. Không có mức phí cố định vì phụ thuộc giá trị hàng hoá, tuyến vận chuyển và phương thức vận tải."
+      },
+      "description": "Phí tính theo giá trị lô hàng, tỷ lệ từ 0,04%. Cấp giấy chứng nhận trong ngày."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Tỷ lệ phí",
+        "value": "Từ 0,04% giá trị hàng hóa"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Phương thức vận chuyển",
+        "value": "Đường bộ, đường thuỷ nội địa, đường sắt"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Thời gian cấp đơn",
+        "value": "Trong ngày"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

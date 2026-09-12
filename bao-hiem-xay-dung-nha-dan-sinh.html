@@ -53,13 +53,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "description": "Bảo hiểm mọi rủi ro xây dựng và trách nhiệm bên thứ ba dành cho nhà ở riêng lẻ: bảo vệ công trình trước sập, cháy, thiên tai trong suốt thời gian thi công.",
     "url": "https://dbv247.com.vn/bao-hiem-xay-dung-nha-dan-sinh",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "price": "800000",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31",
+      "url": "https://dbv247.com.vn/bao-hiem-xay-dung-nha-dan-sinh",
+      "description": "Phí tính bằng giá trị công trình nhân tỷ lệ từ 0,04%, chưa gồm VAT. Con số 800.000đ là phí tham khảo phần vật chất cho công trình giá trị 2 tỷ đồng; phí cuối cùng tuỳ hồ sơ công trình và hạn mức trách nhiệm bên thứ ba được chọn thêm."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Tỷ lệ phí",
+        "value": "Từ 0,04% giá trị công trình, chưa gồm VAT"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Ví dụ phí tham khảo",
+        "value": "Công trình 2 tỷ đồng: khoảng 800.000đ phần vật chất"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Trách nhiệm bên thứ ba",
+        "value": "Tối thiểu 10.000.000đ mỗi vụ"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

@@ -415,13 +415,49 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
     "description": "Bảo hiểm du lịch trong nước DBV: hỗ trợ khẩn cấp 24/7, bồi thường trong 15 ngày, phí từ 720đ/người/ngày cho đoàn. Được Bộ Tài chính phê chuẩn.",
     "url": "https://dbv247.com.vn/bao-hiem-du-lich-noi-dia",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "price": "720",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31",
+      "url": "https://dbv247.com.vn/bao-hiem-du-lich-noi-dia",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "priceCurrency": "VND",
+        "price": "720",
+        "unitText": "người/ngày",
+        "description": "Mức khởi điểm áp dụng cho đoàn, tương đương 0,0036% số tiền bảo hiểm mỗi người mỗi ngày."
+      },
+      "description": "Phí tính theo tỷ lệ 0,0036% số tiền bảo hiểm mỗi người mỗi ngày, khởi điểm khoảng 720đ/người/ngày cho đoàn."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Tỷ lệ phí",
+        "value": "Từ 0,0036% số tiền bảo hiểm mỗi người mỗi ngày"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Số tiền bảo hiểm",
+        "value": "Từ 1.000.000đ đến 100.000.000đ mỗi người mỗi vụ, do khách hàng chọn"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Thời gian bồi thường",
+        "value": "15 ngày"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

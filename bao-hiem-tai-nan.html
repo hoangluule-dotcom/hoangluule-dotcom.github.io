@@ -415,13 +415,44 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
     "description": "Bảo hiểm tai nạn con người 24/24 DBV: chi trả tử vong, thương tật, chi phí y tế do tai nạn ở mọi nơi, mọi lúc. Phí thấp, thủ tục nhanh. Tư vấn miễn phí.",
     "url": "https://dbv247.com.vn/bao-hiem-tai-nan",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "VND",
+      "lowPrice": "125000",
+      "highPrice": "740000",
+      "offerCount": "3",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31",
+      "url": "https://dbv247.com.vn/bao-hiem-tai-nan",
+      "description": "Phí năm theo ba gói quyền lợi: Starter khoảng 125.000đ/năm cho số tiền bảo hiểm 50.000.000đ, Standard khoảng 250.000đ/năm cho 100.000.000đ, gói cao nhất khoảng 740.000đ/năm."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Phạm vi thời gian",
+        "value": "24 giờ mỗi ngày, 7 ngày mỗi tuần, trong và ngoài giờ làm việc"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Số tiền bảo hiểm",
+        "value": "Từ 50.000.000đ đến 200.000.000đ mỗi người mỗi vụ"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Thời gian bồi thường",
+        "value": "15 ngày làm việc"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

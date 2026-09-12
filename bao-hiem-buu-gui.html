@@ -406,13 +406,44 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
     "description": "Bảo hiểm bưu gửi DBV: đền bù đầy đủ khi bưu kiện thất lạc, hư hỏng hoặc bị lấy mất. Áp dụng cho mọi đơn vị chuyển phát. Bồi thường nhanh gọn.",
     "url": "https://dbv247.com.vn/bao-hiem-buu-gui",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "price": "1000",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31",
+      "url": "https://dbv247.com.vn/bao-hiem-buu-gui",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "priceCurrency": "VND",
+        "price": "1000",
+        "unitText": "bưu kiện",
+        "description": "Mức phí khởi điểm cho mỗi đơn hàng hoặc bưu kiện được bảo hiểm."
+      },
+      "description": "Phí khởi điểm từ 1.000đ mỗi đơn hàng, tính theo giá trị bưu kiện khai báo."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Phạm vi áp dụng",
+        "value": "Mọi đơn vị chuyển phát, bảo vệ hàng hóa toàn trình"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Giá trị bưu kiện nhận bảo hiểm",
+        "value": "Từ 0 đến 5.000.000đ"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",

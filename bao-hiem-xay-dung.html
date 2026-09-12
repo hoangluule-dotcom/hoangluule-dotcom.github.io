@@ -32,7 +32,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "Bảo hiểm MRR Xây Dựng có bắt buộc không? Ai phải mua? ▼",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Theo Nghị định 119/2015/NĐ-CP, bảo hiểm công trình trong quá trình xây dựng là bắt buộc đối với các công trình sử dụng vốn nhà nước và một số loại công trình cụ thể. Nhà thầu và chủ đầu tư đều có thể là bên mua. Ngoài bảo hiểm bắt buộc, nhiều doanh nghiệp chọn thêm bảo hiểm tự nguyện DBV để mở rộng phạm vi bảo vệ."
+        "text": "Theo Nghị định 67/2023/NĐ-CP, được sửa đổi bởi Nghị định 220/2026/NĐ-CP có hiệu lực từ ngày 01/7/2026, bảo hiểm công trình trong thời gian xây dựng là bắt buộc với các công trình có ảnh hưởng lớn đến an toàn và lợi ích cộng đồng, công trình có nguy cơ tác động xấu đến môi trường, và công trình quy mô lớn hoặc kỹ thuật phức tạp. Chủ đầu tư có thể trực tiếp mua hoặc giao cho nhà thầu mua. Ngoài bảo hiểm bắt buộc, nhiều doanh nghiệp chọn thêm bảo hiểm tự nguyện DBV để mở rộng phạm vi bảo vệ."
       }
     },
     {
@@ -432,13 +432,45 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
     "description": "Bảo hiểm công trình xây dựng và lắp đặt DBV theo Nghị định 67/2023: bảo vệ giá trị công trình từ khởi công đến bàn giao. Tư vấn theo từng dự án.",
     "url": "https://dbv247.com.vn/bao-hiem-xay-dung",
     "provider": {
-      "@id": "https://dbv247.com.vn/#organization"
+      "@type": "Organization",
+      "@id": "https://dbv247.com.vn/#organization",
+      "name": "Bảo hiểm DBV",
+      "url": "https://dbv247.com.vn/"
     },
     "areaServed": {
       "@type": "Country",
       "name": "Vietnam"
     },
-    "serviceType": "Insurance"
+    "serviceType": "Insurance",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "availability": "https://schema.org/InStock",
+      "url": "https://dbv247.com.vn/bao-hiem-xay-dung",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "priceCurrency": "VND",
+        "description": "Phí bằng giá trị công trình nhân tỷ lệ phí từ 0,04% mỗi năm. Không có mức phí cố định vì phụ thuộc giá trị, loại hình và thời gian thi công của từng dự án."
+      },
+      "description": "Phí tính theo giá trị công trình, tỷ lệ từ 0,04%/năm. Báo phí theo từng dự án."
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Căn cứ pháp lý",
+        "value": "Nghị định 67/2023/NĐ-CP về bảo hiểm bắt buộc trong hoạt động xây dựng, được sửa đổi bởi Nghị định 220/2026/NĐ-CP hiệu lực từ 01/7/2026"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Tỷ lệ phí",
+        "value": "Từ 0,04%/năm trên giá trị công trình"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Thời hạn bảo hiểm",
+        "value": "Từ khởi công đến bàn giao công trình"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -943,7 +975,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="cov-card">
         <div class="cov-label">Gói cơ bản</div>
         <div class="cov-name">Bảo Hiểm Bắt Buộc</div>
-        <div class="cov-desc">Đáp ứng đúng quy định pháp luật về bảo hiểm bắt buộc trong đầu tư xây dựng theo Nghị định 119/2015/NĐ-CP và Thông tư 329/2016/TT-BTC.</div>
+        <div class="cov-desc">Đáp ứng đúng quy định pháp luật về bảo hiểm bắt buộc trong hoạt động xây dựng theo Nghị định 67/2023/NĐ-CP, được sửa đổi bởi Nghị định 220/2026/NĐ-CP.</div>
         <div class="cov-price">Từ 0,08%/năm</div>
         <div class="cov-price-note">Nhà ở không có tầng hầm · Chưa VAT</div>
         <div class="cov-fit">PHÙ HỢP CHO</div>
@@ -995,9 +1027,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="sec-inner">
     <span class="sec-tag">Biểu phí tham khảo</span>
     <h2 class="sec-h2">Biểu Phí Bảo Hiểm Minh Bạch Theo Loại Công Trình</h2>
-    <p class="sec-sub">Biểu phí bảo hiểm bắt buộc trích từ Nghị định 119/2015/NĐ-CP và Nghị định 67/2023/NĐ-CP. Chưa bao gồm VAT. Liên hệ chuyên viên để nhận báo giá chính xác theo dự án của bạn.</p>
+    <p class="sec-sub">Biểu phí tham khảo, chưa bao gồm VAT. Mức phí bảo hiểm bắt buộc quy định tại Phụ lục III Nghị định 67/2023/NĐ-CP — phụ lục này đã được thay thế bởi Nghị định 220/2026/NĐ-CP có hiệu lực từ 01/7/2026. Vui lòng liên hệ chuyên viên để nhận báo phí theo quy định hiện hành và theo hồ sơ dự án của bạn.</p>
     <div class="rate-note">
-      <strong>Lưu ý:</strong> Biểu phí áp dụng cho công trình có giá trị dưới 1.000 tỷ đồng và chi phí xây dựng ≥ 50% tổng giá trị. Các chi nhánh DBV được điều chỉnh giảm tối đa 50% phí tự nguyện, nhưng không thấp hơn 0,02% chưa VAT.
+      <strong>Lưu ý:</strong> Biểu phí áp dụng cho công trình có giá trị dưới 1.000 tỷ đồng và chi phí xây dựng ≥ 50% tổng giá trị. Các chi nhánh DBV được điều chỉnh giảm tối đa 50% phí tự nguyện, nhưng không thấp hơn 0,02% chưa VAT.<br><br>
+      <strong>Cập nhật pháp lý 01/7/2026:</strong> Nghị định 220/2026/NĐ-CP đã thay thế Phụ lục III của Nghị định 67/2023 — phụ lục quy định mức phí và mức khấu trừ bảo hiểm bắt buộc. Cách phân loại cũng đổi, nay căn cứ vào tỷ trọng phần lắp đặt thiết bị (từ 50% trở lên hay dưới 50% tổng giá trị hạng mục). Ngoài ra doanh nghiệp bảo hiểm phải căn cứ mức độ rủi ro để tăng hoặc giảm phí tối đa 25%. Vui lòng liên hệ chuyên viên để nhận mức phí bắt buộc theo quy định hiện hành.<br><br>
+      Xem chi tiết: <a href="/tin-tuc/bao-hiem-cong-trinh-xay-dung-thay-doi-gi-tu-1-7-2026" style="color:var(--g,#007437);font-weight:600">Bảo hiểm công trình xây dựng thay đổi gì từ 01/7/2026</a> · <a href="/tin-tuc/chu-dau-tu-hay-nha-thau-phai-mua-bao-hiem-cong-trinh" style="color:var(--g,#007437);font-weight:600">Chủ đầu tư hay nhà thầu phải mua bảo hiểm công trình</a>
     </div>
     <div class="rate-table-wrap">
       <table class="rate-table">
@@ -1226,7 +1260,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           Bảo hiểm MRR Xây Dựng có bắt buộc không? Ai phải mua?
           <span class="arr">▼</span>
         </button>
-        <div class="faq-a">Theo Nghị định 119/2015/NĐ-CP, bảo hiểm công trình trong quá trình xây dựng là bắt buộc đối với các công trình sử dụng vốn nhà nước và một số loại công trình cụ thể. Nhà thầu và chủ đầu tư đều có thể là bên mua. Ngoài bảo hiểm bắt buộc, nhiều doanh nghiệp chọn thêm bảo hiểm tự nguyện DBV để mở rộng phạm vi bảo vệ.</div>
+        <div class="faq-a">Theo Nghị định 67/2023/NĐ-CP, được sửa đổi bởi Nghị định 220/2026/NĐ-CP có hiệu lực từ ngày 01/7/2026, bảo hiểm công trình trong thời gian xây dựng là bắt buộc với các công trình có ảnh hưởng lớn đến an toàn và lợi ích cộng đồng, công trình có nguy cơ tác động xấu đến môi trường, và công trình quy mô lớn hoặc kỹ thuật phức tạp. Chủ đầu tư có thể trực tiếp mua hoặc giao cho nhà thầu mua. Ngoài bảo hiểm bắt buộc, nhiều doanh nghiệp chọn thêm bảo hiểm tự nguyện DBV để mở rộng phạm vi bảo vệ.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
