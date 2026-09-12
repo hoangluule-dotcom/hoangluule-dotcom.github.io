@@ -638,8 +638,20 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .cat-dd-sep{height:1px;background:var(--bd,#E2E8F0);margin:6px 4px}
 .cat-dd-item.cat-dd-kr:hover{background:var(--gl,#E8F5E9)}
 </style>
+<link rel="stylesheet" href="/assets/cap-don-tnds.css">
 </head>
 <body>
+
+<form name="dbv-capdon-tnds" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="bot-field"><input name="ma-don"><input name="san-pham"><input name="loai-xe">
+  <input name="nhom-xe"><input name="chi-tiet-xe"><input name="so-cho"><input name="thoi-han">
+  <input name="phi-goc"><input name="vat"><input name="tong-phi"><input name="bien-so"><input name="so-khung">
+  <input name="so-may"><input name="hieu-xe"><input name="nam-sx"><input name="ngay-hieu-luc"><input name="ngay-het-han">
+  <input name="ho-ten"><input name="sdt"><input name="email"><input name="dia-chi">
+  <input name="xuat-hoa-don"><input name="ten-cty"><input name="mst"><input name="dia-chi-cty"><input name="email-hd">
+  <input name="dia-chi-giao"><input name="nguoi-nhan"><input name="sdt-nhan"><input name="trang-thai"><textarea name="ghi-chu"></textarea>
+</form>
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53NZ4XR4"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -991,11 +1003,359 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <button class="cov-cta outline" onclick="scrollToForm()">Tư vấn thêm</button>
       </div>
     </div>
-    <div style="max-width:430px;margin:26px auto 0"><a href="https://tnds.dbv247.com.vn/" style="display:flex;align-items:center;justify-content:center;gap:9px;background:#007437;color:#fff;font-weight:700;font-size:15.5px;padding:15px 26px;border-radius:30px;text-decoration:none;box-shadow:0 4px 18px rgba(0,116,55,.28);transition:.2s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua ngay — cấp đơn online</a><div style="font-size:12.5px;color:#718096;text-align:center;margin-top:9px">Nhập thông tin xe · Xem phí theo biểu phí Nhà nước · Quét QR thanh toán vào tài khoản Tập đoàn Bảo hiểm DBV — CN Thành Đô · Giấy chứng nhận điện tử gửi qua email và Zalo</div></div>
+    <div style="max-width:430px;margin:26px auto 0"><a href="#cap-don" style="display:flex;align-items:center;justify-content:center;gap:9px;background:#007437;color:#fff;font-weight:700;font-size:15.5px;padding:15px 26px;border-radius:30px;text-decoration:none;box-shadow:0 4px 18px rgba(0,116,55,.28);transition:.2s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Mua ngay — cấp đơn online</a><div style="font-size:12.5px;color:#718096;text-align:center;margin-top:9px">Nhập thông tin xe · Xem phí theo biểu phí Nhà nước · Quét QR thanh toán vào tài khoản Tập đoàn Bảo hiểm DBV — CN Thành Đô · Giấy chứng nhận điện tử gửi qua email và Zalo</div></div>
   </div>
 </section>
 
 <!-- SECTION 5 — PROCESS -->
+<section id="cap-don" data-loai-xe="moto">
+  <div class="cd-band">
+    <div class="cd-band-in">
+      <span class="tag">🛡️ Cấp đơn online — Nghị định 67/2023/NĐ-CP</span>
+      <h2>Cấp đơn TNDS ngay tại đây — <em>nhận giấy chứng nhận trong 15 phút</em></h2>
+      <p>Chọn loại xe, hệ thống tính phí theo đúng biểu phí Nhà nước và sinh mã QR chuyển khoản thẳng vào tài khoản Công ty Bảo hiểm DBV. Không rời trang, không qua trung gian.</p>
+    </div>
+  </div>
+<!-- ══════════ WIZARD ══════════ -->
+<div class="cd-wrap">
+<div class="cd-grid">
+
+  <div class="cd-card">
+    <!-- progress -->
+    <div class="cd-steps" id="cdsteps">
+      <div class="cd-step on" data-s="1"><div class="cd-step-n">1</div><div class="cd-step-t">Chọn xe &amp; phí</div></div>
+      <div class="cd-step" data-s="2"><div class="cd-step-n">2</div><div class="cd-step-t">Thông tin xe</div></div>
+      <div class="cd-step" data-s="3"><div class="cd-step-n">3</div><div class="cd-step-t">Chủ xe</div></div>
+      <div class="cd-step" data-s="4"><div class="cd-step-n">4</div><div class="cd-step-t">Thanh toán</div></div>
+    </div>
+
+    <div class="cd-body">
+
+      <!-- ─── BƯỚC 1 ─── -->
+      <div class="cd-pane on" id="cdp1">
+        <div class="cd-h">Xe của bạn là loại nào?</div>
+        <div class="cd-sub">Chọn đúng loại xe để hệ thống áp đúng biểu phí bắt buộc do Nhà nước quy định. Xe gia đình, xe công ty dùng nội bộ đều thuộc nhóm <b>không kinh doanh vận tải</b>.</div>
+
+        <div class="vt-grid">
+          <div class="vt" id="cdvt-oto" onclick="CD.pickVeh('oto')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M9.5 17h5M5 12h14"/></svg>
+            <b>Ô tô</b><small>Xe con, tải, khách, chuyên dùng</small>
+          </div>
+          <div class="vt" id="cdvt-moto" onclick="CD.pickVeh('moto')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M8 17h5l3-6h3M13 11L9.5 7H7M16 11l-2-4h3.5"/></svg>
+            <b>Xe máy / mô tô</b><small>Xe số, tay ga, xe máy điện</small>
+          </div>
+        </div>
+
+        <!-- ô tô -->
+        <div id="cdoto-opts" style="display:none">
+          <div class="cd-sec">Nhóm sử dụng</div>
+          <div class="fld">
+            <label>Xe dùng vào việc gì? <i>*</i></label>
+            <select id="cdf-group" onchange="CD.onGroup()">
+              <option value="">— Chọn nhóm sử dụng —</option>
+              <option value="nkd">Xe chở người KHÔNG kinh doanh vận tải</option>
+              <option value="kd">Xe chở người CÓ kinh doanh vận tải</option>
+              <option value="tai">Xe tải / xe chở hàng</option>
+              <option value="khac">Xe taxi, tập lái, buýt, chuyên dùng, đầu kéo</option>
+            </select>
+            <div class="hint">Xe gia đình, xe công ty dùng nội bộ → chọn "không kinh doanh vận tải".</div>
+          </div>
+          <div class="fld" id="cdwrap-sub">
+            <label>Loại xe cụ thể <i>*</i></label>
+            <select id="cdf-sub" onchange="CD.calc()"><option value="">— Chọn —</option></select>
+          </div>
+          <div class="fld" id="cdwrap-seats" style="display:none">
+            <label>Số chỗ theo đăng ký <i>*</i></label>
+            <input type="number" id="cdf-seats" min="1" max="80" step="1" placeholder="Ví dụ: 16" oninput="CD.calc()">
+            <div class="hint">Ghi đúng số chỗ trên giấy đăng ký xe. Trên 25 chỗ: phí = 4.813.000 + 30.000 × (số chỗ − 25).</div>
+          </div>
+        </div>
+
+        <!-- xe máy -->
+        <div id="cdmoto-opts" style="display:none">
+          <div class="cd-sec">Loại xe máy</div>
+          <div class="fld">
+            <label>Dung tích / chủng loại <i>*</i></label>
+            <select id="cdf-moto" onchange="CD.calc()">
+              <option value="">— Chọn loại xe máy —</option>
+              <option value="m2_50">Mô tô 2 bánh dưới 50 cc</option>
+              <option value="m2_50p">Mô tô 2 bánh từ 50 cc trở lên</option>
+              <option value="mdien">Xe máy điện</option>
+              <option value="m3b">Mô tô 3 bánh</option>
+              <option value="mkhac">Xe gắn máy &amp; xe cơ giới tương tự khác</option>
+            </select>
+            <div class="hint">Xe tay ga, xe số phổ thông (Wave, Vision, SH…) đều từ 50 cc trở lên.</div>
+          </div>
+        </div>
+
+        <!-- thời hạn -->
+        <div id="cdterm-wrap" style="display:none">
+          <div class="cd-sec">Thời hạn bảo hiểm</div>
+          <div class="chips" id="cdchips">
+            <div class="chip on" data-y="1" onclick="CD.pickTerm(this)"><b>1 năm</b><small>Phổ biến</small></div>
+            <div class="chip" data-y="2" onclick="CD.pickTerm(this)"><b>2 năm</b><small>Đỡ phải nhớ</small></div>
+            <div class="chip" data-y="3" onclick="CD.pickTerm(this)"><b>3 năm</b><small>Tiện nhất</small></div>
+          </div>
+          <div class="fld" style="margin-top:14px">
+            <label>Ngày bắt đầu hiệu lực <i>*</i></label>
+            <input type="date" id="cdf-start" onchange="CD.calc()">
+            <div class="hint">Đơn có hiệu lực từ 0h00 ngày bạn chọn. Không nhận ngày trong quá khứ.</div>
+          </div>
+        </div>
+
+        <!-- fee -->
+        <div class="fee empty" id="cdfee">
+          <div class="fee-lbl">Phí bảo hiểm</div>
+          <div class="fee-num">Chọn loại xe để xem phí</div>
+        </div>
+
+        <div class="cov" id="cdcov" style="display:none">
+          <div><small>Bồi thường về người</small><b>150 triệu đ</b><small style="text-transform:none;color:var(--tm);font-weight:500">/người/vụ</small></div>
+          <div><small>Bồi thường tài sản</small><b id="cdcov-ts">100 triệu đ</b><small style="text-transform:none;color:var(--tm);font-weight:500">/vụ</small></div>
+        </div>
+
+        <div class="acts"><button class="btn btn-p" id="cdb1" onclick="CD.go(2)" disabled>Tiếp tục — Nhập thông tin xe →</button></div>
+        <div class="consult-row">
+          <a class="cr-zalo" href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener">💬 Liên hệ tư vấn viên trước khi mua</a>
+          <a class="cr-tel" href="tel:0869656561">📞 0869 656 561</a>
+        </div>
+      </div>
+
+      <!-- ─── BƯỚC 2 ─── -->
+      <div class="cd-pane" id="cdp2">
+        <div class="cd-h">Thông tin xe</div>
+        <div class="cd-sub">Lấy đúng theo Giấy đăng ký xe. Thông tin sai sẽ khiến giấy chứng nhận không có giá trị khi CSGT kiểm tra.</div>
+
+        <div class="fld">
+          <label>Biển kiểm soát</label>
+          <input type="text" id="cdf-plate" placeholder="VD: 30A-123.45 hoặc 29B1-234.56" autocomplete="off">
+          <div class="hint">Xe chưa có biển số? Bỏ trống và ghi "Xe mới chưa đăng ký" ở phần ghi chú bước 3.</div>
+          <div class="msg">Vui lòng nhập biển kiểm soát.</div>
+        </div>
+
+        <div class="row2">
+          <div class="fld">
+            <label>Số khung — 8 ký tự cuối <i>*</i></label>
+            <input type="text" id="cdf-vin" placeholder="VD: XLY922654 → nhập Y922654" maxlength="8" autocomplete="off">
+            <div class="hint">Không cần nhập đủ 17 ký tự, chỉ lấy 8 ký tự cuối cùng.</div>
+            <div class="msg">Nhập 8 ký tự cuối của số khung.</div>
+          </div>
+          <div class="fld">
+            <label>Số máy — 8 ký tự cuối <i>*</i></label>
+            <input type="text" id="cdf-eng" placeholder="VD: L15Z12353689 → nhập 12353689" maxlength="8" autocomplete="off">
+            <div class="hint">Chỉ lấy 8 ký tự cuối trên giấy đăng ký xe.</div>
+            <div class="msg">Nhập 8 ký tự cuối của số máy.</div>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="fld">
+            <label>Hãng &amp; dòng xe</label>
+            <input type="text" id="cdf-brand" placeholder="VD: Toyota Vios / Honda Vision">
+          </div>
+          <div class="fld">
+            <label>Năm sản xuất</label>
+            <input type="number" id="cdf-year" min="1980" max="2027" placeholder="VD: 2021">
+          </div>
+        </div>
+
+        <div class="note">🔎 <b>Mẹo:</b> Số khung và số máy nằm ở mặt sau (hoặc mặt trước) Giấy đăng ký xe, ngay dưới dòng biển số. <b>Chỉ cần 8 ký tự cuối</b> của mỗi dãy — đủ để định danh xe, bạn không phải gõ hết 17 ký tự.</div>
+
+        <div class="acts">
+          <button class="btn btn-s" onclick="CD.go(1)">← Quay lại</button>
+          <button class="btn btn-p" onclick="CD.go(3)">Tiếp tục — Thông tin chủ xe →</button>
+        </div>
+      </div>
+
+      <!-- ─── BƯỚC 3 ─── -->
+      <div class="cd-pane" id="cdp3">
+        <div class="cd-h">Thông tin chủ xe</div>
+        <div class="cd-sub">Đây là thông tin in trên giấy chứng nhận bảo hiểm và dùng để giải quyết bồi thường.</div>
+
+        <div class="fld">
+          <label>Họ và tên chủ xe <i>*</i></label>
+          <input type="text" id="cdf-name" placeholder="Nguyễn Văn A" autocomplete="name">
+          <div class="msg">Vui lòng nhập họ tên.</div>
+        </div>
+
+        <div class="row2">
+          <div class="fld">
+            <label>Số điện thoại <i>*</i></label>
+            <input type="tel" id="cdf-phone" placeholder="09xx xxx xxx" inputmode="tel" maxlength="15" autocomplete="tel">
+            <div class="msg">Số điện thoại chưa đúng định dạng.</div>
+          </div>
+          <div class="fld">
+            <label>Email nhận giấy chứng nhận <i>*</i></label>
+            <input type="email" id="cdf-email" placeholder="ban@email.com" autocomplete="email">
+            <div class="msg">Email chưa đúng định dạng.</div>
+          </div>
+        </div>
+
+        <div class="fld">
+          <label>Địa chỉ</label>
+          <input type="text" id="cdf-addr" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/TP">
+        </div>
+
+        <label class="chk" style="margin-top:4px">
+          <input type="checkbox" id="cdf-vat" onchange="CD.toggleVat()">
+          <span>Tôi cần xuất hoá đơn VAT cho công ty</span>
+        </label>
+
+        <div id="cdvat-box" style="display:none">
+          <div class="cd-sec">Thông tin xuất hoá đơn</div>
+          <div class="row2">
+            <div class="fld"><label>Tên công ty</label><input type="text" id="cdf-cty" placeholder="Công ty TNHH ..."></div>
+            <div class="fld"><label>Mã số thuế</label><input type="text" id="cdf-mst" placeholder="10 hoặc 13 số"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label>Địa chỉ đăng ký kinh doanh</label><input type="text" id="cdf-ctyaddr" placeholder="Theo giấy ĐKKD"></div>
+            <div class="fld"><label>Email nhận hoá đơn</label><input type="email" id="cdf-emailhd" placeholder="ketoan@congty.com"></div>
+          </div>
+        </div>
+
+        <div class="fld" style="margin-top:16px">
+          <label>Ghi chú thêm</label>
+          <textarea id="cdf-note" rows="2" placeholder="Yêu cầu riêng, thời gian nhận cuộc gọi, xe mới chưa có biển..."></textarea>
+        </div>
+
+        <label class="chk">
+          <input type="checkbox" id="cdf-agree" onchange="document.getElementById('cdb3').disabled=!this.checked">
+          <span>Tôi xác nhận thông tin đã khai là đúng và đồng ý với <a href="https://dbv247.com.vn/chinh-sach-bao-mat" target="_blank">Chính sách bảo mật</a> cùng Quy tắc bảo hiểm bắt buộc TNDS chủ xe cơ giới theo NĐ 67/2023/NĐ-CP.</span>
+        </label>
+
+        <div class="acts">
+          <button class="btn btn-s" onclick="CD.go(2)">← Quay lại</button>
+          <button class="btn btn-p" id="cdb3" onclick="CD.go(4)" disabled>Xác nhận &amp; tạo mã thanh toán →</button>
+        </div>
+      </div>
+
+      <!-- ─── BƯỚC 4 ─── -->
+      <div class="cd-pane" id="cdp4">
+        <div class="cd-h">Quét mã QR để thanh toán</div>
+        <div class="cd-sub">Mở app ngân hàng bất kỳ → quét mã dưới đây. Số tiền và nội dung chuyển khoản đã điền sẵn, bạn không cần gõ lại.</div>
+
+        <div class="rev">
+          <div class="rev-h">Đơn bảo hiểm <button onclick="CD.go(1)">Sửa</button></div>
+          <div class="rev-b" id="cdrev-order"></div>
+        </div>
+        <div class="rev">
+          <div class="rev-h">Thông tin xe <button onclick="CD.go(2)">Sửa</button></div>
+          <div class="rev-b" id="cdrev-veh"></div>
+        </div>
+        <div class="rev">
+          <div class="rev-h">Chủ xe <button onclick="CD.go(3)">Sửa</button></div>
+          <div class="rev-b" id="cdrev-own"></div>
+        </div>
+
+        <div class="cd-sec">Mã QR thanh toán</div>
+        <div class="qr-box">
+          <img class="qr-img" id="cdqr-img" alt="Mã QR thanh toán bảo hiểm TNDS">
+          <div class="qr-amt-l">Số tiền cần thanh toán</div>
+          <div class="qr-amt" id="cdqr-amt">—</div>
+
+          <div class="qr-bank">
+            <div class="qr-bank-r"><span>Ngân hàng</span><b id="cdqr-bank-name">—</b></div>
+            <div class="qr-bank-r"><span>Số tài khoản</span><b id="cdqr-acc">—</b><button class="copy" onclick="CD.cp('cdqr-acc',this)">Copy</button></div>
+            <div class="qr-bank-r long"><span>Chủ tài khoản</span><b id="cdqr-owner">—</b></div>
+            <div class="qr-bank-r"><span>Nội dung CK</span><b id="cdqr-info">—</b><button class="copy" onclick="CD.cp('cdqr-info',this)">Copy</button></div>
+          </div>
+          <div style="font-size:.75rem;color:var(--ts);margin-top:8px;line-height:1.5">Quét QR thì mọi thông tin đã điền sẵn. Nếu nhập tay, giữ nguyên nội dung chuyển khoản để hệ thống đối soát tự động.</div>
+
+          <div class="qr-timer">Mã có hiệu lực trong <b id="cdqr-clock">15:00</b></div>
+
+          <div class="qr-steps">
+            <b>Sau khi chuyển khoản</b>
+            <ol>
+              <li>Bấm nút <b>"Tôi đã chuyển khoản"</b> bên dưới.</li>
+              <li>Chuyên viên đối soát và phát hành giấy chứng nhận điện tử.</li>
+              <li>GCN gửi về email &amp; Zalo của bạn — thường trong 15 phút giờ hành chính.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="note">💡 Chưa tiện chuyển khoản ngay? Bấm <b>"Tôi đã chuyển khoản"</b> vẫn lưu đơn của bạn — chuyên viên sẽ liên hệ hỗ trợ thanh toán bằng cách khác (VNPay, Momo, thẻ, thu tại nhà).</div>
+
+        <div class="acts">
+          <button class="btn btn-s" onclick="CD.go(3)">← Quay lại</button>
+          <button class="btn btn-p" id="cdb4" onclick="CD.finish()">✓ Tôi đã chuyển khoản</button>
+        </div>
+      </div>
+
+      <!-- ─── HOÀN TẤT ─── -->
+      <div class="cd-pane" id="cdp5">
+        <div class="ok">
+          <div class="ok-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <h2>Đã nhận đơn của bạn!</h2>
+          <p>Chuyên viên DBV Thành Đô đang đối soát thanh toán và phát hành giấy chứng nhận điện tử.</p>
+          <div class="ok-code" id="cdok-code">—</div>
+          <p style="font-size:.78rem;color:var(--ts)">Mã đơn — vui lòng lưu lại để tra cứu</p>
+
+          <div class="ok-next">
+            <b>Việc tiếp theo</b>
+            <ul>
+              <li>Giấy chứng nhận điện tử gửi về email <b id="cdok-email">—</b></li>
+              <li>Bản mềm gửi kèm qua Zalo số <b id="cdok-phone">—</b></li>
+              <li>Cần bản giấy? Điền địa chỉ ngay bên dưới — chuyển phát miễn phí toàn quốc</li>
+            </ul>
+          </div>
+
+          <div class="ok-ship">
+            <b>📦 Nhận bản bảo hiểm giấy — miễn phí toàn quốc</b>
+            <p>Ấn chỉ giấy có dấu đỏ của Công ty Bảo hiểm DBV, chuyển phát tận nơi và không thu thêm phí. Điền địa chỉ để chúng tôi gửi ngay sau khi đối soát thanh toán.</p>
+            <div class="fld">
+              <label>Địa chỉ nhận bản giấy</label>
+              <input type="text" id="cdf-ship" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/TP" autocomplete="street-address">
+              <div class="msg">Vui lòng nhập địa chỉ nhận.</div>
+            </div>
+            <div class="row2">
+              <div class="fld">
+                <label>Người nhận</label>
+                <input type="text" id="cdf-shipname" placeholder="Bỏ trống nếu là chủ xe">
+              </div>
+              <div class="fld">
+                <label>SĐT người nhận</label>
+                <input type="tel" id="cdf-shipphone" placeholder="Bỏ trống nếu dùng số đã khai" inputmode="tel" maxlength="15">
+              </div>
+            </div>
+            <button class="btn btn-p" style="width:100%" id="cdb5" onclick="CD.guiDiaChi()">Gửi địa chỉ nhận bản giấy</button>
+            <div class="ok-ship-done" id="cdok-ship-done">✅ Đã nhận địa chỉ. Bản giấy sẽ được chuyển phát ngay sau khi đối soát thanh toán.</div>
+          </div>
+
+          <div class="acts">
+            <a class="btn btn-z" id="cdok-zalo" href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener">💬 Gửi biên lai qua Zalo</a>
+            <a class="btn btn-s" href="tel:0869656561" style="flex:1">📞 0869 656 561</a>
+          </div>
+          <div class="acts" style="margin-top:10px">
+            <button class="btn btn-s" style="flex:1" onclick="location.reload()">Cấp đơn cho xe khác</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cd-body -->
+  </div><!-- /cd-card -->
+
+  <!-- SIDEBAR -->
+  <div>
+    <div class="sum">
+      <div class="sum-hd">Tóm tắt đơn</div>
+      <div class="sum-bd">
+        <div id="cdsum-rows"><div class="sum-empty">Chọn loại xe để bắt đầu</div></div>
+        <div class="sum-tot"><span>Tổng thanh toán</span><b id="cdsum-tot">0 đ</b></div>
+      </div>
+    </div>
+
+    <div class="why">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><b>Đúng phí Nhà nước</b><p>Biểu phí lấy nguyên Phụ lục I NĐ 67/2023 — không phụ thu, không chênh lệch.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><b>15 phút có GCN</b><p>Giấy chứng nhận điện tử hợp lệ khi CSGT kiểm tra, gửi ngay qua email &amp; Zalo.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><b>Bồi thường có người theo</b><p>Chuyên viên hiện trường hỗ trợ hồ sơ, tạm ứng tới 70% trong 3 ngày.</p></div>
+    </div>
+  </div>
+
+</div><!-- /cd-grid -->
+</div><!-- /cd-wrap -->
+</section>
+
 <section class="process-sec" id="process">
   <div class="sec-inner">
     <span class="sec-tag">Quy trình</span>
@@ -1162,7 +1522,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>Đừng để một lần bị phạt làm hỏng cả ngày của bạn</h2>
     <p>Chỉ 66.000 VNĐ/năm (xe từ 50cc+) hoặc 60.500 VNĐ/năm (xe điện & dưới 50cc) — mức phí quy định theo Nghị định 67/2023/NĐ-CP.</p>
     <div class="cta-btns">
-      <a href="https://tnds.dbv247.com.vn/" class="btn-cta-a">Mua ngay — cấp đơn online</a>
+      <a href="#cap-don" class="btn-cta-a">Mua ngay — cấp đơn online</a>
       <button class="btn-cta-b" onclick="scrollToForm()">Để lại thông tin tư vấn</button>
       <a href="tel:0869656561" class="btn-cta-b">Gọi tư vấn ngay</a>
     </div>
@@ -1510,5 +1870,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 })();
 </script>
 <script id="dbv-chatbot" src="/assets/dbv-chatbot.js" defer></script>
+<script src="/assets/cap-don-tnds.js" defer></script>
 </body>
 </html>

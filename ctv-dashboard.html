@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53NZ4XR4');</script>
+<!-- End Google Tag Manager -->
+<title>Bảng Điều Khiển Cộng Tác Viên | DBV247</title>
+<meta name="description" content="Bảng điều khiển dành cho cộng tác viên DBV247: mã cộng tác viên, link giới thiệu, đơn đã ghi nhận và hoa hồng theo từng trạng thái."/>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="canonical" href="https://dbv247.com.vn/ctv-dashboard"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Bảng Điều Khiển Cộng Tác Viên DBV247"/>
+<meta property="og:description" content="Mã cộng tác viên, link giới thiệu, đơn đã ghi nhận và hoa hồng theo từng trạng thái."/>
+<meta property="og:url" content="https://dbv247.com.vn/ctv-dashboard"/>
+<meta property="og:image" content="https://dbv247.com.vn/logo-dbv247.png"/>
+<meta property="og:locale" content="vi_VN"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;--zalo:#0068ff;
+  --gold:#E8920A;--goldd:#c97d08;--gold-bg:#FFF8E7;
+  --navy:#1B3A5C;--dk:#1A4D32;
+  --tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
+  --bd:#E2E8F0;--bg:#f8fafb;--white:#ffffff;
+  --do:#D92D20;--do-bg:#FEF3F2;
+  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip}
+body{font-family:'Be Vietnam Pro',sans-serif;font-size:16px;color:var(--tx);line-height:1.6;background:var(--bg);-webkit-font-smoothing:antialiased;padding-bottom:64px}
+@media(min-width:992px){body{padding-bottom:0}}
+a{color:var(--g)}
+.hdr{background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd)}
+
+.db{max-width:1040px;margin:0 auto;padding:28px 16px 56px}
+@media(min-width:768px){ .db{padding:36px 24px 72px} }
+
+/* ══ THANH TRÊN ══ */
+.db-top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:24px}
+.db-top h1{font-size:clamp(21px,2.6vw,28px);font-weight:700;color:var(--navy);letter-spacing:-.3px}
+.db-top .who{font-size:14px;color:var(--ts);margin-top:2px}
+.btn-out{appearance:none;background:#fff;border:1.5px solid var(--bd);color:var(--tm);font-family:inherit;font-size:14px;font-weight:600;padding:9px 16px;border-radius:9999px;cursor:pointer;transition:.18s}
+.btn-out:hover{border-color:var(--do);color:var(--do)}
+
+/* ══ TRẠNG THÁI TẢI / LỖI ══ */
+.db-tai{padding:56px 20px;text-align:center;color:var(--ts);font-size:15px}
+.db-loi{display:none;background:var(--do-bg);border:1px solid #FDA29B;border-radius:var(--r12);padding:16px 18px;margin-bottom:22px;font-size:14.5px;font-weight:600;color:#B42318;line-height:1.6}
+.db-loi.show{display:block}
+.db-main{display:none}
+.db-main.show{display:block}
+
+/* ══ BĂNG THÔNG BÁO GIAI ĐOẠN ══ */
+.bang{background:var(--gold-bg);border:1px solid #F4D9A0;border-left:4px solid var(--gold);border-radius:var(--r12);padding:14px 17px;margin-bottom:24px;display:flex;gap:12px;align-items:flex-start}
+.bang svg{flex:0 0 18px;width:18px;height:18px;color:var(--goldd);margin-top:2px}
+.bang b{display:block;font-size:13.5px;font-weight:800;color:var(--goldd);margin-bottom:3px}
+.bang p{font-size:14px;color:var(--tm);line-height:1.65}
+
+/* ══ THẺ ══ */
+.the{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);padding:20px 22px;margin-bottom:20px}
+.the-h{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--ts);margin-bottom:16px}
+.the-h svg{width:15px;height:15px;color:var(--g)}
+
+/* ══ MÃ CTV + LINK ══ */
+.ma-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.ma-box{text-align:center}
+.ma-box .lb{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ts);margin-bottom:6px}
+.ma-box .val{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:34px;font-weight:700;letter-spacing:5px;color:var(--navy);background:var(--bg);border:1.5px dashed var(--bd);border-radius:var(--r12);padding:8px 18px;line-height:1.25}
+.link-box{flex:1 1 280px;min-width:0}
+.link-box .lb{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ts);margin-bottom:6px}
+.link-in{display:flex;gap:8px}
+.link-in input{flex:1;min-width:0;padding:11px 13px;border:1.5px solid var(--bd);border-radius:var(--r12);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--tm);background:var(--bg)}
+.btn-cp{appearance:none;border:1.5px solid var(--g);background:var(--g);color:#fff;font-family:inherit;font-size:13.5px;font-weight:700;padding:0 16px;border-radius:var(--r12);cursor:pointer;white-space:nowrap;transition:.18s}
+.btn-cp:hover{background:var(--gp);border-color:var(--gp)}
+.link-note{margin-top:9px;font-size:12.5px;color:var(--ts);line-height:1.55}
+
+/* ══ CHỈ SỐ ══ */
+.o-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:720px){ .o-grid{grid-template-columns:repeat(3,1fr)} }
+.o{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r12);padding:14px 16px}
+.o .lb{font-size:12px;font-weight:700;color:var(--ts);line-height:1.4;min-height:34px}
+.o .so{margin-top:6px;font-size:24px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.o.tien .so{color:var(--gp)}
+.o .dv{font-size:13px;font-weight:600;color:var(--ts);margin-left:2px}
+
+/* ══ BẢNG ĐƠN ══ */
+.rong{padding:34px 18px;text-align:center;background:var(--bg);border:1px dashed var(--bd);border-radius:var(--r12)}
+.rong svg{width:28px;height:28px;color:var(--bd);margin-bottom:10px}
+.rong b{display:block;font-size:14.5px;font-weight:700;color:var(--tm);margin-bottom:4px}
+.rong p{font-size:13.5px;color:var(--ts);line-height:1.6;max-width:420px;margin:0 auto}
+
+/* ══ VÒNG ĐỜI ĐƠN ══ */
+.vd{display:grid;gap:10px}
+.vd-b{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--tm);line-height:1.55}
+.vd-n{flex:0 0 21px;height:21px;border-radius:50%;background:var(--gl);color:var(--gp);font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px;font-variant-numeric:tabular-nums}
+.vd-b b{color:var(--navy);font-weight:700}
+
+/* ══ HỒ SƠ ══ */
+.hs-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){ .hs-grid{grid-template-columns:1fr 1fr} }
+.fld label{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.fld input{width:100%;padding:11px 13px;border:1.5px solid var(--bd);border-radius:var(--r12);font-family:inherit;font-size:14.5px;color:var(--tx);background:#fff;transition:.18s}
+.fld input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.12)}
+.fld input:disabled{background:var(--bg);color:var(--ts)}
+.fld .hint{margin-top:5px;font-size:12px;color:var(--ts);line-height:1.5}
+.hs-act{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn-save{appearance:none;border:0;background:var(--g);color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:12px 26px;border-radius:var(--r12);cursor:pointer;transition:.18s}
+.btn-save:hover{background:var(--gp)}
+.btn-save:disabled{opacity:.6;cursor:not-allowed}
+.hs-msg{font-size:13.5px;font-weight:600;line-height:1.5}
+.hs-msg.good{color:var(--gp)}
+.hs-msg.bad{color:var(--do)}
+.hs-sep{margin:20px 0;border:0;border-top:1px solid var(--bd)}
+.hs-sub{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--ts);margin-bottom:13px}
+</style>
+<style id="dbv-layout">
+:where(.hdr){background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd,#E2E8F0)}
+.hdr-inner{max-width:var(--container,1400px);margin:0 auto;padding:0 40px;display:flex;align-items:center;height:60px;gap:8px}
+.hdr-logo{flex-shrink:0;margin-right:24px}
+.hdr-logo img{height:48px;width:auto;display:block}
+.hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
+.hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
+.hdr-nav a:hover{color:var(--g,#007437);background:var(--gl,#e8f5e9)}
+/* Mục đang xem chỉ đổi màu và in đậm. Trước đây có thêm gạch ngang ::after đặt
+   bottom:-20px — rơi hẳn ra ngoài header nên đè lên nội dung phía dưới. */
+.hdr-nav a.active{color:var(--g,#007437);font-weight:700}
+.hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:16px}
+.hdr-search{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd,#E2E8F0);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1C1C1C;transition:.18s}
+.hdr-search:hover{background:var(--gl,#e8f5e9);color:var(--g,#007437);border-color:var(--g,#007437)}
+.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd,#E2E8F0);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-catalog-hdr:hover{border-color:var(--g,#007437);color:var(--g,#007437);background:var(--gl,#e8f5e9)}
+.btn-login{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:24px;border:1.5px solid var(--bd,#E2E8F0);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-login:hover{border-color:var(--g,#007437);color:var(--g,#007437)}
+.btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--gold,#E8920A);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-consult-hdr:hover{background:var(--goldd,#c97d08);box-shadow:0 4px 16px rgba(232,146,10,.35)}
+@media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
+@media(max-width:640px){.hdr-inner{padding:0 16px;height:60px}.hdr-logo img{height:44px}.hdr-nav{display:none}.btn-login{display:none}.btn-consult-hdr{display:none}/* Đẩy actions sát phải khi nav ẩn */
+  .hdr-actions{margin-left:auto}/* Icon only */
+  .btn-catalog-hdr .btn-cat-text{display:none}.btn-catalog-hdr{padding:7px 9px;border-radius:9px}/* Ẩn nút tìm kiếm trên mobile: ô tìm sản phẩm nằm ngay trong phần Danh mục
+     phía dưới, nên nút này chỉ chiếm chỗ mà không thêm giá trị gì */
+  .hdr-search{display:none}}
+/* ══ CATEGORY DROPDOWN (nav menu) ══ */
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:274px;max-width:calc(100vw - 24px);max-height:calc(100vh - 96px);overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:500}
+.cat-dropdown.open{display:block}
+.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm,#4a5568);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.cat-dd-item:hover{background:var(--gl,#e8f5e9);color:var(--g,#007437)}
+.cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.cat-dd-sep{height:1px;background:var(--bd,#E2E8F0);margin:4px 8px}
+/* Sản phẩm parent */
+
+
+/* Sub-menu */
+
+
+.cat-dd-sub-item{padding:8px 10px;font-size:12.5px;color:var(--ts,#718096)}
+.cat-dd-sub-item:hover{color:var(--g,#007437);background:var(--gl,#e8f5e9)}
+/* Wrapper cho btn Danh mục: mặc định hiện, ẩn ở desktop */
+.hdr-cat-wrap{position:relative;display:inline-flex}
+@media(min-width:641px){.hdr-cat-wrap{display:none}}
+/* ══ STICKY MOBILE BAR ══ */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd,#E2E8F0);padding:8px 12px;z-index:400;gap:8px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+@media(max-width:640px){.mob-bar{display:flex}}
+.mob-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;font-weight:700;padding:9px 4px;border-radius:10px;text-decoration:none;white-space:nowrap}
+.mob-call{background:var(--gl,#e8f5e9);color:var(--g,#007437);border:1.5px solid var(--g,#007437)}
+.mob-zalo{background:#0068FF;color:#fff}
+.mob-messenger{background:#0084FF;color:#fff}
+/* ══ FLOATING CTA (DESKTOP ONLY) ══ */
+.float-cta{position:fixed;right:20px;bottom:120px;z-index:390;display:flex;flex-direction:column;gap:12px;align-items:center}
+@media(max-width:640px){.float-cta{display:none}}
+.float-btn{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;overflow:hidden;flex-shrink:0}
+.float-btn:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.float-btn-zalo{background:transparent;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.float-btn-messenger{background:#0084FF}
+/* ══ FOOTER ══ */
+.ftr{background:#fff;border-top:1px solid var(--bd,#E2E8F0);margin-top:0}
+.ftr-inner{max-width:var(--container,1400px);margin:0 auto;padding:36px 40px 26px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+.ftr-logo{height:88px;width:auto;display:block;margin-bottom:18px}
+.ftr-brand-desc{font-size:.82rem;color:var(--tm,#4a5568);line-height:1.8;margin-bottom:12px}
+.ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:.82rem;color:var(--tm,#4a5568);text-decoration:none;margin-bottom:8px;line-height:1.5}
+.ftr-info a:hover{color:var(--g,#007437)}
+.ftr-info a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0;margin-top:2px}
+.ftr-col h4,.ftr-contact h4{font-size:.88rem;font-weight:700;color:var(--tx,#1C1C1C);text-transform:none;letter-spacing:0;margin-bottom:12px;padding-bottom:0;border-bottom:none}
+.ftr-col a{display:block;font-size:.82rem;color:var(--tm,#4a5568);text-decoration:none;margin-bottom:9px;line-height:1.5;transition:.15s}
+.ftr-col a:hover{color:var(--g,#007437);padding-left:4px}
+.ftr-social{display:flex;gap:10px;margin-bottom:24px}
+.ftr-social a{width:38px;height:38px;border-radius:50%;background:var(--g,#007437);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a:hover{background:var(--gold,#E8920A);transform:translateY(-2px)}
+.ftr-social svg{width:17px;height:17px;fill:#fff}
+.ftr-phone-label{font-size:.7rem;font-weight:600;color:var(--ts,#718096);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ftr-hotline{font-size:1.3rem;font-weight:800;color:var(--goldd,#c97d08);text-decoration:none;letter-spacing:-.5px;display:block;line-height:1.2}
+.ftr-hotline:hover{color:var(--g,#007437)}
+.ftr-copy{border-top:1px solid var(--bd,#E2E8F0)}
+.ftr-copy-inner{max-width:var(--container,1400px);margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.76rem;color:var(--ts,#718096)}
+.ftr-copy-inner a{color:var(--ts,#718096);text-decoration:none}
+.ftr-copy-inner a:hover{color:var(--g,#007437)}
+@media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
+@media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 16px 28px}.ftr-copy-inner{padding:14px 16px;flex-direction:column;text-align:center}}
+/* Mục header dành cho khách Hàn Quốc */
+.hdr-nav a.hdr-nav-kr{color:var(--g,#007437);font-weight:700;background:var(--gl,#E8F5E9);border:1px solid rgba(0,116,55,.22)}
+.hdr-nav a.hdr-nav-kr:hover{background:#dff0e2;border-color:rgba(0,116,55,.4)}
+.hdr-nav a.hdr-nav-kr .kr-fl{font-size:14px;line-height:1}
+@media(max-width:1024px){.hdr-nav a.hdr-nav-kr{display:inline-flex!important}}
+@media(max-width:860px){.hdr-nav a.hdr-nav-kr{display:none!important}}
+.cat-dd-item.cat-dd-kr{color:var(--g,#007437);font-weight:700}
+/* ── MENU NHIỀU CẤP (đồng bộ toàn site) ── */
+.hdr-nav-item{position:relative;display:inline-flex;align-items:center}
+.hdr-nav-top{display:inline-flex;align-items:center;gap:5px;color:#1C1C1C;font-family:inherit;font-size:14px;font-weight:500;padding:7px 13px;border:none;background:none;border-radius:8px;text-decoration:none;white-space:nowrap;cursor:pointer;transition:.18s}
+.hdr-nav-top:hover,.hdr-nav-item:hover>.hdr-nav-top{color:var(--g,#007437);background:var(--gl,#E8F5E9)}
+.hdr-nav-top.active{color:var(--g,#007437);font-weight:700}
+/* Trang dang xem nam trong menu con -> nut cha cung sang len */
+.hdr-nav-item:has(.hdr-drop .active)>.hdr-nav-top,.hdr-nav-item:has(.hdr-mega-list .active)>.hdr-nav-top{color:var(--g,#007437);font-weight:700}
+.hdr-nav .hdr-drop a.active,.hdr-nav .hdr-mega-list a.active{background:var(--gl,#E8F5E9);color:var(--g,#007437);font-weight:700}
+.hdr-chev{width:13px;height:13px;flex-shrink:0;transition:transform .18s}
+.hdr-nav-item:hover .hdr-chev{transform:rotate(180deg)}
+.hdr-mega,.hdr-drop{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 14px 44px rgba(0,0,0,.14);z-index:500;margin-top:6px}
+.hdr-nav-item:hover>.hdr-mega,.hdr-nav-item:focus-within>.hdr-mega,.hdr-mega.open{display:grid}
+.hdr-nav-item:hover>.hdr-drop,.hdr-nav-item:focus-within>.hdr-drop,.hdr-drop.open{display:block}
+.hdr-nav-item::after{content:"";position:absolute;left:0;right:0;top:100%;height:10px}
+.hdr-mega{width:min(700px,calc(100vw - 40px));grid-template-columns:246px 1fr;gap:4px;padding:10px}
+.hdr-mega-cats{display:flex;flex-direction:column;gap:2px;border-right:1px solid var(--bd,#E2E8F0);padding-right:8px}
+.hdr-mega-cat{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border:none;background:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;color:var(--tm,#4a5568);text-align:left;cursor:pointer;transition:.15s}
+.hdr-mega-cat:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+.hdr-mega-cat.on{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+.hdr-mega-ic{display:flex;flex-shrink:0}
+.hdr-mega-ic svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}
+.hdr-mega-nm{flex:1;line-height:1.3}
+.hdr-mega-n{font-size:11px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:9999px;padding:1px 7px;flex-shrink:0}
+.hdr-mega-cat.on .hdr-mega-n{background:#fff;color:var(--g,#007437)}
+.hdr-mega-prods{padding:2px}
+.hdr-mega-list{display:none;grid-template-columns:1fr 1fr;gap:2px;align-content:start}
+.hdr-mega-list.on{display:grid}
+.hdr-nav .hdr-mega-list a{display:block;padding:8px 10px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--tm,#4a5568);line-height:1.4}
+.hdr-nav .hdr-mega-list a:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+.hdr-nav .hdr-mega-all{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:2px;padding:10px;border-top:1px solid var(--bd,#E2E8F0);border-radius:0 0 10px 10px;font-size:13px;font-weight:700;color:var(--g,#007437)}
+.hdr-nav .hdr-mega-all:hover{background:var(--gl,#E8F5E9)}
+.hdr-mega-all svg{width:15px;height:15px}
+.hdr-drop{min-width:216px;padding:6px}
+.hdr-nav .hdr-drop a{display:block;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--tm,#4a5568)}
+.hdr-nav .hdr-drop a:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
+/* Hamburger nhiều cấp */
+.cat-dd-more{justify-content:flex-start}
+.cat-dd-ic{display:flex;flex-shrink:0}
+.cat-dd-ic svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.cat-dd-tx{flex:1;text-align:left;line-height:1.35}
+.cat-dd-n{font-size:10.5px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:9999px;padding:1px 6px}
+.cat-dd-chev{width:13px;height:13px;flex-shrink:0;transition:transform .2s}
+.cat-dd-more.open .cat-dd-chev{transform:rotate(180deg)}
+.cat-dd-more.open{color:var(--g,#007437);background:var(--gl,#E8F5E9)}
+.cat-dd-sub{display:none;padding-left:10px;margin:2px 0 4px;border-left:2px solid var(--gl,#E8F5E9)}
+.cat-dd-sub.open{display:block}
+.cat-dd-lv3{font-size:12px;padding-left:14px}
+.cat-dd-all{font-weight:700;color:var(--g,#007437)}
+.cat-dd-sep{height:1px;background:var(--bd,#E2E8F0);margin:6px 4px}
+.cat-dd-item.cat-dd-kr:hover{background:var(--gl,#E8F5E9)}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53NZ4XR4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<header class="hdr" role="banner">
+  <!-- Main nav -->
+  <div class="hdr-inner">
+    <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247 – Trang chủ" width="auto" height="48"></a>
+    <nav class="hdr-nav">
+      <div class="hdr-nav-item" data-menu="sp">
+        <a href="/san-pham" class="hdr-nav-top" aria-haspopup="true" aria-expanded="false">Sản phẩm <svg class="hdr-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="hdr-mega">
+          <div class="hdr-mega-cats">
+          <button type="button" class="hdr-mega-cat on" data-g="xe" aria-controls="mg-xe"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Xe Cơ Giới</span><span class="hdr-mega-n">6</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="hanghai" aria-controls="mg-hanghai"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Hàng Hải</span><span class="hdr-mega-n">4</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="taisan" aria-controls="mg-taisan"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Tài Sản &amp; Kỹ Thuật</span><span class="hdr-mega-n">7</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="trachnhiem" aria-controls="mg-trachnhiem"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Trách Nhiệm</span><span class="hdr-mega-n">5</span></button>
+          <button type="button" class="hdr-mega-cat" data-g="conguoi" aria-controls="mg-conguoi"><span class="hdr-mega-ic"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="hdr-mega-nm">Bảo Hiểm Du Lịch &amp; Con Người</span><span class="hdr-mega-n">5</span></button>
+          </div>
+          <div class="hdr-mega-prods">
+          <div class="hdr-mega-list on" id="mg-xe" data-g="xe">
+            <a href="/bao-hiem-tnds-oto">BH TNDS Chủ Xe Ô Tô</a>
+            <a href="/tnds-xe-5-cho">BH TNDS Xe Ô Tô 5 Chỗ</a>
+            <a href="/tnds-xe-7-cho">BH TNDS Xe Ô Tô 7 Chỗ</a>
+            <a href="/bao-hiem-tnds-xemay">BH TNDS Chủ Xe Máy</a>
+            <a href="/bao-hiem-vat-chat-oto">BH Vật Chất Ô Tô (Thân Vỏ)</a>
+            <a href="/bao-hiem-oto-dien">BH Xe Ô Tô Điện</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-hanghai" data-g="hanghai">
+            <a href="/bao-hiem-xnk">BH Hàng Hóa Xuất Nhập Khẩu</a>
+            <a href="/bao-hiem-van-chuyen">BH Vận Chuyển Nội Địa</a>
+            <a href="/bao-hiem-buu-gui">BH Bưu Gửi Quốc Tế</a>
+            <a href="/bao-hiem-than-tau-noi-dia">BH Thân Tàu Nội Địa</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-taisan" data-g="taisan">
+            <a href="/bao-hiem-chay-no">BH Cháy Nổ Bắt Buộc</a>
+            <a href="/bao-hiem-chay-no-hkd">BH Cháy Nổ Hộ Kinh Doanh</a>
+            <a href="/bao-hiem-chay-no-chung-cu">BH Cháy Nổ Căn Hộ Chung Cư</a>
+            <a href="/bao-hiem-hoa-hoan">BH Hỏa Hoạn & Rủi Ro Đặc Biệt</a>
+            <a href="/bao-hiem-moi-rui-ro">BH Mọi Rủi Ro Tài Sản</a>
+            <a href="/bao-hiem-xay-dung">BH Rủi Ro Xây Dựng</a>
+            <a href="/bao-hiem-xay-dung-nha-dan-sinh">BH Xây Dựng Nhà Dân Sinh</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-trachnhiem" data-g="trachnhiem">
+            <a href="/bao-hiem-tnc">BH Trách Nhiệm Chung</a>
+            <a href="/bao-hiem-tncc">BH Trách Nhiệm Công Cộng</a>
+            <a href="/bao-hiem-tnn-kcb">BH TNN Nghề Nghiệp – KCB</a>
+            <a href="/bao-hiem-tnn-ls">BH TNN Nghề Nghiệp – LS &amp; CC</a>
+            <a href="/bao-hiem-tnn-tvtk">BH TNN Nghề Nghiệp – TVTK &amp; GS</a>
+          </div>
+          <div class="hdr-mega-list" id="mg-conguoi" data-g="conguoi">
+            <a href="/bao-hiem-du-lich-noi-dia">BH Du Lịch Nội Địa</a>
+            <a href="/bao-hiem-du-lich-quoc-te">BH Du Lịch Quốc Tế</a>
+            <a href="/bao-hiem-benh-nhiet-doi">BH Bệnh Nhiệt Đới</a>
+            <a href="/bao-hiem-suc-khoe">BH Sức Khỏe DBVCare</a>
+            <a href="/bao-hiem-tai-nan">BH Tai Nạn 24 Giờ</a>
+          </div>
+          </div>
+          <a class="hdr-mega-all" href="/san-pham">Xem tất cả sản phẩm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <a href="/cong-tac-vien-dai-ly" class="active hdr-nav-top" title="Đại lý/Cộng tác viên">Đại lý/CTV</a>
+      <div class="hdr-nav-item" data-menu="ti">
+        <button type="button" class="hdr-nav-top" aria-haspopup="true" aria-expanded="false">Tiện ích <svg class="hdr-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="hdr-drop">
+          <a href="/boi-thuong">Bồi thường</a>
+          <a href="/servicemap">Mạng lưới dịch vụ</a>
+          <a href="/tin-tuc">Tin tức &amp; Kinh nghiệm</a>
+        </div>
+      </div>
+      <a href="/bao-hiem-doanh-nghiep-han-quoc" class="hdr-nav-kr" lang="ko" title="Khách hàng Hàn Quốc — 한국 고객"><span class="kr-fl" aria-hidden="true">🇰🇷</span>한국 고객</a>
+    </nav>
+    <div class="hdr-actions">
+      <button class="hdr-search" aria-label="Tìm sản phẩm" onclick="var s=document.getElementById('cat-search');if(s){s.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){s.focus()},400)}else{location.href='/san-pham'}">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <div class="hdr-cat-wrap">
+        <button class="btn-catalog-hdr" onclick="toggleCatDropdown(event)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span class="btn-cat-text">Danh mục</span>
+        </button>
+        <div class="cat-dropdown" id="cat-dropdown">
+          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-sp" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span class="cat-dd-tx">Sản phẩm</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="cat-dd-sub" id="dd-sp">
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-xe" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Xe Cơ Giới</span><span class="cat-dd-n">6</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-xe">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnds-oto" onclick="closeCatDropdown()">BH TNDS Chủ Xe Ô Tô</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/tnds-xe-5-cho" onclick="closeCatDropdown()">BH TNDS Xe Ô Tô 5 Chỗ</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/tnds-xe-7-cho" onclick="closeCatDropdown()">BH TNDS Xe Ô Tô 7 Chỗ</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnds-xemay" onclick="closeCatDropdown()">BH TNDS Chủ Xe Máy</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-vat-chat-oto" onclick="closeCatDropdown()">BH Vật Chất Ô Tô (Thân Vỏ)</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-oto-dien" onclick="closeCatDropdown()">BH Xe Ô Tô Điện</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-hanghai" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Hàng Hải</span><span class="cat-dd-n">4</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-hanghai">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-xnk" onclick="closeCatDropdown()">BH Hàng Hóa Xuất Nhập Khẩu</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-van-chuyen" onclick="closeCatDropdown()">BH Vận Chuyển Nội Địa</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-buu-gui" onclick="closeCatDropdown()">BH Bưu Gửi Quốc Tế</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-than-tau-noi-dia" onclick="closeCatDropdown()">BH Thân Tàu Nội Địa</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-taisan" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Tài Sản &amp; Kỹ Thuật</span><span class="cat-dd-n">7</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-taisan">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-chay-no" onclick="closeCatDropdown()">BH Cháy Nổ Bắt Buộc</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-chay-no-hkd" onclick="closeCatDropdown()">BH Cháy Nổ Hộ Kinh Doanh</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-chay-no-chung-cu" onclick="closeCatDropdown()">BH Cháy Nổ Căn Hộ Chung Cư</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-hoa-hoan" onclick="closeCatDropdown()">BH Hỏa Hoạn & Rủi Ro Đặc Biệt</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-moi-rui-ro" onclick="closeCatDropdown()">BH Mọi Rủi Ro Tài Sản</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-xay-dung" onclick="closeCatDropdown()">BH Rủi Ro Xây Dựng</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-xay-dung-nha-dan-sinh" onclick="closeCatDropdown()">BH Xây Dựng Nhà Dân Sinh</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-trachnhiem" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Trách Nhiệm</span><span class="cat-dd-n">5</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-trachnhiem">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnc" onclick="closeCatDropdown()">BH Trách Nhiệm Chung</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tncc" onclick="closeCatDropdown()">BH Trách Nhiệm Công Cộng</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnn-kcb" onclick="closeCatDropdown()">BH TNN Nghề Nghiệp – KCB</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnn-ls" onclick="closeCatDropdown()">BH TNN Nghề Nghiệp – LS &amp; CC</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnn-tvtk" onclick="closeCatDropdown()">BH TNN Nghề Nghiệp – TVTK &amp; GS</a>
+            </div>
+            <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-conguoi" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Du Lịch &amp; Con Người</span><span class="cat-dd-n">5</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-conguoi">
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-du-lich-noi-dia" onclick="closeCatDropdown()">BH Du Lịch Nội Địa</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-du-lich-quoc-te" onclick="closeCatDropdown()">BH Du Lịch Quốc Tế</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-benh-nhiet-doi" onclick="closeCatDropdown()">BH Bệnh Nhiệt Đới</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()">BH Sức Khỏe DBVCare</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tai-nan" onclick="closeCatDropdown()">BH Tai Nạn 24 Giờ</a>
+            </div>
+            <a class="cat-dd-item cat-dd-sub-item cat-dd-all" href="/san-pham" onclick="closeCatDropdown()">Xem tất cả sản phẩm</a>
+          </div>
+          <a class="cat-dd-item" href="/cong-tac-vien-dai-ly" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="cat-dd-tx">Đại lý/Cộng tác viên</span></a>
+          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-ti" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="cat-dd-tx">Tiện ích</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="cat-dd-sub" id="dd-ti">
+            <a class="cat-dd-item cat-dd-sub-item" href="/boi-thuong" onclick="closeCatDropdown()">Bồi thường</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/servicemap" onclick="closeCatDropdown()">Mạng lưới dịch vụ</a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/tin-tuc" onclick="closeCatDropdown()">Tin tức &amp; Kinh nghiệm</a>
+          </div>
+          <div class="cat-dd-sep"></div>
+        <a class="cat-dd-item cat-dd-kr" href="/bao-hiem-doanh-nghiep-han-quoc" onclick="closeCatDropdown()" lang="ko"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg><span>🇰🇷 한국 고객</span></a>
+        </div>
+      </div>
+      <a href="tel:0869656561" class="btn-login">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        0869 656 561
+      </a>
+      <a href="https://zalo.me/1283738895804393564" class="btn-consult-hdr" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Nhận tư vấn
+      </a>
+    </div>
+  </div>
+</header>
+
+
+<main class="db">
+
+  <div class="db-tai" id="db-tai">Đang tải bảng điều khiển…</div>
+
+  <div class="db-loi" id="db-loi"></div>
+
+  <div class="db-main" id="db-main">
+
+    <div class="db-top">
+      <div>
+        <h1>Bảng điều khiển cộng tác viên</h1>
+        <div class="who" id="who">—</div>
+      </div>
+      <button type="button" class="btn-out" id="btn-out">Đăng xuất</button>
+    </div>
+
+    <div class="bang" id="bang-giai-doan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <div>
+        <b>Phần ghi nhận đơn chưa được bật</b>
+        <p>Tài khoản và mã cộng tác viên của bạn đã hoạt động. Việc ghi nhận đơn qua link giới thiệu và tính hoa hồng sẽ bật ở bước tiếp theo, nên các chỉ số dưới đây còn bằng 0 — không phải bạn bị mất đơn.</p>
+      </div>
+    </div>
+
+    <!-- MÃ + LINK -->
+    <section class="the">
+      <div class="the-h">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Mã cộng tác viên và link giới thiệu
+      </div>
+      <div class="ma-row">
+        <div class="ma-box">
+          <div class="lb">Mã của bạn</div>
+          <div class="val" id="ma-ctv">····</div>
+        </div>
+        <div class="link-box">
+          <div class="lb">Link giới thiệu</div>
+          <div class="link-in">
+            <input type="text" id="link-gt" readonly value="—" aria-label="Link giới thiệu của bạn">
+            <button type="button" class="btn-cp" id="btn-cp">Copy</button>
+          </div>
+          <p class="link-note">Gửi link này cho khách. Mã 4 ký tự là để đọc qua điện thoại khi khách tự vào trang mua — ngắn nên không sai chính tả.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHỈ SỐ -->
+    <section class="the">
+      <div class="the-h">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
+        Chỉ số
+      </div>
+      <div class="o-grid">
+        <div class="o"><div class="lb">Lượt bấm link</div><div class="so" id="k-bam">0</div></div>
+        <div class="o"><div class="lb">Đơn chờ tiền về</div><div class="so" id="k-cho">0</div></div>
+        <div class="o"><div class="lb">Đơn đã đối soát</div><div class="so" id="k-khop">0</div></div>
+        <div class="o tien"><div class="lb">Hoa hồng đang chờ</div><div class="so" id="k-hhc">0<span class="dv">đ</span></div></div>
+        <div class="o tien"><div class="lb">Hoa hồng khả dụng</div><div class="so" id="k-hhk">0<span class="dv">đ</span></div></div>
+        <div class="o tien"><div class="lb">Đã rút</div><div class="so" id="k-rut">0<span class="dv">đ</span></div></div>
+      </div>
+    </section>
+
+    <!-- ĐƠN -->
+    <section class="the">
+      <div class="the-h">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+        Đơn đã ghi nhận
+      </div>
+      <div class="rong">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        <b>Chưa có đơn nào</b>
+        <p>Danh sách đơn sẽ hiện ở đây sau khi phần ghi nhận qua link được bật, kèm biển số, số tiền, trạng thái và lý do đơn được tính cho bạn.</p>
+      </div>
+    </section>
+
+    <!-- VÒNG ĐỜI -->
+    <section class="the">
+      <div class="the-h">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Một đơn đi qua những bước nào
+      </div>
+      <div class="vd">
+        <div class="vd-b"><span class="vd-n">1</span><span><b>Đã tạo đơn</b> — khách điền xong thông tin và hệ thống sinh mã QR thanh toán.</span></div>
+        <div class="vd-b"><span class="vd-n">2</span><span><b>Chờ tiền về</b> — khách đã có mã QR nhưng tiền chưa vào tài khoản công ty.</span></div>
+        <div class="vd-b"><span class="vd-n">3</span><span><b>Đã đối soát</b> — dòng tiền trong sao kê ngân hàng đã khớp với đơn. Việc đối soát làm mỗi ngày làm việc.</span></div>
+        <div class="vd-b"><span class="vd-n">4</span><span><b>Hoa hồng chờ 7 ngày</b> — khoảng thời gian dành cho trường hợp khách đổi ý xin hoàn phí.</span></div>
+        <div class="vd-b"><span class="vd-n">5</span><span><b>Khả dụng</b> — bạn rút được về tài khoản ngân hàng đã khai.</span></div>
+      </div>
+    </section>
+
+    <!-- HỒ SƠ -->
+    <section class="the">
+      <div class="the-h">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Thông tin tài khoản
+      </div>
+      <form id="form-hs" novalidate>
+        <div class="hs-grid">
+          <div class="fld">
+            <label for="p-ten">Họ và tên</label>
+            <input id="p-ten" type="text" maxlength="120" autocomplete="name">
+          </div>
+          <div class="fld">
+            <label for="p-sdt">Số điện thoại (tên đăng nhập)</label>
+            <input id="p-sdt" type="tel" disabled>
+            <span class="hint">Không đổi được. Cần đổi số thì gọi 0869 656 561.</span>
+          </div>
+          <div class="fld">
+            <label for="p-email">Email</label>
+            <input id="p-email" type="email" maxlength="160" autocomplete="email" placeholder="Không bắt buộc">
+          </div>
+        </div>
+
+        <hr class="hs-sep">
+        <div class="hs-sub">Tài khoản nhận hoa hồng</div>
+        <div class="hs-grid">
+          <div class="fld">
+            <label for="p-nh">Ngân hàng</label>
+            <input id="p-nh" type="text" maxlength="60" placeholder="Ví dụ: Techcombank">
+          </div>
+          <div class="fld">
+            <label for="p-stk">Số tài khoản</label>
+            <input id="p-stk" type="text" inputmode="numeric" maxlength="30" placeholder="Chỉ số và chữ">
+          </div>
+          <div class="fld">
+            <label for="p-chu">Chủ tài khoản</label>
+            <input id="p-chu" type="text" maxlength="120" placeholder="Viết hoa, không dấu">
+            <span class="hint">Nên trùng tên người đăng ký — lệch tên thì kế toán sẽ phải hỏi lại trước khi chi.</span>
+          </div>
+        </div>
+
+        <hr class="hs-sep">
+        <div class="hs-sub">Đổi mật khẩu</div>
+        <div class="hs-grid">
+          <div class="fld">
+            <label for="p-mkc">Mật khẩu hiện tại</label>
+            <input id="p-mkc" type="password" autocomplete="current-password" placeholder="Để trống nếu không đổi">
+          </div>
+          <div class="fld">
+            <label for="p-mkm">Mật khẩu mới</label>
+            <input id="p-mkm" type="password" autocomplete="new-password" placeholder="Ít nhất 6 ký tự">
+          </div>
+        </div>
+
+        <div class="hs-act">
+          <button type="submit" class="btn-save" id="btn-save">Lưu thay đổi</button>
+          <span class="hs-msg" id="hs-msg"></span>
+        </div>
+      </form>
+    </section>
+
+  </div>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var API  = '/.netlify/functions/ctv-toi';
+  var KHOA = 'dbv_ctv_token';
+  var KHOA2= 'dbv_ctv_ma';
+  /* Trang cấp đơn nay nằm trên chính site này. Tham số ctv= đã có chỗ để ghi
+     nhận về sau; ở bước này trang cấp đơn bỏ qua tham số này. */
+  var TRANG_MUA = 'https://dbv247.com.vn/cap-don-tnds';
+
+  function $(id){ return document.getElementById(id); }
+  function doc(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function xoa(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+  var token = doc(KHOA);
+  if (!token) { location.href = '/ctv'; return; }
+
+  function raNgoai(){ xoa(KHOA); xoa(KHOA2); location.href = '/ctv'; }
+  $('btn-out').addEventListener('click', raNgoai);
+
+  function bao(chu){
+    $('db-tai').style.display = 'none';
+    var e = $('db-loi'); e.classList.add('show'); e.textContent = chu;
+  }
+
+  function tien(n){
+    var s = Math.round(Number(n)||0).toString();
+    return s.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  function veHoSo(c){
+    $('who').textContent = c.ho_ten + ' · ' + c.sdt;
+    $('ma-ctv').textContent = c.ma_ctv;
+    $('link-gt').value = TRANG_MUA + '?ctv=' + c.ma_ctv;
+    $('p-ten').value   = c.ho_ten || '';
+    $('p-sdt').value   = c.sdt || '';
+    $('p-email').value = c.email || '';
+    $('p-nh').value    = c.ngan_hang || '';
+    $('p-stk').value   = c.so_tai_khoan || '';
+    $('p-chu').value   = c.chu_tai_khoan || '';
+    try { localStorage.setItem(KHOA2, c.ma_ctv); } catch(e){}
+  }
+
+  function veChiSo(t){
+    $('k-bam').textContent  = tien(t.luot_bam_link);
+    $('k-cho').textContent  = tien(t.don_cho_thanh_toan);
+    $('k-khop').textContent = tien(t.don_da_doi_soat);
+    $('k-hhc').innerHTML    = tien(t.hoa_hong_cho)        + '<span class="dv">đ</span>';
+    $('k-hhk').innerHTML    = tien(t.hoa_hong_kha_dung)   + '<span class="dv">đ</span>';
+    $('k-rut').innerHTML    = tien(t.hoa_hong_da_rut)     + '<span class="dv">đ</span>';
+  }
+
+  async function tai(){
+    try {
+      var res = await fetch(API, { headers: { Authorization: 'Bearer ' + token } });
+      if (res.status === 401 || res.status === 403) { raNgoai(); return; }
+      var d = await res.json();
+      if (!res.ok || !d.ok) { bao(d.error || 'Không tải được dữ liệu.'); return; }
+
+      veHoSo(d.ctv);
+      veChiSo(d.thong_ke);
+      if (d.ghi_nhan_dang_bat) $('bang-giai-doan').style.display = 'none';
+
+      $('db-tai').style.display = 'none';
+      $('db-main').classList.add('show');
+    } catch (e) {
+      bao('Không kết nối được máy chủ. Kiểm tra mạng rồi tải lại trang.');
+    }
+  }
+
+  /* ── Copy link ── */
+  $('btn-cp').addEventListener('click', function(){
+    var o = $('link-gt'), nut = this, chuCu = nut.textContent;
+    function xong(){ nut.textContent = 'Đã copy'; setTimeout(function(){ nut.textContent = chuCu; }, 1500); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(o.value).then(xong, xong);
+    } else {
+      o.removeAttribute('readonly'); o.select();
+      try { document.execCommand('copy'); } catch(e){}
+      o.setAttribute('readonly','readonly'); xong();
+    }
+  });
+
+  /* ── Lưu hồ sơ ── */
+  $('form-hs').addEventListener('submit', async function(ev){
+    ev.preventDefault();
+    var msg = $('hs-msg'); msg.className = 'hs-msg'; msg.textContent = '';
+
+    var than = {
+      ho_ten: $('p-ten').value.trim(),
+      email: $('p-email').value.trim(),
+      ngan_hang: $('p-nh').value.trim(),
+      so_tai_khoan: $('p-stk').value.trim(),
+      chu_tai_khoan: $('p-chu').value.trim()
+    };
+
+    var mkm = $('p-mkm').value, mkc = $('p-mkc').value;
+    if (mkm || mkc) {
+      if (mkm.length < 6) {
+        msg.className = 'hs-msg bad'; msg.textContent = 'Mật khẩu mới phải có ít nhất 6 ký tự.'; return;
+      }
+      if (!mkc) {
+        msg.className = 'hs-msg bad'; msg.textContent = 'Nhập mật khẩu hiện tại để xác nhận.'; return;
+      }
+      than.mat_khau_moi = mkm;
+      than.mat_khau_cu  = mkc;
+    }
+
+    var btn = $('btn-save'); btn.disabled = true; btn.textContent = 'Đang lưu…';
+    try {
+      var res = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+        body: JSON.stringify(than)
+      });
+      if (res.status === 401 || res.status === 403) { raNgoai(); return; }
+      var d = await res.json();
+      if (!res.ok || !d.ok) {
+        msg.className = 'hs-msg bad'; msg.textContent = d.error || 'Không lưu được.';
+      } else {
+        veHoSo(d.ctv);
+        $('p-mkm').value = ''; $('p-mkc').value = '';
+        msg.className = 'hs-msg good'; msg.textContent = 'Đã lưu.';
+      }
+    } catch (e) {
+      msg.className = 'hs-msg bad'; msg.textContent = 'Không kết nối được máy chủ.';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Lưu thay đổi';
+    }
+  });
+
+  tai();
+})();
+</script>
+
+
+<footer class="ftr">
+  <div class="ftr-inner">
+    <!-- Cột 1: Brand -->
+    <div class="ftr-brand">
+      <img height="204" width="372" src="/logo-dbv247.png" alt="DBV247" class="ftr-logo">
+      <p class="ftr-brand-desc">DBV247 - Kênh tư vấn và mua bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV - chi nhánh DBV Thành Đô</p>
+      <div class="ftr-info">
+        <a href="#">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          BT20-C37, TDP 20, Phường Thanh Xuân, TP Hà Nội, Việt Nam
+        </a>
+        <a href="tel:0869656561">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          0869 656 561
+        </a>
+        <a href="mailto:dbvi247@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          dbvi247@gmail.com
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          MST: 0102737963-059
+        </a>
+      </div>
+    </div>
+
+    <!-- Cột 2: Sản phẩm -->
+    <div class="ftr-col">
+      <h4>Sản phẩm</h4>
+      <a href="/bao-hiem-vat-chat-oto">Bảo hiểm Xe ô tô</a>
+      <a href="/bao-hiem-tnds-xemay">Bảo hiểm Xe máy</a>
+      <a href="/bao-hiem-suc-khoe">Bảo hiểm Sức khỏe</a>
+      <a href="/bao-hiem-du-lich-quoc-te">Bảo hiểm Du lịch</a>
+      <a href="/bao-hiem-chay-no-chung-cu">Bảo hiểm Tài sản</a>
+      <a href="/bao-hiem-van-chuyen">Bảo hiểm Hàng hải</a>
+    </div>
+
+    <!-- Cột 3: Công ty -->
+    <div class="ftr-col">
+      <h4>Công ty</h4>
+      <a href="/san-pham">Sản phẩm</a>
+      <a href="/boi-thuong">Bồi thường</a>
+      <a href="/servicemap">Mạng lưới dịch vụ</a>
+      <a href="/tin-tuc">Tin tức &amp; Kinh nghiệm</a>
+      <a href="/cong-tac-vien-dai-ly">Đại lý/Cộng tác viên</a>
+    </div>
+
+    <!-- Cột 4: Kết nối -->
+    <div class="ftr-contact">
+      <h4>Kết nối với chúng tôi</h4>
+      <div class="ftr-social">
+        <a href="https://www.facebook.com/people/B%E1%BA%A3o-hi%E1%BB%83m-DBVI-247/61590966449840/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" aria-label="Zalo">
+          <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@tapdoanbaohiemdbv?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@TapdoanBaohiemDBV" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1a1a"/></svg>
+        </a>
+      </div>
+      <p class="ftr-phone-label">Liên hệ DBV247</p>
+      <a href="tel:0869656561" class="ftr-hotline">0869 656 561</a>
+    </div>
+  </div>
+
+  <div class="ftr-copy">
+    <div class="ftr-copy-inner">
+      <span>Copyright © 2025 DBV247. All rights reserved.</span>
+      <div style="display:flex;gap:16px">
+        <a href="/chinh-sach-bao-mat" style="color:inherit;text-decoration:none">Chính sách bảo mật</a>
+        <span>Điều khoản sử dụng</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="float-cta" role="complementary" aria-label="Liên hệ nhanh">
+  <a href="https://zalo.me/1283738895804393564" class="float-btn float-btn-zalo" target="_blank" rel="noopener" aria-label="Nhắn tin Zalo">
+    <img src="icon-zalo.webp" alt="Zalo" width="36" height="36">
+  </a>
+  <a href="https://m.me/1108459929024761" class="float-btn float-btn-messenger" target="_blank" rel="noopener" aria-label="Nhắn tin Facebook Messenger">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 2C7.82 2 2 7.43 2 14.1c0 3.95 1.97 7.46 5.03 9.78V28l4.55-2.51c1.22.34 2.5.51 3.87.51 7.18 0 13-5.43 13-12.1S22.18 2 15 2zm1.28 16.28-3.27-3.5-6.38 3.5 7.02-7.46 3.35 3.5 6.3-3.5-7.02 7.46z" fill="#fff"/>
+    </svg>
+  </a>
+</div>
+
+<div class="mob-bar">
+  <a href="tel:0869656561" class="mob-call">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--g)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Gọi ngay
+  </a>
+  <a href="https://zalo.me/1283738895804393564" class="mob-zalo" target="_blank" rel="noopener">
+    <img src="icon-zalo.webp" alt="" width="18" height="18" aria-hidden="true">
+    Nhắn Zalo
+  </a>
+  <a href="https://m.me/1108459929024761" class="mob-messenger" target="_blank" rel="noopener">
+    <svg width="15" height="15" viewBox="0 0 30 30" fill="none"><path d="M15 2C7.82 2 2 7.43 2 14.1c0 3.95 1.97 7.46 5.03 9.78V28l4.55-2.51c1.22.34 2.5.51 3.87.51 7.18 0 13-5.43 13-12.1S22.18 2 15 2zm1.28 16.28-3.27-3.5-6.38 3.5 7.02-7.46 3.35 3.5 6.3-3.5-7.02 7.46z" fill="#fff"/></svg>
+    Messenger
+  </a>
+</div>
+<script id="dbv-layout-js">
+/* DBV247 — hàm dùng chung cho header/footer đồng bộ.
+   Chỉ định nghĩa khi trang chưa có, để không đè logic riêng của trang chủ. */
+(function () {
+  'use strict';
+
+  /* ── Hamburger (mobile) ─────────────────────────────────────────── */
+  if (typeof window.toggleCatDropdown !== 'function') {
+    window.toggleCatDropdown = function (e) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      var d = document.getElementById('cat-dropdown');
+      if (d) d.classList.toggle('open');
+    };
+  }
+
+  if (typeof window.closeCatDropdown !== 'function') {
+    window.closeCatDropdown = function () {
+      var d = document.getElementById('cat-dropdown');
+      if (d) d.classList.remove('open');
+      var i, subs = document.querySelectorAll('.cat-dd-sub.open');
+      for (i = 0; i < subs.length; i++) subs[i].classList.remove('open');
+      var mores = document.querySelectorAll('.cat-dd-more.open');
+      for (i = 0; i < mores.length; i++) mores[i].classList.remove('open');
+    };
+  }
+
+  /* Mở/đóng một nhánh trong hamburger. Các nhánh cùng cấp thu lại. */
+  if (typeof window.toggleCatSub !== 'function') {
+    window.toggleCatSub = function (btn) {
+      if (!btn) return;
+      var sub = document.getElementById(btn.getAttribute('data-sub'));
+      if (!sub) return;
+      var dangMo = sub.classList.contains('open');
+      var cha = btn.parentNode, i;
+      var anhEm = cha.querySelectorAll(':scope > .cat-dd-sub.open');
+      for (i = 0; i < anhEm.length; i++) anhEm[i].classList.remove('open');
+      var nutAnhEm = cha.querySelectorAll(':scope > .cat-dd-more.open');
+      for (i = 0; i < nutAnhEm.length; i++) nutAnhEm[i].classList.remove('open');
+      if (!dangMo) { sub.classList.add('open'); btn.classList.add('open'); }
+    };
+  }
+
+  /* ── Menu ngang (desktop) ───────────────────────────────────────── */
+  if (!window.__dbvNavInit) {
+    window.__dbvNavInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      /* Panel Sản phẩm: chọn nhóm thì cột phải đổi theo */
+      var nuts = document.querySelectorAll('.hdr-mega-cat');
+      function chon(nut) {
+        var mega = nut.closest('.hdr-mega'); if (!mega) return;
+        var i, c = mega.querySelectorAll('.hdr-mega-cat');
+        for (i = 0; i < c.length; i++) c[i].classList.remove('on');
+        var l = mega.querySelectorAll('.hdr-mega-list');
+        for (i = 0; i < l.length; i++) l[i].classList.remove('on');
+        nut.classList.add('on');
+        var ds = mega.querySelector('#' + nut.getAttribute('aria-controls'));
+        if (ds) ds.classList.add('on');
+      }
+      for (var i = 0; i < nuts.length; i++) {
+        nuts[i].addEventListener('click', function (e) { e.preventDefault(); chon(this); });
+        nuts[i].addEventListener('mouseenter', function () { chon(this); });
+      }
+
+      /* Thiết bị cảm ứng không có hover — bấm để mở/đóng */
+      var tops = document.querySelectorAll('.hdr-nav-item > button.hdr-nav-top');
+      for (var k = 0; k < tops.length; k++) {
+        tops[k].addEventListener('click', function (e) {
+          e.stopPropagation();
+          var panel = this.parentNode.querySelector('.hdr-drop, .hdr-mega');
+          if (!panel) return;
+          var mo = panel.classList.contains('open');
+          dongMenuNgang();
+          if (!mo) { panel.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+        });
+      }
+    });
+
+    function dongMenuNgang() {
+      var i, p = document.querySelectorAll('.hdr-mega.open, .hdr-drop.open');
+      for (i = 0; i < p.length; i++) p[i].classList.remove('open');
+      var t = document.querySelectorAll('.hdr-nav-top[aria-expanded="true"]');
+      for (i = 0; i < t.length; i++) t[i].setAttribute('aria-expanded', 'false');
+    }
+    window.__dbvDongMenuNgang = dongMenuNgang;
+  }
+
+  /* ── Đóng khi bấm ra ngoài / nhấn Esc — gắn một lần ─────────────── */
+  if (!window.__dbvLayoutOutsideClick) {
+    window.__dbvLayoutOutsideClick = true;
+
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!(t && t.closest)) return;
+      if (!t.closest('.hdr-cat-wrap') && typeof window.closeCatDropdown === 'function') {
+        window.closeCatDropdown();
+      }
+      if (!t.closest('.hdr-nav-item') && window.__dbvDongMenuNgang) {
+        window.__dbvDongMenuNgang();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' && e.keyCode !== 27) return;
+      if (typeof window.closeCatDropdown === 'function') window.closeCatDropdown();
+      if (window.__dbvDongMenuNgang) window.__dbvDongMenuNgang();
+    });
+  }
+})();
+</script>
+<script>
+/* dbv-applink-fix — Zalo & Messenger dùng Universal Link (iOS) / App Link (Android).
+   Cơ chế này KHÔNG kích hoạt khi link mở ở tab mới, khi đó máy chỉ tải trang web
+   rồi đẩy người dùng sang App Store / CH Play. Vì vậy trên di động phải bỏ
+   target="_blank" để bấm là mở thẳng ứng dụng. Desktop giữ nguyên tab mới. */
+(function(){
+  if(!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
+  function fix(){
+    var list = document.querySelectorAll('a[target="_blank"][href*="zalo.me"], a[target="_blank"][href*="m.me"]');
+    for(var i = 0; i < list.length; i++) list[i].removeAttribute('target');
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix);
+  else fix();
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[target="_blank"]') : null;
+    if(a && /zalo\.me|m\.me/.test(a.href)) a.removeAttribute('target');
+  }, true);
+})();
+</script>
+<script id="dbv-chatbot" src="/assets/dbv-chatbot.js" defer></script>
+</body>
+</html>

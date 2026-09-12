@@ -86,9 +86,12 @@ APPLINK_RE = re.compile(r'<script>\s*/\* dbv-applink-fix.*?</script>', re.DOTALL
 # Trang nào thì mục menu nào sáng lên
 ACTIVE_RULES = [
     (re.compile(r'^cong-tac-vien-dai-ly'),   '/cong-tac-vien-dai-ly'),
+    # Cổng CTV (ctv.html, ctv-dashboard.html) cùng thuộc mục Đại lý/CTV
+    (re.compile(r'^ctv(?:-|\.)'),           '/cong-tac-vien-dai-ly'),
     (re.compile(r'^tin-tuc'),                '/tin-tuc'),
     (re.compile(r'^boi-thuong'),             '/boi-thuong'),
     (re.compile(r'^servicemap'),             '/servicemap'),
+    (re.compile(r'^cap-don-tnds'),           '/san-pham'),
     (re.compile(r'^(?:san-pham|bao-hiem-)'), '/san-pham'),
 ]
 
