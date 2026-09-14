@@ -65,6 +65,11 @@ a{color:var(--g)}
 .bang svg{flex:0 0 18px;width:18px;height:18px;color:var(--goldd);margin-top:2px}
 .bang b{display:block;font-size:13.5px;font-weight:800;color:var(--goldd);margin-bottom:3px}
 .bang p{font-size:14px;color:var(--tm);line-height:1.65}
+/* Băng ĐỎ: máy chủ không đọc được danh sách đơn. Phải khác hẳn băng vàng
+   "chưa bật" — hai chuyện này cộng tác viên phải phân biệt được ngay: một bên
+   là tính năng chưa mở, một bên là hệ thống đang lỗi và số liệu đang sai. */
+.bang.loi{background:#FEF2F2;border-color:#FECACA;border-left-color:#DC2626}
+.bang.loi svg,.bang.loi b{color:#B91C1C}
 
 /* ══ THẺ ══ */
 .the{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);padding:20px 22px;margin-bottom:20px}
@@ -660,11 +665,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     try { localStorage.setItem(KHOA2, c.ma_ctv); } catch(e){}
   }
 
-  function veChiSo(t){
+  /* loiDon = máy chủ không đọc được danh sách đơn. Khi đó bốn ô tính từ đơn
+     phải hiện "—", KHÔNG hiện 0: số 0 là một lời khẳng định ("bạn không có
+     đơn nào") mà lúc này hệ thống không có căn cứ để nói. Ô lượt bấm link đọc
+     từ kho khác nên vẫn đúng, giữ nguyên. */
+  function veChiSo(t, loiDon){
+    var kd = loiDon ? '—' : null;
     $('k-bam').textContent  = tien(t.luot_bam_link);
-    $('k-cho').textContent  = tien(t.don_cho_thanh_toan);
-    $('k-khop').textContent = tien(t.don_da_doi_soat);
-    $('k-hhc').innerHTML    = tien(t.doanh_thu_ghi_nhan || 0) + '<span class="dv">đ</span>';
+    $('k-cho').textContent  = kd || tien(t.don_cho_thanh_toan);
+    $('k-khop').textContent = kd || tien(t.don_da_doi_soat);
+    $('k-hhc').innerHTML    = kd || (tien(t.doanh_thu_ghi_nhan || 0) + '<span class="dv">đ</span>');
     $('k-hhk').innerHTML    = tien(t.hoa_hong_kha_dung)       + '<span class="dv">đ</span>';
     $('k-rut').innerHTML    = tien(t.hoa_hong_da_rut)         + '<span class="dv">đ</span>';
   }
@@ -722,8 +732,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (!res.ok || !d.ok) { bao(d.error || 'Không tải được dữ liệu.'); return; }
 
       veHoSo(d.ctv);
-      veChiSo(d.thong_ke);
+      veChiSo(d.thong_ke, !!d.canh_bao);
       veDon(d.don_hang);
+
+      /* MÁY CHỦ KHÔNG ĐỌC ĐƯỢC ĐƠN — phải nói thẳng, và nói trước mọi thứ
+         khác. Trước đây trường canh_bao có được API trả về nhưng trang này
+         không đọc: cộng tác viên thấy toàn số 0 kèm dòng chữ "mọi đơn mua qua
+         link đều được ghi lại bên dưới" — tức là hệ thống đang lỗi mà vẫn
+         khẳng định với họ rằng họ không có đơn nào. Đó là cách nhanh nhất để
+         mất niềm tin của cộng tác viên. */
+      if (d.canh_bao) {
+        $('bang-giai-doan').classList.add('loi');
+        $('bang-tieu-de').textContent = 'Chưa đọc được danh sách đơn — lỗi hệ thống, không phải bạn không có đơn';
+        $('bang-noi-dung').textContent =
+          'Máy chủ đang không lấy được danh sách đơn (' + d.canh_bao + '). '
+          + 'Các ô liên quan tới đơn hiện dấu "—" vì lúc này chưa có căn cứ để nói con số nào. '
+          + 'Đơn của bạn KHÔNG mất — chúng nằm ở hệ thống gốc, chỉ phần hiển thị đang lỗi. '
+          + 'Báo DBV 0869 656 561 để kiểm tra.';
+        /* Khối trống mặc định nói "Chưa có đơn nào" — cũng là một khẳng định
+           sai trong tình huống này. Thay bằng đúng sự thật: chưa đọc được. */
+        var kd = $('bang-don');
+        if (kd) kd.innerHTML =
+          '<div class="rong"><b>Chưa đọc được danh sách đơn</b>'
+          + '<p>Đây là lỗi phía hệ thống, không phải bạn chưa có đơn. Thử tải lại trang sau ít phút, '
+          + 'nếu vẫn vậy thì báo DBV 0869 656 561.</p></div>';
+        $('db-tai').style.display = 'none';
+        $('db-main').classList.add('show');
+        return;
+      }
 
       /* Ghi nhận đơn đã bật, nhưng hoa hồng thì chưa — nói rõ đang ở đâu.
          Để nguyên băng cũ khi cả hai chưa bật sẽ khiến CTV tưởng mất đơn. */

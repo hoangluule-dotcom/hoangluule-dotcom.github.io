@@ -168,6 +168,30 @@ exports.handler = async function (event) {
       .filter((d) => d.ma_ctv)
       .sort((a, b) => String(b.thoi_diem).localeCompare(String(a.thoi_diem)))
       .slice(0, 500),
+    /* Đơn KHÔNG mang mã cộng tác viên.
+       Đây là ô cửa sổ để soi đúng một câu hỏi: đơn có về tới hệ thống không,
+       và nếu có thì nó mất mã ở đâu. Không có danh sách này thì mỗi lần cộng
+       tác viên báo "mất đơn" đều phải mở thẳng Netlify Forms mới trả lời được,
+       mà lúc đó thì đã mất niềm tin rồi.
+       Chỉ 50 đơn gần nhất, và không mang tên/số điện thoại/CCCD/địa chỉ khách
+       — thông tin khách xem ở CRM, không phải ở đây. */
+    don_khong_gan: donHang
+      .filter((d) => !d.ma_ctv)
+      .sort((a, b) => String(b.thoi_diem).localeCompare(String(a.thoi_diem)))
+      .slice(0, 50)
+      .map((d) => ({
+        thoi_diem: d.thoi_diem,
+        ma_don: d.ma_don,
+        bien_so: d.bien_so,
+        chi_tiet_xe: d.chi_tiet_xe,
+        loai_xe: d.loai_xe,
+        tong_phi: d.tong_phi,
+        trang_thai: d.trang_thai,
+        /* Trường này gần như luôn rỗng ở đơn không gắn mã — nhưng nếu nó CÓ
+           giá trị mà mã lại rỗng thì đó là dấu vết của lỗi phía trình duyệt,
+           đáng để nhìn thấy. */
+        nguon_ghi_nhan: d.nguon_ghi_nhan,
+      })),
     lead: lead
       .sort((a, b) => String(b.thoi_diem).localeCompare(String(a.thoi_diem)))
       .slice(0, 500),

@@ -415,6 +415,31 @@ try {
       JSON.stringify((d.lead || [])[0] || {}));
   }
 
+  /* Đơn về hệ thống nhưng KHÔNG mang mã — tình huống hay bị nhầm thành "cộng
+     tác viên mất đơn". Quản trị phải nhìn thấy được, nếu không thì mỗi lần
+     khiếu nại đều phải mở thẳng Netlify Forms mới trả lời được. */
+  console.log('\n── Đơn không gắn mã: quản trị phải nhìn thấy ──');
+  {
+    DON_GIA.push({
+      id: 'skg', thoi_diem: new Date().toISOString(), ma_don: 'KHONGMA1', ma_ctv: '',
+      nguon_ghi_nhan: '', trang_thai: 'Khách báo đã chuyển khoản', loai_xe: 'Ô tô',
+      chi_tiet_xe: 'Không KDVT · dưới 6 chỗ', bien_so: '30A00001', thoi_han: '1 năm',
+      phi_goc: 437000, tong_phi: 480700,
+    });
+    const r = await admin.handler({ httpMethod: 'GET', headers: { 'x-dashboard-key': 'khoa-quan-tri-test' } });
+    const d = JSON.parse(r.body);
+    kiemTra('API trả về danh sách đơn không gắn mã',
+      Array.isArray(d.don_khong_gan) && d.don_khong_gan.length === 1, JSON.stringify(d.don_khong_gan));
+    kiemTra('đúng đơn vừa thêm', (d.don_khong_gan[0] || {}).ma_don === 'KHONGMA1');
+    kiemTra('đơn không gắn mã KHÔNG lẫn vào danh sách đơn có mã',
+      !(d.don || []).some((x) => x.ma_don === 'KHONGMA1'));
+    kiemTra('KHÔNG kèm tên, số điện thoại hay địa chỉ khách',
+      !/ho_ten|sdt|dia_chi|cccd/.test(JSON.stringify(d.don_khong_gan)),
+      JSON.stringify(d.don_khong_gan[0]));
+    kiemTra('ô chỉ số đơn không gắn mã đếm đúng', d.tong.so_don_khong_gan === 1,
+      String(d.tong.so_don_khong_gan));
+  }
+
   console.log('\n── Màn hình quản trị /admin/ctv ──');
   {
     const c4 = await tb.newContext({ viewport: { width: 1440, height: 1000 } });
@@ -446,7 +471,62 @@ try {
     kiemTra('bảng KHÔNG có cột hoa hồng',
       !/hoa hồng/i.test(await t.locator('thead').first().textContent()),
       await t.locator('thead').first().textContent());
+    /* Danh sách đơn không gắn mã: ẩn sẵn, bấm mới hiện — không chiếm chỗ của
+       bảng chính, nhưng phải có ở đó khi cần soi. */
+    kiemTra('danh sách đơn không gắn mã ẩn sẵn', await t.locator('#kg-vung').isHidden());
+    await t.click('#btn-kg');
+    await t.waitForTimeout(250);
+    kiemTra('bấm thì hiện ra', await t.locator('#kg-vung').isVisible());
+    kiemTra('liệt kê đúng đơn không gắn mã',
+      (await t.locator('#kg-tbody tr').count()) === 1 &&
+      /KHONGMA1/.test(await t.locator('#kg-tbody').textContent()),
+      await t.locator('#kg-tbody').textContent());
     await c4.close();
+  }
+
+  /* Máy chủ KHÔNG đọc được đơn: bảng điều khiển của CTV phải nói thẳng là lỗi
+     hệ thống, KHÔNG được hiện số 0 kèm câu "mọi đơn đều được ghi lại". Số 0
+     lúc này là một khẳng định mà hệ thống không có căn cứ để nói. */
+  console.log('\n── Không đọc được đơn thì CTV phải được báo, không phải thấy số 0 ──');
+  {
+    const thatBai = async () => { throw new Error('Thiếu biến môi trường NETLIFY_ACCESS_TOKEN trên Netlify.'); };
+    const cu = K.docDonHang;
+    K.docDonHang = thatBai;
+
+    const rt = await toi.handler({ httpMethod: 'GET', headers: { authorization: 'Bearer ' + TOKEN } });
+    const dt = JSON.parse(rt.body);
+    kiemTra('API vẫn trả 200 (hồ sơ và lượt bấm vẫn đúng)', rt.statusCode === 200, String(rt.statusCode));
+    kiemTra('API kèm canh_bao nói rõ vì sao', !!dt.canh_bao && /NETLIFY_ACCESS_TOKEN/.test(dt.canh_bao),
+      String(dt.canh_bao));
+
+    const c5 = await tb.newContext({ viewport: { width: 1200, height: 1000 } });
+    await c5.addInitScript((tk) => {
+      try { localStorage.setItem('dbv_ctv_token', tk); } catch (e) {}
+    }, TOKEN);
+    const t5 = await c5.newPage();
+    t5.on('pageerror', (e) => loiJs.push('/ctv-dashboard :: ' + e.message));
+    await t5.goto(CS + '/ctv-dashboard', { waitUntil: 'load' });
+    await t5.waitForSelector('#db-main.show', { timeout: 8000 });
+    const bang = await t5.locator('#bang-giai-doan').textContent();
+    kiemTra('băng cảnh báo đổi sang màu lỗi',
+      (await t5.locator('#bang-giai-doan').getAttribute('class')).indexOf('loi') >= 0);
+    kiemTra('nói rõ là lỗi hệ thống, không phải CTV không có đơn',
+      /lỗi hệ thống/i.test(bang), bang.slice(0, 120));
+    kiemTra('KHÔNG khẳng định "mọi đơn đều được ghi lại"', !/đều được ghi lại/.test(bang));
+    kiemTra('ô doanh thu hiện "—" chứ không phải 0',
+      (await t5.locator('#k-hhc').textContent()).trim() === '—',
+      await t5.locator('#k-hhc').textContent());
+    kiemTra('ô đơn chờ tiền cũng hiện "—"',
+      (await t5.locator('#k-cho').textContent()).trim() === '—');
+    kiemTra('ô lượt bấm link VẪN hiện số thật (đọc từ kho khác)',
+      (await t5.locator('#k-bam').textContent()).trim() !== '—',
+      await t5.locator('#k-bam').textContent());
+    kiemTra('khối đơn nói "chưa đọc được", không nói "chưa có đơn nào"',
+      /Chưa đọc được danh sách đơn/.test(await t5.locator('#bang-don').textContent()),
+      await t5.locator('#bang-don').textContent());
+    await c5.close();
+
+    K.docDonHang = cu;
   }
 
   kiemTra('không có lỗi JavaScript nào', loiJs.length === 0, loiJs.slice(0, 4).join(' ;; '));

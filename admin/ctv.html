@@ -192,6 +192,38 @@ table.don td{padding:8px 10px}
     </div>
   </div>
 
+  <!-- ĐƠN KHÔNG GẮN MÃ — ô cửa sổ để soi khiếu nại "mất đơn".
+       Cộng tác viên báo mất đơn thì câu hỏi đầu tiên luôn là: đơn có về tới
+       hệ thống không? Nếu đơn nằm ở đây thì nó VỀ RỒI nhưng mất mã trên đường
+       (khách mua ở máy khác, xoá cookie, tự vào thẳng trang). Nếu không có ở
+       đây luôn thì đơn chưa từng tới — chuyện khác hẳn, sửa chỗ khác. -->
+  <div class="hop" style="margin-top:22px">
+    <div style="padding:14px 16px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>
+        <b style="font-size:14px">Đơn không gắn mã cộng tác viên</b>
+        <div style="font-size:12.5px;color:var(--tm);margin-top:3px">50 đơn gần nhất. Xem ở đây để biết đơn đã về hệ thống hay chưa trước khi kết luận cộng tác viên mất đơn.</div>
+      </div>
+      <button type="button" id="btn-kg" style="border:1px solid var(--bd);background:#fff;border-radius:9px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer">Hiện danh sách</button>
+    </div>
+    <div id="kg-vung" style="display:none">
+      <div class="cuon">
+        <table>
+          <thead>
+            <tr>
+              <th>Thời điểm</th><th>Mã đơn</th><th>Biển số</th><th>Xe</th>
+              <th class="phai">Tổng phí</th><th>Trạng thái</th><th>Nguồn ghi nhận</th>
+            </tr>
+          </thead>
+          <tbody id="kg-tbody"></tbody>
+        </table>
+      </div>
+      <div class="trong" id="kg-trong" style="display:none">
+        <b>Không có đơn nào thiếu mã</b>
+        Mọi đơn gần đây đều đã gắn được mã cộng tác viên.
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -278,6 +310,13 @@ table.don td{padding:8px 10px}
   }
   $('btnTai').addEventListener('click', function(){ $('loi').classList.remove('show'); tai(false); });
 
+  $('btn-kg').addEventListener('click', function(){
+    var v = $('kg-vung');
+    var mo = v.style.display === 'none';
+    v.style.display = mo ? 'block' : 'none';
+    this.textContent = mo ? 'Ẩn danh sách' : 'Hiện danh sách';
+  });
+
   /* ── Vẽ ── */
   function ve(){
     var d = DU_LIEU, t = d.tong;
@@ -301,6 +340,27 @@ table.don td{padding:8px 10px}
     $('k-lead').textContent = so(t.lead_sp_khac || 0);
 
     veBang();
+    veKhongGan();
+  }
+
+  /* Danh sách đơn không mang mã CTV. Vẽ sẵn nhưng để ẩn — mở khi cần soi. */
+  function veKhongGan(){
+    var ds = DU_LIEU.don_khong_gan || [];
+    var tb = $('kg-tbody');
+    if(!tb) return;
+    $('kg-trong').style.display = ds.length ? 'none' : 'block';
+    tb.innerHTML = ds.map(function(d){
+      var daCk = d.trang_thai === 'Khách báo đã chuyển khoản';
+      return '<tr>'
+        + '<td>' + gioNgay(d.thoi_diem) + '</td>'
+        + '<td>' + esc(d.ma_don || '—') + '</td>'
+        + '<td><b>' + esc(d.bien_so || '—') + '</b></td>'
+        + '<td>' + esc(d.chi_tiet_xe || d.loai_xe || '—') + '</td>'
+        + '<td class="phai">' + tien(d.tong_phi) + '</td>'
+        + '<td>' + (daCk ? 'Đã báo chuyển khoản' : esc(d.trang_thai || '—')) + '</td>'
+        + '<td>' + esc(d.nguon_ghi_nhan || '—') + '</td>'
+        + '</tr>';
+    }).join('');
   }
 
   function locVaSap(){
