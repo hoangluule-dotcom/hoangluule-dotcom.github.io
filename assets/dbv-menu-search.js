@@ -336,26 +336,17 @@ var DBV_SANPHAM = [
     o.value = '';
   }
 
-  /* ------------------------------------------------- chèn nút vào header */
+  /* ------------------------------------------------- chuẩn bị phần header */
+  /* 14/09/2026: KHÔNG chèn nút kính lúp vào header nữa.
+     Header nay chỉ còn một hành động là "Đăng nhập"; ô tìm sản phẩm vẫn nằm
+     trong panel Danh mục và trang /san-pham, và hộp tìm kiếm vẫn mở được bằng
+     window.DBV.moTimKiem() nếu sau này muốn gắn lại vào chỗ khác.
+     Giữ nguyên phần gắn aria-label cho nút menu — đó là việc cho trình đọc màn
+     hình, không liên quan tới nút tìm kiếm. */
   function chenNut() {
     var khu = document.querySelector('.hdr-actions');
-    if (!khu || khu.querySelector('.dbv-btn-search')) return;
+    if (!khu) return;
 
-    var nut = document.createElement('button');
-    nut.className = 'dbv-btn-search';
-    nut.type = 'button';
-    nut.setAttribute('aria-label', 'Tìm kiếm sản phẩm');
-    nut.innerHTML =
-      '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>';
-    nut.addEventListener('click', mo);
-
-    // đặt bên TRÁI nút menu
-    var menu = khu.querySelector('.hdr-cat-wrap');
-    if (menu) khu.insertBefore(nut, menu);
-    else khu.insertBefore(nut, khu.firstChild);
-
-    // nhãn cho nút menu (trước đây chỉ là icon, không có mô tả cho trình đọc màn hình)
     var btnMenu = khu.querySelector('.btn-catalog-hdr');
     if (btnMenu && !btnMenu.getAttribute('aria-label')) {
       btnMenu.setAttribute('aria-label', 'Mở menu điều hướng');

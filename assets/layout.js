@@ -84,6 +84,32 @@
     window.__dbvDongMenuNgang = dongMenuNgang;
   }
 
+  /* ── Nút Đăng nhập trên header ──────────────────────────────────
+     Đã có phiên cộng tác viên thì đổi nhãn thành "Bảng điều khiển" và trỏ
+     thẳng vào đó. Chỉ đọc localStorage, không gọi máy chủ — nhãn sai một nhịp
+     cũng không sao, còn chờ một vòng mạng thì nút nhấp nháy trên mọi trang.
+     Token hết hạn thì /ctv-dashboard tự đẩy về /ctv, nên không có đường cụt. */
+  if (!window.__dbvNutDangNhap) {
+    window.__dbvNutDangNhap = true;
+    document.addEventListener('DOMContentLoaded', function () {
+      var co = false;
+      try { co = !!localStorage.getItem('dbv_ctv_token'); } catch (e) { co = false; }
+      if (!co) return;
+      /* Hai lối vào: nút xanh ở header (desktop) và mục đầu trong hamburger
+         (mobile). Cả hai phải đổi cùng lúc, nếu không thì xoay ngang màn hình
+         là thấy hai nhãn khác nhau. */
+      ['hdr-dangnhap', 'menu-dangnhap'].forEach(function (id) {
+        var nut = document.getElementById(id);
+        if (!nut) return;
+        nut.setAttribute('href', '/ctv-dashboard');
+        var tx = nut.querySelector('.btn-login-tx');
+        if (tx) tx.textContent = (id === 'menu-dangnhap')
+          ? 'Bảng điều khiển cộng tác viên'
+          : 'Bảng điều khiển';
+      });
+    });
+  }
+
   /* ── Đóng khi bấm ra ngoài / nhấn Esc — gắn một lần ─────────────── */
   if (!window.__dbvLayoutOutsideClick) {
     window.__dbvLayoutOutsideClick = true;
