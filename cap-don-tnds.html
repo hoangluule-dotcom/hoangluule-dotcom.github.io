@@ -348,7 +348,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <input name="so-may"><input name="hieu-xe"><input name="nam-sx"><input name="ngay-hieu-luc"><input name="ngay-het-han">
   <input name="ho-ten"><input name="sdt"><input name="email"><input name="dia-chi">
   <input name="xuat-hoa-don"><input name="ten-cty"><input name="mst"><input name="dia-chi-cty"><input name="email-hd">
-  <input name="dia-chi-giao"><input name="nguoi-nhan"><input name="sdt-nhan"><input name="trang-thai"><textarea name="ghi-chu"></textarea>
+  <input name="dia-chi-giao"><input name="nguoi-nhan"><input name="sdt-nhan"><input name="trang-thai"><input name="ma-ctv"><input name="nguon-ghi-nhan"><textarea name="ghi-chu"></textarea>
 </form>
 
 <section id="cap-don">
@@ -560,6 +560,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fld" style="margin-top:16px">
           <label>Ghi chú thêm</label>
           <textarea id="cdf-note" rows="2" placeholder="Yêu cầu riêng, thời gian nhận cuộc gọi, xe mới chưa có biển..."></textarea>
+        </div>
+
+        <!-- Mã giới thiệu cộng tác viên.
+             Điền sẵn từ cookie khi khách vào bằng link CTV, nhưng LUÔN cho sửa:
+             khách bấm link trên điện thoại rồi mua trên máy khác thì cookie mất,
+             lúc đó mã đọc bằng miệng là đường cứu duy nhất. -->
+        <div class="fld" id="cdwrap-ctv" style="margin-top:16px">
+          <label>Mã giới thiệu <span style="font-weight:400;color:var(--ts)">(nếu có người giới thiệu)</span></label>
+          <input type="text" id="cdf-ctv" maxlength="4" autocomplete="off" spellcheck="false"
+                 placeholder="4 ký tự, ví dụ K7X2"
+                 style="text-transform:uppercase;letter-spacing:2px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <div class="hint" id="cdctv-hint">Để trống nếu bạn tự tìm đến trang này.</div>
         </div>
 
         <label class="chk">

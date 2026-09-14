@@ -61,6 +61,17 @@ exports.handler = async function (event) {
   form.set("page", String(p.page || "").slice(0, 200));
   form.set("transcript", transcript);
 
+  /* Mã cộng tác viên giới thiệu, do khung chat đọc từ cookie dbv_ctv và gửi
+     lên. Giai đoạn 1 chỉ trả hoa hồng cho TNDS — trường này ở lead chat là để
+     đo, chưa sinh hoa hồng. Phải khai trong <form name="chatbot-lead"> ẩn ở
+     index.html thì Netlify Forms mới lưu. */
+  const maCtv = String(p.ctv || "").toUpperCase()
+    .replace(/[^ABCDEFGHJKLMNPQRSTUVWXYZ23456789]/g, "").slice(0, 4);
+  if (maCtv) {
+    form.set("ma-ctv", maCtv);
+    form.set("nguon-ghi-nhan", "cookie_link");
+  }
+
   try {
     const res = await fetch(SITE_URL, {
       method: "POST",

@@ -99,6 +99,18 @@ a{color:var(--g)}
 .rong b{display:block;font-size:14.5px;font-weight:700;color:var(--tm);margin-bottom:4px}
 .rong p{font-size:13.5px;color:var(--ts);line-height:1.6;max-width:420px;margin:0 auto}
 
+/* ══ BẢNG ĐƠN ══ */
+.db-don{width:100%;border-collapse:collapse;font-size:13.5px}
+.db-don th{text-align:left;font-size:11px;font-weight:800;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;padding:9px 10px;background:var(--bg);border-bottom:1px solid var(--bd);white-space:nowrap}
+.db-don th.phai,.db-don td.phai{text-align:right;font-variant-numeric:tabular-nums}
+.db-don td{padding:10px;border-bottom:1px solid #f1f4f7;vertical-align:top}
+.db-don tr:last-child td{border-bottom:0}
+.db-don .nho{font-size:12px;color:var(--ts)}
+.tt{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:9999px;white-space:nowrap}
+.tt::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.tt.xong{background:var(--gl);color:var(--gp)}
+.tt.cho{background:var(--gold-bg);color:var(--goldd)}
+
 /* ══ VÒNG ĐỜI ĐƠN ══ */
 .vd{display:grid;gap:10px}
 .vd-b{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--tm);line-height:1.55}
@@ -437,8 +449,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="bang" id="bang-giai-doan">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
       <div>
-        <b>Phần ghi nhận đơn chưa được bật</b>
-        <p>Tài khoản và mã cộng tác viên của bạn đã hoạt động. Việc ghi nhận đơn qua link giới thiệu và tính hoa hồng sẽ bật ở bước tiếp theo, nên các chỉ số dưới đây còn bằng 0 — không phải bạn bị mất đơn.</p>
+        <b id="bang-tieu-de">Phần ghi nhận đơn chưa được bật</b>
+        <p id="bang-noi-dung">Tài khoản và mã cộng tác viên của bạn đã hoạt động. Việc ghi nhận đơn qua link giới thiệu và tính hoa hồng sẽ bật ở bước tiếp theo, nên các chỉ số dưới đây còn bằng 0 — không phải bạn bị mất đơn.</p>
       </div>
     </div>
 
@@ -474,7 +486,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="o"><div class="lb">Lượt bấm link</div><div class="so" id="k-bam">0</div></div>
         <div class="o"><div class="lb">Đơn chờ tiền về</div><div class="so" id="k-cho">0</div></div>
         <div class="o"><div class="lb">Đơn đã đối soát</div><div class="so" id="k-khop">0</div></div>
-        <div class="o tien"><div class="lb">Hoa hồng đang chờ</div><div class="so" id="k-hhc">0<span class="dv">đ</span></div></div>
+        <div class="o tien"><div class="lb">Doanh thu ghi nhận</div><div class="so" id="k-hhc">0<span class="dv">đ</span></div></div>
         <div class="o tien"><div class="lb">Hoa hồng khả dụng</div><div class="so" id="k-hhk">0<span class="dv">đ</span></div></div>
         <div class="o tien"><div class="lb">Đã rút</div><div class="so" id="k-rut">0<span class="dv">đ</span></div></div>
       </div>
@@ -486,10 +498,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
         Đơn đã ghi nhận
       </div>
-      <div class="rong">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-        <b>Chưa có đơn nào</b>
-        <p>Danh sách đơn sẽ hiện ở đây sau khi phần ghi nhận qua link được bật, kèm biển số, số tiền, trạng thái và lý do đơn được tính cho bạn.</p>
+      <div id="bang-don">
+        <div class="rong">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          <b>Chưa có đơn nào</b>
+          <p>Gửi link giới thiệu cho khách. Khi có người mua qua link của bạn, đơn sẽ hiện ở đây kèm biển số, số tiền, trạng thái và lý do đơn được tính cho bạn.</p>
+        </div>
       </div>
     </section>
 
@@ -578,9 +592,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var API  = '/.netlify/functions/ctv-toi';
   var KHOA = 'dbv_ctv_token';
   var KHOA2= 'dbv_ctv_ma';
-  /* Trang cấp đơn nay nằm trên chính site này. Tham số ctv= đã có chỗ để ghi
-     nhận về sau; ở bước này trang cấp đơn bỏ qua tham số này. */
-  var TRANG_MUA = 'https://dbv247.com.vn/cap-don-tnds';
+  /* Link giới thiệu đi qua /r/<MÃ> — một hàm máy chủ đặt cookie ghi nhận rồi
+     chuyển tiếp. Phải là hàm máy chủ: Safari cắt cookie do JavaScript đặt
+     xuống còn 7 ngày, trong khi cửa sổ ghi nhận công bố với CTV là 30 ngày. */
+  var GOC_LINK = 'https://dbv247.com.vn/r/';
 
   function $(id){ return document.getElementById(id); }
   function doc(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
@@ -605,7 +620,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function veHoSo(c){
     $('who').textContent = c.ho_ten + ' · ' + c.sdt;
     $('ma-ctv').textContent = c.ma_ctv;
-    $('link-gt').value = TRANG_MUA + '?ctv=' + c.ma_ctv;
+    $('link-gt').value = GOC_LINK + c.ma_ctv;
     $('p-ten').value   = c.ho_ten || '';
     $('p-sdt').value   = c.sdt || '';
     $('p-email').value = c.email || '';
@@ -619,9 +634,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $('k-bam').textContent  = tien(t.luot_bam_link);
     $('k-cho').textContent  = tien(t.don_cho_thanh_toan);
     $('k-khop').textContent = tien(t.don_da_doi_soat);
-    $('k-hhc').innerHTML    = tien(t.hoa_hong_cho)        + '<span class="dv">đ</span>';
-    $('k-hhk').innerHTML    = tien(t.hoa_hong_kha_dung)   + '<span class="dv">đ</span>';
-    $('k-rut').innerHTML    = tien(t.hoa_hong_da_rut)     + '<span class="dv">đ</span>';
+    $('k-hhc').innerHTML    = tien(t.doanh_thu_ghi_nhan || 0) + '<span class="dv">đ</span>';
+    $('k-hhk').innerHTML    = tien(t.hoa_hong_kha_dung)       + '<span class="dv">đ</span>';
+    $('k-rut').innerHTML    = tien(t.hoa_hong_da_rut)         + '<span class="dv">đ</span>';
+  }
+
+  /* Bảng đơn. CTV chỉ thấy biển số, sản phẩm, số tiền và trạng thái — máy chủ
+     không gửi tên, số điện thoại hay CCCD của khách sang đây. */
+  var TEN_NGUON = {
+    khach_tu_nhap: 'Khách tự nhập mã của bạn',
+    tham_so_url  : 'Khách vừa bấm link của bạn',
+    cookie_link  : 'Khách đã bấm link của bạn trước đó'
+  };
+
+  function esc(v){
+    return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function gioNgay(iso){
+    var d = new Date(iso);
+    if(isNaN(d.getTime())) return '—';
+    var p = function(x){ return (x<10?'0':'')+x; };
+    return p(d.getHours())+':'+p(d.getMinutes())+' '+p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear();
+  }
+
+  function veDon(ds){
+    var o = $('bang-don');
+    if(!o) return;
+    if(!ds || !ds.length) return;            /* giữ nguyên khối trống */
+
+    var h = '<div style="overflow-x:auto"><table class="db-don"><thead><tr>'
+      + '<th>Thời điểm</th><th>Biển số</th><th>Xe</th><th>Thời hạn</th>'
+      + '<th class="phai">Tổng phí</th><th>Trạng thái</th><th>Vì sao tính cho bạn</th>'
+      + '</tr></thead><tbody>';
+    ds.forEach(function(d){
+      var daCk = d.trang_thai === 'Khách báo đã chuyển khoản';
+      h += '<tr>'
+        + '<td class="nho">' + gioNgay(d.thoi_diem) + '</td>'
+        + '<td><b>' + esc(d.bien_so || '—') + '</b></td>'
+        + '<td class="nho">' + esc(d.chi_tiet_xe || d.loai_xe || '—') + '</td>'
+        + '<td class="nho">' + esc(d.thoi_han || '—') + '</td>'
+        + '<td class="phai"><b>' + tien(d.tong_phi) + 'đ</b></td>'
+        + '<td><span class="tt ' + (daCk ? 'xong' : 'cho') + '">'
+            + (daCk ? 'Khách đã báo chuyển khoản' : 'Chờ tiền về') + '</span></td>'
+        + '<td class="nho">' + esc(TEN_NGUON[d.nguon_ghi_nhan] || d.nguon_ghi_nhan || '—') + '</td>'
+        + '</tr>';
+    });
+    h += '</tbody></table></div>';
+    o.innerHTML = h;
   }
 
   async function tai(){
@@ -633,7 +693,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       veHoSo(d.ctv);
       veChiSo(d.thong_ke);
-      if (d.ghi_nhan_dang_bat) $('bang-giai-doan').style.display = 'none';
+      veDon(d.don_hang);
+
+      /* Ghi nhận đơn đã bật, nhưng hoa hồng thì chưa — nói rõ đang ở đâu.
+         Để nguyên băng cũ khi cả hai chưa bật sẽ khiến CTV tưởng mất đơn. */
+      if (d.ghi_nhan_dang_bat) {
+        $('bang-tieu-de').textContent = 'Đơn đã được ghi nhận, phần hoa hồng chưa bật';
+        $('bang-noi-dung').textContent =
+          'Link giới thiệu của bạn đang hoạt động và mọi đơn mua qua link đều được ghi lại bên dưới. '
+          + 'Phần tính và chi trả hoa hồng sẽ bật sau khi có quy trình đối soát sao kê ngân hàng — '
+          + 'tới lúc đó ba ô hoa hồng còn bằng 0.';
+      }
 
       $('db-tai').style.display = 'none';
       $('db-main').classList.add('show');

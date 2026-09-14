@@ -259,6 +259,137 @@ function dangBiKhoa(ban) {
   return conLai > 0 ? Math.ceil(conLai / 60000) : 0;
 }
 
+/* ── Đếm lượt bấm link ────────────────────────────────────────────────────
+   Một khoá cho mỗi CTV mỗi ngày, để hai lượt bấm của hai CTV khác nhau không
+   giẫm lên nhau. Blobs không có phép cộng nguyên tử nên hai lượt bấm CÙNG một
+   CTV trong cùng một giây vẫn có thể mất một lượt — chấp nhận được với bộ đếm,
+   TUYỆT ĐỐI không chấp nhận được với tiền. Đây là lý do sổ cái hoa hồng không
+   bao giờ được đặt trên Blobs. */
+function ngayVN(d) {
+  /* Giờ Việt Nam = UTC+7, không có giờ mùa hè nên cộng thẳng là đúng. */
+  const t = new Date((d || Date.now()) + 7 * 3600000);
+  return t.toISOString().slice(0, 10);
+}
+
+async function ghiLuotBam(kho, ma, nguon) {
+  const khoa = 'click/' + ma + '/' + ngayVN();
+  try {
+    const cu = (await kho.get(khoa, { type: 'json' })) || { ma: ma, ngay: ngayVN(), so_luot: 0 };
+    cu.so_luot = Number(cu.so_luot || 0) + 1;
+    cu.lan_cuoi = new Date().toISOString();
+    if (nguon) cu.nguon_cuoi = String(nguon).slice(0, 200);
+    await kho.setJSON(khoa, cu);
+  } catch (err) {
+    /* Đếm hụt một lượt không được phép làm hỏng việc chuyển hướng khách. */
+  }
+}
+
+/* Tổng lượt bấm của một CTV trong N ngày gần nhất. */
+async function demLuotBam(kho, ma, soNgay) {
+  const n = soNgay || 90;
+  const mocs = [];
+  for (let i = 0; i < n; i++) mocs.push(ngayVN(Date.now() - i * 86400000));
+  const phan = await Promise.all(mocs.map((ng) =>
+    kho.get('click/' + ma + '/' + ng, { type: 'json' }).catch(() => null)
+  ));
+  return phan.reduce((t, x) => t + (x && Number(x.so_luot) || 0), 0);
+}
+
+/* ── Đọc đơn từ Netlify Forms ─────────────────────────────────────────────
+   Đơn hàng nằm ở Netlify Forms (form dbv-capdon-tnds), KHÔNG nhân bản sang
+   Blobs — một nguồn sự thật thôi. Hàm leads.js của site đã dùng đúng cách này.
+
+   LƯU Ý HẠN MỨC: gói Netlify miễn phí giới hạn 100 lượt gửi form mỗi tháng, và
+   vượt hạn mức thì đơn bị bỏ IM LẶNG. Trước khi mở cho nhiều CTV phải kiểm tra
+   hạn mức của gói đang dùng. */
+const FORM_CAP_DON = 'dbv-capdon-tnds';
+
+/* Các form THU LEAD của những sản phẩm không bán online (cháy nổ, sức khoẻ,
+   vật chất ô tô, du lịch, hàng hoá…). Giai đoạn 1 KHÔNG trả hoa hồng cho
+   những sản phẩm này — mã CTV gắn vào đây chỉ để nhìn thấy và đo. */
+const FORM_LEAD = ['dbv-tuvan', 'dbv-float', 'chatbot-lead'];
+
+function xacThucNetlify() {
+  const token = process.env.NETLIFY_ACCESS_TOKEN;
+  if (!token) throw new Error('Thiếu biến môi trường NETLIFY_ACCESS_TOKEN trên Netlify.');
+  return { Authorization: 'Bearer ' + token };
+}
+
+async function danhSachForm(h) {
+  const rf = await fetch('https://api.netlify.com/api/v1/sites/' + (process.env.SITE_ID || SITE_ID) + '/forms', { headers: h });
+  if (!rf.ok) throw new Error('Không lấy được danh sách form (' + rf.status + ').');
+  return rf.json();
+}
+
+async function docBanGhi(h, formId) {
+  const rs = await fetch('https://api.netlify.com/api/v1/forms/' + formId + '/submissions?per_page=1000', { headers: h });
+  if (!rs.ok) throw new Error('Không đọc được bản ghi của form (' + rs.status + ').');
+  return rs.json();
+}
+
+async function docDonHang() {
+  const h = xacThucNetlify();
+  const forms = await danhSachForm(h);
+  const form = forms.find((f) => f.name === FORM_CAP_DON);
+  if (!form) return [];
+
+  const subs = await docBanGhi(h, form.id);
+
+  return subs.map((s) => {
+    const d = s.data || {};
+    return {
+      id: s.id,
+      thoi_diem: s.created_at,
+      ma_don: d['ma-don'] || '',
+      ma_ctv: String(d['ma-ctv'] || '').toUpperCase(),
+      nguon_ghi_nhan: d['nguon-ghi-nhan'] || '',
+      trang_thai: d['trang-thai'] || '',
+      loai_xe: d['loai-xe'] || '',
+      chi_tiet_xe: d['chi-tiet-xe'] || '',
+      bien_so: d['bien-so'] || '',
+      thoi_han: d['thoi-han'] || '',
+      phi_goc: Number(String(d['phi-goc'] || '0').replace(/\D/g, '')) || 0,
+      tong_phi: Number(String(d['tong-phi'] || '0').replace(/\D/g, '')) || 0,
+    };
+  });
+}
+
+/* ── Đọc lead sản phẩm khác ───────────────────────────────────────────────
+   Lead của những sản phẩm KHÔNG bán online. Chỉ trả về lead CÓ mã cộng tác
+   viên, và chỉ những trường cần để đếm — không mang tên, số điện thoại hay địa
+   chỉ khách ra khỏi hàm này, vì màn hình quản trị CTV không có việc gì phải
+   biết chúng (CRM khách hàng mới là nơi xem thông tin khách). */
+async function docLead() {
+  const h = xacThucNetlify();
+  const forms = await danhSachForm(h);
+  const canDoc = forms.filter((f) => FORM_LEAD.indexOf(f.name) !== -1);
+  if (!canDoc.length) return [];
+
+  const nhom = await Promise.all(canDoc.map(async (f) => {
+    const subs = await docBanGhi(h, f.id).catch(() => []);
+    return subs.map((s) => {
+      const d = s.data || {};
+      return {
+        id: s.id,
+        thoi_diem: s.created_at,
+        form: f.name,
+        ma_ctv: String(d['ma-ctv'] || '').toUpperCase(),
+        nguon_ghi_nhan: d['nguon-ghi-nhan'] || '',
+        san_pham: d['san-pham'] || d['need'] || '',
+        trang: d['trang'] || d['page'] || '',
+      };
+    });
+  }));
+
+  return [].concat.apply([], nhom).filter((x) => x.ma_ctv);
+}
+
+/* Một đơn "đã chốt" khi khách bấm xác nhận chuyển khoản.
+   Đây CHƯA phải căn cứ trả hoa hồng — hoa hồng chỉ sinh khi dòng sao kê ngân
+   hàng đã khớp. Ở màn hình quản trị, con số này là doanh thu GHI NHẬN, không
+   phải doanh thu ĐÃ ĐỐI SOÁT. */
+const TT_DA_CK = 'Khách báo đã chuyển khoản';
+
 /* ── Trả lời HTTP ─────────────────────────────────────────────────────────
    Không đặt header CORS: cả hai trang gọi hàm này đều cùng tên miền. Mở CORS
    ở đây là cho phép mọi website khác gọi thẳng vào cổng đăng nhập. */
@@ -283,6 +414,13 @@ function docThan(event) {
 
 module.exports = {
   PHIEN_BAN_QUY_CHE,
+  TT_DA_CK,
+  ngayVN,
+  ghiLuotBam,
+  demLuotBam,
+  docDonHang,
+  docLead,
+  FORM_LEAD,
   SAI_TOI_DA,
   KHOA_PHUT,
   moKho,

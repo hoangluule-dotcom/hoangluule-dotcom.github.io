@@ -222,6 +222,56 @@ var DBV_CAUHINH = {
     return s;
   }
 
+  /* ── Cộng tác viên giới thiệu ─────────────────────────────────────────
+     Khách vào site bằng link /r/<MÃ> thì hàm máy chủ ctv-ref.js đặt cookie
+     dbv_ctv ở cấp tên miền, sống 30 ngày. Mọi lead gửi đi sau đó — ở bất kỳ
+     trang sản phẩm nào — đều gắn kèm mã đó.
+
+     GIAI ĐOẠN 1 CHỈ TRẢ HOA HỒNG CHO TNDS. Mã gắn vào lead sản phẩm khác là
+     để NHÌN THẤY và ĐO, chưa sinh hoa hồng. Đo một mùa rồi mới quyết có mở
+     rộng phạm vi hay không — hứa trước rồi rút lại là cách nhanh nhất làm mất
+     lòng tin của cộng tác viên.
+
+     Netlify Forms CHỈ lưu những trường đã khai trong thẻ <form> ẩn. Thêm
+     trường ở đây mà quên khai trong form là dữ liệu bị bỏ lặng lẽ. */
+
+  var COOKIE_CTV = 'dbv_ctv';
+
+  function docCookieCtv() {
+    try {
+      var m = document.cookie.match(/(?:^|; )dbv_ctv=([^;]*)/);
+      return m ? decodeURIComponent(m[1]) : '';
+    } catch (e) { return ''; }
+  }
+
+  function chuanHoaMaCtv(v) {
+    return String(v || '').toUpperCase()
+      .replace(/[^ABCDEFGHJKLMNPQRSTUVWXYZ23456789]/g, '').slice(0, 4);
+  }
+
+  function chuoiThamSoCtv(bodyHienTai) {
+    /* Trang cấp đơn TNDS tự gắn ma-ctv vào payload của nó, và ở đó khách có
+       thể đã SỬA mã trong ô "Mã giới thiệu". Nối thêm một lần nữa ở đây sẽ
+       đè mã khách tự nhập bằng mã trong cookie — sai người nhận đơn. */
+    if (String(bodyHienTai || '').indexOf('ma-ctv=') !== -1) return '';
+
+    var ma = '';
+    var nguon = '';
+    try {
+      var q = chuanHoaMaCtv(new URLSearchParams(location.search).get('ctv'));
+      if (q) { ma = q; nguon = 'tham_so_url'; }
+    } catch (e) {}
+    if (!ma) {
+      var c = chuanHoaMaCtv(docCookieCtv());
+      if (c) { ma = c; nguon = 'cookie_link'; }
+    }
+    if (!ma) return '';
+
+    log('LEAD gắn mã CTV →', ma, '(' + nguon + ')');
+    return '&ma-ctv=' + encodeURIComponent(ma)
+         + '&nguon-ghi-nhan=' + encodeURIComponent(nguon);
+  }
+
   /* ====================================================================== */
   /*  1. LEAD — bắt mọi form gửi đi trên toàn site                          */
   /* ====================================================================== */
@@ -243,7 +293,9 @@ var DBV_CAUHINH = {
             + '&dong-y-chinh-sach=' + encodeURIComponent('Đã hiển thị thông báo ' + PHIEN_BAN_CHINH_SACH + ' và người dùng chủ động bấm gửi')
             + '&thoi-diem-dong-y=' + encodeURIComponent(new Date().toISOString())
             // Nguồn khách — để CRM biết lead này đến từ đâu.
-            + chuoiThamSoNguon();
+            + chuoiThamSoNguon()
+            // Cộng tác viên giới thiệu — xem ghi chú ở hàm chuoiThamSoCtv().
+            + chuoiThamSoCtv(tuyChon.body);
           baoLead(String(tuyChon.body));
         }
       } catch (e) { log('lỗi khi đọc lead:', e); }

@@ -14,6 +14,14 @@
   --r8:8px;--r12:12px;--r16:16px;--r24:24px;
   --gap-section:48px;
   scroll-margin-top:70px;
+
+  /* Ghim cỡ chữ gốc của công cụ.
+     Không ghim thì khối này thừa hưởng font-size của từng trang — hiện đang là
+     13px ở trang ô tô, 14px ở trang xe máy và hai trang xe 5/7 chỗ, 16px ở
+     trang cấp đơn chuẩn — nên cùng một công cụ hiển thị bốn cỡ khác nhau tuỳ
+     nhúng ở đâu. Thang chữ bên trong viết bằng rem (0,68rem–2rem) vốn được
+     thiết kế cho gốc 16px, nên 16px là con số đúng. */
+  font-size:16px;
 }
 @media(min-width:768px){ #cap-don{ --gap-section:64px } }
 #cap-don .cd-band{background:linear-gradient(135deg,#0f2515 0%,#005a2b 55%,#007437 100%);color:#fff;padding:38px 16px 96px;text-align:center;position:relative;overflow:hidden}

@@ -1,3 +1,9 @@
+# ── Link giới thiệu cộng tác viên ──────────────────────────────────────────
+# /r/K7X2  →  hàm máy chủ đặt cookie ghi nhận rồi chuyển về trang cấp đơn.
+# Phải là hàm máy chủ chứ không phải chuyển hướng thường: cookie bắt buộc đặt
+# bằng header Set-Cookie, vì Safari cắt cookie do JavaScript đặt còn 7 ngày.
+/r/*   /.netlify/functions/ctv-ref?ma=:splat   200
+
 # Netlify 301 Redirects — URL migration: old slugs -> new hyphenated slugs
 # Generated automatically. Do not edit manually.
 

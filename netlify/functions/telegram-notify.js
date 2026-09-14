@@ -66,6 +66,9 @@ const FIELDS = [
   ["dong-y-dieu-khoan","Đồng ý quy tắc BH"],
   ["ghi-chu",          "Ghi chú"],
   ["nguon",            "Vị trí form"],
+  /* Mã cộng tác viên giới thiệu — tư vấn viên phải thấy TRƯỚC khi gọi khách,
+     vì đây là căn cứ ghi nhận nếu sau này đơn được chốt. */
+  ["ma-ctv",           "Mã CTV giới thiệu"],
 ];
 
 const UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];

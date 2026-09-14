@@ -16,6 +16,15 @@
 
   var API_CHAT = "/.netlify/functions/chat";
   var API_LEAD = "/.netlify/functions/chat-lead";
+
+  /* Mã cộng tác viên do /r/<MÃ> đặt vào cookie ở cấp tên miền. */
+  function maCtvTuCookie() {
+    try {
+      var m = document.cookie.match(/(?:^|; )dbv_ctv=([^;]*)/);
+      return m ? decodeURIComponent(m[1]).toUpperCase()
+        .replace(/[^ABCDEFGHJKLMNPQRSTUVWXYZ23456789]/g, '').slice(0, 4) : '';
+    } catch (e) { return ''; }
+  }
   var HOTLINE = "0869656561";
   var MAX_LEN = 600;
 
@@ -383,6 +392,10 @@
         phone: phone,
         history: history.slice(-8),
         page: location.pathname,
+        /* Mã cộng tác viên giới thiệu. Lead của khung chat đi qua hàm máy chủ
+           chứ không POST thẳng lên Netlify Forms, nên bộ bắt form trong
+           dbv-tracking.js không với tới được — phải tự gửi kèm ở đây. */
+        ctv: maCtvTuCookie(),
       }),
     })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })

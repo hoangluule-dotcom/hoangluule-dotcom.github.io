@@ -760,7 +760,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <input type="hidden" name="thoi-diem-dong-y"/>
   <input type="text" name="ten-cong-ty"/>
   <input type="text" name="ngon-ngu"/>
-</form>
+<!-- Cộng tác viên giới thiệu: assets/dbv-tracking.js tự điền từ cookie dbv_ctv.
+         Giai đoạn 1 chỉ trả hoa hồng cho TNDS — hai trường này ở các sản phẩm
+         khác là để đo, chưa sinh hoa hồng. Netlify Forms CHỈ lưu trường đã khai
+         ở đây, xoá đi là mất dữ liệu ghi nhận. -->
+    <input type="hidden" name="ma-ctv"/>
+    <input type="hidden" name="nguon-ghi-nhan"/>
+    </form>
 <form name="dbv-float" netlify netlify-honeypot="bot-field" hidden>
   <input type="hidden" name="form-name" value="dbv-float"/>
   <input type="text" name="bot-field"/>
@@ -792,7 +798,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <input type="hidden" name="nguon-gioi-thieu"/>
   <input type="hidden" name="dong-y-chinh-sach"/>
   <input type="hidden" name="thoi-diem-dong-y"/>
-</form>
+<!-- Cộng tác viên giới thiệu: assets/dbv-tracking.js tự điền từ cookie dbv_ctv.
+         Giai đoạn 1 chỉ trả hoa hồng cho TNDS — hai trường này ở các sản phẩm
+         khác là để đo, chưa sinh hoa hồng. Netlify Forms CHỈ lưu trường đã khai
+         ở đây, xoá đi là mất dữ liệu ghi nhận. -->
+    <input type="hidden" name="ma-ctv"/>
+    <input type="hidden" name="nguon-ghi-nhan"/>
+    </form>
 <form name="dbv-suckhoe" netlify netlify-honeypot="bot-field" hidden>
   <input type="hidden" name="form-name" value="dbv-suckhoe"/>
   <input type="text" name="bot-field"/>
@@ -1687,7 +1699,13 @@ function checkEmpty() {
   <input type="hidden" name="nguon-gioi-thieu"/>
   <input type="hidden" name="dong-y-chinh-sach"/>
   <input type="hidden" name="thoi-diem-dong-y"/>
-</form>
+<!-- Cộng tác viên giới thiệu: assets/dbv-tracking.js tự điền từ cookie dbv_ctv.
+         Giai đoạn 1 chỉ trả hoa hồng cho TNDS — hai trường này ở các sản phẩm
+         khác là để đo, chưa sinh hoa hồng. Netlify Forms CHỈ lưu trường đã khai
+         ở đây, xoá đi là mất dữ liệu ghi nhận. -->
+    <input type="hidden" name="ma-ctv"/>
+    <input type="hidden" name="nguon-ghi-nhan"/>
+    </form>
 <script id="dbv-chatbot" src="/assets/dbv-chatbot.js" defer></script>
 <script src="/assets/layout.js" defer></script>
 </body>

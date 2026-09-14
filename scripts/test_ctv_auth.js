@@ -112,9 +112,10 @@ const than = (r) => JSON.parse(r.body);
   r = await goiToi('GET', token1);
   kiemTra('GET có token trả 200', r.statusCode === 200, r.statusCode + ' ' + r.body);
   const bd = than(r);
-  kiemTra('trả đủ 6 chỉ số', Object.keys(bd.thong_ke).length === 6);
-  kiemTra('mọi chỉ số bằng 0 ở bước 1', Object.values(bd.thong_ke).every((v) => v === 0));
-  kiemTra('có cờ ghi_nhan_dang_bat=false', bd.ghi_nhan_dang_bat === false);
+  kiemTra('trả đủ 8 chỉ số', Object.keys(bd.thong_ke).length === 8, Object.keys(bd.thong_ke).join(','));
+  kiemTra('CTV mới thì mọi chỉ số bằng 0', Object.values(bd.thong_ke).every((v) => v === 0));
+  kiemTra('ghi nhận đơn đã bật', bd.ghi_nhan_dang_bat === true);
+  kiemTra('hoa hồng CHƯA bật (chờ đối soát sao kê)', bd.hoa_hong_dang_bat === false);
   kiemTra('không lộ mật khẩu băm', bd.ctv.mat_khau_bam === undefined);
 
   r = await goiToi('GET', null);

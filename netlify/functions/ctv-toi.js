@@ -49,7 +49,7 @@ exports.handler = async function (event) {
   }
 
   try {
-    if (event.httpMethod === 'GET') return xem(ban);
+    if (event.httpMethod === 'GET') return await xem(kho, ban);
     if (event.httpMethod === 'POST') return await capNhat(kho, ban, event);
   } catch (err) {
     return K.json(500, { error: 'Lỗi hệ thống: ' + String(err.message || err) });
@@ -58,24 +58,67 @@ exports.handler = async function (event) {
   return K.json(405, { error: 'Method không được hỗ trợ.' });
 };
 
-/* ── Xem bảng điều khiển ─────────────────────────────────────────────────── */
-function xem(ban) {
+/* ── Xem bảng điều khiển ───────────────────────────────────────────────────
+   Cộng tác viên CHỈ thấy đơn mang mã của chính mình, và chỉ thấy những trường
+   không phải dữ liệu cá nhân của khách: biển số, sản phẩm, số tiền, trạng
+   thái. KHÔNG tên khách, KHÔNG số điện thoại, KHÔNG CCCD, KHÔNG địa chỉ.
+   Đây là nguyên tắc số 6 của đặc tả, và cũng là yêu cầu của NĐ 13/2023. */
+async function xem(kho, ban) {
+  const ma = ban.ma_ctv;
+
+  let luot = 0;
+  try { luot = await K.demLuotBam(kho, ma, 90); } catch (err) { luot = 0; }
+
+  let tatCa = [];
+  let canhBao = null;
+  try {
+    tatCa = await K.docDonHang();
+  } catch (err) {
+    canhBao = 'Chưa đọc được danh sách đơn: ' + String(err.message || err);
+  }
+
+  const cua = tatCa.filter((d) => d.ma_ctv === ma);
+
+  let donCho = 0, donDaCk = 0, tienCho = 0, tienDaCk = 0;
+  cua.forEach((d) => {
+    if (d.trang_thai === K.TT_DA_CK) { donDaCk++; tienDaCk += d.tong_phi; }
+    else { donCho++; tienCho += d.tong_phi; }
+  });
+
   return K.json(200, {
     ok: true,
     ctv: K.hoSoCongKhai(ban),
-    /* Tên các chỉ số đặt sẵn theo đúng vòng đời đã chốt:
-       Đã tạo đơn → Chờ tiền về → Đã đối soát → Hoa hồng chờ 7 ngày → Khả dụng.
-       Khi bật ghi nhận đơn thì chỉ việc thay 0 bằng số thật, giao diện không đổi. */
     thong_ke: {
-      luot_bam_link: 0,
-      don_cho_thanh_toan: 0,
-      don_da_doi_soat: 0,
+      luot_bam_link: luot,
+      don_cho_thanh_toan: donCho,
+      don_da_doi_soat: donDaCk,
+      /* Hoa hồng vẫn là 0 và sẽ còn là 0 cho tới khi có đối soát sao kê.
+         Hiển thị số hoa hồng "dự kiến" tính từ tỷ lệ là mời gọi tranh cãi:
+         cộng tác viên sẽ coi con số đó là tiền của mình. Chỉ hiện tiền khi
+         tiền đã thật sự về tài khoản công ty và đã khớp đơn. */
       hoa_hong_cho: 0,
       hoa_hong_kha_dung: 0,
       hoa_hong_da_rut: 0,
+      doanh_thu_ghi_nhan: tienDaCk,
+      doanh_thu_cho: tienCho,
     },
-    don_hang: [],
-    ghi_nhan_dang_bat: false,
+    don_hang: cua
+      .sort((a, b) => String(b.thoi_diem).localeCompare(String(a.thoi_diem)))
+      .slice(0, 200)
+      .map((d) => ({
+        ma_don: d.ma_don,
+        thoi_diem: d.thoi_diem,
+        bien_so: d.bien_so,
+        loai_xe: d.loai_xe,
+        chi_tiet_xe: d.chi_tiet_xe,
+        thoi_han: d.thoi_han,
+        tong_phi: d.tong_phi,
+        trang_thai: d.trang_thai,
+        nguon_ghi_nhan: d.nguon_ghi_nhan,
+      })),
+    ghi_nhan_dang_bat: true,
+    hoa_hong_dang_bat: false,
+    canh_bao: canhBao,
   });
 }
 

@@ -1219,6 +1219,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <textarea id="cdf-note" rows="2" placeholder="Yêu cầu riêng, thời gian nhận cuộc gọi, xe mới chưa có biển..."></textarea>
         </div>
 
+        <!-- Mã giới thiệu cộng tác viên.
+             Điền sẵn từ cookie khi khách vào bằng link CTV, nhưng LUÔN cho sửa:
+             khách bấm link trên điện thoại rồi mua trên máy khác thì cookie mất,
+             lúc đó mã đọc bằng miệng là đường cứu duy nhất. -->
+        <div class="fld" id="cdwrap-ctv" style="margin-top:16px">
+          <label>Mã giới thiệu <span style="font-weight:400;color:var(--ts)">(nếu có người giới thiệu)</span></label>
+          <input type="text" id="cdf-ctv" maxlength="4" autocomplete="off" spellcheck="false"
+                 placeholder="4 ký tự, ví dụ K7X2"
+                 style="text-transform:uppercase;letter-spacing:2px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <div class="hint" id="cdctv-hint">Để trống nếu bạn tự tìm đến trang này.</div>
+        </div>
+
         <label class="chk">
           <input type="checkbox" id="cdf-agree" onchange="document.getElementById('cdb3').disabled=!this.checked">
           <span>Tôi xác nhận thông tin đã khai là đúng và đồng ý với <a href="https://dbv247.com.vn/chinh-sach-bao-mat" target="_blank">Chính sách bảo mật</a> cùng Quy tắc bảo hiểm bắt buộc TNDS chủ xe cơ giới theo NĐ 67/2023/NĐ-CP.</span>

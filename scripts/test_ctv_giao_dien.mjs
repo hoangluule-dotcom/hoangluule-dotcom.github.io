@@ -130,8 +130,8 @@ try {
   const ma = (await tr.locator('#ma-ctv').textContent()).trim();
   kiemTra('bảng điều khiển hiện mã CTV 4 ký tự',
     /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{4}$/.test(ma), ma);
-  kiemTra('link giới thiệu chứa mã',
-    (await tr.inputValue('#link-gt')).endsWith('?ctv=' + ma), await tr.inputValue('#link-gt'));
+  kiemTra('link giới thiệu là /r/<MÃ> (đi qua hàm máy chủ để đặt cookie 30 ngày)',
+    (await tr.inputValue('#link-gt')).endsWith('/r/' + ma), await tr.inputValue('#link-gt'));
   kiemTra('hiện tên và số điện thoại',
     (await tr.locator('#who').textContent()).includes(SDT));
   kiemTra('băng thông báo "chưa bật ghi nhận" đang hiện',

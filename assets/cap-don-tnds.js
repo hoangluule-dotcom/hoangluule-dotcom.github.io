@@ -457,6 +457,8 @@ function payload(status){
     'nguoi-nhan'  : val('cdf-shipname'),
     'sdt-nhan'    : val('cdf-shipphone'),
     'trang-thai'  : status,
+    'ma-ctv'      : maCtvHienTai(),
+    'nguon-ghi-nhan': NGUON,
     'ghi-chu'     : val('cdf-note')
   };
 }
@@ -505,20 +507,148 @@ function finish(){
   }, 500);
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   GHI NHẬN CỘNG TÁC VIÊN
+   ──────────────────────────────────────────────────────────────────────────
+   Thứ tự ưu tiên, đúng theo mục 2A.1 của đặc tả:
+     1. Mã khách TỰ NHẬP vào ô "Mã giới thiệu"  → thắng tất cả
+     2. Tham số ?ctv= trên URL                  → khách vừa bấm link
+     3. Cookie dbv_ctv                          → đã bấm link trước đó, 30 ngày
+     4. Không có                                → đơn thuộc DBV
+
+   Cookie do HÀM MÁY CHỦ /r/<MÃ> đặt bằng Set-Cookie, KHÔNG đặt bằng
+   document.cookie. Safari ITP cắt cookie do JavaScript đặt xuống còn 7 ngày —
+   công bố 30 ngày với CTV mà thực tế 7 ngày trên mọi iPhone là thất thoát im
+   lặng, không log, không ai biết.
+
+   Cookie KHÔNG đặt cờ HttpOnly (khác đặc tả bản 2.4): giá trị bên trong chỉ là
+   mã công khai 4 ký tự, vốn đã nằm trong link giới thiệu và sẽ nằm trong nội
+   dung chuyển khoản. Để JavaScript đọc được thì điền sẵn được vào ô mã giới
+   thiệu mà không phải gọi thêm máy chủ.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+var COOKIE_CTV = 'dbv_ctv';
+var NGUON = '';   /* nhánh nào trong 2A.1 đã quyết — gửi kèm đơn để xử khiếu nại */
+
+function docCookie(ten){
+  var m = document.cookie.match(new RegExp('(?:^|; )' + ten + '=([^;]*)'));
+  return m ? decodeURIComponent(m[1]) : '';
+}
+
+function chuanHoaMa(v){
+  return String(v || '').toUpperCase().replace(/[^ABCDEFGHJKLMNPQRSTUVWXYZ23456789]/g, '').slice(0, 4);
+}
+
+/* Đặt cookie từ trình duyệt — CHỈ dùng khi khách vào bằng ?ctv= mà không qua
+   /r/. Trường hợp này cookie sống ngắn hơn trên Safari; chấp nhận vì đây là
+   đường dự phòng, không phải đường chính. */
+function datCookieDuPhong(ma){
+  try{
+    document.cookie = COOKIE_CTV + '=' + encodeURIComponent(ma) +
+      '; path=/; max-age=2592000; samesite=lax' +
+      (location.protocol === 'https:' ? '; secure' : '');
+  }catch(e){}
+}
+
+/* Hiện tên CTV để khách xác nhận đúng người giới thiệu. Không hiện số điện
+   thoại — đó là dữ liệu cá nhân của CTV, không việc gì phải phơi cho khách. */
+function hienTenCtv(ma){
+  var o = $('cdctv-hint');
+  if(!o) return;
+  if(!ma){ o.textContent = 'Để trống nếu bạn tự tìm đến trang này.'; o.style.color = ''; return; }
+  o.textContent = 'Đang kiểm tra mã…'; o.style.color = '';
+  fetch('/.netlify/functions/ctv-ten?ma=' + encodeURIComponent(ma))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d && d.ho_ten){
+        o.textContent = 'Người giới thiệu: ' + d.ho_ten;
+        o.style.color = 'var(--g)';
+      }else{
+        o.textContent = 'Không tìm thấy mã này. Kiểm tra lại hoặc để trống.';
+        o.style.color = 'var(--do, #D92D20)';
+      }
+    })
+    .catch(function(){ o.textContent = 'Chưa kiểm tra được mã, đơn vẫn gửi được bình thường.'; });
+}
+
+/* Mã dùng cho đơn, tính lại mỗi lần gửi để khách sửa tay là ăn ngay */
+function maCtvHienTai(){
+  var o = $('cdf-ctv');
+  var tay = chuanHoaMa(o ? o.value : '');
+  if(tay){ NGUON = (tay === maTuLink) ? (nguonLink || 'khach_tu_nhap') : 'khach_tu_nhap'; return tay; }
+  NGUON = '';
+  return '';
+}
+
+var maTuLink = '';
+var nguonLink = '';
+
+function khoiTaoGhiNhan(){
+  var o = $('cdf-ctv');
+  if(!o) return;
+
+  var q = '';
+  try{ q = chuanHoaMa(new URLSearchParams(location.search).get('ctv')); }catch(e){}
+
+  if(q){
+    maTuLink = q; nguonLink = 'tham_so_url';
+    datCookieDuPhong(q);
+  }else{
+    var c = chuanHoaMa(docCookie(COOKIE_CTV));
+    if(c){ maTuLink = c; nguonLink = 'cookie_link'; }
+  }
+
+  if(maTuLink){ o.value = maTuLink; hienTenCtv(maTuLink); }
+
+  var goTre = null;
+  o.addEventListener('input', function(){
+    this.value = chuanHoaMa(this.value);
+    var v = this.value;
+    if(goTre) clearTimeout(goTre);
+    goTre = setTimeout(function(){ hienTenCtv(v); }, 400);
+  });
+}
+
 /* ══════════ KHỞI TẠO ══════════ */
 
 /* Loại xe mở sẵn khi vào trang.
    Ưu tiên: ?loai=moto trên URL  →  data-loai-xe trên <section id="cap-don">.
    Nhờ vậy trang bảo hiểm xe máy mở sẵn tab xe máy, trang ô tô mở sẵn ô tô,
    mà vẫn dùng chung đúng một bộ mã. */
-function loaiXeMacDinh(){
-  try{
-    var q = new URLSearchParams(location.search).get('loai');
-    if(q === 'moto' || q === 'oto') return q;
-  }catch(e){}
+function thamSo(ten){
+  try{ return new URLSearchParams(location.search).get(ten) || ''; }catch(e){ return ''; }
+}
+function thuocTinh(ten){
   var sec = document.getElementById('cap-don');
-  var v = sec && sec.getAttribute('data-loai-xe');
+  return (sec && sec.getAttribute(ten)) || '';
+}
+
+function loaiXeMacDinh(){
+  var q = thamSo('loai');
+  if(q === 'moto' || q === 'oto') return q;
+  var v = thuocTinh('data-loai-xe');
   return (v === 'moto' || v === 'oto') ? v : '';
+}
+
+/* Trang landing theo từ khoá quảng cáo chọn sẵn tới tận loại xe cụ thể, để phí
+   hiện ngay khi mở trang. Khách vẫn đổi được mọi lựa chọn — đây chỉ là điểm
+   xuất phát. Ví dụ trang "xe 5 chỗ": data-nhom="nkd" data-chi-tiet="d6". */
+function chonSanChiTiet(){
+  var nhom = thamSo('nhom') || thuocTinh('data-nhom');
+  if(!nhom) return;
+  var g = $('cdf-group');
+  if(!g) return;
+  g.value = nhom;
+  if(g.value !== nhom) return;        /* nhóm không tồn tại thì thôi */
+  onGroup();
+
+  var ct = thamSo('chi_tiet') || thuocTinh('data-chi-tiet');
+  if(!ct) return;
+  var sub = $('cdf-sub');
+  if(!sub) return;
+  sub.value = ct;
+  if(sub.value !== ct) return;        /* loại xe không tồn tại thì thôi */
+  calc();
 }
 
 (function(){
@@ -534,7 +664,9 @@ function loaiXeMacDinh(){
   if(vin) vin.addEventListener('blur', function(){ this.value = this.value.toUpperCase(); });
 
   var md = loaiXeMacDinh();
-  if(md) pickVeh(md);
+  if(md){ pickVeh(md); if(md === 'oto') chonSanChiTiet(); }
+
+  khoiTaoGhiNhan();
 })();
 window.CD = { pickVeh:pickVeh, onGroup:onGroup, calc:calc, pickTerm:pickTerm, guiDiaChi:guiDiaChi,
               go:go, toggleVat:toggleVat, cp:cp, finish:finish, refreshQR:refreshQR };
