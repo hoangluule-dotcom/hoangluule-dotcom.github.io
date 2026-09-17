@@ -117,6 +117,23 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# ── JS phải LUÔN kiểm tra bản mới ───────────────────────────────────────────
+# Luật này đứng SAU /assets/* nên nó ghi đè Cache-Control cho riêng tệp .js.
+#
+# VÌ SAO: ngày 17/09/2026 đổi luồng cấp đơn từ Netlify Forms sang Apps Script.
+# Mã trên máy chủ đã đúng, nhưng trình duyệt của người đã từng vào trang trong
+# 7 ngày trước đó vẫn chạy bản JS cũ — vẫn gửi đơn sang Forms, không có dòng
+# nào vào sổ cái, và KHÔNG có lỗi nào hiện ra vì Forms vẫn nhận. Đơn không mất,
+# nhưng hoa hồng không tính được và sổ cái sai.
+#
+# Ảnh và font giữ nguyên cache 1 năm — chúng chỉ là hình ảnh, đổi thì đổi tên
+# tệp. Còn JS là HÀNH VI: một bản cũ chạy tiếp vài ngày là vài ngày dữ liệu sai.
+# Tệp JS nhỏ, và must-revalidate kèm ETag chỉ tốn một request 304 rỗng.
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 # HTML phải luôn kiểm tra bản mới — nếu cache lâu, khách sẽ thấy nội dung cũ
 # sau mỗi lần deploy.
 [[headers]]
