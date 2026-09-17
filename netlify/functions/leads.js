@@ -39,14 +39,29 @@ exports.handler = async function (event) {
     }
     const forms = await formsRes.json();
 
+    /* PHẢI LẬT TRANG. API Netlify chặn per_page ở 100 và tự phân trang mọi
+       kết quả quá 100 mục. Bản trước gọi /submissions không kèm tham số nào
+       nên chỉ nhận được 100 lead — phần còn lại biến mất khỏi CRM mà không có
+       lỗi nào hiện ra. Trần 200 trang để một lỗi phía API không treo hàm. */
+    async function docHetBanGhi(formId) {
+      const ra = [];
+      for (let trang = 1; trang <= 200; trang++) {
+        const r = await fetch(
+          `https://api.netlify.com/api/v1/forms/${formId}/submissions?per_page=100&page=${trang}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (!r.ok) break;
+        const lo = await r.json();
+        if (!Array.isArray(lo) || lo.length === 0) break;
+        for (const x of lo) ra.push(x);
+        if (lo.length < 100) break;
+      }
+      return ra;
+    }
+
     let allSubmissions = [];
     for (const form of forms) {
-      const subRes = await fetch(
-        `https://api.netlify.com/api/v1/forms/${form.id}/submissions`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      if (!subRes.ok) continue;
-      const subs = await subRes.json();
+      const subs = await docHetBanGhi(form.id);
       subs.forEach((s) => {
         allSubmissions.push({
           id: s.id,                 // dùng làm leadId để ghép với dữ liệu chăm sóc

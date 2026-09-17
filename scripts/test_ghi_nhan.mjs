@@ -24,6 +24,7 @@ const K = require(path.join(GOC, 'netlify/functions/lib/ctv-kho.js'));
 /* Thay docDonHang bằng bản giả — đơn thật nằm ở Netlify Forms, cần token. */
 const DON_GIA = [];
 const LEAD_GIA = [];
+const DOC_DON_THAT = K.docDonHang;   /* giữ bản thật để soát việc lật trang */
 K.docDonHang = async () => DON_GIA;
 K.docLead = async () => LEAD_GIA;
 
@@ -38,6 +39,46 @@ const kiemTra = (t, dk, ct) => {
   if (dk) { dat++; console.log('  đạt   ' + t); }
   else { truot++; console.log('  TRƯỢT ' + t + (ct ? '  → ' + ct : '')); }
 };
+
+/* ── Lật trang API Netlify ────────────────────────────────────────────────
+   API chặn per_page ở 100 và tự phân trang. Đọc đúng một trang thì form vượt
+   100 lượt gửi là phần còn lại biến mất, không có lỗi nào. Đây là phép thử
+   duy nhất chặn được lỗi đó, vì mọi phép thử khác đều dùng docDonHang giả. */
+console.log('\n── Đọc đơn từ Netlify Forms phải lật hết trang ──');
+{
+  process.env.NETLIFY_ACCESS_TOKEN = 'token-gia-de-test';
+  const fetchThat = globalThis.fetch;
+  const daXin = [];
+  const banGhi = (n, tu) => Array.from({ length: n }, (_, i) => ({
+    id: 's' + (tu + i), created_at: new Date().toISOString(),
+    data: { 'ma-don': 'D' + (tu + i), 'ma-ctv': 'AAAA', 'tong-phi': '480700' },
+  }));
+
+  globalThis.fetch = async (url) => {
+    daXin.push(String(url));
+    if (String(url).indexOf('/forms') >= 0 && String(url).indexOf('/submissions') < 0) {
+      return { ok: true, json: async () => [{ id: 'f1', name: 'dbv-capdon-tnds' }] };
+    }
+    const trang = Number(new URL(String(url)).searchParams.get('page') || 1);
+    /* 230 bản ghi: hai trang đầy rồi một trang lẻ */
+    const lo = trang === 1 ? banGhi(100, 0) : trang === 2 ? banGhi(100, 100)
+             : trang === 3 ? banGhi(30, 200) : [];
+    return { ok: true, json: async () => lo };
+  };
+
+  const ds = await DOC_DON_THAT();
+  kiemTra('đọc đủ 230 bản ghi chứ không dừng ở 100', ds.length === 230, String(ds.length));
+  kiemTra('không xin per_page quá 100 (API sẽ lặng lẽ cắt)',
+    !daXin.some((u) => /per_page=(\d+)/.test(u) && Number(RegExp.$1) > 100),
+    daXin.find((u) => /per_page=[0-9]{3,}/.test(u)));
+  kiemTra('có xin trang 2 và trang 3',
+    daXin.some((u) => /page=2\b/.test(u)) && daXin.some((u) => /page=3\b/.test(u)));
+  kiemTra('dừng lại khi trang chưa đầy, không xin trang 4',
+    !daXin.some((u) => /page=4\b/.test(u)));
+
+  globalThis.fetch = fetchThat;
+  delete process.env.NETLIFY_ACCESS_TOKEN;
+}
 
 const LOAI = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css',

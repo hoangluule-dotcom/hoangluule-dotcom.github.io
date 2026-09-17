@@ -321,10 +321,32 @@ async function danhSachForm(h) {
   return rf.json();
 }
 
+/* PHẢI LẬT TRANG — đây là cái bẫy im lặng nhất của API Netlify.
+   API chặn per_page ở 100 và tự phân trang mọi kết quả quá 100 mục. Bản trước
+   của hàm này xin per_page=1000 rồi đọc đúng một trang: Netlify không báo lỗi,
+   chỉ lặng lẽ trả về 100 bản ghi. Tức là khi form vượt 100 lượt gửi thì phần
+   còn lại BIẾN MẤT khỏi bảng điều khiển cộng tác viên và màn hình quản trị,
+   mà không có dấu hiệu nào — đúng loại lỗi khiến cộng tác viên tin là DBV ăn
+   gian. Mỗi khách mua tốn 2 lượt gửi, nên ngưỡng này tới rất nhanh.
+   Trần 200 trang (20.000 bản ghi) để một lỗi phía API không làm hàm chạy mãi. */
+const MOI_TRANG = 100;
+const TRANG_TOI_DA = 200;
+
 async function docBanGhi(h, formId) {
-  const rs = await fetch('https://api.netlify.com/api/v1/forms/' + formId + '/submissions?per_page=1000', { headers: h });
-  if (!rs.ok) throw new Error('Không đọc được bản ghi của form (' + rs.status + ').');
-  return rs.json();
+  const ra = [];
+  for (let trang = 1; trang <= TRANG_TOI_DA; trang++) {
+    const rs = await fetch(
+      'https://api.netlify.com/api/v1/forms/' + formId +
+      '/submissions?per_page=' + MOI_TRANG + '&page=' + trang,
+      { headers: h }
+    );
+    if (!rs.ok) throw new Error('Không đọc được bản ghi của form (' + rs.status + ').');
+    const lo = await rs.json();
+    if (!Array.isArray(lo) || lo.length === 0) break;
+    for (const x of lo) ra.push(x);
+    if (lo.length < MOI_TRANG) break;   // trang cuối
+  }
+  return ra;
 }
 
 async function docDonHang() {

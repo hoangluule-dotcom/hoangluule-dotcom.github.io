@@ -3,3 +3,11 @@ Thumbs.db
 desktop.ini
 .DS_Store
 .claude/
+
+# Bản sao dữ liệu Netlify — CHỨA DỮ LIỆU CÁ NHÂN CỦA KHÁCH.
+# Netlify đưa mọi tệp trong thư mục deploy lên internet, nên thư mục này
+# không bao giờ được commit. Bản sao đi vào Artifact riêng tư của GitHub
+# Actions (xem .github/workflows/sao-luu-du-lieu.yml).
+sao-luu/
+moc-truoc.json
+ket-qua.txt
