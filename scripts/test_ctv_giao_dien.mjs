@@ -17,8 +17,27 @@ const require = createRequire(import.meta.url);
 const GOC = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 process.env.CTV_TOKEN_SECRET = 'chuoi-bi-mat-dai-hon-16-ky-tu-de-test';
+process.env.GAS_KHOA_NOI_BO = 'khoa-noi-bo-de-test-0123456789ab';
+
+/* Apps Script giả — bảng điều khiển nay đọc số liệu từ Google Sheets qua
+   hàm gas-ctv, nên phải có một đầu kia trả lời thì trang mới hiện lên. */
+const mayGas = http.createServer(async (req, res) => {
+  const u = new URL(req.url, 'http://x');
+  let than = ''; for await (const c of req) than += c;
+  const p = Object.fromEntries(new URLSearchParams(req.method === 'POST' ? than : u.search));
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  if (p.action === 'dangKyCtv') { res.end(JSON.stringify({ ok: true, ctvId: p.ctvId })); return; }
+  res.end(JSON.stringify({ ok: true, cap_nhat: '2026-09-17 10:00:00',
+    tong_quan: { so_don: 0, so_don_da_tra: 0, doanh_thu: 0,
+                 hoa_hong_phat_sinh: 0, hoa_hong_cho_duyet: 0, hoa_hong_da_tra: 0 },
+    don: [] }));
+});
+await new Promise((ok) => mayGas.listen(8902, ok));
+process.env.GAS_URL = 'http://127.0.0.1:8902/exec';
+
 const auth = require(path.join(GOC, 'netlify/functions/ctv-auth.js'));
 const toi = require(path.join(GOC, 'netlify/functions/ctv-toi.js'));
+const gasCtv = require(path.join(GOC, 'netlify/functions/gas-ctv.js'));
 
 let dat = 0, truot = 0;
 const kiemTra = (ten, dk, ct) => {
@@ -44,8 +63,8 @@ const may = http.createServer(async (req, res) => {
 
   // Hai function
   const fn = p.startsWith('/.netlify/functions/') ? p.slice('/.netlify/functions/'.length) : null;
-  if (fn === 'ctv-auth' || fn === 'ctv-toi') {
-    const bo = fn === 'ctv-auth' ? auth : toi;
+  if (fn === 'ctv-auth' || fn === 'ctv-toi' || fn === 'gas-ctv') {
+    const bo = fn === 'ctv-auth' ? auth : (fn === 'gas-ctv' ? gasCtv : toi);
     const kq = await bo.handler({
       httpMethod: req.method,
       headers: req.headers,
@@ -267,7 +286,7 @@ try {
   await ctx.close();
 } finally {
   await tb.close();
-  may.close();
+  may.close(); mayGas.close();
 }
 
 console.log('\n' + (truot === 0 ? 'TẤT CẢ ĐẠT' : 'CÓ LỖI') + ' — ' + dat + ' đạt, ' + truot + ' trượt\n');

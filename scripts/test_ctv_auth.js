@@ -97,7 +97,37 @@ const than = (r) => JSON.parse(r.body);
 
   console.log('\n── Token ──');
   kiemTra('token hợp lệ giải được', K.giaiToken(token1) !== null);
-  kiemTra('token bị sửa 1 ký tự thì hỏng', K.giaiToken(token1.slice(0, -1) + (token1.slice(-1) === 'A' ? 'B' : 'A')) === null);
+  /* Phép thử cũ ở đây đổi KÝ TỰ CUỐI của chữ ký rồi đòi token phải hỏng — và
+     nó chập chờn, khoảng 1/4 số lần chạy là trượt. Nguyên nhân không phải mã
+     sai: chữ ký 32 byte mã hoá base64url thành 43 ký tự, nên ký tự cuối chỉ
+     mang 2 bit có nghĩa, 4 bit còn lại là đệm. Cả dải A–P giải mã ra ĐÚNG MỘT
+     chuỗi byte. Đổi ký tự cuối trong dải đó là không đổi gì cả, và giaiToken()
+     so sánh theo BYTE nên vẫn nhận — đúng như phải thế.
+
+     Thay bằng ba phép thử chắc chắn: lật từng bit thật của chữ ký, sửa phần
+     thân, và cắt cụt. */
+  {
+    const [than0, sig0] = token1.split('.');
+    const sigByte = Buffer.from(sig0.replace(/-/g, '+').replace(/_/g, '/'), 'base64');
+    let moiViTri = true;
+    for (const vt of [0, 7, 15, 31]) {
+      const hong = Buffer.from(sigByte);
+      hong[vt] ^= 0x01;                       // lật đúng 1 bit
+      const sigHong = hong.toString('base64')
+        .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      if (K.giaiToken(than0 + '.' + sigHong) !== null) moiViTri = false;
+    }
+    kiemTra('lật 1 bit bất kỳ của chữ ký thì token hỏng', moiViTri);
+
+    const thanHong = Buffer.from(JSON.stringify({ sdt: '0999999999', ma: 'XXXX',
+      het: Date.now() + 86400000 })).toString('base64')
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    kiemTra('đổi phần thân (giả mạo số điện thoại) thì token hỏng',
+      K.giaiToken(thanHong + '.' + sig0) === null);
+
+    kiemTra('cắt cụt chữ ký thì token hỏng',
+      K.giaiToken(than0 + '.' + sig0.slice(0, 20)) === null);
+  }
   kiemTra('token rỗng thì hỏng', K.giaiToken('') === null);
   kiemTra('token không có dấu chấm thì hỏng', K.giaiToken('abcdef') === null);
   const hetHan = (function () {

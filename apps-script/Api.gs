@@ -129,6 +129,7 @@ function doPost(e) {
     if (hanhDong === 'createOrder')      return taoDon(e.parameter);
     if (hanhDong === 'updateOrderStatus')return capNhatTrangThai(e.parameter);
     if (hanhDong === 'dangKyCtv')        return dangKyCtv(e.parameter);
+    if (hanhDong === 'capNhatCtv')       return capNhatCtv(e.parameter);
 
     return traLoi('Hành động không hợp lệ: ' + hanhDong, 'HANH_DONG');
   } catch (err) {
@@ -391,6 +392,44 @@ function dangKyCtv(p) {
     ]);
     ghiNhatKy('dangKyCtv', '', ma, 'website', '', 'ACTIVE', '');
     return tra({ ok: true, ctvId: ma });
+  });
+}
+
+/**
+ * Cập nhật hồ sơ cộng tác viên trong sheet CTV.
+ *
+ * VÌ SAO CẦN: hồ sơ đăng nhập nằm ở Netlify Blobs, còn sheet CTV là nơi màn
+ * hình chi trả đọc TÀI KHOẢN NHẬN TIỀN. Cộng tác viên đổi số tài khoản trên
+ * web mà sheet không đổi theo thì đến kỳ chi trả, tiền đi vào tài khoản cũ.
+ * Không ai phát hiện cho tới khi họ báo chưa nhận được.
+ *
+ * Chỉ ghi đè những trường được gửi lên — trường bỏ trống giữ nguyên giá trị cũ.
+ */
+function capNhatCtv(p) {
+  var ma = chuanHoaMaCtv(p.ctvId || '');
+  if (!ma) return traLoi('Thiếu mã cộng tác viên.', 'THIEU');
+
+  return khoaVaChay(function () {
+    var ds = docSheet(CH.SHEET.CTV);
+    var ban = null;
+    for (var i = 0; i < ds.length; i++) {
+      if (chuanHoaMaCtv(ds[i].ctv_id) === ma) { ban = ds[i]; break; }
+    }
+    if (!ban) return traLoi('Không tìm thấy cộng tác viên ' + ma, 'KHONG_CO');
+
+    var doi = [];
+    [['hoTen','Họ tên'], ['email','Email'], ['nganHang','Ngân hàng'],
+     ['soTaiKhoan','Số tài khoản'], ['chuTaiKhoan','Chủ tài khoản']
+    ].forEach(function (c) {
+      if (p[c[0]] == null || String(p[c[0]]).trim() === '') return;
+      ghiO(CH.SHEET.CTV, ban._hang, c[1], String(p[c[0]]).trim());
+      doi.push(c[1]);
+    });
+
+    if (doi.length) {
+      ghiNhatKy('capNhatCtv', '', ma, 'website', '', doi.join(', '), '');
+    }
+    return tra({ ok: true, ctvId: ma, da_doi: doi });
   });
 }
 

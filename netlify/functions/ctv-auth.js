@@ -93,6 +93,28 @@ async function dangKy(kho, than, sdt, matKhau) {
   ban.dang_nhap_cuoi = ban.ngay_tao;
   await K.ghiCtv(kho, ban);
 
+  /* Ghi thêm một dòng vào sheet CTV của bảng tính Affiliate.
+     BẮT BUỘC, không phải tuỳ chọn: Apps Script kiểm mã CTV có tồn tại và đang
+     ACTIVE trong sheet đó trước khi gắn đơn. Thiếu dòng này thì cộng tác viên
+     đăng ký xong, gửi link đi, khách mua — và đơn về hệ thống KHÔNG mang mã
+     của họ. Lỗi im lặng, chỉ lộ khi họ hỏi sao không có hoa hồng.
+
+     Nhưng cũng không được làm hỏng việc đăng ký nếu Apps Script trục trặc:
+     tài khoản vẫn tạo xong, chỉ ghi log để còn bổ sung dòng thiếu sau. */
+  try {
+    const G = require('./lib/gas');
+    const kq = await G.goiPost('dangKyCtv', {
+      ctvId: maCtv, hoTen: ban.ho_ten, phone: ban.sdt, email: ban.email || '',
+    });
+    if (!kq || !kq.ok) {
+      console.error('[ctv-auth] Không thêm được CTV ' + maCtv +
+                    ' vào sheet: ' + ((kq && kq.error) || 'không rõ'));
+    }
+  } catch (err) {
+    console.error('[ctv-auth] Apps Script không phản hồi khi thêm CTV ' +
+                  maCtv + ': ' + (err.message || err));
+  }
+
   return K.json(201, {
     ok: true,
     token: K.kyToken(ban.sdt, ban.ma_ctv),

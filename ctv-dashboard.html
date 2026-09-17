@@ -624,7 +624,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 (function(){
   'use strict';
-  var API  = '/.netlify/functions/ctv-toi';
+  /* HAI KHO, HAI ĐƯỜNG — không gộp được.
+     Số liệu đơn và hoa hồng nằm ở Google Sheets, đọc qua gas-ctv (chỉ GET).
+     Hồ sơ đăng nhập (tên, email, tài khoản ngân hàng, mật khẩu) nằm cùng chỗ
+     với phần xác thực trên Netlify Blobs, sửa qua ctv-toi (POST). */
+  var API     = '/.netlify/functions/gas-ctv';
+  var API_HS  = '/.netlify/functions/ctv-toi';
   var KHOA = 'dbv_ctv_token';
   var KHOA2= 'dbv_ctv_ma';
   /* Link giới thiệu đi qua /r/<MÃ> — một hàm máy chủ đặt cookie ghi nhận rồi
@@ -703,20 +708,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if(!o) return;
     if(!ds || !ds.length) return;            /* giữ nguyên khối trống */
 
+    /* Nhãn trạng thái lấy từ trạng thái thật trong sổ, không suy đoán.
+       "Đã nhận tiền" nay có nghĩa là NHÂN VIÊN ĐÃ ĐỐI SOÁT SAO KÊ — mạnh hơn
+       hẳn "khách báo đã chuyển khoản" của bản cũ, nên phải gọi đúng tên. */
+    var NHAN_TT = {
+      'PAYMENT_PENDING': ['Chờ tiền về', 'cho'],
+      'PAID'           : ['Đã nhận tiền', 'xong'],
+      'CANCELLED'      : ['Đã huỷ', 'cho'],
+      'REFUNDED'       : ['Đã hoàn phí', 'cho']
+    };
+    var NHAN_HH = {
+      'COMMISSION_APPROVED': 'Đã chốt',
+      'COMMISSION_PAID'    : 'Đã trả',
+      'COMMISSION_CLAWBACK': 'Đã thu hồi'
+    };
+
     var h = '<div style="overflow-x:auto"><table class="db-don"><thead><tr>'
-      + '<th>Thời điểm</th><th>Biển số</th><th>Xe</th><th>Thời hạn</th>'
-      + '<th class="phai">Tổng phí</th><th>Trạng thái</th><th>Vì sao tính cho bạn</th>'
+      + '<th>Thời điểm</th><th>Mã đơn</th><th>Biển số</th><th>Xe</th>'
+      + '<th class="phai">Tổng phí</th><th class="phai">Hoa hồng</th>'
+      + '<th>Trạng thái</th><th>Vì sao tính cho bạn</th>'
       + '</tr></thead><tbody>';
     ds.forEach(function(d){
-      var daCk = d.trang_thai === 'Khách báo đã chuyển khoản';
+      var n = NHAN_TT[d.trang_thai] || [d.trang_thai || '—', 'cho'];
+      var hh = Number(d.hoa_hong) || 0;
       h += '<tr>'
         + '<td class="nho">' + gioNgay(d.thoi_diem) + '</td>'
+        + '<td class="nho">' + esc(d.ma_don || '—') + '</td>'
         + '<td><b>' + esc(d.bien_so || '—') + '</b></td>'
         + '<td class="nho">' + esc(d.chi_tiet_xe || d.loai_xe || '—') + '</td>'
-        + '<td class="nho">' + esc(d.thoi_han || '—') + '</td>'
         + '<td class="phai"><b>' + tien(d.tong_phi) + 'đ</b></td>'
-        + '<td><span class="tt ' + (daCk ? 'xong' : 'cho') + '">'
-            + (daCk ? 'Khách đã báo chuyển khoản' : 'Chờ tiền về') + '</span></td>'
+        + '<td class="phai">' + (hh ? '<b>' + tien(hh) + 'đ</b>'
+            + (d.trang_thai_hh ? '<div class="nho">' + esc(NHAN_HH[d.trang_thai_hh] || '') + '</div>' : '')
+            : '<span class="nho">—</span>') + '</td>'
+        + '<td><span class="tt ' + n[1] + '">' + esc(n[0]) + '</span></td>'
         + '<td class="nho">' + esc(TEN_NGUON[d.nguon_ghi_nhan] || d.nguon_ghi_nhan || '—') + '</td>'
         + '</tr>';
     });
@@ -763,12 +787,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       /* Ghi nhận đơn đã bật, nhưng hoa hồng thì chưa — nói rõ đang ở đâu.
          Để nguyên băng cũ khi cả hai chưa bật sẽ khiến CTV tưởng mất đơn. */
-      if (d.ghi_nhan_dang_bat) {
+      if (d.hoa_hong_dang_bat) {
+        $('bang-tieu-de').textContent = 'Hoa hồng tính 40% phí bảo hiểm (không gồm VAT)';
+        $('bang-noi-dung').textContent =
+          'Hoa hồng được chốt khi nhân viên đối soát sao kê và xác nhận tiền đã về. '
+          + 'Ô "Doanh thu ghi nhận" là tổng phí khách chuyển (đã gồm VAT), còn hoa hồng tính '
+          + 'trên phí bảo hiểm chưa VAT — nên lấy hoa hồng chia doanh thu sẽ ra khoảng 36,4% '
+          + 'chứ không phải 40%. Hai con số có căn cứ khác nhau.';
+      } else if (d.ghi_nhan_dang_bat) {
         $('bang-tieu-de').textContent = 'Đơn đã được ghi nhận, phần hoa hồng chưa bật';
         $('bang-noi-dung').textContent =
-          'Link giới thiệu của bạn đang hoạt động và mọi đơn mua qua link đều được ghi lại bên dưới. '
-          + 'Phần tính và chi trả hoa hồng sẽ bật sau khi có quy trình đối soát sao kê ngân hàng — '
-          + 'tới lúc đó ba ô hoa hồng còn bằng 0.';
+          'Link giới thiệu của bạn đang hoạt động và mọi đơn mua qua link đều được ghi lại bên dưới.';
       }
 
       $('db-tai').style.display = 'none';
@@ -818,7 +847,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     var btn = $('btn-save'); btn.disabled = true; btn.textContent = 'Đang lưu…';
     try {
-      var res = await fetch(API, {
+      var res = await fetch(API_HS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
         body: JSON.stringify(than)

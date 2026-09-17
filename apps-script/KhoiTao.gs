@@ -20,6 +20,12 @@ function taoBangTinh() {
   var bt = SpreadsheetApp.getActiveSpreadsheet();
   bt.setSpreadsheetTimeZone(CH.MUI_GIO);
 
+  /* Đặt tên bảng tính, nhưng CHỈ khi nó còn mang tên mặc định của Google.
+     Đổi tên vô điều kiện thì mỗi lần chạy lại hàm này sẽ xoá mất cái tên người
+     dùng tự đặt — một hàm "dựng lại cấu trúc" không có quyền làm việc đó. */
+  var TEN_MAC_DINH = ['Untitled spreadsheet', 'Bảng tính không có tiêu đề'];
+  if (TEN_MAC_DINH.indexOf(bt.getName()) >= 0) bt.rename('DBV247 — Affiliate TNDS');
+
   dungSheet_(bt, CH.SHEET.CTV,     CH.COT_CTV);
   dungSheet_(bt, CH.SHEET.ORDERS,  CH.COT_ORDERS);
   dungSheet_(bt, CH.SHEET.QUY_TAC, CH.COT_QUY_TAC);
@@ -30,7 +36,7 @@ function taoBangTinh() {
   dungKhoaCot_(bt);
   dungDinhDang_(bt);
 
-  SpreadsheetApp.getUi().alert(
+  thongBao_(
     'Đã dựng xong 5 sheet.\n\n' +
     'Việc còn lại:\n' +
     '1. Điền COMMISSION_RULES (xem hướng dẫn) — chưa có quy tắc thì hệ thống ' +
@@ -39,6 +45,25 @@ function taoBangTinh() {
     '3. Deploy → New deployment → Web app.\n' +
     '4. Triggers → Add Trigger → hàm onSuaDBV → sự kiện On edit.'
   );
+}
+
+/**
+ * Báo cho người chạy biết kết quả, KHÔNG được ném lỗi.
+ *
+ * Chạy hàm từ trình soạn thảo Apps Script thì không có giao diện bảng tính nào
+ * đang mở, và SpreadsheetApp.getUi() ném "Cannot call SpreadsheetApp.getUi()
+ * from this context". Lần đầu chạy taoBangTinh() đã dính đúng lỗi này: 5 sheet
+ * đã dựng xong hoàn chỉnh, nhưng dòng alert cuối cùng ném lỗi nên nhật ký chỉ
+ * hiện một dòng Exception màu đỏ — trông y như thất bại toàn tập.
+ *
+ * Một câu thông báo không bao giờ được phép làm hỏng kết quả của việc đã xong.
+ */
+function thongBao_(vanBan) {
+  try {
+    SpreadsheetApp.getUi().alert(vanBan);
+  } catch (e) {
+    console.log(vanBan);
+  }
 }
 
 function dungSheet_(bt, ten, cot) {
@@ -84,32 +109,58 @@ function dungDanhSachChon_(bt) {
   }
 }
 
+/**
+ * Khoá mọi cột trừ 4 cột nhân viên được sửa tay.
+ *
+ * MỘT lớp bảo vệ cho cả sheet, rồi MỞ RA đúng 4 cột — chứ không phải 18 lớp
+ * bảo vệ, mỗi cột một lớp.
+ *
+ * Bản trước làm theo kiểu từng cột: 18 lần protect() + 18 lần removeEditors(),
+ * gần 40 lượt gọi API, mất hơn 30 giây. Chạy từ trình soạn thảo (giới hạn 6
+ * phút) thì xong, nhưng chạy từ menu bảng tính — giới hạn 30 GIÂY — thì bị cắt
+ * giữa chừng: một nửa số cột đã gỡ khoá cũ mà chưa kịp khoá lại, và không có
+ * lỗi nào hiện ra ở chỗ dễ thấy. Đúng loại hỏng tệ nhất: cột tiền hở ra mà mọi
+ * thứ trông vẫn bình thường.
+ *
+ * Một lớp bảo vệ chỉ mất vài lượt gọi, nên hàm này chạy lọt cả hai giới hạn.
+ */
 function dungKhoaCot_(bt) {
   var sh = bt.getSheetByName(CH.SHEET.ORDERS);
   var tieuDe = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
+  var soDong = Math.max(sh.getMaxRows() - 1, 1);
 
-  /* Gỡ hết phần khoá cũ rồi dựng lại, để chạy lại hàm này không chồng lớp */
-  var cu = sh.getProtections(SpreadsheetApp.ProtectionType.RANGE);
-  for (var i = 0; i < cu.length; i++) {
-    if (cu[i].getDescription() && cu[i].getDescription().indexOf('DBV247') === 0) {
-      cu[i].remove();
+  goBaoVeCu_(sh);
+
+  var moRa = [];
+  for (var c = 0; c < tieuDe.length; c++) {
+    if (CH.COT_NHAN_VIEN_SUA.indexOf(tieuDe[c]) >= 0) {
+      moRa.push(sh.getRange(2, c + 1, soDong, 1));
     }
   }
-
-  for (var c = 0; c < tieuDe.length; c++) {
-    var ten = tieuDe[c];
-    if (CH.COT_NHAN_VIEN_SUA.indexOf(ten) >= 0) continue;   // 4 cột cho phép sửa
-    var p = sh.getRange(2, c + 1, Math.max(sh.getMaxRows() - 1, 1), 1)
-             .protect()
-             .setDescription('DBV247 — cột "' + ten + '" chỉ được ghi bằng mã');
-    p.removeEditors(p.getEditors());
-    if (p.canDomainEdit && p.canDomainEdit()) p.setDomainEdit(false);
-  }
+  var p = sh.protect().setDescription('DBV247 — chỉ 4 cột nhân viên được sửa tay');
+  if (moRa.length) p.setUnprotectedRanges(moRa);
+  p.removeEditors(p.getEditors());
+  if (p.canDomainEdit && p.canDomainEdit()) p.setDomainEdit(false);
 
   /* Sheet nhật ký: không ai được sửa, kể cả chủ bảng tính cũng nên tránh */
   var nk = bt.getSheetByName(CH.SHEET.NHAT_KY);
+  goBaoVeCu_(nk);
   var pn = nk.protect().setDescription('DBV247 — nhật ký, chỉ ghi thêm');
   pn.removeEditors(pn.getEditors());
+}
+
+/* Gỡ hết phần khoá cũ DO CHÍNH MÃ NÀY TẠO RA (mô tả bắt đầu bằng "DBV247"),
+   cả kiểu theo dải ô lẫn kiểu cả sheet — bản cũ chỉ gỡ kiểu dải ô, nên đổi sang
+   cách mới mà không gỡ kiểu cũ là chồng hai lớp lên nhau. Phần bảo vệ do người
+   khác đặt tay thì không đụng vào. */
+function goBaoVeCu_(sh) {
+  [SpreadsheetApp.ProtectionType.RANGE, SpreadsheetApp.ProtectionType.SHEET]
+    .forEach(function (loai) {
+      var ds = sh.getProtections(loai);
+      for (var i = 0; i < ds.length; i++) {
+        if ((ds[i].getDescription() || '').indexOf('DBV247') === 0) ds[i].remove();
+      }
+    });
 }
 
 function dungDinhDang_(bt) {
@@ -156,17 +207,25 @@ function dungDinhDang_(bt) {
  */
 function dienQuyTacHoaHong() {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CH.SHEET.QUY_TAC);
-  var da = sh.getLastRow() > 1;
-  if (da) {
-    var tra = SpreadsheetApp.getUi().alert(
-      'COMMISSION_RULES đã có dữ liệu. Thêm hai dòng 40% nữa?',
-      SpreadsheetApp.getUi().ButtonSet.YES_NO);
-    if (tra !== SpreadsheetApp.getUi().Button.YES) return;
+
+  /* Đã có dữ liệu thì DỪNG HẲN, không hỏi.
+     Trước đây chỗ này hỏi Yes/No bằng getUi(), nhưng chạy từ trình soạn thảo
+     thì getUi() ném lỗi — và quan trọng hơn: thêm nhầm một dòng 40% thứ hai
+     cùng ngày hiệu lực là hai quy tắc tranh nhau cho cùng một đơn. chonQuyTac()
+     sẽ chọn một trong hai một cách tuỳ ý, và không ai biết vì sao hai đơn giống
+     hệt nhau lại ra hai số hoa hồng. Không thêm là lựa chọn an toàn duy nhất. */
+  if (sh.getLastRow() > 1) {
+    thongBao_('COMMISSION_RULES đã có dữ liệu — KHÔNG điền thêm gì cả.\n' +
+              'Muốn đổi mức: thêm dòng mới bằng tay với NGÀY HIỆU LỰC mới, ' +
+              'đừng sửa dòng cũ (đơn cũ phải giữ nguyên mức của nó).');
+    return;
   }
   sh.appendRow(['oto',  'percent', 0.4, 'phi_goc', new Date('2026-09-01'),
                 'Mức khởi điểm — 40% phí gốc, không gồm VAT']);
   sh.appendRow(['moto', 'percent', 0.4, 'phi_goc', new Date('2026-09-01'),
                 'Mức khởi điểm — 40% phí gốc, không gồm VAT']);
+  thongBao_('Đã điền 2 dòng: oto và moto, 40% trên phí gốc, ' +
+            'hiệu lực từ 01/09/2026.');
 }
 
 /** Menu cho tiện, khỏi phải vào trình soạn thảo Apps Script mỗi lần. */

@@ -462,7 +462,12 @@ function payload(status){
     'ghi-chu'     : val('cdf-note')
   };
 }
-function send(status){
+/* Gửi đơn lên Netlify Forms — ĐƯỜNG DỰ PHÒNG.
+   Trước đây đây là đường chính. Nó bị thay vì gói miễn phí có hạn mức lượt gửi
+   mỗi tháng, và vượt hạn mức thì đơn bị bỏ IM LẶNG: không lỗi, không thông
+   báo, đơn biến mất. Giữ lại làm lưới đỡ cho trường hợp Apps Script không
+   phản hồi — thà có đơn nằm ở hai nơi còn hơn mất đơn của khách. */
+function guiFormsDuPhong(status){
   try{
     fetch('/', {
       method : 'POST',
@@ -470,6 +475,26 @@ function send(status){
       body   : new URLSearchParams(payload(status)).toString()
     }).catch(function(){});
   }catch(e){}
+}
+
+function send(status){
+  /* Đường chính: hàm Netlify → Apps Script → Google Sheets.
+     Không await: khách không phải đợi mạng để thấy mã QR. Nhưng nếu hỏng thì
+     phải rơi sang đường dự phòng, nên vẫn phải bắt kết quả. */
+  try{
+    fetch('/.netlify/functions/gas-don', {
+      method : 'POST',
+      headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+      body   : new URLSearchParams(payload(status)).toString()
+    }).then(function(r){
+      if(!r.ok) { guiFormsDuPhong(status); return null; }
+      return r.json().catch(function(){ return null; });
+    }).then(function(kq){
+      if(kq && kq.ok === false) guiFormsDuPhong(status);
+    }).catch(function(){
+      guiFormsDuPhong(status);
+    });
+  }catch(e){ guiFormsDuPhong(status); }
   try{
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({

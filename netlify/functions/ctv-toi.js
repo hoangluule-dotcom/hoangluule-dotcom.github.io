@@ -196,5 +196,28 @@ async function capNhat(kho, ban, event) {
   ban.ngay_cap_nhat = new Date().toISOString();
   await K.ghiCtv(kho, ban);
 
+  /* Đẩy sang sheet CTV của bảng tính Affiliate.
+     BẮT BUỘC với thông tin ngân hàng: màn hình chi trả đọc tài khoản nhận tiền
+     TỪ SHEET, không đọc từ kho này. Cộng tác viên đổi số tài khoản trên web mà
+     sheet giữ số cũ thì đến kỳ chi trả, tiền đi vào tài khoản cũ — và không ai
+     biết cho tới khi họ báo chưa nhận được.
+
+     Hỏng thì không chặn việc lưu (hồ sơ đã ghi xong ở trên), chỉ ghi log. */
+  try {
+    const G = require('./lib/gas');
+    const kq = await G.goiPost('capNhatCtv', {
+      ctvId: ban.ma_ctv, hoTen: ban.ho_ten, email: ban.email || '',
+      nganHang: ban.ngan_hang || '', soTaiKhoan: ban.so_tai_khoan || '',
+      chuTaiKhoan: ban.chu_tai_khoan || '',
+    });
+    if (!kq || !kq.ok) {
+      console.error('[ctv-toi] Không cập nhật được CTV ' + ban.ma_ctv +
+                    ' trong sheet: ' + ((kq && kq.error) || 'không rõ'));
+    }
+  } catch (err) {
+    console.error('[ctv-toi] Apps Script không phản hồi khi cập nhật CTV ' +
+                  ban.ma_ctv + ': ' + (err.message || err));
+  }
+
   return K.json(200, { ok: true, ctv: K.hoSoCongKhai(ban) });
 }
