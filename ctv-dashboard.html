@@ -105,7 +105,16 @@ a{color:var(--g)}
 .rong p{font-size:13.5px;color:var(--ts);line-height:1.6;max-width:420px;margin:0 auto}
 
 /* ══ BẢNG ĐƠN ══ */
-.db-don{width:100%;border-collapse:collapse;font-size:13.5px}
+/* min-width LÀ THỨ LÀM CHO overflow-x CÓ TÁC DỤNG.
+   Bảng có 10 cột mà chỉ đặt width:100% thì trình duyệt ép tất cả vừa khung,
+   không bao giờ tràn — nên khung cuộn ngang bao ngoài chẳng dùng tới, còn cột
+   "Xe" bị bóp đến mức mỗi chữ một dòng ("Mô / tô / 2 / bánh..."). Đặt sàn cho
+   chiều rộng bảng thì bảng tự tràn, thanh cuộn ngang hoạt động, và mọi cột
+   giữ được bề ngang đọc được. */
+.db-don{width:100%;min-width:940px;border-collapse:collapse;font-size:13.5px}
+.db-don td.phai{white-space:nowrap}
+.db-don td.xe{min-width:168px}
+.db-don td.nguon{min-width:190px}
 .db-don th{text-align:left;font-size:11px;font-weight:800;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;padding:9px 10px;background:var(--bg);border-bottom:1px solid var(--bd);white-space:nowrap}
 .db-don th.phai,.db-don td.phai{text-align:right;font-variant-numeric:tabular-nums}
 .db-don td{padding:10px;border-bottom:1px solid #f1f4f7;vertical-align:top}
@@ -145,10 +154,20 @@ a{color:var(--g)}
 .hs-msg{font-size:13.5px;font-weight:600;line-height:1.5}
 .hs-msg.good{color:var(--gp)}
 .hs-msg.bad{color:var(--do)}
+/* CHỮ PHẢI NẰM TRONG MỘT PHẦN TỬ, KHÔNG THẢ TRỰC TIẾP VÀO FLEX.
+   Bản trước để cả câu làm con trực tiếp của .lich-tra (display:flex). Trình
+   duyệt gói mỗi đoạn chữ giữa hai thẻ <b> thành một flex item riêng, nên câu
+   văn bị cắt thành 5 ô rời nhau, giãn cách kỳ dị — đúng như ảnh báo lỗi.
+   Bọc toàn bộ chữ vào <span> thì flex chỉ còn 2 item: icon và câu văn. */
 .lich-tra{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;padding:13px 15px;
   background:var(--gl,#E8F5E9);border:1px solid var(--bd);border-radius:var(--r12);
   font-size:14px;line-height:1.55;color:var(--tm)}
 .lich-tra svg{flex:0 0 18px;width:18px;height:18px;margin-top:2px;color:var(--g)}
+.lich-tra span{flex:1 1 auto;min-width:0}
+/* .hint chỉ có hiệu lực bên trong .fld, nên dòng nhắc này phải có lớp riêng —
+   không thì nó rơi về cỡ chữ mặc định và to hơn cả nhãn ô nhập. */
+.hs-nhac{margin:12px 0 0;font-size:12.5px;line-height:1.55;color:var(--ts)}
+.hs-nhac b{color:var(--navy);font-weight:700}
 .hs-sep{margin:20px 0;border:0;border-top:1px solid var(--bd)}
 .hs-sub{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--ts);margin-bottom:13px}
 </style>
@@ -545,9 +564,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            đây thì không ai phải nhắn hỏi. -->
       <p class="lich-tra">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        Hoa hồng khả dụng được <b>tự động chuyển khoản</b> vào tài khoản bạn đã
+        <span>Hoa hồng khả dụng được <b>tự động chuyển khoản</b> vào tài khoản bạn đã
         khai, vào <b>ngày 2 và ngày 16 hằng tháng</b>. Kiểm tra lại số tài khoản
-        ở mục Hồ sơ bên dưới — sai số tài khoản là tiền không tới được bạn.
+        ở mục Hồ sơ bên dưới — sai số tài khoản là tiền không tới được bạn.</span>
       </p>
     </section>
 
@@ -621,6 +640,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="hint">Nên trùng tên người đăng ký — lệch tên thì kế toán sẽ phải hỏi lại trước khi chi.</span>
           </div>
         </div>
+        <!-- Điền xong ba ô ngân hàng, thứ tiếp theo trong biểu mẫu là khối
+             "Đổi mật khẩu" — nhìn như đã sang việc khác, nên nhiều người tưởng
+             không phải bấm gì. Nói thẳng ra đây một câu. -->
+        <p class="hs-nhac">
+          Điền xong phải bấm <b>Lưu thay đổi</b> ở cuối trang thì số tài khoản
+          mới được ghi lại. Đóng trang mà chưa bấm là chưa lưu.
+        </p>
 
         <hr class="hs-sep">
         <div class="hs-sub">Đổi mật khẩu</div>
@@ -767,7 +793,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         + '<td class="nho">' + gioNgay(d.thoi_diem) + '</td>'
         + '<td class="nho">' + esc(d.ma_don || '—') + '</td>'
         + '<td><b>' + esc(d.bien_so || '—') + '</b></td>'
-        + '<td class="nho">' + esc(d.chi_tiet_xe || d.loai_xe || '—')
+        + '<td class="nho xe">' + esc(d.chi_tiet_xe || d.loai_xe || '—')
         + (d.thoi_han ? '<div class="nho">' + esc(d.thoi_han) + '</div>' : '') + '</td>'
         + '<td class="phai">' + tien(d.tong_phi) + 'đ</td>'
         + '<td class="phai nho">' + tien(d.vat) + 'đ</td>'
@@ -777,7 +803,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             + (d.trang_thai_hh ? ' · ' + esc(NHAN_HH[d.trang_thai_hh] || '') : '') + '</div>'
             : '<span class="nho">—</span>') + '</td>'
         + '<td><span class="tt ' + n[1] + '">' + esc(n[0]) + '</span></td>'
-        + '<td class="nho">' + esc(TEN_NGUON[d.nguon_ghi_nhan] || d.nguon_ghi_nhan || '—') + '</td>'
+        + '<td class="nho nguon">' + esc(TEN_NGUON[d.nguon_ghi_nhan] || d.nguon_ghi_nhan || '—') + '</td>'
         + '</tr>';
     });
     h += '</tbody></table></div>';
@@ -824,12 +850,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       /* Ghi nhận đơn đã bật, nhưng hoa hồng thì chưa — nói rõ đang ở đâu.
          Để nguyên băng cũ khi cả hai chưa bật sẽ khiến CTV tưởng mất đơn. */
       if (d.hoa_hong_dang_bat) {
-        $('bang-tieu-de').textContent = 'Hoa hồng tính 40% phí bảo hiểm (không gồm VAT)';
-        $('bang-noi-dung').textContent =
-          'Hoa hồng được chốt khi nhân viên đối soát sao kê và xác nhận tiền đã về. '
-          + 'Ô "Doanh thu ghi nhận" là tổng phí khách chuyển (đã gồm VAT), còn hoa hồng tính '
-          + 'trên phí bảo hiểm chưa VAT — nên lấy hoa hồng chia doanh thu sẽ ra khoảng 36,4% '
-          + 'chứ không phải 40%. Hai con số có căn cứ khác nhau.';
+        /* MỌI THỨ ĐANG CHẠY ĐÚNG THÌ KHÔNG CÓ GÌ ĐỂ BÁO.
+           Băng này sinh ra để giải thích tình trạng BẤT THƯỜNG — chưa bật ghi
+           nhận, hoặc không đọc được sổ. Khi cả hai đã bật thì nó chỉ còn là
+           một khối chữ vàng chiếm chỗ ngay trên đầu trang, đọc như một cảnh
+           báo trong lúc chẳng có gì sai. Bảng đơn bên dưới đã có sẵn cột Tổng
+           phí / VAT / Phí trước VAT / Hoa hồng kèm tỷ lệ đã áp dụng cho từng
+           đơn, nên phần số học không cần nói thêm ở đây. */
+        var bg = $('bang-giai-doan');
+        if (bg) bg.style.display = 'none';
       } else if (d.ghi_nhan_dang_bat) {
         $('bang-tieu-de').textContent = 'Đơn đã được ghi nhận, phần hoa hồng chưa bật';
         $('bang-noi-dung').textContent =

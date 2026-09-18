@@ -153,8 +153,12 @@ try {
     (await tr.inputValue('#link-gt')).endsWith('/r/' + ma), await tr.inputValue('#link-gt'));
   kiemTra('hiện tên và số điện thoại',
     (await tr.locator('#who').textContent()).includes(SDT));
-  kiemTra('băng thông báo "chưa bật ghi nhận" đang hiện',
-    await tr.locator('#bang-giai-doan').isVisible());
+  /* Ghi nhận và hoa hồng đều đã bật, nên băng giải thích tình trạng phải BIẾN
+     MẤT. Băng đó chỉ dành cho lúc bất thường — chưa bật ghi nhận, hoặc không
+     đọc được sổ. Để nó nằm đó khi mọi thứ chạy đúng thì nó đọc như một cảnh
+     báo trong lúc chẳng có gì sai, và chiếm đúng chỗ dễ nhìn nhất của trang. */
+  kiemTra('băng thông báo tình trạng ẩn đi khi mọi thứ đã bật',
+    !(await tr.locator('#bang-giai-doan').isVisible()));
   const soLieu = await tr.locator('.o .so').allTextContents();
   /* 8 ô: lượt bấm, đơn chờ, đơn đã đối soát, doanh thu, phí trước VAT, VAT,
      hoa hồng khả dụng, đã rút. Ba ô tiền tách bạch là cố ý — hoa hồng tính
