@@ -166,30 +166,84 @@ try {
   kiemTra('cả 8 chỉ số đều là 0', soLieu.length === 8 && soLieu.every((s) => /^0/.test(s.trim())), soLieu.join(' | '));
   kiemTra('ô số điện thoại bị khoá không cho sửa', await tr.locator('#p-sdt').isDisabled());
 
-  // Lưu hồ sơ
+  /* MỖI MỤC MỘT NÚT RIÊNG. Nút số tài khoản phải nằm ngay trong khối ngân
+     hàng, không phải ở cuối biểu mẫu sau cả phần đổi mật khẩu. */
+  const nutNh = await tr.evaluate(() => {
+    const b = document.getElementById('btn-nh');
+    const k = document.getElementById('p-chu');
+    return !!(b && k && k.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING)
+      && !b.closest('.hs-grid');
+  });
+  kiemTra('nút "Lưu số tài khoản" nằm ngay dưới ba ô ngân hàng', nutNh);
+
+  const doiCho = (id) => tr.waitForFunction(
+    (x) => document.getElementById(x).textContent.trim().length > 0, id, { timeout: 8000 });
+
+  // Lưu số tài khoản
   await tr.fill('#p-nh', 'Techcombank');
   await tr.fill('#p-stk', '1903 1234 5678');
   await tr.fill('#p-chu', 'NGUYEN VAN A');
-  await tr.click('#btn-save');
-  await tr.waitForFunction(() => document.getElementById('hs-msg').textContent.trim().length > 0, null, { timeout: 8000 });
-  kiemTra('lưu hồ sơ báo thành công',
-    (await tr.locator('#hs-msg').getAttribute('class')).includes('good'),
-    await tr.locator('#hs-msg').textContent());
+  await tr.click('#btn-nh');
+  await doiCho('nh-msg');
+  kiemTra('lưu số tài khoản báo thành công',
+    (await tr.locator('#nh-msg').getAttribute('class')).includes('good'),
+    await tr.locator('#nh-msg').textContent());
   kiemTra('số tài khoản đã được bỏ khoảng trắng', (await tr.inputValue('#p-stk')) === '190312345678',
     await tr.inputValue('#p-stk'));
 
-  // Đổi mật khẩu sai mật khẩu cũ
+  // Thiếu một trong ba ô thì không ghi — kế toán không chuyển tiền được
+  await tr.fill('#p-chu', '');
+  await tr.click('#btn-nh');
+  await doiCho('nh-msg');
+  kiemTra('thiếu chủ tài khoản thì bị chặn',
+    (await tr.locator('#nh-msg').getAttribute('class')).includes('bad'),
+    await tr.locator('#nh-msg').textContent());
+  await tr.fill('#p-chu', 'NGUYEN VAN A');
+
+  /* TRÌNH QUẢN LÝ MẬT KHẨU TỰ ĐIỀN Ô "MẬT KHẨU HIỆN TẠI".
+     Đây là cảnh có thật đã xảy ra: cộng tác viên chỉ sửa số tài khoản rồi bấm
+     Lưu, nhưng trình duyệt đã đổ sẵn mật khẩu vào ô kia, và trang hiểu nhầm
+     thành ý muốn đổi mật khẩu — chặn lại bằng lỗi "Mật khẩu mới phải có ít
+     nhất 6 ký tự", và SỐ TÀI KHOẢN KHÔNG ĐƯỢC LƯU. Hai việc nay đi hai đường
+     riêng, nên ô mật khẩu có gì cũng không đụng được tới việc này. */
+  await tr.fill('#p-mkc', 'matkhau-tu-dien');
+  await tr.fill('#p-mkm', '');
+  await tr.fill('#p-stk', '1903 9999 0000');
+  await tr.click('#btn-nh');
+  await doiCho('nh-msg');
+  kiemTra('ô mật khẩu hiện tại bị trình duyệt tự điền không chặn được việc lưu số tài khoản',
+    (await tr.locator('#nh-msg').getAttribute('class')).includes('good'),
+    await tr.locator('#nh-msg').textContent());
+  kiemTra('số tài khoản mới đã được ghi', (await tr.inputValue('#p-stk')) === '190399990000',
+    await tr.inputValue('#p-stk'));
+  await tr.fill('#p-mkc', '');
+
+  // Lưu họ tên và email bằng nút riêng của nó
+  await tr.fill('#p-ten', 'Nguyễn Văn B');
+  await tr.click('#btn-ten');
+  await doiCho('ten-msg');
+  kiemTra('lưu họ tên bằng nút riêng báo thành công',
+    (await tr.locator('#ten-msg').getAttribute('class')).includes('good'),
+    await tr.locator('#ten-msg').textContent());
+  kiemTra('lưu họ tên KHÔNG xoá mất số tài khoản đã lưu',
+    (await tr.inputValue('#p-stk')) === '190399990000', await tr.inputValue('#p-stk'));
+
+  // Đổi mật khẩu sai mật khẩu cũ — lỗi báo tại chỗ của nó
   await tr.fill('#p-mkc', 'sai-roi-nhe');
   await tr.fill('#p-mkm', 'moi123456');
-  await tr.click('#btn-save');
+  await tr.click('#btn-mk');
   let choiDoiMk = true;
   try {
     await tr.waitForFunction(
-      () => /không đúng/i.test(document.getElementById('hs-msg').textContent),
+      () => /không đúng/i.test(document.getElementById('mk-msg').textContent),
       null, { timeout: 8000 });
   } catch (e) { choiDoiMk = false; }
   kiemTra('đổi mật khẩu sai mật khẩu cũ bị từ chối', choiDoiMk,
-    await tr.locator('#hs-msg').textContent());
+    await tr.locator('#mk-msg').textContent());
+  kiemTra('lỗi đổi mật khẩu không lem sang ô báo của phần ngân hàng',
+    (await tr.locator('#nh-msg').getAttribute('class')).includes('good'),
+    await tr.locator('#nh-msg').textContent());
+  await tr.fill('#p-mkc', ''); await tr.fill('#p-mkm', '');
 
   // Đăng xuất rồi quay lại
   await Promise.all([tr.waitForURL('**/ctv', { timeout: 8000 }), tr.click('#btn-out')]);

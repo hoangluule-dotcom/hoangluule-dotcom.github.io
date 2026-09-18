@@ -653,7 +653,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="hs-grid">
           <div class="fld">
             <label for="p-mkc">Mật khẩu hiện tại</label>
-            <input id="p-mkc" type="password" autocomplete="current-password" placeholder="Để trống nếu không đổi">
+            <!-- autocomplete="new-password" trên CẢ HAI ô là cố ý, dù ô này là
+                 mật khẩu hiện tại. Đây không phải biểu mẫu đăng nhập; để
+                 "current-password" thì trình quản lý mật khẩu tự đổ mật khẩu
+                 vào ngay khi mở trang, và người dùng không hề biết. Chrome bỏ
+                 qua autocomplete="off" với ô mật khẩu, "new-password" mới là
+                 thứ nó nghe. -->
+            <input id="p-mkc" type="password" autocomplete="new-password" placeholder="Để trống nếu không đổi">
           </div>
           <div class="fld">
             <label for="p-mkm">Mật khẩu mới</label>
@@ -898,8 +904,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       chu_tai_khoan: $('p-chu').value.trim()
     };
 
+    /* CHỈ Ô "MẬT KHẨU MỚI" MỚI QUYẾT ĐỊNH ĐÂY CÓ PHẢI LÀ LẦN ĐỔI MẬT KHẨU HAY KHÔNG.
+       Bản trước dùng `if (mkm || mkc)`, tức là chỉ cần ô "mật khẩu hiện tại" có
+       chữ là coi như người dùng muốn đổi mật khẩu. Nhưng ô đó thường KHÔNG do
+       người dùng gõ: trình duyệt và trình quản lý mật khẩu tự điền vào nó ngay
+       khi mở trang. Kết quả là cộng tác viên chỉ định sửa số tài khoản, bấm Lưu,
+       và bị chặn bằng câu "Mật khẩu mới phải có ít nhất 6 ký tự" — một lỗi về
+       việc họ không hề làm, và số tài khoản thì không được lưu.
+       Ô "mật khẩu hiện tại" bỏ trống khi không đổi là mặc định đã ghi trên chính
+       ô đó, nên để trống KHÔNG BAO GIỜ được hiểu thành ý muốn đổi. */
     var mkm = $('p-mkm').value, mkc = $('p-mkc').value;
-    if (mkm || mkc) {
+    if (mkm) {
       if (mkm.length < 6) {
         msg.className = 'hs-msg bad'; msg.textContent = 'Mật khẩu mới phải có ít nhất 6 ký tự.'; return;
       }
