@@ -65,9 +65,6 @@ a{color:var(--g)}
 .ctv-li-ic svg{width:15px;height:15px}
 .ctv-li b{display:block;font-size:15px;font-weight:700;color:var(--navy)}
 .ctv-li span{display:block;font-size:14px;color:var(--tm);line-height:1.6}
-.ctv-note{margin-top:28px;max-width:520px;background:var(--gold-bg);border:1px solid #F4D9A0;border-left:4px solid var(--gold);border-radius:var(--r12);padding:14px 16px}
-.ctv-note b{display:block;font-size:13px;font-weight:800;color:var(--goldd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
-.ctv-note p{font-size:14px;color:var(--tm);line-height:1.65}
 
 /* ══ THẺ ĐĂNG NHẬP ══ */
 .au-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r24);box-shadow:var(--sh2);overflow:hidden}
@@ -453,16 +450,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="ctv-li-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span>
         <span><b>Bảng điều khiển riêng</b><span>Lượt bấm link, đơn đã ghi nhận và hoa hồng theo từng trạng thái.</span></span>
       </div>
-      <div class="ctv-li">
-        <span class="ctv-li-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-        <span><b>Sản phẩm giai đoạn đầu</b><span>Bảo hiểm trách nhiệm dân sự bắt buộc ô tô và xe máy theo Nghị định 67/2023.</span></span>
-      </div>
     </div>
-
-    <div class="ctv-note">
-      <b>Cổng đang mở dần</b>
-      <p>Ở bước này bạn tạo được tài khoản và nhận mã cộng tác viên. Phần ghi nhận đơn và tính hoa hồng sẽ được bật ở bước tiếp theo — cho tới lúc đó, các chỉ số trong bảng điều khiển còn bằng 0.</p>
-    </div>
+    <!-- ĐÃ BỎ: ô "Sản phẩm giai đoạn đầu" và băng "Cổng đang mở dần".
+         Cả hai viết cho lúc hệ thống chưa chạy xong. Ghi nhận đơn và tính hoa
+         hồng nay đã bật, nên câu "sẽ được bật ở bước tiếp theo — các chỉ số
+         còn bằng 0" là sai sự thật, và nói với người sắp đăng ký rằng thứ họ
+         sắp dùng chưa hoạt động. -->
   </section>
 
   <section class="au-card" id="au-card">
