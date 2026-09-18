@@ -130,13 +130,25 @@ a{color:var(--g)}
 .fld input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.12)}
 .fld input:disabled{background:var(--bg);color:var(--ts)}
 .fld .hint{margin-top:5px;font-size:12px;color:var(--ts);line-height:1.5}
-.hs-act{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+/* Thanh lưu DÍNH ĐÁY khung nhìn khi còn cuộn được.
+   Trước đây nó nằm cuối biểu mẫu, phía sau cả khối "Đổi mật khẩu". Cộng tác
+   viên vào sửa số tài khoản, điền xong thấy tiếp theo là ô mật khẩu nên tưởng
+   không có nút xác nhận — rồi bỏ đi, và số tài khoản không được lưu. Nút lưu
+   phải luôn nằm trong tầm mắt, không bắt ai đi tìm.
+   background + viền trên để nó không chìm vào nội dung cuộn phía sau. */
+.hs-act{position:sticky;bottom:0;z-index:5;margin-top:18px;padding:14px 0 4px;
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  background:var(--white);border-top:1px solid var(--bd)}
 .btn-save{appearance:none;border:0;background:var(--g);color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:12px 26px;border-radius:var(--r12);cursor:pointer;transition:.18s}
 .btn-save:hover{background:var(--gp)}
 .btn-save:disabled{opacity:.6;cursor:not-allowed}
 .hs-msg{font-size:13.5px;font-weight:600;line-height:1.5}
 .hs-msg.good{color:var(--gp)}
 .hs-msg.bad{color:var(--do)}
+.lich-tra{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;padding:13px 15px;
+  background:var(--gl,#E8F5E9);border:1px solid var(--bd);border-radius:var(--r12);
+  font-size:14px;line-height:1.55;color:var(--tm)}
+.lich-tra svg{flex:0 0 18px;width:18px;height:18px;margin-top:2px;color:var(--g)}
 .hs-sep{margin:20px 0;border:0;border-top:1px solid var(--bd)}
 .hs-sub{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--ts);margin-bottom:13px}
 </style>
@@ -522,9 +534,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="o"><div class="lb">Đơn chờ tiền về</div><div class="so" id="k-cho">0</div></div>
         <div class="o"><div class="lb">Đơn đã đối soát</div><div class="so" id="k-khop">0</div></div>
         <div class="o tien"><div class="lb">Doanh thu ghi nhận</div><div class="so" id="k-hhc">0<span class="dv">đ</span></div></div>
+        <div class="o tien"><div class="lb">Phí trước VAT</div><div class="so" id="k-goc">0<span class="dv">đ</span></div></div>
+        <div class="o tien"><div class="lb">VAT</div><div class="so" id="k-vat">0<span class="dv">đ</span></div></div>
         <div class="o tien"><div class="lb">Hoa hồng khả dụng</div><div class="so" id="k-hhk">0<span class="dv">đ</span></div></div>
         <div class="o tien"><div class="lb">Đã rút</div><div class="so" id="k-rut">0<span class="dv">đ</span></div></div>
       </div>
+
+      <!-- Lịch chi trả: đặt ngay dưới ô "Hoa hồng khả dụng" vì đó là con số
+           cộng tác viên nhìn rồi hỏi "bao giờ tôi nhận được?". Trả lời sẵn ở
+           đây thì không ai phải nhắn hỏi. -->
+      <p class="lich-tra">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Hoa hồng khả dụng được <b>tự động chuyển khoản</b> vào tài khoản bạn đã
+        khai, vào <b>ngày 2 và ngày 16 hằng tháng</b>. Kiểm tra lại số tài khoản
+        ở mục Hồ sơ bên dưới — sai số tài khoản là tiền không tới được bạn.
+      </p>
     </section>
 
     <!-- ĐƠN -->
@@ -680,6 +704,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $('k-cho').textContent  = kd || tien(t.don_cho_thanh_toan);
     $('k-khop').textContent = kd || tien(t.don_da_doi_soat);
     $('k-hhc').innerHTML    = kd || (tien(t.doanh_thu_ghi_nhan || 0) + '<span class="dv">đ</span>');
+    $('k-goc').innerHTML    = kd || (tien(t.doanh_thu_phi_goc || 0)  + '<span class="dv">đ</span>');
+    $('k-vat').innerHTML    = kd || (tien(t.doanh_thu_vat || 0)      + '<span class="dv">đ</span>');
     $('k-hhk').innerHTML    = tien(t.hoa_hong_kha_dung)       + '<span class="dv">đ</span>';
     $('k-rut').innerHTML    = tien(t.hoa_hong_da_rut)         + '<span class="dv">đ</span>';
   }
@@ -725,20 +751,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     var h = '<div style="overflow-x:auto"><table class="db-don"><thead><tr>'
       + '<th>Thời điểm</th><th>Mã đơn</th><th>Biển số</th><th>Xe</th>'
-      + '<th class="phai">Tổng phí</th><th class="phai">Hoa hồng</th>'
+      + '<th class="phai">Tổng phí</th><th class="phai">VAT</th>'
+      + '<th class="phai">Phí trước VAT</th><th class="phai">Hoa hồng</th>'
       + '<th>Trạng thái</th><th>Vì sao tính cho bạn</th>'
       + '</tr></thead><tbody>';
     ds.forEach(function(d){
       var n = NHAN_TT[d.trang_thai] || [d.trang_thai || '—', 'cho'];
       var hh = Number(d.hoa_hong) || 0;
+      var goc = Number(d.phi_goc) || 0;
+      /* Tỷ lệ ghi kèm ngay dưới số tiền hoa hồng, lấy từ TỶ LỆ ĐÃ ÁP DỤNG cho
+         chính đơn đó chứ không phải mức hiện hành. Đổi mức sau này thì đơn cũ
+         vẫn hiện đúng mức của nó, và cộng tác viên tự nhân ra kiểm được. */
+      var tl = Number(d.ty_le_hh) || 0;
       h += '<tr>'
         + '<td class="nho">' + gioNgay(d.thoi_diem) + '</td>'
         + '<td class="nho">' + esc(d.ma_don || '—') + '</td>'
         + '<td><b>' + esc(d.bien_so || '—') + '</b></td>'
-        + '<td class="nho">' + esc(d.chi_tiet_xe || d.loai_xe || '—') + '</td>'
-        + '<td class="phai"><b>' + tien(d.tong_phi) + 'đ</b></td>'
+        + '<td class="nho">' + esc(d.chi_tiet_xe || d.loai_xe || '—')
+        + (d.thoi_han ? '<div class="nho">' + esc(d.thoi_han) + '</div>' : '') + '</td>'
+        + '<td class="phai">' + tien(d.tong_phi) + 'đ</td>'
+        + '<td class="phai nho">' + tien(d.vat) + 'đ</td>'
+        + '<td class="phai"><b>' + tien(goc) + 'đ</b></td>'
         + '<td class="phai">' + (hh ? '<b>' + tien(hh) + 'đ</b>'
-            + (d.trang_thai_hh ? '<div class="nho">' + esc(NHAN_HH[d.trang_thai_hh] || '') + '</div>' : '')
+            + '<div class="nho">' + (tl ? Math.round(tl * 1000) / 10 + '% phí trước VAT' : '')
+            + (d.trang_thai_hh ? ' · ' + esc(NHAN_HH[d.trang_thai_hh] || '') : '') + '</div>'
             : '<span class="nho">—</span>') + '</td>'
         + '<td><span class="tt ' + n[1] + '">' + esc(n[0]) + '</span></td>'
         + '<td class="nho">' + esc(TEN_NGUON[d.nguon_ghi_nhan] || d.nguon_ghi_nhan || '—') + '</td>'
@@ -859,7 +895,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       } else {
         veHoSo(d.ctv);
         $('p-mkm').value = ''; $('p-mkc').value = '';
-        msg.className = 'hs-msg good'; msg.textContent = 'Đã lưu.';
+        /* Hồ sơ đăng nhập đã ghi xong, nhưng bộ phận kế toán đọc số tài khoản
+           từ hệ thống sổ sách. Chưa đồng bộ được sang đó mà chỉ báo "Đã lưu"
+           là để cộng tác viên yên tâm chờ tiền vào tài khoản mới, trong khi kế
+           toán vẫn nhìn tài khoản cũ. */
+        if (d.dong_bo_sheet === false) {
+          msg.className = 'hs-msg bad';
+          msg.textContent = 'Đã lưu, nhưng CHƯA đồng bộ được sang hệ thống kế toán. ' +
+            'Nếu vừa đổi số tài khoản, báo DBV trước kỳ chi trả: 0869 656 561.';
+        } else {
+          msg.className = 'hs-msg good'; msg.textContent = 'Đã lưu.';
+        }
       }
     } catch (e) {
       msg.className = 'hs-msg bad'; msg.textContent = 'Không kết nối được máy chủ.';

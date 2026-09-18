@@ -76,7 +76,22 @@ var CH = {
     'Sản phẩm', 'Nhóm xe', 'Phí gốc', 'VAT', 'Phí',
     'Payment_Status', 'Bank_Ref', 'Ngày nhận tiền',
     'GCN_Status', 'Commission', 'Commission_Rate', 'Commission_Status',
-    'Payout_ID', 'Nguồn ghi nhận', 'Ghi chú'
+    'Payout_ID', 'Nguồn ghi nhận', 'Ghi chú',
+
+    /* ── Hồ sơ để CẤP GIẤY CHỨNG NHẬN ────────────────────────────────────
+       Thêm ngày 18/09/2026. Trang cấp đơn vẫn luôn gửi đủ những trường này,
+       nhưng sổ cái không có cột nào để chứa nên taoDon() vứt hết. Thời còn
+       dùng Netlify Forms thì nhân viên đọc chúng trong Forms; chuyển sang sổ
+       cái hôm 17/09 là mất đường đọc đó, và mất im lặng — đơn vẫn vào sổ, chỉ
+       thiếu đúng những thứ cần để phát hành và chuyển phát giấy.
+
+       PHẢI THÊM VÀO CUỐI DANH SÁCH, không chèn giữa. dungSheet_() chỉ ghi lại
+       HÀNG TIÊU ĐỀ; dữ liệu bên dưới đứng yên. Chèn cột vào giữa là mọi dòng
+       cũ tụt sang sai cột mà không có lỗi nào báo. */
+    'Chi tiết xe', 'Số khung', 'Số máy', 'Hiệu xe', 'Năm SX', 'Số chỗ',
+    'Thời hạn', 'Ngày hiệu lực', 'Ngày hết hạn', 'Địa chỉ khách',
+    'Xuất hoá đơn', 'Tên công ty', 'MST', 'Địa chỉ công ty', 'Email hoá đơn',
+    'Địa chỉ giao GCN', 'Người nhận', 'SĐT người nhận'
   ],
 
   COT_CTV: ['CTV_ID','Họ tên','SĐT','Email','Trạng thái','Ngân hàng',

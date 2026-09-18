@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>DBV247 — Đơn hàng &amp; cấp giấy</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;--navy:#0F2942;
+  --tx:#101828;--tm:#475467;--ts:#667085;
+  --bd:#E2E8F0;--bg:#f8fafb;--white:#fff;
+  --do:#B42318;--cam:#B54708;--caml:#FFFAEB;
+  --r12:12px;--r16:16px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:15px;
+  color:var(--tx);background:var(--bg);line-height:1.55}
+.wrap{max-width:1400px;margin:0 auto;padding:18px 16px 80px}
+h1{font-size:20px;margin:0;font-weight:800}
+.sub{color:var(--ts);font-size:13.5px;margin:2px 0 0}
+
+/* ── Cổng khoá ── */
+#gate{max-width:420px;margin:12vh auto;background:#fff;border:1px solid var(--bd);
+  border-radius:var(--r16);padding:26px}
+#gate h1{margin-bottom:6px}
+#gate input{width:100%;padding:12px 13px;border:1.5px solid var(--bd);border-radius:var(--r12);
+  font:inherit;margin:14px 0 10px}
+.btn{appearance:none;border:0;background:var(--g);color:#fff;font:inherit;font-weight:700;
+  padding:11px 20px;border-radius:var(--r12);cursor:pointer}
+.btn:hover{background:var(--gp)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.phu{background:#fff;color:var(--tm);border:1.5px solid var(--bd)}
+.btn.phu:hover{background:var(--bg)}
+.btn.nho{padding:8px 14px;font-size:13.5px}
+.loi{display:none;color:var(--do);font-size:13.5px;font-weight:600;margin-top:8px}
+.loi.show{display:block}
+
+/* ── Thanh công cụ ── */
+.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+  margin-bottom:14px}
+.cong-cu{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.cong-cu input[type=search],.cong-cu select{padding:9px 12px;border:1.5px solid var(--bd);
+  border-radius:var(--r12);font:inherit;font-size:14px;background:#fff}
+.cong-cu input[type=search]{min-width:260px;flex:1}
+
+/* ── Bảng ── */
+.hop{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);overflow:hidden}
+.cuon{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}
+th{background:var(--bg);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--ts);font-weight:800}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--gl)}
+tbody tr.chon{background:var(--gl)}
+td.phai,th.phai{text-align:right;font-variant-numeric:tabular-nums}
+.tt{display:inline-block;padding:3px 9px;border-radius:9999px;font-size:11.5px;font-weight:700}
+.tt.cho{background:var(--caml);color:var(--cam)}
+.tt.xong{background:var(--gl);color:var(--gp)}
+.tt.huy{background:#FEF3F2;color:var(--do)}
+.trong{padding:40px 20px;text-align:center;color:var(--ts)}
+
+/* ── Ngăn chi tiết ── */
+#ct{display:none;position:fixed;inset:0;background:rgba(16,24,40,.45);z-index:80}
+#ct.mo{display:block}
+.ct-hop{position:absolute;top:0;right:0;height:100%;width:min(560px,100%);background:#fff;
+  overflow-y:auto;padding:20px 22px 40px;box-shadow:-6px 0 28px rgba(16,24,40,.16)}
+.ct-dau{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  position:sticky;top:-20px;background:#fff;padding:20px 0 12px;margin:-20px 0 4px;
+  border-bottom:1px solid var(--bd);z-index:2}
+.ct-ma{font-family:ui-monospace,Menlo,monospace;font-size:17px;font-weight:700}
+.nhom{margin-top:18px}
+.nhom h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--ts);
+  margin:0 0 10px;font-weight:800}
+.luoi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.o1{grid-column:1/-1}
+label{display:block;font-size:12px;font-weight:600;color:var(--tm);margin-bottom:4px}
+input[type=text],select,textarea{width:100%;padding:9px 11px;border:1.5px solid var(--bd);
+  border-radius:10px;font:inherit;font-size:14px;background:#fff}
+textarea{min-height:64px;resize:vertical}
+input:disabled{background:var(--bg);color:var(--ts)}
+.doc{font-size:14px;padding:9px 11px;background:var(--bg);border-radius:10px;
+  word-break:break-word;min-height:38px}
+.ct-act{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--bd);
+  padding:14px 0 4px;margin-top:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.msg{font-size:13px;font-weight:600}
+.msg.ok{color:var(--gp)} .msg.bad{color:var(--do)}
+.canh{background:var(--caml);border:1px solid #FEDF89;border-radius:var(--r12);
+  padding:11px 13px;font-size:13.5px;color:var(--cam);margin-top:12px}
+.nho{font-size:12px;color:var(--ts)}
+@media(max-width:640px){ .luoi{grid-template-columns:1fr} .wrap{padding:14px 12px 70px} }
+</style>
+</head>
+<body>
+
+<!-- ═══ CỔNG KHOÁ ═══ -->
+<div id="gate">
+  <h1>Đơn hàng &amp; cấp giấy</h1>
+  <p class="sub">Màn hình nội bộ. Có dữ liệu cá nhân của khách hàng — không chia sẻ màn hình, không chụp lại.</p>
+  <input id="keyInput" type="password" placeholder="Khoá truy cập" autocomplete="off">
+  <button class="btn" id="btnUnlock">Mở</button>
+  <div class="loi" id="gateErr"></div>
+</div>
+
+<!-- ═══ ỨNG DỤNG ═══ -->
+<div class="wrap" id="app" style="display:none">
+  <div class="top">
+    <div>
+      <h1>Đơn hàng &amp; cấp giấy</h1>
+      <p class="sub" id="cap-nhat">—</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <a class="btn phu nho" href="/admin/ctv.html">Cộng tác viên →</a>
+      <button class="btn nho" id="btnTai">Tải lại</button>
+    </div>
+  </div>
+
+  <div class="cong-cu">
+    <input id="tim" type="search" placeholder="Tìm mã đơn, biển số, tên khách, số điện thoại, mã CTV…">
+    <select id="loc-tt">
+      <option value="">Mọi trạng thái thanh toán</option>
+      <option value="PAYMENT_PENDING">Chờ tiền về</option>
+      <option value="PAID">Đã nhận tiền</option>
+      <option value="CANCELLED">Đã huỷ</option>
+      <option value="REFUNDED">Đã hoàn phí</option>
+    </select>
+    <select id="loc-gcn">
+      <option value="">Mọi trạng thái giấy</option>
+      <option value="__chua">Chưa cấp giấy</option>
+      <option value="ISSUED">Đã cấp giấy</option>
+    </select>
+    <span class="nho" id="dem">—</span>
+  </div>
+
+  <div class="loi" id="loi"></div>
+
+  <div class="hop">
+    <div class="cuon"><table>
+      <thead><tr>
+        <th>Ngày tạo</th><th>Mã đơn</th><th>Khách hàng</th><th>SĐT</th>
+        <th>Biển số</th><th>Xe</th><th class="phai">Phí</th>
+        <th>Thanh toán</th><th>Giấy CN</th><th>CTV</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+    <div class="trong" id="trong" style="display:none">Không có đơn nào khớp bộ lọc.</div>
+  </div>
+</div>
+
+<!-- ═══ NGĂN CHI TIẾT ═══ -->
+<div id="ct"><div class="ct-hop" id="ct-hop"></div></div>
+
+<script>
+(function(){
+  'use strict';
+  var API    = '/.netlify/functions/gas-admin';
+  var KEY_LS = 'dbv247_key';      /* dùng chung với admin/dashboard.html */
+  var KHOA = '', DON = [], DANG = null;
+
+  function $(id){ return document.getElementById(id); }
+  function doc(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
+  function luu(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  function esc(v){ return String(v==null?'':v)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function tien(n){ return String(Math.round(Number(n)||0)).replace(/\B(?=(\d{3})+(?!\d))/g,'.') + 'đ'; }
+  function gioNgay(v){
+    if(!v) return '—';
+    var d = new Date(v); if(isNaN(d.getTime())) return String(v);
+    var p=function(x){return (x<10?'0':'')+x;};
+    return p(d.getDate())+'/'+p(d.getMonth()+1)+' '+p(d.getHours())+':'+p(d.getMinutes());
+  }
+
+  var NHAN_TT = {
+    'PAYMENT_PENDING':['Chờ tiền về','cho'], 'PAID':['Đã nhận tiền','xong'],
+    'CANCELLED':['Đã huỷ','huy'], 'REFUNDED':['Đã hoàn phí','huy']
+  };
+
+  /* ── Cổng khoá ── */
+  function baoGate(c){ var e=$('gateErr'); e.textContent=c; e.classList.add('show'); }
+  $('btnUnlock').addEventListener('click', function(){
+    var k = $('keyInput').value.trim();
+    if(!k){ baoGate('Nhập khoá truy cập.'); return; }
+    KHOA = k; tai(true);
+  });
+  $('keyInput').addEventListener('keydown', function(e){
+    if(e.key==='Enter') $('btnUnlock').click();
+  });
+
+  /* ── Tải ── */
+  function tai(lanDau){
+    var nut = $('btnTai');
+    if(nut){ nut.disabled=true; nut.textContent='Đang tải…'; }
+    fetch(API + '?view=don', { headers:{ 'x-dashboard-key': KHOA } })
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if(!res.ok || !res.j.ok){
+          if(lanDau) baoGate(res.j.error || 'Không mở được. Kiểm tra lại khoá.');
+          else { var l=$('loi'); l.textContent = res.j.error || 'Không tải được.'; l.classList.add('show'); }
+          return;
+        }
+        luu(KEY_LS, KHOA);
+        $('gate').style.display='none';
+        $('app').style.display='block';
+        $('loi').classList.remove('show');
+        DON = res.j.don || [];
+        $('cap-nhat').textContent = 'Đọc từ sổ cái lúc ' + (res.j.cap_nhat || '—')
+          + ' · ' + DON.length + ' đơn';
+        ve();
+      })
+      .catch(function(){
+        if(lanDau) baoGate('Không kết nối được máy chủ.');
+      })
+      .then(function(){ if(nut){ nut.disabled=false; nut.textContent='Tải lại'; } });
+  }
+  $('btnTai').addEventListener('click', function(){ tai(false); });
+
+  /* ── Lọc + vẽ bảng ── */
+  function locDon(){
+    var q  = $('tim').value.trim().toLowerCase();
+    var tt = $('loc-tt').value;
+    var gc = $('loc-gcn').value;
+    return DON.filter(function(d){
+      if(tt && String(d.payment_status||'') !== tt) return false;
+      if(gc === 'ISSUED' && String(d.gcn_status||'') !== 'ISSUED') return false;
+      if(gc === '__chua' && String(d.gcn_status||'') === 'ISSUED') return false;
+      if(!q) return true;
+      return [d.order_id,d.bien_so,d.khach_hang,d.sdt,d.ctv_id,d.so_khung,d.so_may]
+        .some(function(v){ return String(v==null?'':v).toLowerCase().indexOf(q) >= 0; });
+    });
+  }
+
+  function ve(){
+    var ds = locDon();
+    $('dem').textContent = 'Hiện ' + ds.length + '/' + DON.length + ' đơn';
+    $('trong').style.display = ds.length ? 'none' : 'block';
+    var h = '';
+    ds.forEach(function(d){
+      var n = NHAN_TT[d.payment_status] || [d.payment_status||'—','cho'];
+      var cap = String(d.gcn_status||'') === 'ISSUED';
+      h += '<tr data-ma="'+esc(d.order_id)+'">'
+        + '<td class="nho">'+gioNgay(d.ngay_tao)+'</td>'
+        + '<td style="font-family:ui-monospace,Menlo,monospace">'+esc(d.order_id)+'</td>'
+        + '<td><b>'+esc(d.khach_hang||'—')+'</b></td>'
+        + '<td>'+esc(d.sdt||'—')+'</td>'
+        + '<td><b>'+esc(d.bien_so||'—')+'</b></td>'
+        + '<td class="nho">'+esc(d.chi_tiet_xe||d.san_pham||'—')+'</td>'
+        + '<td class="phai">'+tien(d.tong_phi)+'</td>'
+        + '<td><span class="tt '+n[1]+'">'+esc(n[0])+'</span></td>'
+        + '<td>'+(cap?'<span class="tt xong">Đã cấp</span>':'<span class="tt cho">Chưa cấp</span>')+'</td>'
+        + '<td>'+esc(d.ctv_id||'—')+'</td>'
+        + '</tr>';
+    });
+    $('tbody').innerHTML = h;
+    Array.prototype.forEach.call($('tbody').querySelectorAll('tr'), function(tr){
+      tr.addEventListener('click', function(){ moChiTiet(tr.getAttribute('data-ma')); });
+    });
+  }
+  ['tim','loc-tt','loc-gcn'].forEach(function(id){
+    $(id).addEventListener('input', ve);
+    $(id).addEventListener('change', ve);
+  });
+
+  /* ── Chi tiết đơn ──
+     Ô sửa được và ô chỉ đọc phân biệt bằng mắt. Ba cột tiền để CHỈ ĐỌC là cố
+     ý: hoa hồng đã tính và đóng băng theo phí gốc, sửa phí mà không tính lại
+     là sổ tự mâu thuẫn. Đơn sai phí phải huỷ và cấp lại. */
+  var O_SUA = [
+    ['Khách hàng','khach_hang'], ['SĐT','sdt'], ['Email','email'],
+    ['Biển số','bien_so'], ['Chi tiết xe','chi_tiet_xe'],
+    ['Số khung','so_khung'], ['Số máy','so_may'], ['Hiệu xe','hieu_xe'],
+    ['Năm SX','nam_sx'], ['Số chỗ','so_cho'], ['Thời hạn','thoi_han'],
+    ['Ngày hiệu lực','ngay_hieu_luc'], ['Ngày hết hạn','ngay_het_han'],
+    ['Địa chỉ khách','dia_chi']
+  ];
+  var O_HD = [
+    ['Xuất hoá đơn','xuat_hoa_don'], ['Tên công ty','ten_cty'], ['MST','mst'],
+    ['Địa chỉ công ty','dia_chi_cty'], ['Email hoá đơn','email_hd']
+  ];
+  var O_GIAO = [
+    ['Địa chỉ giao GCN','dia_chi_giao'], ['Người nhận','nguoi_nhan'],
+    ['SĐT người nhận','sdt_nhan']
+  ];
+
+  function oNhap(nhan, khoa, gt, rong){
+    return '<div class="' + (rong?'o1':'') + '"><label for="f-'+khoa+'">'+esc(nhan)+'</label>'
+      + '<input type="text" id="f-'+khoa+'" data-cot="'+esc(nhan)+'" value="'+esc(gt)+'"></div>';
+  }
+  function oDoc(nhan, gt, rong){
+    return '<div class="' + (rong?'o1':'') + '"><label>'+esc(nhan)+'</label>'
+      + '<div class="doc">'+esc(gt||'—')+'</div></div>';
+  }
+
+  function moChiTiet(ma){
+    var d = DON.filter(function(x){ return String(x.order_id)===String(ma); })[0];
+    if(!d) return;
+    DANG = d;
+    var daTra = String(d.payment_status||'') === 'PAID';
+    var daCap = String(d.gcn_status||'') === 'ISSUED';
+
+    var h = '<div class="ct-dau"><div>'
+      + '<div class="ct-ma">'+esc(d.order_id)+'</div>'
+      + '<div class="nho">Tạo '+gioNgay(d.ngay_tao)+' · CTV '+esc(d.ctv_id||'không có')+'</div>'
+      + '</div><button class="btn phu nho" id="ct-dong">Đóng</button></div>';
+
+    h += '<div class="nhom"><h3>Tiền — chỉ đọc</h3><div class="luoi">'
+      + oDoc('Phí trước VAT', tien(d.phi_goc))
+      + oDoc('VAT', tien(d.vat))
+      + oDoc('Tổng phí', tien(d.tong_phi))
+      + oDoc('Hoa hồng CTV', d.commission ? tien(d.commission) : '—')
+      + '</div>'
+      + '<p class="nho" style="margin:8px 0 0">Phí không sửa được ở đây: hoa hồng đã tính theo '
+      + 'phí trước VAT và đóng băng. Đơn sai phí phải huỷ rồi cấp lại đơn mới.</p></div>';
+
+    h += '<div class="nhom"><h3>Khách hàng &amp; xe</h3><div class="luoi">';
+    O_SUA.forEach(function(c, i){ h += oNhap(c[0], c[1], d[c[1]], c[1]==='dia_chi'); });
+    h += '</div></div>';
+
+    h += '<div class="nhom"><h3>Hoá đơn</h3><div class="luoi">';
+    O_HD.forEach(function(c){ h += oNhap(c[0], c[1], d[c[1]], c[1]==='dia_chi_cty'); });
+    h += '</div></div>';
+
+    h += '<div class="nhom"><h3>Giao giấy chứng nhận</h3><div class="luoi">';
+    O_GIAO.forEach(function(c){ h += oNhap(c[0], c[1], d[c[1]], c[1]==='dia_chi_giao'); });
+    h += '</div></div>';
+
+    h += '<div class="nhom"><h3>Ghi chú</h3>'
+      + '<textarea id="f-ghi_chu" data-cot="Ghi chú">'+esc(d.ghi_chu||'')+'</textarea></div>';
+
+    /* Đối soát tiền — tách riêng vì nó đụng tới hoa hồng. */
+    h += '<div class="nhom"><h3>Đối soát thanh toán</h3>';
+    if(daTra){
+      h += '<div class="luoi">' + oDoc('Trạng thái','Đã nhận tiền')
+        + oDoc('Mã giao dịch', d.bank_ref) + '</div>';
+    } else {
+      h += '<div class="luoi"><div class="o1"><label for="f-ref">Mã giao dịch ngân hàng</label>'
+        + '<input type="text" id="f-ref" placeholder="Copy từ sao kê, ví dụ FT26091712345678"></div></div>'
+        + '<p class="nho" style="margin:8px 0 0">Bắt buộc. Một mã giao dịch chỉ dùng cho một đơn — '
+        + 'hệ thống từ chối nếu mã đã gắn vào đơn khác.</p>';
+    }
+    h += '</div>';
+
+    h += '<div class="ct-act">'
+      + '<button class="btn" id="ct-luu">Lưu hồ sơ</button>'
+      + (daTra ? '' : '<button class="btn phu" id="ct-tien">Xác nhận đã nhận tiền</button>')
+      + (daCap ? '' : '<button class="btn phu" id="ct-gcn">Đã cấp giấy CN</button>')
+      + '<button class="btn phu" id="ct-copy">Copy hồ sơ nhập liệu</button>'
+      + '<span class="msg" id="ct-msg"></span></div>';
+
+    $('ct-hop').innerHTML = h;
+    $('ct').classList.add('mo');
+
+    $('ct-dong').addEventListener('click', dong);
+    $('ct-luu').addEventListener('click', luuHoSo);
+    $('ct-copy').addEventListener('click', copyHoSo);
+    if($('ct-tien')) $('ct-tien').addEventListener('click', xacNhanTien);
+    if($('ct-gcn')) $('ct-gcn').addEventListener('click', danhDauGcn);
+  }
+
+  function dong(){ $('ct').classList.remove('mo'); DANG = null; }
+  $('ct').addEventListener('click', function(e){ if(e.target === $('ct')) dong(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && $('ct').classList.contains('mo')) dong();
+  });
+
+  function bao(chu, tot){
+    var m = $('ct-msg'); if(!m) return;
+    m.className = 'msg ' + (tot ? 'ok' : 'bad'); m.textContent = chu;
+  }
+
+  function guiPost(than, xong){
+    return fetch(API, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'x-dashboard-key': KHOA },
+      body: JSON.stringify(than)
+    }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(xong)
+      .catch(function(){ bao('Không kết nối được máy chủ.', false); });
+  }
+
+  /* Chỉ gửi những ô THẬT SỰ đổi. Gửi cả biểu mẫu là mỗi lần bấm Lưu lại đẻ ra
+     hai chục dòng nhật ký "sửa" cho những ô không ai động tới. */
+  function luuHoSo(){
+    if(!DANG) return;
+    var truong = {};
+    Array.prototype.forEach.call($('ct-hop').querySelectorAll('[data-cot]'), function(el){
+      var cot = el.getAttribute('data-cot');
+      var khoa = el.id.replace(/^f-/,'');
+      var cu = String(DANG[khoa] == null ? '' : DANG[khoa]);
+      if(el.value !== cu) truong[cot] = el.value;
+    });
+    if(!Object.keys(truong).length){ bao('Không có gì thay đổi.', true); return; }
+
+    var b = $('ct-luu'); b.disabled = true; b.textContent = 'Đang lưu…';
+    guiPost({ action:'hoSo', orderId: DANG.order_id, truong: truong }, function(res){
+      b.disabled = false; b.textContent = 'Lưu hồ sơ';
+      if(!res.ok || !res.j.ok){ bao(res.j.error || 'Không lưu được.', false); return; }
+      bao('Đã lưu ' + (res.j.da_doi||[]).length + ' trường vào sổ cái.', true);
+      tai(false);
+    });
+  }
+
+  function xacNhanTien(){
+    if(!DANG) return;
+    var ref = ($('f-ref') && $('f-ref').value.trim()) || '';
+    if(!ref){ bao('Nhập mã giao dịch ngân hàng trước khi xác nhận.', false); return; }
+    var b = $('ct-tien'); b.disabled = true; b.textContent = 'Đang ghi…';
+    guiPost({ action:'trangThai', orderId: DANG.order_id,
+              paymentStatus:'PAID', bankRef: ref }, function(res){
+      b.disabled = false; b.textContent = 'Xác nhận đã nhận tiền';
+      if(!res.ok || !res.j.ok){ bao(res.j.error || 'Không ghi được.', false); return; }
+      var hh = res.j.hoa_hong;
+      bao('Đã ghi nhận tiền về.' + (hh && hh.sinh ? ' Hoa hồng ' + tien(hh.so_tien) + ' đã sinh.'
+        : (hh && hh.loi ? ' Nhưng CHƯA tính được hoa hồng: ' + hh.loi : '')), !(hh && hh.loi));
+      tai(false); setTimeout(function(){ dong(); }, 1200);
+    });
+  }
+
+  function danhDauGcn(){
+    if(!DANG) return;
+    var b = $('ct-gcn'); b.disabled = true; b.textContent = 'Đang ghi…';
+    guiPost({ action:'trangThai', orderId: DANG.order_id, gcnStatus:'ISSUED' }, function(res){
+      b.disabled = false; b.textContent = 'Đã cấp giấy CN';
+      if(!res.ok || !res.j.ok){ bao(res.j.error || 'Không ghi được.', false); return; }
+      bao('Đã đánh dấu cấp giấy.', true);
+      tai(false); setTimeout(function(){ dong(); }, 1000);
+    });
+  }
+
+  /* Khối chữ để nhân viên dán thẳng sang hệ thống phát hành, khỏi đọc từng ô
+     rồi gõ lại — gõ lại là chỗ sinh sai số khung. */
+  function copyHoSo(){
+    if(!DANG) return;
+    var d = DANG;
+    var dong_ = [
+      'Mã đơn: ' + (d.order_id||''),
+      'Khách hàng: ' + (d.khach_hang||''),
+      'SĐT: ' + (d.sdt||''),
+      'Email: ' + (d.email||''),
+      'Địa chỉ: ' + (d.dia_chi||''),
+      'Biển số: ' + (d.bien_so||''),
+      'Loại xe: ' + (d.chi_tiet_xe||d.san_pham||''),
+      'Số khung: ' + (d.so_khung||''),
+      'Số máy: ' + (d.so_may||''),
+      'Hiệu xe: ' + (d.hieu_xe||'') + ' · Năm SX: ' + (d.nam_sx||''),
+      'Số chỗ: ' + (d.so_cho||''),
+      'Thời hạn: ' + (d.thoi_han||''),
+      'Hiệu lực: ' + (d.ngay_hieu_luc||'') + ' → ' + (d.ngay_het_han||''),
+      'Phí trước VAT: ' + tien(d.phi_goc) + ' · VAT: ' + tien(d.vat) + ' · Tổng: ' + tien(d.tong_phi),
+      'Xuất hoá đơn: ' + (d.xuat_hoa_don||'Không'),
+      (String(d.xuat_hoa_don||'').indexOf('C') === 0
+        ? 'Công ty: ' + (d.ten_cty||'') + ' · MST: ' + (d.mst||'')
+          + ' · ĐC: ' + (d.dia_chi_cty||'') + ' · Email HĐ: ' + (d.email_hd||'')
+        : ''),
+      'Giao giấy: ' + (d.dia_chi_giao||'—') + ' · Người nhận: ' + (d.nguoi_nhan||'—')
+        + ' · SĐT: ' + (d.sdt_nhan||'—')
+    ].filter(Boolean).join('\n');
+
+    var xong = function(){ bao('Đã copy hồ sơ.', true); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(dong_).then(xong, xong);
+    } else {
+      var ta = document.createElement('textarea'); ta.value = dong_;
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta); xong();
+    }
+  }
+
+  /* Khoá đã lưu từ lần trước thì vào thẳng. */
+  var k0 = doc(KEY_LS);
+  if(k0){ KHOA = k0; tai(true); }
+})();
+</script>
+</body>
+</html>

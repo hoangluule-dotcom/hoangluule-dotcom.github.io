@@ -29,13 +29,24 @@ async function baoTelegram(don) {
 
   /* KHÔNG gửi CCCD và địa chỉ khách qua Telegram (NĐ 13/2023). Chỉ đủ để
      nhân viên biết có đơn mới và tra được trong bảng tính. */
-  const dong = [
-    '🧾 *Đơn TNDS mới*',
-    'Mã đơn: `' + don.orderId + '`',
-    'Xe: ' + (don.plate || '—') + ' · ' + (don.product || ''),
-    'Phí: ' + Number(don.tong_phi || 0).toLocaleString('vi-VN') + 'đ',
-    don.ctvId ? 'CTV: ' + don.ctvId : 'Không gắn mã CTV',
-  ].join('\n');
+
+  /* Đơn gửi lại KHÔNG phải đơn mới — báo "đơn mới" lần thứ hai cho cùng một xe
+     là dạy nhân viên bỏ qua thông báo. Nhưng cũng không im lặng: "khách báo đã
+     chuyển khoản" chính là lúc kế toán cần mở sao kê. */
+  const dong = don.trung_lap
+    ? [
+        '🔔 *Cập nhật đơn*',
+        'Mã đơn: `' + don.orderId + '`',
+        'Xe: ' + (don.plate || '—'),
+        don.trang_thai_khach || 'Khách gửi lại thông tin',
+      ].join('\n')
+    : [
+        '🧾 *Đơn TNDS mới*',
+        'Mã đơn: `' + don.orderId + '`',
+        'Xe: ' + (don.plate || '—') + ' · ' + (don.product || ''),
+        'Phí: ' + Number(don.tong_phi || 0).toLocaleString('vi-VN') + 'đ',
+        don.ctvId ? 'CTV: ' + don.ctvId : 'Không gắn mã CTV',
+      ].join('\n');
 
   try {
     await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
@@ -74,18 +85,60 @@ exports.handler = async function (event) {
     email        : p['email'] || p.email || '',
     plate        : p['bien-so'] || p.plate || '',
     product      : p['san-pham'] || p.product || '',
-    nhomXe       : p['nhom-xe'] || p.nhomXe || '',
     amount       : p['tong-phi'] || p.amount || '',
     phiGoc       : p['phi-goc'] || p.phiGoc || '',
     nguonGhiNhan : p['nguon-ghi-nhan'] || p.nguonGhiNhan || '',
+    /* Khách vừa làm gì: "Chờ thanh toán" / "Khách báo đã chuyển khoản" /
+       "Đăng ký nhận bản giấy". Trang web gửi cùng một mã đơn nhiều lần, và
+       Apps Script dùng trường này để ghi chú thay vì tạo dòng mới. */
+    trangThaiKhach: p['trang-thai'] || p.trangThaiKhach || '',
+
+    /* HỒ SƠ CẤP GIẤY CHỨNG NHẬN.
+       Trang cấp đơn vẫn luôn gửi đủ những trường này. Trước 18/09/2026 hàm
+       này không chuyển tiếp và sổ cái cũng không có cột, nên chúng rơi mất —
+       nhân viên phát hành không có số khung, số máy, ngày hiệu lực hay địa chỉ
+       giao giấy, tức là không cấp nổi giấy chứng nhận. */
+    chiTietXe    : p['chi-tiet-xe'] || p.chiTietXe || '',
+    soKhung      : p['so-khung'] || p.soKhung || '',
+    soMay        : p['so-may'] || p.soMay || '',
+    hieuXe       : p['hieu-xe'] || p.hieuXe || '',
+    namSx        : p['nam-sx'] || p.namSx || '',
+    soCho        : p['so-cho'] || p.soCho || '',
+    thoiHan      : p['thoi-han'] || p.thoiHan || '',
+    ngayHieuLuc  : p['ngay-hieu-luc'] || p.ngayHieuLuc || '',
+    ngayHetHan   : p['ngay-het-han'] || p.ngayHetHan || '',
+    diaChi       : p['dia-chi'] || p.diaChi || '',
+    xuatHoaDon   : p['xuat-hoa-don'] || p.xuatHoaDon || '',
+    tenCty       : p['ten-cty'] || p.tenCty || '',
+    mst          : p['mst'] || p.mst || '',
+    diaChiCty    : p['dia-chi-cty'] || p.diaChiCty || '',
+    emailHd      : p['email-hd'] || p.emailHd || '',
+    diaChiGiao   : p['dia-chi-giao'] || p.diaChiGiao || '',
+    nguoiNhan    : p['nguoi-nhan'] || p.nguoiNhan || '',
+    sdtNhan      : p['sdt-nhan'] || p.sdtNhan || '',
   };
 
-  /* Nhóm xe quyết định tỷ lệ hoa hồng. Trang web gửi "Xe máy / mô tô" hoặc
-     "Ô tô" ở trường loai-xe, quy về 'moto'/'oto' cho khớp COMMISSION_RULES. */
-  if (!goi.nhomXe) {
-    const lx = String(p['loai-xe'] || '').toLowerCase();
-    goi.nhomXe = /máy|mô tô|moto/.test(lx) ? 'moto' : 'oto';
-  }
+  /* NHÓM XE Ở ĐÂY LÀ NHÓM TÍNH HOA HỒNG, KHÔNG PHẢI NHÓM TÍNH PHÍ.
+     ─────────────────────────────────────────────────────────────────────────
+     Trang web có trường 'nhom-xe', nhưng nó mang nhóm TÍNH PHÍ theo Thông tư:
+     nkd (không kinh doanh) / kd (kinh doanh) / tai (xe tải) / khac / moto.
+     COMMISSION_RULES chỉ có hai dòng — oto và moto — vì hoa hồng đã chốt 40%
+     cho cả hai loại.
+     Lấy thẳng 'nhom-xe' thì đơn ô tô vào sổ với nhóm "nkd", chonQuyTac() không
+     tìm thấy quy tắc nào, và hệ thống từ chối tính hoa hồng rồi ghi chú lại.
+     Hành vi đó đúng như thiết kế (thà báo còn hơn ghi 0 vào ô tiền), nhưng
+     nguyên nhân nằm ở phép quy đổi sai ngay tại đây — đã xảy ra thật ngày
+     17/09/2026.
+     'loai-xe' mới là thứ phân biệt ô tô với xe máy, và trang web luôn gửi nó
+     với đúng hai giá trị "Xe máy / mô tô" hoặc "Ô tô". */
+  const loaiXe = String(p['loai-xe'] || p.loaiXe || '').toLowerCase();
+  goi.nhomXe = p.nhomXe === 'moto' || p.nhomXe === 'oto'
+    ? p.nhomXe
+    : (/máy|mô tô|moto/.test(loaiXe) ? 'moto' : 'oto');
+
+  /* Trước 18/09 chi tiết xe bị gộp vào tên sản phẩm vì ORDERS không có cột cho
+     nó. Nay đã có cột "Chi tiết xe" riêng, nên để tên sản phẩm sạch trở lại —
+     lọc và cộng theo sản phẩm mới làm được. */
 
   try {
     const kq = await G.goiPost('createOrder', goi);
@@ -95,10 +148,13 @@ exports.handler = async function (event) {
     await baoTelegram({
       orderId: kq.orderId, ctvId: kq.ctvId, plate: goi.plate,
       product: goi.product, tong_phi: kq.tong_phi,
+      trung_lap: kq.trung_lap === true,
+      trang_thai_khach: kq.trang_thai_khach || goi.trangThaiKhach,
     });
     return G.json(200, {
       ok: true, orderId: kq.orderId, ctvId: kq.ctvId,
       phi_goc: kq.phi_goc, vat: kq.vat, tong_phi: kq.tong_phi,
+      trung_lap: kq.trung_lap === true,
       canh_bao: kq.canh_bao || null,
     });
   } catch (err) {

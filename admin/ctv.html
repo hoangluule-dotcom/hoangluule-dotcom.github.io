@@ -2,519 +2,323 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Cộng tác viên – Quản trị DBV247</title>
+<title>DBV247 — Cộng tác viên &amp; hoa hồng</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --g:#007437;--gd:#005a2b;--gl:#e8f5e9;
-  --gold:#E8920A;--goldd:#c97d08;--gold-bg:#FFF8E7;
-  --navy:#1B3A5C;
-  --tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
-  --bd:#E2E8F0;--bg:#f4f6f8;
-  --red:#dc2626;--red-bg:#fef2f2;
-  --blue:#2563eb;--blue-bg:#eff6ff;
-  --r8:8px;--r12:12px;
+  --g:#007437;--gp:#005a2b;--gl:#E8F5E9;--navy:#0F2942;
+  --tx:#101828;--tm:#475467;--ts:#667085;
+  --bd:#E2E8F0;--bg:#f8fafb;--white:#fff;
+  --do:#B42318;--cam:#B54708;--caml:#FFFAEB;
+  --r12:12px;--r16:16px;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Be Vietnam Pro",sans-serif;background:var(--bg);color:var(--tx);font-size:14px;line-height:1.55}
-a{color:var(--g)}
-.wrap{max-width:1280px;margin:0 auto;padding:20px 16px 60px}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:15px;
+  color:var(--tx);background:var(--bg);line-height:1.55}
+.wrap{max-width:1300px;margin:0 auto;padding:18px 16px 80px}
+h1{font-size:20px;margin:0;font-weight:800}
+h2{font-size:16px;margin:26px 0 12px;font-weight:800}
+.sub{color:var(--ts);font-size:13.5px;margin:2px 0 0}
+.nho{font-size:12px;color:var(--ts)}
 
-/* ══ CỔNG KHOÁ ══ */
-.gate{max-width:420px;margin:64px auto;background:#fff;border:1px solid var(--bd);border-radius:16px;padding:28px}
-.gate h1{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.gate p{font-size:13.5px;color:var(--ts);margin-bottom:20px}
-.gate label{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.gate input{width:100%;padding:11px 13px;border:1.5px solid var(--bd);border-radius:var(--r12);font-family:inherit;font-size:15px}
-.gate input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.12)}
-.gate button{width:100%;margin-top:16px;border:0;background:var(--g);color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:12px;border-radius:var(--r12);cursor:pointer}
-.gate button:hover{background:var(--gd)}
-.gate .err{display:none;margin-top:12px;background:var(--red-bg);border:1px solid #fecaca;color:#b91c1c;font-size:13px;font-weight:600;padding:10px 12px;border-radius:var(--r8)}
-.gate .err.show{display:block}
-
-/* ══ ĐẦU TRANG ══ */
-.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:6px}
-.top h1{font-size:22px;font-weight:700;color:var(--navy)}
-.top .sub{font-size:13px;color:var(--ts);margin-top:2px}
-.acts{display:flex;gap:8px;flex-wrap:wrap}
-.btn{appearance:none;border:1.5px solid var(--bd);background:#fff;color:var(--tm);font-family:inherit;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:9999px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
-.btn:hover{border-color:var(--g);color:var(--g)}
-.btn.chinh{background:var(--g);border-color:var(--g);color:#fff}
-.btn.chinh:hover{background:var(--gd);color:#fff}
-
-/* ══ BĂNG GIẢI THÍCH ══ */
-.bang{background:var(--gold-bg);border:1px solid #F4D9A0;border-left:4px solid var(--gold);border-radius:var(--r12);padding:13px 16px;margin:16px 0 20px}
-.bang b{display:block;font-size:13px;font-weight:800;color:var(--goldd);margin-bottom:3px}
-.bang p{font-size:13.5px;color:var(--tm);line-height:1.6}
-.loi{display:none;background:var(--red-bg);border:1px solid #fecaca;border-left:4px solid var(--red);border-radius:var(--r12);padding:13px 16px;margin-bottom:18px;font-size:13.5px;color:#b91c1c;font-weight:600}
+#gate{max-width:420px;margin:12vh auto;background:#fff;border:1px solid var(--bd);
+  border-radius:var(--r16);padding:26px}
+#gate input{width:100%;padding:12px 13px;border:1.5px solid var(--bd);border-radius:var(--r12);
+  font:inherit;margin:14px 0 10px}
+.btn{appearance:none;border:0;background:var(--g);color:#fff;font:inherit;font-weight:700;
+  padding:11px 20px;border-radius:var(--r12);cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--gp)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.phu{background:#fff;color:var(--tm);border:1.5px solid var(--bd)}
+.btn.nho{padding:8px 14px;font-size:13.5px}
+.loi{display:none;color:var(--do);font-size:13.5px;font-weight:600;margin-top:8px}
 .loi.show{display:block}
+.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:6px}
 
-/* ══ Ô CHỈ SỐ ══
-   Sáu con số này là "hero number", không phải biểu đồ: chúng trả lời câu hỏi
-   "bao nhiêu", không có chiều thời gian để vẽ. Chữ dùng token chữ, chỉ số tiền
-   mới lấy màu thương hiệu. */
-.o-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:22px}
-@media(min-width:700px){ .o-grid{grid-template-columns:repeat(3,1fr)} }
-@media(min-width:1040px){ .o-grid{grid-template-columns:repeat(6,1fr)} }
-.o{background:#fff;border:1px solid var(--bd);border-radius:var(--r12);padding:13px 15px}
-.o .lb{font-size:11.5px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;line-height:1.35;min-height:30px}
-.o .so{margin-top:4px;font-size:23px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:-.5px;line-height:1.15}
-.o.tien .so{color:var(--gd);font-size:19px}
-.o .phu{margin-top:2px;font-size:11.5px;color:var(--ts)}
-
-/* ══ THANH LỌC ══ */
-.loc{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
-.loc input{flex:1;min-width:220px;padding:10px 13px;border:1.5px solid var(--bd);border-radius:var(--r12);font-family:inherit;font-size:14px;background:#fff}
-.loc input:focus{outline:none;border-color:var(--g)}
-.loc select{padding:10px 12px;border:1.5px solid var(--bd);border-radius:var(--r12);font-family:inherit;font-size:13.5px;background:#fff}
-
-/* ══ BẢNG ══ */
-.hop{background:#fff;border:1px solid var(--bd);border-radius:var(--r12);overflow:hidden}
+.hop{background:#fff;border:1px solid var(--bd);border-radius:var(--r16);overflow:hidden}
 .cuon{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13.5px}
-th{text-align:left;font-size:11.5px;font-weight:800;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;padding:11px 12px;background:#fafbfc;border-bottom:1px solid var(--bd);white-space:nowrap}
-th.phai,td.phai{text-align:right}
-td{padding:11px 12px;border-bottom:1px solid #f1f4f7;vertical-align:top}
-tr:last-child td{border-bottom:0}
-tbody tr.ctv{cursor:pointer}
-tbody tr.ctv:hover{background:#fafbfc}
-td.phai{font-variant-numeric:tabular-nums}
-.ma{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--navy);background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:2px 7px;display:inline-block}
-.ten{font-weight:600;color:var(--tx)}
-.nho{font-size:12px;color:var(--ts)}
-.tien{font-weight:700;color:var(--gd)}
-.tien.mo{color:var(--ts);font-weight:600}
-.khong{color:#cbd2d9}
-.trong{padding:44px 20px;text-align:center;color:var(--ts)}
-.trong b{display:block;font-size:15px;color:var(--tm);margin-bottom:5px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}
+th{background:var(--bg);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--ts);font-weight:800}
+td.phai,th.phai{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--gl)}
+.ma{font-family:ui-monospace,Menlo,monospace;font-weight:700}
+.trong{padding:40px 20px;text-align:center;color:var(--ts)}
 
-/* Trạng thái — màu trạng thái là bộ riêng, không dùng lại làm màu "cột thứ 4" */
-.tt{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:9999px;white-space:nowrap}
-.tt::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-.tt.xong{background:var(--gl);color:var(--gd)}
-.tt.cho{background:var(--gold-bg);color:var(--goldd)}
+.o-tra{background:var(--caml);border:1px solid #FEDF89;border-radius:var(--r16);
+  padding:16px 18px;margin-bottom:20px}
+.o-tra h2{margin:0 0 6px;color:var(--cam)}
+.o-tra .tong{font-size:26px;font-weight:800;color:var(--cam);font-variant-numeric:tabular-nums}
 
-/* Hàng đơn hàng bung ra */
-tr.don-hang{display:none}
-tr.don-hang.mo{display:table-row}
-tr.don-hang td{background:#fafbfc;padding:0}
-.don-in{padding:12px 14px}
-.don-in h4{font-size:12px;font-weight:800;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px}
-table.don{font-size:12.5px;background:#fff;border:1px solid var(--bd);border-radius:var(--r8)}
-table.don th{background:#fff;font-size:10.5px;padding:8px 10px}
-table.don td{padding:8px 10px}
+#ct{display:none;position:fixed;inset:0;background:rgba(16,24,40,.45);z-index:80}
+#ct.mo{display:block}
+.ct-hop{position:absolute;top:0;right:0;height:100%;width:min(620px,100%);background:#fff;
+  overflow-y:auto;padding:20px 22px 40px;box-shadow:-6px 0 28px rgba(16,24,40,.16)}
+.ct-dau{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  position:sticky;top:-20px;background:#fff;padding:20px 0 12px;margin:-20px 0 4px;
+  border-bottom:1px solid var(--bd);z-index:2}
+.ky{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.ky .o{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r12);padding:11px 13px}
+.ky .lb{font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--ts);font-weight:800}
+.ky .so{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.tt{display:inline-block;padding:3px 9px;border-radius:9999px;font-size:11.5px;font-weight:700}
+.tt.cho{background:var(--caml);color:var(--cam)}
+.tt.xong{background:var(--gl);color:var(--gp)}
+.rieng{background:var(--gl);border:1px solid #BBE3C6;border-radius:var(--r12);
+  padding:11px 13px;font-size:13px;color:var(--gp);margin-top:14px}
 </style>
 </head>
 <body>
 
-<!-- ══ CỔNG KHOÁ ══ -->
-<div class="gate" id="gate">
-  <h1>Cộng tác viên</h1>
-  <p>Dùng chung khoá truy cập với trang CRM quản lý khách hàng.</p>
-  <label for="keyInput">Khoá truy cập</label>
-  <input type="password" id="keyInput" autocomplete="current-password" placeholder="Nhập khoá của team">
-  <button type="button" id="btnUnlock">Mở khoá</button>
-  <div class="err" id="gateErr"></div>
+<div id="gate">
+  <h1>Cộng tác viên &amp; hoa hồng</h1>
+  <p class="sub">Màn hình nội bộ. Không chứa dữ liệu cá nhân của khách hàng.</p>
+  <input id="keyInput" type="password" placeholder="Khoá truy cập" autocomplete="off">
+  <button class="btn" id="btnUnlock">Mở</button>
+  <div class="loi" id="gateErr"></div>
 </div>
 
-<!-- ══ NỘI DUNG ══ -->
 <div class="wrap" id="app" style="display:none">
-
   <div class="top">
     <div>
-      <h1>Cộng tác viên</h1>
-      <div class="sub" id="capNhat">—</div>
+      <h1>Cộng tác viên &amp; hoa hồng</h1>
+      <p class="sub" id="cap-nhat">—</p>
     </div>
-    <div class="acts">
-      <a class="btn" href="/admin/dashboard.html">← CRM khách hàng</a>
-      <button type="button" class="btn" id="btnCsv">Tải CSV</button>
-      <button type="button" class="btn chinh" id="btnTai">Tải lại</button>
+    <div style="display:flex;gap:8px">
+      <a class="btn phu nho" href="/admin/don.html">Đơn hàng &amp; cấp giấy →</a>
+      <button class="btn nho" id="btnTai">Tải lại</button>
     </div>
   </div>
 
   <div class="loi" id="loi"></div>
 
-  <div class="bang">
-    <b>Đọc con số này cho đúng</b>
-    <p><b style="display:inline">Doanh thu ghi nhận</b> là tổng phí của những đơn khách đã bấm “tôi đã chuyển khoản” — <b style="display:inline">chưa phải tiền đã về tài khoản công ty</b>. Hoa hồng chỉ được sinh sau khi dòng sao kê ngân hàng khớp với đơn, và phần đó chưa bật. Vì vậy bảng này chưa có cột hoa hồng: hiện một con số hoa hồng “dự kiến” là mời cộng tác viên coi đó là tiền của họ.</p>
-    <p style="margin-top:7px"><b style="display:inline">Lead SP khác</b> là lead của những sản phẩm không bán online (cháy nổ, sức khoẻ, vật chất ô tô, du lịch, hàng hoá…) đến từ link của cộng tác viên. Giai đoạn 1 <b style="display:inline">chỉ trả hoa hồng cho TNDS</b> — cột này chỉ để đo xem có đáng mở rộng phạm vi hay không, chưa hứa gì với cộng tác viên.</p>
+  <!-- CHI TRẢ ĐẾN HẠN — đặt trên cùng vì đây là việc có hạn chót.
+       Dashboard của CTV đã hứa chuyển khoản ngày 2 và 16; danh sách này là thứ
+       biến lời hứa đó thành việc làm được. -->
+  <div class="o-tra">
+    <h2>Chi trả đến hạn</h2>
+    <div class="tong" id="tra-tong">0đ</div>
+    <p class="nho" id="tra-mo">—</p>
+    <div class="cuon" style="margin-top:10px"><table>
+      <thead><tr><th>Mã</th><th>Họ tên</th><th>Ngân hàng</th><th>Số tài khoản</th>
+        <th>Chủ tài khoản</th><th class="phai">Số tiền</th></tr></thead>
+      <tbody id="tra-body"></tbody>
+    </table></div>
+    <div class="trong" id="tra-trong" style="display:none">Chưa có khoản hoa hồng nào đến hạn.</div>
   </div>
 
-  <div class="o-grid">
-    <div class="o"><div class="lb">Cộng tác viên</div><div class="so" id="k-ctv">0</div><div class="phu" id="k-ctv-phu">—</div></div>
-    <div class="o"><div class="lb">Lượt bấm link<br>90 ngày</div><div class="so" id="k-bam">0</div></div>
-    <div class="o"><div class="lb">Đơn có mã CTV</div><div class="so" id="k-don">0</div><div class="phu" id="k-don-phu">—</div></div>
-    <div class="o tien"><div class="lb">Doanh thu ghi nhận qua CTV</div><div class="so" id="k-dt">0đ</div></div>
-    <div class="o"><div class="lb">Đơn không gắn CTV</div><div class="so" id="k-tu">0</div><div class="phu" id="k-tu-phu">khách tự tìm đến</div></div>
-    <div class="o"><div class="lb">Lead SP khác<br>qua link CTV</div><div class="so" id="k-lead">0</div><div class="phu">chưa sinh hoa hồng</div></div>
-  </div>
-
-  <div class="loc">
-    <input type="search" id="tim" placeholder="Tìm theo mã, tên hoặc số điện thoại…" autocomplete="off">
-    <select id="sap">
-      <option value="dt">Sắp theo doanh thu</option>
-      <option value="don">Sắp theo số đơn</option>
-      <option value="bam">Sắp theo lượt bấm</option>
-      <option value="lead">Sắp theo lead SP khác</option>
-      <option value="moi">Mới đăng ký trước</option>
-      <option value="ten">Theo tên</option>
-    </select>
-  </div>
-
+  <h2>Tất cả cộng tác viên</h2>
   <div class="hop">
-    <div class="cuon">
-      <table>
-        <thead>
-          <tr>
-            <th>Mã</th>
-            <th>Cộng tác viên</th>
-            <th>Tài khoản nhận tiền</th>
-            <th class="phai">Lượt bấm</th>
-            <th class="phai">Đơn</th>
-            <th class="phai">Đã báo CK</th>
-            <th class="phai">Doanh thu ghi nhận</th>
-            <th class="phai">Đơn chờ tiền</th>
-            <th class="phai">Lead SP khác</th>
-            <th>Tham gia</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-    </div>
-    <div class="trong" id="trong" style="display:none">
-      <b>Chưa có cộng tác viên nào</b>
-      Khi có người đăng ký ở trang /ctv, họ sẽ hiện ở đây.
-    </div>
+    <div class="cuon"><table>
+      <thead><tr>
+        <th>Mã</th><th>Họ tên</th><th>SĐT</th><th>Trạng thái</th>
+        <th class="phai">Đơn</th><th class="phai">Đã thu tiền</th>
+        <th class="phai">Doanh thu</th><th class="phai">HH khả dụng</th>
+        <th class="phai">HH đã trả</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+    <div class="trong" id="trong" style="display:none">Chưa có cộng tác viên nào trong sổ cái.</div>
   </div>
-
-  <!-- ĐƠN KHÔNG GẮN MÃ — ô cửa sổ để soi khiếu nại "mất đơn".
-       Cộng tác viên báo mất đơn thì câu hỏi đầu tiên luôn là: đơn có về tới
-       hệ thống không? Nếu đơn nằm ở đây thì nó VỀ RỒI nhưng mất mã trên đường
-       (khách mua ở máy khác, xoá cookie, tự vào thẳng trang). Nếu không có ở
-       đây luôn thì đơn chưa từng tới — chuyện khác hẳn, sửa chỗ khác. -->
-  <div class="hop" style="margin-top:22px">
-    <div style="padding:14px 16px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-      <div>
-        <b style="font-size:14px">Đơn không gắn mã cộng tác viên</b>
-        <div style="font-size:12.5px;color:var(--tm);margin-top:3px">50 đơn gần nhất. Xem ở đây để biết đơn đã về hệ thống hay chưa trước khi kết luận cộng tác viên mất đơn.</div>
-      </div>
-      <button type="button" id="btn-kg" style="border:1px solid var(--bd);background:#fff;border-radius:9px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer">Hiện danh sách</button>
-    </div>
-    <div id="kg-vung" style="display:none">
-      <div class="cuon">
-        <table>
-          <thead>
-            <tr>
-              <th>Thời điểm</th><th>Mã đơn</th><th>Biển số</th><th>Xe</th>
-              <th class="phai">Tổng phí</th><th>Trạng thái</th><th>Nguồn ghi nhận</th>
-            </tr>
-          </thead>
-          <tbody id="kg-tbody"></tbody>
-        </table>
-      </div>
-      <div class="trong" id="kg-trong" style="display:none">
-        <b>Không có đơn nào thiếu mã</b>
-        Mọi đơn gần đây đều đã gắn được mã cộng tác viên.
-      </div>
-    </div>
-  </div>
-
 </div>
+
+<div id="ct"><div class="ct-hop" id="ct-hop"></div></div>
 
 <script>
 (function(){
   'use strict';
-  var API   = '/.netlify/functions/ctv-admin';
-  var KEY_LS = 'dbv247_key';   // dùng chung với admin/dashboard.html
-  var KHOA = '';
-  var DU_LIEU = null;
+  var API    = '/.netlify/functions/gas-admin';
+  var KEY_LS = 'dbv247_key';
+  var KHOA = '', CTV = [], DON_THEO = {};
 
   function $(id){ return document.getElementById(id); }
   function doc(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
   function luu(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-
-  function esc(v){
-    return String(v==null?'':v)
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-  function tien(n){
-    var s = Math.round(Number(n)||0).toString();
-    return s.replace(/\B(?=(\d{3})+(?!\d))/g,'.') + 'đ';
-  }
-  function so(n){
-    return String(Math.round(Number(n)||0)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-  }
-  function ngay(iso){
-    if(!iso) return '—';
-    var d = new Date(iso);
-    if(isNaN(d.getTime())) return '—';
-    var p = function(x){ return (x<10?'0':'')+x; };
+  function esc(v){ return String(v==null?'':v)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function tien(n){ return String(Math.round(Number(n)||0)).replace(/\B(?=(\d{3})+(?!\d))/g,'.') + 'đ'; }
+  function so(n){ return String(Math.round(Number(n)||0)).replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+  function ngay(v){
+    if(!v) return '—';
+    var d = new Date(v); if(isNaN(d.getTime())) return String(v);
+    var p=function(x){return (x<10?'0':'')+x;};
     return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear();
   }
-  function gioNgay(iso){
-    if(!iso) return '—';
-    var d = new Date(iso);
-    if(isNaN(d.getTime())) return '—';
-    var p = function(x){ return (x<10?'0':'')+x; };
-    return p(d.getHours())+':'+p(d.getMinutes())+' '+p(d.getDate())+'/'+p(d.getMonth()+1);
+
+  /* Kỳ chi trả kế tiếp: ngày 2 và 16 hằng tháng. */
+  function kyKeTiep(){
+    var h = new Date(), d = h.getDate();
+    if(d < 2)  return new Date(h.getFullYear(), h.getMonth(), 2);
+    if(d < 16) return new Date(h.getFullYear(), h.getMonth(), 16);
+    return new Date(h.getFullYear(), h.getMonth()+1, 2);
   }
 
-  /* ── Cổng khoá ── */
-  function moKhoa(k){
-    KHOA = k;
-    tai(true);
-  }
+  function baoGate(c){ var e=$('gateErr'); e.textContent=c; e.classList.add('show'); }
   $('btnUnlock').addEventListener('click', function(){
     var k = $('keyInput').value.trim();
     if(!k){ baoGate('Nhập khoá truy cập.'); return; }
-    moKhoa(k);
+    KHOA = k; tai(true);
   });
   $('keyInput').addEventListener('keydown', function(e){
-    if(e.key === 'Enter') $('btnUnlock').click();
+    if(e.key==='Enter') $('btnUnlock').click();
   });
-  function baoGate(chu){
-    var e = $('gateErr'); e.textContent = chu; e.classList.add('show');
-  }
 
-  /* ── Tải dữ liệu ── */
   function tai(lanDau){
     var nut = $('btnTai');
-    if(nut){ nut.disabled = true; nut.textContent = 'Đang tải…'; }
-
-    fetch(API, { headers: { 'x-dashboard-key': KHOA } })
-      .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, st:r.status, j:j }; }); })
+    if(nut){ nut.disabled=true; nut.textContent='Đang tải…'; }
+    fetch(API + '?view=ctv', { headers:{ 'x-dashboard-key': KHOA } })
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
       .then(function(res){
         if(!res.ok || !res.j.ok){
-          if(lanDau){ baoGate(res.j.error || 'Không mở được. Kiểm tra lại khoá.'); }
-          else { var l=$('loi'); l.textContent = res.j.error || 'Không tải được dữ liệu.'; l.classList.add('show'); }
+          if(lanDau) baoGate(res.j.error || 'Không mở được. Kiểm tra lại khoá.');
+          else { var l=$('loi'); l.textContent = res.j.error || 'Không tải được.'; l.classList.add('show'); }
           return;
         }
         luu(KEY_LS, KHOA);
-        $('gate').style.display = 'none';
-        $('app').style.display = 'block';
-        DU_LIEU = res.j;
-        ve();
+        $('gate').style.display='none';
+        $('app').style.display='block';
+        $('loi').classList.remove('show');
+        CTV = res.j.ctv || [];
+        DON_THEO = res.j.don_theo_ctv || {};
+        $('cap-nhat').textContent = 'Đọc từ sổ cái lúc ' + (res.j.cap_nhat || '—')
+          + ' · ' + CTV.length + ' cộng tác viên';
+        veChiTra(); veBang();
       })
-      .catch(function(){
-        if(lanDau) baoGate('Không kết nối được máy chủ.');
-        else { var l=$('loi'); l.textContent='Không kết nối được máy chủ.'; l.classList.add('show'); }
-      })
-      .finally(function(){
-        if(nut){ nut.disabled = false; nut.textContent = 'Tải lại'; }
-      });
+      .catch(function(){ if(lanDau) baoGate('Không kết nối được máy chủ.'); })
+      .then(function(){ if(nut){ nut.disabled=false; nut.textContent='Tải lại'; } });
   }
-  $('btnTai').addEventListener('click', function(){ $('loi').classList.remove('show'); tai(false); });
+  $('btnTai').addEventListener('click', function(){ tai(false); });
 
-  $('btn-kg').addEventListener('click', function(){
-    var v = $('kg-vung');
-    var mo = v.style.display === 'none';
-    v.style.display = mo ? 'block' : 'none';
-    this.textContent = mo ? 'Ẩn danh sách' : 'Hiện danh sách';
-  });
+  /* ── Chi trả đến hạn ──
+     Chỉ tính hoa hồng ĐÃ CHỐT (COMMISSION_APPROVED) — tongHopToanBo trả về ở
+     trường hoa_hong_cho_duyet. Hoa hồng của đơn chưa thu tiền không nằm ở đây. */
+  function veChiTra(){
+    var can = CTV.filter(function(c){ return (Number(c.hoa_hong_cho_duyet)||0) > 0; });
+    var tong = can.reduce(function(s,c){ return s + (Number(c.hoa_hong_cho_duyet)||0); }, 0);
+    $('tra-tong').textContent = tien(tong);
+    $('tra-mo').textContent = can.length
+      ? can.length + ' cộng tác viên · kỳ chi trả kế tiếp ' + ngay(kyKeTiep())
+        + ' · kiểm tài khoản nhận tiền trước khi chuyển'
+      : 'Kỳ chi trả kế tiếp ' + ngay(kyKeTiep());
+    $('tra-trong').style.display = can.length ? 'none' : 'block';
 
-  /* ── Vẽ ── */
-  function ve(){
-    var d = DU_LIEU, t = d.tong;
-    $('capNhat').textContent = 'Cập nhật lúc ' + gioNgay(d.cap_nhat);
-
-    if(d.canh_bao_don){
-      var l = $('loi');
-      l.textContent = 'Chưa đọc được danh sách đơn: ' + d.canh_bao_don +
-        ' — danh sách cộng tác viên vẫn đúng, chỉ thiếu phần đơn và doanh thu.';
-      l.classList.add('show');
-    }
-
-    $('k-ctv').textContent = so(t.so_ctv);
-    $('k-ctv-phu').textContent = so(t.so_ctv_co_don) + ' người đã có đơn';
-    $('k-bam').textContent = so(t.luot_bam_90n);
-    $('k-don').textContent = so(t.so_don_co_ctv);
-    $('k-don-phu').textContent = 'trong đó ' + so(d.ctv.reduce(function(a,x){ return a+x.so_don_da_ck; },0)) + ' đã báo chuyển khoản';
-    $('k-dt').textContent  = tien(t.doanh_thu_co_ctv);
-    $('k-tu').textContent  = so(t.so_don_khong_gan);
-    $('k-tu-phu').textContent = tien(t.doanh_thu_khong_gan);
-    $('k-lead').textContent = so(t.lead_sp_khac || 0);
-
-    veBang();
-    veKhongGan();
-  }
-
-  /* Danh sách đơn không mang mã CTV. Vẽ sẵn nhưng để ẩn — mở khi cần soi. */
-  function veKhongGan(){
-    var ds = DU_LIEU.don_khong_gan || [];
-    var tb = $('kg-tbody');
-    if(!tb) return;
-    $('kg-trong').style.display = ds.length ? 'none' : 'block';
-    tb.innerHTML = ds.map(function(d){
-      var daCk = d.trang_thai === 'Khách báo đã chuyển khoản';
-      return '<tr>'
-        + '<td>' + gioNgay(d.thoi_diem) + '</td>'
-        + '<td>' + esc(d.ma_don || '—') + '</td>'
-        + '<td><b>' + esc(d.bien_so || '—') + '</b></td>'
-        + '<td>' + esc(d.chi_tiet_xe || d.loai_xe || '—') + '</td>'
-        + '<td class="phai">' + tien(d.tong_phi) + '</td>'
-        + '<td>' + (daCk ? 'Đã báo chuyển khoản' : esc(d.trang_thai || '—')) + '</td>'
-        + '<td>' + esc(d.nguon_ghi_nhan || '—') + '</td>'
+    var h = '';
+    can.sort(function(a,b){ return b.hoa_hong_cho_duyet - a.hoa_hong_cho_duyet; })
+       .forEach(function(c){
+      var thieu = !c.so_tai_khoan;
+      h += '<tr>'
+        + '<td class="ma">'+esc(c.ma_ctv)+'</td>'
+        + '<td>'+esc(c.ho_ten||'—')+'</td>'
+        + '<td>'+esc(c.ngan_hang||'<span class="tt cho">chưa khai</span>')+'</td>'
+        + '<td>'+(thieu ? '<span class="tt cho">chưa khai</span>' : esc(c.so_tai_khoan))+'</td>'
+        + '<td>'+esc(c.chu_tai_khoan||'—')+'</td>'
+        + '<td class="phai"><b>'+tien(c.hoa_hong_cho_duyet)+'</b></td>'
         + '</tr>';
-    }).join('');
-  }
-
-  function locVaSap(){
-    var q = ($('tim').value || '').trim().toLowerCase();
-    var ds = DU_LIEU.ctv.filter(function(c){
-      if(!q) return true;
-      return (c.ma_ctv||'').toLowerCase().indexOf(q) >= 0
-          || (c.ho_ten||'').toLowerCase().indexOf(q) >= 0
-          || (c.sdt||'').indexOf(q) >= 0;
     });
-    var kieu = $('sap').value;
-    ds.sort(function(a,b){
-      if(kieu==='don') return b.so_don - a.so_don;
-      if(kieu==='bam') return b.luot_bam_90n - a.luot_bam_90n;
-      if(kieu==='lead') return b.lead_sp_khac - a.lead_sp_khac;
-      if(kieu==='moi') return String(b.ngay_tao).localeCompare(String(a.ngay_tao));
-      if(kieu==='ten') return String(a.ho_ten).localeCompare(String(b.ho_ten), 'vi');
-      return b.doanh_thu - a.doanh_thu;
-    });
-    return ds;
+    $('tra-body').innerHTML = h;
   }
 
   function veBang(){
-    var ds = locVaSap();
-    var tb = $('tbody');
-    $('trong').style.display = ds.length ? 'none' : 'block';
-
-    var html = '';
-    ds.forEach(function(c){
-      var nh = c.ngan_hang ? esc(c.ngan_hang) + ' · ' + esc(c.so_tai_khoan||'—')
-                           : '<span class="khong">chưa khai</span>';
-      html += '<tr class="ctv" data-ma="' + esc(c.ma_ctv) + '">'
-        + '<td><span class="ma">' + esc(c.ma_ctv) + '</span></td>'
-        + '<td><div class="ten">' + esc(c.ho_ten) + '</div><div class="nho">' + esc(c.sdt) + '</div></td>'
-        + '<td class="nho">' + nh + '</td>'
-        + '<td class="phai">' + so(c.luot_bam_90n) + '</td>'
-        + '<td class="phai">' + so(c.so_don) + '</td>'
-        + '<td class="phai">' + so(c.so_don_da_ck) + '</td>'
-        + '<td class="phai"><span class="tien' + (c.doanh_thu ? '' : ' mo') + '">' + tien(c.doanh_thu) + '</span></td>'
-        + '<td class="phai"><span class="nho">' + (c.doanh_thu_cho ? tien(c.doanh_thu_cho) : '—') + '</span></td>'
-        + '<td class="phai">' + (c.lead_sp_khac ? so(c.lead_sp_khac) : '<span class="khong">—</span>') + '</td>'
-        + '<td class="nho">' + ngay(c.ngay_tao) + '</td>'
-        + '</tr>'
-        + '<tr class="don-hang" data-cua="' + esc(c.ma_ctv) + '"><td colspan="10"><div class="don-in" data-chua="' + esc(c.ma_ctv) + '"></div></td></tr>';
+    $('trong').style.display = CTV.length ? 'none' : 'block';
+    var h = '';
+    CTV.forEach(function(c){
+      var hd = String(c.trang_thai||'').toUpperCase() === 'ACTIVE';
+      h += '<tr data-ma="'+esc(c.ma_ctv)+'">'
+        + '<td class="ma">'+esc(c.ma_ctv)+'</td>'
+        + '<td><b>'+esc(c.ho_ten||'—')+'</b></td>'
+        + '<td>'+esc(c.sdt||'—')+'</td>'
+        + '<td>'+(hd?'<span class="tt xong">Hoạt động</span>':'<span class="tt cho">'+esc(c.trang_thai||'—')+'</span>')+'</td>'
+        + '<td class="phai">'+so(c.so_don)+'</td>'
+        + '<td class="phai">'+so(c.so_don_da_tra)+'</td>'
+        + '<td class="phai">'+tien(c.doanh_thu)+'</td>'
+        + '<td class="phai"><b>'+tien(c.hoa_hong_cho_duyet)+'</b></td>'
+        + '<td class="phai">'+tien(c.hoa_hong_da_tra)+'</td>'
+        + '</tr>';
     });
-    tb.innerHTML = html;
-
-    Array.prototype.forEach.call(tb.querySelectorAll('tr.ctv'), function(tr){
-      tr.addEventListener('click', function(){ bung(this.getAttribute('data-ma')); });
+    $('tbody').innerHTML = h;
+    Array.prototype.forEach.call($('tbody').querySelectorAll('tr'), function(tr){
+      tr.addEventListener('click', function(){ moHoSo(tr.getAttribute('data-ma')); });
     });
   }
 
-  /* Bung danh sách đơn của một cộng tác viên */
-  function bung(ma){
-    var hang = document.querySelector('tr.don-hang[data-cua="' + ma + '"]');
-    if(!hang) return;
-    var dangMo = hang.classList.contains('mo');
-    Array.prototype.forEach.call(document.querySelectorAll('tr.don-hang.mo'), function(x){ x.classList.remove('mo'); });
-    if(dangMo) return;
-    hang.classList.add('mo');
+  var NHAN_TT = {
+    'PAYMENT_PENDING':['Chờ tiền về','cho'], 'PAID':['Đã nhận tiền','xong'],
+    'CANCELLED':['Đã huỷ','cho'], 'REFUNDED':['Đã hoàn phí','cho']
+  };
 
-    var o = hang.querySelector('.don-in');
-    if(o.getAttribute('data-da-ve')) return;
-    o.setAttribute('data-da-ve','1');
+  function moHoSo(ma){
+    var c = CTV.filter(function(x){ return String(x.ma_ctv)===String(ma); })[0];
+    if(!c) return;
+    var ds = DON_THEO[ma] || [];
 
-    var don = (DU_LIEU.don || []).filter(function(d){ return d.ma_ctv === ma; });
-    if(!don.length){
-      o.innerHTML = '<h4>Đơn của ' + esc(ma) + '</h4>'
-        + '<div class="nho">Chưa có đơn TNDS nào mang mã này.</div>'
-        + veLead(ma);
-      return;
+    var h = '<div class="ct-dau"><div>'
+      + '<div style="font-size:18px;font-weight:800">'+esc(c.ho_ten||'—')+'</div>'
+      + '<div class="nho">Mã <span class="ma">'+esc(c.ma_ctv)+'</span> · '+esc(c.sdt||'—')
+      + ' · vào từ '+ngay(c.ngay_tao)+'</div>'
+      + '</div><button class="btn phu nho" id="ct-dong">Đóng</button></div>';
+
+    h += '<div class="ky">'
+      + '<div class="o"><div class="lb">Đơn</div><div class="so">'+so(c.so_don)+'</div></div>'
+      + '<div class="o"><div class="lb">Đã thu tiền</div><div class="so">'+so(c.so_don_da_tra)+'</div></div>'
+      + '<div class="o"><div class="lb">Doanh thu</div><div class="so">'+tien(c.doanh_thu)+'</div></div>'
+      + '<div class="o"><div class="lb">HH khả dụng</div><div class="so">'+tien(c.hoa_hong_cho_duyet)+'</div></div>'
+      + '<div class="o"><div class="lb">HH đã trả</div><div class="so">'+tien(c.hoa_hong_da_tra)+'</div></div>'
+      + '</div>';
+
+    h += '<h2 style="margin-top:8px">Tài khoản nhận hoa hồng</h2>'
+      + '<div class="hop" style="padding:12px 14px">'
+      + (c.so_tai_khoan
+          ? esc(c.ngan_hang||'—') + ' · <b>' + esc(c.so_tai_khoan) + '</b> · ' + esc(c.chu_tai_khoan||'—')
+          : '<span class="tt cho">Chưa khai tài khoản</span> — không chuyển được tiền cho người này.')
+      + '</div>';
+
+    h += '<h2>Đơn hàng ('+ds.length+')</h2>';
+    if(!ds.length){
+      h += '<div class="hop"><div class="trong">Chưa có đơn nào.</div></div>';
+    } else {
+      h += '<div class="hop"><div class="cuon"><table><thead><tr>'
+        + '<th>Ngày</th><th>Mã đơn</th><th>Biển số</th>'
+        + '<th class="phai">Phí trước VAT</th><th class="phai">Tổng phí</th>'
+        + '<th class="phai">Hoa hồng</th><th>Trạng thái</th>'
+        + '</tr></thead><tbody>';
+      ds.forEach(function(d){
+        var n = NHAN_TT[d.payment_status] || [d.payment_status||'—','cho'];
+        h += '<tr style="cursor:default">'
+          + '<td class="nho">'+ngay(d.ngay_tao)+'</td>'
+          + '<td class="ma" style="font-weight:400">'+esc(d.order_id)+'</td>'
+          + '<td><b>'+esc(d.bien_so||'—')+'</b></td>'
+          + '<td class="phai">'+tien(d.phi_goc)+'</td>'
+          + '<td class="phai">'+tien(d.tong_phi)+'</td>'
+          + '<td class="phai"><b>'+(d.commission ? tien(d.commission) : '—')+'</b></td>'
+          + '<td><span class="tt '+n[1]+'">'+esc(n[0])+'</span></td>'
+          + '</tr>';
+      });
+      h += '</tbody></table></div></div>';
     }
-    var h = '<h4>Đơn của ' + esc(ma) + ' — ' + don.length + ' đơn</h4>'
-      + '<div class="cuon"><table class="don"><thead><tr>'
-      + '<th>Thời điểm</th><th>Mã đơn</th><th>Biển số</th><th>Xe</th><th>Thời hạn</th>'
-      + '<th class="phai">Tổng phí</th><th>Trạng thái</th><th>Nguồn ghi nhận</th>'
-      + '</tr></thead><tbody>';
-    don.forEach(function(d){
-      var daCk = d.trang_thai === 'Khách báo đã chuyển khoản';
-      h += '<tr>'
-        + '<td class="nho">' + gioNgay(d.thoi_diem) + '</td>'
-        + '<td><span class="ma" style="letter-spacing:.5px">' + esc(d.ma_don || '—') + '</span></td>'
-        + '<td>' + esc(d.bien_so || '—') + '</td>'
-        + '<td class="nho">' + esc(d.chi_tiet_xe || d.loai_xe || '—') + '</td>'
-        + '<td class="nho">' + esc(d.thoi_han || '—') + '</td>'
-        + '<td class="phai tien' + (daCk ? '' : ' mo') + '">' + tien(d.tong_phi) + '</td>'
-        + '<td><span class="tt ' + (daCk ? 'xong' : 'cho') + '">' + (daCk ? 'Đã báo CK' : 'Chờ tiền về') + '</span></td>'
-        + '<td class="nho">' + esc(tenNguon(d.nguon_ghi_nhan)) + '</td>'
-        + '</tr>';
-    });
-    h += '</tbody></table></div>';
-    h += veLead(ma);
-    o.innerHTML = h;
+
+    h += '<div class="rieng">Danh sách này KHÔNG có tên, số điện thoại hay địa chỉ khách hàng — '
+      + 'quản lý hoa hồng không cần tới chúng. Cần hồ sơ khách để cấp giấy thì mở '
+      + '<a href="/admin/don.html">màn hình Đơn hàng</a>.</div>';
+
+    $('ct-hop').innerHTML = h;
+    $('ct').classList.add('mo');
+    $('ct-dong').addEventListener('click', dong);
   }
 
-  /* Lead sản phẩm khác — đếm và liệt kê để đo, KHÔNG kèm thông tin khách.
-     Xem tên và số điện thoại khách thì vào CRM, không phải màn hình này. */
-  function veLead(ma){
-    var ds = (DU_LIEU.lead || []).filter(function(l){ return l.ma_ctv === ma; });
-    if(!ds.length) return '';
-    var h = '<h4 style="margin-top:16px">Lead sản phẩm khác — ' + ds.length
-      + ' lead <span style="font-weight:600;text-transform:none;letter-spacing:0">(chưa sinh hoa hồng ở giai đoạn 1)</span></h4>'
-      + '<div class="cuon"><table class="don"><thead><tr>'
-      + '<th>Thời điểm</th><th>Sản phẩm quan tâm</th><th>Trang</th><th>Form</th>'
-      + '</tr></thead><tbody>';
-    ds.forEach(function(l){
-      h += '<tr>'
-        + '<td class="nho">' + gioNgay(l.thoi_diem) + '</td>'
-        + '<td>' + esc(l.san_pham || '—') + '</td>'
-        + '<td class="nho">' + esc(l.trang || '—') + '</td>'
-        + '<td class="nho">' + esc(l.form || '—') + '</td>'
-        + '</tr>';
-    });
-    return h + '</tbody></table></div>';
-  }
-
-  /* Nguồn ghi nhận hiện bằng tiếng Việt thường — đây là câu trả lời đầu tiên
-     khi cộng tác viên khiếu nại đơn về tay ai. */
-  function tenNguon(v){
-    if(v === 'khach_tu_nhap') return 'Khách tự nhập mã';
-    if(v === 'tham_so_url')   return 'Khách vừa bấm link';
-    if(v === 'cookie_link')   return 'Đã bấm link trước đó';
-    return v || '—';
-  }
-
-  $('tim').addEventListener('input', veBang);
-  $('sap').addEventListener('change', veBang);
-
-  /* ── Tải CSV ── */
-  $('btnCsv').addEventListener('click', function(){
-    if(!DU_LIEU) return;
-    var cot = ['Mã CTV','Họ tên','Số điện thoại','Email','Ngân hàng','Số tài khoản','Chủ tài khoản',
-               'Lượt bấm 90 ngày','Số đơn','Đơn đã báo CK','Doanh thu ghi nhận','Đơn chờ tiền','Lead SP khác','Ngày tham gia'];
-    var dong = [cot.join(',')];
-    DU_LIEU.ctv.forEach(function(c){
-      dong.push([c.ma_ctv, c.ho_ten, c.sdt, c.email||'', c.ngan_hang||'', c.so_tai_khoan||'',
-                 c.chu_tai_khoan||'', c.luot_bam_90n, c.so_don, c.so_don_da_ck,
-                 c.doanh_thu, c.doanh_thu_cho, c.lead_sp_khac, c.ngay_tao]
-        .map(function(v){ return '"' + String(v==null?'':v).replace(/"/g,'""') + '"'; }).join(','));
-    });
-    /* BOM ở đầu để Excel trên Windows đọc đúng tiếng Việt */
-    var blob = new Blob(['﻿' + dong.join('\n')], { type:'text/csv;charset=utf-8' });
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'ctv-dbv247-' + new Date().toISOString().slice(0,10) + '.csv';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  function dong(){ $('ct').classList.remove('mo'); }
+  $('ct').addEventListener('click', function(e){ if(e.target === $('ct')) dong(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && $('ct').classList.contains('mo')) dong();
   });
 
-  /* ── Đã mở khoá từ trước thì vào thẳng ── */
-  var k = doc(KEY_LS);
-  if(k){ $('keyInput').value = k; moKhoa(k); }
+  var k0 = doc(KEY_LS);
+  if(k0){ KHOA = k0; tai(true); }
 })();
 </script>
-
 </body>
 </html>

@@ -163,12 +163,24 @@ function tinhHoaHong(don, dsQuyTac) {
  * Mốc do CH.MOC_SINH_HOA_HONG quyết định. Và bắt buộc: chỉ sinh khi
  * Commission_Status còn TRỐNG — đây là chốt chặn chống trả hoa hồng hai lần
  * khi nhân viên lỡ tay đổi trạng thái hai lần, hoặc hai người cùng sửa.
+ *
+ * VỚI MỐC 'PAID' CÒN PHẢI CÓ MÃ GIAO DỊCH NGÂN HÀNG (Bank_Ref).
+ * Trước đây ràng buộc này chỉ nằm ở capNhatTrangThai() — tức là chỉ áp dụng
+ * cho đường API. Nhưng quy trình thật (đặc tả mục 15) là nhân viên sửa THẲNG
+ * trong bảng tính, và đường đó không đi qua capNhatTrangThai. Kết quả: gõ
+ * "PAID" vào ô là sinh hoa hồng ngay, không cần chứng cứ nào — đúng thứ mà
+ * ràng buộc Bank_Ref sinh ra để chặn. Đặt ở đây thì cả hai đường cùng chịu
+ * một luật.
+ *
+ * Thứ tự sửa ô không quan trọng: onSuaDBV theo dõi cả cột Bank_Ref, nên điền
+ * PAID trước hay Bank_Ref trước đều được.
  */
 function duDieuKienHoaHong(don, moc) {
   if (!don.ctv_id) return false;
   if (String(don.commission_status || '').trim() !== '') return false;
   if (moc === 'ISSUED') return String(don.gcn_status || '').trim() === 'ISSUED';
-  return String(don.payment_status || '').trim() === 'PAID';
+  if (String(don.payment_status || '').trim() !== 'PAID') return false;
+  return String(don.bank_ref || '').trim() !== '';
 }
 
 /**
@@ -182,9 +194,14 @@ function duDieuKienHoaHong(don, moc) {
  * ORDERS sau này sẽ KHÔNG tự động chảy ra ngoài.
  */
 var TRUONG_CTV_DUOC_XEM = [
-  'order_id', 'ngay_tao', 'bien_so', 'san_pham', 'nhom_xe', 'tong_phi',
-  'payment_status', 'gcn_status', 'commission', 'commission_status',
-  'nguon_ghi_nhan'
+  'order_id', 'ngay_tao', 'bien_so', 'san_pham', 'chi_tiet_xe', 'nhom_xe',
+  'thoi_han',
+  /* Ba con số tiền đi liền nhau: cộng tác viên phải kiểm được 40% tính trên
+     PHÍ GỐC chứ không phải trên tổng phí. Đưa cả ba ra thì họ tự đối chiếu,
+     không phải hỏi. Giấu bớt một con số là mời gọi tranh cãi. */
+  'phi_goc', 'vat', 'tong_phi',
+  'payment_status', 'gcn_status', 'commission', 'commission_rate',
+  'commission_status', 'nguon_ghi_nhan'
 ];
 
 function donChoCtv(dsDon, maCtv) {
@@ -208,7 +225,8 @@ function donChoCtv(dsDon, maCtv) {
 function tongQuanCtv(donDaLoc) {
   var t = {
     so_don: 0, so_don_da_tra: 0, so_don_da_cap: 0,
-    doanh_thu: 0, hoa_hong_phat_sinh: 0, hoa_hong_cho_duyet: 0, hoa_hong_da_tra: 0
+    doanh_thu: 0, doanh_thu_phi_goc: 0, doanh_thu_vat: 0,
+    hoa_hong_phat_sinh: 0, hoa_hong_cho_duyet: 0, hoa_hong_da_tra: 0
   };
   for (var i = 0; i < (donDaLoc || []).length; i++) {
     var d = donDaLoc[i];
@@ -216,7 +234,14 @@ function tongQuanCtv(donDaLoc) {
     var tt = String(d.payment_status || '');
     var hh = chuanHoaTien(d.commission) || 0;
     var tthh = String(d.commission_status || '');
-    if (tt === 'PAID') { t.so_don_da_tra++; t.doanh_thu += chuanHoaTien(d.tong_phi) || 0; }
+    if (tt === 'PAID') {
+      t.so_don_da_tra++;
+      t.doanh_thu += chuanHoaTien(d.tong_phi) || 0;
+      /* Tách sẵn phí trước VAT và VAT: hoa hồng tính trên phí gốc, nên cộng
+         tác viên cần thấy đúng con số mà 40% được nhân vào. */
+      t.doanh_thu_phi_goc += chuanHoaTien(d.phi_goc) || 0;
+      t.doanh_thu_vat += chuanHoaTien(d.vat) || 0;
+    }
     if (String(d.gcn_status || '') === 'ISSUED') t.so_don_da_cap++;
     if (tthh === 'COMMISSION_PAID') { t.hoa_hong_phat_sinh += hh; t.hoa_hong_da_tra += hh; }
     else if (tthh === 'COMMISSION_APPROVED') { t.hoa_hong_phat_sinh += hh; t.hoa_hong_cho_duyet += hh; }

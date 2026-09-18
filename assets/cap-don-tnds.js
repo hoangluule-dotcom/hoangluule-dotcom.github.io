@@ -363,10 +363,22 @@ function maDon(){
 
 function makeQR(){
   if(!S.code) S.code = maDon();
-  /* Nội dung chuyển khoản: "TNDS <biển số>".
-     Xe mới chưa có biển thì thay bằng mã đơn để chuyên viên vẫn đối soát được. */
+  /* Nội dung chuyển khoản: "TNDS <biển số> <mã CTV>".
+     Ví dụ: TNDS 30H12345 2X84
+
+     Kế toán đọc sao kê ngân hàng, không đọc bảng tính — nên dòng đó phải tự
+     nó đủ để tìm ra đơn. Biển số là thứ người nhìn vào nhận ra ngay, mã CTV
+     cho biết đơn thuộc ai mà không phải mở thêm gì.
+
+     Xe mới chưa có biển thì thay bằng mã đơn để vẫn đối soát được.
+
+     Chỉ chữ và số, viết hoa, không dấu: nhiều ngân hàng lọc bỏ ký tự đặc biệt
+     và dấu tiếng Việt trong nội dung chuyển khoản, lọc xong thì chuỗi dính
+     liền không đọc được. Độ dài tối đa ~24 ký tự, nằm trong giới hạn của mọi
+     ngân hàng hỗ trợ VietQR. */
   var plate = val('cdf-plate').replace(/[^A-Za-z0-9]/g,'').toUpperCase();
-  var info  = 'TNDS ' + (plate || S.code);
+  var ctvQR = String(maCtvHienTai() || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  var info  = 'TNDS ' + (plate || S.code) + (ctvQR ? ' ' + ctvQR : '');
 
   var url = 'https://img.vietqr.io/image/' +
             encodeURIComponent(BANK.bankId) + '-' +

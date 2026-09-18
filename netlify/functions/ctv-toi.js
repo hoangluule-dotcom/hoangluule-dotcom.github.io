@@ -203,14 +203,19 @@ async function capNhat(kho, ban, event) {
      biết cho tới khi họ báo chưa nhận được.
 
      Hỏng thì không chặn việc lưu (hồ sơ đã ghi xong ở trên), chỉ ghi log. */
+  let dongBoSheet = false;
   try {
     const G = require('./lib/gas');
+    /* Gửi kèm SỐ ĐIỆN THOẠI: cộng tác viên đăng ký trước khi có bảng tính thì
+       chưa có dòng nào trong sheet, và capNhatCtv dùng số này để tạo bù. */
     const kq = await G.goiPost('capNhatCtv', {
       ctvId: ban.ma_ctv, hoTen: ban.ho_ten, email: ban.email || '',
+      phone: ban.sdt || '',
       nganHang: ban.ngan_hang || '', soTaiKhoan: ban.so_tai_khoan || '',
       chuTaiKhoan: ban.chu_tai_khoan || '',
     });
-    if (!kq || !kq.ok) {
+    dongBoSheet = !!(kq && kq.ok);
+    if (!dongBoSheet) {
       console.error('[ctv-toi] Không cập nhật được CTV ' + ban.ma_ctv +
                     ' trong sheet: ' + ((kq && kq.error) || 'không rõ'));
     }
@@ -219,5 +224,10 @@ async function capNhat(kho, ban, event) {
                   ban.ma_ctv + ': ' + (err.message || err));
   }
 
-  return K.json(200, { ok: true, ctv: K.hoSoCongKhai(ban) });
+  /* NÓI THẬT VỚI CỘNG TÁC VIÊN KHI CHƯA ĐỒNG BỘ ĐƯỢC.
+     Hồ sơ đã ghi xong ở kho đăng nhập nên "Đã lưu" là đúng — nhưng màn hình
+     chi trả của kế toán đọc số tài khoản TỪ SHEET. Báo "Đã lưu" trơn trong khi
+     sheet vẫn giữ số cũ là để người ta yên tâm chờ tiền vào một tài khoản đã
+     đổi. Trả cờ này ra để giao diện nói rõ. */
+  return K.json(200, { ok: true, ctv: K.hoSoCongKhai(ban), dong_bo_sheet: dongBoSheet });
 }

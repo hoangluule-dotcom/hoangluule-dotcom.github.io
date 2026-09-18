@@ -70,6 +70,15 @@ function dungSheet_(bt, ten, cot) {
   var sh = bt.getSheetByName(ten);
   if (!sh) sh = bt.insertSheet(ten);
 
+  /* NỚI RỘNG TRƯỚC KHI GHI TIÊU ĐỀ.
+     Lần chạy đầu đã cắt sheet xuống đúng số cột lúc đó. Thêm cột mới vào
+     CH.COT_ORDERS rồi chạy lại mà không nới ra thì setValues() ném lỗi vì ghi
+     vượt ngoài vùng — và ném SAU khi đã sửa vài sheet khác, để lại bảng tính
+     dựng dở. */
+  if (sh.getMaxColumns() < cot.length) {
+    sh.insertColumnsAfter(sh.getMaxColumns(), cot.length - sh.getMaxColumns());
+  }
+
   sh.getRange(1, 1, 1, cot.length).setValues([cot]);
   sh.getRange(1, 1, 1, cot.length)
     .setFontWeight('bold').setBackground('#E8F5E9').setFontColor('#005A2B');
@@ -182,7 +191,11 @@ function dungDinhDang_(bt) {
 
   /* Biển số và mã đơn phải là CHỮ, không để Sheets tự hiểu thành số hay ngày —
      "30A12345" thì không sao, nhưng "0912345678" mà thành số là mất số 0 đầu. */
-  ['Order_ID', 'SĐT', 'Biển số', 'Bank_Ref'].forEach(function (t) {
+  /* Số khung/số máy có thể toàn chữ số và bắt đầu bằng 0; MST cũng vậy. Để
+     Sheets tự hiểu thành số là mất số 0 đầu, và mất số 0 đầu của số khung là
+     cấp sai giấy chứng nhận. */
+  ['Order_ID', 'SĐT', 'Biển số', 'Bank_Ref', 'Số khung', 'Số máy', 'MST',
+   'Năm SX', 'Số chỗ', 'SĐT người nhận'].forEach(function (t) {
     var c = tieuDe.indexOf(t) + 1;
     if (c > 0) sh.getRange(2, c, soDong, 1).setNumberFormat('@');
   });

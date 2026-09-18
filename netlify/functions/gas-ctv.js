@@ -94,6 +94,8 @@ exports.handler = async function (event) {
       don_cho_thanh_toan: Math.max((q.so_don || 0) - (q.so_don_da_tra || 0), 0),
       don_da_doi_soat   : q.so_don_da_tra || 0,
       doanh_thu_ghi_nhan: q.doanh_thu || 0,
+      doanh_thu_phi_goc : q.doanh_thu_phi_goc || 0,
+      doanh_thu_vat     : q.doanh_thu_vat || 0,
       hoa_hong_kha_dung : q.hoa_hong_cho_duyet || 0,
       hoa_hong_da_rut   : q.hoa_hong_da_tra || 0,
       hoa_hong_phat_sinh: q.hoa_hong_phat_sinh || 0,
@@ -114,9 +116,16 @@ function doiTenTruong(d) {
     thoi_diem     : d.ngay_tao,
     bien_so       : d.bien_so,
     loai_xe       : d.nhom_xe === 'moto' ? 'Xe máy / mô tô' : 'Ô tô',
-    chi_tiet_xe   : d.san_pham,
+    chi_tiet_xe   : d.chi_tiet_xe || d.san_pham,
+    thoi_han      : d.thoi_han || '',
+    /* Ba con số tiền tách bạch. Hoa hồng 40% tính trên PHÍ GỐC, nên cộng tác
+       viên phải thấy phí gốc để tự nhân ra và đối chiếu — chỉ đưa tổng phí là
+       họ nhân 40% vào đó rồi thắc mắc vì sao thiếu tiền. */
+    phi_goc       : Number(d.phi_goc) || 0,
+    vat           : Number(d.vat) || 0,
     tong_phi      : Number(d.tong_phi) || 0,
     hoa_hong      : Number(d.commission) || 0,
+    ty_le_hh      : Number(d.commission_rate) || 0,
     trang_thai    : d.payment_status,
     trang_thai_gcn: d.gcn_status,
     trang_thai_hh : d.commission_status,

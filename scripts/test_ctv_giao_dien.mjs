@@ -156,7 +156,10 @@ try {
   kiemTra('băng thông báo "chưa bật ghi nhận" đang hiện',
     await tr.locator('#bang-giai-doan').isVisible());
   const soLieu = await tr.locator('.o .so').allTextContents();
-  kiemTra('cả 6 chỉ số đều là 0', soLieu.length === 6 && soLieu.every((s) => /^0/.test(s.trim())), soLieu.join(' | '));
+  /* 8 ô: lượt bấm, đơn chờ, đơn đã đối soát, doanh thu, phí trước VAT, VAT,
+     hoa hồng khả dụng, đã rút. Ba ô tiền tách bạch là cố ý — hoa hồng tính
+     trên phí trước VAT, nên con số đó phải hiện ra để cộng tác viên tự kiểm. */
+  kiemTra('cả 8 chỉ số đều là 0', soLieu.length === 8 && soLieu.every((s) => /^0/.test(s.trim())), soLieu.join(' | '));
   kiemTra('ô số điện thoại bị khoá không cho sửa', await tr.locator('#p-sdt').isDisabled());
 
   // Lưu hồ sơ

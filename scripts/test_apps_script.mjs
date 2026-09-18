@@ -142,9 +142,22 @@ console.log('\n── Quy tắc theo ngày hiệu lực ──');
 
 console.log('\n── Chốt chặn chống trả hoa hồng hai lần ──');
 {
-  const d = { ctv_id:'K7X2', payment_status:'PAID', gcn_status:'', commission_status:'' };
-  kiemTra('đơn PAID, chưa có trạng thái hoa hồng → đủ điều kiện',
+  const d = { ctv_id:'K7X2', payment_status:'PAID', bank_ref:'FT26091700123',
+              gcn_status:'', commission_status:'' };
+  kiemTra('đơn PAID có mã giao dịch, chưa sinh hoa hồng → đủ điều kiện',
     L.duDieuKienHoaHong(d, 'PAID') === true);
+
+  /* Nhân viên gõ PAID thẳng vào bảng tính mà bỏ trống Bank_Ref thì KHÔNG được
+     sinh hoa hồng: không có mã giao dịch nghĩa là không có gì đối chiếu với
+     sao kê, và cũng không chặn được việc dùng một lần chuyển khoản cho hai
+     đơn. Trước 17/09/2026 ràng buộc này chỉ có ở đường API, còn đường sửa tay
+     — đường thật sự được dùng — thì không. */
+  kiemTra('PAID nhưng THIẾU mã giao dịch → chưa đủ điều kiện',
+    L.duDieuKienHoaHong({...d, bank_ref:''}, 'PAID') === false);
+  kiemTra('mã giao dịch chỉ có khoảng trắng cũng coi như thiếu',
+    L.duDieuKienHoaHong({...d, bank_ref:'   '}, 'PAID') === false);
+  kiemTra('mốc ISSUED không đòi mã giao dịch',
+    L.duDieuKienHoaHong({...d, bank_ref:'', gcn_status:'ISSUED'}, 'ISSUED') === true);
   kiemTra('đã sinh hoa hồng rồi → KHÔNG sinh lại',
     L.duDieuKienHoaHong({...d, commission_status:'COMMISSION_APPROVED'}, 'PAID') === false);
   kiemTra('đã trả tiền rồi → KHÔNG sinh lại',
@@ -164,8 +177,11 @@ console.log('\n── Ranh giới dữ liệu: CTV thấy gì và KHÔNG thấy 
   const DON = [
     { order_id:'D1', ctv_id:'K7X2', bien_so:'30A-1', tong_phi:480700, commission:174800,
       payment_status:'PAID', gcn_status:'ISSUED', commission_status:'COMMISSION_APPROVED',
+      phi_goc:437000, vat:43700, commission_rate:0.4, chi_tiet_xe:'Xe dưới 6 chỗ',
       khach_hang:'Đỗ Văn Hùng', sdt:'0901111222', email:'a@b.c', cccd:'001089001234',
-      dia_chi:'12 Trần Duy Hưng', ghi_chu:'nội bộ' },
+      dia_chi:'12 Trần Duy Hưng', ghi_chu:'nội bộ',
+      so_khung:'RL4MC1234N5006789', so_may:'K7MA812Q054321',
+      nguoi_nhan:'Trần Thị B', sdt_nhan:'0987654321', mst:'0101234567' },
     { order_id:'D2', ctv_id:'M4B8', bien_so:'29A-2', tong_phi:66000, commission:24000,
       payment_status:'PAID', gcn_status:'', commission_status:'COMMISSION_PAID',
       khach_hang:'Lê Thị Bình', sdt:'0902222333' },
@@ -176,13 +192,27 @@ console.log('\n── Ranh giới dữ liệu: CTV thấy gì và KHÔNG thấy 
     !JSON.stringify(cua).includes('D2') && !JSON.stringify(cua).includes('29A-2'));
 
   const chuoi = JSON.stringify(cua);
-  ['Đỗ Văn Hùng','0901111222','a@b.c','001089001234','Trần Duy Hưng','nội bộ']
+  /* Hồ sơ cấp giấy chứng nhận thêm ngày 18/09/2026 mang thêm số khung, số máy,
+     mã số thuế, người nhận giấy... Toàn bộ nhóm đó KHÔNG được chảy sang cộng
+     tác viên — danh sách cho phép phải chặn được cả những cột chưa tồn tại lúc
+     nó được viết. */
+  ['Đỗ Văn Hùng','0901111222','a@b.c','001089001234','Trần Duy Hưng','nội bộ',
+   'RL4MC1234N5006789','K7MA812Q054321','Trần Thị B','0987654321','0101234567']
     .forEach(function(x){
       kiemTra('KHÔNG lộ "' + x + '"', chuoi.indexOf(x) < 0);
     });
   kiemTra('vẫn có biển số, số tiền, trạng thái, hoa hồng',
     cua[0].bien_so==='30A-1' && cua[0].tong_phi===480700 &&
     cua[0].payment_status==='PAID' && cua[0].commission===174800);
+
+  /* Cộng tác viên phải tự kiểm được 40% tính trên phí gốc, không phải trên
+     tổng phí — nên cả ba con số tiền đều phải có mặt. */
+  kiemTra('thấy đủ phí gốc, VAT, tổng phí và tỷ lệ áp dụng',
+    cua[0].phi_goc===437000 && cua[0].vat===43700 &&
+    cua[0].tong_phi===480700 && cua[0].commission_rate===0.4,
+    JSON.stringify(cua[0]));
+  kiemTra('40% phí gốc đúng bằng hoa hồng đã ghi',
+    Math.round(cua[0].phi_goc * cua[0].commission_rate) === cua[0].commission);
 
   /* Thêm cột mới vào ORDERS sau này không được tự động chảy ra ngoài */
   const themCot = L.donChoCtv([{...DON[0], cccd_mat_sau:'ảnh nhạy cảm'}], 'K7X2');

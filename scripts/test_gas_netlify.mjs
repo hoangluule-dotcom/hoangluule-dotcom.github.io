@@ -46,6 +46,14 @@ const may = http.createServer(async (req, res) => {
 
   res.writeHead(200, { 'Content-Type': 'application/json' });
   if (p.action === 'createOrder') {
+    /* Mã bắt đầu bằng LAP giả lập trường hợp trang web gửi lại một đơn đã có:
+       Apps Script trả về chính đơn cũ kèm cờ trung_lap thay vì tạo dòng mới. */
+    if (String(p.orderId || '').indexOf('LAP') === 0) {
+      res.end(JSON.stringify({ ok: true, orderId: p.orderId, ctvId: p.affiliateId || '',
+        phi_goc: 437000, vat: 43700, tong_phi: 480700,
+        trung_lap: true, trang_thai_khach: p.trangThaiKhach || '' }));
+      return;
+    }
     res.end(JSON.stringify({ ok: true, orderId: p.orderId || 'DBV260917000001',
       ctvId: p.affiliateId || '', phi_goc: 437000, vat: 43700, tong_phi: 480700 }));
   } else if (p.action === 'dangKyCtv' || p.action === 'capNhatCtv') {
@@ -59,6 +67,28 @@ const may = http.createServer(async (req, res) => {
               san_pham: 'TNDS ô tô 5 chỗ', nhom_xe: 'oto', tong_phi: 480700,
               payment_status: 'PAID', gcn_status: 'ISSUED', commission: 174800,
               commission_status: 'COMMISSION_APPROVED', nguon_ghi_nhan: 'cookie_link' }] }));
+  } else if (p.action === 'adminDon') {
+    res.end(JSON.stringify({ ok: true, cap_nhat: '2026-09-18 09:00:00',
+      don: [{ order_id: 'DBV260918000001', ctv_id: '2X84', ngay_tao: '2026-09-18',
+              khach_hang: 'Đỗ Văn Hùng', sdt: '0901111222', dia_chi: '12 Trần Duy Hưng',
+              bien_so: '30H12345', so_khung: 'RL4MC1234N5006789', so_may: 'K7MA812Q054321',
+              phi_goc: 437000, vat: 43700, tong_phi: 480700,
+              payment_status: 'PAYMENT_PENDING', gcn_status: '' }] }));
+  } else if (p.action === 'adminCtv') {
+    res.end(JSON.stringify({ ok: true, cap_nhat: '2026-09-18 09:00:00',
+      ctv: [{ ma_ctv: '2X84', ho_ten: 'Lê Văn Cường', sdt: '0909000111',
+              trang_thai: 'ACTIVE', ngan_hang: 'Techcombank', so_tai_khoan: '19001234',
+              chu_tai_khoan: 'LE VAN CUONG', so_don: 2, so_don_da_tra: 1,
+              doanh_thu: 480700, hoa_hong_cho_duyet: 174800, hoa_hong_da_tra: 0 }],
+      don_theo_ctv: { '2X84': [{ order_id: 'DBV260918000001', ngay_tao: '2026-09-18',
+              bien_so: '30H12345', phi_goc: 437000, tong_phi: 480700,
+              commission: 174800, payment_status: 'PAID' }] } }));
+  } else if (p.action === 'capNhatDon') {
+    res.end(JSON.stringify({ ok: true, orderId: p.orderId,
+      da_doi: Object.keys(JSON.parse(p.truong || '{}')), tu_choi: [] }));
+  } else if (p.action === 'updateOrderStatus') {
+    res.end(JSON.stringify({ ok: true, orderId: p.orderId,
+      hoa_hong: { sinh: true, so_tien: 174800 } }));
   } else {
     res.end(JSON.stringify({ ok: false, error: 'không rõ hành động' }));
   }
@@ -106,6 +136,76 @@ console.log('\n── Ghi đơn: gas-don ──');
   const g = NHAN.find((x) => x.action === 'createOrder');
   kiemTra('suy ra nhóm xe "moto" từ "Xe máy / mô tô"', g && g.p.nhomXe === 'moto', g && g.p.nhomXe);
   kiemTra('vẫn trả 200', r.statusCode === 200);
+}
+
+/* Lỗi thật ngày 17/09/2026: trang web gửi 'nhom-xe' theo NHÓM TÍNH PHÍ
+   (nkd / kd / tai / khac), hàm này lấy thẳng, nên đơn ô tô vào sổ với nhóm
+   "nkd". COMMISSION_RULES chỉ có oto và moto → không khớp quy tắc nào → không
+   tính được hoa hồng. Bốn nhóm phí của ô tô đều phải quy về 'oto'. */
+{
+  for (const nhom of ['nkd', 'kd', 'tai', 'khac']) {
+    NHAN.length = 0;
+    await goiDon({ 'nhom-xe':nhom, 'loai-xe':'Ô tô', 'tong-phi':'480700',
+      'phi-goc':'437000', 'ho-ten':'E','sdt':'0912345678','bien-so':'30A9',
+      'san-pham':'TNDS' });
+    const g = NHAN.find((x) => x.action === 'createOrder');
+    kiemTra('nhóm phí "' + nhom + '" vẫn quy về nhóm hoa hồng "oto"',
+      g && g.p.nhomXe === 'oto', g && g.p.nhomXe);
+  }
+}
+{
+  NHAN.length = 0;
+  await goiDon({ 'nhom-xe':'moto', 'loai-xe':'Xe máy / mô tô', 'tong-phi':'66000',
+    'ho-ten':'F','sdt':'0912345678','bien-so':'29X2','san-pham':'TNDS xe máy' });
+  const g = NHAN.find((x) => x.action === 'createOrder');
+  kiemTra('nhóm "moto" do trang web gửi thì giữ nguyên',
+    g && g.p.nhomXe === 'moto', g && g.p.nhomXe);
+}
+/* Hồ sơ cấp giấy chứng nhận: trang web vẫn luôn gửi, nhưng trước 18/09/2026
+   hàm này không chuyển tiếp nên số khung / số máy / ngày hiệu lực / địa chỉ
+   giao giấy rơi mất — nhân viên phát hành không cấp nổi giấy. */
+{
+  NHAN.length = 0;
+  await goiDon({ 'loai-xe':'Ô tô', 'nhom-xe':'nkd', 'chi-tiet-xe':'Xe dưới 6 chỗ không KDVT',
+    'san-pham':'Bảo hiểm bắt buộc TNDS chủ xe cơ giới', 'tong-phi':'480700',
+    'phi-goc':'437000', 'ho-ten':'G','sdt':'0912345678','bien-so':'30A8',
+    'so-khung':'RL4MC1234N5006789', 'so-may':'K7MA812Q054321',
+    'hieu-xe':'Toyota', 'nam-sx':'2021', 'so-cho':'5', 'thoi-han':'1 năm',
+    'ngay-hieu-luc':'19/09/2026', 'ngay-het-han':'19/09/2027',
+    'dia-chi':'12 Nguyễn Trãi, Thanh Xuân, Hà Nội',
+    'xuat-hoa-don':'Có', 'ten-cty':'Công ty TNHH ABC', 'mst':'0101234567',
+    'dia-chi-cty':'99 Láng Hạ', 'email-hd':'ketoan@abc.vn',
+    'dia-chi-giao':'12 Nguyễn Trãi', 'nguoi-nhan':'Trần Thị B', 'sdt-nhan':'0987654321' });
+  const g = NHAN.find((x) => x.action === 'createOrder');
+  kiemTra('số khung được chuyển tiếp', g && g.p.soKhung === 'RL4MC1234N5006789', g && g.p.soKhung);
+  kiemTra('số máy được chuyển tiếp', g && g.p.soMay === 'K7MA812Q054321', g && g.p.soMay);
+  kiemTra('ngày hiệu lực được chuyển tiếp', g && g.p.ngayHieuLuc === '19/09/2026', g && g.p.ngayHieuLuc);
+  kiemTra('địa chỉ khách được chuyển tiếp',
+    g && g.p.diaChi === '12 Nguyễn Trãi, Thanh Xuân, Hà Nội', g && g.p.diaChi);
+  kiemTra('thông tin xuất hoá đơn được chuyển tiếp',
+    g && g.p.xuatHoaDon === 'Có' && g.p.mst === '0101234567', g && g.p.mst);
+  kiemTra('địa chỉ giao giấy và người nhận được chuyển tiếp',
+    g && g.p.nguoiNhan === 'Trần Thị B' && g.p.sdtNhan === '0987654321', g && g.p.nguoiNhan);
+  kiemTra('chi tiết xe đi riêng, KHÔNG dính vào tên sản phẩm',
+    g && g.p.chiTietXe === 'Xe dưới 6 chỗ không KDVT' &&
+    g.p.product === 'Bảo hiểm bắt buộc TNDS chủ xe cơ giới', g && g.p.product);
+}
+
+/* Trang cấp đơn gửi CÙNG MỘT MÃ ĐƠN nhiều lần (lúc sinh QR, lúc khách báo đã
+   chuyển khoản, lúc đăng ký nhận bản giấy). Sổ cái chỉ được có một dòng. */
+{
+  NHAN.length = 0;
+  const r = await goiDon({ 'ma-don':'LAP260917000999', 'trang-thai':'Khách báo đã chuyển khoản',
+    'loai-xe':'Ô tô', 'tong-phi':'480700', 'phi-goc':'437000',
+    'ho-ten':'H','sdt':'0912345678','bien-so':'30A7','san-pham':'TNDS' });
+  const g = NHAN.find((x) => x.action === 'createOrder');
+  const d = JSON.parse(r.body);
+  kiemTra('trạng thái khách được chuyển tiếp sang Apps Script',
+    g && g.p.trangThaiKhach === 'Khách báo đã chuyển khoản', g && g.p.trangThaiKhach);
+  kiemTra('đơn gửi lại → 200 kèm cờ trung_lap',
+    r.statusCode === 200 && d.trung_lap === true, r.body);
+  kiemTra('đơn gửi lại giữ nguyên mã cũ, không sinh mã mới',
+    d.orderId === 'LAP260917000999', d.orderId);
 }
 {
   CHE_DO = 'hong';
@@ -257,6 +357,94 @@ console.log('\n── Mục 13 của đặc tả: không đổi URL để xem d�
   kiemTra('dữ liệu trả về là của đúng người đăng nhập',
     d.ctv.ma_ctv === MA && d.don_hang[0].ma_don === 'D1-' + MA,
     d.don_hang[0] && d.don_hang[0].ma_don);
+}
+
+console.log('\n── Màn hình quản trị: gas-admin ──');
+{
+  process.env.DASHBOARD_KEY = 'khoa-quan-tri-de-test';
+  const admin = require(path.join(GOC, 'netlify/functions/gas-admin.js'));
+  const goi = (ev) => admin.handler(Object.assign(
+    { httpMethod: 'GET', headers: { 'x-dashboard-key': 'khoa-quan-tri-de-test' },
+      queryStringParameters: {}, body: '' }, ev));
+
+  {
+    const r = await goi({ headers: {} });
+    kiemTra('không có khoá quản trị → 401', r.statusCode === 401, r.statusCode);
+    kiemTra('KHÔNG lộ khoá nội bộ Apps Script trong lỗi',
+      r.body.indexOf(process.env.GAS_KHOA_NOI_BO) < 0);
+  }
+  {
+    const r = await goi({ headers: { 'x-dashboard-key': 'sai-khoa' } });
+    kiemTra('sai khoá quản trị → 401', r.statusCode === 401, r.statusCode);
+  }
+  {
+    NHAN.length = 0;
+    const r = await goi({ queryStringParameters: { view: 'don' } });
+    const d = JSON.parse(r.body);
+    const g = NHAN.find((x) => x.action === 'adminDon');
+    kiemTra('view=don gọi adminDon kèm khoá nội bộ',
+      g && g.p.khoa === process.env.GAS_KHOA_NOI_BO);
+    kiemTra('trả về đơn đầy đủ cho nhân viên nhập liệu',
+      r.statusCode === 200 && d.don[0].so_khung === 'RL4MC1234N5006789', r.body.slice(0, 200));
+    kiemTra('KHÔNG trả khoá nội bộ về trình duyệt',
+      r.body.indexOf(process.env.GAS_KHOA_NOI_BO) < 0);
+  }
+  {
+    NHAN.length = 0;
+    const r = await goi({ queryStringParameters: { view: 'ctv' } });
+    const d = JSON.parse(r.body);
+    kiemTra('view=ctv trả hồ sơ CTV kèm danh sách đơn',
+      r.statusCode === 200 && d.ctv[0].ma_ctv === '2X84' &&
+      d.don_theo_ctv['2X84'].length === 1, r.body.slice(0, 200));
+    /* Màn hình CTV dùng để quản lý hoa hồng, không phải để tra khách hàng.
+       Dữ liệu cá nhân của khách không được đi qua đường này. */
+    kiemTra('màn hình CTV KHÔNG mang tên/SĐT/địa chỉ khách',
+      r.body.indexOf('Đỗ Văn Hùng') < 0 && r.body.indexOf('0901111222') < 0 &&
+      r.body.indexOf('Trần Duy Hưng') < 0);
+  }
+  {
+    const r = await goi({ queryStringParameters: { view: 'linh-tinh' } });
+    kiemTra('view lạ → 400', r.statusCode === 400, r.statusCode);
+  }
+  {
+    NHAN.length = 0;
+    const r = await goi({ httpMethod: 'POST',
+      headers: { 'x-dashboard-key': 'khoa-quan-tri-de-test', 'content-type': 'application/json' },
+      body: JSON.stringify({ action: 'hoSo', orderId: 'DBV260918000001',
+        truong: { 'Số khung': 'ABC123', 'Ghi chú': 'sửa tay' } }) });
+    const d = JSON.parse(r.body);
+    const g = NHAN.find((x) => x.action === 'capNhatDon');
+    kiemTra('sửa hồ sơ đơn đi qua capNhatDon', !!g);
+    kiemTra('danh sách trường gửi đi dạng JSON',
+      g && JSON.parse(g.p.truong)['Số khung'] === 'ABC123', g && g.p.truong);
+    kiemTra('trả về danh sách trường đã đổi',
+      r.statusCode === 200 && d.da_doi.length === 2, r.body);
+  }
+  {
+    NHAN.length = 0;
+    const r = await goi({ httpMethod: 'POST',
+      headers: { 'x-dashboard-key': 'khoa-quan-tri-de-test', 'content-type': 'application/json' },
+      body: JSON.stringify({ action: 'trangThai', orderId: 'DBV260918000001',
+        paymentStatus: 'PAID', bankRef: 'FT26091812345' }) });
+    const d = JSON.parse(r.body);
+    const g = NHAN.find((x) => x.action === 'updateOrderStatus');
+    kiemTra('xác nhận tiền đi qua updateOrderStatus (có chốt chặn Bank_Ref)',
+      g && g.p.bankRef === 'FT26091812345', g && g.p.bankRef);
+    kiemTra('trả lại kết quả sinh hoa hồng cho màn hình',
+      r.statusCode === 200 && d.hoa_hong.so_tien === 174800, r.body);
+  }
+  {
+    const r = await goi({ httpMethod: 'POST',
+      headers: { 'x-dashboard-key': 'khoa-quan-tri-de-test', 'content-type': 'application/json' },
+      body: JSON.stringify({ action: 'linh-tinh', orderId: 'X' }) });
+    kiemTra('action lạ → 400', r.statusCode === 400, r.statusCode);
+  }
+  {
+    const r = await goi({ httpMethod: 'POST',
+      headers: { 'x-dashboard-key': 'khoa-quan-tri-de-test', 'content-type': 'application/json' },
+      body: JSON.stringify({ action: 'hoSo' }) });
+    kiemTra('thiếu mã đơn → 400', r.statusCode === 400, r.statusCode);
+  }
 }
 
 } finally {

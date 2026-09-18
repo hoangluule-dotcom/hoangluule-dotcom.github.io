@@ -26,7 +26,16 @@ var KHOA_COT = {
   'Số tài khoản':'so_tai_khoan', 'Chủ tài khoản':'chu_tai_khoan',
   'Loại':'loai', 'Giá trị':'gia_tri', 'Căn cứ':'can_cu',
   'Hiệu lực từ':'hieu_luc_tu', 'Kỳ thanh toán':'ky', 'Số tiền':'so_tien',
-  'Ngày thanh toán':'ngay_thanh_toan', 'Payout_ID ':'payout_id'
+  'Ngày thanh toán':'ngay_thanh_toan', 'Payout_ID ':'payout_id',
+  /* Hồ sơ cấp giấy chứng nhận — thêm 18/09/2026 */
+  'Chi tiết xe':'chi_tiet_xe', 'Số khung':'so_khung', 'Số máy':'so_may',
+  'Hiệu xe':'hieu_xe', 'Năm SX':'nam_sx', 'Số chỗ':'so_cho',
+  'Thời hạn':'thoi_han', 'Ngày hiệu lực':'ngay_hieu_luc',
+  'Ngày hết hạn':'ngay_het_han', 'Địa chỉ khách':'dia_chi',
+  'Xuất hoá đơn':'xuat_hoa_don', 'Tên công ty':'ten_cty', 'MST':'mst',
+  'Địa chỉ công ty':'dia_chi_cty', 'Email hoá đơn':'email_hd',
+  'Địa chỉ giao GCN':'dia_chi_giao', 'Người nhận':'nguoi_nhan',
+  'SĐT người nhận':'sdt_nhan'
 };
 
 /* ── Tiện ích ───────────────────────────────────────────────────────────── */
@@ -128,6 +137,7 @@ function doPost(e) {
 
     if (hanhDong === 'createOrder')      return taoDon(e.parameter);
     if (hanhDong === 'updateOrderStatus')return capNhatTrangThai(e.parameter);
+    if (hanhDong === 'capNhatDon')       return capNhatDon(e.parameter);
     if (hanhDong === 'dangKyCtv')        return dangKyCtv(e.parameter);
     if (hanhDong === 'capNhatCtv')       return capNhatCtv(e.parameter);
 
@@ -163,7 +173,35 @@ function doGet(e) {
                    cap_nhat: chuoiNgay() });
     }
 
-    if (hanhDong === 'adminCtv') return tra({ ok: true, ctv: tongHopToanBo() });
+    /* ── Màn hình quản trị ──────────────────────────────────────────────
+       Hai hành động, hai tập dữ liệu khác hẳn nhau, và tách ra là CỐ Ý:
+
+       adminDon  → đơn hàng ĐẦY ĐỦ, có tên khách, số điện thoại, địa chỉ, số
+                   khung. Dành cho nhân viên nhập liệu và phát hành giấy.
+       adminCtv  → hồ sơ cộng tác viên và tiền, KHÔNG có dữ liệu cá nhân của
+                   khách. Danh sách đơn kèm theo đi qua donChoCtv() nên chịu
+                   đúng danh sách cho phép như dashboard của chính CTV.
+
+       Quản lý hoa hồng không cần biết khách tên gì. Gộp hai thứ này vào một
+       chỗ là mọi người mở màn hình CTV đều thấy luôn hồ sơ khách. */
+    if (hanhDong === 'adminDon') {
+      var tatCa = docSheet(CH.SHEET.ORDERS);
+      tatCa.sort(function (a, b) {
+        return String(b.ngay_tao).localeCompare(String(a.ngay_tao));
+      });
+      return tra({ ok: true, don: tatCa, cot: CH.COT_ORDERS, cap_nhat: chuoiNgay() });
+    }
+
+    if (hanhDong === 'adminCtv') {
+      var dsDonCtv = docSheet(CH.SHEET.ORDERS);
+      var theoCtv = {};
+      var dsTongHop = tongHopToanBo();
+      for (var t = 0; t < dsTongHop.length; t++) {
+        theoCtv[dsTongHop[t].ma_ctv] = donChoCtv(dsDonCtv, dsTongHop[t].ma_ctv);
+      }
+      return tra({ ok: true, ctv: dsTongHop, don_theo_ctv: theoCtv,
+                   cap_nhat: chuoiNgay() });
+    }
 
     return traLoi('Hành động không hợp lệ: ' + hanhDong, 'HANH_DONG');
   } catch (err) {
@@ -196,13 +234,28 @@ function taoDon(p) {
       }
     }
 
-    /* Mã đơn: ưu tiên mã do trang web sinh, nhưng phải kiểm trùng.
-       Trùng thì sinh lại, tối đa 5 lần rồi báo lỗi thay vì ghi đè đơn cũ. */
+    /* MÃ ĐƠN DO TRANG WEB GỬI LÊN LÀ KHOÁ CHỐNG TRÙNG.
+       ─────────────────────────────────────────────────────────────────────
+       Trang cấp đơn gửi cùng một đơn LÊN NHIỀU LẦN, và đó là cố ý: một lần
+       khi sinh mã QR (để không mất khách bỏ dở), một lần khi khách bấm "đã
+       chuyển khoản", một lần nữa nếu khách đăng ký nhận bản giấy. Thời Netlify
+       Forms thì mỗi lần là một bản ghi lead, vô hại.
+       Trên SỔ CÁI thì không: mỗi lần gửi lại đẻ thêm một dòng đơn. Tệ hơn,
+       vòng lặp sinh mã bên dưới thấy mã trùng nên ĐỔI SANG MÃ MỚI — hai dòng
+       khác mã, cùng một xe, cùng một khách. Doanh thu nhân đôi, hoa hồng nhân
+       đôi, và nhìn bảng không ai biết đó là một đơn.
+       Nên: mã web đã tồn tại thì KHÔNG tạo dòng mới. Ghi lại việc khách gửi
+       lại (có ích cho đối soát: "khách báo đã chuyển khoản") rồi trả về chính
+       đơn cũ.
+       Vòng sinh lại bên dưới chỉ còn dùng cho mã do máy chủ tự sinh. */
     var dsDon = docSheet(CH.SHEET.ORDERS);
     var daCo = {};
-    for (var j = 0; j < dsDon.length; j++) daCo[String(dsDon[j].order_id)] = true;
+    for (var j = 0; j < dsDon.length; j++) daCo[String(dsDon[j].order_id)] = dsDon[j];
 
-    var ma = String(p.orderId || '').trim() || sinhMaDon();
+    var maWeb = String(p.orderId || '').trim();
+    if (maWeb && daCo[maWeb]) return ghiNhanLaiDon(daCo[maWeb], p);
+
+    var ma = maWeb || sinhMaDon();
     var lan = 0;
     while (daCo[ma]) {
       if (++lan > 5) return traLoi('Không sinh được mã đơn không trùng.', 'MA_TRUNG');
@@ -212,25 +265,50 @@ function taoDon(p) {
     var phi = tachPhi(p.amount, p.phiGoc);
     var nay = bayGio();
 
+    /* Bảng tra tên cột → giá trị, thay cho chuỗi if/else dài.
+       Cột nào không có trong bảng này thì để trống — GCN_Status, Commission,
+       Payout_ID... đều do nghiệp vụ sau này điền, không phải lúc tạo đơn. */
+    var giaTri = {
+      'Order_ID'       : ma,
+      'CTV_ID'         : maCtv,
+      'Ngày tạo'       : nay,
+      'Khách hàng'     : String(p.customerName || '').trim(),
+      'SĐT'            : chuanHoaSdt(p.phone),
+      'Email'          : String(p.email || '').trim(),
+      'Biển số'        : String(p.plate || '').trim().toUpperCase(),
+      'Sản phẩm'       : String(p.product || '').trim(),
+      'Nhóm xe'        : String(p.nhomXe || p.vehicleGroup || '').trim().toLowerCase(),
+      'Phí gốc'        : phi.phi_goc,
+      'VAT'            : phi.vat,
+      'Phí'            : phi.tong_phi,
+      'Payment_Status' : CH.TT_TT.CHO,
+      'Nguồn ghi nhận' : String(p.nguonGhiNhan || '').trim(),
+      'Ghi chú'        : ghiChuThem,
+
+      /* Hồ sơ để nhân viên cấp giấy chứng nhận và chuyển phát. */
+      'Chi tiết xe'    : String(p.chiTietXe || '').trim(),
+      'Số khung'       : String(p.soKhung || '').trim().toUpperCase(),
+      'Số máy'         : String(p.soMay || '').trim().toUpperCase(),
+      'Hiệu xe'        : String(p.hieuXe || '').trim(),
+      'Năm SX'         : String(p.namSx || '').trim(),
+      'Số chỗ'         : String(p.soCho || '').trim(),
+      'Thời hạn'       : String(p.thoiHan || '').trim(),
+      'Ngày hiệu lực'  : String(p.ngayHieuLuc || '').trim(),
+      'Ngày hết hạn'   : String(p.ngayHetHan || '').trim(),
+      'Địa chỉ khách'  : String(p.diaChi || '').trim(),
+      'Xuất hoá đơn'   : String(p.xuatHoaDon || '').trim(),
+      'Tên công ty'    : String(p.tenCty || '').trim(),
+      'MST'            : String(p.mst || '').trim(),
+      'Địa chỉ công ty': String(p.diaChiCty || '').trim(),
+      'Email hoá đơn'  : String(p.emailHd || '').trim(),
+      'Địa chỉ giao GCN': String(p.diaChiGiao || '').trim(),
+      'Người nhận'     : String(p.nguoiNhan || '').trim(),
+      'SĐT người nhận' : p.sdtNhan ? chuanHoaSdt(p.sdtNhan) : '',
+    };
     var hang = [];
     for (var k = 0; k < CH.COT_ORDERS.length; k++) {
-      var c = CH.COT_ORDERS[k], v = '';
-      if (c === 'Order_ID') v = ma;
-      else if (c === 'CTV_ID') v = maCtv;
-      else if (c === 'Ngày tạo') v = nay;
-      else if (c === 'Khách hàng') v = String(p.customerName || '').trim();
-      else if (c === 'SĐT') v = chuanHoaSdt(p.phone);
-      else if (c === 'Email') v = String(p.email || '').trim();
-      else if (c === 'Biển số') v = String(p.plate || '').trim().toUpperCase();
-      else if (c === 'Sản phẩm') v = String(p.product || '').trim();
-      else if (c === 'Nhóm xe') v = String(p.nhomXe || p.vehicleGroup || '').trim().toLowerCase();
-      else if (c === 'Phí gốc') v = phi.phi_goc;
-      else if (c === 'VAT') v = phi.vat;
-      else if (c === 'Phí') v = phi.tong_phi;
-      else if (c === 'Payment_Status') v = CH.TT_TT.CHO;
-      else if (c === 'Nguồn ghi nhận') v = String(p.nguonGhiNhan || '').trim();
-      else if (c === 'Ghi chú') v = ghiChuThem;
-      hang.push(v);
+      var c = CH.COT_ORDERS[k];
+      hang.push(giaTri[c] === undefined ? '' : giaTri[c]);
     }
     laySheet(CH.SHEET.ORDERS).appendRow(hang);
     ghiNhatKy('createOrder', ma, maCtv, 'website', '', CH.TT_TT.CHO, ghiChuThem);
@@ -238,6 +316,35 @@ function taoDon(p) {
     return tra({ ok: true, orderId: ma, ctvId: maCtv,
                  phi_goc: phi.phi_goc, vat: phi.vat, tong_phi: phi.tong_phi,
                  canh_bao: ghiChuThem || null });
+  });
+}
+
+/**
+ * Trang web gửi lại một đơn ĐÃ CÓ. Không tạo dòng mới.
+ * GỌI BÊN TRONG KHOÁ.
+ *
+ * Việc duy nhất cần ghi lại là khách vừa làm gì: "Khách báo đã chuyển khoản"
+ * là tín hiệu cho kế toán đi soi sao kê, "Đăng ký nhận bản giấy" là việc của
+ * bộ phận phát hành. Ghi vào cột Ghi chú kèm giờ.
+ *
+ * KHÔNG đụng vào Payment_Status: khách nói đã chuyển tiền không phải là tiền
+ * đã về. Chỉ kế toán, sau khi thấy sao kê, mới được đổi trạng thái đó.
+ */
+function ghiNhanLaiDon(don, p) {
+  var tt = String(p.trangThaiKhach || '').trim();
+  if (tt) {
+    var cu = String(don.ghi_chu || '');
+    if (cu.indexOf(tt) < 0) {
+      var them = chuoiNgay() + ' — ' + tt;
+      ghiO(CH.SHEET.ORDERS, don._hang, 'Ghi chú', cu ? cu + ' | ' + them : them);
+    }
+  }
+  ghiNhatKy('donGuiLai', don.order_id, don.ctv_id, 'website', '', tt,
+            'không tạo dòng mới');
+  return tra({
+    ok: true, orderId: don.order_id, ctvId: don.ctv_id,
+    phi_goc: don.phi_goc, vat: don.vat, tong_phi: don.tong_phi,
+    trung_lap: true, trang_thai_khach: tt, canh_bao: null,
   });
 }
 
@@ -295,6 +402,79 @@ function capNhatTrangThai(p) {
   });
 }
 
+/**
+ * NHÂN VIÊN SỬA HỒ SƠ ĐƠN TỪ MÀN HÌNH QUẢN TRỊ.
+ *
+ * Khách gõ nhầm số khung, thiếu địa chỉ giao giấy, sai năm sản xuất — những
+ * thứ đó phải sửa được, và sửa ở dashboard thì có nhật ký, khác hẳn sửa tay
+ * trong bảng tính.
+ *
+ * DANH SÁCH CHO PHÉP, KHÔNG PHẢI DANH SÁCH CẤM. Thêm cột mới vào ORDERS sau
+ * này sẽ KHÔNG tự động sửa được từ ngoài — phải khai thêm ở đây một cách có ý
+ * thức.
+ *
+ * BA CỘT TIỀN (Phí gốc, VAT, Phí) CỐ Ý KHÔNG CHO SỬA.
+ * Hoa hồng đã được tính và đóng băng theo phí gốc tại thời điểm đủ điều kiện.
+ * Sửa phí mà không tính lại hoa hồng là sổ tự mâu thuẫn với chính nó; tính lại
+ * thì lại đổi số tiền của một đơn đã chốt với cộng tác viên. Đơn sai phí phải
+ * HUỶ rồi cấp lại đơn mới — dài hơn một chút, nhưng sổ luôn đúng.
+ *
+ * Commission, Commission_Rate, Commission_Status, Payout_ID cũng không cho
+ * sửa: chúng do mã sinh ra, không phải do người gõ.
+ */
+var COT_ADMIN_SUA = [
+  'Khách hàng', 'SĐT', 'Email', 'Biển số', 'Chi tiết xe', 'Số khung', 'Số máy',
+  'Hiệu xe', 'Năm SX', 'Số chỗ', 'Thời hạn', 'Ngày hiệu lực', 'Ngày hết hạn',
+  'Địa chỉ khách', 'Xuất hoá đơn', 'Tên công ty', 'MST', 'Địa chỉ công ty',
+  'Email hoá đơn', 'Địa chỉ giao GCN', 'Người nhận', 'SĐT người nhận',
+  'GCN_Status', 'Ghi chú'
+];
+
+function capNhatDon(p) {
+  var ma = String(p.orderId || '').trim();
+  if (!ma) return traLoi('Thiếu Order_ID.', 'THIEU');
+
+  var truong;
+  try { truong = JSON.parse(p.truong || '{}'); }
+  catch (e) { return traLoi('Danh sách trường sửa không phải JSON hợp lệ.', 'DU_LIEU'); }
+
+  return khoaVaChay(function () {
+    var ds = docSheet(CH.SHEET.ORDERS);
+    var don = null;
+    for (var i = 0; i < ds.length; i++) {
+      if (String(ds[i].order_id) === ma) { don = ds[i]; break; }
+    }
+    if (!don) return traLoi('Không tìm thấy đơn ' + ma, 'KHONG_CO');
+
+    var nguoi = String(p.nguoi || 'quan-tri');
+    var daDoi = [];
+    var tuChoi = [];
+
+    for (var ten in truong) {
+      if (!Object.prototype.hasOwnProperty.call(truong, ten)) continue;
+      if (COT_ADMIN_SUA.indexOf(ten) < 0) { tuChoi.push(ten); continue; }
+      var moi = truong[ten] == null ? '' : String(truong[ten]);
+      var khoa = KHOA_COT[ten];
+      var cu = khoa ? String(don[khoa] == null ? '' : don[khoa]) : '';
+      if (moi === cu) continue;
+      ghiO(CH.SHEET.ORDERS, don._hang, ten, moi);
+      ghiNhatKy('capNhatDon', ma, don.ctv_id, nguoi, cu, moi, ten);
+      daDoi.push(ten);
+    }
+
+    /* Đổi GCN_Status có thể là mốc sinh hoa hồng (khi CH.MOC_SINH_HOA_HONG
+       đặt 'ISSUED'), nên phải chạy lại phép kiểm — vẫn bên trong khoá. */
+    var kq = null;
+    if (daDoi.indexOf('GCN_Status') >= 0) {
+      don.gcn_status = String(truong['GCN_Status'] || '');
+      kq = sinhHoaHongNeuDu(don, nguoi);
+    }
+
+    return tra({ ok: true, orderId: ma, da_doi: daDoi,
+                 tu_choi: tuChoi, hoa_hong: kq });
+  });
+}
+
 /* ── Sinh hoa hồng ──────────────────────────────────────────────────────── */
 
 /**
@@ -307,6 +487,26 @@ function sinhHoaHongNeuDu(don, nguoi) {
   if (!duDieuKienHoaHong(don, CH.MOC_SINH_HOA_HONG)) {
     return { sinh: false, ly_do: 'chưa đủ điều kiện hoặc đã sinh rồi' };
   }
+
+  /* MÃ GIAO DỊCH NGÂN HÀNG PHẢI LÀ DUY NHẤT.
+     capNhatTrangThai() đã kiểm điều này trước khi ghi, nhưng đường đi thật của
+     nhân viên là sửa tay trong bảng tính — đường đó không qua hàm kia. Không
+     kiểm ở đây thì một lần chuyển khoản dán vào hai đơn là trả hoa hồng hai
+     lần, và bảng nhìn vẫn sạch sẽ. */
+  var ref = String(don.bank_ref || '').trim();
+  if (ref) {
+    var dsKiem = docSheet(CH.SHEET.ORDERS);
+    for (var k = 0; k < dsKiem.length; k++) {
+      if (String(dsKiem[k].order_id) === String(don.order_id)) continue;
+      if (String(dsKiem[k].bank_ref || '').trim() !== ref) continue;
+      var loiRef = 'Mã giao dịch ' + ref + ' đã dùng cho đơn ' + dsKiem[k].order_id;
+      ghiO(CH.SHEET.ORDERS, don._hang, 'Ghi chú',
+           (don.ghi_chu ? don.ghi_chu + ' | ' : '') + 'CHƯA TÍNH HOA HỒNG: ' + loiRef);
+      ghiNhatKy('hoaHongLoi', don.order_id, don.ctv_id, nguoi, '', '', loiRef);
+      return { sinh: false, loi: loiRef };
+    }
+  }
+
   var quyTac = docSheet(CH.SHEET.QUY_TAC);
   var r = tinhHoaHong({
     ctv_id: don.ctv_id, nhom_xe: don.nhom_xe,
@@ -349,8 +549,13 @@ function onSuaDBV(e) {
     if (sh.getName() !== CH.SHEET.ORDERS) return;
     if (e.range.getRow() < 2) return;
 
+    /* Theo dõi cả Bank_Ref: hoa hồng chỉ sinh khi có ĐỦ PAID và mã giao dịch,
+       mà nhân viên có thể điền hai ô đó theo thứ tự bất kỳ. Không nghe cột
+       Bank_Ref thì ai điền PAID trước, mã giao dịch sau sẽ không bao giờ được
+       tính — và không có lỗi nào hiện ra. */
     var tenCot = sh.getRange(1, e.range.getColumn()).getValue();
-    if (tenCot !== 'Payment_Status' && tenCot !== 'GCN_Status') return;
+    if (tenCot !== 'Payment_Status' && tenCot !== 'GCN_Status' &&
+        tenCot !== 'Bank_Ref') return;
 
     var hang = e.range.getRow();
     khoaVaChay(function () {
@@ -415,7 +620,30 @@ function capNhatCtv(p) {
     for (var i = 0; i < ds.length; i++) {
       if (chuanHoaMaCtv(ds[i].ctv_id) === ma) { ban = ds[i]; break; }
     }
-    if (!ban) return traLoi('Không tìm thấy cộng tác viên ' + ma, 'KHONG_CO');
+    /* CHƯA CÓ DÒNG TRONG SHEET THÌ TẠO BÙ, KHÔNG BÁO LỖI RỒI THÔI.
+       Cộng tác viên đăng ký trước khi bảng tính này tồn tại (hoặc trước khi
+       Netlify có GAS_URL) thì hồ sơ chỉ nằm ở Netlify Blobs. Họ vào dashboard
+       điền số tài khoản, thấy báo "Đã lưu" — nhưng sheet không có dòng nào để
+       cập nhật, nên màn hình chi trả của kế toán không thấy số tài khoản đó.
+       Đến kỳ chi trả mới lộ, và lộ bằng cách tiền không tới được người ta.
+       Tạo bù ở đây thì mọi cộng tác viên cũ tự vào sổ ngay lần đầu họ lưu hồ
+       sơ, không cần ai nhớ đi gõ tay. */
+    if (!ban) {
+      if (!sdtHopLe(p.phone)) {
+        return traLoi('Không tìm thấy cộng tác viên ' + ma +
+                      ' và không có số điện thoại hợp lệ để tạo bù.', 'KHONG_CO');
+      }
+      laySheet(CH.SHEET.CTV).appendRow([
+        ma, String(p.hoTen || '').trim(), chuanHoaSdt(p.phone),
+        String(p.email || '').trim(), 'ACTIVE',
+        String(p.nganHang || ''), String(p.soTaiKhoan || ''),
+        String(p.chuTaiKhoan || ''), bayGio(),
+      ]);
+      ghiNhatKy('boSungCtv', '', ma, 'website', '', 'ACTIVE',
+                'tạo bù dòng CTV lúc cập nhật hồ sơ');
+      return tra({ ok: true, ctvId: ma, da_tao_moi: true,
+                   da_doi: ['Ngân hàng', 'Số tài khoản', 'Chủ tài khoản'] });
+    }
 
     var doi = [];
     [['hoTen','Họ tên'], ['email','Email'], ['nganHang','Ngân hàng'],
