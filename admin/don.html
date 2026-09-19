@@ -337,8 +337,8 @@ input:disabled{background:var(--bg);color:var(--ts)}
     } else {
       h += '<div class="luoi"><div class="o1"><label for="f-ref">Mã giao dịch ngân hàng</label>'
         + '<input type="text" id="f-ref" placeholder="Copy từ sao kê, ví dụ FT26091712345678"></div></div>'
-        + '<p class="nho" style="margin:8px 0 0">Bắt buộc. Một mã giao dịch chỉ dùng cho một đơn — '
-        + 'hệ thống từ chối nếu mã đã gắn vào đơn khác.</p>';
+        + '<p class="nho" style="margin:8px 0 0">Không bắt buộc, nhưng nên điền để sau này lần vết được. '
+        + 'Một mã giao dịch chỉ dùng cho một đơn — hệ thống từ chối nếu mã đã gắn vào đơn khác.</p>';
     }
     h += '</div>';
 
@@ -404,8 +404,10 @@ input:disabled{background:var(--bg);color:var(--ts)}
 
   function xacNhanTien(){
     if(!DANG) return;
+    /* Mã giao dịch không còn bắt buộc (quyết định 19/09/2026): người bấm nút
+       này là người vừa nhìn sao kê. Điền vào vẫn tốt — máy chủ kiểm mã đó chưa
+       dùng cho đơn khác — nhưng để trống thì vẫn ghi nhận được. */
     var ref = ($('f-ref') && $('f-ref').value.trim()) || '';
-    if(!ref){ bao('Nhập mã giao dịch ngân hàng trước khi xác nhận.', false); return; }
     var b = $('ct-tien'); b.disabled = true; b.textContent = 'Đang ghi…';
     guiPost({ action:'trangThai', orderId: DANG.order_id,
               paymentStatus:'PAID', bankRef: ref }, function(res){

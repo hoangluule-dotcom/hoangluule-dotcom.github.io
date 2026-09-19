@@ -144,18 +144,18 @@ console.log('\n── Chốt chặn chống trả hoa hồng hai lần ──');
 {
   const d = { ctv_id:'K7X2', payment_status:'PAID', bank_ref:'FT26091700123',
               gcn_status:'', commission_status:'' };
-  kiemTra('đơn PAID có mã giao dịch, chưa sinh hoa hồng → đủ điều kiện',
+  kiemTra('đơn PAID chưa sinh hoa hồng → đủ điều kiện',
     L.duDieuKienHoaHong(d, 'PAID') === true);
 
-  /* Nhân viên gõ PAID thẳng vào bảng tính mà bỏ trống Bank_Ref thì KHÔNG được
-     sinh hoa hồng: không có mã giao dịch nghĩa là không có gì đối chiếu với
-     sao kê, và cũng không chặn được việc dùng một lần chuyển khoản cho hai
-     đơn. Trước 17/09/2026 ràng buộc này chỉ có ở đường API, còn đường sửa tay
-     — đường thật sự được dùng — thì không. */
-  kiemTra('PAID nhưng THIẾU mã giao dịch → chưa đủ điều kiện',
-    L.duDieuKienHoaHong({...d, bank_ref:''}, 'PAID') === false);
-  kiemTra('mã giao dịch chỉ có khoảng trắng cũng coi như thiếu',
-    L.duDieuKienHoaHong({...d, bank_ref:'   '}, 'PAID') === false);
+  /* TỪ 19/09/2026 BANK_REF KHÔNG CÒN LÀ ĐIỀU KIỆN (quyết định của chủ doanh
+     nghiệp): người đối soát đã nhìn sao kê rồi mới đổi sang PAID, nên thao tác
+     đó là căn cứ. Chốt chặn còn lại chỉ là Commission_Status — không trả hai
+     lần cho cùng một đơn. Bài kiểm dưới đây khoá đúng hành vi mới, để lần sau
+     ai siết lại thì phải sửa có ý thức chứ không vô tình. */
+  kiemTra('PAID mà bỏ trống mã giao dịch → VẪN đủ điều kiện',
+    L.duDieuKienHoaHong({...d, bank_ref:''}, 'PAID') === true);
+  kiemTra('mã giao dịch chỉ có khoảng trắng cũng không cản',
+    L.duDieuKienHoaHong({...d, bank_ref:'   '}, 'PAID') === true);
   kiemTra('mốc ISSUED không đòi mã giao dịch',
     L.duDieuKienHoaHong({...d, bank_ref:'', gcn_status:'ISSUED'}, 'ISSUED') === true);
   kiemTra('đã sinh hoa hồng rồi → KHÔNG sinh lại',

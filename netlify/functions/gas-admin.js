@@ -95,8 +95,9 @@ async function ghi(event) {
 
   /* HAI ĐƯỜNG GHI KHÁC NHAU, KHÔNG GỘP.
      'trangThai' đụng tới TIỀN: đánh dấu đã nhận tiền là mốc sinh hoa hồng, nên
-     nó đi qua capNhatTrangThai() với đầy đủ chốt chặn (bắt buộc Bank_Ref,
-     chống dùng lại một mã giao dịch).
+     nó đi qua capNhatTrangThai() với các chốt chặn còn lại (không trả hoa hồng
+     hai lần cho một đơn; nếu có điền Bank_Ref thì mã đó phải chưa dùng cho đơn
+     khác — từ 19/09/2026 Bank_Ref không còn bắt buộc).
      'hoSo' chỉ sửa thông tin hành chính của đơn, đi qua capNhatDon() với danh
      sách cột được phép. */
   if (p.action === 'trangThai') {

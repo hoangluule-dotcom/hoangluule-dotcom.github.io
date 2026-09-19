@@ -368,21 +368,24 @@ function capNhatTrangThai(p) {
     if (p.paymentStatus) {
       var tt = String(p.paymentStatus).trim().toUpperCase();
 
-      /* Đánh dấu ĐÃ NHẬN TIỀN thì bắt buộc có mã giao dịch ngân hàng, và mã đó
-         chưa được dùng cho đơn nào khác. Đây là chốt chặn chống dùng một lần
-         chuyển khoản để đánh dấu hai đơn — Sheets không có ràng buộc duy nhất
-         nên phải tự kiểm, và phải kiểm BÊN TRONG khoá. */
+      /* Mã giao dịch ngân hàng KHÔNG còn bắt buộc (quyết định 19/09/2026):
+         người đối soát đã nhìn sao kê rồi mới đổi trạng thái, nên thao tác đó
+         là căn cứ. Nhưng KHI CÓ điền thì vẫn phải là mã chưa dùng cho đơn nào
+         khác — Sheets không có ràng buộc duy nhất nên phải tự kiểm, và phải
+         kiểm BÊN TRONG khoá. Giữ lại vì nó không cản trở ai mà vẫn bắt được
+         trường hợp một lần chuyển khoản bị dán cho hai đơn. */
       if (tt === CH.TT_TT.DA_TRA) {
         var ref = String(p.bankRef || '').trim();
-        if (!ref) return traLoi('Phải nhập mã giao dịch ngân hàng (Bank_Ref) khi xác nhận đã nhận tiền.', 'THIEU_REF');
-        for (var j = 0; j < ds.length; j++) {
-          if (String(ds[j].bank_ref || '').trim() === ref &&
-              String(ds[j].order_id) !== ma) {
-            return traLoi('Mã giao dịch ' + ref + ' đã dùng cho đơn ' +
-                          ds[j].order_id + '.', 'REF_TRUNG');
+        if (ref) {
+          for (var j = 0; j < ds.length; j++) {
+            if (String(ds[j].bank_ref || '').trim() === ref &&
+                String(ds[j].order_id) !== ma) {
+              return traLoi('Mã giao dịch ' + ref + ' đã dùng cho đơn ' +
+                            ds[j].order_id + '.', 'REF_TRUNG');
+            }
           }
+          ghiO(CH.SHEET.ORDERS, don._hang, 'Bank_Ref', ref);
         }
-        ghiO(CH.SHEET.ORDERS, don._hang, 'Bank_Ref', ref);
         ghiO(CH.SHEET.ORDERS, don._hang, 'Ngày nhận tiền', bayGio());
       }
       ghiO(CH.SHEET.ORDERS, don._hang, 'Payment_Status', tt);
@@ -488,11 +491,12 @@ function sinhHoaHongNeuDu(don, nguoi) {
     return { sinh: false, ly_do: 'chưa đủ điều kiện hoặc đã sinh rồi' };
   }
 
-  /* MÃ GIAO DỊCH NGÂN HÀNG PHẢI LÀ DUY NHẤT.
+  /* MÃ GIAO DỊCH NGÂN HÀNG KHÔNG BẮT BUỘC, NHƯNG CÓ THÌ PHẢI DUY NHẤT.
      capNhatTrangThai() đã kiểm điều này trước khi ghi, nhưng đường đi thật của
      nhân viên là sửa tay trong bảng tính — đường đó không qua hàm kia. Không
      kiểm ở đây thì một lần chuyển khoản dán vào hai đơn là trả hoa hồng hai
-     lần, và bảng nhìn vẫn sạch sẽ. */
+     lần, và bảng nhìn vẫn sạch sẽ.
+     Ô trống thì bỏ qua đoạn này và hoa hồng vẫn sinh — PAID là đủ. */
   var ref = String(don.bank_ref || '').trim();
   if (ref) {
     var dsKiem = docSheet(CH.SHEET.ORDERS);
@@ -549,10 +553,9 @@ function onSuaDBV(e) {
     if (sh.getName() !== CH.SHEET.ORDERS) return;
     if (e.range.getRow() < 2) return;
 
-    /* Theo dõi cả Bank_Ref: hoa hồng chỉ sinh khi có ĐỦ PAID và mã giao dịch,
-       mà nhân viên có thể điền hai ô đó theo thứ tự bất kỳ. Không nghe cột
-       Bank_Ref thì ai điền PAID trước, mã giao dịch sau sẽ không bao giờ được
-       tính — và không có lỗi nào hiện ra. */
+    /* Vẫn theo dõi Bank_Ref dù nó không còn là điều kiện sinh hoa hồng: khi
+       đơn chưa sinh được vì lý do khác (thiếu quy tắc, sai nhóm xe) và nhân
+       viên quay lại điền nốt mã giao dịch, lần sửa đó là cơ hội chạy lại. */
     var tenCot = sh.getRange(1, e.range.getColumn()).getValue();
     if (tenCot !== 'Payment_Status' && tenCot !== 'GCN_Status' &&
         tenCot !== 'Bank_Ref') return;

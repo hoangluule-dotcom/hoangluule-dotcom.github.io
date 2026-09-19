@@ -139,16 +139,20 @@ a{color:var(--g)}
 .fld input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.12)}
 .fld input:disabled{background:var(--bg);color:var(--ts)}
 .fld .hint{margin-top:5px;font-size:12px;color:var(--ts);line-height:1.5}
-/* Thanh lưu DÍNH ĐÁY khung nhìn khi còn cuộn được.
-   Trước đây nó nằm cuối biểu mẫu, phía sau cả khối "Đổi mật khẩu". Cộng tác
-   viên vào sửa số tài khoản, điền xong thấy tiếp theo là ô mật khẩu nên tưởng
-   không có nút xác nhận — rồi bỏ đi, và số tài khoản không được lưu. Nút lưu
-   phải luôn nằm trong tầm mắt, không bắt ai đi tìm.
-   background + viền trên để nó không chìm vào nội dung cuộn phía sau. */
-.hs-act{position:sticky;bottom:0;z-index:5;margin-top:18px;padding:14px 0 4px;
-  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
-  background:var(--white);border-top:1px solid var(--bd)}
+/* MỖI MỤC MỘT NÚT LƯU RIÊNG, ĐẶT NGAY DƯỚI CHÍNH MỤC ĐÓ.
+   Trước đây cả biểu mẫu chỉ có một nút ở cuối. Cộng tác viên điền xong số tài
+   khoản thì thứ tiếp theo hiện ra là khối "Đổi mật khẩu" — nhìn như đã sang
+   việc khác — nên tưởng không phải xác nhận gì, rồi bỏ đi mà số tài khoản
+   không được lưu. Tệ hơn: một nút chung cho cả ba việc khiến lỗi của việc này
+   chặn mất việc kia, đúng như lần trình duyệt tự điền ô mật khẩu.
+   Nút nằm ngay dưới ô vừa điền thì không ai phải đi tìm, và mỗi việc hỏng hay
+   xong đều báo tại chỗ của nó. */
+.hs-act{margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .btn-save{appearance:none;border:0;background:var(--g);color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:12px 26px;border-radius:var(--r12);cursor:pointer;transition:.18s}
+/* Nút phụ nhẹ hơn về thị giác: việc chính ở trang này là số tài khoản nhận
+   tiền, còn tên/email và mật khẩu thì thỉnh thoảng mới sửa. */
+.btn-save.btn-phu{background:#fff;color:var(--g);border:1.5px solid var(--bd);padding:11px 22px;font-size:14px}
+.btn-save.btn-phu:hover{border-color:var(--g);background:var(--gl)}
 .btn-save:hover{background:var(--gp)}
 .btn-save:disabled{opacity:.6;cursor:not-allowed}
 .hs-msg{font-size:13.5px;font-weight:600;line-height:1.5}
@@ -594,7 +598,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="vd">
         <div class="vd-b"><span class="vd-n">1</span><span><b>Đã tạo đơn</b> — khách điền xong thông tin và hệ thống sinh mã QR thanh toán.</span></div>
         <div class="vd-b"><span class="vd-n">2</span><span><b>Chờ tiền về</b> — khách đã có mã QR nhưng tiền chưa vào tài khoản công ty.</span></div>
-        <div class="vd-b"><span class="vd-n">3</span><span><b>Đã đối soát</b> — dòng tiền trong sao kê ngân hàng đã khớp với đơn. Việc đối soát làm mỗi ngày làm việc.</span></div>
+        <div class="vd-b"><span class="vd-n">3</span><span><b>Đã đối soát</b> — dòng tiền trong sao kê ngân hàng đã khớp với đơn.</span></div>
         <div class="vd-b"><span class="vd-n">4</span><span><b>Hoa hồng chờ 7 ngày</b> — khoảng thời gian dành cho trường hợp khách đổi ý xin hoàn phí.</span></div>
         <div class="vd-b"><span class="vd-n">5</span><span><b>Khả dụng</b> — bạn rút được về tài khoản ngân hàng đã khai.</span></div>
       </div>
@@ -615,12 +619,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="fld">
             <label for="p-sdt">Số điện thoại (tên đăng nhập)</label>
             <input id="p-sdt" type="tel" disabled>
-            <span class="hint">Không đổi được. Cần đổi số thì gọi 0869 656 561.</span>
           </div>
           <div class="fld">
             <label for="p-email">Email</label>
             <input id="p-email" type="email" maxlength="160" autocomplete="email" placeholder="Không bắt buộc">
           </div>
+        </div>
+        <div class="hs-act">
+          <button type="button" class="btn-save btn-phu" id="btn-ten">Lưu họ tên và email</button>
+          <span class="hs-msg" id="ten-msg"></span>
         </div>
 
         <hr class="hs-sep">
@@ -637,16 +644,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="fld">
             <label for="p-chu">Chủ tài khoản</label>
             <input id="p-chu" type="text" maxlength="120" placeholder="Viết hoa, không dấu">
-            <span class="hint">Nên trùng tên người đăng ký — lệch tên thì kế toán sẽ phải hỏi lại trước khi chi.</span>
+            <span class="hint">Chủ tài khoản phải là chính chủ CTV.</span>
           </div>
         </div>
-        <!-- Điền xong ba ô ngân hàng, thứ tiếp theo trong biểu mẫu là khối
-             "Đổi mật khẩu" — nhìn như đã sang việc khác, nên nhiều người tưởng
-             không phải bấm gì. Nói thẳng ra đây một câu. -->
-        <p class="hs-nhac">
-          Điền xong phải bấm <b>Lưu thay đổi</b> ở cuối trang thì số tài khoản
-          mới được ghi lại. Đóng trang mà chưa bấm là chưa lưu.
-        </p>
+        <div class="hs-act">
+          <button type="button" class="btn-save" id="btn-nh">Lưu số tài khoản</button>
+          <span class="hs-msg" id="nh-msg"></span>
+        </div>
 
         <hr class="hs-sep">
         <div class="hs-sub">Đổi mật khẩu</div>
@@ -666,10 +670,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <input id="p-mkm" type="password" autocomplete="new-password" placeholder="Ít nhất 6 ký tự">
           </div>
         </div>
-
         <div class="hs-act">
-          <button type="submit" class="btn-save" id="btn-save">Lưu thay đổi</button>
-          <span class="hs-msg" id="hs-msg"></span>
+          <button type="button" class="btn-save btn-phu" id="btn-mk">Đổi mật khẩu</button>
+          <span class="hs-msg" id="mk-msg"></span>
         </div>
       </form>
     </section>
@@ -891,41 +894,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
   });
 
-  /* ── Lưu hồ sơ ── */
-  $('form-hs').addEventListener('submit', async function(ev){
-    ev.preventDefault();
-    var msg = $('hs-msg'); msg.className = 'hs-msg'; msg.textContent = '';
-
-    var than = {
-      ho_ten: $('p-ten').value.trim(),
-      email: $('p-email').value.trim(),
-      ngan_hang: $('p-nh').value.trim(),
-      so_tai_khoan: $('p-stk').value.trim(),
-      chu_tai_khoan: $('p-chu').value.trim()
-    };
-
-    /* CHỈ Ô "MẬT KHẨU MỚI" MỚI QUYẾT ĐỊNH ĐÂY CÓ PHẢI LÀ LẦN ĐỔI MẬT KHẨU HAY KHÔNG.
-       Bản trước dùng `if (mkm || mkc)`, tức là chỉ cần ô "mật khẩu hiện tại" có
-       chữ là coi như người dùng muốn đổi mật khẩu. Nhưng ô đó thường KHÔNG do
-       người dùng gõ: trình duyệt và trình quản lý mật khẩu tự điền vào nó ngay
-       khi mở trang. Kết quả là cộng tác viên chỉ định sửa số tài khoản, bấm Lưu,
-       và bị chặn bằng câu "Mật khẩu mới phải có ít nhất 6 ký tự" — một lỗi về
-       việc họ không hề làm, và số tài khoản thì không được lưu.
-       Ô "mật khẩu hiện tại" bỏ trống khi không đổi là mặc định đã ghi trên chính
-       ô đó, nên để trống KHÔNG BAO GIỜ được hiểu thành ý muốn đổi. */
-    var mkm = $('p-mkm').value, mkc = $('p-mkc').value;
-    if (mkm) {
-      if (mkm.length < 6) {
-        msg.className = 'hs-msg bad'; msg.textContent = 'Mật khẩu mới phải có ít nhất 6 ký tự.'; return;
-      }
-      if (!mkc) {
-        msg.className = 'hs-msg bad'; msg.textContent = 'Nhập mật khẩu hiện tại để xác nhận.'; return;
-      }
-      than.mat_khau_moi = mkm;
-      than.mat_khau_cu  = mkc;
-    }
-
-    var btn = $('btn-save'); btn.disabled = true; btn.textContent = 'Đang lưu…';
+  /* ── Lưu hồ sơ: BA VIỆC RỜI NHAU, BA NÚT RỜI NHAU ──────────────────────
+     Máy chủ chỉ ghi những trường được gửi lên, nên mỗi nút gửi đúng phần của
+     mình. Nút "Lưu số tài khoản" KHÔNG BAO GIỜ đụng tới mật khẩu — đó là điểm
+     chính: trình duyệt tự điền ô mật khẩu cũng không thể làm hỏng việc lưu số
+     tài khoản nữa, vì hai việc không còn đi chung một đường. */
+  async function guiHoSo(than, idNut, chuNut, idMsg, xong) {
+    var msg = $(idMsg); msg.className = 'hs-msg'; msg.textContent = '';
+    var btn = $(idNut); btn.disabled = true; btn.textContent = 'Đang lưu…';
     try {
       var res = await fetch(API_HS, {
         method: 'POST',
@@ -936,26 +912,64 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var d = await res.json();
       if (!res.ok || !d.ok) {
         msg.className = 'hs-msg bad'; msg.textContent = d.error || 'Không lưu được.';
+        return;
+      }
+      veHoSo(d.ctv);
+      if (xong) xong(d);
+      /* Hồ sơ đăng nhập đã ghi xong, nhưng bộ phận kế toán đọc số tài khoản
+         từ hệ thống sổ sách. Chưa đồng bộ được sang đó mà chỉ báo "Đã lưu"
+         là để cộng tác viên yên tâm chờ tiền vào tài khoản mới, trong khi kế
+         toán vẫn nhìn tài khoản cũ. */
+      if (d.dong_bo_sheet === false) {
+        msg.className = 'hs-msg bad';
+        msg.textContent = 'Đã lưu, nhưng CHƯA đồng bộ được sang hệ thống kế toán. ' +
+          'Nếu vừa đổi số tài khoản, báo DBV trước kỳ chi trả: 0869 656 561.';
       } else {
-        veHoSo(d.ctv);
-        $('p-mkm').value = ''; $('p-mkc').value = '';
-        /* Hồ sơ đăng nhập đã ghi xong, nhưng bộ phận kế toán đọc số tài khoản
-           từ hệ thống sổ sách. Chưa đồng bộ được sang đó mà chỉ báo "Đã lưu"
-           là để cộng tác viên yên tâm chờ tiền vào tài khoản mới, trong khi kế
-           toán vẫn nhìn tài khoản cũ. */
-        if (d.dong_bo_sheet === false) {
-          msg.className = 'hs-msg bad';
-          msg.textContent = 'Đã lưu, nhưng CHƯA đồng bộ được sang hệ thống kế toán. ' +
-            'Nếu vừa đổi số tài khoản, báo DBV trước kỳ chi trả: 0869 656 561.';
-        } else {
-          msg.className = 'hs-msg good'; msg.textContent = 'Đã lưu.';
-        }
+        msg.className = 'hs-msg good'; msg.textContent = 'Đã lưu.';
       }
     } catch (e) {
       msg.className = 'hs-msg bad'; msg.textContent = 'Không kết nối được máy chủ.';
     } finally {
-      btn.disabled = false; btn.textContent = 'Lưu thay đổi';
+      btn.disabled = false; btn.textContent = chuNut;
     }
+  }
+
+  /* Enter trong ô bất kỳ không được tự gửi cả biểu mẫu — giờ không còn "cả
+     biểu mẫu" nào để gửi, và gửi nhầm phần khác là chuyện phải chặn. */
+  $('form-hs').addEventListener('submit', function(ev){ ev.preventDefault(); });
+
+  $('btn-ten').addEventListener('click', function(){
+    guiHoSo({ ho_ten: $('p-ten').value.trim(), email: $('p-email').value.trim() },
+            'btn-ten', 'Lưu họ tên và email', 'ten-msg');
+  });
+
+  $('btn-nh').addEventListener('click', function(){
+    var msg = $('nh-msg');
+    var stk = $('p-stk').value.replace(/\s+/g, '');
+    /* Ba ô đi cùng nhau: kế toán không chuyển được tiền nếu thiếu một trong ba.
+       Chặn tại đây để không ghi vào sổ một tài khoản dùng không được. */
+    if ($('p-nh').value.trim() && stk && $('p-chu').value.trim()) {
+      guiHoSo({ ngan_hang: $('p-nh').value.trim(), so_tai_khoan: stk,
+                chu_tai_khoan: $('p-chu').value.trim() },
+              'btn-nh', 'Lưu số tài khoản', 'nh-msg');
+      return;
+    }
+    msg.className = 'hs-msg bad';
+    msg.textContent = 'Điền đủ cả ngân hàng, số tài khoản và chủ tài khoản thì mới chuyển tiền được.';
+  });
+
+  $('btn-mk').addEventListener('click', function(){
+    var msg = $('mk-msg'); msg.className = 'hs-msg'; msg.textContent = '';
+    var mkm = $('p-mkm').value, mkc = $('p-mkc').value;
+    if (mkm.length < 6) {
+      msg.className = 'hs-msg bad'; msg.textContent = 'Mật khẩu mới phải có ít nhất 6 ký tự.'; return;
+    }
+    if (!mkc) {
+      msg.className = 'hs-msg bad'; msg.textContent = 'Nhập mật khẩu hiện tại để xác nhận.'; return;
+    }
+    guiHoSo({ mat_khau_moi: mkm, mat_khau_cu: mkc },
+            'btn-mk', 'Đổi mật khẩu', 'mk-msg',
+            function(){ $('p-mkm').value = ''; $('p-mkc').value = ''; });
   });
 
   tai();

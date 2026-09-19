@@ -164,23 +164,24 @@ function tinhHoaHong(don, dsQuyTac) {
  * Commission_Status còn TRỐNG — đây là chốt chặn chống trả hoa hồng hai lần
  * khi nhân viên lỡ tay đổi trạng thái hai lần, hoặc hai người cùng sửa.
  *
- * VỚI MỐC 'PAID' CÒN PHẢI CÓ MÃ GIAO DỊCH NGÂN HÀNG (Bank_Ref).
- * Trước đây ràng buộc này chỉ nằm ở capNhatTrangThai() — tức là chỉ áp dụng
- * cho đường API. Nhưng quy trình thật (đặc tả mục 15) là nhân viên sửa THẲNG
- * trong bảng tính, và đường đó không đi qua capNhatTrangThai. Kết quả: gõ
- * "PAID" vào ô là sinh hoa hồng ngay, không cần chứng cứ nào — đúng thứ mà
- * ràng buộc Bank_Ref sinh ra để chặn. Đặt ở đây thì cả hai đường cùng chịu
- * một luật.
+ * BANK_REF KHÔNG CÒN LÀ ĐIỀU KIỆN BẮT BUỘC (quyết định của chủ doanh nghiệp,
+ * 19/09/2026). Lập luận: người đối soát đã nhìn sao kê và tự tay đổi sang PAID,
+ * nên chính thao tác đó đã là căn cứ ghi nhận.
  *
- * Thứ tự sửa ô không quan trọng: onSuaDBV theo dõi cả cột Bank_Ref, nên điền
- * PAID trước hay Bank_Ref trước đều được.
+ * Cái mất đi khi bỏ ràng buộc này, ghi lại để người sau không tưởng là sót:
+ * Bank_Ref từng là thứ duy nhất chống việc một giao dịch ngân hàng bị dùng cho
+ * hai đơn — sinhHoaHongNeuDu kiểm tra mã đó chưa xuất hiện ở đơn nào khác. Bỏ
+ * đi thì một lần gõ nhầm PAID là sinh hoa hồng thật, và đến kỳ 2 hoặc 16 là
+ * tiền đi thật. Chốt chặn còn lại chỉ có Commission_Status (không trả hai lần
+ * cho cùng một đơn) và mắt người đối soát.
+ * Cột Bank_Ref vẫn giữ và onSuaDBV vẫn theo dõi — nên điền vào vẫn tốt cho
+ * việc lần vết về sau, chỉ là không bắt buộc nữa.
  */
 function duDieuKienHoaHong(don, moc) {
   if (!don.ctv_id) return false;
   if (String(don.commission_status || '').trim() !== '') return false;
   if (moc === 'ISSUED') return String(don.gcn_status || '').trim() === 'ISSUED';
-  if (String(don.payment_status || '').trim() !== 'PAID') return false;
-  return String(don.bank_ref || '').trim() !== '';
+  return String(don.payment_status || '').trim() === 'PAID';
 }
 
 /**
