@@ -459,6 +459,12 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 <script src="/assets/dbv-menu-search.js" defer></script>
 <style id="dbv-layout">
 :where(.hdr){background:#fff;position:sticky;top:0;z-index:300;border-bottom:1px solid var(--bd,#E2E8F0)}
+/* Topbar cam thương hiệu (--gold, cùng màu nút "btn-orange") — chữ trắng in hoa.
+   line-height 1.5, KHÔNG overflow:hidden: chữ in hoa tiếng Việt có dấu chồng
+   (Ể, Ậ, Ự) cao vượt khung chữ; line-height:1 + overflow:hidden sẽ cắt mất dấu. */
+.hdr-topbar{background:var(--gold,#E8920A);color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;min-height:32px;padding:4px 16px;font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.5;text-align:center}
+.hdr-topbar-tx{display:block}
+.hdr-topbar-st{font-size:11px;flex-shrink:0}
 .hdr-inner{max-width:var(--container,1400px);margin:0 auto;padding:0 40px;display:flex;align-items:center;height:60px;gap:8px}
 .hdr-logo{flex-shrink:0;margin-right:24px}
 .hdr-logo img{height:48px;width:auto;display:block}
@@ -492,11 +498,17 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--gold,#E8920A);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
 .btn-consult-hdr:hover{background:var(--goldd,#c97d08);box-shadow:0 4px 16px rgba(232,146,10,.35)}
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
-@media(max-width:640px){.hdr-inner{padding:0 16px;height:60px}.hdr-logo img{height:44px}.hdr-nav{display:none}/* Trên mobile, lối vào cổng cộng tác viên nằm TRONG hamburger (mục đầu của
+@media(max-width:640px){.hdr-inner{padding:0 16px;height:60px;position:relative}.hdr-logo img{height:44px}/* Mobile: hamburger bên trái, logo ở chính giữa header.
+     Logo định vị tuyệt đối để luôn nằm đúng tâm màn hình, không phụ thuộc
+     độ rộng cụm nút bên cạnh. */
+  .hdr-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}.hdr-topbar{min-height:28px;font-size:10.5px;letter-spacing:.04em;gap:7px;padding:3px 12px}.hdr-topbar-st{font-size:9px}.hdr-nav{display:none}/* Trên mobile, lối vào cổng cộng tác viên nằm TRONG hamburger (mục đầu của
      panel Danh mục), nên hai thứ này ẩn đi để header còn chỗ cho logo. */
   .btn-login{display:none}.hdr-hotline{display:none}.btn-consult-hdr{display:none}/* Đẩy actions sát phải khi nav ẩn */
-  .hdr-actions{margin-left:auto}/* Icon only */
-  .btn-catalog-hdr .btn-cat-text{display:none}.btn-catalog-hdr{padding:7px 9px;border-radius:9px}/* Ẩn nút tìm kiếm trên mobile: ô tìm sản phẩm nằm ngay trong phần Danh mục
+  .hdr-actions{margin-left:0;order:-1}/* Menu thả từ nút bên trái nên phải mở theo mép trái */
+  .cat-dropdown{left:0;right:auto}/* Icon only */
+  .btn-catalog-hdr .btn-cat-text{display:none}/* Hamburger mobile: chỉ 3 gạch ngang, không viền, không nền.
+     Vùng bấm vẫn 44x44 cho ngón tay. */
+  .btn-catalog-hdr{border:0;background:none;padding:0;width:44px;height:44px;justify-content:flex-start;margin-left:-8px;padding-left:8px;border-radius:0;color:#1C1C1C}.btn-catalog-hdr:hover{border:0;background:none;color:var(--g,#007437)}.btn-catalog-hdr svg{width:26px;height:26px;stroke-width:2.2}/* Ẩn nút tìm kiếm trên mobile: ô tìm sản phẩm nằm ngay trong phần Danh mục
      phía dưới, nên nút này chỉ chiếm chỗ mà không thêm giá trị gì */
   .hdr-search{display:none}}
 /* ══ CATEGORY DROPDOWN (nav menu) ══ */
@@ -533,7 +545,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .float-btn-messenger{background:#0084FF}
 /* ══ FOOTER ══ */
 .ftr{background:#fff;border-top:1px solid var(--bd,#E2E8F0);margin-top:0}
-.ftr-inner{max-width:var(--container,1400px);margin:0 auto;padding:36px 40px 26px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+.ftr-inner{max-width:var(--container,1400px);margin:0 auto;padding:36px 40px 26px;display:grid;grid-template-columns:1.7fr 1fr 1fr 1.8fr;gap:40px}
 .ftr-logo{height:88px;width:auto;display:block;margin-bottom:18px}
 .ftr-brand-desc{font-size:.82rem;color:var(--tm,#4a5568);line-height:1.8;margin-bottom:12px}
 .ftr-info a{display:flex;align-items:flex-start;gap:7px;font-size:.82rem;color:var(--tm,#4a5568);text-decoration:none;margin-bottom:8px;line-height:1.5}
@@ -542,10 +554,23 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .ftr-col h4,.ftr-contact h4{font-size:.88rem;font-weight:700;color:var(--tx,#1C1C1C);text-transform:none;letter-spacing:0;margin-bottom:12px;padding-bottom:0;border-bottom:none}
 .ftr-col a{display:block;font-size:.82rem;color:var(--tm,#4a5568);text-decoration:none;margin-bottom:9px;line-height:1.5;transition:.15s}
 .ftr-col a:hover{color:var(--g,#007437);padding-left:4px}
-.ftr-social{display:flex;gap:10px;margin-bottom:24px}
-.ftr-social a{width:38px;height:38px;border-radius:50%;background:var(--g,#007437);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
-.ftr-social a:hover{background:var(--gold,#E8920A);transform:translateY(-2px)}
-.ftr-social svg{width:17px;height:17px;fill:#fff}
+/* Hàng mạng xã hội dưới cùng footer — căn giữa, icon nét viền màu ghi */
+.ftr-social-row{max-width:var(--container,1400px);margin:0 auto;padding:4px 40px 22px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.ftr-social-h{font-size:.78rem;font-weight:700;color:var(--ts,#718096);text-transform:uppercase;letter-spacing:.12em;margin:0}
+.ftr-social{display:flex;gap:12px;justify-content:center}
+.ftr-social a{width:40px;height:40px;border-radius:50%;border:1.5px solid #CBD5E1;background:transparent;color:#8A94A6;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a:hover{color:var(--g,#007437);border-color:var(--g,#007437);transform:translateY(-2px)}
+.ftr-social svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* Banner tuyển Đại lý / CTV — nền cam thương hiệu, như khối "Seller program" */
+.ftr-ctv{background:linear-gradient(135deg,var(--gold,#E8920A) 0%,var(--goldd,#c97d08) 100%);color:#fff;border-radius:22px;padding:26px 26px 24px;align-self:start;box-shadow:0 10px 30px rgba(232,146,10,.25)}
+.ftr-ctv-eb{display:flex;align-items:center;gap:9px;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;line-height:1.5;margin:0 0 12px}
+.ftr-ctv-eb svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ftr-ctv-h{font-size:1.4rem;font-weight:800;line-height:1.3;color:#fff;margin:0 0 10px;letter-spacing:-.01em}
+.ftr-ctv-p{font-size:.86rem;font-weight:500;line-height:1.65;color:#fff;margin:0 0 14px}
+.ftr-ctv-note{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.5;color:#FFF3D6;margin:0 0 18px}
+.ftr-ctv-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--dk,#0f2515);color:#fff;font-size:.9rem;font-weight:700;padding:13px 20px;border-radius:999px;text-decoration:none;transition:.2s}
+.ftr-ctv-btn:hover{background:#000;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.ftr-ctv-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .ftr-phone-label{font-size:.7rem;font-weight:600;color:var(--ts,#718096);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .ftr-hotline{font-size:1.3rem;font-weight:800;color:var(--goldd,#c97d08);text-decoration:none;letter-spacing:-.5px;display:block;line-height:1.2}
 .ftr-hotline:hover{color:var(--g,#007437)}
@@ -553,8 +578,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .ftr-copy-inner{max-width:var(--container,1400px);margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.76rem;color:var(--ts,#718096)}
 .ftr-copy-inner a{color:var(--ts,#718096);text-decoration:none}
 .ftr-copy-inner a:hover{color:var(--g,#007437)}
-@media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}}
-@media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 16px 28px}.ftr-copy-inner{padding:14px 16px;flex-direction:column;text-align:center}}
+@media(max-width:960px){.ftr-inner{grid-template-columns:1fr 1fr;gap:32px}.ftr-brand{grid-column:1/-1}.ftr-ctv{grid-column:1/-1}}
+@media(max-width:480px){.ftr-inner{grid-template-columns:1fr;padding:36px 16px 28px}.ftr-copy-inner{padding:14px 16px;flex-direction:column;text-align:center}.ftr-social-row{padding:4px 16px 20px}.ftr-ctv{padding:22px 20px 20px}.ftr-ctv-h{font-size:1.25rem}}
 /* Mục header dành cho khách Hàn Quốc */
 .hdr-nav a.hdr-nav-kr{color:var(--g,#007437);font-weight:700;background:var(--gl,#E8F5E9);border:1px solid rgba(0,116,55,.22)}
 .hdr-nav a.hdr-nav-kr:hover{background:#dff0e2;border-color:rgba(0,116,55,.4)}
@@ -623,6 +648,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- HEADER -->
 <header class="hdr" role="banner">
+  <!-- Topbar cam: dải thông điệp thương hiệu trên cùng. Nằm TRONG header để
+       script sync mang sang mọi trang và dính cùng header khi cuộn. -->
+  <div class="hdr-topbar"><span class="hdr-topbar-st" aria-hidden="true">★</span><span class="hdr-topbar-tx">Bảo hiểm trực tuyến Tập đoàn Bảo hiểm DBV</span><span class="hdr-topbar-st" aria-hidden="true">★</span></div>
   <!-- Main nav -->
   <div class="hdr-inner">
     <a href="/" class="hdr-logo"><img src="/logo-dbv247.png" alt="DBV247 – Trang chủ" width="auto" height="48"></a>
@@ -1491,25 +1519,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/cong-tac-vien-dai-ly">Đại lý/Cộng tác viên</a>
     </div>
 
-    <!-- Cột 4: Kết nối -->
-    <div class="ftr-contact">
-      <h4>Kết nối với chúng tôi</h4>
-      <div class="ftr-social">
-        <a href="https://www.facebook.com/people/B%E1%BA%A3o-hi%E1%BB%83m-DBVI-247/61590966449840/" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        </a>
-        <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" aria-label="Zalo">
-          <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 7.8 2 15c0 3.9 1.8 7.4 4.7 9.9l-1.2 4.4 4.6-1.5C11.8 28.6 13.9 29 16 29c7.73 0 14-5.8 14-13S23.73 2 16 2z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@tapdoanbaohiemdbv?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
-        </a>
-        <a href="https://www.youtube.com/@TapdoanBaohiemDBV" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1a1a"/></svg>
-        </a>
-      </div>
-      <p class="ftr-phone-label">Liên hệ DBV247</p>
-      <a href="tel:0869656561" class="ftr-hotline">0869 656 561</a>
+    <!-- Cột 4: Banner tuyển Đại lý / Cộng tác viên (thay cho cột Kết nối cũ;
+         mạng xã hội chuyển xuống hàng dưới cùng footer) -->
+    <div class="ftr-ctv">
+      <p class="ftr-ctv-eb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>Chương trình Đại lý / CTV</p>
+      <h4 class="ftr-ctv-h">Trở thành Đại lý / Cộng tác viên DBV247</h4>
+      <p class="ftr-ctv-p">Chủ động thời gian, phát triển thu nhập theo năng lực và chính sách hoa hồng minh bạch — có sản phẩm, đào tạo và đội ngũ DBV247 đồng hành.</p>
+      <p class="ftr-ctv-note">Đăng ký nhanh · Cấp đơn trên điện thoại</p>
+      <a href="/cong-tac-vien-dai-ly" class="ftr-ctv-btn">Đăng ký ngay <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+
+  <!-- Hàng mạng xã hội: căn giữa, icon viền màu ghi -->
+  <div class="ftr-social-row">
+    <p class="ftr-social-h">Kết nối với chúng tôi</p>
+    <div class="ftr-social">
+      <a href="https://www.facebook.com/people/B%E1%BA%A3o-hi%E1%BB%83m-DBVI-247/61590966449840/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener" aria-label="Zalo"><svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.9 2 11.7c0 2.6 1.3 4.9 3.4 6.5L4.6 21l3.3-1.4c1.3.5 2.7.7 4.1.7 5.5 0 10-3.9 10-8.6S17.5 3 12 3z"/><text x="12" y="13.6" text-anchor="middle" font-size="5.6" font-weight="800" font-family="Arial,sans-serif" fill="currentColor" stroke="none">Zalo</text></svg></a>
+      <a href="https://www.tiktok.com/@tapdoanbaohiemdbv?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V3h3.2a5 5 0 0 0 4.8 4.4"/></svg></a>
+      <a href="https://www.youtube.com/@TapdoanBaohiemDBV" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z"/></svg></a>
     </div>
   </div>
 
