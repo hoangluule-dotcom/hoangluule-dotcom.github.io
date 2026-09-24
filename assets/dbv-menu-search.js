@@ -114,7 +114,7 @@ var DBV_SANPHAM = [
     mo: 'Sốt xuất huyết, cúm, tay chân miệng, thủy đậu, sởi.',
     tim: 'benh nhiet doi sot xuat huyet cum tay chan mieng thuy dau soi' },
 
-  { ten: 'BH Sức Khỏe DBVCare', url: '/bao-hiem-suc-khoe', the: 'HOT',
+  { ten: 'BH Sức Khỏe Cá Nhân DBVCare', url: '/bao-hiem-suc-khoe', the: 'HOT',
     mo: 'Nội trú, ngoại trú và nha khoa cho cá nhân và doanh nghiệp.',
     tim: 'suc khoe y te dbvcare noi tru ngoai tru nha khoa kham benh bao lanh vien phi' },
 

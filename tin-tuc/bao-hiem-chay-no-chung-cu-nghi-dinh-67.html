@@ -319,7 +319,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--wh
 @media(max-width:640px){.related-grid{grid-template-columns:1fr}.related-inner{padding:0 16px}}
 
 /* ══ FOOTER ══ */
-.ftr{background:var(--bg);border-top:1px solid var(--bd);padding-top:40px}
+.ftr{background:var(--bg);border-top:1px solid var(--bd)}
 .ftr-inner{max-width:1280px;margin:0 auto;padding:0 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
 .ftr-logo{height:64px;width:auto;display:block;margin-bottom:14px}
 .ftr-brand-desc{font-size:13px;color:var(--tm);line-height:1.7;margin-bottom:12px}
@@ -329,7 +329,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--wh
 .ftr-col h4,.ftr-contact h4{font-size:13px;font-weight:700;color:var(--dk);margin-bottom:14px}
 .ftr-col a{display:block;font-size:13px;color:var(--ts);text-decoration:none;margin-bottom:8px;transition:.15s}
 .ftr-col a:hover{color:var(--g)}
-.ftr-social{display:flex;gap:8px;margin-bottom:16px}
+.ftr-social{display:flex;gap:8px}
 .ftr-social a{width:34px;height:34px;border-radius:8px;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:.18s;color:var(--tm)}
 .ftr-social a svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
 .ftr-social a:hover{background:var(--g);border-color:var(--g);color:#fff}
@@ -633,7 +633,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="/bao-hiem-du-lich-noi-dia">BH Du Lịch Nội Địa</a>
             <a href="/bao-hiem-du-lich-quoc-te">BH Du Lịch Quốc Tế</a>
             <a href="/bao-hiem-benh-nhiet-doi">BH Bệnh Nhiệt Đới</a>
-            <a href="/bao-hiem-suc-khoe">BH Sức Khỏe DBVCare</a>
+            <a href="/bao-hiem-suc-khoe">BH Sức Khỏe Cá Nhân DBVCare</a>
             <a href="/bao-hiem-tai-nan">BH Tai Nạn 24 Giờ</a>
             <a href="/bao-hiem-cham-soc-suc-khoe-dbvcare">BH Sức Khỏe Nhóm DBVCare</a>
           </div>
@@ -641,7 +641,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a class="hdr-mega-all" href="/san-pham">Xem tất cả sản phẩm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
-      <a href="/cong-tac-vien-dai-ly" class="hdr-nav-top" title="Đại lý/Cộng tác viên">Đại lý/CTV</a>
+      <div class="hdr-nav-item" data-menu="dt">
+        <button type="button" class="hdr-nav-top" aria-haspopup="true" aria-expanded="false">Trở thành đối tác <svg class="hdr-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="hdr-drop">
+          <a href="/cong-tac-vien-dai-ly">Đại lý/CTV cá nhân</a>
+          <a href="/hop-tac-dai-ly-to-chuc">Đại lý tổ chức</a>
+        </div>
+      </div>
       <div class="hdr-nav-item" data-menu="ti">
         <button type="button" class="hdr-nav-top" aria-haspopup="true" aria-expanded="false">Tiện ích <svg class="hdr-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="hdr-drop">
@@ -709,13 +715,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-du-lich-noi-dia" onclick="closeCatDropdown()">BH Du Lịch Nội Địa</a>
               <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-du-lich-quoc-te" onclick="closeCatDropdown()">BH Du Lịch Quốc Tế</a>
               <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-benh-nhiet-doi" onclick="closeCatDropdown()">BH Bệnh Nhiệt Đới</a>
-              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()">BH Sức Khỏe DBVCare</a>
+              <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-suc-khoe" onclick="closeCatDropdown()">BH Sức Khỏe Cá Nhân DBVCare</a>
               <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tai-nan" onclick="closeCatDropdown()">BH Tai Nạn 24 Giờ</a>
               <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-cham-soc-suc-khoe-dbvcare" onclick="closeCatDropdown()">BH Sức Khỏe Nhóm DBVCare</a>
             </div>
             <a class="cat-dd-item cat-dd-sub-item cat-dd-all" href="/san-pham" onclick="closeCatDropdown()">Xem tất cả sản phẩm</a>
           </div>
-          <a class="cat-dd-item" href="/cong-tac-vien-dai-ly" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="cat-dd-tx">Đại lý/Cộng tác viên</span></a>
+          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-dt" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="cat-dd-tx">Trở thành đối tác</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="cat-dd-sub" id="dd-dt">
+            <a class="cat-dd-item cat-dd-sub-item" href="/cong-tac-vien-dai-ly" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="cat-dd-tx">Đại lý/CTV cá nhân</span></a>
+            <a class="cat-dd-item cat-dd-sub-item" href="/hop-tac-dai-ly-to-chuc" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5"/><path d="M9 10h1M14 10h1M9 13h1M14 13h1"/></svg></span><span class="cat-dd-tx">Đại lý tổ chức</span></a>
+          </div>
           <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-ti" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="cat-dd-tx">Tiện ích</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
           <div class="cat-dd-sub" id="dd-ti">
             <a class="cat-dd-item cat-dd-sub-item" href="/boi-thuong" onclick="closeCatDropdown()">Bồi thường</a>
@@ -1083,7 +1093,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/boi-thuong">Bồi thường</a>
       <a href="/servicemap">Mạng lưới dịch vụ</a>
       <a href="/tin-tuc">Tin tức &amp; Kinh nghiệm</a>
-      <a href="/cong-tac-vien-dai-ly">Đại lý/Cộng tác viên</a>
+      <a href="/cong-tac-vien-dai-ly">Đại lý/CTV cá nhân</a>
+      <a href="/hop-tac-dai-ly-to-chuc">Đại lý tổ chức</a>
     </div>
 
     <!-- Cột 4: Banner tuyển Đại lý / Cộng tác viên (thay cho cột Kết nối cũ;
