@@ -514,13 +514,36 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 /* Wrapper cho btn Danh mục: mặc định hiện, ẩn ở desktop */
 .hdr-cat-wrap{position:relative;display:inline-flex}
 @media(min-width:641px){.hdr-cat-wrap{display:none}}
-/* ══ STICKY MOBILE BAR ══ */
-.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd,#E2E8F0);padding:8px 12px;z-index:400;gap:8px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+/* ══ THANH TAB ĐÁY (mobile) + BẢNG LIÊN HỆ "TƯ VẤN" ══
+   Khai báo đủ mọi thuộc tính mà CSS cũ của từng trang từng đặt cho .mob-bar a,
+   .mob-call… — thiếu thuộc tính nào là giá trị cũ của trang "mồ côi" sống lại. */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd,#E2E8F0);padding:4px 6px calc(4px + env(safe-area-inset-bottom));z-index:400;gap:0;box-shadow:0 -4px 20px rgba(0,0,0,.06)}
 @media(max-width:640px){.mob-bar{display:flex}}
-.mob-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;font-weight:700;padding:9px 4px;border-radius:10px;text-decoration:none;white-space:nowrap}
-.mob-call{background:var(--gl,#e8f5e9);color:var(--g,#007437);border:1.5px solid var(--g,#007437)}
-.mob-zalo{background:#0068FF;color:#fff}
-.mob-messenger{background:#0084FF;color:#fff}
+.mob-bar .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;padding:4px 2px;border:none;border-radius:10px;background:none;font-family:inherit;font-size:11px;font-weight:600;line-height:1.2;color:#6b7280;text-decoration:none;white-space:nowrap;cursor:pointer}
+/* Icon xanh thương hiệu; tab đang xem: icon + chữ màu cam, nền cam nhạt sau icon */
+.mob-bar .mob-tab svg{width:22px;height:22px;flex-shrink:0;color:var(--g,#007437);stroke:var(--g,#007437)}
+.mob-bar .mob-tab.on{color:var(--gold,#E8920A);font-weight:800}
+.mob-bar .mob-tab.on svg{color:var(--gold,#E8920A);stroke:var(--gold,#E8920A);background:#fff3e0;border-radius:10px;box-sizing:content-box;padding:3px 12px;margin:-3px 0}
+.mob-bar .mob-tab:active{background:var(--gl,#e8f5e9)}
+.mob-sheet{position:fixed;inset:0;z-index:1200}
+.mob-sheet[hidden]{display:none}
+.mob-sheet-bg{position:absolute;inset:0;background:rgba(15,37,21,.45)}
+.mob-sheet-box{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;box-shadow:0 -10px 40px rgba(0,0,0,.18);animation:mobSheetIn .22s ease-out}
+.mob-sheet-grip{width:40px;height:4px;border-radius:4px;background:#d1d5db;align-self:center;margin-bottom:4px}
+.mob-sheet-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:none;background:#f3f4f6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#374151;cursor:pointer}
+.mob-sheet-x svg{width:18px;height:18px}
+.mob-sheet-h{font-size:17px;font-weight:800;color:var(--dk,#0f2515)}
+.mob-sheet-sub{font-size:13px;color:var(--ts,#718096);margin-top:-8px;margin-bottom:2px}
+.mob-sheet .mob-sheet-it{flex:none;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:12px;border:1px solid #e6ece8;border-radius:14px;background:#fff;color:var(--dk,#0f2515);font-size:14px;font-weight:700;text-decoration:none;white-space:normal;text-align:left}
+.mob-sheet .mob-sheet-it>span{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.mob-sheet .mob-sheet-it>span svg{width:20px;height:20px}
+.mob-sheet .mob-sheet-it b{display:flex;flex-direction:column;font-weight:700;line-height:1.3}
+.mob-sheet .mob-sheet-it small{font-size:12px;font-weight:500;color:var(--ts,#718096)}
+.mob-sheet .mob-call>span{background:var(--g,#007437)}
+.mob-sheet .mob-zalo>span{background:#e8f1ff}
+.mob-sheet .mob-messenger>span{background:#0084FF}
+.mob-sheet .mob-sheet-cb>span{background:var(--gold,#E8920A)}
+.mob-sheet .mob-call{border-color:var(--g,#007437);background:#f3faf5}
 /* ══ FLOATING CTA (DESKTOP ONLY) ══ */
 .float-cta{position:fixed;right:20px;bottom:120px;z-index:390;display:flex;flex-direction:column;gap:12px;align-items:center}
 @media(max-width:640px){.float-cta{display:none}}
@@ -622,6 +645,41 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .cat-dd-all{font-weight:700;color:var(--g,#007437)}
 .cat-dd-sep{height:1px;background:var(--bd,#E2E8F0);margin:6px 4px}
 .cat-dd-item.cat-dd-kr:hover{background:var(--gl,#E8F5E9)}
+/* ══ HEADER + MENU MOBILE theo mockup 26/09/2026 (đồng bộ toàn site) ══
+   Logo bên trái; tìm kiếm · gọi · hamburger bên phải. Menu mở toàn màn hình.
+   Dùng ".hdr ..." để thắng CSS cũ của từng trang và của assets/dbv-header.css. */
+.hdr-m-btn{display:none}
+@media(max-width:640px){.hdr .hdr-topbar{display:none}.hdr .hdr-inner{height:56px;padding:0 8px 0 16px;gap:2px}.hdr .hdr-logo{position:static;transform:none;margin:0 auto 0 0}.hdr .hdr-logo img{height:38px}.hdr .hdr-actions{order:0;margin-left:auto;gap:0}.hdr .hdr-m-btn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:none;background:none;border-radius:50%;color:var(--g,#007437);cursor:pointer;text-decoration:none}.hdr .hdr-m-btn svg{width:22px;height:22px}.hdr .hdr-m-btn:active{background:var(--gl,#e8f5e9)}.hdr .btn-catalog-hdr{width:42px;height:42px;min-width:42px;min-height:42px;margin:0;padding:0;justify-content:center;border:none;background:none;border-radius:50%;color:var(--g,#007437)}.hdr .btn-catalog-hdr:hover{color:var(--gd,#005a2b);background:none;border:none}.hdr .btn-catalog-hdr::before{display:none}.hdr .btn-catalog-hdr>svg{display:block;width:24px;height:24px}.hdr .dbv-btn-search{display:none}/* Menu toàn màn hình. backdrop-filter/transform trên .hdr làm fixed bị nhốt trong header */
+  .hdr:has(.cat-dropdown.open){backdrop-filter:none;-webkit-backdrop-filter:none;transform:none}.hdr .cat-dropdown{position:fixed;inset:0;top:0;left:0;right:0;bottom:0;width:auto;min-width:0;max-width:none;max-height:none;height:100%;margin:0;border:none;border-radius:0;box-shadow:none;padding:0 16px calc(24px + env(safe-area-inset-bottom));background:#fff;overflow-y:auto;z-index:1100}}
+.cat-dd-top{display:flex;align-items:center;gap:4px;height:56px;position:sticky;top:0;background:#fff;z-index:2;margin:0 -16px 8px;padding:0 8px 0 16px;border-bottom:1px solid #eef2ef}
+.cat-dd-logo{margin-right:auto;display:flex}
+.cat-dd-logo img{height:38px;width:auto}
+.cat-dd-x{width:42px;height:42px;border:none;background:none;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--g,#007437);cursor:pointer}
+.cat-dd-x svg{width:22px;height:22px}
+.cat-dd-item.cat-dd-dangnhap{display:flex;align-items:center;gap:12px;padding:14px;margin:4px 0 14px;border:1px solid #dcefe0;border-radius:16px;background:linear-gradient(135deg,#f3faf5,#fff);min-height:0}
+.cat-dd-av{width:46px;height:46px;border-radius:50%;background:var(--g,#007437);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cat-dd-av svg{width:22px;height:22px;stroke:#fff}
+.cat-dd-dangnhap .cat-dd-tx{display:flex;flex-direction:column;font-size:15px;font-weight:700;color:var(--dk,#0f2515)}
+.cat-dd-dangnhap small{font-size:12px;font-weight:500;color:var(--ts,#718096)}
+.cat-dd-list{display:flex;flex-direction:column}
+.cat-dd-item.cat-dd-row{gap:14px;padding:14px 4px;border-radius:0;border-bottom:1px solid #f1f4f2;font-size:14.5px;font-weight:600;color:#1f2937}
+.cat-dd-row .cat-dd-ic svg{width:20px;height:20px;stroke:var(--g,#007437)}
+.cat-dd-go{width:16px;height:16px;margin-left:auto;color:#9ca3af;flex-shrink:0}
+.cat-dd-item .cat-dd-go{stroke:#9ca3af}
+.cat-dd-row.cat-dd-more .cat-dd-chev{margin-left:auto;width:16px;height:16px;color:#9ca3af}
+.cat-dd-row.cat-dd-more.open{background:none;color:var(--g,#007437)}
+.cat-dd-list .cat-dd-sub{margin:0 0 6px 34px;padding-left:12px}
+.cat-dd-list .cat-dd-sub-item{font-size:13.5px;padding:10px 8px}
+.cat-dd-h{font-size:15px;font-weight:800;color:var(--dk,#0f2515);margin:22px 0 4px}
+.cat-dd-cta{display:flex;flex-direction:column;gap:6px;margin-top:22px;padding:18px;border-radius:18px;background:linear-gradient(120deg,#0b6b37,#004d25);color:#fff}
+.cat-dd-cta b{font-size:15.5px}
+.cat-dd-cta span{font-size:12.5px;color:rgba(255,255,255,.82);line-height:1.5}
+.cat-dd-cta a{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:10px 18px;border-radius:30px;background:var(--gold,#E8920A);color:#fff;font-size:13.5px;font-weight:700;text-decoration:none}
+.cat-dd-cta a svg{width:15px;height:15px;stroke:#fff}
+.cat-dd-foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.cat-dd-foot a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 8px;border:1px solid #e6ece8;border-radius:12px;font-size:12.5px;font-weight:700;color:var(--dk,#0f2515);text-decoration:none;white-space:nowrap}
+.cat-dd-foot svg{width:16px;height:16px;stroke:var(--g,#007437)}
+.cat-dd-foot img{width:18px;height:18px}
 </style>
 <script type="application/ld+json">
 {
@@ -766,22 +824,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </nav>
     <div class="hdr-actions">
       
+      <button type="button" class="hdr-m-btn" onclick="dbvTimKiem()" aria-label="Tìm sản phẩm bảo hiểm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <a href="tel:0869656561" class="hdr-m-btn" aria-label="Gọi 0869 656 561"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></a>
       <div class="hdr-cat-wrap">
         <button class="btn-catalog-hdr" onclick="toggleCatDropdown(event)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           <span class="btn-cat-text">Danh mục</span>
         </button>
-        <div class="cat-dropdown" id="cat-dropdown">
-          <!-- Cổng cộng tác viên trên mobile. Nút .btn-login ở header bị ẩn ở
-               ≤640px để nhường chỗ cho logo, nên lối vào nằm ngay đầu menu này.
-               Nhãn tự đổi thành "Bảng điều khiển" khi đã đăng nhập — layout.js. -->
+        <div class="cat-dropdown" id="cat-dropdown" role="dialog" aria-label="Menu">
+          <div class="cat-dd-top">
+            <a href="/" class="cat-dd-logo" onclick="closeCatDropdown()"><img src="/logo-dbv247.png" alt="DBV247 – Trang chủ" width="auto" height="40"></a>
+            <button type="button" class="cat-dd-x" onclick="dbvTimKiem()" aria-label="Tìm sản phẩm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+            <button type="button" class="cat-dd-x" onclick="closeCatDropdown()" aria-label="Đóng menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <!-- Cổng cộng tác viên. Nhãn tự đổi thành "Bảng điều khiển cộng tác viên"
+               khi đã đăng nhập — assets/layout.js (giữ id menu-dangnhap và .btn-login-tx). -->
           <a class="cat-dd-item cat-dd-dangnhap" id="menu-dangnhap" href="/ctv" onclick="closeCatDropdown()">
-            <span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-            <span class="cat-dd-tx btn-login-tx">Đăng nhập cộng tác viên</span>
+            <span class="cat-dd-av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+            <span class="cat-dd-tx"><span class="btn-login-tx">Đăng nhập cộng tác viên</span><small>Theo dõi đơn giới thiệu và hoa hồng</small></span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
           </a>
-          <div class="cat-dd-sep"></div>
-          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-sp" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span class="cat-dd-tx">Sản phẩm</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="cat-dd-sub" id="dd-sp">
+          <div class="cat-dd-list">
+            <button type="button" class="cat-dd-item cat-dd-row cat-dd-more" data-sub="dd-sp" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span><span class="cat-dd-tx">Sản phẩm bảo hiểm</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-sp">
             <button type="button" class="cat-dd-item cat-dd-sub-item cat-dd-more" data-sub="dd-xe" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg></span><span class="cat-dd-tx">Bảo Hiểm Xe Cơ Giới</span><span class="cat-dd-n">6</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
             <div class="cat-dd-sub" id="dd-xe">
               <a class="cat-dd-item cat-dd-sub-item cat-dd-lv3" href="/bao-hiem-tnds-oto" onclick="closeCatDropdown()">BH TNDS Chủ Xe Ô Tô</a>
@@ -827,19 +891,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <a class="cat-dd-item cat-dd-sub-item cat-dd-all" href="/san-pham" onclick="closeCatDropdown()">Xem tất cả sản phẩm</a>
           </div>
-          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-dt" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="cat-dd-tx">Trở thành đối tác</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="cat-dd-sub" id="dd-dt">
+            <a class="cat-dd-item cat-dd-row" href="/tu-van" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span><span class="cat-dd-tx">Tư vấn bảo hiểm</span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+            <button type="button" class="cat-dd-item cat-dd-row cat-dd-more" data-sub="dd-dt" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.9-3.9a3 3 0 0 0-4.2 0l-.9.9a1 1 0 1 1-3-3l2.8-2.8a5.8 5.8 0 0 1 7.1-.9l.5.3a2 2 0 0 0 1.4.3L21 4"/><path d="m21 3 1 11h-2M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3M3 4h8"/></svg></span><span class="cat-dd-tx">Trở thành đối tác</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="cat-dd-sub" id="dd-dt">
             <a class="cat-dd-item cat-dd-sub-item" href="/cong-tac-vien-dai-ly" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="cat-dd-tx">Đại lý/CTV cá nhân</span></a>
             <a class="cat-dd-item cat-dd-sub-item" href="/hop-tac-dai-ly-to-chuc" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5"/><path d="M9 10h1M14 10h1M9 13h1M14 13h1"/></svg></span><span class="cat-dd-tx">Đại lý tổ chức</span></a>
           </div>
-          <button type="button" class="cat-dd-item cat-dd-more" data-sub="dd-ti" onclick="toggleCatSub(this)"><span class="cat-dd-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="cat-dd-tx">Tiện ích</span><svg class="cat-dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="cat-dd-sub" id="dd-ti">
-            <a class="cat-dd-item cat-dd-sub-item" href="/boi-thuong" onclick="closeCatDropdown()">Bồi thường</a>
-            <a class="cat-dd-item cat-dd-sub-item" href="/servicemap" onclick="closeCatDropdown()">Mạng lưới dịch vụ</a>
-            <a class="cat-dd-item cat-dd-sub-item" href="/tin-tuc" onclick="closeCatDropdown()">Tin tức &amp; Kinh nghiệm</a>
+            <a class="cat-dd-item cat-dd-row" href="/tin-tuc" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></span><span class="cat-dd-tx">Tin tức &amp; Kinh nghiệm</span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+            <a class="cat-dd-item cat-dd-row" href="/ve-dbv" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="cat-dd-tx">Về DBV247</span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+            <a class="cat-dd-item cat-dd-row" href="/bao-hiem-doanh-nghiep-han-quoc" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg></span><span class="cat-dd-tx"><span lang="ko">한국 고객</span> · Khách Hàn Quốc</span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
           </div>
-          <div class="cat-dd-sep"></div>
-        <a class="cat-dd-item cat-dd-kr" href="/bao-hiem-doanh-nghiep-han-quoc" onclick="closeCatDropdown()" lang="ko"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg><span>🇰🇷 한국 고객</span></a>
+          <div class="cat-dd-h">Hướng dẫn &amp; Tiện ích</div>
+          <div class="cat-dd-list">
+            <a class="cat-dd-item cat-dd-row" href="/cap-don-tnds" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></span><span class="cat-dd-tx">Mua TNDS online</span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+            <a class="cat-dd-item cat-dd-row" href="/boi-thuong" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></span><span class="cat-dd-tx">Khai báo bồi thường</span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+            <a class="cat-dd-item cat-dd-row" href="/servicemap" onclick="closeCatDropdown()"><span class="cat-dd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="cat-dd-tx">Mạng lưới dịch vụ &amp; garage</span><svg class="cat-dd-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+          </div>
+          <div class="cat-dd-cta">
+            <b>Không biết nên chọn sản phẩm nào?</b>
+            <span>Để lại thông tin, chuyên viên DBV247 sẽ tư vấn miễn phí cho bạn.</span>
+            <a href="/tu-van" onclick="closeCatDropdown()">Nhận tư vấn miễn phí <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="cat-dd-foot">
+            <a href="tel:0869656561"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>0869 656 561</a>
+            <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener"><img src="/icon-zalo.webp" alt="" width="18" height="18">Zalo</a>
+            <a href="https://m.me/1108459929024761" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg>Messenger</a>
+          </div>
         </div>
       </div>
       
@@ -1624,19 +1701,24 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 </div>
 
 <!-- STICKY MOBILE BAR -->
-<div class="mob-bar">
-  <a href="tel:0869656561" class="mob-call">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--g)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-    Gọi ngay
-  </a>
-  <a href="https://zalo.me/1283738895804393564" class="mob-zalo" target="_blank" rel="noopener">
-    <img src="icon-zalo.webp" alt="" width="18" height="18" aria-hidden="true">
-    Nhắn Zalo
-  </a>
-  <a href="https://m.me/1108459929024761" class="mob-messenger" target="_blank" rel="noopener">
-    <svg width="15" height="15" viewBox="0 0 30 30" fill="none"><path d="M15 2C7.82 2 2 7.43 2 14.1c0 3.95 1.97 7.46 5.03 9.78V28l4.55-2.51c1.22.34 2.5.51 3.87.51 7.18 0 13-5.43 13-12.1S22.18 2 15 2zm1.28 16.28-3.27-3.5-6.38 3.5 7.02-7.46 3.35 3.5 6.3-3.5-7.02 7.46z" fill="#fff"/></svg>
-    Messenger
-  </a>
+<div class="mob-bar" role="navigation" aria-label="Điều hướng nhanh">
+  <a href="/" class="mob-tab" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Trang chủ</span></a>
+  <a href="/san-pham" class="mob-tab" data-tab="sp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg><span>Sản phẩm</span></a>
+  <button type="button" class="mob-tab" data-tab="tv" onclick="dbvMoTuVan()" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg><span>Tư vấn</span></button>
+  <a href="/ctv" class="mob-tab" data-tab="tk" id="mob-taikhoan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span class="btn-login-tx">Tài khoản</span></a>
+  <div class="mob-sheet" id="mob-sheet" hidden>
+    <div class="mob-sheet-bg" onclick="dbvDongTuVan()"></div>
+    <div class="mob-sheet-box" role="dialog" aria-modal="true" aria-labelledby="mob-sheet-h">
+      <span class="mob-sheet-grip" aria-hidden="true"></span>
+      <button type="button" class="mob-sheet-x" onclick="dbvDongTuVan()" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <b class="mob-sheet-h" id="mob-sheet-h">Tư vấn miễn phí</b>
+      <span class="mob-sheet-sub">Chọn cách liên hệ tiện nhất với bạn</span>
+      <a href="tel:0869656561" class="mob-sheet-it mob-call"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Gọi ngay 0869 656 561<small>Chuyên viên tư vấn 1:1</small></b></a>
+      <a href="https://zalo.me/1283738895804393564" class="mob-sheet-it mob-zalo" target="_blank" rel="noopener"><span><img src="/icon-zalo.webp" alt="" width="22" height="22"></span><b>Nhắn Zalo<small>Gửi ảnh cà vẹt, giấy tờ để báo phí nhanh</small></b></a>
+      <a href="https://m.me/1108459929024761" class="mob-sheet-it mob-messenger" target="_blank" rel="noopener"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg></span><b>Chat Messenger<small>Nhắn qua Facebook</small></b></a>
+      <a href="/tu-van" class="mob-sheet-it mob-sheet-cb"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/><path d="M14 2v6h6M20 2l-6 6"/></svg></span><b>Để lại số, chúng tôi gọi lại<small>Điền form 30 giây</small></b></a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1759,15 +1841,80 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
       /* Hai lối vào: nút xanh ở header (desktop) và mục đầu trong hamburger
          (mobile). Cả hai phải đổi cùng lúc, nếu không thì xoay ngang màn hình
          là thấy hai nhãn khác nhau. */
-      ['hdr-dangnhap', 'menu-dangnhap'].forEach(function (id) {
+      ['hdr-dangnhap', 'menu-dangnhap', 'mob-taikhoan'].forEach(function (id) {
         var nut = document.getElementById(id);
         if (!nut) return;
         nut.setAttribute('href', '/ctv-dashboard');
+        if (id === 'mob-taikhoan') return;   /* tab đáy giữ nhãn ngắn "Tài khoản" */
         var tx = nut.querySelector('.btn-login-tx');
         if (tx) tx.textContent = (id === 'menu-dangnhap')
           ? 'Bảng điều khiển cộng tác viên'
           : 'Bảng điều khiển';
       });
+    });
+  }
+
+  /* ── Mobile (mockup 26/09/2026): khoá cuộn khi mở menu toàn màn hình ── */
+  if (!window.__dbvMenuKhoaCuon) {
+    window.__dbvMenuKhoaCuon = true;
+    document.addEventListener('DOMContentLoaded', function () {
+      var d = document.getElementById('cat-dropdown');
+      if (!d || !window.MutationObserver) return;
+      new MutationObserver(function () {
+        var mo = d.classList.contains('open') && window.matchMedia('(max-width:640px)').matches;
+        document.body.style.overflow = mo ? 'hidden' : '';
+        /* header có z-index 300 nên panel không phủ được thanh tab đáy (400) — ẩn thanh khi menu mở */
+        var bar = document.querySelector('.mob-bar'); if (bar) bar.style.visibility = mo ? 'hidden' : '';
+        /* Khung chat (z-index 394–396) nổi trên header — ẩn luôn khi menu mở */
+        [].forEach.call(document.querySelectorAll('[id^="dbvchat"]'), function (el) {
+          if (getComputedStyle(el).position === 'fixed') el.style.visibility = mo ? 'hidden' : '';
+        });
+        /* Một số trang đặt backdrop-filter/transform cho .hdr — khi đó position:fixed của
+           panel bị "nhốt" trong header cao 56px. Gỡ tạm lúc menu mở. */
+        var h = d.closest('.hdr');
+        if (h) { h.style.backdropFilter = mo ? 'none' : ''; h.style.webkitBackdropFilter = mo ? 'none' : ''; h.style.transform = mo ? 'none' : ''; }
+      }).observe(d, { attributes: true, attributeFilter: ['class'] });
+    });
+  }
+
+  /* ── Nút tìm kiếm header mobile: mở hộp tìm của dbv-menu-search.js.
+     Chỉ 32/104 trang có sẵn script đó — trang nào thiếu thì nạp khi bấm. ── */
+  if (typeof window.dbvTimKiem !== 'function') {
+    window.dbvTimKiem = function () {
+      if (typeof window.closeCatDropdown === 'function') window.closeCatDropdown();
+      if (window.DBV && typeof window.DBV.moTimKiem === 'function') { window.DBV.moTimKiem(); return; }
+      if (!document.querySelector('link[href*="dbv-header.css"]')) {
+        var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/assets/dbv-header.css';
+        document.head.appendChild(l);
+      }
+      var sc = document.createElement('script'); sc.src = '/assets/dbv-menu-search.js';
+      sc.onload = function () { if (window.DBV && window.DBV.moTimKiem) window.DBV.moTimKiem(); };
+      sc.onerror = function () { location.href = '/san-pham'; };
+      document.head.appendChild(sc);
+    };
+  }
+
+  /* ── Thanh tab đáy: sáng tab theo trang đang xem; tab "Tư vấn" mở bảng liên hệ ── */
+  if (!window.__dbvTabDay) {
+    window.__dbvTabDay = true;
+    window.dbvMoTuVan = function () {
+      var sh = document.getElementById('mob-sheet'); if (!sh) { location.href = '/tu-van'; return; }
+      sh.hidden = false; document.body.style.overflow = 'hidden';
+      try { (window.dataLayer = window.dataLayer || []).push({ event: 'mo_bang_tu_van', trang: location.pathname }); } catch (e) {}
+    };
+    window.dbvDongTuVan = function () {
+      var sh = document.getElementById('mob-sheet'); if (!sh) return;
+      sh.hidden = true; document.body.style.overflow = '';
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+      var p = location.pathname.replace(/\.html$/, '');
+      var tab = p === '/' || p === '/index' ? 'home'
+        : /^\/tu-van/.test(p) ? 'tv'
+        : /^\/ctv/.test(p) ? 'tk'
+        : /^\/(san-pham|bao-hiem-|tnds-|cap-don-tnds|tinh-phi)/.test(p) ? 'sp' : '';
+      if (!tab) return;
+      var t = document.querySelector('.mob-bar .mob-tab[data-tab="' + tab + '"]');
+      if (t) { t.classList.add('on'); t.setAttribute('aria-current', 'page'); }
     });
   }
 
@@ -1790,6 +1937,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
       if (e.key !== 'Escape' && e.keyCode !== 27) return;
       if (typeof window.closeCatDropdown === 'function') window.closeCatDropdown();
       if (window.__dbvDongMenuNgang) window.__dbvDongMenuNgang();
+      if (window.dbvDongTuVan) window.dbvDongTuVan();
     });
   }
 })();

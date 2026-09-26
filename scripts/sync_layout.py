@@ -48,7 +48,7 @@ BLOCKS = [
 
 # Tiền tố class thuộc layout — dùng để lọc CSS cần mang theo
 CSS_PREFIX = re.compile(
-    r'\.(?:hdr|ftr|float-(?:cta|btn)|mob-(?:bar|call|zalo|messenger)'
+    r'\.(?:hdr|ftr|float-(?:cta|btn)|mob-[\w-]+'
     r'|btn-(?:catalog-hdr|cat-text|login|consult-hdr)|cat-(?:dropdown|dd-))'
 )
 
@@ -63,6 +63,7 @@ CSS_PREFIX = re.compile(
 # Phần tạo dáng (font, khoảng cách, màu chữ, dropdown) vẫn được đồng bộ bình
 # thường — chỉ riêng nền và cách định vị của khối .hdr là để mỗi trang tự lo.
 CSS_EXCLUDE = {'.hdr', '.hdr.scrolled'}
+# (26/09/2026) mob-[\w-]+ : thanh tab đáy + bảng liên hệ dùng .mob-tab, .mob-sheet-*
 
 CSS_OPEN = '<style id="dbv-layout">'
 CSS_CLOSE = '</style>'

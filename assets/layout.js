@@ -98,15 +98,80 @@
       /* Hai lối vào: nút xanh ở header (desktop) và mục đầu trong hamburger
          (mobile). Cả hai phải đổi cùng lúc, nếu không thì xoay ngang màn hình
          là thấy hai nhãn khác nhau. */
-      ['hdr-dangnhap', 'menu-dangnhap'].forEach(function (id) {
+      ['hdr-dangnhap', 'menu-dangnhap', 'mob-taikhoan'].forEach(function (id) {
         var nut = document.getElementById(id);
         if (!nut) return;
         nut.setAttribute('href', '/ctv-dashboard');
+        if (id === 'mob-taikhoan') return;   /* tab đáy giữ nhãn ngắn "Tài khoản" */
         var tx = nut.querySelector('.btn-login-tx');
         if (tx) tx.textContent = (id === 'menu-dangnhap')
           ? 'Bảng điều khiển cộng tác viên'
           : 'Bảng điều khiển';
       });
+    });
+  }
+
+  /* ── Mobile (mockup 26/09/2026): khoá cuộn khi mở menu toàn màn hình ── */
+  if (!window.__dbvMenuKhoaCuon) {
+    window.__dbvMenuKhoaCuon = true;
+    document.addEventListener('DOMContentLoaded', function () {
+      var d = document.getElementById('cat-dropdown');
+      if (!d || !window.MutationObserver) return;
+      new MutationObserver(function () {
+        var mo = d.classList.contains('open') && window.matchMedia('(max-width:640px)').matches;
+        document.body.style.overflow = mo ? 'hidden' : '';
+        /* header có z-index 300 nên panel không phủ được thanh tab đáy (400) — ẩn thanh khi menu mở */
+        var bar = document.querySelector('.mob-bar'); if (bar) bar.style.visibility = mo ? 'hidden' : '';
+        /* Khung chat (z-index 394–396) nổi trên header — ẩn luôn khi menu mở */
+        [].forEach.call(document.querySelectorAll('[id^="dbvchat"]'), function (el) {
+          if (getComputedStyle(el).position === 'fixed') el.style.visibility = mo ? 'hidden' : '';
+        });
+        /* Một số trang đặt backdrop-filter/transform cho .hdr — khi đó position:fixed của
+           panel bị "nhốt" trong header cao 56px. Gỡ tạm lúc menu mở. */
+        var h = d.closest('.hdr');
+        if (h) { h.style.backdropFilter = mo ? 'none' : ''; h.style.webkitBackdropFilter = mo ? 'none' : ''; h.style.transform = mo ? 'none' : ''; }
+      }).observe(d, { attributes: true, attributeFilter: ['class'] });
+    });
+  }
+
+  /* ── Nút tìm kiếm header mobile: mở hộp tìm của dbv-menu-search.js.
+     Chỉ 32/104 trang có sẵn script đó — trang nào thiếu thì nạp khi bấm. ── */
+  if (typeof window.dbvTimKiem !== 'function') {
+    window.dbvTimKiem = function () {
+      if (typeof window.closeCatDropdown === 'function') window.closeCatDropdown();
+      if (window.DBV && typeof window.DBV.moTimKiem === 'function') { window.DBV.moTimKiem(); return; }
+      if (!document.querySelector('link[href*="dbv-header.css"]')) {
+        var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/assets/dbv-header.css';
+        document.head.appendChild(l);
+      }
+      var sc = document.createElement('script'); sc.src = '/assets/dbv-menu-search.js';
+      sc.onload = function () { if (window.DBV && window.DBV.moTimKiem) window.DBV.moTimKiem(); };
+      sc.onerror = function () { location.href = '/san-pham'; };
+      document.head.appendChild(sc);
+    };
+  }
+
+  /* ── Thanh tab đáy: sáng tab theo trang đang xem; tab "Tư vấn" mở bảng liên hệ ── */
+  if (!window.__dbvTabDay) {
+    window.__dbvTabDay = true;
+    window.dbvMoTuVan = function () {
+      var sh = document.getElementById('mob-sheet'); if (!sh) { location.href = '/tu-van'; return; }
+      sh.hidden = false; document.body.style.overflow = 'hidden';
+      try { (window.dataLayer = window.dataLayer || []).push({ event: 'mo_bang_tu_van', trang: location.pathname }); } catch (e) {}
+    };
+    window.dbvDongTuVan = function () {
+      var sh = document.getElementById('mob-sheet'); if (!sh) return;
+      sh.hidden = true; document.body.style.overflow = '';
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+      var p = location.pathname.replace(/\.html$/, '');
+      var tab = p === '/' || p === '/index' ? 'home'
+        : /^\/tu-van/.test(p) ? 'tv'
+        : /^\/ctv/.test(p) ? 'tk'
+        : /^\/(san-pham|bao-hiem-|tnds-|cap-don-tnds|tinh-phi)/.test(p) ? 'sp' : '';
+      if (!tab) return;
+      var t = document.querySelector('.mob-bar .mob-tab[data-tab="' + tab + '"]');
+      if (t) { t.classList.add('on'); t.setAttribute('aria-current', 'page'); }
     });
   }
 
@@ -129,6 +194,7 @@
       if (e.key !== 'Escape' && e.keyCode !== 27) return;
       if (typeof window.closeCatDropdown === 'function') window.closeCatDropdown();
       if (window.__dbvDongMenuNgang) window.__dbvDongMenuNgang();
+      if (window.dbvDongTuVan) window.dbvDongTuVan();
     });
   }
 })();

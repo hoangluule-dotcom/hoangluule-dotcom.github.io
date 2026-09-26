@@ -150,7 +150,9 @@ async function xem(url, rong, truoc) {
       mucCo: !!muc,
       mucNhan: muc ? (muc.querySelector('.btn-login-tx') || {}).textContent : '',
       mucHref: muc ? muc.getAttribute('href') : '',
-      mucDauTien: !!(muc && muc.parentElement && muc.parentElement.firstElementChild === muc),
+      /* 26/09/2026: panel mobile có thanh logo + nút đóng (.cat-dd-top) ở trên cùng —
+         mục Đăng nhập là mục ĐẦU TIÊN ngay dưới thanh đó. */
+      mucDauTien: !!(muc && muc.parentElement && muc.parentElement.querySelector(':scope > :not(.cat-dd-top)') === muc),
       kinhLup: !!document.querySelector('.hdr-actions .dbv-btn-search, .hdr-actions .hdr-search'),
       danhMuc: hien(document.querySelector('.btn-catalog-hdr')),
       tran: document.documentElement.scrollWidth > window.innerWidth + 1,
