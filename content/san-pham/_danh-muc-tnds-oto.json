@@ -1,0 +1,86 @@
+{
+  "_ghi_chu": "Nguồn dữ liệu danh mục TNDS ô tô. Trang tổng (bao-hiem-tnds-oto) và nút 'Đổi loại xe' trên mọi trang TNDS ô tô đọc từ đây. Thêm/sửa loại xe ở đây rồi build lại các trang. price_from = giá thấp nhất đã gồm VAT (NĐ 67/2023).",
+  "hub": "/bao-hiem-tnds-oto",
+  "items": [
+    {
+      "key": "tnds-xe-5-cho",
+      "group": "ca-nhan",
+      "title": "TNDS ô tô 5 chỗ",
+      "sub": "Sedan, hatchback, SUV/CUV 5 chỗ",
+      "href": "/tnds-xe-5-cho",
+      "price_from": 480700,
+      "image": "/assets/img/tnds-minhhoa-xe-5-cho.webp",
+      "alt": "Minh hoạ xe ô tô 5 chỗ"
+    },
+    {
+      "key": "tnds-xe-7-cho",
+      "group": "ca-nhan",
+      "title": "TNDS ô tô 7 chỗ",
+      "sub": "MPV, SUV 7 chỗ",
+      "href": "/tnds-xe-7-cho",
+      "price_from": 873400,
+      "image": "/assets/img/tnds-minhhoa-xe-7-cho.webp",
+      "alt": "Minh hoạ xe ô tô 7 chỗ"
+    },
+    {
+      "key": "tnds-xe-ban-tai",
+      "group": "ca-nhan",
+      "title": "TNDS xe bán tải",
+      "sub": "Pickup, minivan vừa chở người vừa chở hàng",
+      "href": "/tnds-xe-ban-tai",
+      "price_from": 480700,
+      "image": "/assets/img/tnds-minhhoa-ban-tai.webp",
+      "alt": "Minh hoạ xe bán tải"
+    },
+    {
+      "key": "tnds-xe-9-16-cho",
+      "group": "doanh-nghiep",
+      "title": "TNDS xe 9–16 chỗ",
+      "sub": "Limousine, xe đưa đón, xe hợp đồng",
+      "href": "/tnds-xe-9-16-cho",
+      "price_from": 873400,
+      "image": "/assets/img/tnds-minhhoa-xe-9-16-cho.webp",
+      "alt": "Minh hoạ xe 16 chỗ"
+    },
+    {
+      "key": "tnds-xe-khach",
+      "group": "doanh-nghiep",
+      "title": "TNDS xe khách",
+      "sub": "Xe du lịch, giường nằm, xe buýt từ 24 chỗ",
+      "href": "/tnds-xe-khach",
+      "price_from": 1397000,
+      "image": "/assets/img/tnds-minhhoa-xe-khach.webp",
+      "alt": "Minh hoạ xe khách"
+    },
+    {
+      "key": "tnds-xe-tai",
+      "group": "doanh-nghiep",
+      "title": "TNDS xe tải",
+      "sub": "Theo trọng tải, dưới 3 tấn đến trên 15 tấn",
+      "href": "/tnds-xe-tai",
+      "price_from": 938300,
+      "image": "/assets/img/tnds-minhhoa-xe-tai.webp",
+      "alt": "Minh hoạ xe tải"
+    },
+    {
+      "key": "tnds-xe-dau-keo",
+      "group": "doanh-nghiep",
+      "title": "TNDS xe đầu kéo",
+      "sub": "Đầu kéo container, sơ mi rơ-moóc",
+      "href": "/tnds-xe-dau-keo",
+      "price_from": 5280000,
+      "image": "/assets/img/tnds-minhhoa-dau-keo.webp",
+      "alt": "Minh hoạ xe đầu kéo container"
+    },
+    {
+      "key": "tnds-xe-chuyen-dung",
+      "group": "doanh-nghiep",
+      "title": "TNDS xe chuyên dùng",
+      "sub": "Xe cẩu, bồn, trộn bê tông, cứu thương, tập lái",
+      "href": "/tnds-xe-chuyen-dung",
+      "price_from": 576840,
+      "image": "/assets/img/tnds-minhhoa-chuyen-dung.webp",
+      "alt": "Minh hoạ xe cẩu chuyên dùng"
+    }
+  ]
+}

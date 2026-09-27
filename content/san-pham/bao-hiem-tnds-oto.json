@@ -1,0 +1,276 @@
+{
+  "_nguyen_tac": "Trang tổng danh mục TNDS ô tô: chỉ làm một việc — giúp khách chọn đúng loại xe (≤5 lựa chọn mỗi tầng), luôn có lối thoát 'để lại SĐT'. Không giáo dục dài dòng; bảng phí để thu gọn cuối trang.",
+  "_ghi_chu": "Build bản xem trước: python3 scripts/build_product_page.py --root . content/san-pham/bao-hiem-tnds-oto.json --out bao-hiem-tnds-oto-moi.html --noindex --sync. Khi duyệt: --out bao-hiem-tnds-oto.html (bỏ --noindex) — trang cũ đã sao lưu ở luu-tru/sao-luu-27092026-danh-muc-tnds. Thẻ loại xe lấy từ _danh-muc-tnds-oto.json.",
+  "slug": "bao-hiem-tnds-oto",
+  "theme": "shop",
+  "og_type": "website",
+  "catalog": "content/san-pham/_danh-muc-tnds-oto.json",
+  "seo": {
+    "title": "Bảo hiểm TNDS ô tô bắt buộc — Chọn loại xe, xem giá từ 480.700đ/năm | DBV247",
+    "description": "Bảo hiểm TNDS ô tô bắt buộc cho mọi loại xe: 5 chỗ, 7 chỗ, bán tải, 9–16 chỗ, xe khách, xe tải, đầu kéo, xe chuyên dùng. Phí theo Nghị định 67/2023, đã gồm VAT. Để lại số điện thoại, DBV247 liên hệ cấp đơn.",
+    "og_title": "Bảo hiểm TNDS ô tô bắt buộc — chọn loại xe | DBV247",
+    "og_description": "Chọn loại xe để xem giá — cá nhân và doanh nghiệp, đội xe. GCN do Bảo hiểm DBV phát hành.",
+    "og_image": "https://dbv247.com.vn/tnds-gcn-ngang.webp",
+    "canonical": "https://dbv247.com.vn/bao-hiem-tnds-oto"
+  },
+  "lead": {
+    "form_name": "dbv-tuvan",
+    "san_pham": "TNDS ô tô — trang tổng",
+    "nhu_cau": "Chưa rõ loại xe — nhờ xếp loại và báo phí",
+    "placeholder": "Số điện thoại của bạn",
+    "button": "Đăng ký mua",
+    "button_short": "Đăng ký mua",
+    "after": "Đội ngũ DBV247 sẽ liên hệ lại để xác nhận thông tin và cấp đơn.",
+    "legal_html": "Bằng việc đăng ký, bạn đồng ý để DBV247 liên hệ tư vấn và xử lý dữ liệu theo <a href=\"/chinh-sach-bao-mat\" target=\"_blank\" rel=\"noopener\">Chính sách bảo vệ dữ liệu cá nhân</a>.",
+    "success_title": "Đã nhận đăng ký của bạn",
+    "success_text": "Chuyên viên DBV247 sẽ gọi tới {sdt} để hỏi loại xe, báo đúng mức phí và cấp đơn. Giờ làm việc: Thứ Hai – Thứ Sáu, 8:00 – 18:00.",
+    "success_cta": {
+      "label": "Gửi ảnh đăng ký xe qua Zalo để nhanh hơn",
+      "href": "https://zalo.me/1283738895804393564"
+    }
+  },
+  "sections": [
+    {
+      "type": "breadcrumb",
+      "items": [
+        {
+          "label": "Trang chủ",
+          "href": "/"
+        },
+        {
+          "label": "Sản phẩm",
+          "href": "/san-pham"
+        },
+        {
+          "label": "Bảo hiểm TNDS ô tô"
+        }
+      ]
+    },
+    {
+      "type": "intro",
+      "id": "chon-loai-xe",
+      "title": "Bảo hiểm TNDS ô tô bắt buộc",
+      "text": "Xe của bạn là loại nào? Chọn đúng loại xe để xem giá — phí theo Nghị định 67/2023/NĐ-CP, đã gồm VAT.",
+      "trust": [
+        {
+          "icon": "shield",
+          "text": "GCN do Bảo hiểm DBV phát hành"
+        },
+        {
+          "icon": "phone",
+          "text": "Chỉ cần để lại số điện thoại"
+        },
+        {
+          "icon": "clock",
+          "text": "Nhận GCN điện tử qua Zalo/email"
+        }
+      ],
+      "jump_label": "Chọn nhanh",
+      "jump": [
+        {
+          "label": "Xe gia đình & cá nhân",
+          "href": "#xe-ca-nhan"
+        },
+        {
+          "label": "Xe kinh doanh & doanh nghiệp",
+          "href": "#xe-doanh-nghiep"
+        },
+        {
+          "label": "Báo giá đội xe",
+          "href": "#bao-gia-doi-xe"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "id": "xe-ca-nhan",
+      "group": "ca-nhan",
+      "size": "lg",
+      "title": "Xe gia đình & cá nhân",
+      "go": "Xem giá & đăng ký"
+    },
+    {
+      "type": "category",
+      "id": "xe-doanh-nghiep",
+      "group": "doanh-nghiep",
+      "size": "md",
+      "title": "Xe kinh doanh vận tải & doanh nghiệp",
+      "go": "Xem giá"
+    },
+    {
+      "type": "lead_band",
+      "id": "bao-gia-doi-xe",
+      "title": "Có từ 3 xe trở lên?",
+      "subtitle": "Để lại số điện thoại — DBV247 nhận danh sách xe, lập một báo giá cho cả đội và cấp đơn theo lô, xuất hoá đơn VAT cho doanh nghiệp.",
+      "lead": {
+        "san_pham": "TNDS ô tô — đội xe doanh nghiệp",
+        "nhu_cau": "Báo giá đội xe (từ 3 xe) — gọi lại nhận danh sách xe",
+        "button": "Nhận báo giá đội xe",
+        "success_text": "Chuyên viên DBV247 sẽ gọi tới {sdt} để nhận danh sách xe và gửi báo giá cho cả đội. Giờ làm việc: Thứ Hai – Thứ Sáu, 8:00 – 18:00."
+      }
+    },
+    {
+      "type": "benefits",
+      "id": "vi-sao",
+      "layout": "card-grid",
+      "title": "Vì sao mua tại DBV247",
+      "items": [
+        {
+          "icon": "building",
+          "title": "Chính hãng DBV",
+          "text": "Đăng ký qua kênh bán bảo hiểm của Bảo hiểm DBV."
+        },
+        {
+          "icon": "shield",
+          "title": "GCN do DBV phát hành",
+          "text": "Giấy chứng nhận do Công ty CP Tập đoàn Bảo hiểm DBV phát hành."
+        },
+        {
+          "icon": "clock",
+          "title": "Xử lý nhanh",
+          "text": "Đăng ký xong, nhân viên liên hệ xác nhận và cấp đơn."
+        },
+        {
+          "icon": "headset",
+          "title": "Hỗ trợ sau khi mua",
+          "text": "Hướng dẫn thủ tục và hỗ trợ khi cần yêu cầu bồi thường."
+        }
+      ]
+    },
+    {
+      "type": "fee_table",
+      "id": "bang-phi",
+      "title": "Bảng phí TNDS ô tô tóm tắt",
+      "collapsed": true,
+      "groups": [
+        {
+          "title": "Không kinh doanh vận tải (biển trắng)",
+          "rows": [
+            [
+              "Dưới 6 chỗ",
+              "480.700đ"
+            ],
+            [
+              "6 – 11 chỗ",
+              "873.400đ"
+            ],
+            [
+              "12 – 24 chỗ",
+              "1.397.000đ"
+            ],
+            [
+              "Trên 24 chỗ",
+              "2.007.500đ"
+            ],
+            [
+              "Bán tải, minivan",
+              "480.700đ"
+            ]
+          ]
+        },
+        {
+          "title": "Kinh doanh vận tải (biển vàng)",
+          "rows": [
+            [
+              "Dưới 6 chỗ",
+              "831.600đ"
+            ],
+            [
+              "7 chỗ",
+              "1.188.000đ"
+            ],
+            [
+              "9 chỗ",
+              "1.544.400đ"
+            ],
+            [
+              "16 chỗ",
+              "3.359.400đ"
+            ],
+            [
+              "29 chỗ",
+              "5.426.300đ"
+            ],
+            [
+              "45 chỗ",
+              "5.954.300đ"
+            ],
+            [
+              "Bán tải, minivan",
+              "1.026.300đ"
+            ]
+          ]
+        },
+        {
+          "title": "Xe tải & xe đặc thù",
+          "rows": [
+            [
+              "Xe tải dưới 3 tấn",
+              "938.300đ"
+            ],
+            [
+              "Xe tải 3 – 8 tấn",
+              "1.826.000đ"
+            ],
+            [
+              "Xe tải trên 8 – 15 tấn",
+              "3.020.600đ"
+            ],
+            [
+              "Xe tải trên 15 tấn",
+              "3.520.000đ"
+            ],
+            [
+              "Đầu kéo rơ-moóc",
+              "5.280.000đ"
+            ],
+            [
+              "Taxi",
+              "170% xe KD cùng số chỗ"
+            ],
+            [
+              "Xe chuyên dùng",
+              "120% xe tải cùng trọng tải"
+            ]
+          ]
+        }
+      ],
+      "note": "Mức phí/năm đã gồm VAT, theo Phụ lục I Nghị định 67/2023/NĐ-CP. Nhân viên xác nhận đúng mức phí theo giấy đăng ký xe khi gọi lại.",
+      "link": {
+        "label": "Xem biểu phí TNDS ô tô đầy đủ theo từng số chỗ",
+        "href": "/tin-tuc/bieu-phi-bao-hiem-tnds-o-to-2026"
+      }
+    },
+    {
+      "type": "faq",
+      "id": "faq",
+      "layout": "accordion",
+      "title": "Câu hỏi thường gặp",
+      "items": [
+        {
+          "q": "Tôi không biết xe mình thuộc loại nào?",
+          "a": "Để lại số điện thoại ở cuối trang. Nhân viên DBV247 đối chiếu giấy đăng ký xe (cà-vẹt), xếp đúng loại xe và báo mức phí trước khi cấp đơn."
+        },
+        {
+          "q": "Biển trắng và biển vàng khác nhau thế nào về phí?",
+          "a": "Biển trắng là xe không kinh doanh vận tải, biển vàng là xe kinh doanh vận tải. Xe biển vàng có mức phí cao hơn và tính theo từng số chỗ đăng ký."
+        },
+        {
+          "q": "Doanh nghiệp có nhiều xe thì đăng ký thế nào?",
+          "a": "Để lại số điện thoại một lần, ghi chú là đội xe khi nhân viên gọi. DBV247 nhận danh sách xe (file Excel hoặc ảnh cà-vẹt), lập báo giá cho cả đội và cấp đơn theo lô, xuất hoá đơn VAT cho doanh nghiệp."
+        },
+        {
+          "q": "Khi xảy ra sự cố tôi liên hệ ai?",
+          "a": "Gọi tổng đài bồi thường Bảo hiểm DBV 1900 96 96 90 (24/7) để được hướng dẫn tại hiện trường. Chuyên viên DBV247 (0869 656 561) hỗ trợ bạn chuẩn bị hồ sơ bồi thường."
+        }
+      ]
+    },
+    {
+      "type": "final_cta",
+      "id": "dang-ky-cuoi",
+      "form": true,
+      "title": "Chưa rõ xe thuộc loại nào?",
+      "text": "Để lại số điện thoại, DBV247 xếp loại xe và báo đúng mức phí cho bạn."
+    }
+  ]
+}

@@ -4,6 +4,12 @@
 # bằng header Set-Cookie, vì Safari cắt cookie do JavaScript đặt còn 7 ngày.
 /r/*   /.netlify/functions/ctv-ref?ma=:splat   200
 
+# ── Bản xem trước trang TNDS mới (27/09/2026) — đã thay trang chính thức ──
+/tnds-xe-5-cho-moi        /tnds-xe-5-cho   301
+/tnds-xe-5-cho-moi.html   /tnds-xe-5-cho   301
+/tnds-xe-7-cho-moi        /tnds-xe-7-cho   301
+/tnds-xe-7-cho-moi.html   /tnds-xe-7-cho   301
+
 # Netlify 301 Redirects — URL migration: old slugs -> new hyphenated slugs
 # Generated automatically. Do not edit manually.
 

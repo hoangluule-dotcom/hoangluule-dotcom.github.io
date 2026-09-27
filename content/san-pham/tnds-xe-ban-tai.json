@@ -1,0 +1,288 @@
+{
+  "_nguyen_tac": "Trang chuyển đổi, không phải trang giáo dục về TNDS. Trải nghiệm kiểu sàn TMĐT (Shopee): ảnh sản phẩm + giá + tuỳ chọn loại xe + combo [Số điện thoại][Đăng ký mua]. Flow: nhập SĐT → Đăng ký mua → team vận hành gọi lại → xác nhận thông tin → cấp đơn. Không bắt khách nhập thông tin xe, chủ xe, thanh toán trên web. Không dùng đánh giá sao / số lượt bán tự bịa.",
+  "_ghi_chu": "Build: python3 scripts/build_product_page.py --root . content/san-pham/tnds-xe-ban-tai.json --out tnds-xe-ban-tai.html --noindex --sync (bỏ --noindex khi lên chính thức, rồi thêm URL vào sitemap.xml). Ảnh minh hoạ tạm — thay ở sections[product].images và ở _danh-muc-tnds-oto.json.",
+  "slug": "tnds-xe-ban-tai",
+  "theme": "shop",
+  "catalog": "content/san-pham/_danh-muc-tnds-oto.json",
+  "seo": {
+    "title": "Bảo hiểm TNDS xe bán tải từ 480.700đ/năm — Đăng ký mua online | DBV247",
+    "description": "Bảo hiểm TNDS bắt buộc xe bán tải (pickup), minivan: không kinh doanh 480.700đ, kinh doanh vận tải 1.026.300đ/năm (đã gồm VAT). Để lại số điện thoại, DBV247 liên hệ cấp đơn.",
+    "og_title": "Bảo hiểm TNDS xe bán tải từ 480.700đ/năm | DBV247",
+    "og_description": "Chọn mục đích sử dụng, để lại số điện thoại — DBV247 liên hệ xác nhận thông tin và cấp đơn. GCN do Bảo hiểm DBV phát hành.",
+    "og_image": "https://dbv247.com.vn/tnds-gcn-ngang.webp",
+    "canonical": "https://dbv247.com.vn/tnds-xe-ban-tai"
+  },
+  "product": {
+    "name": "Bảo hiểm TNDS bắt buộc xe bán tải",
+    "short": "TNDS xe bán tải",
+    "price": 480700,
+    "price_unit": "/năm",
+    "price_note": "Đã gồm VAT",
+    "variant_label": "Mục đích sử dụng",
+    "variants": [
+      {
+        "label": "Không kinh doanh",
+        "price": 480700,
+        "note": "Đã gồm VAT · Phí 437.000đ + VAT 43.700đ",
+        "sub": "Biển trắng",
+        "default": true
+      },
+      {
+        "label": "Kinh doanh vận tải",
+        "price": 1026300,
+        "note": "Đã gồm VAT · Phí 933.000đ + VAT 93.300đ",
+        "sub": "Biển vàng"
+      }
+    ]
+  },
+  "lead": {
+    "form_name": "dbv-tuvan",
+    "san_pham": "TNDS xe bán tải",
+    "nhu_cau": "Đăng ký mua — gọi lại xác nhận thông tin và cấp đơn",
+    "placeholder": "Số điện thoại của bạn",
+    "button": "Đăng ký mua",
+    "button_short": "Đăng ký mua",
+    "after": "Đội ngũ DBV247 sẽ liên hệ lại để xác nhận thông tin và cấp đơn.",
+    "legal_html": "Bằng việc đăng ký, bạn đồng ý để DBV247 liên hệ tư vấn và xử lý dữ liệu theo <a href=\"/chinh-sach-bao-mat\" target=\"_blank\" rel=\"noopener\">Chính sách bảo vệ dữ liệu cá nhân</a>.",
+    "success_title": "Đã nhận đăng ký của bạn",
+    "success_text": "Chuyên viên DBV247 sẽ gọi tới {sdt} để xác nhận thông tin xe bán tải và cấp đơn ({loai}). Giờ làm việc: Thứ Hai – Thứ Sáu, 8:00 – 18:00.",
+    "success_cta": {
+      "label": "Gửi ảnh đăng ký xe qua Zalo để nhanh hơn",
+      "href": "https://zalo.me/1283738895804393564"
+    }
+  },
+  "sections": [
+    {
+      "type": "breadcrumb",
+      "items": [
+        {
+          "label": "Trang chủ",
+          "href": "/"
+        },
+        {
+          "label": "Sản phẩm",
+          "href": "/san-pham"
+        },
+        {
+          "label": "Bảo hiểm TNDS ô tô",
+          "href": "/bao-hiem-tnds-oto"
+        },
+        {
+          "label": "Xe bán tải"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "id": "san-pham",
+      "title": "Bảo hiểm TNDS bắt buộc xe bán tải",
+      "subtitle": "Đăng ký online – Nhân viên DBV liên hệ cấp đơn",
+      "images": [
+        {
+          "src": "/tnds-gcn-ngang.webp",
+          "alt": "Giấy chứng nhận bảo hiểm bắt buộc TNDS ô tô do Bảo hiểm DBV phát hành: 150 triệu đồng/người/vụ, 100 triệu đồng/vụ",
+          "width": 1200,
+          "height": 900
+        },
+        {
+          "src": "/assets/img/tnds-minhhoa-ban-tai.webp",
+          "alt": "Minh hoạ xe bán tải (pickup)",
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "switch": {
+        "label": "Không phải xe này?",
+        "text": "Đổi loại xe"
+      },
+      "rows": [
+        {
+          "label": "Quyền lợi",
+          "icon": "shield",
+          "value": "150 triệu đ/người/vụ về người · 100 triệu đ/vụ về tài sản"
+        },
+        {
+          "label": "Nhận GCN",
+          "icon": "phone",
+          "value": "Bản điện tử qua Zalo/email",
+          "sub": "Bản giấy gửi tận nơi miễn phí"
+        },
+        {
+          "label": "Cam kết",
+          "icon": "check",
+          "value": "GCN do Bảo hiểm DBV phát hành",
+          "sub": "Tra cứu bằng mã QR in trên giấy"
+        }
+      ],
+      "_anh_ghi_chu": "Chỉ dùng ảnh NGANG (rộng > cao). Ảnh dọc bị bỏ qua khi build. Khung hiển thị 4:3."
+    },
+    {
+      "type": "specs",
+      "id": "chi-tiet",
+      "title": "Chi tiết sản phẩm",
+      "rows": [
+        [
+          "Loại bảo hiểm",
+          "Bắt buộc — trách nhiệm dân sự của chủ xe cơ giới"
+        ],
+        [
+          "Căn cứ",
+          "Nghị định 67/2023/NĐ-CP"
+        ],
+        [
+          "Áp dụng",
+          "Xe bán tải (pickup), minivan — xe vừa chở người vừa chở hàng"
+        ],
+        [
+          "Cách tính phí",
+          "Theo mục đích sử dụng: không kinh doanh hoặc kinh doanh vận tải"
+        ],
+        [
+          "Về người",
+          "150 triệu đồng/người/vụ"
+        ],
+        [
+          "Về tài sản",
+          "100 triệu đồng/vụ"
+        ],
+        [
+          "Thời hạn",
+          "1 năm (có thể chọn 2–3 năm khi xác nhận)"
+        ],
+        [
+          "Đơn vị phát hành",
+          "Công ty CP Tập đoàn Bảo hiểm DBV"
+        ],
+        [
+          "Tổng đài bồi thường",
+          "1900 96 96 90 (24/7)"
+        ]
+      ]
+    },
+    {
+      "type": "benefits",
+      "id": "vi-sao",
+      "layout": "card-grid",
+      "title": "Vì sao mua tại DBV247",
+      "items": [
+        {
+          "icon": "building",
+          "title": "Chính hãng DBV",
+          "text": "Đăng ký qua kênh bán bảo hiểm của Bảo hiểm DBV."
+        },
+        {
+          "icon": "shield",
+          "title": "GCN do DBV phát hành",
+          "text": "Giấy chứng nhận do Công ty CP Tập đoàn Bảo hiểm DBV phát hành."
+        },
+        {
+          "icon": "clock",
+          "title": "Xử lý nhanh",
+          "text": "Đăng ký xong, nhân viên liên hệ xác nhận và cấp đơn."
+        },
+        {
+          "icon": "headset",
+          "title": "Hỗ trợ sau khi mua",
+          "text": "Hướng dẫn thủ tục và hỗ trợ khi cần yêu cầu bồi thường."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "id": "faq",
+      "layout": "accordion",
+      "title": "Câu hỏi thường gặp",
+      "items": [
+        {
+          "q": "Phí TNDS xe bán tải là bao nhiêu?",
+          "a": "Theo Nghị định 67/2023/NĐ-CP, đã gồm VAT: xe bán tải không kinh doanh vận tải 480.700đ/năm, xe kinh doanh vận tải 1.026.300đ/năm. Nhân viên sẽ xác nhận đúng mức phí theo giấy tờ xe khi gọi lại."
+        },
+        {
+          "q": "Xe bán tải tính phí như xe con hay như xe tải?",
+          "a": "Không tính theo trọng tải như xe tải. Nghị định 67/2023/NĐ-CP xếp xe bán tải (pickup) và minivan vào nhóm xe vừa chở người vừa chở hàng, có mức phí riêng cho xe không kinh doanh và xe kinh doanh vận tải."
+        },
+        {
+          "q": "Minivan chở hàng có áp dụng mức phí này không?",
+          "a": "Có. Minivan vừa chở người vừa chở hàng tính cùng mức phí với xe bán tải. Nếu chưa chắc xe của bạn thuộc loại nào, cứ để lại số điện thoại — nhân viên đối chiếu giấy đăng ký xe và báo đúng mức phí."
+        },
+        {
+          "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
+          "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
+        },
+        {
+          "q": "Tôi cần chuẩn bị những thông tin gì?",
+          "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
+        },
+        {
+          "q": "Tôi nhận giấy chứng nhận như thế nào?",
+          "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "id": "san-pham-tuong-tu",
+      "title": "Sản phẩm tương tự",
+      "items": [
+        {
+          "title": "Bảo hiểm TNDS ô tô 5 chỗ",
+          "href": "/tnds-xe-5-cho",
+          "image": "/assets/img/tnds-minhhoa-xe-5-cho.webp",
+          "width": 800,
+          "height": 600,
+          "price": 480700,
+          "unit": "/năm",
+          "sub": "Từ mức thấp nhất · đã gồm VAT",
+          "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm TNDS ô tô 7 chỗ",
+          "href": "/tnds-xe-7-cho",
+          "image": "/assets/img/tnds-minhhoa-xe-7-cho.webp",
+          "width": 800,
+          "height": 600,
+          "price": 873400,
+          "unit": "/năm",
+          "sub": "Từ mức thấp nhất · đã gồm VAT",
+          "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm TNDS xe tải",
+          "href": "/tnds-xe-tai",
+          "image": "/assets/img/tnds-minhhoa-xe-tai.webp",
+          "width": 800,
+          "height": 600,
+          "price": 938300,
+          "unit": "/năm",
+          "sub": "Từ mức thấp nhất · đã gồm VAT",
+          "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm vật chất ô tô",
+          "href": "/bao-hiem-vat-chat-oto",
+          "image": "/than-vo-oto.webp",
+          "width": 800,
+          "height": 450,
+          "price_text": "Từ 1,2%/năm giá trị xe",
+          "sub": "Bồi thường thiệt hại cho chính chiếc xe của bạn",
+          "tag": "Tự nguyện"
+        }
+      ]
+    },
+    {
+      "type": "final_cta",
+      "id": "dang-ky-cuoi",
+      "form": true,
+      "title": "Cần TNDS cho xe bán tải?",
+      "text": "Để lại số điện thoại, DBV247 sẽ liên hệ để hỗ trợ bạn hoàn tất thủ tục."
+    },
+    {
+      "type": "sticky_cta",
+      "mode": "lead-bar",
+      "hide_when_visible": [
+        ".plp-s-product .plp-lead",
+        ".plp-final .plp-lead"
+      ]
+    }
+  ]
+}

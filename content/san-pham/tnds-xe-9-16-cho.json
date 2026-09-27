@@ -1,0 +1,447 @@
+{
+  "_nguyen_tac": "Trang chuyển đổi, không phải trang giáo dục về TNDS. Trải nghiệm kiểu sàn TMĐT (Shopee): ảnh sản phẩm + giá + tuỳ chọn loại xe + combo [Số điện thoại][Đăng ký mua]. Flow: nhập SĐT → Đăng ký mua → team vận hành gọi lại → xác nhận thông tin → cấp đơn. Không bắt khách nhập thông tin xe, chủ xe, thanh toán trên web. Không dùng đánh giá sao / số lượt bán tự bịa.",
+  "_ghi_chu": "Build: python3 scripts/build_product_page.py --root . content/san-pham/tnds-xe-9-16-cho.json --out tnds-xe-9-16-cho.html --noindex --sync (bỏ --noindex khi lên chính thức, rồi thêm URL vào sitemap.xml). Ảnh minh hoạ tạm — thay ở sections[product].images và ở _danh-muc-tnds-oto.json.",
+  "slug": "tnds-xe-9-16-cho",
+  "theme": "shop",
+  "catalog": "content/san-pham/_danh-muc-tnds-oto.json",
+  "seo": {
+    "title": "Bảo hiểm TNDS xe 9–16 chỗ từ 873.400đ/năm — Đăng ký mua online | DBV247",
+    "description": "Bảo hiểm TNDS bắt buộc xe 9–16 chỗ (limousine, xe đưa đón, xe hợp đồng): biển trắng từ 873.400đ, biển vàng từ 1.544.400đ/năm (đã gồm VAT). Để lại số điện thoại, DBV247 liên hệ cấp đơn.",
+    "og_title": "Bảo hiểm TNDS xe 9–16 chỗ từ 873.400đ/năm | DBV247",
+    "og_description": "Chọn loại biển và số chỗ, để lại số điện thoại — DBV247 liên hệ xác nhận thông tin và cấp đơn.",
+    "og_image": "https://dbv247.com.vn/tnds-gcn-ngang.webp",
+    "canonical": "https://dbv247.com.vn/tnds-xe-9-16-cho"
+  },
+  "product": {
+    "name": "Bảo hiểm TNDS bắt buộc xe 9–16 chỗ",
+    "short": "TNDS xe 9–16 chỗ",
+    "price": 873400,
+    "price_unit": "/năm",
+    "price_note": "Đã gồm VAT",
+    "variant_dims": [
+      {
+        "key": "bien",
+        "label": "Loại biển",
+        "options": [
+          "Biển trắng",
+          "Biển vàng"
+        ]
+      },
+      {
+        "key": "cho",
+        "label": "Số chỗ",
+        "options": [
+          "9 chỗ",
+          "10 chỗ",
+          "11 chỗ",
+          "12 chỗ",
+          "13 chỗ",
+          "14 chỗ",
+          "15 chỗ",
+          "16 chỗ"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "label": "Biển trắng · 9 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "9 chỗ"
+        },
+        "price": 873400,
+        "note": "Đã gồm VAT · Phí 794.000đ + VAT 79.400đ",
+        "default": true
+      },
+      {
+        "label": "Biển trắng · 10 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "10 chỗ"
+        },
+        "price": 873400,
+        "note": "Đã gồm VAT · Phí 794.000đ + VAT 79.400đ"
+      },
+      {
+        "label": "Biển trắng · 11 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "11 chỗ"
+        },
+        "price": 873400,
+        "note": "Đã gồm VAT · Phí 794.000đ + VAT 79.400đ"
+      },
+      {
+        "label": "Biển trắng · 12 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "12 chỗ"
+        },
+        "price": 1397000,
+        "note": "Đã gồm VAT · Phí 1.270.000đ + VAT 127.000đ"
+      },
+      {
+        "label": "Biển trắng · 13 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "13 chỗ"
+        },
+        "price": 1397000,
+        "note": "Đã gồm VAT · Phí 1.270.000đ + VAT 127.000đ"
+      },
+      {
+        "label": "Biển trắng · 14 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "14 chỗ"
+        },
+        "price": 1397000,
+        "note": "Đã gồm VAT · Phí 1.270.000đ + VAT 127.000đ"
+      },
+      {
+        "label": "Biển trắng · 15 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "15 chỗ"
+        },
+        "price": 1397000,
+        "note": "Đã gồm VAT · Phí 1.270.000đ + VAT 127.000đ"
+      },
+      {
+        "label": "Biển trắng · 16 chỗ",
+        "dims": {
+          "bien": "Biển trắng",
+          "cho": "16 chỗ"
+        },
+        "price": 1397000,
+        "note": "Đã gồm VAT · Phí 1.270.000đ + VAT 127.000đ"
+      },
+      {
+        "label": "Biển vàng · 9 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "9 chỗ"
+        },
+        "price": 1544400,
+        "note": "Đã gồm VAT · Phí 1.404.000đ + VAT 140.400đ"
+      },
+      {
+        "label": "Biển vàng · 10 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "10 chỗ"
+        },
+        "price": 1663200,
+        "note": "Đã gồm VAT · Phí 1.512.000đ + VAT 151.200đ"
+      },
+      {
+        "label": "Biển vàng · 11 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "11 chỗ"
+        },
+        "price": 1821600,
+        "note": "Đã gồm VAT · Phí 1.656.000đ + VAT 165.600đ"
+      },
+      {
+        "label": "Biển vàng · 12 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "12 chỗ"
+        },
+        "price": 2004200,
+        "note": "Đã gồm VAT · Phí 1.822.000đ + VAT 182.200đ"
+      },
+      {
+        "label": "Biển vàng · 13 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "13 chỗ"
+        },
+        "price": 2253900,
+        "note": "Đã gồm VAT · Phí 2.049.000đ + VAT 204.900đ"
+      },
+      {
+        "label": "Biển vàng · 14 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "14 chỗ"
+        },
+        "price": 2443100,
+        "note": "Đã gồm VAT · Phí 2.221.000đ + VAT 222.100đ"
+      },
+      {
+        "label": "Biển vàng · 15 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "15 chỗ"
+        },
+        "price": 2633400,
+        "note": "Đã gồm VAT · Phí 2.394.000đ + VAT 239.400đ"
+      },
+      {
+        "label": "Biển vàng · 16 chỗ",
+        "dims": {
+          "bien": "Biển vàng",
+          "cho": "16 chỗ"
+        },
+        "price": 3359400,
+        "note": "Đã gồm VAT · Phí 3.054.000đ + VAT 305.400đ"
+      }
+    ]
+  },
+  "lead": {
+    "form_name": "dbv-tuvan",
+    "san_pham": "TNDS xe 9–16 chỗ",
+    "nhu_cau": "Đăng ký mua — gọi lại xác nhận thông tin và cấp đơn",
+    "placeholder": "Số điện thoại của bạn",
+    "button": "Đăng ký mua",
+    "button_short": "Đăng ký mua",
+    "after": "Đội ngũ DBV247 sẽ liên hệ lại để xác nhận thông tin và cấp đơn.",
+    "legal_html": "Bằng việc đăng ký, bạn đồng ý để DBV247 liên hệ tư vấn và xử lý dữ liệu theo <a href=\"/chinh-sach-bao-mat\" target=\"_blank\" rel=\"noopener\">Chính sách bảo vệ dữ liệu cá nhân</a>.",
+    "success_title": "Đã nhận đăng ký của bạn",
+    "success_text": "Chuyên viên DBV247 sẽ gọi tới {sdt} để xác nhận thông tin xe và cấp đơn ({loai}). Giờ làm việc: Thứ Hai – Thứ Sáu, 8:00 – 18:00.",
+    "success_cta": {
+      "label": "Gửi ảnh đăng ký xe qua Zalo để nhanh hơn",
+      "href": "https://zalo.me/1283738895804393564"
+    }
+  },
+  "sections": [
+    {
+      "type": "breadcrumb",
+      "items": [
+        {
+          "label": "Trang chủ",
+          "href": "/"
+        },
+        {
+          "label": "Sản phẩm",
+          "href": "/san-pham"
+        },
+        {
+          "label": "Bảo hiểm TNDS ô tô",
+          "href": "/bao-hiem-tnds-oto"
+        },
+        {
+          "label": "Xe 9–16 chỗ"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "id": "san-pham",
+      "title": "Bảo hiểm TNDS bắt buộc xe 9–16 chỗ",
+      "subtitle": "Đăng ký online – Nhân viên DBV liên hệ cấp đơn",
+      "images": [
+        {
+          "src": "/tnds-gcn-ngang.webp",
+          "alt": "Giấy chứng nhận bảo hiểm bắt buộc TNDS ô tô do Bảo hiểm DBV phát hành: 150 triệu đồng/người/vụ, 100 triệu đồng/vụ",
+          "width": 1200,
+          "height": 900
+        },
+        {
+          "src": "/assets/img/tnds-minhhoa-xe-9-16-cho.webp",
+          "alt": "Minh hoạ xe khách 16 chỗ",
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "switch": {
+        "label": "Không phải xe này?",
+        "text": "Đổi loại xe"
+      },
+      "rows": [
+        {
+          "label": "Quyền lợi",
+          "icon": "shield",
+          "value": "150 triệu đ/người/vụ về người · 100 triệu đ/vụ về tài sản"
+        },
+        {
+          "label": "Nhận GCN",
+          "icon": "phone",
+          "value": "Bản điện tử qua Zalo/email",
+          "sub": "Bản giấy gửi tận nơi miễn phí"
+        },
+        {
+          "label": "Cam kết",
+          "icon": "check",
+          "value": "GCN do Bảo hiểm DBV phát hành",
+          "sub": "Tra cứu bằng mã QR in trên giấy"
+        }
+      ],
+      "_anh_ghi_chu": "Chỉ dùng ảnh NGANG (rộng > cao). Ảnh dọc bị bỏ qua khi build. Khung hiển thị 4:3."
+    },
+    {
+      "type": "specs",
+      "id": "chi-tiet",
+      "title": "Chi tiết sản phẩm",
+      "rows": [
+        [
+          "Loại bảo hiểm",
+          "Bắt buộc — trách nhiệm dân sự của chủ xe cơ giới"
+        ],
+        [
+          "Căn cứ",
+          "Nghị định 67/2023/NĐ-CP"
+        ],
+        [
+          "Áp dụng",
+          "Xe chở người 9–16 chỗ: limousine, xe đưa đón, xe hợp đồng, xe gia đình cỡ lớn"
+        ],
+        [
+          "Cách tính phí",
+          "Biển trắng (không kinh doanh) theo nhóm số chỗ; biển vàng (kinh doanh vận tải) theo từng số chỗ đăng ký"
+        ],
+        [
+          "Về người",
+          "150 triệu đồng/người/vụ"
+        ],
+        [
+          "Về tài sản",
+          "100 triệu đồng/vụ"
+        ],
+        [
+          "Thời hạn",
+          "1 năm (có thể chọn 2–3 năm khi xác nhận)"
+        ],
+        [
+          "Đơn vị phát hành",
+          "Công ty CP Tập đoàn Bảo hiểm DBV"
+        ],
+        [
+          "Tổng đài bồi thường",
+          "1900 96 96 90 (24/7)"
+        ]
+      ]
+    },
+    {
+      "type": "benefits",
+      "id": "vi-sao",
+      "layout": "card-grid",
+      "title": "Vì sao mua tại DBV247",
+      "items": [
+        {
+          "icon": "building",
+          "title": "Chính hãng DBV",
+          "text": "Đăng ký qua kênh bán bảo hiểm của Bảo hiểm DBV."
+        },
+        {
+          "icon": "shield",
+          "title": "GCN do DBV phát hành",
+          "text": "Giấy chứng nhận do Công ty CP Tập đoàn Bảo hiểm DBV phát hành."
+        },
+        {
+          "icon": "clock",
+          "title": "Xử lý nhanh",
+          "text": "Đăng ký xong, nhân viên liên hệ xác nhận và cấp đơn."
+        },
+        {
+          "icon": "headset",
+          "title": "Hỗ trợ sau khi mua",
+          "text": "Hướng dẫn thủ tục và hỗ trợ khi cần yêu cầu bồi thường."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "id": "faq",
+      "layout": "accordion",
+      "title": "Câu hỏi thường gặp",
+      "items": [
+        {
+          "q": "Phí TNDS xe 16 chỗ là bao nhiêu?",
+          "a": "Đã gồm VAT: xe 16 chỗ biển trắng 1.397.000đ/năm, biển vàng (kinh doanh vận tải) 3.359.400đ/năm. Chọn loại biển và số chỗ ở phần tuỳ chọn để xem đúng mức phí của xe bạn."
+        },
+        {
+          "q": "Vì sao xe biển vàng đắt hơn biển trắng?",
+          "a": "Nghị định 67/2023/NĐ-CP tính phí xe kinh doanh vận tải theo từng số chỗ đăng ký, còn xe không kinh doanh tính theo nhóm (6–11 chỗ, 12–24 chỗ). Xe chạy dịch vụ lưu thông nhiều hơn nên mức phí cao hơn."
+        },
+        {
+          "q": "Xe 17–23 chỗ thì sao?",
+          "a": "Xe 17–23 chỗ biển trắng cùng mức với xe 12–16 chỗ (1.397.000đ/năm đã gồm VAT); biển vàng tính theo từng số chỗ. Để lại số điện thoại, nhân viên báo đúng mức phí theo giấy đăng ký xe."
+        },
+        {
+          "q": "Doanh nghiệp có nhiều xe thì đăng ký thế nào?",
+          "a": "Để lại số điện thoại một lần, ghi chú là đội xe khi nhân viên gọi. DBV247 nhận danh sách xe (file Excel hoặc ảnh cà-vẹt), lập báo giá cho cả đội và cấp đơn theo lô, xuất hoá đơn VAT cho doanh nghiệp."
+        },
+        {
+          "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
+          "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
+        },
+        {
+          "q": "Tôi cần chuẩn bị những thông tin gì?",
+          "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
+        },
+        {
+          "q": "Tôi nhận giấy chứng nhận như thế nào?",
+          "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "id": "san-pham-tuong-tu",
+      "title": "Sản phẩm tương tự",
+      "items": [
+        {
+          "title": "Bảo hiểm TNDS ô tô 7 chỗ",
+          "href": "/tnds-xe-7-cho",
+          "image": "/assets/img/tnds-minhhoa-xe-7-cho.webp",
+          "width": 800,
+          "height": 600,
+          "price": 873400,
+          "unit": "/năm",
+          "sub": "Từ mức thấp nhất · đã gồm VAT",
+          "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm TNDS xe khách",
+          "href": "/tnds-xe-khach",
+          "image": "/assets/img/tnds-minhhoa-xe-khach.webp",
+          "width": 800,
+          "height": 600,
+          "price": 1397000,
+          "unit": "/năm",
+          "sub": "Từ mức thấp nhất · đã gồm VAT",
+          "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm TNDS xe tải",
+          "href": "/tnds-xe-tai",
+          "image": "/assets/img/tnds-minhhoa-xe-tai.webp",
+          "width": 800,
+          "height": 600,
+          "price": 938300,
+          "unit": "/năm",
+          "sub": "Từ mức thấp nhất · đã gồm VAT",
+          "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm vật chất ô tô",
+          "href": "/bao-hiem-vat-chat-oto",
+          "image": "/than-vo-oto.webp",
+          "width": 800,
+          "height": 450,
+          "price_text": "Từ 1,2%/năm giá trị xe",
+          "sub": "Bồi thường thiệt hại cho chính chiếc xe của bạn",
+          "tag": "Tự nguyện"
+        }
+      ]
+    },
+    {
+      "type": "final_cta",
+      "id": "dang-ky-cuoi",
+      "form": true,
+      "title": "Cần TNDS cho xe 9–16 chỗ?",
+      "text": "Để lại số điện thoại, DBV247 sẽ liên hệ để hỗ trợ bạn hoàn tất thủ tục."
+    },
+    {
+      "type": "sticky_cta",
+      "mode": "lead-bar",
+      "hide_when_visible": [
+        ".plp-s-product .plp-lead",
+        ".plp-final .plp-lead"
+      ]
+    }
+  ]
+}
