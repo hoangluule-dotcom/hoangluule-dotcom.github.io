@@ -8,7 +8,7 @@
     "description": "Bảo hiểm TNDS bắt buộc ô tô 7 chỗ: biển trắng 873.400đ, biển vàng 1.188.000đ, taxi 2.019.600đ/năm (đã gồm VAT). Để lại số điện thoại, nhân viên DBV247 liên hệ xác nhận và cấp đơn.",
     "og_title": "Bảo hiểm TNDS ô tô 7 chỗ — từ 873.400đ/năm | DBV247",
     "og_description": "Chọn loại xe, để lại số điện thoại — DBV247 liên hệ xác nhận thông tin và cấp đơn. GCN do Bảo hiểm DBV phát hành.",
-    "og_image": "https://dbv247.com.vn/tnds-gcn-ngang.webp",
+    "og_image": "https://dbv247.com.vn/assets/img/bh-tnds-xe-7-cho.webp",
     "canonical": "https://dbv247.com.vn/tnds-xe-7-cho"
   },
   "product": {
@@ -80,6 +80,12 @@
       "title": "Bảo hiểm TNDS bắt buộc ô tô 7 chỗ",
       "subtitle": "Đăng ký online – Nhân viên DBV liên hệ cấp đơn",
       "images": [
+        {
+          "src": "/assets/img/bh-tnds-xe-7-cho.webp",
+          "alt": "Xe ô tô 7 chỗ — bảo hiểm TNDS bắt buộc",
+          "width": 800,
+          "height": 640
+        },
         {
           "src": "/tnds-gcn-ngang.webp",
           "alt": "Giấy chứng nhận bảo hiểm bắt buộc TNDS ô tô do Bảo hiểm DBV phát hành: 150 triệu đồng/người/vụ, 100 triệu đồng/vụ",
@@ -221,9 +227,9 @@
         {
           "title": "Bảo hiểm TNDS ô tô 5 chỗ",
           "href": "/tnds-xe-5-cho",
-          "image": "/tnds-oto.webp",
+          "image": "/assets/img/bh-tnds-xe-5-cho.webp",
           "width": 800,
-          "height": 585,
+          "height": 640,
           "price": 480700,
           "unit": "/năm",
           "sub": "Xe dưới 6 chỗ không kinh doanh · đã gồm VAT",
@@ -232,9 +238,9 @@
         {
           "title": "Bảo hiểm TNDS xe tải",
           "href": "/tnds-xe-tai",
-          "image": "/hang-hoa-van-chuyen-noi-dia.webp",
-          "width": 800,
-          "height": 380,
+          "image": "/assets/img/bh-tnds-xe-tai.webp",
+          "width": 1200,
+          "height": 900,
           "price": 938300,
           "unit": "/năm",
           "sub": "Từ mức xe tải dưới 3 tấn · đã gồm VAT",

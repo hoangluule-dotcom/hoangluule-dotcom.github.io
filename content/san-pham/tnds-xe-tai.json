@@ -1,6 +1,6 @@
 {
   "_nguyen_tac": "Trang chuyển đổi, không phải trang giáo dục về TNDS. Trải nghiệm kiểu sàn TMĐT (Shopee): ảnh sản phẩm + giá + tuỳ chọn loại xe + combo [Số điện thoại][Đăng ký mua]. Flow: nhập SĐT → Đăng ký mua → team vận hành gọi lại → xác nhận thông tin → cấp đơn. Không bắt khách nhập thông tin xe, chủ xe, thanh toán trên web. Không dùng đánh giá sao / số lượt bán tự bịa.",
-  "_ghi_chu": "Build: python3 scripts/build_product_page.py --root . content/san-pham/tnds-xe-tai.json --out tnds-xe-tai.html --noindex --sync (bỏ --noindex khi lên chính thức). Ảnh sản phẩm tạm dùng ảnh sẵn có — thay ở sections[product].images.",
+  "_ghi_chu": "Build: python3 scripts/build_product_page.py --root . content/san-pham/tnds-xe-tai.json --out tnds-xe-tai.html --sync (đã lên chính thức 27/09/2026). Ảnh sản phẩm tạm dùng ảnh sẵn có — thay ở sections[product].images.",
   "slug": "tnds-xe-tai",
   "theme": "shop",
   "seo": {
@@ -8,7 +8,7 @@
     "description": "Bảo hiểm TNDS bắt buộc xe tải theo trọng tải: dưới 3 tấn 938.300đ, 3–8 tấn 1.826.000đ, 8–15 tấn 3.020.600đ, trên 15 tấn 3.520.000đ/năm (đã gồm VAT). Để lại số điện thoại, DBV247 liên hệ cấp đơn.",
     "og_title": "Bảo hiểm TNDS xe tải — từ 938.300đ/năm | DBV247",
     "og_description": "Chọn trọng tải, để lại số điện thoại — DBV247 liên hệ xác nhận thông tin và cấp đơn. GCN do Bảo hiểm DBV phát hành.",
-    "og_image": "https://dbv247.com.vn/tnds-gcn-ngang.webp",
+    "og_image": "https://dbv247.com.vn/assets/img/bh-tnds-xe-tai.webp",
     "canonical": "https://dbv247.com.vn/tnds-xe-tai"
   },
   "product": {
@@ -85,6 +85,12 @@
       "title": "Bảo hiểm TNDS bắt buộc xe tải",
       "subtitle": "Đăng ký online – Nhân viên DBV liên hệ cấp đơn",
       "images": [
+        {
+          "src": "/assets/img/bh-tnds-xe-tai.webp",
+          "alt": "Xe tải thùng tại kho hàng và tư vấn viên DBV247",
+          "width": 1200,
+          "height": 900
+        },
         {
           "src": "/tnds-gcn-ngang.webp",
           "alt": "Giấy chứng nhận bảo hiểm bắt buộc TNDS ô tô do Bảo hiểm DBV phát hành: 150 triệu đồng/người/vụ, 100 triệu đồng/vụ",
@@ -248,9 +254,9 @@
         {
           "title": "Bảo hiểm TNDS ô tô 5 chỗ",
           "href": "/tnds-xe-5-cho",
-          "image": "/tnds-oto.webp",
+          "image": "/assets/img/bh-tnds-xe-5-cho.webp",
           "width": 800,
-          "height": 585,
+          "height": 640,
           "price": 480700,
           "unit": "/năm",
           "sub": "Xe dưới 6 chỗ không kinh doanh · đã gồm VAT",
@@ -259,13 +265,23 @@
         {
           "title": "Bảo hiểm TNDS ô tô 7 chỗ",
           "href": "/tnds-xe-7-cho",
-          "image": "/tnds-oto.webp",
+          "image": "/assets/img/bh-tnds-xe-7-cho.webp",
           "width": 800,
-          "height": 585,
+          "height": 640,
           "price": 873400,
           "unit": "/năm",
           "sub": "Xe 6–11 chỗ không kinh doanh · đã gồm VAT",
           "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm đội xe doanh nghiệp",
+          "href": "/bao-hiem-doi-xe-doanh-nghiep",
+          "image": "/assets/img/bh-doi-xe-doanh-nghiep.webp",
+          "width": 1200,
+          "height": 900,
+          "price_text": "Một báo giá cho cả đội",
+          "sub": "Từ 3 xe trở lên · hoá đơn VAT",
+          "tag": "Doanh nghiệp"
         }
       ]
     },

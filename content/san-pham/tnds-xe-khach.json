@@ -1,6 +1,6 @@
 {
   "_nguyen_tac": "Trang chuyển đổi, không phải trang giáo dục về TNDS. Trải nghiệm kiểu sàn TMĐT (Shopee): ảnh sản phẩm + giá + tuỳ chọn loại xe + combo [Số điện thoại][Đăng ký mua]. Flow: nhập SĐT → Đăng ký mua → team vận hành gọi lại → xác nhận thông tin → cấp đơn. Không bắt khách nhập thông tin xe, chủ xe, thanh toán trên web. Không dùng đánh giá sao / số lượt bán tự bịa.",
-  "_ghi_chu": "Build: python3 scripts/build_product_page.py --root . content/san-pham/tnds-xe-khach.json --out tnds-xe-khach.html --noindex --sync (bỏ --noindex khi lên chính thức, rồi thêm URL vào sitemap.xml). Ảnh minh hoạ tạm — thay ở sections[product].images và ở _danh-muc-tnds-oto.json.",
+  "_ghi_chu": "Build: python3 scripts/build_product_page.py --root . content/san-pham/tnds-xe-khach.json --out tnds-xe-khach.html --sync (đã lên chính thức 27/09/2026). Ảnh minh hoạ tạm — thay ở sections[product].images và ở _danh-muc-tnds-oto.json.",
   "slug": "tnds-xe-khach",
   "theme": "shop",
   "catalog": "content/san-pham/_danh-muc-tnds-oto.json",
@@ -9,7 +9,7 @@
     "description": "Bảo hiểm TNDS bắt buộc xe khách, xe du lịch, xe giường nằm, xe buýt: biển trắng từ 1.397.000đ, biển vàng từ 5.095.200đ/năm (đã gồm VAT). Để lại số điện thoại, DBV247 liên hệ cấp đơn.",
     "og_title": "Bảo hiểm TNDS xe khách 24–47 chỗ từ 1.397.000đ/năm | DBV247",
     "og_description": "Chọn loại biển và số chỗ, để lại số điện thoại — DBV247 liên hệ xác nhận thông tin và cấp đơn, báo giá theo đội xe.",
-    "og_image": "https://dbv247.com.vn/tnds-gcn-ngang.webp",
+    "og_image": "https://dbv247.com.vn/assets/img/bh-tnds-xe-khach.webp",
     "canonical": "https://dbv247.com.vn/tnds-xe-khach"
   },
   "product": {
@@ -196,16 +196,16 @@
       "subtitle": "Đăng ký online – Nhân viên DBV liên hệ cấp đơn",
       "images": [
         {
-          "src": "/tnds-gcn-ngang.webp",
-          "alt": "Giấy chứng nhận bảo hiểm bắt buộc TNDS ô tô do Bảo hiểm DBV phát hành: 150 triệu đồng/người/vụ, 100 triệu đồng/vụ",
+          "src": "/assets/img/bh-tnds-xe-khach.webp",
+          "alt": "Xe khách du lịch tại bến và tư vấn viên DBV247",
           "width": 1200,
           "height": 900
         },
         {
-          "src": "/assets/img/tnds-minhhoa-xe-khach.webp",
-          "alt": "Minh hoạ xe khách",
-          "width": 800,
-          "height": 600
+          "src": "/tnds-gcn-ngang.webp",
+          "alt": "Giấy chứng nhận bảo hiểm bắt buộc TNDS ô tô do Bảo hiểm DBV phát hành: 150 triệu đồng/người/vụ, 100 triệu đồng/vụ",
+          "width": 1200,
+          "height": 900
         }
       ],
       "switch": {
@@ -348,9 +348,9 @@
         {
           "title": "Bảo hiểm TNDS xe 9–16 chỗ",
           "href": "/tnds-xe-9-16-cho",
-          "image": "/assets/img/tnds-minhhoa-xe-9-16-cho.webp",
-          "width": 800,
-          "height": 600,
+          "image": "/assets/img/bh-tnds-xe-9-16-cho.webp",
+          "width": 1200,
+          "height": 900,
           "price": 873400,
           "unit": "/năm",
           "sub": "Từ mức thấp nhất · đã gồm VAT",
@@ -359,9 +359,9 @@
         {
           "title": "Bảo hiểm TNDS xe tải",
           "href": "/tnds-xe-tai",
-          "image": "/assets/img/tnds-minhhoa-xe-tai.webp",
-          "width": 800,
-          "height": 600,
+          "image": "/assets/img/bh-tnds-xe-tai.webp",
+          "width": 1200,
+          "height": 900,
           "price": 938300,
           "unit": "/năm",
           "sub": "Từ mức thấp nhất · đã gồm VAT",
@@ -370,23 +370,23 @@
         {
           "title": "Bảo hiểm TNDS xe đầu kéo",
           "href": "/tnds-xe-dau-keo",
-          "image": "/assets/img/tnds-minhhoa-dau-keo.webp",
-          "width": 800,
-          "height": 600,
+          "image": "/assets/img/bh-tnds-xe-dau-keo.webp",
+          "width": 1200,
+          "height": 900,
           "price": 5280000,
           "unit": "/năm",
           "sub": "Từ mức thấp nhất · đã gồm VAT",
           "tag": "Bắt buộc"
         },
         {
-          "title": "Bảo hiểm vật chất ô tô",
-          "href": "/bao-hiem-vat-chat-oto",
-          "image": "/than-vo-oto.webp",
-          "width": 800,
-          "height": 450,
-          "price_text": "Từ 1,2%/năm giá trị xe",
-          "sub": "Bồi thường thiệt hại cho chính chiếc xe của bạn",
-          "tag": "Tự nguyện"
+          "title": "Bảo hiểm đội xe doanh nghiệp",
+          "href": "/bao-hiem-doi-xe-doanh-nghiep",
+          "image": "/assets/img/bh-doi-xe-doanh-nghiep.webp",
+          "width": 1200,
+          "height": 900,
+          "price_text": "Một báo giá cho cả đội",
+          "sub": "Từ 3 xe trở lên · hoá đơn VAT",
+          "tag": "Doanh nghiệp"
         }
       ]
     },

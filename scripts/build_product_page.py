@@ -47,7 +47,7 @@ import re
 import subprocess
 import sys
 
-CSS_VER = '2'
+CSS_VER = '3'
 JS_VER = '2'
 
 # ── Tiện ích ────────────────────────────────────────────────────────────────
@@ -805,7 +805,8 @@ def c_lead_band(sec, P):
         return ''
     P = with_lead(P, sec)
     inner = ('<div class="plp-band"><div class="plp-band-txt"><h2 class="plp-h2">%s</h2>%s</div>%s</div>'
-             % (e(sec.get('title', '')), ('<p class="plp-sub">%s</p>' % e(sec['subtitle'])) if sec.get('subtitle') else '',
+             % (e(sec.get('title', '')), (('<p class="plp-sub">%s</p>' % e(sec['subtitle'])) if sec.get('subtitle') else '')
+                + (('<a class="plp-link plp-band-link" href="%s">%s%s</a>' % (e(sec['link']['href']), e(sec['link']['label']), icon('arrow', 16))) if sec.get('link') else ''),
                 lead_form(P, 'giữa trang', 'inline', sec.get('id', 'giua-trang'))))
     return section(sec, inner)
 

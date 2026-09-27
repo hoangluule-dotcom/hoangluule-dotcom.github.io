@@ -924,3 +924,15 @@ body.plp-page{margin:0;background:#fff;color:#1f2a24;font-family:'Be Vietnam Pro
 @media (max-width:1024px){ .plp-fee{grid-template-columns:1fr 1fr} }
 @media (max-width:640px){ .plp-fee{grid-template-columns:1fr;gap:14px} }
 @media (min-width:641px){ .plp-cat-lg .plp-cat-img{aspect-ratio:16/10} }
+/* hero kiểu "lead" trong theme shop (trang đội xe doanh nghiệp) */
+.plp-theme-shop .plp-sec.plp-s-hero.plp-l-lead{padding:0 0 14px;background:transparent}
+.plp-theme-shop .plp-s-hero.plp-l-lead>.plp-in{background:linear-gradient(180deg,var(--pg-50),#fff);padding:40px 28px}
+.plp-theme-shop .plp-hl-box{box-shadow:var(--psh)}
+.plp-band-link{margin-top:10px;color:var(--pg)}
+@media (max-width:640px){
+  .plp-theme-shop .plp-s-hero.plp-l-lead>.plp-in{padding:0}
+  .plp-theme-shop .plp-hl-box{box-shadow:none}
+}
+/* khung ảnh thẻ loại xe cố định tỉ lệ dù ảnh gốc 4:3 hay 5:4 */
+.plp-cat-img{position:relative;overflow:hidden}
+.plp-cat-img img{position:absolute;inset:0}

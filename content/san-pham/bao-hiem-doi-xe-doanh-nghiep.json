@@ -1,0 +1,216 @@
+{
+  "_nguyen_tac": "Trang B2B cho đội xe: chỉ xin số điện thoại; chuyên viên gọi lại nhận danh sách xe (Excel/ảnh cà-vẹt qua Zalo) rồi gửi một báo giá cho cả đội. Không hứa giảm phí TNDS bắt buộc (biểu phí NĐ 67/2023 cố định; biên ±15% Điều 8 là điều chỉnh theo rủi ro, không phải khuyến mại). Không dùng từ ngữ vượt trội.",
+  "_ghi_chu": "Build: python3 scripts/build_product_page.py --root . content/san-pham/bao-hiem-doi-xe-doanh-nghiep.json --out bao-hiem-doi-xe-doanh-nghiep.html --sync (đã lên chính thức 27/09/2026).",
+  "slug": "bao-hiem-doi-xe-doanh-nghiep",
+  "theme": "shop",
+  "og_type": "website",
+  "catalog": "content/san-pham/_danh-muc-tnds-oto.json",
+  "seo": {
+    "title": "Bảo hiểm đội xe doanh nghiệp — Một báo giá cho cả đội xe | DBV247",
+    "description": "Bảo hiểm cho đội xe doanh nghiệp, HTX vận tải: TNDS bắt buộc mọi loại xe, vật chất xe, hàng hoá vận chuyển, tai nạn lái phụ xe. Gửi danh sách xe một lần, nhận một báo giá, cấp đơn theo lô và hoá đơn VAT.",
+    "og_title": "Bảo hiểm đội xe doanh nghiệp | DBV247",
+    "og_description": "Để lại số điện thoại — DBV247 nhận danh sách xe và gửi một báo giá cho cả đội.",
+    "og_image": "https://dbv247.com.vn/assets/img/bh-doi-xe-doanh-nghiep.webp",
+    "canonical": "https://dbv247.com.vn/bao-hiem-doi-xe-doanh-nghiep"
+  },
+  "lead": {
+    "form_name": "dbv-tuvan",
+    "san_pham": "Bảo hiểm đội xe doanh nghiệp",
+    "nhu_cau": "Báo giá đội xe doanh nghiệp — gọi lại nhận danh sách xe",
+    "placeholder": "Số điện thoại của bạn",
+    "button": "Nhận báo giá đội xe",
+    "button_short": "Nhận báo giá",
+    "after": "Chuyên viên DBV247 gọi lại để nhận danh sách xe và gửi báo giá.",
+    "legal_html": "Bằng việc đăng ký, bạn đồng ý để DBV247 liên hệ tư vấn và xử lý dữ liệu theo <a href=\"/chinh-sach-bao-mat\" target=\"_blank\" rel=\"noopener\">Chính sách bảo vệ dữ liệu cá nhân</a>.",
+    "success_title": "Đã nhận yêu cầu báo giá",
+    "success_text": "Chuyên viên DBV247 sẽ gọi tới {sdt} để nhận danh sách xe và gửi báo giá cho cả đội. Giờ làm việc: Thứ Hai – Thứ Sáu, 8:00 – 18:00.",
+    "success_cta": {
+      "label": "Gửi danh sách xe qua Zalo để nhanh hơn",
+      "href": "https://zalo.me/1283738895804393564"
+    }
+  },
+  "sections": [
+    {
+      "type": "breadcrumb",
+      "items": [
+        {
+          "label": "Trang chủ",
+          "href": "/"
+        },
+        {
+          "label": "Sản phẩm",
+          "href": "/san-pham"
+        },
+        {
+          "label": "Bảo hiểm đội xe doanh nghiệp"
+        }
+      ]
+    },
+    {
+      "type": "hero",
+      "layout": "lead",
+      "id": "bao-gia",
+      "eyebrow": "Doanh nghiệp · HTX vận tải · Hộ kinh doanh",
+      "title": "Bảo hiểm đội xe doanh nghiệp",
+      "value_prop": "Gửi danh sách xe một lần — nhận một báo giá cho cả đội: TNDS bắt buộc, vật chất xe, hàng hoá vận chuyển, tai nạn lái phụ xe.",
+      "checks": [
+        "Một báo giá cho cả đội xe",
+        "Cấp đơn theo lô",
+        "Hoá đơn VAT cho doanh nghiệp"
+      ]
+    },
+    {
+      "type": "steps",
+      "id": "cach-lam",
+      "title": "Làm việc thế nào",
+      "items": [
+        {
+          "title": "Để lại số điện thoại",
+          "text": "Chỉ cần số điện thoại, không phải điền biểu mẫu dài."
+        },
+        {
+          "title": "Gửi danh sách xe",
+          "text": "File Excel biển số, hoặc ảnh cà-vẹt từng xe qua Zalo."
+        },
+        {
+          "title": "Nhận một báo giá",
+          "text": "Báo giá cho cả đội, chia theo từng xe và từng loại bảo hiểm."
+        },
+        {
+          "title": "Cấp đơn theo lô",
+          "text": "GCN điện tử cho từng xe, hoá đơn VAT xuất cho doanh nghiệp."
+        }
+      ],
+      "prepare": "Chuẩn bị: danh sách biển số (hoặc ảnh cà-vẹt), loại xe, số chỗ hoặc trọng tải; thông tin xuất hoá đơn (tên doanh nghiệp, mã số thuế, địa chỉ)."
+    },
+    {
+      "type": "related",
+      "id": "san-pham-doi-xe",
+      "title": "Bảo hiểm cho đội xe",
+      "items": [
+        {
+          "title": "Bảo hiểm TNDS ô tô bắt buộc",
+          "href": "/bao-hiem-tnds-oto",
+          "image": "/assets/img/bh-xcg-tnds-oto.webp",
+          "width": 800,
+          "height": 586,
+          "price": 480700,
+          "unit": "/năm",
+          "sub": "Mọi loại xe · theo Nghị định 67/2023",
+          "tag": "Bắt buộc"
+        },
+        {
+          "title": "Bảo hiểm vật chất ô tô",
+          "href": "/bao-hiem-vat-chat-oto",
+          "image": "/than-vo-oto.webp",
+          "width": 800,
+          "height": 450,
+          "price_text": "Từ 1,2%/năm giá trị xe",
+          "sub": "Bồi thường thiệt hại cho chính chiếc xe",
+          "tag": "Tự nguyện"
+        },
+        {
+          "title": "Bảo hiểm hàng hoá vận chuyển nội địa",
+          "href": "/bao-hiem-van-chuyen",
+          "image": "/hang-hoa-van-chuyen-noi-dia.webp",
+          "width": 800,
+          "height": 380,
+          "price_text": "Báo phí theo lô hàng",
+          "sub": "Hàng hoá trên đường bộ, đường thuỷ",
+          "tag": "Tự nguyện"
+        },
+        {
+          "title": "Tai nạn lái xe, phụ xe và người ngồi trên xe",
+          "href": "#dang-ky-cuoi",
+          "image": "/tnds-gcn-ngang.webp",
+          "width": 1200,
+          "height": 900,
+          "price_text": "Báo phí theo số chỗ",
+          "sub": "Mua kèm TNDS trên cùng giấy chứng nhận",
+          "tag": "Tự nguyện"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "id": "phi-tnds",
+      "group": "doanh-nghiep",
+      "size": "md",
+      "title": "Phí TNDS theo loại xe",
+      "go": "Xem giá"
+    },
+    {
+      "type": "benefits",
+      "id": "vi-sao",
+      "layout": "card-grid",
+      "title": "Vì sao doanh nghiệp làm việc với DBV247",
+      "items": [
+        {
+          "icon": "headset",
+          "title": "Một đầu mối",
+          "text": "Một đầu mối liên hệ cho cả đội xe, từ báo giá, cấp đơn đến hỗ trợ bồi thường."
+        },
+        {
+          "icon": "receipt",
+          "title": "Báo giá theo lô",
+          "text": "Một bảng báo giá cho toàn bộ danh sách xe, dễ trình duyệt nội bộ."
+        },
+        {
+          "icon": "invoice",
+          "title": "Hoá đơn VAT",
+          "text": "Hoá đơn xuất theo thông tin doanh nghiệp cung cấp."
+        },
+        {
+          "icon": "shield",
+          "title": "GCN do DBV phát hành",
+          "text": "Giấy chứng nhận do Công ty CP Tập đoàn Bảo hiểm DBV phát hành, tra cứu bằng mã QR."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "id": "faq",
+      "layout": "accordion",
+      "title": "Câu hỏi thường gặp",
+      "items": [
+        {
+          "q": "Mua cho nhiều xe có được giảm phí TNDS không?",
+          "a": "Phí TNDS bắt buộc áp dụng theo biểu phí của Nghị định 67/2023/NĐ-CP cho từng loại xe. Với bảo hiểm tự nguyện như vật chất xe, phí được báo theo từng xe dựa trên giá trị xe và mục đích sử dụng."
+        },
+        {
+          "q": "Các xe hết hạn bảo hiểm vào những ngày khác nhau thì sao?",
+          "a": "Chuyên viên lập danh sách theo ngày hết hạn của từng xe để cấp đơn đúng hạn, không để xe nào lưu hành khi GCN đã hết hiệu lực."
+        },
+        {
+          "q": "Hợp tác xã vận tải, hộ kinh doanh có áp dụng không?",
+          "a": "Có. Trang này dành cho mọi tổ chức, hộ kinh doanh có từ 3 xe trở lên, kể cả xe gửi quản lý tại hợp tác xã."
+        },
+        {
+          "q": "Tôi cần gửi những gì?",
+          "a": "Danh sách biển số kèm loại xe, số chỗ hoặc trọng tải (file Excel), hoặc ảnh cà-vẹt từng xe qua Zalo; cùng thông tin xuất hoá đơn: tên doanh nghiệp, mã số thuế, địa chỉ."
+        },
+        {
+          "q": "Khi xe của đội gặp sự cố thì liên hệ ai?",
+          "a": "Gọi tổng đài bồi thường Bảo hiểm DBV 1900 96 96 90 (24/7) để được hướng dẫn tại hiện trường. Chuyên viên DBV247 (0869 656 561) hỗ trợ doanh nghiệp chuẩn bị hồ sơ bồi thường."
+        }
+      ]
+    },
+    {
+      "type": "final_cta",
+      "id": "dang-ky-cuoi",
+      "form": true,
+      "title": "Nhận báo giá cho đội xe",
+      "text": "Để lại số điện thoại, DBV247 gọi lại nhận danh sách xe và gửi báo giá cho cả đội."
+    },
+    {
+      "type": "sticky_cta",
+      "mode": "lead",
+      "label": "Báo giá cho cả đội xe",
+      "button": "NHẬN BÁO GIÁ",
+      "hide_when_visible": [
+        ".plp-hl-box .plp-lead",
+        ".plp-final .plp-lead"
+      ]
+    }
+  ]
+}

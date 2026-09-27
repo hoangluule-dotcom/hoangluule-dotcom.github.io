@@ -107,6 +107,10 @@
         "nhu_cau": "Báo giá đội xe (từ 3 xe) — gọi lại nhận danh sách xe",
         "button": "Nhận báo giá đội xe",
         "success_text": "Chuyên viên DBV247 sẽ gọi tới {sdt} để nhận danh sách xe và gửi báo giá cho cả đội. Giờ làm việc: Thứ Hai – Thứ Sáu, 8:00 – 18:00."
+      },
+      "link": {
+        "label": "Xem giải pháp bảo hiểm đội xe",
+        "href": "/bao-hiem-doi-xe-doanh-nghiep"
       }
     },
     {
