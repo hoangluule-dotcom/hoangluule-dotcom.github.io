@@ -469,6 +469,109 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .cn-case-vis{padding:0;background:#e9efeb;min-height:100%}
 .cn-case-vis img{display:block;width:100%;height:100%;min-height:320px;object-fit:cover;object-position:60% 50%}
 @media(max-width:1024px){.cn-case-vis img{min-height:0;aspect-ratio:3/2;height:auto}}
+
+/* ══ BỐ CỤC NGANG (28/09/2026): gộp nội dung thành hàng 2 cột trên desktop, thẻ vuốt ngang trên mobile ══ */
+.cn-hd{margin-bottom:20px}
+.cn-hd .cn-h2{margin-bottom:8px}
+.cn-hd .cn-lead{font-size:14px;max-width:none}
+.cn-split{display:grid;gap:40px;align-items:start}
+.cn-swipe{display:none}
+/* Kiểm tra: chọn bên trái — kết quả bên phải */
+.cn-split-check{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.cn-split-check .cn-chips{margin-top:0}
+.cn-res-col{position:sticky;top:90px}
+.cn-res{margin-top:0;grid-template-columns:1fr;gap:16px;align-items:start}
+.cn-res dl{grid-template-columns:130px 1fr}
+.cn-res-act{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;min-width:0}
+.cn-res.is-empty{border-style:dashed;border-color:#C9D8CF;background:#FBFDFC;min-height:250px;align-content:center}
+.cn-res.is-empty>*:not(.cn-res-empty){display:none}
+.cn-res:not(.is-empty) .cn-res-empty{display:none}
+.cn-res-empty{text-align:center;color:var(--tm)}
+.cn-res-empty-ic{width:52px;height:52px;border-radius:50%;background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.cn-res-empty b{display:block;color:var(--dk);font-size:15px;margin-bottom:4px}
+.cn-res-empty p{font-size:13px}
+.cn-split-check .cn-check-note{text-align:left;margin-top:10px}
+@media(min-width:1025px){
+  .cn-split-check .cn-chip{flex-direction:column;text-align:center;gap:8px;padding:16px 10px;font-size:13.5px}
+}
+/* Phí: công thức bên trái — tra cứu bên phải */
+.cn-split-fee{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
+.cn-split-fee .cn-formula{flex-direction:column;gap:4px;margin:0;max-width:none}
+.cn-split-fee .cn-fx{padding:14px 18px;text-align:left;display:grid;grid-template-columns:150px 1fr;gap:2px 14px;align-items:center}
+.cn-split-fee .cn-fx small{margin:0;grid-row:1/3}
+.cn-split-fee .cn-fx b{font-size:1.05rem}
+.cn-split-fee .cn-fx p{margin:0;font-size:12px}
+.cn-split-fee .cn-op{width:auto;height:20px;justify-content:flex-start;padding-left:22px;font-size:1.3rem}
+.cn-split-fee .cn-example{margin:14px 0 0;max-width:none}
+.cn-split-fee .cn-groups{margin:0;max-width:none;gap:8px}
+.cn-split-fee .cn-grp summary{padding:12px 14px}
+.cn-split-fee .cn-grp-ic{width:38px;height:38px}
+.cn-split-fee .cn-tbl-foot{text-align:left;max-width:none;margin-top:12px}
+.cn-sub-hd{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cn-sub-hd b{font-size:15px;color:var(--dk)}
+.cn-sub-hd span{font-size:12px;color:var(--ts)}
+.cn-fee-r{scroll-margin-top:90px}
+/* Yếu tố phí 2×2 — hộp tư vấn đứng cạnh */
+.cn-split-fac{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:stretch}
+.cn-split-fac .cn-factors{grid-template-columns:1fr 1fr;margin-top:0;gap:12px}
+.cn-split-fac .cn-fac{padding:18px;display:grid;grid-template-columns:44px 1fr;gap:4px 14px;align-items:start}
+.cn-split-fac .cn-fac-ic{width:44px;height:44px;margin:0;grid-row:1/3}
+.cn-split-fac .cn-human{grid-template-columns:1fr;margin-top:0;align-content:center;gap:14px;padding:30px 28px}
+.cn-split-fac .cn-human-av{display:flex}
+.cn-split-fac .cn-human .cn-btn{justify-self:stretch;grid-column:auto}
+/* Quy trình: tiêu đề + ghi chú cùng hàng */
+.cn-row-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:20px}
+.cn-row-hd .cn-hd{margin:0}
+.cn-row-hd .cn-steps-note{margin:0;text-align:right;max-width:360px}
+#process .cn-steps{margin-top:0}
+/* Phạm vi bên trái — tình huống bên phải */
+.cn-split-cov{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
+.cn-split-cov .cn-cover{flex-direction:column;gap:10px;margin-top:0}
+.cn-split-cov .cn-plus{display:none}
+.cn-split-cov .cn-cv{padding:16px 18px;border-left:3px solid var(--g)}
+.cn-split-cov .cn-more{text-align:left;margin-top:14px}
+.cn-split-cov .cn-more summary{margin:0}
+.cn-split-cov .cn-more-body{grid-template-columns:1fr;padding:18px}
+.cn-split-cov .cn-case{margin-top:0;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+.cn-split-cov .cn-case-body{padding:22px 24px}
+.cn-split-cov .cn-case-body h3{font-size:1rem}
+.cn-split-cov .cn-case-row{padding:8px 12px;font-size:13.5px}
+.cn-split-cov .cn-case-warn{font-size:13px;padding:10px 12px}
+#tinh-huong{scroll-margin-top:90px}
+/* FAQ: tiêu đề cố định bên trái */
+.cn-split-faq{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+.cn-faq-l{position:sticky;top:90px}
+.cn-split-faq .cn-faq{margin:0;max-width:none}
+.cn-hd .cn-h2{font-size:clamp(1.45rem,2.3vw,1.85rem)}
+.cn-split-faq{grid-template-columns:minmax(0,1fr) minmax(0,2.6fr)}
+.cn-split-faq .cn-faq{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+.cn-split-faq .cn-faq summary{font-size:14px;padding:15px 18px}
+@media(max-width:1024px){.cn-split-faq .cn-faq{grid-template-columns:1fr}}
+@media(max-width:1024px){
+  .cn-split{grid-template-columns:minmax(0,1fr)!important;gap:24px}
+  .cn-res-col,.cn-faq-l{position:static}
+  .cn-row-hd{flex-direction:column;align-items:flex-start}
+  .cn-row-hd .cn-steps-note{text-align:left}
+}
+@media(max-width:720px){
+  .cn-split-fee .cn-fx{grid-template-columns:1fr}
+  .cn-split-fee .cn-fx small{grid-row:auto}
+  .cn-res.is-empty{display:none}
+  .cn-split-cov .cn-case{grid-template-columns:1fr}
+  /* Thẻ vuốt ngang thay cho xếp dọc */
+  .cn-factors,.cn-steps,.cn-split-cov .cn-cover{display:flex!important;flex-direction:row!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px!important;margin:0 -16px!important;padding:2px 16px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .cn-factors::-webkit-scrollbar,.cn-steps::-webkit-scrollbar,.cn-cover::-webkit-scrollbar{display:none}
+  .cn-factors>*,.cn-steps>*,.cn-split-cov .cn-cover>.cn-cv{flex:0 0 78%;scroll-snap-align:start}
+  .cn-split-fac .cn-fac{grid-template-columns:40px 1fr}
+  .cn-res dl{grid-template-columns:1fr}
+  .cn-res-act{flex-direction:column;align-items:stretch}
+  .cn-split-check .cn-chips{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .cn-split-check .cn-chip{flex-direction:column;text-align:center;gap:6px;padding:10px 4px;font-size:11.5px;line-height:1.25}
+  .cn-split-check .cn-chip-ic{width:34px;height:34px}
+  .cn-split-fac .cn-human{padding:22px 20px}
+  .cn-split-fac .cn-human-av{display:none}
+  .cn-swipe{display:block;font-size:11.5px;color:var(--ts);text-align:right;margin-top:6px}
+}
 /* ── Cẩm nang liên quan giữ nguyên ── */
 
 /* ══ HEADER SYNC ══ */
@@ -1060,14 +1163,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ═════ 2. KIỂM TRA DIỆN BẮT BUỘC ═════ -->
 <section class="cn-sec" id="kiem-tra">
-  <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">Bước 1 · Kiểm tra nhanh</span>
-      <h2 class="cn-h2">Cơ sở của bạn có thuộc diện<br>phải mua bảo hiểm cháy nổ?</h2>
-      <p class="cn-lead">Từ 01/7/2025, danh mục cơ sở bắt buộc gồm 44 loại theo Phụ lục VII Nghị định 105/2025/NĐ-CP — nhiều ngưỡng đã được hạ xuống. Chọn loại hình để xem điều kiện áp dụng.</p>
-    </div>
-
-    <div class="cn-chips" role="group" aria-label="Chọn loại hình cơ sở">
+  <div class="cn-wrap cn-split cn-split-check">
+    <div>
+      <div class="cn-hd"><span class="cn-tag">Bước 1 · Kiểm tra nhanh</span><h2 class="cn-h2">Cơ sở của bạn có thuộc diện phải mua bảo hiểm cháy nổ?</h2><p class="cn-lead">Từ 01/7/2025, danh mục bắt buộc gồm 44 loại cơ sở theo Phụ lục VII NĐ 105/2025 — nhiều ngưỡng đã được hạ xuống. Chọn loại hình để xem điều kiện.</p></div>
+      <div class="cn-chips" role="group" aria-label="Chọn loại hình cơ sở">
       <button type="button" class="cn-chip" data-k="nha-may" aria-pressed="false"><span class="cn-chip-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M3 21V10l5 3v-3l5 3v-3l5 3V4h3v17z"/><path d="M7 17h2M12 17h2"/></svg></span>Nhà máy</button>
       <button type="button" class="cn-chip" data-k="kho-hang" aria-pressed="false"><span class="cn-chip-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span>Kho hàng</button>
       <button type="button" class="cn-chip" data-k="khach-san" aria-pressed="false"><span class="cn-chip-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-3a3 3 0 0 0-3-3h-7v6"/><circle cx="7" cy="11.5" r="1.8"/></svg></span>Khách sạn</button>
@@ -1077,8 +1176,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button type="button" class="cn-chip" data-k="truong-hoc" aria-pressed="false"><span class="cn-chip-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v5"/></svg></span>Trường học</button>
       <button type="button" class="cn-chip" data-k="khac" aria-pressed="false"><span class="cn-chip-ic"><svg class="cn-ico" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></span>Loại khác</button>
     </div>
-
-    <div class="cn-res" id="cn-res" hidden aria-live="polite">
+    </div>
+    <div class="cn-res-col">
+      <div class="cn-res is-empty" id="cn-res" aria-live="polite">
+        <div class="cn-res-empty" id="cn-res-empty">
+          <div class="cn-res-empty-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></div>
+          <b>Chọn loại hình cơ sở</b>
+          <p>Điều kiện bắt buộc và tỷ lệ phí tham khảo sẽ hiện ở đây.</p>
+        </div>
       <div>
         <div class="cn-res-st" id="cn-res-st"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Có thể thuộc diện bắt buộc</span></div>
         <div class="cn-res-h" id="cn-res-h"></div>
@@ -1094,42 +1199,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="cn-res-tip" id="cn-res-tip">Ngưỡng dùng chữ “hoặc” — chỉ cần thoả một điều kiện. Diện tích sàn là tổng mọi tầng, gồm cả kho, bếp, hành lang trong phạm vi cơ sở.</div>
     </div>
-    <p class="cn-check-note">Kết quả mang tính định hướng. Chuyên viên DBV sẽ xác nhận dựa trên hồ sơ thực tế của cơ sở.</p>
+      <p class="cn-check-note">Kết quả mang tính định hướng. Chuyên viên DBV sẽ xác nhận dựa trên hồ sơ thực tế của cơ sở.</p>
+    </div>
   </div>
 </section>
 
-<!-- ═════ 3. PHÍ TÍNH NHƯ THẾ NÀO ═════ -->
+<!-- ═════ 3+4. CÁCH TÍNH PHÍ + BIỂU PHÍ ═════ -->
 <section class="cn-sec cn-alt" id="cach-tinh-phi">
-  <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">Bước 2 · Biết phí</span>
-      <h2 class="cn-h2">Phí bảo hiểm được tính như thế nào?</h2>
-      <p class="cn-lead">Tỷ lệ phí do Nhà nước quy định theo loại hình cơ sở. Doanh nghiệp bảo hiểm không được chào thấp hơn mức tối thiểu này.</p>
-    </div>
-    <div class="cn-formula">
+  <div class="cn-wrap cn-split cn-split-fee">
+    <div class="cn-fee-l">
+      <div class="cn-hd"><span class="cn-tag">Bước 2 · Biết phí</span><h2 class="cn-h2">Phí bảo hiểm được tính như thế nào?</h2><p class="cn-lead">Tỷ lệ phí do Nhà nước quy định theo loại hình cơ sở — doanh nghiệp bảo hiểm không được chào thấp hơn.</p></div>
+      <div class="cn-formula">
       <div class="cn-fx"><small>Giá trị tài sản</small><b>Số tiền bảo hiểm</b><p>Nhà xưởng, công trình · máy móc thiết bị · hàng hoá, vật tư</p></div>
       <div class="cn-op">×</div>
       <div class="cn-fx"><small>Tỷ lệ phí</small><b>0,05% – 0,5%/năm</b><p>Tuỳ loại cơ sở và có hệ thống chữa cháy tự động hay không</p></div>
       <div class="cn-op">=</div>
       <div class="cn-fx cn-fx-res"><small>Phí bảo hiểm</small><b>Phí/năm + 10% VAT</b><p>Phí chính thức xác nhận sau khi đánh giá rủi ro cơ sở</p></div>
     </div>
-    <div class="cn-example">
+      <div class="cn-example">
       <svg class="cn-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
       <div><strong>Ví dụ:</strong> xưởng sản xuất có tổng giá trị tài sản 20 tỷ đồng, có hệ thống chữa cháy tự động, áp tỷ lệ 0,1%/năm → phí gốc <strong>20.000.000đ/năm</strong>, cộng VAT 10% là 22.000.000đ. Giá trị tài sản tính theo giá trị thay thế (xây lại, mua mới tương đương) — không gồm giá trị đất.</div>
     </div>
-  </div>
-</section>
-
-<!-- ═════ 4. TRA CỨU BIỂU PHÍ ═════ -->
-<section class="cn-sec" id="fee-table">
-  <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">Tra cứu biểu phí</span>
-      <h2 class="cn-h2">Biểu phí theo 5 nhóm cơ sở</h2>
-      <p class="cn-lead">Chọn nhóm gần với hoạt động của cơ sở để xem tỷ lệ phí. Cột ví dụ tính cho tài sản 10 tỷ đồng, chưa gồm VAT.</p>
     </div>
-
-    <div class="cn-groups">
+    <div class="cn-fee-r" id="fee-table">
+      <div class="cn-sub-hd"><b>Tra cứu biểu phí theo 5 nhóm</b><span>Ví dụ tính cho tài sản 10 tỷ, chưa VAT</span></div>
+      <div class="cn-groups">
       <details class="cn-grp" id="nhom-1">
         <summary>
           <span class="cn-grp-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg></span>
@@ -1222,25 +1316,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </table>
       </details>
     </div>
-    <p class="cn-tbl-foot">Biểu phí tham khảo theo Phụ lục VI Nghị định 105/2025/NĐ-CP — là tỷ lệ tối thiểu, chưa gồm VAT. Mức khấu trừ tối đa 1% số tiền bảo hiểm, không thấp hơn khung 4–100 triệu đồng tuỳ giá trị tài sản. Không thấy loại cơ sở của bạn? <a class="cn-link" href="#" onclick="cnDenForm('hero-form');return false">Hỏi chuyên viên</a>.</p>
+      <p class="cn-tbl-foot">Biểu phí tham khảo theo Phụ lục VI Nghị định 105/2025/NĐ-CP — là tỷ lệ tối thiểu, chưa gồm VAT. Mức khấu trừ tối đa 1% số tiền bảo hiểm, không thấp hơn khung 4–100 triệu đồng tuỳ giá trị tài sản. Không thấy loại cơ sở của bạn? <a class="cn-link" href="#" onclick="cnDenForm('hero-form');return false">Hỏi chuyên viên</a>.</p>
+    </div>
   </div>
 </section>
 
-<!-- ═════ 5. PHÍ THỰC TẾ PHỤ THUỘC VÀO ĐÂU ═════ -->
-<section class="cn-sec cn-alt" id="yeu-to-phi">
-  <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">Không chỉ nhìn bảng</span>
-      <h2 class="cn-h2">Phí thực tế có thể phụ thuộc vào</h2>
-      <p class="cn-lead">Bảng phí cho biết mức sàn. Tỷ lệ áp dụng cho cơ sở của bạn được xác định sau khi đánh giá rủi ro thực tế.</p>
-    </div>
-    <div class="cn-factors">
+<!-- ═════ 5. PHÍ THỰC TẾ ═════ -->
+<section class="cn-sec" id="yeu-to-phi">
+  <div class="cn-wrap cn-split cn-split-fac">
+    <div>
+      <div class="cn-hd"><span class="cn-tag">Không chỉ nhìn bảng</span><h2 class="cn-h2">Phí thực tế có thể phụ thuộc vào</h2><p class="cn-lead">Bảng phí cho biết mức sàn. Tỷ lệ áp dụng được xác định sau khi đánh giá rủi ro thực tế.</p></div>
+      <div class="cn-factors">
       <div class="cn-fac"><div class="cn-fac-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M3 21V10l5 3v-3l5 3v-3l5 3V4h3v17z"/></svg></div><b>Loại hình cơ sở</b><p>Ngành nghề thực tế đang hoạt động quyết định dòng áp dụng trong biểu phí.</p></div>
       <div class="cn-fac"><div class="cn-fac-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></div><b>Hệ thống PCCC</b><p>Với nhiều loại cơ sở, có hệ thống chữa cháy tự động thì tỷ lệ phí chỉ bằng một nửa.</p></div>
       <div class="cn-fac"><div class="cn-fac-ic"><svg class="cn-ico" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg></div><b>Hàng hoá lưu trữ</b><p>Hạng nguy hiểm cháy nổ của hàng hoá (A, B, C, D, E) ảnh hưởng trực tiếp tới tỷ lệ phí.</p></div>
       <div class="cn-fac"><div class="cn-fac-ic"><svg class="cn-ico" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg></div><b>Lịch sử tổn thất</b><p>Các sự cố đã xảy ra trước đây được xem xét khi đánh giá rủi ro.</p></div>
     </div>
-
+      <p class="cn-swipe" aria-hidden="true">Vuốt ngang để xem thêm →</p>
+    </div>
     <div class="cn-human">
       <div class="cn-human-av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
       <div>
@@ -1253,13 +1346,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ═════ 6. DBV GIÚP GÌ ═════ -->
-<section class="cn-sec" id="process">
+<section class="cn-sec cn-alt" id="process">
   <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">DBV không chỉ cấp đơn</span>
-      <h2 class="cn-h2">DBV giúp bạn từ tư vấn đến bồi thường</h2>
-      <p class="cn-lead">Khảo sát → báo giá → cấp đơn, có chuyên viên hiểu cơ sở của bạn đi cùng từng bước.</p>
-    </div>
+    <div class="cn-row-hd"><div class="cn-hd"><span class="cn-tag">DBV không chỉ cấp đơn</span><h2 class="cn-h2">DBV giúp bạn từ tư vấn đến bồi thường</h2></div><p class="cn-steps-note">Cơ sở nhỏ, hồ sơ đầy đủ thường cấp đơn trong 1–3 ngày làm việc. Cơ sở lớn hoặc rủi ro cao cần khảo sát hiện trường.</p></div>
     <div class="cn-steps">
       <div class="cn-step"><div class="cn-step-n">01</div><b>Xác định phạm vi</b><p>Hỗ trợ xác định loại cơ sở và phạm vi bảo hiểm phù hợp.</p></div>
       <div class="cn-step"><div class="cn-step-n">02</div><b>Khảo sát rủi ro</b><p>Đánh giá các yếu tố thực tế ảnh hưởng đến việc xác định phí.</p></div>
@@ -1267,25 +1356,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="cn-step"><div class="cn-step-n">04</div><b>Phát hành</b><p>Hoàn thiện hồ sơ và cấp giấy chứng nhận bảo hiểm.</p></div>
       <div class="cn-step cn-step-hl"><div class="cn-step-n">05</div><b>Hỗ trợ bồi thường</b><p>Đồng hành khi xảy ra tổn thất.</p></div>
     </div>
-    <p class="cn-steps-note">Cơ sở nhỏ, hồ sơ đầy đủ thường cấp đơn trong 1–3 ngày làm việc. Cơ sở lớn hoặc rủi ro cao cần khảo sát hiện trường.</p>
+    <p class="cn-swipe" aria-hidden="true">Vuốt ngang để xem thêm →</p>
   </div>
 </section>
 
-<!-- ═════ 7. BẢO VỆ NHỮNG GÌ ═════ -->
-<section class="cn-sec cn-alt" id="quyen-loi">
-  <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">Phạm vi</span>
-      <h2 class="cn-h2">Bảo hiểm bảo vệ những gì?</h2>
-    </div>
-    <div class="cn-cover">
+<!-- ═════ 7+8. PHẠM VI + TÌNH HUỐNG ═════ -->
+<section class="cn-sec" id="quyen-loi">
+  <div class="cn-wrap cn-split cn-split-cov">
+    <div>
+      <div class="cn-hd"><span class="cn-tag">Phạm vi</span><h2 class="cn-h2">Bảo hiểm bảo vệ những gì?</h2></div>
+      <div class="cn-cover">
       <div class="cn-cv"><small>TÀI SẢN</small><p>Nhà cửa, công trình, máy móc, thiết bị và tài sản thuộc phạm vi bảo hiểm.</p></div>
       <div class="cn-plus">+</div>
       <div class="cn-cv"><small>TRÁCH NHIỆM</small><p>Các trách nhiệm liên quan theo phạm vi và điều kiện hợp đồng.</p></div>
       <div class="cn-plus">+</div>
       <div class="cn-cv"><small>BỒI THƯỜNG</small><p>Hỗ trợ xử lý hồ sơ khi xảy ra sự cố thuộc phạm vi bảo hiểm.</p></div>
     </div>
-    <div class="cn-more">
+      <div class="cn-more">
       <details>
         <summary>XEM CHI TIẾT QUYỀN LỢI
           <svg class="cn-grp-arr" viewBox="0 0 24 24" style="stroke:currentColor"><path d="M6 9l6 6 6-6"/></svg></summary>
@@ -1325,17 +1412,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </details>
     </div>
-  </div>
-</section>
-
-<!-- ═════ 8. TÌNH HUỐNG ═════ -->
-<section class="cn-sec" id="tinh-huong">
-  <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">Tình huống thực tế</span>
-      <h2 class="cn-h2">Một vụ cháy có thể ảnh hưởng đến những gì?</h2>
     </div>
-    <div class="cn-case">
+    <div id="tinh-huong">
+      <div class="cn-hd"><span class="cn-tag">Tình huống thực tế</span><h2 class="cn-h2">Một vụ cháy có thể ảnh hưởng đến những gì?</h2></div>
+      <div class="cn-case">
       <div class="cn-case-vis">
         <img src="/assets/img/bh-chay-no-tinh-huong.webp" alt="Lực lượng PCCC phun nước dập lửa tại một toà nhà trong buổi diễn tập" width="896" height="666" loading="lazy" decoding="async">
       </div>
@@ -1352,15 +1432,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="cn-case-concl">→ Vì vậy phạm vi bảo hiểm cần được xác định dựa trên tài sản thực tế.</p>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
 <!-- ═════ 9. FAQ ═════ -->
 <section class="cn-sec cn-alt" id="faq">
-  <div class="cn-wrap">
-    <div class="cn-head-c">
-      <span class="cn-tag">Hỏi đáp</span>
-      <h2 class="cn-h2">Câu hỏi thường gặp</h2>
+  <div class="cn-wrap cn-split cn-split-faq">
+    <div class="cn-faq-l">
+      <div class="cn-hd"><span class="cn-tag">Hỏi đáp</span><h2 class="cn-h2">Câu hỏi thường gặp</h2><p class="cn-lead">Chưa thấy câu trả lời bạn cần? Chuyên viên DBV giải đáp miễn phí theo đúng cơ sở của bạn.</p></div>
+      <button type="button" class="cn-btn" onclick="cnDenForm('final-form')">HỎI CHUYÊN VIÊN <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
     <div class="cn-faq">
       <details>
@@ -1579,7 +1660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         phi.appendChild(a);}
       $('cn-res-tip').textContent=d.tip?d.tip+' '+TIP:TIP;
       datLoai(k);
-      res.hidden=false;
+      res.hidden=false;res.classList.remove('is-empty');if(window.innerWidth<=1024){var rt=res.getBoundingClientRect();if(rt.top>window.innerHeight-120)res.scrollIntoView({behavior:'smooth',block:'nearest'});}
       if(window.dataLayer)window.dataLayer.push({event:'cn_kiem_tra',loai_co_so:k});
     });
   });
