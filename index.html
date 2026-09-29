@@ -19,17 +19,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap&text=An%20t%C3%A2mtr%C3%AAnm%E1%BB%8Dih%C3%A0nhtr%C3%ACnh%C4%90%E1%BB%93ngc%C3%B9ngb%E1%BA%A1n%E2%99%A1" rel="stylesheet">
-<link rel="preload" as="image" href="/banner-hero-v3.webp" media="(min-width:1440px)" fetchpriority="high">
-<link rel="preload" as="image" href="/banner-hero-mobile-v3.webp" media="(min-width:641px) and (max-width:1439px)" fetchpriority="high">
-<link rel="preload" as="image" href="/banner-hero-phone-v1.webp" media="(max-width:640px)" fetchpriority="high">
-<style>
+<script>
+/* Nhóm khách hàng: URL (?nhom=doanh-nghiep|ca-nhan hoặc #doanh-nghiep|#ca-nhan)
+   > lựa chọn đã lưu > mặc định theo thiết bị (máy tính: Doanh nghiệp, điện thoại/tablet: Cá nhân). */
+(function(){var d=document.documentElement,a=null,m;
+try{m=new URLSearchParams(location.search).get('nhom')||'';m=m||location.hash.replace('#','');
+if(/^(dn|doanh-nghiep)$/.test(m))a='dn';else if(/^(cn|ca-nhan)$/.test(m))a='cn';
+if(!a){var l=localStorage.getItem('dbv_nhom');if(l==='dn'||l==='cn')a=l;}}catch(e){}
+if(!a)a=(window.matchMedia&&matchMedia('(min-width:1024px)').matches)?'dn':'cn';
+d.setAttribute('data-nhom',a);
+[['(max-width:767px)','m'],['(min-width:768px)','1200']].forEach(function(p){var k=document.createElement('link');
+k.rel='preload';k.as='image';k.media=p[0];k.href='/assets/img/trang-chu/hero-'+a+'-v2-'+p[1]+'.webp';k.setAttribute('fetchpriority','high');document.head.appendChild(k);});
+})();
+</script>
+<style>:root{--radius-sm:8px;--radius-control:12px;--radius-card:16px;--radius-panel:24px;--radius-pill:999px;--radius-circle:50%}
+@media(max-width:767px){:root{--radius-panel:20px}}
+
 :root{
   --g:#007437;--gd:#005a2b;--gl:#e8f5e9;--g10:rgba(0,116,55,.10);
   --gold:#E8920A;--goldd:#c97d08;--gold-bg:#FFF8E7;
   --navy:#1B3A5C;--navyd:#132d47;
   --dk:#0f2515;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
   --bd:#E2E8F0;--bg:#f8fafb;
-  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+  --r8:var(--radius-sm);--r12:var(--radius-control);--r16:var(--radius-card);--r24:var(--radius-panel);
   --zalo:#0068ff;
   --container:1400px;
   --gap-section:48px;
@@ -44,7 +56,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 @media(min-width:1200px){ .container{padding:0 40px} }
 /* Accessibility */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.skip-link{position:absolute;top:-999px;left:8px;padding:8px 16px;background:var(--g);color:#fff;font-size:14px;font-weight:700;border-radius:0 0 8px 8px;text-decoration:none;z-index:9999;transition:top .15s}
+.skip-link{position:absolute;top:-999px;left:8px;padding:8px 16px;background:var(--g);color:#fff;font-size:14px;font-weight:700;border-radius:0 0 var(--radius-control) var(--radius-control);text-decoration:none;z-index:9999;transition:top .15s}
 .skip-link:focus{top:0}
 *:focus-visible{outline:2px solid var(--g);outline-offset:2px;border-radius:2px}
 
@@ -61,19 +73,19 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .hdr-logo{flex-shrink:0;margin-right:24px}
 .hdr-logo img{height:48px;width:auto;display:block}
 .hdr-nav{display:flex;align-items:center;gap:2px;flex:1}
-.hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
+.hdr-nav a{color:#1C1C1C;font-size:14px;font-weight:500;padding:7px 13px;border-radius:var(--radius-control);text-decoration:none;white-space:nowrap;transition:.18s;display:inline-flex;align-items:center;gap:4px}
 .hdr-nav a:hover{color:var(--g);background:var(--gl)}
 /* Mục đang xem chỉ đổi màu và in đậm. Trước đây có thêm gạch ngang ::after đặt
    bottom:-20px — rơi hẳn ra ngoài header nên đè lên nội dung phía dưới. */
 .hdr-nav a.active{color:var(--g);font-weight:700}
 .hdr-nav a svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 .hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:16px}
-.hdr-search{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1C1C1C;transition:.18s}
+.hdr-search{width:36px;height:36px;border-radius:var(--radius-control);border:1px solid var(--bd);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1C1C1C;transition:.18s}
 .hdr-search:hover{background:var(--gl);color:var(--g);border-color:var(--g)}
-.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:24px;border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-catalog-hdr{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius-control);border:1.5px solid var(--bd);font-size:13px;font-weight:600;color:#1C1C1C;text-decoration:none;transition:.18s;white-space:nowrap}
 .btn-catalog-hdr:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
 /* Nút Đăng nhập — hành động nổi bật duy nhất của header, nền xanh thương hiệu */
-.btn-login{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:24px;border:1.5px solid var(--g);background:var(--g);font-size:13px;font-weight:700;color:#fff;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-login{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--radius-control);border:1.5px solid var(--g);background:var(--g);font-size:13px;font-weight:700;color:#fff;text-decoration:none;transition:.18s;white-space:nowrap}
 .btn-login:hover{background:var(--gd);border-color:var(--gd);color:#fff;box-shadow:0 4px 16px rgba(0,116,55,.3)}
 /* Hotline dạng chữ, không phải nút — đứng cạnh nút xanh mà không tranh chỗ nhìn */
 .hdr-hotline{display:inline-flex;align-items:center;gap:7px;padding:6px 6px;font-size:14px;font-weight:700;color:var(--g);text-decoration:none;white-space:nowrap;transition:.18s;font-variant-numeric:tabular-nums}
@@ -87,7 +99,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
    min-height 44px: vùng bấm bằng ngón tay, không phải chuột. */
 .cat-dd-item.cat-dd-dangnhap{color:var(--g);font-weight:700;min-height:44px}
 .cat-dd-item.cat-dd-dangnhap:hover{background:var(--gl);color:var(--gd)}
-.btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:24px;background:var(--gold);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-consult-hdr{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--radius-control);background:var(--gold);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.18s;white-space:nowrap}
 .btn-consult-hdr:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
 @media(max-width:1024px){.hdr-nav a:not(.active){display:none}.hdr-nav a.active{display:inline-flex}}
 @media(max-width:640px){
@@ -122,9 +134,9 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 }
 
 /* ══ CATEGORY DROPDOWN (nav menu) ══ */
-.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:274px;max-width:calc(100vw - 24px);max-height:calc(100vh - 96px);overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:500}
+.cat-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--bd);border-radius:var(--radius-control);box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;min-width:274px;max-width:calc(100vw - 24px);max-height:calc(100vh - 96px);overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:500}
 .cat-dropdown.open{display:block}
-.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tm);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.cat-dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-sm);text-decoration:none;color:var(--tm);font-size:13px;font-weight:500;transition:.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit}
 .cat-dd-item:hover{background:var(--gl);color:var(--g)}
 .cat-dd-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .cat-dd-sep{height:1px;background:var(--bd);margin:4px 8px}
@@ -156,31 +168,31 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 /* Hero + cột tư vấn */
 .hm-top{padding:108px 0 0;background:#fff}
 .hm-top-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:stretch}
-.hm-hero{position:relative;border-radius:20px;overflow:hidden;background:#eaf7ee;min-height:420px;display:flex;align-items:center}
+.hm-hero{position:relative;border-radius:var(--radius-panel);overflow:hidden;background:#eaf7ee;min-height:420px;display:flex;align-items:center}
 .hm-hero picture{position:absolute;inset:0}
 .hm-hero-bg{width:100%;height:100%;object-fit:cover;object-position:78% center;display:block}
 @media(min-width:641px) and (max-width:1439px){.hm-hero picture .hm-hero-bg{object-position:right top}.hm-hero-script{display:none}}
 .hm-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(240,250,243,.92) 0%,rgba(240,250,243,.7) 38%,rgba(240,250,243,0) 62%);pointer-events:none}
 .hm-hero-in{position:relative;z-index:1;padding:40px 44px;max-width:780px;width:100%}
 .hm-hero-script{position:absolute;z-index:1;top:26px;right:36px;font-size:34px;transform:rotate(-7deg);text-align:right;text-shadow:0 2px 12px rgba(255,255,255,.9)}
-.hm-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,116,55,.15);color:var(--g);font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px 6px 8px;border-radius:30px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.hm-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,116,55,.15);color:var(--g);font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px 6px 8px;border-radius:var(--radius-pill);text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .hm-eyebrow svg{width:16px;height:16px}
-.hm-eyebrow svg:first-child{background:var(--g);color:#fff;border-radius:50%;padding:2px}
+.hm-eyebrow svg:first-child{background:var(--g);color:#fff;border-radius:var(--radius-circle);padding:2px}
 .hm-eyebrow svg:last-child{color:var(--g)}
 .hm-h1{font-size:clamp(1.75rem,3.3vw,2.9rem);font-weight:800;color:var(--gd);line-height:1.18;letter-spacing:-.5px;margin:16px 0 14px}
 .hm-h1 span{color:var(--gold)}
 .hm-hero-sub{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:15px;font-weight:600;color:var(--dk);margin-bottom:22px}
-.hm-hero-sub i{width:5px;height:5px;border-radius:50%;background:var(--gold)}
-.hm-search{display:flex;align-items:center;gap:8px;background:#fff;border-radius:40px;padding:6px 6px 6px 18px;box-shadow:0 8px 28px rgba(0,60,30,.12);max-width:560px}
+.hm-hero-sub i{width:5px;height:5px;border-radius:var(--radius-circle);background:var(--gold)}
+.hm-search{display:flex;align-items:center;gap:8px;background:#fff;border-radius:var(--radius-control);padding:6px 6px 6px 18px;box-shadow:0 8px 28px rgba(0,60,30,.12);max-width:560px}
 .hm-search>svg{width:18px;height:18px;color:var(--ts);flex-shrink:0}
 .hm-search input{flex:1;min-width:0;border:none;outline:none;font:inherit;font-size:14px;background:transparent;color:var(--tx);height:40px}
-.hm-search button{height:42px;padding:0 26px;border:none;border-radius:30px;background:var(--gold);color:#fff;font:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:.18s}
+.hm-search button{height:42px;padding:0 26px;border:none;border-radius:var(--radius-control);background:var(--gold);color:#fff;font:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:.18s}
 .hm-search button:hover{background:var(--goldd)}
 .hm-quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.hm-quick a{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);border:1px solid rgba(0,116,55,.14);border-radius:30px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--dk);text-decoration:none;transition:.18s}
+.hm-quick a{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);border:1px solid rgba(0,116,55,.14);border-radius:var(--radius-control);padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--dk);text-decoration:none;transition:.18s}
 .hm-quick a svg{width:14px;height:14px;color:var(--g)}
 .hm-quick a:hover{border-color:var(--g);color:var(--g)}
-.hm-side{background:linear-gradient(180deg,#f2faf4,#fff 60%);border:1px solid #dcefe0;border-radius:20px;padding:20px 18px;display:flex;flex-direction:column;gap:12px}
+.hm-side{background:linear-gradient(180deg,#f2faf4,#fff 60%);border:1px solid #dcefe0;border-radius:var(--radius-card);padding:20px 18px;display:flex;flex-direction:column;gap:12px}
 .hm-side-top{display:flex;justify-content:space-between;gap:8px}
 .hm-side-h{font-size:19px;font-weight:800;color:var(--dk);margin-bottom:4px}
 .hm-side-top p{font-size:12.5px;color:var(--tm);line-height:1.5}
@@ -188,26 +200,26 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .hm-side .hero-form{display:flex;flex-direction:column;gap:8px}
 .hf-field{position:relative;display:flex;align-items:center}
 .hf-field svg{position:absolute;left:11px;width:15px;height:15px;stroke:var(--ts);fill:none;stroke-width:2;pointer-events:none}
-.hf-input,.hf-select{width:100%;height:42px;padding:0 12px 0 33px;border:1.5px solid var(--bd);border-radius:10px;font-family:inherit;font-size:14px;color:var(--tx);background:#fff;outline:none;transition:.18s;-webkit-appearance:none;appearance:none}
+.hf-input,.hf-select{width:100%;height:42px;padding:0 12px 0 33px;border:1.5px solid var(--bd);border-radius:var(--radius-control);font-family:inherit;font-size:14px;color:var(--tx);background:#fff;outline:none;transition:.18s;-webkit-appearance:none;appearance:none}
 .hf-input:focus,.hf-select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
 .hf-select{padding-right:30px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center}
-.hf-btn{height:44px;border:none;border-radius:30px;background:var(--gold);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.18s}
+.hf-btn{height:44px;border:none;border-radius:var(--radius-control);background:var(--gold);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.18s}
 .hf-btn:hover{background:var(--goldd);box-shadow:0 4px 16px rgba(232,146,10,.35)}
 .hf-btn:disabled{opacity:.6;cursor:not-allowed}
 .hf-btn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5}
 .hf-note{display:none}
-.hf-success{display:none;align-items:center;gap:10px;background:#fff;border:1px solid var(--g);border-radius:12px;padding:14px}
+.hf-success{display:none;align-items:center;gap:10px;background:#fff;border:1px solid var(--g);border-radius:var(--radius-control);padding:14px}
 .hf-success.show{display:flex}
 .hf-success svg{width:24px;height:24px;stroke:var(--g);fill:none;stroke-width:2;flex-shrink:0}
 .hf-success b{display:block;font-size:14px;color:var(--dk)}
 .hf-success span{font-size:12.5px;color:var(--tm)}
 .hm-side-hot{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;text-decoration:none;padding:10px 0 2px;border-top:1px dashed #cfe5d4}
-.hm-side-hot span{grid-row:span 2;width:40px;height:40px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center}
+.hm-side-hot span{grid-row:span 2;width:40px;height:40px;border-radius:var(--radius-circle);background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center}
 .hm-side-hot span svg{width:18px;height:18px}
 .hm-side-hot b{font-size:17px;font-weight:800;color:var(--dk);font-variant-numeric:tabular-nums;line-height:1.2}
 .hm-side-hot small{font-size:12px;color:var(--ts)}
 .hm-side-links{display:flex;flex-direction:column}
-.hm-side-links a{display:flex;align-items:center;gap:10px;padding:8px 2px;font-size:13.5px;font-weight:600;color:var(--tx);text-decoration:none;border-radius:8px;transition:.18s}
+.hm-side-links a{display:flex;align-items:center;gap:10px;padding:8px 2px;font-size:13.5px;font-weight:600;color:var(--tx);text-decoration:none;border-radius:var(--radius-control);transition:.18s}
 .hm-side-links a svg,.hm-side-links a img{width:18px;height:18px;color:var(--g);flex-shrink:0}
 .hm-side-links a:hover{color:var(--g);background:var(--gl);padding-left:8px}
 /* Section chung */
@@ -216,7 +228,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;lin
 .hm-sec-tight{padding-top:36px}
 main#catalog{padding-bottom:56px}
 .hm-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.hm-head-ic{width:44px;height:44px;border-radius:50%;border:2px solid var(--g);color:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--gl)}
+.hm-head-ic{width:44px;height:44px;border-radius:var(--radius-circle);border:2px solid var(--g);color:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--gl)}
 .hm-head-ic svg{width:20px;height:20px}
 .hm-head-tx{flex:1;min-width:0}
 .hm-h2{font-size:clamp(1.25rem,2.2vw,1.6rem);font-weight:800;color:var(--dk);letter-spacing:-.3px;line-height:1.25}
@@ -226,7 +238,7 @@ main#catalog{padding-bottom:56px}
 .hm-more:hover svg{transform:translateX(3px)}
 /* Sản phẩm nổi bật */
 .hm-feat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.hm-fc{display:flex;flex-direction:column;background:#fff;border:1px solid #e6ece8;border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;transition:.22s}
+.hm-fc{display:flex;flex-direction:column;background:#fff;border:1px solid #e6ece8;border-radius:var(--radius-card);overflow:hidden;text-decoration:none;color:inherit;transition:.22s}
 .hm-fc:hover{box-shadow:0 12px 32px rgba(0,80,40,.12);transform:translateY(-3px);border-color:#cfe5d4}
 .hm-fc-ph{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--gl)}
 .hm-fc-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
@@ -243,45 +255,45 @@ main#catalog{padding-bottom:56px}
   .hm-fc .hm-fc-bd h3{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin-bottom:2px}
   .hm-fc .hm-fc-bd p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;overflow:hidden;text-overflow:clip}
 }
-.hm-go{width:32px;height:32px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.18s}
+.hm-go{width:32px;height:32px;border-radius:var(--radius-circle);background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.18s}
 .hm-go svg{width:15px;height:15px}
 .hm-fc:hover .hm-go{background:var(--gold)}
 /* Tìm bảo hiểm phù hợp: đối tượng → nhu cầu → danh sách */
-.hm-aud{display:inline-flex;gap:4px;padding:4px;background:#f1f6f2;border:1px solid #e0efe4;border-radius:40px;margin-bottom:16px;max-width:100%}
-.hm-aud-b{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;border:none;border-radius:30px;background:none;font:inherit;font-size:14px;font-weight:700;color:var(--tm);cursor:pointer;white-space:nowrap;transition:.18s}
+.hm-aud{display:inline-flex;gap:4px;padding:4px;background:#f1f6f2;border:1px solid #e0efe4;border-radius:var(--radius-pill);margin-bottom:16px;max-width:100%}
+.hm-aud-b{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;border:none;border-radius:var(--radius-pill);background:none;font:inherit;font-size:14px;font-weight:700;color:var(--tm);cursor:pointer;white-space:nowrap;transition:.18s}
 .hm-aud-b svg{width:17px;height:17px}
 .hm-aud-b:hover{color:var(--g)}
 .hm-aud-b.on{background:var(--g);color:#fff;box-shadow:0 4px 14px rgba(0,116,55,.25)}
 .hm-needs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
-.hm-need{display:flex;align-items:center;gap:12px;padding:14px;text-align:left;background:#fff;border:1.5px solid #b7d3c0;box-shadow:0 2px 8px rgba(0,60,30,.06);border-radius:14px;cursor:pointer;font:inherit;transition:.18s}
+.hm-need{display:flex;align-items:center;gap:12px;padding:14px;text-align:left;background:#fff;border:1.5px solid #b7d3c0;box-shadow:0 2px 8px rgba(0,60,30,.06);border-radius:var(--radius-card);cursor:pointer;font:inherit;transition:.18s}
 .hm-need[hidden]{display:none}
 .hm-need:hover{border-color:var(--g);box-shadow:0 6px 16px rgba(0,60,30,.1)}
 .hm-need.on{border-color:var(--g);border-width:2px;background:#eaf6ee;box-shadow:0 0 0 3px rgba(0,116,55,.12)}
-.hm-need-ic{width:44px;height:44px;border-radius:12px;background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hm-need-ic{width:44px;height:44px;border-radius:var(--radius-sm);background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .hm-need-ic svg{width:24px;height:24px}
 .hm-need.on .hm-need-ic{background:var(--g);color:#fff}
 .hm-need b{display:block;font-size:14px;font-weight:700;color:var(--dk);line-height:1.3}
 .hm-need small{display:block;font-size:11.5px;color:var(--ts);line-height:1.4;margin-top:2px}
-.hm-bb{font-style:normal;font-size:10px;font-weight:700;color:var(--g);background:var(--gl);border:1px solid #cfe5d4;padding:1px 6px;border-radius:10px;margin-left:4px;vertical-align:2px;white-space:nowrap}
+.hm-bb{font-style:normal;font-size:10px;font-weight:700;color:var(--g);background:var(--gl);border:1px solid #cfe5d4;padding:1px 6px;border-radius:var(--radius-control);margin-left:4px;vertical-align:2px;white-space:nowrap}
 .hm-list-foot{text-align:center;margin-top:18px}
-.hm-hint{font-size:13.5px;color:var(--tm);text-align:center;padding:14px;border:1.5px dashed #b7d3c0;border-radius:14px;background:#f7fbf8}
+.hm-hint{font-size:13.5px;color:var(--tm);text-align:center;padding:14px;border:1.5px dashed #b7d3c0;border-radius:var(--radius-control);background:#f7fbf8}
 .hm-hint[hidden]{display:none}
 .hm-more-m{text-align:center}
-#hm-more-m{margin-top:12px;padding:10px 22px;border-radius:30px;border:1.5px solid var(--g);background:#fff;color:var(--g);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+#hm-more-m{margin-top:12px;padding:10px 22px;border-radius:var(--radius-control);border:1.5px solid var(--g);background:#fff;color:var(--g);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
 #hm-more-m[hidden]{display:none}
 /* Tất cả sản phẩm */
 .hm-head-all{flex-wrap:wrap}
-.hm-lsearch{display:flex;align-items:center;gap:8px;border:1.5px solid var(--bd);border-radius:30px;padding:0 16px;height:42px;min-width:280px;transition:.18s;background:#fff}
+.hm-lsearch{display:flex;align-items:center;gap:8px;border:1.5px solid var(--bd);border-radius:var(--radius-control);padding:0 16px;height:42px;min-width:280px;transition:.18s;background:#fff}
 .hm-lsearch:focus-within{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.08)}
 .hm-lsearch svg{width:16px;height:16px;color:var(--ts)}
 .hm-lsearch input{border:none;outline:none;font:inherit;font-size:13.5px;flex:1;min-width:0;background:transparent}
 .hm-filter-note{font-size:13px;color:var(--tm);margin:-6px 0 14px}
 .hm-filter-note button{border:none;background:none;color:var(--g);font:inherit;font-weight:700;cursor:pointer;text-decoration:underline}
 .hm-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.hm-row{display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid #b7d3c0;box-shadow:0 2px 8px rgba(0,60,30,.05);border-radius:14px;background:#fff;text-decoration:none;color:inherit;transition:.18s}
+.hm-row{display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid #b7d3c0;box-shadow:0 2px 8px rgba(0,60,30,.05);border-radius:var(--radius-card);background:#fff;text-decoration:none;color:inherit;transition:.18s}
 .hm-row:hover{border-color:var(--g);box-shadow:0 6px 20px rgba(0,80,40,.08)}
 .hm-row[hidden]{display:none}
-.hm-row-ic{width:48px;height:48px;border-radius:50%;background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hm-row-ic{width:48px;height:48px;border-radius:var(--radius-circle);background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .hm-row-ic svg{width:24px;height:24px}
 .hm-row-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
 .hm-row-tx b{font-size:14px;font-weight:700;color:var(--dk);line-height:1.3}
@@ -292,14 +304,14 @@ main#catalog{padding-bottom:56px}
 .hm-empty{text-align:center;padding:36px 16px;color:var(--tm);font-size:14px}
 .hm-empty a{color:var(--g);font-weight:700}
 /* Vì sao */
-.hm-why{display:flex;align-items:center;gap:24px;background:linear-gradient(90deg,#f6fbf7,#eef8f1);border:1px solid #e0efe4;border-radius:20px;padding:24px 28px}
+.hm-why{display:flex;align-items:center;gap:24px;background:linear-gradient(90deg,#f6fbf7,#eef8f1);border:1px solid #e0efe4;border-radius:var(--radius-panel);padding:24px 28px}
 .hm-why-main{flex:1;min-width:0}
 .hm-head-sm{margin-bottom:18px}
 .hm-head-sm .hm-h2{font-size:1.2rem}
 .hm-why-grid{display:grid;grid-template-columns:repeat(4,1fr)}
 .hm-why-it{display:flex;gap:12px;padding:0 18px;border-left:1px solid #d6e8da}
 .hm-why-it:first-child{padding-left:0;border-left:none}
-.hm-why-it>span{width:44px;height:44px;border-radius:50%;border:2px solid var(--g);color:var(--g);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hm-why-it>span{width:44px;height:44px;border-radius:var(--radius-circle);border:2px solid var(--g);color:var(--g);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .hm-why-it>span svg{width:20px;height:20px}
 .hm-why-it b{display:block;font-size:14px;font-weight:700;color:var(--dk);margin-bottom:3px}
 .hm-why-it p{font-size:12.5px;color:var(--tm);line-height:1.5}
@@ -307,19 +319,19 @@ main#catalog{padding-bottom:56px}
 .hm-why-art .hm-script{white-space:nowrap;font-size:30px;transform:rotate(-8deg);margin-left:-18px}
 .hm-why-art em{font-style:normal;color:var(--g)}
 /* Banner xanh */
-.hm-cta{display:grid;grid-template-columns:auto minmax(0,1.3fr) auto auto;align-items:center;gap:28px;background:linear-gradient(120deg,#0b6b37,#004d25);border-radius:20px;padding:22px 36px 22px 24px;color:#fff;position:relative;overflow:hidden}
-.hm-cta::after{content:'';position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hm-cta{display:grid;grid-template-columns:auto minmax(0,1.3fr) auto auto;align-items:center;gap:28px;background:linear-gradient(120deg,#0b6b37,#004d25);border-radius:var(--radius-panel);padding:22px 36px 22px 24px;color:#fff;position:relative;overflow:hidden}
+.hm-cta::after{content:'';position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:var(--radius-circle);background:rgba(255,255,255,.05)}
 .hm-cta-img{width:110px;height:110px}
 .hm-cta h2{font-size:1.35rem;font-weight:800;margin-bottom:4px}
 .hm-cta p{font-size:13.5px;color:rgba(255,255,255,.82);margin-bottom:14px}
-.hm-btn-o{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:30px;text-decoration:none;transition:.18s}
+.hm-btn-o{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:var(--radius-control);text-decoration:none;transition:.18s}
 .hm-btn-o svg{width:16px;height:16px}
 .hm-btn-o:hover{background:var(--goldd);box-shadow:0 6px 20px rgba(0,0,0,.2)}
 .hm-cta-list{list-style:none;display:flex;flex-direction:column;gap:10px;padding-left:28px;border-left:1px solid rgba(255,255,255,.2)}
 .hm-cta-list li{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500}
 .hm-cta-list svg{width:18px;height:18px;color:#fff}
 .hm-cta-hot{display:flex;align-items:center;gap:14px;color:#fff;text-decoration:none;position:relative;z-index:1}
-.hm-cta-hot span{width:58px;height:58px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(232,146,10,.2)}
+.hm-cta-hot span{width:58px;height:58px;border-radius:var(--radius-circle);background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(232,146,10,.2)}
 .hm-cta-hot span svg{width:26px;height:26px}
 .hm-cta-hot b{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}
 .hm-cta-hot small{display:block;font-size:13px;font-weight:500;color:rgba(255,255,255,.8)}
@@ -353,7 +365,7 @@ main#catalog{padding-bottom:56px}
 @media(max-width:640px){
   .hm-wrap{padding:0 16px}
   .hm-top{padding-top:68px}
-  .hm-hero{min-height:0;align-items:flex-start;border-radius:16px}
+  .hm-hero{min-height:0;align-items:flex-start;border-radius:var(--radius-panel)}
   .hm-hero-bg{object-position:center bottom}
   .hm-hero::after{background:linear-gradient(180deg,rgba(240,250,243,.95) 0%,rgba(240,250,243,.8) 52%,rgba(240,250,243,0) 75%)}
   .hm-hero-in{padding:22px 18px 170px}
@@ -362,7 +374,7 @@ main#catalog{padding-bottom:56px}
   .hm-search{padding:5px 5px 5px 14px}
   .hm-search button{padding:0 16px;height:38px;font-size:13px}
   .hm-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-  .hm-quick a{flex-direction:column;justify-content:flex-start;gap:5px;padding:9px 4px;border-radius:12px;font-size:10.5px;line-height:1.25;text-align:center;white-space:normal}
+  .hm-quick a{flex-direction:column;justify-content:flex-start;gap:5px;padding:9px 4px;border-radius:var(--radius-control);font-size:10.5px;line-height:1.25;text-align:center;white-space:normal}
   .hm-quick a svg{width:20px;height:20px}
   .hm-side-hot,.hm-side-links{display:none}
   .hm-side{display:flex;padding:18px 16px}
@@ -373,7 +385,7 @@ main#catalog{padding-bottom:56px}
   .hm-head-tx p{font-size:12.5px}
   .hm-head .hm-more{display:none}
   .hm-feat{grid-template-columns:repeat(2,1fr);gap:10px}
-  .hm-fc{border-radius:12px}
+  .hm-fc{border-radius:var(--radius-card)}
   .hm-fc-bd{padding:10px 10px 12px}
   .hm-fc h3{font-size:13.5px}
   .hm-fc p{font-size:11.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -382,8 +394,8 @@ main#catalog{padding-bottom:56px}
   .hm-aud-b{flex:1;justify-content:center;padding:9px 8px;font-size:12.5px;white-space:normal;text-align:center;line-height:1.25}
   .hm-aud-b svg{display:none}
   .hm-needs{grid-template-columns:1fr 1fr;gap:8px}
-  .hm-need{padding:10px;gap:9px;border-radius:12px}
-  .hm-need-ic{width:36px;height:36px;border-radius:10px}
+  .hm-need{padding:10px;gap:9px;border-radius:var(--radius-card)}
+  .hm-need-ic{width:36px;height:36px;border-radius:var(--radius-sm)}
   .hm-need-ic svg{width:20px;height:20px}
   .hm-need b{font-size:13px}
   .hm-need small{font-size:10.5px}
@@ -404,24 +416,24 @@ main#catalog{padding-bottom:56px}
    .mob-call… — thiếu thuộc tính nào là giá trị cũ của trang "mồ côi" sống lại. */
 .mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);padding:4px 6px calc(4px + env(safe-area-inset-bottom));z-index:400;gap:0;box-shadow:0 -4px 20px rgba(0,0,0,.06)}
 @media(max-width:640px){.mob-bar{display:flex}}
-.mob-bar .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;padding:4px 2px;border:none;border-radius:10px;background:none;font-family:inherit;font-size:11px;font-weight:600;line-height:1.2;color:#6b7280;text-decoration:none;white-space:nowrap;cursor:pointer}
+.mob-bar .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;padding:4px 2px;border:none;border-radius:var(--radius-control);background:none;font-family:inherit;font-size:11px;font-weight:600;line-height:1.2;color:#6b7280;text-decoration:none;white-space:nowrap;cursor:pointer}
 /* Icon xanh thương hiệu; tab đang xem: icon + chữ màu cam, nền cam nhạt sau icon */
 .mob-bar .mob-tab svg{width:22px;height:22px;flex-shrink:0;color:var(--g);stroke:var(--g)}
 .mob-bar .mob-tab.on{color:var(--gold);font-weight:800}
-.mob-bar .mob-tab.on svg{color:var(--gold);stroke:var(--gold);background:#fff3e0;border-radius:10px;box-sizing:content-box;padding:3px 12px;margin:-3px 0}
+.mob-bar .mob-tab.on svg{color:var(--gold);stroke:var(--gold);background:#fff3e0;border-radius:var(--radius-sm);box-sizing:content-box;padding:3px 12px;margin:-3px 0}
 .mob-bar .mob-tab:active{background:var(--gl)}
 .mob-sheet{position:fixed;inset:0;z-index:1200}
 .mob-sheet[hidden]{display:none}
 .mob-sheet-bg{position:absolute;inset:0;background:rgba(15,37,21,.45)}
-.mob-sheet-box{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;box-shadow:0 -10px 40px rgba(0,0,0,.18);animation:mobSheetIn .22s ease-out}
+.mob-sheet-box{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:var(--radius-panel) var(--radius-panel) 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;box-shadow:0 -10px 40px rgba(0,0,0,.18);animation:mobSheetIn .22s ease-out}
 @keyframes mobSheetIn{from{transform:translateY(100%)}to{transform:none}}
 .mob-sheet-grip{width:40px;height:4px;border-radius:4px;background:#d1d5db;align-self:center;margin-bottom:4px}
-.mob-sheet-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:none;background:#f3f4f6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#374151;cursor:pointer}
+.mob-sheet-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:none;background:#f3f4f6;border-radius:var(--radius-circle);display:flex;align-items:center;justify-content:center;color:#374151;cursor:pointer}
 .mob-sheet-x svg{width:18px;height:18px}
 .mob-sheet-h{font-size:17px;font-weight:800;color:var(--dk)}
 .mob-sheet-sub{font-size:13px;color:var(--ts);margin-top:-8px;margin-bottom:2px}
-.mob-sheet .mob-sheet-it{flex:none;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:12px;border:1px solid #e6ece8;border-radius:14px;background:#fff;color:var(--dk);font-size:14px;font-weight:700;text-decoration:none;white-space:normal;text-align:left}
-.mob-sheet .mob-sheet-it>span{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.mob-sheet .mob-sheet-it{flex:none;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:12px;border:1px solid #e6ece8;border-radius:var(--radius-control);background:#fff;color:var(--dk);font-size:14px;font-weight:700;text-decoration:none;white-space:normal;text-align:left}
+.mob-sheet .mob-sheet-it>span{width:42px;height:42px;border-radius:var(--radius-circle);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
 .mob-sheet .mob-sheet-it>span svg{width:20px;height:20px}
 .mob-sheet .mob-sheet-it b{display:flex;flex-direction:column;font-weight:700;line-height:1.3}
 .mob-sheet .mob-sheet-it small{font-size:12px;font-weight:500;color:var(--ts)}
@@ -434,7 +446,7 @@ main#catalog{padding-bottom:56px}
 /* ══ FLOATING CTA (DESKTOP ONLY) ══ */
 .float-cta{position:fixed;right:20px;bottom:120px;z-index:390;display:flex;flex-direction:column;gap:12px;align-items:center}
 @media(max-width:640px){.float-cta{display:none}}
-.float-btn{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;overflow:hidden;flex-shrink:0}
+.float-btn{width:54px;height:54px;border-radius:var(--radius-circle);display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;overflow:hidden;flex-shrink:0}
 .float-btn:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.28)}
 .float-btn-zalo{background:transparent;box-shadow:0 4px 16px rgba(0,0,0,.18)}
 .float-btn-messenger{background:#0084FF}
@@ -455,17 +467,17 @@ main#catalog{padding-bottom:56px}
 .ftr-social-row{max-width:var(--container);margin:0 auto;padding:4px 40px 22px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .ftr-social-h{font-size:.78rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.12em;margin:0}
 .ftr-social{display:flex;gap:12px;justify-content:center}
-.ftr-social a{width:40px;height:40px;border-radius:50%;border:1.5px solid #CBD5E1;background:transparent;color:#8A94A6;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
+.ftr-social a{width:40px;height:40px;border-radius:var(--radius-circle);border:1.5px solid #CBD5E1;background:transparent;color:#8A94A6;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s;flex-shrink:0}
 .ftr-social a:hover{color:var(--g);border-color:var(--g);transform:translateY(-2px)}
 .ftr-social svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 /* Banner tuyển Đại lý / CTV — nền cam thương hiệu, như khối "Seller program" */
-.ftr-ctv{background:linear-gradient(135deg,var(--gold) 0%,var(--goldd) 100%);color:#fff;border-radius:22px;padding:26px 26px 24px;align-self:start;box-shadow:0 10px 30px rgba(232,146,10,.25)}
+.ftr-ctv{background:linear-gradient(135deg,var(--gold) 0%,var(--goldd) 100%);color:#fff;border-radius:var(--radius-card);padding:26px 26px 24px;align-self:start;box-shadow:0 10px 30px rgba(232,146,10,.25)}
 .ftr-ctv-eb{display:flex;align-items:center;gap:9px;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;line-height:1.5;margin:0 0 12px}
 .ftr-ctv-eb svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .ftr-ctv-h{font-size:1.4rem;font-weight:800;line-height:1.3;color:#fff;margin:0 0 10px;letter-spacing:-.01em}
 .ftr-ctv-p{font-size:.86rem;font-weight:500;line-height:1.65;color:#fff;margin:0 0 14px}
 .ftr-ctv-note{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.5;color:#FFF3D6;margin:0 0 18px}
-.ftr-ctv-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--dk);color:#fff;font-size:.9rem;font-weight:700;padding:13px 20px;border-radius:999px;text-decoration:none;transition:.2s}
+.ftr-ctv-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--dk);color:#fff;font-size:.9rem;font-weight:700;padding:13px 20px;border-radius:var(--radius-control);text-decoration:none;transition:.2s}
 .ftr-ctv-btn:hover{background:#000;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .ftr-ctv-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .ftr-phone-label{font-size:.7rem;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
@@ -492,14 +504,14 @@ main#catalog{padding-bottom:56px}
 .brandinfo-body ul{margin:0 0 11px 19px}
 .brandinfo-body li{font-size:14.5px;color:var(--tm);line-height:1.72;margin-bottom:6px}
 .brandinfo-body a{color:var(--g);font-weight:600}
-.bi-facts{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r16);padding:20px 22px;position:sticky;top:80px}
+.bi-facts{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-card);padding:20px 22px;position:sticky;top:80px}
 .bi-facts h4{font-size:12px;font-weight:800;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
 .bi-fact{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--bd);font-size:13.5px}
 .bi-fact span{color:var(--ts);flex-shrink:0}
 .bi-fact b{color:var(--dk);text-align:right;font-weight:700}
 .bi-note{font-size:11.5px;color:var(--ts);line-height:1.6;margin-top:12px;font-style:italic}
 .bi-faq{margin-top:34px}
-.bi-faq-item{background:#fff;border:1px solid var(--bd);border-radius:var(--r12);padding:15px 18px;margin-bottom:11px}
+.bi-faq-item{background:#fff;border:1px solid var(--bd);border-radius:var(--radius-control);padding:15px 18px;margin-bottom:11px}
 .bi-faq-q{font-size:15px;font-weight:800;color:var(--dk);margin-bottom:7px}
 .bi-faq-a{font-size:14px;color:var(--tm);line-height:1.72}
 .bi-faq-a a{color:var(--g);font-weight:600}
@@ -509,7 +521,7 @@ main#catalog{padding-bottom:56px}
 
 /* Về chúng tôi — mô tả ngắn + "Xem thêm" sổ phần còn lại */
 .brandinfo.hm-about{background:none;border-top:none;padding:36px 0 0}
-.hm-about-box{background:#fff;border:1px solid #e0efe4;border-radius:20px;padding:24px 28px}
+.hm-about-box{background:#fff;border:1px solid #e0efe4;border-radius:var(--radius-panel);padding:24px 28px}
 .hm-about .brandinfo-lbl{margin-bottom:2px;font-size:11.5px}
 .hm-about .hm-h2 b{color:var(--g)}
 .hm-about .brandinfo-lead{font-size:14.5px;max-width:none;margin:0 0 4px;line-height:1.75}
@@ -525,9 +537,9 @@ main#catalog{padding-bottom:56px}
 .bi-links{margin-top:36px;padding-top:28px;border-top:1px solid var(--bd)}
 .bi-links h3{font-size:1rem;font-weight:800;color:var(--dk);margin-bottom:16px}
 .bi-links-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.bi-link-card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#fff;border:1px solid var(--bd);border-radius:12px;text-decoration:none;transition:.18s}
+.bi-link-card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#fff;border:1px solid var(--bd);border-radius:var(--radius-card);text-decoration:none;transition:.18s}
 .bi-link-card:hover{border-color:var(--g);box-shadow:0 6px 22px rgba(0,116,55,.10);transform:translateY(-2px)}
-.bi-link-tag{font-size:.66rem;font-weight:700;color:var(--g);background:var(--gl);padding:3px 9px;border-radius:10px;align-self:flex-start}
+.bi-link-tag{font-size:.66rem;font-weight:700;color:var(--g);background:var(--gl);padding:3px 9px;border-radius:var(--radius-sm);align-self:flex-start}
 .bi-link-card b{font-size:.92rem;font-weight:700;color:var(--dk);line-height:1.35}
 .bi-link-card span:last-child{font-size:.78rem;color:var(--tm);line-height:1.55}
 @media(max-width:900px){.bi-links-grid{grid-template-columns:1fr}}
@@ -542,7 +554,7 @@ main#catalog{padding-bottom:56px}
 
 /* ── MENU NHIỀU CẤP (đồng bộ toàn site) ── */
 .hdr-nav-item{position:relative;display:inline-flex;align-items:center}
-.hdr-nav-top{display:inline-flex;align-items:center;gap:5px;color:#1C1C1C;font-family:inherit;font-size:14px;font-weight:500;padding:7px 13px;border:none;background:none;border-radius:8px;text-decoration:none;white-space:nowrap;cursor:pointer;transition:.18s}
+.hdr-nav-top{display:inline-flex;align-items:center;gap:5px;color:#1C1C1C;font-family:inherit;font-size:14px;font-weight:500;padding:7px 13px;border:none;background:none;border-radius:var(--radius-sm);text-decoration:none;white-space:nowrap;cursor:pointer;transition:.18s}
 .hdr-nav-top:hover,.hdr-nav-item:hover>.hdr-nav-top{color:var(--g,#007437);background:var(--gl,#E8F5E9)}
 .hdr-nav-top.active{color:var(--g,#007437);font-weight:700}
 /* Trang dang xem nam trong menu con -> nut cha cung sang len */
@@ -550,37 +562,37 @@ main#catalog{padding-bottom:56px}
 .hdr-nav .hdr-drop a.active,.hdr-nav .hdr-mega-list a.active{background:var(--gl,#E8F5E9);color:var(--g,#007437);font-weight:700}
 .hdr-chev{width:13px;height:13px;flex-shrink:0;transition:transform .18s}
 .hdr-nav-item:hover .hdr-chev{transform:rotate(180deg)}
-.hdr-mega,.hdr-drop{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:14px;box-shadow:0 14px 44px rgba(0,0,0,.14);z-index:500;margin-top:6px}
+.hdr-mega,.hdr-drop{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--bd,#E2E8F0);border-radius:var(--radius-card);box-shadow:0 14px 44px rgba(0,0,0,.14);z-index:500;margin-top:6px}
 .hdr-nav-item:hover>.hdr-mega,.hdr-nav-item:focus-within>.hdr-mega,.hdr-mega.open{display:grid}
 .hdr-nav-item:hover>.hdr-drop,.hdr-nav-item:focus-within>.hdr-drop,.hdr-drop.open{display:block}
 .hdr-nav-item::after{content:"";position:absolute;left:0;right:0;top:100%;height:10px}
 .hdr-mega{width:min(700px,calc(100vw - 40px));grid-template-columns:246px 1fr;gap:4px;padding:10px}
 .hdr-mega-cats{display:flex;flex-direction:column;gap:2px;border-right:1px solid var(--bd,#E2E8F0);padding-right:8px}
-.hdr-mega-cat{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border:none;background:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;color:var(--tm,#4a5568);text-align:left;cursor:pointer;transition:.15s}
+.hdr-mega-cat{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border:none;background:none;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;font-weight:600;color:var(--tm,#4a5568);text-align:left;cursor:pointer;transition:.15s}
 .hdr-mega-cat:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
 .hdr-mega-cat.on{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
 .hdr-mega-ic{display:flex;flex-shrink:0}
 .hdr-mega-ic svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}
 .hdr-mega-nm{flex:1;line-height:1.3}
-.hdr-mega-n{font-size:11px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:9999px;padding:1px 7px;flex-shrink:0}
+.hdr-mega-n{font-size:11px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:var(--radius-sm);padding:1px 7px;flex-shrink:0}
 .hdr-mega-cat.on .hdr-mega-n{background:#fff;color:var(--g,#007437)}
 .hdr-mega-prods{padding:2px}
 .hdr-mega-list{display:none;grid-template-columns:1fr 1fr;gap:2px;align-content:start}
 .hdr-mega-list.on{display:grid}
-.hdr-nav .hdr-mega-list a{display:block;padding:8px 10px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--tm,#4a5568);line-height:1.4}
+.hdr-nav .hdr-mega-list a{display:block;padding:8px 10px;border-radius:var(--radius-control);font-size:12.5px;font-weight:500;color:var(--tm,#4a5568);line-height:1.4}
 .hdr-nav .hdr-mega-list a:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
-.hdr-nav .hdr-mega-all{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:2px;padding:10px;border-top:1px solid var(--bd,#E2E8F0);border-radius:0 0 10px 10px;font-size:13px;font-weight:700;color:var(--g,#007437)}
+.hdr-nav .hdr-mega-all{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:2px;padding:10px;border-top:1px solid var(--bd,#E2E8F0);border-radius:0 0 var(--radius-control) var(--radius-control);font-size:13px;font-weight:700;color:var(--g,#007437)}
 .hdr-nav .hdr-mega-all:hover{background:var(--gl,#E8F5E9)}
 .hdr-mega-all svg{width:15px;height:15px}
 .hdr-drop{min-width:216px;padding:6px}
-.hdr-nav .hdr-drop a{display:block;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--tm,#4a5568)}
+.hdr-nav .hdr-drop a{display:block;padding:10px 12px;border-radius:var(--radius-control);font-size:13px;font-weight:500;color:var(--tm,#4a5568)}
 .hdr-nav .hdr-drop a:hover{background:var(--gl,#E8F5E9);color:var(--g,#007437)}
 /* Hamburger nhiều cấp */
 .cat-dd-more{justify-content:flex-start}
 .cat-dd-ic{display:flex;flex-shrink:0}
 .cat-dd-ic svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
 .cat-dd-tx{flex:1;text-align:left;line-height:1.35}
-.cat-dd-n{font-size:10.5px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:9999px;padding:1px 6px}
+.cat-dd-n{font-size:10.5px;font-weight:700;color:var(--ts,#718096);background:#f1f5f9;border-radius:var(--radius-sm);padding:1px 6px}
 .cat-dd-chev{width:13px;height:13px;flex-shrink:0;transition:transform .2s}
 .cat-dd-more.open .cat-dd-chev{transform:rotate(180deg)}
 .cat-dd-more.open{color:var(--g,#007437);background:var(--gl,#E8F5E9)}
@@ -602,10 +614,10 @@ main#catalog{padding-bottom:56px}
   .hdr .hdr-logo{position:static;transform:none;margin:0 auto 0 0}
   .hdr .hdr-logo img{height:38px}
   .hdr .hdr-actions{order:0;margin-left:auto;gap:0}
-  .hdr .hdr-m-btn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:none;background:none;border-radius:50%;color:var(--g);cursor:pointer;text-decoration:none}
+  .hdr .hdr-m-btn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:none;background:none;border-radius:var(--radius-circle);color:var(--g);cursor:pointer;text-decoration:none}
   .hdr .hdr-m-btn svg{width:22px;height:22px}
   .hdr .hdr-m-btn:active{background:var(--gl)}
-  .hdr .btn-catalog-hdr{width:42px;height:42px;min-width:42px;min-height:42px;margin:0;padding:0;justify-content:center;border:none;background:none;border-radius:50%;color:var(--g)}
+  .hdr .btn-catalog-hdr{width:42px;height:42px;min-width:42px;min-height:42px;margin:0;padding:0;justify-content:center;border:none;background:none;border-radius:var(--radius-circle);color:var(--g)}
   .hdr .btn-catalog-hdr:hover{color:var(--gd);background:none;border:none}
   .hdr .btn-catalog-hdr::before{display:none}
   .hdr .btn-catalog-hdr>svg{display:block;width:24px;height:24px}
@@ -617,10 +629,10 @@ main#catalog{padding-bottom:56px}
 .cat-dd-top{display:flex;align-items:center;gap:4px;height:56px;position:sticky;top:0;background:#fff;z-index:2;margin:0 -16px 8px;padding:0 8px 0 16px;border-bottom:1px solid #eef2ef}
 .cat-dd-logo{margin-right:auto;display:flex}
 .cat-dd-logo img{height:38px;width:auto}
-.cat-dd-x{width:42px;height:42px;border:none;background:none;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--g);cursor:pointer}
+.cat-dd-x{width:42px;height:42px;border:none;background:none;border-radius:var(--radius-circle);display:flex;align-items:center;justify-content:center;color:var(--g);cursor:pointer}
 .cat-dd-x svg{width:22px;height:22px}
-.cat-dd-item.cat-dd-dangnhap{display:flex;align-items:center;gap:12px;padding:14px;margin:4px 0 14px;border:1px solid #dcefe0;border-radius:16px;background:linear-gradient(135deg,#f3faf5,#fff);min-height:0}
-.cat-dd-av{width:46px;height:46px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cat-dd-item.cat-dd-dangnhap{display:flex;align-items:center;gap:12px;padding:14px;margin:4px 0 14px;border:1px solid #dcefe0;border-radius:var(--radius-control);background:linear-gradient(135deg,#f3faf5,#fff);min-height:0}
+.cat-dd-av{width:46px;height:46px;border-radius:var(--radius-circle);background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cat-dd-av svg{width:22px;height:22px;stroke:#fff}
 .cat-dd-dangnhap .cat-dd-tx{display:flex;flex-direction:column;font-size:15px;font-weight:700;color:var(--dk)}
 .cat-dd-dangnhap small{font-size:12px;font-weight:500;color:var(--ts)}
@@ -634,13 +646,13 @@ main#catalog{padding-bottom:56px}
 .cat-dd-list .cat-dd-sub{margin:0 0 6px 34px;padding-left:12px}
 .cat-dd-list .cat-dd-sub-item{font-size:13.5px;padding:10px 8px}
 .cat-dd-h{font-size:15px;font-weight:800;color:var(--dk);margin:22px 0 4px}
-.cat-dd-cta{display:flex;flex-direction:column;gap:6px;margin-top:22px;padding:18px;border-radius:18px;background:linear-gradient(120deg,#0b6b37,#004d25);color:#fff}
+.cat-dd-cta{display:flex;flex-direction:column;gap:6px;margin-top:22px;padding:18px;border-radius:var(--radius-control);background:linear-gradient(120deg,#0b6b37,#004d25);color:#fff}
 .cat-dd-cta b{font-size:15.5px}
 .cat-dd-cta span{font-size:12.5px;color:rgba(255,255,255,.82);line-height:1.5}
-.cat-dd-cta a{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:10px 18px;border-radius:30px;background:var(--gold);color:#fff;font-size:13.5px;font-weight:700;text-decoration:none}
+.cat-dd-cta a{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:10px 18px;border-radius:var(--radius-control);background:var(--gold);color:#fff;font-size:13.5px;font-weight:700;text-decoration:none}
 .cat-dd-cta a svg{width:15px;height:15px;stroke:#fff}
 .cat-dd-foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.cat-dd-foot a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 8px;border:1px solid #e6ece8;border-radius:12px;font-size:12.5px;font-weight:700;color:var(--dk);text-decoration:none;white-space:nowrap}
+.cat-dd-foot a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 8px;border:1px solid #e6ece8;border-radius:var(--radius-control);font-size:12.5px;font-weight:700;color:var(--dk);text-decoration:none;white-space:nowrap}
 .cat-dd-foot svg{width:16px;height:16px;stroke:var(--g)}
 .cat-dd-foot img{width:18px;height:18px}
 
@@ -652,9 +664,9 @@ main#catalog{padding-bottom:56px}
   .hm-top{padding-top:64px}
   .hm-top-grid{gap:0}
   .hm-hero{display:block;min-height:0;background:none;overflow:visible;border-radius:0}
-  .hm-hero picture{position:absolute;left:0;right:0;top:0;bottom:auto;height:214px;border-radius:16px;overflow:hidden;background:#eaf7ee}
+  .hm-hero picture{position:absolute;left:0;right:0;top:0;bottom:auto;height:214px;border-radius:var(--radius-panel);overflow:hidden;background:#eaf7ee}
   .hm-hero-bg{object-position:100% center}
-  .hm-hero::after{bottom:auto;height:214px;border-radius:16px;background:linear-gradient(90deg,rgba(240,250,243,.95) 0%,rgba(240,250,243,.85) 45%,rgba(240,250,243,0) 75%)}
+  .hm-hero::after{bottom:auto;height:214px;border-radius:var(--radius-panel);background:linear-gradient(90deg,rgba(240,250,243,.95) 0%,rgba(240,250,243,.85) 45%,rgba(240,250,243,0) 75%)}
   .hm-hero-in{display:flex;flex-direction:column;min-height:238px;padding:16px 12px 0;width:100%;max-width:none}
   .hm-eyebrow{display:none}
   .hm-h1{font-size:1.42rem;line-height:1.2;margin:0 0 8px;max-width:72%}
@@ -664,7 +676,7 @@ main#catalog{padding-bottom:56px}
   .hm-search input{height:36px;font-size:13px}
   .hm-search button{height:36px;padding:0 14px;font-size:13px}
   .hm-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
-  .hm-quick a{flex-direction:row;align-items:center;justify-content:flex-start;gap:5px;padding:7px 6px;border-radius:10px;font-size:10px;line-height:1.2;text-align:left;white-space:normal;background:#fff;border:1px solid #e6ece8}
+  .hm-quick a{flex-direction:row;align-items:center;justify-content:flex-start;gap:5px;padding:7px 6px;border-radius:var(--radius-control);font-size:10px;line-height:1.2;text-align:left;white-space:normal;background:#fff;border:1px solid #e6ece8}
   .hm-quick a svg{width:15px;height:15px;flex-shrink:0}
   .hm-side{display:none}
   .hm-side-slot .hm-side{display:flex;margin-top:24px}
@@ -713,10 +725,10 @@ main#catalog{padding-bottom:56px}
 }
 @media(max-width:640px){
   .hm-why{gap:16px}
-  .hm-why-img{height:170px;border-radius:14px}
+  .hm-why-img{height:170px;border-radius:var(--radius-card)}
 }
 /* Nhãn trên ảnh "Sản phẩm nổi bật" (Mới / Bắt buộc / Cá nhân) — 27/09/2026 */
-.hm-badge{position:absolute;left:10px;top:10px;font-size:11px;font-weight:700;color:#fff;padding:3px 10px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.15);line-height:1.4}
+.hm-badge{position:absolute;left:10px;top:10px;font-size:11px;font-weight:700;color:#fff;padding:3px 10px;border-radius:var(--radius-pill);box-shadow:0 2px 8px rgba(0,0,0,.15);line-height:1.4}
 .hm-badge-o{background:var(--gold)}
 .hm-badge-g{background:var(--g)}
 @media(max-width:640px){.hm-badge{font-size:10px;left:8px;top:8px;padding:2px 8px}}
@@ -737,7 +749,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 
 /* ══ SẢN PHẨM NỔI BẬT v2 (28/09/2026) — thẻ lớn ô tô điện + giá + nút hành động ══ */
 .hm-feat.hm-pgrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;gap:16px}
-.hm-pc{position:relative;display:flex;flex-direction:column;background:#fff;border:1.5px solid #cfe2d5;border-radius:16px;overflow:hidden;transition:transform .22s,box-shadow .22s,border-color .22s}
+.hm-pc{position:relative;display:flex;flex-direction:column;background:#fff;border:1.5px solid #cfe2d5;border-radius:var(--radius-card);overflow:hidden;transition:transform .22s,box-shadow .22s,border-color .22s}
 .hm-pc:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,80,40,.14);border-color:var(--g)}
 .hm-pc-ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--gl)}
 .hm-pc-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
@@ -754,7 +766,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 .hm-pc-pr{font-size:12px;color:var(--ts);white-space:nowrap}
 .hm-pc-pr b{font-size:16px;font-weight:800;color:var(--gold)}
 .hm-pc-pr-q{font-size:12.5px;font-weight:700;color:var(--g);white-space:normal}
-.hm-pc-cta{position:relative;z-index:2;display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border-radius:30px;background:var(--g);color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .2s}
+.hm-pc-cta{position:relative;z-index:2;display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border-radius:var(--radius-control);background:var(--g);color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .2s}
 .hm-pc-cta svg{width:14px;height:14px}
 .hm-pc:hover .hm-pc-cta,.hm-pc-cta:focus-visible{background:var(--gold)}
 /* Thẻ lớn: ô tô điện */
@@ -771,14 +783,14 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 .hm-pc-big .hm-pc-cta{padding:11px 20px;font-size:14px;background:var(--gold)}
 .hm-pc-big:hover .hm-pc-cta{background:var(--goldd)}
 /* Nhãn "Mới" nhấp nháy */
-.hm-pc-new{position:absolute;left:14px;top:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:6px 14px 6px 11px;border-radius:30px;background:var(--gold);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 0 0 0 rgba(232,146,10,.6);animation:hmNewPulse 1.6s ease-out infinite}
-.hm-pc-new i{width:8px;height:8px;border-radius:50%;background:#fff;animation:hmNewBlink 1s steps(2,start) infinite}
+.hm-pc-new{position:absolute;left:14px;top:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:6px 14px 6px 11px;border-radius:var(--radius-pill);background:var(--gold);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 0 0 0 rgba(232,146,10,.6);animation:hmNewPulse 1.6s ease-out infinite}
+.hm-pc-new i{width:8px;height:8px;border-radius:var(--radius-circle);background:#fff;animation:hmNewBlink 1s steps(2,start) infinite}
 @keyframes hmNewPulse{0%{box-shadow:0 0 0 0 rgba(232,146,10,.6)}70%{box-shadow:0 0 0 12px rgba(232,146,10,0)}100%{box-shadow:0 0 0 0 rgba(232,146,10,0)}}
 @keyframes hmNewBlink{to{visibility:hidden}}
 /* Ô "Xem tất cả" */
-.hm-pc-all{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:20px;border-radius:16px;border:1.5px dashed var(--g);background:linear-gradient(135deg,#eef8f1,#fff);color:var(--dk);text-decoration:none;transition:.2s}
+.hm-pc-all{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:20px;border-radius:var(--radius-card);border:1.5px dashed var(--g);background:linear-gradient(135deg,#eef8f1,#fff);color:var(--dk);text-decoration:none;transition:.2s}
 .hm-pc-all:hover{background:var(--gl);transform:translateY(-4px)}
-.hm-pc-all>span{width:46px;height:46px;border-radius:12px;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center}
+.hm-pc-all>span{width:46px;height:46px;border-radius:var(--radius-sm);background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center}
 .hm-pc-all>span svg{width:22px;height:22px}
 .hm-pc-all b{font-size:16px}
 .hm-pc-all small{font-size:12.5px;color:var(--tm);line-height:1.45}
@@ -792,7 +804,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 }
 @media(max-width:640px){
   .hm-feat.hm-pgrid{gap:10px}
-  .hm-pc{border-radius:12px}
+  .hm-pc{border-radius:var(--radius-card)}
   .hm-pc-big{flex-direction:column}
   .hm-pc-big .hm-pc-ph{flex:none;aspect-ratio:16/9}
   .hm-pc-big .hm-pc-bd{padding:14px 14px 16px}
@@ -806,7 +818,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
   .hm-pc:not(.hm-pc-big) .hm-pc-ft{flex-direction:column;align-items:stretch;gap:8px;margin-top:8px;padding-top:8px}
   .hm-pc:not(.hm-pc-big) .hm-pc-pr b{font-size:14px}
   .hm-pc:not(.hm-pc-big) .hm-pc-cta{justify-content:center;padding:8px 6px}
-  .hm-pc-all{padding:14px;border-radius:12px}
+  .hm-pc-all{padding:14px;border-radius:var(--radius-card)}
   .hm-pc-all b{font-size:14px}
   .hm-pc-all small{font-size:11.5px}
 }
@@ -826,7 +838,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 }
 
 /* ══ 28/09/2026: "Tìm bảo hiểm phù hợp" — ảnh sản phẩm thay icon ══ */
-.hm-row-ph{width:104px;aspect-ratio:16/10;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--gl)}
+.hm-row-ph{width:104px;aspect-ratio:16/10;border-radius:var(--radius-sm);overflow:hidden;flex-shrink:0;background:var(--gl)}
 .hm-row-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
 .hm-row:hover .hm-row-ph img{transform:scale(1.06)}
 .hm-row{padding:10px 12px 10px 10px}
@@ -836,7 +848,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 @media(max-width:1100px){.hm-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:900px){.hm-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.hm-list{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:640px){.hm-row-ph{width:88px;border-radius:8px}}
+@media(max-width:640px){.hm-row-ph{width:88px;border-radius:var(--radius-sm)}}
 
 /* ══ 28/09/2026: thẻ "Xem tất cả sản phẩm" — nền ghép ảnh các sản phẩm khác + lớp phủ xanh ══ */
 .hm-pc-all{position:relative;overflow:hidden;isolation:isolate;justify-content:flex-end;border:none;background:#0b4d2a;color:#fff;min-height:220px}
@@ -850,6 +862,369 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 .hm-pc-all small{color:rgba(255,255,255,.88)}
 .hm-pc-all em{color:#ffd48a}
 @media(prefers-reduced-motion:reduce){.hm-pc-mz{transition:none}.hm-pc-all:hover .hm-pc-mz{transform:none}}
+
+/* ══════════════════════════════════════════════════════════════════════
+   TRANG CHỦ 2 NHÓM KHÁCH HÀNG (29/09/2026)
+   Một trang, hai chế độ nội dung: Doanh nghiệp (dn) / Cá nhân & Gia đình (cn).
+   <html data-nhom="dn|cn"> do script đầu trang đặt TRƯỚC khi vẽ → không nháy.
+   Khối chỉ của một nhóm mang class .hp-dn / .hp-cn. Mọi class mới dùng tiền tố
+   hp- (không trùng CSS_PREFIX của scripts/sync_layout.py).
+   ══════════════════════════════════════════════════════════════════════ */
+:root{
+  --hp-g:var(--g);            /* xanh thương hiệu #007437 — đang dùng toàn site */
+  --hp-dk:#084C38;            /* xanh đậm tiêu đề */
+  --hp-or:var(--gold);        /* cam hành động chính #E8920A — đang dùng toàn site */
+  --hp-or-d:var(--goldd);
+  --hp-mint:#EFF8F2;          /* nền khối */
+  --hp-bd:#E1EBE4;            /* viền nhẹ */
+  --hp-tx:#1C2B24; --hp-tm:#4F5F57;
+  --hp-r:var(--radius-card); --hp-r-sm:var(--radius-sm);
+  --hp-sh:0 4px 18px rgba(8,76,56,.07);
+  --hp-sh-h:0 10px 28px rgba(8,76,56,.13);
+  --hp-gap:56px;
+}
+@media(max-width:767px){:root{--hp-gap:36px}}
+
+/* Hiện / ẩn theo nhóm. Không có JS → mặc định Doanh nghiệp. */
+html[data-nhom="cn"] .hp-dn{display:none!important}
+html:not([data-nhom="cn"]) .hp-cn{display:none!important}
+
+/* Tiêu đề các khối cũ được giữ lại (Sản phẩm nổi bật, Vì sao, Về chúng tôi)
+   dùng chung kiểu tiêu đề mới: bỏ vòng icon, màu xanh đậm */
+.hp-home .hm-head-ic{display:none}
+.hp-home .hm-h2{color:var(--hp-dk)}
+.hp-home main .hm-sec{padding-top:var(--hp-gap)}
+.hp-home main .hm-sec.hm-sec-tight{padding-top:var(--hp-gap)}
+
+.hp-sec{padding-top:var(--hp-gap)}
+.hp-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.hp-head p{font-size:14px;color:var(--hp-tm);margin-top:4px}
+.hp-h2{font-size:clamp(1.25rem,2.1vw,1.6rem);font-weight:800;color:var(--hp-dk);letter-spacing:-.3px;line-height:1.25;margin:0}
+.hp-more{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--hp-g);text-decoration:none;white-space:nowrap}
+.hp-more svg{width:15px;height:15px}
+.hp-more:hover{text-decoration:underline}
+
+/* ── Nút dùng chung ─────────────────────────────────────────────── */
+.hp-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border-radius:var(--radius-control);font-family:inherit;font-weight:700;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:background .18s,border-color .18s,box-shadow .18s,color .18s}
+.hp-btn svg{width:17px;height:17px;flex-shrink:0}
+.hp-btn-pri{background:var(--hp-or);color:#fff}
+.hp-btn-pri:hover{background:var(--hp-or-d);box-shadow:0 6px 18px rgba(232,146,10,.3)}
+.hp-btn-sec{background:#fff;color:var(--hp-g);border-color:var(--hp-g)}
+.hp-btn-sec:hover{background:var(--hp-mint)}
+.hp-btn:focus-visible,.hp-tile:focus-visible,.hp-pick:focus-visible,.hp-card:focus-visible,.hp-sw-b:focus-visible,.hp-sup:focus-visible,.hp-faq summary:focus-visible{outline:3px solid var(--hp-or);outline-offset:2px}
+
+/* ── Banner đầu trang ───────────────────────────────────────────── */
+.hp-top{padding:104px 0 0;background:#fff}
+.hp-switch{display:inline-flex;gap:4px;padding:4px;background:var(--hp-mint);border:1px solid var(--hp-bd);border-radius:var(--radius-pill);margin-bottom:14px}
+.hp-sw-b{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 18px;border:0;border-radius:var(--radius-pill);background:transparent;color:var(--hp-dk);font-family:inherit;font-weight:600;font-size:14px;line-height:1;cursor:pointer;transition:background .18s,color .18s}
+.hp-sw-b svg{width:17px;height:17px}
+.hp-sw-b[aria-pressed="true"]{background:var(--hp-g);color:#fff;box-shadow:0 3px 10px rgba(0,116,55,.25)}
+.hp-sw-b[aria-pressed="false"]:hover{background:#fff}
+.hp-hero{position:relative;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);grid-template-areas:"tx art" "cta art";column-gap:24px;align-items:center;background:linear-gradient(120deg,#f6fbf7 0%,var(--hp-mint) 55%,#e3f3e8 100%);border:1px solid var(--hp-bd);border-radius:var(--radius-panel);overflow:hidden;min-height:400px}
+.hp-hero-tx{grid-area:tx;align-self:end;padding:40px 0 0 44px}
+.hp-hero-cta{grid-area:cta;align-self:start;display:flex;flex-wrap:wrap;gap:12px;padding:22px 0 40px 44px}
+.hp-hero-art{grid-area:art;align-self:stretch;position:relative;min-height:100%}
+.hp-hero-art picture{display:block;position:absolute;inset:0}
+.hp-hero-art img{display:block;width:100%;height:100%}
+.hp-hero-art img{object-fit:cover;object-position:center;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%);mask-image:linear-gradient(90deg,transparent 0,#000 14%)}
+.hp-h1{font-size:clamp(2rem,3.4vw,3rem);font-weight:800;color:var(--hp-dk);line-height:1.14;letter-spacing:-.6px;margin:0 0 14px}
+.hp-h1 span{color:var(--hp-or)}
+.hp-lead{font-size:17px;color:var(--hp-tm);margin:0}
+
+/* ── Bạn cần bảo vệ điều gì? ───────────────────────────────────── */
+.hp-tiles{display:grid;gap:14px}
+.hp-tiles-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.hp-tiles-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.hp-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:112px;padding:16px 10px;background:#fff;border:1px solid var(--hp-bd);border-radius:var(--radius-card);box-shadow:var(--hp-sh);color:var(--hp-dk);font-family:inherit;font-weight:600;font-size:14.5px;line-height:1.3;text-align:center;cursor:pointer;transition:border-color .18s,box-shadow .18s,transform .18s}
+.hp-tile:hover{border-color:var(--hp-g);box-shadow:var(--hp-sh-h);transform:translateY(-2px)}
+.hp-tile-ic{width:52px;height:52px;border-radius:var(--radius-sm);background:var(--hp-mint);color:var(--hp-g);display:flex;align-items:center;justify-content:center}
+.hp-tile-ic svg{width:26px;height:26px}
+
+/* ── Thẻ sản phẩm / giải pháp ─────────────────────────────────────── */
+.hp-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.hp-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--hp-bd);border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--hp-sh);text-decoration:none;color:inherit;transition:box-shadow .2s,transform .2s,border-color .2s}
+.hp-card:hover{box-shadow:var(--hp-sh-h);transform:translateY(-3px);border-color:#cfe3d5}
+.hp-card-ph{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--hp-mint)}
+.hp-card-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.hp-card:hover .hp-card-ph img{transform:scale(1.04)}
+.hp-card-bd{display:flex;flex-direction:column;gap:4px;padding:14px 16px 16px;flex:1}
+.hp-card-bd b{font-size:16px;font-weight:700;color:var(--hp-dk);line-height:1.3}
+.hp-card-bd>span{font-size:13.5px;color:var(--hp-tm);line-height:1.5}
+.hp-card-bd em{margin-top:auto;padding-top:8px;font-style:normal;font-size:13.5px;font-weight:700;color:var(--hp-g);display:inline-flex;align-items:center;gap:5px}
+.hp-card-bd em svg{width:15px;height:15px}
+
+/* ── Tìm giải pháp theo nhu cầu / lĩnh vực ───────────────────────── */
+.hp-find-search{position:relative;width:min(340px,100%)}
+.hp-find-search svg{position:absolute;left:14px;top:50%;width:17px;height:17px;transform:translateY(-50%);color:var(--hp-tm);pointer-events:none}
+.hp-find-search input{width:100%;height:46px;padding:0 14px 0 40px;border:1.5px solid var(--hp-bd);border-radius:var(--radius-control);font-family:inherit;font-size:14px;color:var(--hp-tx);background:#fff}
+.hp-find-search input:focus{outline:none;border-color:var(--hp-g);box-shadow:0 0 0 3px rgba(0,116,55,.12)}
+.hp-picks{display:grid;gap:16px}
+.hp-picks-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.hp-picks-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.hp-pick{display:flex;flex-direction:column;padding:0;background:#fff;border:1.5px solid var(--hp-bd);border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--hp-sh);cursor:pointer;text-align:left;font-family:inherit;color:inherit;transition:border-color .18s,box-shadow .18s,transform .18s}
+.hp-pick:hover{border-color:var(--hp-g);box-shadow:var(--hp-sh-h);transform:translateY(-2px)}
+.hp-pick[aria-pressed="true"]{border-color:var(--hp-g);box-shadow:0 0 0 3px rgba(0,116,55,.14)}
+.hp-pick-ph{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--hp-mint)}
+.hp-pick-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.hp-pick-bd{display:flex;align-items:center;gap:8px;padding:12px 14px 14px}
+.hp-pick-bd>span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.hp-pick-bd b{font-size:15px;font-weight:700;color:var(--hp-dk);line-height:1.3}
+.hp-pick-bd small{font-size:12.5px;color:var(--hp-tm);line-height:1.45}
+.hp-pick-bd>svg{width:18px;height:18px;color:var(--hp-g);flex-shrink:0}
+.hp-find .hm-filter-note{margin:18px 0 12px}
+.hp-find .hm-list{margin-top:14px}
+
+/* ── Các bước thực hiện ─────────────────────────────────────────── */
+.hp-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;list-style:none;margin:0;padding:0;counter-reset:hp}
+.hp-step{position:relative;display:flex;align-items:flex-start;gap:14px;padding:20px;background:#fff;border:1px solid var(--hp-bd);border-radius:var(--radius-card);box-shadow:var(--hp-sh)}
+.hp-step::before{counter-increment:hp;content:counter(hp);flex-shrink:0;width:44px;height:44px;border-radius:var(--radius-circle);background:var(--hp-g);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.hp-step b{display:block;font-size:15.5px;color:var(--hp-dk);margin-bottom:3px}
+.hp-step span{font-size:13.5px;color:var(--hp-tm);line-height:1.5}
+.hp-step:not(:last-child)::after{content:"";position:absolute;right:-14px;top:50%;width:10px;height:10px;border-top:2px solid var(--hp-g);border-right:2px solid var(--hp-g);transform:translateY(-50%) rotate(45deg);opacity:.5}
+
+/* ── Biểu mẫu tư vấn ────────────────────────────────────────────── */
+.hp-form-box{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:center;background:linear-gradient(120deg,#f6fbf7,var(--hp-mint));border:1px solid var(--hp-bd);border-radius:var(--radius-panel);padding:28px 32px}
+.hp-form-img{width:200px;height:200px;object-fit:contain;align-self:end;margin-bottom:-28px}
+.hp-form-intro h2{font-size:clamp(1.3rem,2.1vw,1.6rem);font-weight:800;color:var(--hp-dk);margin:0 0 6px}
+.hp-form-intro p{font-size:14.5px;color:var(--hp-tm);margin:0 0 14px}
+.hp-hot{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--hp-dk)}
+.hp-hot span{width:40px;height:40px;border-radius:var(--radius-circle);background:var(--hp-g);color:#fff;display:flex;align-items:center;justify-content:center}
+.hp-hot span svg{width:18px;height:18px}
+.hp-hot b{font-size:18px;font-weight:800;line-height:1.2}
+.hp-hot small{display:block;font-size:12px;font-weight:500;color:var(--hp-tm)}
+.hp-form{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid var(--hp-bd);border-radius:var(--radius-card);padding:20px;box-shadow:var(--hp-sh)}
+.hp-fld{display:flex;flex-direction:column;gap:5px}
+.hp-fld label{font-size:13px;font-weight:600;color:var(--hp-dk)}
+.hp-fld label i{font-style:normal;color:#c0392b}
+.hp-fld label small{font-weight:400;color:var(--hp-tm)}
+.hp-fld .hf-input,.hp-fld .hf-select{height:46px;padding-left:14px;border-radius:var(--radius-control);font-size:15px}
+.hp-fld .hf-select{padding-right:32px}
+.hp-fld [aria-invalid="true"]{border-color:#c0392b}
+.hp-err{font-size:12.5px;color:#b3261e;min-height:0}
+.hp-err:empty{display:none}
+.hp-form .hf-btn{height:48px;border-radius:var(--radius-control);font-size:15px}
+.hp-form-msg{font-size:13px;color:#b3261e}
+.hp-form-msg:empty{display:none}
+.hp-form-box .hf-success{margin-top:0}
+
+/* ── Hỗ trợ khách hàng ──────────────────────────────────────────── */
+.hp-sups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.hp-sup{display:flex;align-items:center;gap:14px;padding:18px 20px;background:#fff;border:1px solid var(--hp-bd);border-radius:var(--radius-card);box-shadow:var(--hp-sh);text-decoration:none;color:inherit;transition:border-color .18s,box-shadow .18s}
+.hp-sup:hover{border-color:var(--hp-g);box-shadow:var(--hp-sh-h)}
+.hp-sup-ic{width:48px;height:48px;border-radius:var(--radius-sm);background:var(--hp-mint);color:var(--hp-g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hp-sup-ic svg{width:24px;height:24px}
+.hp-sup>span:nth-child(2){flex:1;min-width:0}
+.hp-sup b{display:block;font-size:15.5px;color:var(--hp-dk)}
+.hp-sup small{font-size:13.5px;color:var(--hp-tm)}
+.hp-sup>svg{width:18px;height:18px;color:var(--hp-g);flex-shrink:0}
+
+/* ── Câu hỏi thường gặp ─────────────────────────────────────────── */
+.hp-faq{display:flex;flex-direction:column;gap:10px}
+.hp-faq details{background:#fff;border:1px solid var(--hp-bd);border-radius:var(--radius-control);box-shadow:var(--hp-sh)}
+.hp-faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 18px;font-size:15px;font-weight:600;color:var(--hp-dk);cursor:pointer;border-radius:var(--radius-control)}
+.hp-faq summary::-webkit-details-marker{display:none}
+.hp-faq summary svg{width:18px;height:18px;flex-shrink:0;color:var(--hp-g);transition:transform .2s}
+.hp-faq details[open] summary svg{transform:rotate(180deg)}
+.hp-faq details>div{padding:0 18px 16px;font-size:14px;color:var(--hp-tm);line-height:1.65}
+
+/* ── Đối tác ────────────────────────────────────────────────────── */
+.hp-partner{display:flex;align-items:center;gap:18px;padding:20px 26px;background:var(--hp-mint);border:1px solid var(--hp-bd);border-radius:var(--radius-card)}
+.hp-partner-ic{width:52px;height:52px;border-radius:var(--radius-sm);background:var(--hp-g);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hp-partner-ic svg{width:26px;height:26px}
+.hp-partner>div{flex:1;min-width:0}
+.hp-partner b{display:block;font-size:17px;font-weight:800;color:var(--hp-dk)}
+.hp-partner p{font-size:13.5px;color:var(--hp-tm);margin:2px 0 0}
+.hp-partner .hp-btn{min-height:44px;padding:0 22px;flex-shrink:0}
+.hp-end{height:var(--hp-gap)}
+
+/* ── Máy tính bảng ─────────────────────────────────────────────── */
+@media(max-width:1100px){
+  .hp-tiles-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hp-picks-5{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hp-form-box{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+  .hp-form-img{display:none}
+}
+@media(max-width:1023px){
+  .hp-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:340px}
+  .hp-hero-tx{padding:30px 0 0 28px}
+  .hp-hero-cta{padding:18px 0 30px 28px}
+  .hp-h1{font-size:clamp(1.7rem,4vw,2.3rem)}
+  .hp-lead{font-size:15.5px}
+  .hp-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hp-steps{grid-template-columns:1fr;gap:12px}
+  .hp-step:not(:last-child)::after{display:none}
+}
+
+/* ── Điện thoại: sắp xếp lại, không thu nhỏ bản máy tính ─────────── */
+@media(max-width:767px){
+  .hp-switch{display:flex;width:100%;margin-bottom:12px}
+  .hp-sw-b{flex:1;justify-content:center;padding:0 8px;font-size:13.5px;min-height:44px;white-space:nowrap}
+  .hp-sw-b svg{display:none}
+  .hp-hero{display:flex;flex-direction:column;min-height:0;border-radius:var(--radius-panel);background:linear-gradient(180deg,#f6fbf7 0%,var(--hp-mint) 100%)}
+  .hp-hero-tx{padding:20px 18px 14px;align-self:stretch}
+  .hp-h1{font-size:clamp(1.55rem,7.2vw,2rem);margin-bottom:8px;letter-spacing:-.4px}
+  .hp-lead{font-size:14.5px}
+  .hp-hero-art{order:2;min-height:0;margin:0 12px;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:16/9}
+  .hp-hero-art img{-webkit-mask-image:none;mask-image:none}
+  .hp-hero-cta{order:3;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 12px 14px}
+  .hp-hero-cta .hp-btn{min-height:48px;padding:0 10px;font-size:14.5px}
+  .hp-head{margin-bottom:14px}
+  .hp-head p{font-size:13px}
+  .hp-more{font-size:13px}
+  .hp-tiles{gap:10px}
+  .hp-tiles-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .hp-tile{min-height:88px;padding:12px 4px;gap:8px;font-size:12.5px;border-radius:var(--radius-card)}
+  .hp-tile-ic{width:42px;height:42px;border-radius:var(--radius-sm)}
+  .hp-tile-ic svg{width:22px;height:22px}
+  /* Thẻ giải pháp: 2 cột như "Sản phẩm nổi bật" của nhóm Cá nhân — cùng một hệ thẻ */
+  .hp-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .hp-card{border-radius:var(--radius-card)}
+  .hp-card-bd{padding:10px 10px 12px;gap:2px}
+  .hp-card-bd b{font-size:14px}
+  .hp-card-bd>span{font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .hp-card-bd em{padding-top:6px;font-size:12.5px}
+  /* Chọn lĩnh vực / nhu cầu: dạng danh sách gọn */
+  .hp-find-search{width:100%}
+  .hp-picks,.hp-picks-5,.hp-picks-4{grid-template-columns:1fr;gap:8px}
+  .hp-pick{flex-direction:row;align-items:center;border-radius:var(--radius-card)}
+  .hp-pick-ph{flex:0 0 76px;aspect-ratio:16/11;margin:8px 0 8px 8px;border-radius:var(--radius-sm)}
+  .hp-pick-bd{flex:1;padding:8px 12px}
+  .hp-pick-bd b{font-size:14.5px}
+  .hp-pick-bd small{font-size:12px}
+  .hp-step{padding:14px 16px}
+  .hp-step::before{width:38px;height:38px;font-size:16px}
+  .hp-form-box{grid-template-columns:1fr;padding:18px 14px;gap:14px;border-radius:var(--radius-panel)}
+  .hp-form{padding:16px}
+  .hp-sups{grid-template-columns:1fr;gap:10px}
+  .hp-sup{padding:14px 16px}
+  .hp-faq summary{padding:14px;font-size:14.5px}
+  .hp-faq details>div{padding:0 14px 14px}
+  .hp-partner{flex-wrap:wrap;padding:16px}
+  .hp-partner .hp-btn{width:100%}
+  /* chừa chỗ cho thanh tab đáy + vùng an toàn, để không che nội dung cuối trang */
+  .hp-end{height:calc(var(--hp-gap) + env(safe-area-inset-bottom))}
+}
+/* header thu gọn 1 hàng từ 640px trở xuống */
+@media(max-width:640px){.hp-top{padding-top:68px}}
+@media(max-width:380px){
+  .hp-tiles-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hp-sw-b svg{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .hp-tile,.hp-card,.hp-pick,.hp-btn,.hp-card-ph img,.hp-faq summary svg{transition:none}
+  .hp-tile:hover,.hp-card:hover,.hp-pick:hover{transform:none}
+  .hp-card:hover .hp-card-ph img{transform:none}
+}
+
+/* ══ THÔNG SỐ KHOẢNG CÁCH & KÍCH THƯỚC (29/09/2026) ══════════════════════
+   Vùng nội dung tối đa 1.240px · banner 380–420px · khối cách khối 60px (mobile 38px)
+   tiêu đề → nội dung 22px (15px) · thẻ cách thẻ 20px (12px) · padding thẻ 18px (12px) */
+:root{--hp-gap:60px;--hp-head:22px;--hp-cgap:20px;--hp-pad:18px}
+@media(max-width:767px){:root{--hp-gap:38px;--hp-head:15px;--hp-cgap:12px;--hp-pad:12px}}
+.hp-home .hp-top>.hm-wrap,.hp-home main>section>.hm-wrap,.hp-home main>.hm-sec>.hm-wrap{max-width:calc(1240px + 80px)}
+@media(max-width:900px){.hp-home .hp-top>.hm-wrap,.hp-home main>section>.hm-wrap{max-width:calc(1240px + 48px)}}
+/* Banner */
+@media(min-width:1024px){.hp-hero{min-height:0;height:400px}}
+@media(max-width:767px){.hp-hero-art{aspect-ratio:auto;height:clamp(150px,46vw,180px)}}
+/* Banner → danh mục nhanh: 24px (20px); danh mục → nổi bật: 40px (32px) */
+.hp-home .hp-sec-need{padding-top:24px}
+.hp-home .hp-sec-feat,.hp-home main .hm-sec.hp-sec-feat{padding-top:40px}
+@media(max-width:767px){.hp-home .hp-sec-need{padding-top:20px}.hp-home .hp-sec-feat,.hp-home main .hm-sec.hp-sec-feat{padding-top:32px}}
+/* Tiêu đề → nội dung */
+.hp-home .hp-head,.hp-home .hm-head{margin-bottom:var(--hp-head)}
+/* Khoảng cách giữa thẻ */
+.hp-home .hp-tiles,.hp-home .hp-cards,.hp-home .hp-picks,.hp-home .hp-steps,.hp-home .hp-sups,
+.hp-home .hm-feat.hm-pgrid,.hp-home .hm-list{gap:var(--hp-cgap)}
+/* Ô danh mục nhanh: 88–96px (mobile 76–84px, cao thêm khi chữ xuống dòng) */
+.hp-home .hp-tile{min-height:92px;padding:10px 8px;gap:7px}
+.hp-home .hp-tile-ic{width:44px;height:44px;border-radius:var(--radius-sm)}
+.hp-home .hp-tile-ic svg{width:23px;height:23px}
+@media(max-width:767px){.hp-home .hp-tile{min-height:80px;padding:9px 4px;gap:6px}.hp-home .hp-tile-ic{width:38px;height:38px}.hp-home .hp-tile-ic svg{width:20px;height:20px}}
+/* Padding nội dung thẻ thường */
+.hp-home .hp-card-bd,.hp-home .hp-pick-bd,.hp-home .hm-pc:not(.hm-pc-big) .hm-pc-bd{padding:var(--hp-pad)}
+.hp-home .hp-step,.hp-home .hp-sup{padding:var(--hp-pad) calc(var(--hp-pad) + 2px)}
+@media(max-width:767px){.hp-home .hp-pick-bd{padding:8px 12px}}
+
+/* ══ CHỈNH SỬA 29/09/2026 (lần 3) ══ */
+/* 1. Banner: ô tìm kiếm thay 2 nút; lớp chuyển ảnh → nền mượt hơn */
+.hp-hsearch{position:relative;display:flex;align-items:center;gap:0;max-width:580px;flex-wrap:nowrap}
+.hp-hsearch>svg{position:absolute;left:62px;width:19px;height:19px;color:var(--hp-tm);pointer-events:none}
+.hp-hsearch input{flex:1;min-width:0;width:100%;height:54px;padding:0 128px 0 48px;border:1.5px solid var(--hp-bd);border-radius:var(--radius-control);background:#fff;font-family:inherit;font-size:15px;color:var(--hp-tx);box-shadow:0 8px 24px rgba(8,76,56,.1)}
+.hp-hsearch input:focus{outline:none;border-color:var(--hp-g);box-shadow:0 0 0 3px rgba(0,116,55,.14),0 8px 24px rgba(8,76,56,.1)}
+.hp-hsearch .hp-btn{position:absolute;right:5px;min-height:44px;padding:0 20px;border-radius:var(--radius-sm)}
+.hp-hero-art::before{content:"";position:absolute;inset:0 auto 0 0;width:38%;z-index:1;pointer-events:none;background:linear-gradient(90deg,#f1f8f3 0%,rgba(241,248,243,.85) 22%,rgba(241,248,243,.5) 50%,rgba(241,248,243,.18) 78%,rgba(241,248,243,0) 100%)}
+.hp-hero-art img{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.25) 8%,rgba(0,0,0,.6) 18%,rgba(0,0,0,.88) 28%,#000 38%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.25) 8%,rgba(0,0,0,.6) 18%,rgba(0,0,0,.88) 28%,#000 38%)}
+@media(max-width:1023px){.hp-hsearch>svg{left:46px}}
+@media(max-width:767px){
+  .hp-hsearch{display:flex;padding:14px 12px;max-width:100%;min-width:0;align-self:stretch}
+  .hp-hsearch>svg{left:28px}
+  .hp-hsearch input{height:50px;padding:0 104px 0 44px;font-size:14.5px}
+  .hp-hsearch .hp-btn{right:17px;min-height:40px;padding:0 14px;font-size:14px}
+  .hp-hero-art::before{display:none}
+  .hp-hero-art img{-webkit-mask-image:none;mask-image:none}
+}
+/* 2. Bạn cần bảo vệ điều gì: bỏ nền icon, icon lớn hơn */
+.hp-home .hp-tile-ic{width:auto;height:auto;background:none;border-radius:0}
+.hp-home .hp-tile-ic svg{width:36px;height:36px;stroke-width:1.7}
+@media(max-width:767px){.hp-home .hp-tile-ic{width:auto;height:auto}.hp-home .hp-tile-ic svg{width:30px;height:30px}}
+/* 3. Giải pháp nổi bật (DN): ảnh thấp hơn, mô tả 1 dòng, hover "Xem chi tiết" màu cam */
+.hp-card-ph{aspect-ratio:2/1}
+.hp-card-bd>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.hp-card:hover .hp-card-bd em,.hp-card:focus-visible .hp-card-bd em{color:var(--hp-or)}
+@media(max-width:767px){.hp-card-ph{aspect-ratio:16/9}.hp-home .hp-card-bd>span{display:block;-webkit-line-clamp:unset}}
+/* 4. Giải pháp theo lĩnh vực: tiêu đề 1 dòng, mô tả 1 dòng */
+.hp-pick-bd b,.hp-pick-bd small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* 5. Biểu mẫu: Tên doanh nghiệp + Số điện thoại cùng hàng */
+.hp-fld-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+html[data-nhom="cn"] .hp-fld-row{grid-template-columns:1fr}
+@media(max-width:380px){.hp-fld-row{grid-template-columns:1fr}}
+/* 7. "Về chúng tôi" cùng cỡ với tiêu đề khối (VD "Hỗ trợ khách hàng") */
+.hp-home .hm-about .brandinfo-lbl{font-size:clamp(1.25rem,2.1vw,1.6rem);font-weight:800;color:var(--hp-dk);text-transform:none;letter-spacing:-.3px;line-height:1.25;margin-bottom:6px}
+.hp-home .hm-about .hm-h2{font-size:1.05rem;font-weight:700;color:var(--hp-tm)}
+@media(max-width:767px){.hp-home .hm-about .brandinfo-lbl{font-size:1.25rem}}
+
+/* ══ CHỈNH SỬA 29/09/2026 (lần 4) ══ */
+/* 1. Banner Doanh nghiệp: hiện nhiều phần bên trái ảnh hơn — lớp mờ hẹp lại, ảnh neo trái */
+/* 3. "Cần tư vấn thêm?": mint đậm hơn  ·  4. ảnh tư vấn viên lớn, nhô khỏi khung */
+.hp-form-box{background:linear-gradient(120deg,#e2f2e7 0%,#d3eadb 100%);border-color:#c5e1cd;grid-template-columns:260px minmax(0,1fr) minmax(0,1.05fr);overflow:visible;margin-top:36px}
+.hp-form-img{width:280px;height:auto;max-height:none;align-self:end;margin:-72px 0 -28px -12px;object-fit:contain;object-position:bottom}
+.hp-form-box .hp-form{box-shadow:0 8px 24px rgba(8,76,56,.1)}
+@media(max-width:1100px){.hp-form-box{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);margin-top:0}}
+@media(max-width:767px){
+  /* 2. Điện thoại: ảnh phủ kín cả khối banner, chữ nằm trên vùng trời đã làm mờ, ô tìm kiếm ở đáy */
+  .hp-hero{position:relative;min-height:540px;overflow:hidden}
+  .hp-hero-art{position:absolute;inset:0;margin:0;border-radius:0;height:auto;aspect-ratio:auto;z-index:0;order:0}
+  .hp-hero-art picture{position:absolute;left:0;right:0;bottom:0;top:0}
+  .hp-hero-art img{width:100%;height:100%;object-fit:cover;object-position:center bottom}
+  html[data-nhom="dn"] .hp-hero-art img{object-position:center bottom;-webkit-mask-image:none;mask-image:none}
+  .hp-hero-art::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(240,248,243,.97) 0%,rgba(240,248,243,.93) 24%,rgba(240,248,243,.55) 38%,rgba(240,248,243,0) 52%,rgba(240,248,243,0) 76%,rgba(240,248,243,.55) 100%)}
+  .hp-hero-tx,.hp-hsearch{position:relative;z-index:2}
+  .hp-hsearch{margin-top:auto;padding:14px 12px 16px}
+  .hp-form-box{background:linear-gradient(160deg,#e2f2e7,#d3eadb)}
+}
+/* ══ CHỈNH SỬA 29/09/2026 (lần 5) ══ */
+/* 3. Banner DN desktop: chuyển màu mượt (nhiều điểm dừng kiểu ease) */
+/* 1. Mobile: biểu mẫu tư vấn 1 cột, ô nhập đủ rộng */
+@media(max-width:1100px){.hp-form-img{display:none}}
+@media(max-width:767px){
+  .hp-form-box{grid-template-columns:minmax(0,1fr);margin-top:0;padding:20px 16px}
+  .hp-form-intro p{max-width:none}
+  .hp-form-box .hero-form-wrap,.hp-form-box .hp-form{width:100%}
+  /* 2. Banner mobile: ảnh hạ thấp, bắt đầu dưới phần chữ → lớp phủ chỉ chạm mép trên ảnh */
+  .hp-hero{min-height:560px}
+  .hp-hero-art picture{top:150px}
+  .hp-hero-art::after{background:linear-gradient(180deg,#eef7f1 0%,#eef7f1 150px,rgba(238,247,241,.7) 168px,rgba(238,247,241,.3) 186px,rgba(238,247,241,0) 206px,rgba(238,247,241,0) 82%,rgba(238,247,241,.6) 100%)}
+}
+@media(max-width:767px){.hp-fld-row{grid-template-columns:minmax(0,1fr)}}
+/* ══ 29/09/2026 (lần 6): ảnh tư vấn viên mới — nửa người, tay hướng về biểu mẫu ══ */
+@media(min-width:1101px){
+.hp-form-box{grid-template-columns:270px minmax(0,1fr) minmax(0,1.05fr)}
+.hp-form-img{width:290px;margin:-96px 0 -28px -16px}
+}
+/* ══ 29/09/2026 (lần 7): banner mới cho cả 2 nhóm — nhân vật ở giữa ảnh ══ */
+.hp-hero-art img,html[data-nhom="dn"] .hp-hero-art img{object-position:center 60%}
+@media(max-width:767px){.hp-hero-art img,html[data-nhom="dn"] .hp-hero-art img{object-position:center bottom}}
+
 </style>
 
 <!-- ══ SEO META ══ -->
@@ -1045,7 +1420,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
 <link rel="stylesheet" href="/assets/dbv-header.css">
 <script src="/assets/dbv-menu-search.js" defer></script>
 </head>
-<body>
+<body class="hp-home">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53NZ4XR4"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -1382,100 +1757,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ══ HERO ══ -->
 <!-- ══ HERO (mockup 24/09/2026) ══ -->
-<section class="hm-top">
- <div class="hm-wrap hm-top-grid">
-  <div class="hm-hero">
-    <picture>
-      <source media="(max-width:640px)" srcset="banner-hero-phone-v1.webp" width="600" height="376"><source media="(max-width:1439px)" srcset="banner-hero-mobile-v3.webp" width="1200" height="720">
-      <img class="hm-hero-bg" src="banner-hero-v3.webp" alt="" fetchpriority="high" decoding="async" width="1920" height="909">
-    </picture>
-    <div class="hm-hero-in">
-      <a class="hm-eyebrow" href="#ve-bao-hiem-dbv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Hệ sinh thái Bảo hiểm DBV<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <h1 class="hm-h1">Chào mừng bạn đến<br>hệ sinh thái của<br><span>Bảo hiểm DBV</span></h1>
-      <p class="hm-rot">Bảo hiểm cho <span class="hm-rot-w" aria-hidden="true"><b>chiếc xe của bạn</b><b>ngôi nhà của bạn</b><b>sức khỏe cả gia đình</b><b>mỗi chuyến đi</b><b>chiếc xe của bạn</b></span><span class="sr-only">xe ô tô, nhà ở, sức khỏe gia đình và du lịch</span></p>
-      <p class="hm-hero-sub"><span>Đa dạng sản phẩm</span><i></i><span>Trực tuyến tiện lợi</span><i></i><span>Tổng đài bồi thường 24/7</span></p>
-      <form class="hm-search" role="search" onsubmit="hmSearch(event)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <label class="sr-only" for="hm-q">Tìm sản phẩm bảo hiểm</label>
-        <input id="hm-q" type="search" placeholder="Tìm kiếm sản phẩm bảo hiểm..." autocomplete="off">
-        <button type="button" onclick="hmSearch(event)">Tìm kiếm</button>
-      </form>
-      <nav class="hm-quick" aria-label="Lối tắt">
-        <a href="/cap-don-tnds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg><span class="hm-qd">Mua TNDS online</span><span class="hm-qm">Mua TNDS</span></a><a href="/boi-thuong"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg><span class="hm-qd">Khai báo bồi thường</span><span class="hm-qm">Bồi thường</span></a><a href="/servicemap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="hm-qd">Mạng lưới dịch vụ</span><span class="hm-qm">Mạng lưới</span></a><a href="#hero-form" onclick="hmMoForm(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg><span class="hm-qd">Tư vấn miễn phí</span><span class="hm-qm">Tư vấn</span></a>
-      </nav>
-    </div>
-  </div>
 
-  <aside class="hm-side" aria-label="Nhận tư vấn">
-    <div class="hm-side-top">
-      <div>
-        <h2 class="hm-side-h">Cần tư vấn?</h2>
-        <p>Chuyên viên DBV247 hỗ trợ bạn 1:1, miễn phí.</p>
-      </div>
-      <img src="tu-van-vien-nu.webp" alt="" width="84" height="84" loading="lazy">
-    </div>
-    <div class="hero-form-wrap">
-      <form class="hero-form" id="hero-form" name="hero-form" data-netlify="true" data-netlify-honeypot="hf-bot" onsubmit="submitHero(event)">
-        <input type="hidden" name="form-name" value="hero-form">
-        <input type="text" name="hf-bot" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div class="hf-field">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <label class="sr-only" for="hf-phone">Số điện thoại</label>
-          <input class="hf-input" id="hf-phone" name="phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" required inputmode="tel" maxlength="15" aria-label="Số điện thoại">
-        </div>
-        <div class="hf-field">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <label class="sr-only" for="hf-need">Nhu cầu bảo hiểm</label>
-          <select class="hf-select" id="hf-need" name="need" required>
-            <option value="" disabled selected>Nhu cầu bảo hiểm</option>
-            <option value="xe-oto">Xe ô tô</option>
-            <option value="xe-may">Xe máy</option>
-            <option value="suc-khoe">Sức khỏe</option>
-            <option value="tai-san">Tài sản</option>
-            <option value="du-lich">Du lịch</option>
-            <option value="hang-hai">Hàng hải</option>
-            <option value="trach-nhiem">Trách nhiệm</option>
-            <option value="khac">Khác</option>
-          </select>
-        </div>
-        <button class="hf-btn" type="submit">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-          Nhận tư vấn ngay
-        </button>
-      
-  <!-- Nguồn khách: assets/dbv-tracking.js tự điền khi form được gửi.
-       Netlify Forms CHỈ lưu những trường được khai báo ở đây — xoá đi là mất dữ liệu nguồn. -->
-  <input type="hidden" name="utm_source"/>
-  <input type="hidden" name="utm_medium"/>
-  <input type="hidden" name="utm_campaign"/>
-  <input type="hidden" name="utm_term"/>
-  <input type="hidden" name="utm_content"/>
-  <input type="hidden" name="gclid"/>
-  <input type="hidden" name="trang-vao-dau"/>
-  <input type="hidden" name="nguon-gioi-thieu"/>
-  <input type="hidden" name="dong-y-chinh-sach"/>
-  <input type="hidden" name="thoi-diem-dong-y"/>
-</form>
-      <div class="hf-success" id="hf-success" role="status">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-        <div>
-          <b>Đã nhận thông tin!</b>
-          <span>Chuyên viên sẽ gọi lại trong vòng 5–10 phút.</span>
-        </div>
-      </div>
-    </div>
-    <a class="hm-side-hot" href="tel:0869656561"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>0869 656 561</b><small>Tư vấn miễn phí</small></a>
-    <div class="hm-side-links">
-      <a href="#hero-form" onclick="hmMoForm(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/><path d="M14 2v6h6M20 2l-6 6"/></svg>Yêu cầu gọi lại</a>
-      <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener"><img src="icon-zalo.webp" alt="" width="18" height="18">Nhắn Zalo</a>
-      <a href="https://m.me/1108459929024761" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg>Chat Messenger</a>
-    </div>
-  </aside>
+<!-- ══ TRANG CHỦ 2 NHÓM — BANNER ══ -->
+<section class="hp-top" aria-labelledby="hp-h1">
+ <div class="hm-wrap">
+  <div class="hp-switch" role="group" aria-label="Chọn nhóm khách hàng">
+   <button type="button" class="hp-sw-b" data-nhom="dn" aria-pressed="true" onclick="hpNhom('dn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg>Doanh nghiệp</button>
+   <button type="button" class="hp-sw-b" data-nhom="cn" aria-pressed="false" onclick="hpNhom('cn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Cá nhân &amp; Gia đình</button>
+  </div>
+  <div class="hp-hero">
+   <div class="hp-hero-tx">
+    <h1 class="hp-h1" id="hp-h1">Chào mừng đến<br>hệ sinh thái của<br><span>Bảo hiểm DBV</span></h1>
+    <p class="hp-lead hp-dn">Bảo vệ tài sản và hoạt động kinh doanh.</p>
+    <p class="hp-lead hp-cn">Bảo vệ xe, ngôi nhà và người thân.</p>
+   </div>
+   <div class="hp-hero-art">
+    <picture class="hp-dn"><source media="(max-width:767px)" srcset="/assets/img/trang-chu/hero-dn-v2-m.webp" width="640" height="736"><img src="/assets/img/trang-chu/hero-dn-v2-1200.webp" alt="Chuyên viên tư vấn DBV247 cùng khách hàng doanh nghiệp trước nhà xưởng" width="1200" height="719" loading="lazy" decoding="async" fetchpriority="high"></picture>
+    <picture class="hp-cn"><source media="(max-width:767px)" srcset="/assets/img/trang-chu/hero-cn-v2-m.webp" width="640" height="736"><img src="/assets/img/trang-chu/hero-cn-v2-1200.webp" alt="Chuyên viên tư vấn DBV247 cùng gia đình, ô tô và ngôi nhà được bảo vệ" width="1200" height="719" loading="lazy" decoding="async" fetchpriority="high"></picture>
+   </div>
+   <form class="hp-hero-cta hp-hsearch" role="search" onsubmit="hpTimBanner(event)">
+    <label class="sr-only" for="hp-hq">Tìm sản phẩm bảo hiểm</label>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="hp-hq" type="search" autocomplete="off" data-dn="Tìm: cháy nổ, hàng hóa, đội xe..." data-cn="Tìm: ô tô, sức khỏe, du lịch..." placeholder="Tìm sản phẩm bảo hiểm...">
+    <button type="button" class="hp-btn hp-btn-pri" onclick="hpTimBanner(event)">Tìm kiếm</button>
+   </form>
+  </div>
+ </div>
+</section>
+<main id="catalog">
+
+<section class="hp-sec hp-sec-need" aria-labelledby="hp-need-h">
+ <div class="hm-wrap">
+  <div class="hp-head"><h2 class="hp-h2" id="hp-need-h">Bạn cần bảo vệ điều gì?</h2></div>
+  <div class="hp-tiles hp-tiles-6 hp-dn"><button type="button" class="hp-tile" data-need="dn-taisan" data-ten="Cháy nổ &amp; tài sản" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4.1 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>Tài sản</button><button type="button" class="hp-tile" data-need="dn-hanghoa" data-ten="Hàng hóa" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.4 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.8 4.4 2 6"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/><path d="M12 10v4M12 2v3"/></svg></span>Hàng hóa</button><button type="button" class="hp-tile" data-need="dn-congtrinh" data-ten="Công trình, xây dựng" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V3l12 4H6"/><path d="M14 7v5"/><rect x="12" y="12" width="4" height="3"/><path d="M10 21v-5h-4"/></svg></span>Xây dựng</button><button type="button" class="hp-tile" data-need="dn-nhanvien" data-ten="Nhân viên" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Nhân viên</button><button type="button" class="hp-tile" data-need="dn-xe" data-ten="Xe cơ giới" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10 16 6.5c-.3-.4-.8-.5-1.2-.5H9.2c-.5 0-.9.2-1.2.5L5.6 10 3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg></span>Xe cơ giới</button><button type="button" class="hp-tile" data-need="dn-trachnhiem" data-ten="Trách nhiệm" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1zM2 16l3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1z"/><path d="M7 21h10M12 3v18M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span>Trách nhiệm</button></div>
+  <div class="hp-tiles hp-tiles-4 hp-cn"><button type="button" class="hp-tile" data-need="cn-xe" data-ten="Ô tô &amp; xe máy" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10 16 6.5c-.3-.4-.8-.5-1.2-.5H9.2c-.5 0-.9.2-1.2.5L5.6 10 3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg></span>Ô tô</button><button type="button" class="hp-tile" data-need="cn-suckhoe" data-ten="Sức khỏe &amp; tai nạn" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.4 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.1 3 5.5l7 7z"/><path d="M3.2 12H9l.5-1 2 4.5 2-7 1.5 3.5h5.8"/></svg></span>Sức khỏe</button><button type="button" class="hp-tile" data-need="cn-nha" data-ten="Nhà ở" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span>Nhà ở</button><button type="button" class="hp-tile" data-need="cn-dulich" data-ten="Du lịch" onclick="hpChon(this,true)"><span class="hp-tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></span>Du lịch</button></div>
  </div>
 </section>
 
-<main id="catalog">
-<section class="hm-sec">
+<section class="hp-sec hp-sec-feat hp-dn" aria-labelledby="hp-feat-dn-h">
+ <div class="hm-wrap">
+  <div class="hp-head"><h2 class="hp-h2" id="hp-feat-dn-h">Giải pháp nổi bật</h2><a class="hp-more" href="/san-pham">Xem tất cả <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+  <div class="hp-cards"><a class="hp-card" href="/bao-hiem-chay-no"><span class="hp-card-ph"><img src="/assets/img/bh-chay-no-bat-buoc-v2.webp" alt="Bảo hiểm cháy nổ" width="1024" height="640" loading="lazy" decoding="async"></span><span class="hp-card-bd"><b>Bảo hiểm cháy nổ</b><span>Cho cơ sở thuộc diện bắt buộc: nhà xưởng, kho hàng, văn phòng.</span><em>Xem chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em></span></a><a class="hp-card" href="/bao-hiem-van-chuyen"><span class="hp-card-ph"><img src="/assets/img/bh-hh-van-chuyen-v2.webp" alt="Bảo hiểm hàng hóa" width="1024" height="640" loading="lazy" decoding="async"></span><span class="hp-card-bd"><b>Bảo hiểm hàng hóa</b><span>Hàng vận chuyển nội địa đường bộ, đường sắt, đường thủy.</span><em>Xem chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em></span></a><a class="hp-card" href="/bao-hiem-xay-dung"><span class="hp-card-ph"><img src="/assets/img/bh-xay-dung-v2.webp" alt="Bảo hiểm xây dựng" width="1024" height="640" loading="lazy" decoding="async"></span><span class="hp-card-bd"><b>Bảo hiểm xây dựng</b><span>Công trình và thiết bị thi công.</span><em>Xem chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em></span></a><a class="hp-card" href="/bao-hiem-doi-xe-doanh-nghiep"><span class="hp-card-ph"><img src="/assets/img/bh-doi-xe-doanh-nghiep-v2.webp" alt="Bảo hiểm ô tô doanh nghiệp" width="1200" height="900" loading="lazy" decoding="async"></span><span class="hp-card-bd"><b>Bảo hiểm ô tô doanh nghiệp</b><span>TNDS, vật chất, hàng hóa cho đội từ 3 xe — một báo giá cho cả đội.</span><em>Xem chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em></span></a><a class="hp-card" href="/bao-hiem-cham-soc-suc-khoe-dbvcare"><span class="hp-card-ph"><img src="/assets/img/bh-suc-khoe-nhom-v2.webp" alt="Bảo hiểm nhân viên" width="1024" height="640" loading="lazy" decoding="async"></span><span class="hp-card-bd"><b>Bảo hiểm nhân viên</b><span>Sức khỏe nhóm DBVCare cho doanh nghiệp từ 10 người.</span><em>Xem chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em></span></a><a class="hp-card" href="/bao-hiem-tnc"><span class="hp-card-ph"><img src="/assets/img/bh-tn-chung-v2.webp" alt="Bảo hiểm trách nhiệm" width="1024" height="640" loading="lazy" decoding="async"></span><span class="hp-card-bd"><b>Bảo hiểm trách nhiệm</b><span>Thiệt hại cho bên thứ ba trong hoạt động kinh doanh.</span><em>Xem chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em></span></a></div>
+ </div>
+</section>
+<section class="hm-sec hp-sec-feat hp-cn">
  <div class="hm-wrap">
   <div class="hm-head"><span class="hm-head-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span><div class="hm-head-tx"><h2 class="hm-h2">Sản phẩm nổi bật</h2><p>Những sản phẩm được khách hàng quan tâm và lựa chọn nhiều nhất.</p></div><a class="hm-more" href="/san-pham">Xem tất cả <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
   <div class="hm-feat hm-pgrid">
@@ -1483,18 +1807,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
  </div>
 </section>
-<section class="hm-sec" id="tat-ca-san-pham">
+
+<section class="hp-sec hp-find" id="tim-giai-phap" aria-labelledby="hp-find-h">
  <div class="hm-wrap">
-  <div class="hm-head hm-head-all">
-   <span class="hm-head-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
-   <div class="hm-head-tx"><h2 class="hm-h2">Tìm bảo hiểm phù hợp</h2><p>Chọn đối tượng và nhu cầu, hoặc gõ tên sản phẩm bạn cần. Hơn 25 sản phẩm để lựa chọn.</p></div>
-   <div class="hm-lsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><label class="sr-only" for="hm-lq">Tìm sản phẩm</label><input id="hm-lq" type="search" placeholder="Tìm: xe hơi, 2 chiều, chung cư..." autocomplete="off"></div>
+  <div class="hp-head">
+   <div><h2 class="hp-h2" id="hp-find-h"><span class="hp-dn">Giải pháp theo lĩnh vực</span><span class="hp-cn">Tìm bảo hiểm theo nhu cầu</span></h2>
+   <p><span class="hp-dn">Chọn lĩnh vực hoạt động để xem các sản phẩm phù hợp.</span><span class="hp-cn">Chọn nhu cầu để xem các sản phẩm phù hợp.</span> Hoặc gõ tên sản phẩm bạn cần.</p></div>
+   <div class="hp-find-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><label class="sr-only" for="hm-lq">Tìm sản phẩm bảo hiểm</label><input id="hm-lq" type="search" placeholder="Tìm: xe hơi, cháy nổ, chung cư..." autocomplete="off"></div>
   </div>
-  <div class="hm-aud" role="tablist" aria-label="Đối tượng"><button type="button" role="tab" class="hm-aud-b on" data-aud="cn" aria-selected="true" onclick="hmAud('cn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Cá nhân &amp; gia đình</button><button type="button" role="tab" class="hm-aud-b" data-aud="dn" aria-selected="false" onclick="hmAud('dn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg>Doanh nghiệp &amp; hộ kinh doanh</button></div>
-  <div class="hm-needs"><button type="button" class="hm-need" data-aud="cn" data-need="cn-oto" onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10 16 6.5c-.3-.4-.8-.5-1.2-.5H9.2c-.5 0-.9.2-1.2.5L5.6 10 3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg></span><span><b>Ô tô</b><small>TNDS, vật chất, xe điện</small></span></button><button type="button" class="hm-need" data-aud="cn" data-need="cn-xemay" onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h2l3 11.5"/><path d="M5.5 17.5 9 10h6l-3 7.5h-3"/></svg></span><span><b>Xe máy</b><small>TNDS bắt buộc</small></span></button><button type="button" class="hm-need" data-aud="cn" data-need="cn-nha" onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span><span><b>Nhà ở</b><small>Chung cư, xây nhà</small></span></button><button type="button" class="hm-need" data-aud="cn" data-need="cn-suckhoe" onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.4 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.1 3 5.5l7 7z"/><path d="M3.2 12H9l.5-1 2 4.5 2-7 1.5 3.5h5.8"/></svg></span><span><b>Sức khỏe &amp; tai nạn</b><small>Nằm viện, tai nạn</small></span></button><button type="button" class="hm-need" data-aud="cn" data-need="cn-dulich" onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></span><span><b>Du lịch</b><small>Quốc tế, trong nước</small></span></button><button type="button" class="hm-need" data-aud="dn" data-need="dn-xe" hidden onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10 16 6.5c-.3-.4-.8-.5-1.2-.5H9.2c-.5 0-.9.2-1.2.5L5.6 10 3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg></span><span><b>Xe cơ giới</b><small>Đội xe, TNDS, vật chất xe</small></span></button><button type="button" class="hm-need" data-aud="dn" data-need="dn-taisan" hidden onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4.1 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span><span><b>Cháy nổ &amp; tài sản</b><small>Bắt buộc, hộ kinh doanh, kho xưởng</small></span></button><button type="button" class="hm-need" data-aud="dn" data-need="dn-congtrinh" hidden onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V3l12 4H6"/><path d="M14 7v5"/><rect x="12" y="12" width="4" height="3"/><path d="M10 21v-5h-4"/></svg></span><span><b>Công trình</b><small>Xây dựng, lắp đặt, tư vấn thiết kế</small></span></button><button type="button" class="hm-need" data-aud="dn" data-need="dn-hanghoa" hidden onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.4 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.8 4.4 2 6"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/><path d="M12 10v4M12 2v3"/></svg></span><span><b>Hàng hóa</b><small>Xuất nhập khẩu, nội địa, bưu gửi</small></span></button><button type="button" class="hm-need" data-aud="dn" data-need="dn-nhanvien" hidden onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><span><b>Nhân viên</b><small>Sức khỏe nhóm, tai nạn</small></span></button><button type="button" class="hm-need" data-aud="dn" data-need="dn-trachnhiem" hidden onclick="hmNeed(this)"><span class="hm-need-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1zM2 16l3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1z"/><path d="M7 21h10M12 3v18M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span><span><b>Trách nhiệm</b><small>Bên thứ ba, nghề nghiệp</small></span></button></div>
-  <p class="hm-filter-note" id="hm-note" hidden></p>
-  <div class="hm-list" id="hm-list"><a class="hm-row" href="/bao-hiem-doi-xe-doanh-nghiep" data-g="dn dn-xe" data-q="doi xe doanh nghiep tnds o to vat chat xe tai xe khach dau keo hop tac xa van tai ho kinh doanh bao gia doi xe"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-doi-xe-doanh-nghiep-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Bảo hiểm đội xe doanh nghiệp</b><small>TNDS, vật chất, hàng hoá cho đội từ 3 xe</small><span class="hm-pr hm-pr-q">Một báo giá cho cả đội</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/tnds-xe-5-cho" data-g="cn cn-oto" data-q="tnds o to 5 cho bat buoc theo nd 67/2023 sedan bat buoc xe hoi oto o to trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-xe-5-cho-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS ô tô 5 chỗ <em class="hm-bb">Bắt buộc</em></b><small>Bắt buộc theo NĐ 67/2023</small><span class="hm-pr">Từ 480.700đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-vat-chat-oto" data-g="cn cn-oto dn dn-xe" data-q="vat chat o to bao ve than vo xe toan dien than vo hai chieu 2 chieu va cham xe hoi oto o to"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-vat-chat-oto-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Vật chất ô tô</b><small>Bảo vệ thân vỏ xe toàn diện</small><span class="hm-pr">Tỷ lệ từ 1,2%/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnds-xemay" data-g="cn cn-xemay" data-q="tnds xe may bao ve ban va nguoi khac xe may moto bat buoc trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-xe-may-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS xe máy <em class="hm-bb">Bắt buộc</em></b><small>Bảo vệ bạn và người khác</small><span class="hm-pr">Từ 60.500đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/tnds-xe-7-cho" data-g="cn cn-oto" data-q="tnds o to 7 cho bat buoc theo nd 67/2023 suv bat buoc xe hoi oto o to trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-xe-7-cho-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS ô tô 7 chỗ <em class="hm-bb">Bắt buộc</em></b><small>Bắt buộc theo NĐ 67/2023</small><span class="hm-pr">Từ 873.400đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-oto-dien" data-g="cn cn-oto" data-q="o to dien danh cho xe dien, bao ve pin vinfast vf pin sac xe hoi oto o to"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-oto-dien-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Ô tô điện</b><small>Dành cho xe điện, bảo vệ pin</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnds-oto" data-g="cn cn-oto dn dn-xe" data-q="tnds o to moi loai xe xe kinh doanh, xe tai, xe khach bat buoc xe tai xe khach kinh doanh xe hoi oto o to trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-oto-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS ô tô mọi loại xe <em class="hm-bb">Bắt buộc</em></b><small>Xe kinh doanh, xe tải, xe khách</small><span class="hm-pr">Từ 480.700đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-chay-no-chung-cu" data-g="cn cn-nha" data-q="chay no chung cu bat buoc cho can ho chung cu can ho nha bao hiem nha can ho"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-chay-no-chung-cu-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Cháy nổ chung cư <em class="hm-bb">Bắt buộc</em></b><small>Bắt buộc cho căn hộ chung cư</small><span class="hm-pr">Từ 275.000đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-suc-khoe" data-g="cn cn-suckhoe" data-q="suc khoe ca nhan noi tru, ngoai tru, nha khoa dbvcare nam vien y te"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-suc-khoe-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Sức khỏe cá nhân</b><small>Nội trú, ngoại trú, nha khoa</small><span class="hm-pr">Từ 1.200đ/ngày</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-du-lich-quoc-te" data-g="cn cn-dulich" data-q="du lich quoc te dat chuan visa schengen nuoc ngoai visa schengen"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-du-lich-quoc-te-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Du lịch quốc tế</b><small>Đạt chuẩn visa Schengen</small><span class="hm-pr">Từ 60.000đ/chuyến</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tai-nan" data-g="cn cn-suckhoe dn dn-nhanvien" data-q="tai nan 24 gio bao ve toan thoi gian tai nan ca nhan"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tai-nan-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Tai nạn 24 giờ</b><small>Bảo vệ toàn thời gian</small><span class="hm-pr">Từ 25.000đ/tháng</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-benh-nhiet-doi" data-g="cn cn-suckhoe" data-q="benh nhiet doi sot xuat huyet, cum, soi… sot xuat huyet dengue zika"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-benh-nhiet-doi-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Bệnh nhiệt đới</b><small>Sốt xuất huyết, cúm, sởi…</small><span class="hm-pr">Từ 58.000đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-xay-dung-nha-dan-sinh" data-g="cn cn-nha" data-q="xay dung nha dan sinh bao ve cong trinh nha dang xay xay nha nha rieng le bao hiem nha"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-xay-dung-nha-dan-sinh-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Xây dựng nhà dân sinh</b><small>Bảo vệ công trình nhà đang xây</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-du-lich-noi-dia" data-g="cn cn-dulich" data-q="du lich noi dia chuyen di trong nuoc trong nuoc doan"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-du-lich-noi-dia-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Du lịch nội địa</b><small>Chuyến đi trong nước</small><span class="hm-pr">Từ 720đ/người/ngày</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-chay-no-hkd" data-g="dn dn-taisan" data-q="chay no ho kinh doanh bao ve tai san, hang hoa cua hang kho xuong"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-chay-no-hkd-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Cháy nổ hộ kinh doanh <em class="hm-bb">Bắt buộc</em></b><small>Bảo vệ tài sản, hàng hóa</small><span class="hm-pr">Từ 400.000đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-chay-no" data-g="dn dn-taisan" data-q="chay no bat buoc co so thuoc dien bat buoc doanh nghiep"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-chay-no-bat-buoc-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Cháy nổ bắt buộc <em class="hm-bb">Bắt buộc</em></b><small>Cơ sở thuộc diện bắt buộc</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-hoa-hoan" data-g="dn dn-taisan" data-q="hoa hoan & rui ro dac biet chay, bao lu, set, dong dat thien tai bao lu"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hoa-hoan-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Hỏa hoạn & rủi ro đặc biệt</b><small>Cháy, bão lũ, sét, động đất</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-moi-rui-ro" data-g="dn dn-taisan" data-q="moi rui ro tai san mot hop dong, nhieu rui ro all risk doanh nghiep"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-moi-rui-ro-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Mọi rủi ro tài sản</b><small>Một hợp đồng, nhiều rủi ro</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-xnk" data-g="dn dn-hanghoa" data-q="hang hoa xuat nhap khau dieu kien icc a, b, c xnk duong bien"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hh-xnk-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Hàng hóa xuất nhập khẩu</b><small>Điều kiện ICC A, B, C</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-van-chuyen" data-g="dn dn-hanghoa" data-q="van chuyen noi dia duong bo, sat, thuy noi dia hang hoa"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hh-van-chuyen-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Vận chuyển nội địa</b><small>Đường bộ, sắt, thủy nội địa</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-buu-gui" data-g="dn dn-hanghoa" data-q="buu gui buu kien, don giao hang ship giao hang"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hh-buu-gui-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Bưu gửi</b><small>Bưu kiện, đơn giao hàng</small><span class="hm-pr">Từ 1.000đ/đơn</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-than-tau-noi-dia" data-g="dn dn-hanghoa" data-q="than tau noi dia tau thuyen van tai thuy tau thuy"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-than-tau-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Thân tàu nội địa</b><small>Tàu thuyền vận tải thủy</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-cham-soc-suc-khoe-dbvcare" data-g="dn dn-nhanvien" data-q="suc khoe nhom dbvcare cho doanh nghiep tu 10 nguoi nhom nhan vien nhan vien cong ty"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-suc-khoe-nhom-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Sức khỏe nhóm DBVCare</b><small>Cho doanh nghiệp từ 10 người</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-xay-dung" data-g="dn dn-congtrinh" data-q="rui ro xay dung cong trinh, thiet bi thi cong cong trinh lap dat nha thau"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-xay-dung-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Rủi ro xây dựng</b><small>Công trình, thiết bị thi công</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnn-tvtk" data-g="dn dn-congtrinh dn-trachnhiem" data-q="tn nghe nghiep tu van thiet ke thiet ke, giam sat thi cong tu van thiet ke giam sat"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-tvtk-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TN nghề nghiệp tư vấn thiết kế</b><small>Thiết kế, giám sát thi công</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnc" data-g="dn dn-trachnhiem" data-q="trach nhiem chung thiet hai cho ben thu ba doanh nghiep"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-chung-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Trách nhiệm chung</b><small>Thiệt hại cho bên thứ ba</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tncc" data-g="dn dn-trachnhiem" data-q="trach nhiem cong cong khu vuc kinh doanh, su kien cong dong"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-cong-cong-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Trách nhiệm công cộng</b><small>Khu vực kinh doanh, sự kiện</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnn-kcb" data-g="dn dn-trachnhiem" data-q="tn nghe nghiep kham chua benh bac si, co so y te bac si y te"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-kcb-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TN nghề nghiệp khám chữa bệnh</b><small>Bác sĩ, cơ sở y tế</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnn-ls" data-g="dn dn-trachnhiem" data-q="tn nghe nghiep luat su, cong chung hanh nghe phap ly luat su cong chung"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-luat-su-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TN nghề nghiệp luật sư, công chứng</b><small>Hành nghề pháp lý</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></div>
-  <div class="hm-empty" id="hm-empty" hidden>Không tìm thấy sản phẩm phù hợp. Thử từ khoá khác hoặc <a href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener">nhắn Zalo</a> để được tư vấn trực tiếp.</div>
+  <div class="hp-picks hp-picks-5 hp-dn"><button type="button" class="hp-pick" data-need="s-sx" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-moi-rui-ro-v2.webp" srcset="/assets/img/thumb/bh-moi-rui-ro-v2.webp 240w, /assets/img/bh-moi-rui-ro-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Sản xuất</b><small>Nhà xưởng, máy móc, kho hàng</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button><button type="button" class="hp-pick" data-need="s-tm" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-hh-xnk-v2.webp" srcset="/assets/img/thumb/bh-hh-xnk-v2.webp 240w, /assets/img/bh-hh-xnk-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Thương mại & logistics</b><small>Cửa hàng, hàng hóa, giao nhận</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button><button type="button" class="hp-pick" data-need="s-xd" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-tn-tvtk-v2.webp" srcset="/assets/img/thumb/bh-tn-tvtk-v2.webp 240w, /assets/img/bh-tn-tvtk-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Xây dựng</b><small>Công trình, thiết kế, giám sát</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button><button type="button" class="hp-pick" data-need="s-vt" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-tnds-xe-tai-v2.webp" srcset="/assets/img/thumb/bh-tnds-xe-tai-v2.webp 240w, /assets/img/bh-tnds-xe-tai-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Vận tải</b><small>Đội xe, tàu thủy, hàng vận chuyển</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button><button type="button" class="hp-pick" data-need="s-sk" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-tn-kcb-v2.webp" srcset="/assets/img/thumb/bh-tn-kcb-v2.webp 240w, /assets/img/bh-tn-kcb-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Sức khỏe</b><small>Sức khỏe nhóm, cơ sở y tế</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button></div>
+  <div class="hp-picks hp-picks-4 hp-cn"><button type="button" class="hp-pick" data-need="cn-xe" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-tnds-oto-v2.webp" srcset="/assets/img/thumb/bh-tnds-oto-v2.webp 240w, /assets/img/bh-tnds-oto-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Ô tô</b><small>Ô tô, xe điện, xe máy</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button><button type="button" class="hp-pick" data-need="cn-suckhoe" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-tai-nan-v2.webp" srcset="/assets/img/thumb/bh-tai-nan-v2.webp 240w, /assets/img/bh-tai-nan-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Sức khỏe</b><small>Nằm viện, tai nạn, bệnh</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button><button type="button" class="hp-pick" data-need="cn-nha" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-xay-dung-nha-dan-sinh-v2.webp" srcset="/assets/img/thumb/bh-xay-dung-nha-dan-sinh-v2.webp 240w, /assets/img/bh-xay-dung-nha-dan-sinh-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Nhà ở</b><small>Chung cư, nhà đang xây</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button><button type="button" class="hp-pick" data-need="cn-dulich" aria-pressed="false" aria-controls="hm-list" onclick="hpChon(this)"><span class="hp-pick-ph"><img src="/assets/img/thumb/bh-du-lich-noi-dia-v2.webp" srcset="/assets/img/thumb/bh-du-lich-noi-dia-v2.webp 240w, /assets/img/bh-du-lich-noi-dia-v2.webp 1024w" sizes="(max-width:767px) 76px, 260px" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hp-pick-bd"><span><b>Du lịch</b><small>Trong nước và quốc tế</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button></div>
+  <p class="hm-filter-note" id="hm-note" role="status" hidden></p>
+  <div class="hm-list" id="hm-list"><a class="hm-row" href="/bao-hiem-doi-xe-doanh-nghiep" data-g="dn dn-xe s-vt" data-q="doi xe doanh nghiep tnds o to vat chat xe tai xe khach dau keo hop tac xa van tai ho kinh doanh bao gia doi xe"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-doi-xe-doanh-nghiep-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Bảo hiểm đội xe doanh nghiệp</b><small>TNDS, vật chất, hàng hoá cho đội từ 3 xe</small><span class="hm-pr hm-pr-q">Một báo giá cho cả đội</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/tnds-xe-5-cho" data-g="cn cn-oto cn-xe" data-q="tnds o to 5 cho bat buoc theo nd 67/2023 sedan bat buoc xe hoi oto o to trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-xe-5-cho-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS ô tô 5 chỗ <em class="hm-bb">Bắt buộc</em></b><small>Bắt buộc theo NĐ 67/2023</small><span class="hm-pr">Từ 480.700đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-vat-chat-oto" data-g="cn cn-oto dn dn-xe s-vt cn-xe" data-q="vat chat o to bao ve than vo xe toan dien than vo hai chieu 2 chieu va cham xe hoi oto o to"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-vat-chat-oto-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Vật chất ô tô</b><small>Bảo vệ thân vỏ xe toàn diện</small><span class="hm-pr">Tỷ lệ từ 1,2%/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnds-xemay" data-g="cn cn-xemay cn-xe" data-q="tnds xe may bao ve ban va nguoi khac xe may moto bat buoc trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-xe-may-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS xe máy <em class="hm-bb">Bắt buộc</em></b><small>Bảo vệ bạn và người khác</small><span class="hm-pr">Từ 60.500đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/tnds-xe-7-cho" data-g="cn cn-oto cn-xe" data-q="tnds o to 7 cho bat buoc theo nd 67/2023 suv bat buoc xe hoi oto o to trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-xe-7-cho-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS ô tô 7 chỗ <em class="hm-bb">Bắt buộc</em></b><small>Bắt buộc theo NĐ 67/2023</small><span class="hm-pr">Từ 873.400đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-oto-dien" data-g="cn cn-oto cn-xe" data-q="o to dien danh cho xe dien, bao ve pin vinfast vf pin sac xe hoi oto o to"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-oto-dien-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Ô tô điện</b><small>Dành cho xe điện, bảo vệ pin</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnds-oto" data-g="cn cn-oto dn dn-xe s-vt cn-xe" data-q="tnds o to moi loai xe xe kinh doanh, xe tai, xe khach bat buoc xe tai xe khach kinh doanh xe hoi oto o to trach nhiem dan su"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tnds-oto-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TNDS ô tô mọi loại xe <em class="hm-bb">Bắt buộc</em></b><small>Xe kinh doanh, xe tải, xe khách</small><span class="hm-pr">Từ 480.700đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-chay-no-chung-cu" data-g="cn cn-nha" data-q="chay no chung cu bat buoc cho can ho chung cu can ho nha bao hiem nha can ho"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-chay-no-chung-cu-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Cháy nổ chung cư <em class="hm-bb">Bắt buộc</em></b><small>Bắt buộc cho căn hộ chung cư</small><span class="hm-pr">Từ 275.000đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-suc-khoe" data-g="cn cn-suckhoe" data-q="suc khoe ca nhan noi tru, ngoai tru, nha khoa dbvcare nam vien y te"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-suc-khoe-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Sức khỏe cá nhân</b><small>Nội trú, ngoại trú, nha khoa</small><span class="hm-pr">Từ 1.200đ/ngày</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-du-lich-quoc-te" data-g="cn cn-dulich" data-q="du lich quoc te dat chuan visa schengen nuoc ngoai visa schengen"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-du-lich-quoc-te-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Du lịch quốc tế</b><small>Đạt chuẩn visa Schengen</small><span class="hm-pr">Từ 60.000đ/chuyến</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tai-nan" data-g="cn cn-suckhoe dn dn-nhanvien s-xd s-sk" data-q="tai nan 24 gio bao ve toan thoi gian tai nan ca nhan"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tai-nan-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Tai nạn 24 giờ</b><small>Bảo vệ toàn thời gian</small><span class="hm-pr">Từ 25.000đ/tháng</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-benh-nhiet-doi" data-g="cn cn-suckhoe" data-q="benh nhiet doi sot xuat huyet, cum, soi… sot xuat huyet dengue zika"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-benh-nhiet-doi-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Bệnh nhiệt đới</b><small>Sốt xuất huyết, cúm, sởi…</small><span class="hm-pr">Từ 58.000đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-xay-dung-nha-dan-sinh" data-g="cn cn-nha" data-q="xay dung nha dan sinh bao ve cong trinh nha dang xay xay nha nha rieng le bao hiem nha"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-xay-dung-nha-dan-sinh-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Xây dựng nhà dân sinh</b><small>Bảo vệ công trình nhà đang xây</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-du-lich-noi-dia" data-g="cn cn-dulich" data-q="du lich noi dia chuyen di trong nuoc trong nuoc doan"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-du-lich-noi-dia-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Du lịch nội địa</b><small>Chuyến đi trong nước</small><span class="hm-pr">Từ 720đ/người/ngày</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-chay-no-hkd" data-g="dn dn-taisan s-tm" data-q="chay no ho kinh doanh bao ve tai san, hang hoa cua hang kho xuong"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-chay-no-hkd-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Cháy nổ hộ kinh doanh <em class="hm-bb">Bắt buộc</em></b><small>Bảo vệ tài sản, hàng hóa</small><span class="hm-pr">Từ 400.000đ/năm</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-chay-no" data-g="dn dn-taisan s-sx" data-q="chay no bat buoc co so thuoc dien bat buoc doanh nghiep"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-chay-no-bat-buoc-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Cháy nổ bắt buộc <em class="hm-bb">Bắt buộc</em></b><small>Cơ sở thuộc diện bắt buộc</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-hoa-hoan" data-g="dn dn-taisan s-sx" data-q="hoa hoan & rui ro dac biet chay, bao lu, set, dong dat thien tai bao lu"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hoa-hoan-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Hỏa hoạn & rủi ro đặc biệt</b><small>Cháy, bão lũ, sét, động đất</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-moi-rui-ro" data-g="dn dn-taisan s-sx" data-q="moi rui ro tai san mot hop dong, nhieu rui ro all risk doanh nghiep"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-moi-rui-ro-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Mọi rủi ro tài sản</b><small>Một hợp đồng, nhiều rủi ro</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-xnk" data-g="dn dn-hanghoa s-tm" data-q="hang hoa xuat nhap khau dieu kien icc a, b, c xnk duong bien"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hh-xnk-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Hàng hóa xuất nhập khẩu</b><small>Điều kiện ICC A, B, C</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-van-chuyen" data-g="dn dn-hanghoa s-sx s-tm s-vt" data-q="van chuyen noi dia duong bo, sat, thuy noi dia hang hoa"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hh-van-chuyen-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Vận chuyển nội địa</b><small>Đường bộ, sắt, thủy nội địa</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-buu-gui" data-g="dn dn-hanghoa s-tm" data-q="buu gui buu kien, don giao hang ship giao hang"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-hh-buu-gui-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Bưu gửi</b><small>Bưu kiện, đơn giao hàng</small><span class="hm-pr">Từ 1.000đ/đơn</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-than-tau-noi-dia" data-g="dn dn-hanghoa s-vt" data-q="than tau noi dia tau thuyen van tai thuy tau thuy"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-than-tau-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Thân tàu nội địa</b><small>Tàu thuyền vận tải thủy</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-cham-soc-suc-khoe-dbvcare" data-g="dn dn-nhanvien s-sx s-sk" data-q="suc khoe nhom dbvcare cho doanh nghiep tu 10 nguoi nhom nhan vien nhan vien cong ty"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-suc-khoe-nhom-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Sức khỏe nhóm DBVCare</b><small>Cho doanh nghiệp từ 10 người</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-xay-dung" data-g="dn dn-congtrinh s-xd" data-q="rui ro xay dung cong trinh, thiet bi thi cong cong trinh lap dat nha thau"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-xay-dung-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Rủi ro xây dựng</b><small>Công trình, thiết bị thi công</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnn-tvtk" data-g="dn dn-congtrinh dn-trachnhiem s-xd" data-q="tn nghe nghiep tu van thiet ke thiet ke, giam sat thi cong tu van thiet ke giam sat"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-tvtk-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TN nghề nghiệp tư vấn thiết kế</b><small>Thiết kế, giám sát thi công</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnc" data-g="dn dn-trachnhiem s-sx s-tm s-xd" data-q="trach nhiem chung thiet hai cho ben thu ba doanh nghiep"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-chung-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Trách nhiệm chung</b><small>Thiệt hại cho bên thứ ba</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tncc" data-g="dn dn-trachnhiem s-tm" data-q="trach nhiem cong cong khu vuc kinh doanh, su kien cong dong"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-cong-cong-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>Trách nhiệm công cộng</b><small>Khu vực kinh doanh, sự kiện</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnn-kcb" data-g="dn dn-trachnhiem s-sk" data-q="tn nghe nghiep kham chua benh bac si, co so y te bac si y te"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-kcb-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TN nghề nghiệp khám chữa bệnh</b><small>Bác sĩ, cơ sở y tế</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="hm-row" href="/bao-hiem-tnn-ls" data-g="dn dn-trachnhiem" data-q="tn nghe nghiep luat su, cong chung hanh nghe phap ly luat su cong chung"><span class="hm-row-ph"><img src="/assets/img/thumb/bh-tn-luat-su-v2.webp" alt="" width="240" height="150" loading="lazy" decoding="async"></span><span class="hm-row-tx"><b>TN nghề nghiệp luật sư, công chứng</b><small>Hành nghề pháp lý</small><span class="hm-pr hm-pr-q">Nhận báo phí miễn phí</span></span><svg class="hm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></div>
+  <div class="hm-empty" id="hm-empty" hidden>Chưa có sản phẩm khớp. Thử từ khoá khác hoặc <a href="#tu-van" onclick="hpMoForm(event)">để lại số điện thoại</a> để được tư vấn.</div>
   <div class="hm-more-m"><button type="button" id="hm-more-m" hidden onclick="hmMoreM()"></button></div>
   <p class="hm-list-foot"><a class="hm-more" href="/san-pham">Xem trang danh mục sản phẩm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
  </div>
@@ -1503,7 +1828,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  <div class="hm-wrap">
   <div class="hm-why">
    <div class="hm-why-main">
-    <div class="hm-head hm-head-sm"><span class="hm-head-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.6l-2.3 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9z"/></svg></span><div class="hm-head-tx"><h2 class="hm-h2">Vì sao nên chọn DBV247?</h2><p>Chúng tôi cam kết mang đến cho bạn trải nghiệm bảo hiểm minh bạch, nhanh chóng và an toàn.</p></div></div>
+    <div class="hm-head hm-head-sm"><span class="hm-head-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.6l-2.3 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9z"/></svg></span><div class="hm-head-tx"><h2 class="hm-h2">Vì sao chọn DBV247?</h2><p>Chúng tôi cam kết mang đến cho bạn trải nghiệm bảo hiểm minh bạch, nhanh chóng và an toàn.</p></div></div>
     <div class="hm-why-grid">
      <div class="hm-why-it"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg></span><div><b>Đa dạng sản phẩm</b><p>Hơn 25 sản phẩm phi nhân thọ thuộc 5 nhóm, từ xe cộ đến doanh nghiệp</p></div></div><div class="hm-why-it"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></span><div><b>Thủ tục đơn giản</b><p>Đăng ký online, cấp giấy chứng nhận điện tử, tiết kiệm thời gian</p></div></div><div class="hm-why-it"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span><div><b>Hỗ trợ bồi thường 24/7</b><p>Tổng đài 1900 96 96 90 tiếp nhận sự cố mọi lúc</p></div></div><div class="hm-why-it"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg></span><div><b>Bảo mật thông tin</b><p>Thông tin khách hàng được bảo vệ theo chính sách bảo mật</p></div></div>
     </div>
@@ -1515,23 +1840,96 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
  </div>
 </section>
-<section class="hm-sec hm-sec-tight">
+
+<section class="hp-sec" aria-labelledby="hp-step-h">
  <div class="hm-wrap">
-  <div class="hm-cta">
-   <img class="hm-cta-img" src="tu-van-vien-nu.webp" alt="" width="120" height="120" loading="lazy">
-   <div class="hm-cta-tx">
-    <h2>Không biết mình cần sản phẩm nào?</h2>
-    <p>Để lại thông tin, chuyên viên DBV247 sẽ tư vấn miễn phí cho bạn!</p>
-    <a class="hm-btn-o" href="#hero-form" onclick="hmMoForm(event)">Nhận tư vấn miễn phí <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <div class="hp-head"><h2 class="hp-h2" id="hp-step-h">Các bước thực hiện</h2></div>
+  <ol class="hp-steps hp-dn">
+   <li class="hp-step"><div><b>Chia sẻ nhu cầu</b><span>Cho chúng tôi biết lĩnh vực hoạt động và tài sản, hàng hóa hay con người cần bảo vệ.</span></div></li>
+   <li class="hp-step"><div><b>Nhận phương án</b><span>Chuyên viên DBV247 đề xuất phương án bảo hiểm và báo phí phù hợp.</span></div></li>
+   <li class="hp-step"><div><b>Hoàn tất hồ sơ</b><span>Hoàn thiện hồ sơ, ký hợp đồng và nhận giấy chứng nhận bảo hiểm.</span></div></li>
+  </ol>
+  <ol class="hp-steps hp-cn">
+   <li class="hp-step"><div><b>Chọn sản phẩm</b><span>Tìm sản phẩm phù hợp với xe, ngôi nhà hoặc người thân của bạn.</span></div></li>
+   <li class="hp-step"><div><b>Cung cấp thông tin</b><span>Điền vài thông tin cần thiết trực tuyến hoặc qua chuyên viên.</span></div></li>
+   <li class="hp-step"><div><b>Hoàn tất đăng ký</b><span>Chuyên viên DBV247 liên hệ xác nhận và cấp giấy chứng nhận.</span></div></li>
+  </ol>
+ </div>
+</section>
+
+<section class="hp-sec" id="tu-van" aria-labelledby="hp-form-h">
+ <div class="hm-wrap">
+  <div class="hp-form-box">
+   <img class="hp-form-img" src="/assets/img/trang-chu/tu-van-vien-nu-v2.webp" alt="" width="620" height="834" loading="lazy" decoding="async">
+   <div class="hp-form-intro">
+    <h2 id="hp-form-h">Cần tư vấn thêm?</h2>
+    <p>Đội ngũ DBV247 sẵn sàng lắng nghe và tư vấn giải pháp phù hợp cho <span class="hp-dn">doanh nghiệp của</span> bạn, miễn phí.</p>
+    <a class="hp-hot" href="tel:0869656561"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>0869 656 561<small>Tư vấn miễn phí</small></b></a>
    </div>
-   <ul class="hm-cta-list">
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Tư vấn 1:1</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Phù hợp nhu cầu</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.9 8.6a4 4 0 0 1 4.8-4.8 4 4 0 0 1 6.6 0 4 4 0 0 1 4.8 4.8 4 4 0 0 1 0 6.8 4 4 0 0 1-4.8 4.8 4 4 0 0 1-6.6 0 4 4 0 0 1-4.8-4.8 4 4 0 0 1 0-6.8z"/><path d="m9 12 2 2 4-4"/></svg>Hoàn toàn miễn phí</li>
-   </ul>
-   <a class="hm-cta-hot" href="tel:0869656561"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>0869 656 561<small>Tư vấn miễn phí</small></b></a>
+   <div class="hero-form-wrap">
+    <form class="hero-form hp-form" id="hero-form" name="hero-form" data-netlify="true" data-netlify-honeypot="hf-bot" onsubmit="submitHero(event)" novalidate>
+     <input type="hidden" name="form-name" value="hero-form">
+     <input type="text" name="hf-bot" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+     <input type="hidden" name="nguon" id="hf-nguon" value="Form trang chủ">
+     <div class="hp-fld-row">
+     <div class="hp-fld hp-dn">
+      <label for="hf-company">Tên doanh nghiệp</label>
+      <input class="hf-input" id="hf-company" name="ten-cong-ty" type="text" autocomplete="organization" maxlength="120" placeholder="Không bắt buộc">
+     </div>
+     <div class="hp-fld">
+      <label for="hf-phone">Số điện thoại <i aria-hidden="true">*</i></label>
+      <input class="hf-input" id="hf-phone" name="phone" type="tel" placeholder="VD: 0912 345 678" autocomplete="tel" required inputmode="tel" maxlength="15" aria-describedby="hf-phone-err">
+      <span class="hp-err" id="hf-phone-err" aria-live="polite"></span>
+     </div>
+     </div>
+     <div class="hp-fld">
+      <label for="hf-need">Nhu cầu bảo hiểm <i aria-hidden="true">*</i></label>
+      <select class="hf-select" id="hf-need" name="need" required aria-describedby="hf-need-err">
+       <option value="" selected>Chọn nhu cầu</option>
+       <option value="xe-oto">Xe ô tô</option>
+       <option value="xe-may">Xe máy</option>
+       <option value="suc-khoe">Sức khỏe</option>
+       <option value="tai-san">Tài sản</option>
+       <option value="du-lich">Du lịch</option>
+       <option value="hang-hai">Hàng hải</option>
+       <option value="trach-nhiem">Trách nhiệm</option>
+       <option value="khac">Khác</option>
+      </select>
+      <span class="hp-err" id="hf-need-err" aria-live="polite"></span>
+     </div>
+     <button class="hf-btn" type="submit"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Nhận tư vấn</button>
+     <p class="hp-form-msg" id="hf-msg" role="alert"></p>
+     <!-- Nguồn khách: assets/dbv-tracking.js tự điền khi form được gửi.
+       Netlify Forms CHỈ lưu những trường được khai báo ở đây — xoá đi là mất dữ liệu nguồn. -->
+  <input type="hidden" name="utm_source"/>
+  <input type="hidden" name="utm_medium"/>
+  <input type="hidden" name="utm_campaign"/>
+  <input type="hidden" name="utm_term"/>
+  <input type="hidden" name="utm_content"/>
+  <input type="hidden" name="gclid"/>
+  <input type="hidden" name="trang-vao-dau"/>
+  <input type="hidden" name="nguon-gioi-thieu"/>
+  <input type="hidden" name="dong-y-chinh-sach"/>
+  <input type="hidden" name="thoi-diem-dong-y"/>
+    </form>
+    <div class="hf-success" id="hf-success" role="status">
+     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+     <div><b>Đã nhận thông tin!</b><span>Chuyên viên DBV247 sẽ gọi lại cho bạn sớm.</span></div>
+    </div>
+   </div>
   </div>
  </div>
 </section>
 
+<section class="hp-sec" aria-labelledby="hp-sup-h">
+ <div class="hm-wrap">
+  <div class="hp-head"><h2 class="hp-h2" id="hp-sup-h">Hỗ trợ khách hàng</h2></div>
+  <div class="hp-sups">
+   <a class="hp-sup" href="/boi-thuong"><span class="hp-sup-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span><span><b>Hướng dẫn bồi thường</b><small>Quy trình, hồ sơ cần thiết và tổng đài 1900 96 96 90.</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+   <a class="hp-sup" href="/servicemap"><span class="hp-sup-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span><b>Mạng lưới dịch vụ</b><small>Tìm điểm hỗ trợ và garage liên kết gần bạn.</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+  </div>
+ </div>
+</section>
 <!-- ══ VỀ CHÚNG TÔI (SEO từ khoá "bảo hiểm DBV") ══
      Toàn bộ nội dung nằm sẵn trong HTML để Google đọc được; phần sau mô tả
      ngắn chỉ bị thu gọn bằng CSS, bấm "Xem thêm" mới sổ ra. -->
@@ -1633,6 +2031,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
  </div>
 </section>
+<div class="hp-end"></div>
 </main>
 
 <!-- FLOATING CTA (DESKTOP ONLY) -->
@@ -1669,120 +2068,160 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-/* ══ TRANG CHỦ: "Tìm bảo hiểm phù hợp" — đối tượng → nhu cầu → danh sách ══
-   Danh sách là HTML tĩnh (tốt cho SEO) — JS chỉ ẩn/hiện. Mỗi dòng có
-   data-g (cn/dn + mã nhóm) và data-q (tên + từ khoá, đã bỏ dấu).
-   Gõ tìm kiếm thì tìm trên TOÀN BỘ sản phẩm, không giới hạn theo đối tượng. */
+/* ══ TRANG CHỦ 2 NHÓM (29/09/2026) ══════════════════════════════════════
+   Nhóm đang xem nằm ở <html data-nhom>, do script trong <head> đặt trước khi vẽ.
+   - hpNhom(): khách bấm chuyển nhóm → lưu localStorage 'dbv_nhom' cho lần sau.
+   - Không tự đổi nhóm khi xoay màn hình / đổi cỡ cửa sổ.
+   - Danh sách sản phẩm là HTML tĩnh (tốt cho SEO); JS chỉ ẩn/hiện theo data-g. */
 (function(){
+  var html = document.documentElement;
   var list = document.getElementById('hm-list');
-  if (!list) return;
-  var rows = [].slice.call(list.querySelectorAll('.hm-row'));
-  var tiles = [].slice.call(document.querySelectorAll('.hm-need'));
+  var rows = list ? [].slice.call(list.querySelectorAll('.hm-row')) : [];
+  var picks = [].slice.call(document.querySelectorAll('.hp-pick'));
   var empty = document.getElementById('hm-empty');
   var note = document.getElementById('hm-note');
   var lq = document.getElementById('hm-lq');
-  var aud = 'cn', need = '', q = '', moRong = false;
   var moreBtn = document.getElementById('hm-more-m');
-  var hint = document.getElementById('hm-hint');
+  var need = '', needTen = '', q = '', moRong = false;
 
+  function nhom(){ return html.getAttribute('data-nhom') === 'cn' ? 'cn' : 'dn'; }
   function boDau(t){ return (t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'d').toLowerCase().trim(); }
   function co(r, tag){ return (' '+r.dataset.g+' ').indexOf(' '+tag+' ') > -1; }
   function track(ev, data){ try { (window.dataLayer = window.dataLayer || []).push(Object.assign({event: ev}, data)); } catch(e){} }
+  function laDienThoai(){ return window.matchMedia && window.matchMedia('(max-width:767px)').matches; }
 
   function render(){
+    if (!list) return;
     var words = boDau(q).split(/\s+/).filter(Boolean);
-    var n = 0;
-    var gon = !words.length && !need && !moRong && window.matchMedia('(max-width:640px)').matches;
+    var n = 0, gon = !words.length && !moRong && laDienThoai();
     rows.forEach(function(r){
-      var ok = words.length
-        ? words.every(function(w){ return r.dataset.q.indexOf(w) > -1; })
-        : (need ? co(r, need) : false);   // chưa chọn nhóm: chưa hiện sản phẩm nào
+      var ok = words.length ? words.every(function(w){ return r.dataset.q.indexOf(w) > -1; })
+                            : (need ? co(r, need) : false);
       if (ok) n++;
-      // Điện thoại: chưa chọn nhóm/chưa tìm thì chỉ hiện 6 dòng đầu cho gọn
-      r.hidden = !ok || (ok && gon && n > 6);
+      r.hidden = !ok || (gon && n > 6);
     });
     var conLai = gon ? Math.max(0, n - 6) : 0;
     moreBtn.hidden = conLai === 0;
     moreBtn.textContent = 'Xem thêm ' + conLai + ' sản phẩm';
     empty.hidden = n > 0 || (!words.length && !need);
-    if (hint) hint.hidden = !!(words.length || need);
-    [].forEach.call(document.querySelectorAll('.hm-aud-b'), function(b){
-      var on = b.dataset.aud === aud && !words.length;
-      b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
-    tiles.forEach(function(t){
-      t.hidden = t.dataset.aud !== aud;
-      t.classList.toggle('on', !words.length && t.dataset.need === need);
-      t.setAttribute('aria-pressed', t.dataset.need === need ? 'true' : 'false');
-    });
+    picks.forEach(function(p){ p.setAttribute('aria-pressed', !words.length && p.dataset.need === need ? 'true' : 'false'); });
     if (words.length) {
       note.hidden = false;
       note.innerHTML = n + ' kết quả cho “<b></b>” · <button type="button" onclick="hmClearQ()">Xoá tìm kiếm</button>';
       note.querySelector('b').textContent = q;
     } else if (need) {
-      var t = document.querySelector('.hm-need[data-need="'+need+'"] b');
       note.hidden = false;
-      note.innerHTML = 'Đang xem <b>' + (t ? t.innerHTML : '') + '</b> · ' + n + ' sản phẩm · <button type="button" onclick="hmNeedOff()">Chọn nhóm khác</button>';
+      note.innerHTML = 'Đang xem <b></b> · ' + n + ' sản phẩm · <button type="button" onclick="hmNeedOff()">Chọn nhóm khác</button>';
+      note.querySelector('b').textContent = needTen;
     } else note.hidden = true;
   }
 
-  window.hmAud = function(a){ aud = a; need = ''; moRong = false; q = ''; if (lq) lq.value = ''; render(); track('hm_chon_doi_tuong', {doi_tuong: a}); };
-  window.hmNeed = function(btn){
-    q = ''; if (lq) lq.value = '';
-    need = (need === btn.dataset.need) ? '' : btn.dataset.need;   // bấm lại lần nữa = bỏ lọc
-    render(); if (need) track('hm_chon_nhom', {doi_tuong: aud, nhom: need});
+  /* Chọn một nhu cầu / lĩnh vực (từ ô "Bạn cần bảo vệ điều gì?" hoặc thẻ ảnh) */
+  window.hpChon = function(btn, cuon){
+    q = ''; if (lq) lq.value = ''; moRong = false;
+    var ma = btn.dataset.need;
+    need = (need === ma && !cuon) ? '' : ma;
+    needTen = btn.dataset.ten || (btn.querySelector('b') || btn).textContent.trim();
+    render();
+    if (need) track('hm_chon_nhom', {doi_tuong: nhom(), nhom: need});
+    if (cuon) {
+      var dich = document.getElementById('hm-note') || document.getElementById('tim-giai-phap');
+      dich.scrollIntoView({behavior:'smooth', block:'start'});
+    }
   };
-  window.hmMoreM = function(){ moRong = true; render(); };
   window.hmNeedOff = function(){ need = ''; render(); };
   window.hmClearQ = function(){ q = ''; if (lq) lq.value = ''; render(); };
-  window.hmSearch = function(e){
-    e.preventDefault();
-    q = document.getElementById('hm-q').value; if (lq) lq.value = q;
-    render(); if (q) track('hm_tim_kiem', {tu_khoa: q});
-    document.getElementById('tat-ca-san-pham').scrollIntoView({behavior:'smooth', block:'start'});
-  };
-  window.hmMoForm = function(e){
-    var box = document.querySelector('.hm-side');
-    if (!box) return;
-    e.preventDefault();
-    box.scrollIntoView({behavior:'smooth', block:'center'});
-    setTimeout(function(){ var i = document.getElementById('hf-phone'); if (i && i.offsetParent) i.focus({preventScroll:true}); }, 600);
-  };
+  window.hmMoreM = function(){ moRong = true; render(); };
   var hen;
   if (lq) lq.addEventListener('input', function(){
     q = lq.value; render();
     clearTimeout(hen); if (q) hen = setTimeout(function(){ track('hm_tim_kiem', {tu_khoa: q}); }, 1200);
   });
-  render();
+
+  /* Chuyển nhóm khách hàng */
+  function dongBoNhom(){
+    var a = nhom();
+    [].forEach.call(document.querySelectorAll('.hp-sw-b'), function(b){
+      b.setAttribute('aria-pressed', b.dataset.nhom === a ? 'true' : 'false');
+    });
+    /* Trường "Tên doanh nghiệp" chỉ gửi khi đang ở nhóm Doanh nghiệp */
+    var cty = document.getElementById('hf-company');
+    if (cty) cty.disabled = a !== 'dn';
+    var hq = document.getElementById('hp-hq');
+    if (hq) hq.placeholder = hq.getAttribute('data-' + a) || hq.placeholder;
+    var nguon = document.getElementById('hf-nguon');
+    if (nguon) nguon.value = 'Form trang chủ – ' + (a === 'dn' ? 'Doanh nghiệp' : 'Cá nhân & Gia đình');
+  }
+  window.hpNhom = function(a){
+    if (a !== 'dn' && a !== 'cn' || a === nhom()) return;
+    html.setAttribute('data-nhom', a);
+    try { localStorage.setItem('dbv_nhom', a); } catch(e){}
+    need = ''; q = ''; if (lq) lq.value = ''; moRong = false;
+    dongBoNhom(); render();
+
+    track('hm_chon_doi_tuong', {doi_tuong: a});
+  };
+  dongBoNhom(); render();
+
+  /* Ô tìm kiếm trên banner: chuyển từ khoá xuống khối tìm giải pháp */
+  window.hpTimBanner = function(e){
+    e.preventDefault();
+    var v = (document.getElementById('hp-hq').value || '').trim();
+    if (lq) { lq.value = v; }
+    q = v; need = ''; moRong = false; render();
+    if (v) track('hm_tim_kiem', {tu_khoa: v, vi_tri: 'banner'});
+    var dich = v ? document.getElementById('hm-note') : document.getElementById('tim-giai-phap');
+    (dich || document.getElementById('tim-giai-phap')).scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  /* Nút "Nhận tư vấn": cuộn tới biểu mẫu và đặt con trỏ vào ô đầu tiên */
+  window.hpMoForm = function(e){
+    var box = document.getElementById('tu-van'); if (!box) return;
+    if (e) e.preventDefault();
+    box.scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(function(){
+      var i = document.getElementById(nhom() === 'dn' ? 'hf-company' : 'hf-phone');
+      if (i && i.offsetParent) i.focus({preventScroll:true});
+    }, 650);
+  };
 })();
 
-
-// Form nhanh trên banner
+/* Biểu mẫu tư vấn — gửi Netlify Forms "hero-form" như trước.
+   Chỉ báo thành công khi máy chủ trả về OK. */
 function submitHero(e) {
   e.preventDefault();
-  const form = document.getElementById('hero-form');
-  const btn = form.querySelector('.hf-btn');
-  const original = btn.innerHTML;
+  var form = document.getElementById('hero-form');
+  var btn = form.querySelector('.hf-btn');
+  var msg = document.getElementById('hf-msg');
+  var phone = document.getElementById('hf-phone'), need = document.getElementById('hf-need');
+  var ePhone = document.getElementById('hf-phone-err'), eNeed = document.getElementById('hf-need-err');
+  var so = phone.value.replace(/[\s.\-()]/g, '').replace(/^\+84/, '0');
+  var loi = false;
+  msg.textContent = '';
+  if (!/^0\d{9,10}$/.test(so)) { ePhone.textContent = 'Vui lòng nhập số điện thoại hợp lệ (10–11 số).'; phone.setAttribute('aria-invalid','true'); loi = true; }
+  else { ePhone.textContent = ''; phone.removeAttribute('aria-invalid'); }
+  if (!need.value) { eNeed.textContent = 'Vui lòng chọn nhu cầu bảo hiểm.'; need.setAttribute('aria-invalid','true'); loi = true; }
+  else { eNeed.textContent = ''; need.removeAttribute('aria-invalid'); }
+  if (loi) { (phone.getAttribute('aria-invalid') ? phone : need).focus(); return; }
+
+  var original = btn.innerHTML;
   btn.textContent = 'Đang gửi...';
   btn.disabled = true;
-
-  const data = new FormData(form);
+  var data = new FormData(form);
   data.set('trang', location.href);
-  data.set('nguon', 'Form banner trang chủ');
-
   fetch('/', {
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     body: new URLSearchParams(data).toString()
-  }).then(() => {
-    form.style.display = 'none';
-    const note = document.querySelector('.hf-note');
-    if (note) note.style.display = 'none';
-    document.getElementById('hf-success').classList.add('show');
-  }).catch(() => {
+  }).then(function(res){
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    form.hidden = true;
+    var ok = document.getElementById('hf-success');
+    ok.classList.add('show'); ok.setAttribute('tabindex','-1'); ok.focus();
+  }).catch(function(){
     btn.innerHTML = original;
     btn.disabled = false;
-    form.submit();
+    msg.textContent = 'Chưa gửi được thông tin. Vui lòng thử lại hoặc gọi 0869 656 561.';
   });
 }
 
@@ -1801,43 +2240,10 @@ function hmAbout(force){
   window.addEventListener('hashchange', mo); mo();
 })();
 
-// Mobile: dời khối "Cần tư vấn?" (form SĐT) xuống sau "Sản phẩm nổi bật" để màn hình
-// đầu chỉ có banner, tìm kiếm, tiện ích nhanh và sản phẩm. Máy tính: về lại cạnh banner.
-(function hmDoiKhoiTuVan(){
-  var side = document.querySelector('.hm-side'), grid = side && side.parentNode;
-  var feat = document.querySelector('.hm-feat'); feat = feat && feat.closest('section');
-  if (!side || !feat || !window.matchMedia) return;
-  var slot = document.createElement('div'); slot.className = 'hm-wrap hm-side-slot';
-  feat.parentNode.insertBefore(slot, feat.nextSibling);
-  var mq = window.matchMedia('(max-width:640px)');
-  function dat(){ (mq.matches ? slot : grid).appendChild(side); }
-  dat();
-  if (mq.addEventListener) mq.addEventListener('change', dat); else if (mq.addListener) mq.addListener(dat);
-})();
-
-// "Sản phẩm nổi bật" trên điện thoại: tiêu đề + mô tả gộp lại tối đa 3 dòng.
-(function hmKepDong(){
-  var mq = window.matchMedia && window.matchMedia('(max-width:640px)');
-  function ke(){
-    [].forEach.call(document.querySelectorAll('.hm-fc .hm-fc-bd'), function(bd){
-      var h = bd.querySelector('h3'), p = bd.querySelector('p'); if (!h || !p) return;
-      if (!mq || !mq.matches) { p.style.webkitLineClamp = ''; p.style.lineClamp = ''; return; }
-      var lh = parseFloat(getComputedStyle(h).lineHeight) || 18;
-      var dong = Math.max(1, Math.round(h.getBoundingClientRect().height / lh));
-      var con = String(Math.max(1, 3 - dong));
-      p.style.webkitLineClamp = con; p.style.lineClamp = con;
-    });
-  }
-  ke();
-  window.addEventListener('resize', ke);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ke);
-  window.addEventListener('load', ke);
-})();
-
 // Video "Vì sao chọn DBV247": chỉ tải khi khách cuộn gần tới, rồi tự chạy lặp (không tiếng).
 (function hmVideoViSao(){
   var v = document.getElementById('hm-why-video'); if (!v) return;
-  /* WebM (VP9) trước — nhẹ và chạy trên mọi Chrome/Firefox/Android; MP4 (H.264) cho Safari/iPhone. */
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) { v.removeAttribute('autoplay'); return; }
   function nap(){
     if (v.src) return;
     var mp4 = v.getAttribute('data-src'), webm = mp4.replace(/\.mp4$/, '.webm');
@@ -1845,7 +2251,7 @@ function hmAbout(force){
     v.load(); var p = v.play(); if (p && p.catch) p.catch(function(){});
   }
   if (!('IntersectionObserver' in window)) { nap(); return; }
-  new IntersectionObserver(function(es, ob){ es.forEach(function(e){
+  new IntersectionObserver(function(es){ es.forEach(function(e){
     if (e.isIntersecting) { nap(); v.play && v.play().catch(function(){}); } else if (v.src) { v.pause(); }
   }); }, { rootMargin: '300px 0px' }).observe(v);
 })();
@@ -1857,9 +2263,7 @@ function hmAbout(force){
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 })();
-
 </script>
-
 
 
 <!-- ══ FOOTER ══ -->
