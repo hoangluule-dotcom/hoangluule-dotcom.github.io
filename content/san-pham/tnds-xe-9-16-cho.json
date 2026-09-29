@@ -398,49 +398,6 @@
       ]
     },
     {
-      "type": "specs",
-      "id": "chi-tiet",
-      "title": "Chi tiết sản phẩm",
-      "rows": [
-        [
-          "Loại bảo hiểm",
-          "Bắt buộc — trách nhiệm dân sự của chủ xe cơ giới"
-        ],
-        [
-          "Căn cứ",
-          "Nghị định 67/2023/NĐ-CP"
-        ],
-        [
-          "Áp dụng",
-          "Xe chở người 9–16 chỗ: limousine, xe đưa đón, xe hợp đồng, xe gia đình cỡ lớn"
-        ],
-        [
-          "Cách tính phí",
-          "Biển trắng (không kinh doanh) theo nhóm số chỗ; biển vàng (kinh doanh vận tải) theo từng số chỗ đăng ký"
-        ],
-        [
-          "Về người",
-          "150 triệu đồng/người/vụ"
-        ],
-        [
-          "Về tài sản",
-          "100 triệu đồng/vụ"
-        ],
-        [
-          "Thời hạn",
-          "1 năm (có thể chọn 2–3 năm khi xác nhận)"
-        ],
-        [
-          "Đơn vị phát hành",
-          "Công ty CP Tập đoàn Bảo hiểm DBV"
-        ],
-        [
-          "Tổng đài bồi thường",
-          "1900 96 96 90 (24/7)"
-        ]
-      ]
-    },
-    {
       "type": "benefits",
       "id": "vi-sao",
       "layout": "card-grid",

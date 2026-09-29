@@ -1009,3 +1009,7 @@ body.plp-page{margin:0;background:#fff;color:#1f2a24;font-family:'Be Vietnam Pro
   .plp-tab-cards .plp-card-val small{display:inline}
   .plp-tab-cards .plp-card-t{font-size:14.5px}
 }
+
+/* 29/09/2026: ảnh thẻ "Sản phẩm tương tự" luôn đúng khung 4:3 dù ảnh gốc khác tỉ lệ */
+.plp-rel-img{overflow:hidden}
+.plp-rel-img img{position:absolute;inset:0}

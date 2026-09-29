@@ -10,23 +10,23 @@
    ============================================================================ */
 
 var DBV_SANPHAM = [
-  { ten: 'BH TNDS Chủ Xe Ô Tô', url: '/bao-hiem-tnds-oto', the: 'HOT',
+  { ten: 'Trách nhiệm dân sự Ô tô', url: '/bao-hiem-tnds-oto', the: 'HOT',
     mo: 'Bảo hiểm bắt buộc – trách nhiệm dân sự với bên thứ ba.',
     tim: 'oto o to xe hoi bat buoc tnds trach nhiem dan su cà vẹt phat csgt' },
 
 
-  { ten: 'BH TNDS Xe 5 Chỗ', url: '/tnds-xe-5-cho', the: '',
+  { ten: 'TNDS Xe 5 Chỗ', url: '/tnds-xe-5-cho', the: '',
     mo: 'Bắt buộc cho ô tô 5 chỗ không kinh doanh — 437.000đ/năm.',
     tim: 'tnds xe 5 cho o to bat buoc nghi dinh 67 sedan 437000' },
 
-  { ten: 'BH TNDS Xe 7 Chỗ', url: '/tnds-xe-7-cho', the: '',
+  { ten: 'TNDS Xe 7 Chỗ', url: '/tnds-xe-7-cho', the: '',
     mo: 'Bắt buộc cho ô tô 7 chỗ không kinh doanh — 794.000đ/năm.',
     tim: 'tnds xe 7 cho o to suv bat buoc nghi dinh 67 794000' },
-  { ten: 'BH TNDS Chủ Xe Máy', url: '/bao-hiem-tnds-xemay', the: 'HOT',
+  { ten: 'Trách nhiệm dân sự xe máy', url: '/bao-hiem-tnds-xemay', the: 'HOT',
     mo: 'Bảo hiểm bắt buộc cho chủ xe máy – cấp đơn trong ngày.',
     tim: 'xe may xemay moto mo to bat buoc tnds 55k 66k phat csgt' },
 
-  { ten: 'BH Vật Chất Ô Tô (Thân Vỏ)', url: '/bao-hiem-vat-chat-oto', the: 'HOT',
+  { ten: 'Vật Chất Ô Tô (Thân Vỏ)', url: '/bao-hiem-vat-chat-oto', the: 'HOT',
     mo: 'Va chạm, lật đổ, cháy nổ, thiên tai, mất cắp bộ phận.',
     tim: 'vat chat than vo oto o to hai chieu 2 chieu bao hiem xe hoi va cham gara' },
 
@@ -34,91 +34,91 @@ var DBV_SANPHAM = [
     mo: 'Tự động tra giá xe qua Google, tính phí theo đúng biểu phí trong 30 giây.',
     tim: 'tinh phi bao hiem o to cong cu tra gia xe tu dong online vat chat than vo' },
 
-  { ten: 'BH Xe Ô Tô Điện', url: '/bao-hiem-oto-dien', the: 'MỚI',
+  { ten: 'Xe Ô Tô Điện', url: '/bao-hiem-oto-dien', the: 'MỚI',
     mo: 'Bảo vệ pin, bộ sạc, hệ thống điện và TNDS xe điện.',
     tim: 'xe dien oto dien vinfast vf3 vf5 vf6 vf7 vf8 vf9 pin sac ac quy' },
 
-  { ten: 'BH Hàng Hóa Xuất Nhập Khẩu', url: '/bao-hiem-xnk', the: '',
+  { ten: 'Hàng Hóa Xuất Nhập Khẩu', url: '/bao-hiem-xnk', the: '',
     mo: 'Lô hàng XNK trên hành trình quốc tế – điều kiện ICC A, B, C.',
     tim: 'xnk xuat nhap khau hang hoa icc container duong bien cargo' },
 
-  { ten: 'BH Vận Chuyển Nội Địa', url: '/bao-hiem-van-chuyen', the: '',
+  { ten: 'Vận Chuyển Nội Địa', url: '/bao-hiem-van-chuyen', the: '',
     mo: 'Hàng hóa đường bộ, đường sắt, đường thủy nội địa.',
     tim: 'van chuyen noi dia hang hoa duong bo duong sat xe tai logistics' },
 
-  { ten: 'BH Bưu Gửi Quốc Tế', url: '/bao-hiem-buu-gui', the: '',
+  { ten: 'Bưu Gửi Quốc Tế', url: '/bao-hiem-buu-gui', the: '',
     mo: 'Bưu phẩm và hàng gửi quốc tế, tránh thất lạc hư hỏng.',
     tim: 'buu gui buu pham buu kien chuyen phat quoc te that lac' },
 
-  { ten: 'BH Thân Tàu Nội Địa', url: '/bao-hiem-than-tau-noi-dia', the: '',
+  { ten: 'Thân Tàu Nội Địa', url: '/bao-hiem-than-tau-noi-dia', the: '',
     mo: 'Tàu thuyền vận tải thủy nội địa – tổn thất, đắm tàu, va chạm.',
     tim: 'than tau tau thuyen duong thuy sa lan dam tau hang hai' },
 
-  { ten: 'BH Cháy Nổ Bắt Buộc', url: '/bao-hiem-chay-no', the: 'BẮT BUỘC',
+  { ten: 'Cháy Nổ Bắt Buộc', url: '/bao-hiem-chay-no', the: 'BẮT BUỘC',
     mo: 'Bắt buộc theo pháp luật – tránh phạt, bảo vệ cơ sở kinh doanh.',
     tim: 'chay no bat buoc pccc hoa hoan co so kinh doanh nghi dinh phat' },
 
-  { ten: 'BH Cháy Nổ Hộ Kinh Doanh', url: '/bao-hiem-chay-no-hkd', the: 'BẮT BUỘC',
+  { ten: 'Cháy Nổ Hộ Kinh Doanh', url: '/bao-hiem-chay-no-hkd', the: 'BẮT BUỘC',
     mo: 'Theo NĐ 105/2025 – phạt đến 50 triệu nếu không mua.',
     tim: 'chay no ho kinh doanh hkd nha o ket hop kinh doanh 200m2 pccc phat' },
 
-  { ten: 'BH Cháy Nổ Căn Hộ Chung Cư', url: '/bao-hiem-chay-no-chung-cu', the: 'MỚI',
+  { ten: 'Cháy Nổ Căn Hộ Chung Cư', url: '/bao-hiem-chay-no-chung-cu', the: 'MỚI',
     mo: 'Bắt buộc cho căn hộ chung cư – tài sản, nội thất, trách nhiệm.',
     tim: 'chay no chung cu can ho toa nha ban quan tri pccc bat buoc' },
 
-  { ten: 'BH Hỏa Hoạn & Rủi Ro Đặc Biệt', url: '/bao-hiem-hoa-hoan', the: '',
+  { ten: 'Hỏa Hoạn & Rủi Ro Đặc Biệt', url: '/bao-hiem-hoa-hoan', the: '',
     mo: 'Hỏa hoạn, lũ lụt, sét đánh, bão, động đất.',
     tim: 'hoa hoan rui ro dac biet chay lu lut set bao dong dat nha xuong' },
 
-  { ten: 'BH Mọi Rủi Ro Tài Sản', url: '/bao-hiem-moi-rui-ro', the: '',
+  { ten: 'Mọi Rủi Ro Tài Sản', url: '/bao-hiem-moi-rui-ro', the: '',
     mo: 'Phạm vi rộng nhất cho tài sản doanh nghiệp trong một hợp đồng.',
     tim: 'moi rui ro tai san doanh nghiep nha may kho xuong may moc' },
 
-  { ten: 'BH Rủi Ro Xây Dựng', url: '/bao-hiem-xay-dung', the: '',
+  { ten: 'Rủi Ro Xây Dựng', url: '/bao-hiem-xay-dung', the: '',
     mo: 'Công trình, thiết bị và trách nhiệm bên thứ ba khi thi công.',
     tim: 'xay dung cong trinh thi cong lap dat nha thau car ear' },
 
-  { ten: 'BH Xây Dựng Nhà Dân Sinh', url: '/bao-hiem-xay-dung-nha-dan-sinh', the: 'MỚI',
+  { ten: 'Xây Dựng Nhà Dân Sinh', url: '/bao-hiem-xay-dung-nha-dan-sinh', the: 'MỚI',
     mo: 'Nhà ở riêng lẻ: bảo vệ công trình đang xây và trách nhiệm bên thứ ba.',
     tim: 'xay dung nha dan sinh nha o nha rieng le xay nha chu nha cong trinh nha dan' },
 
-  { ten: 'BH Trách Nhiệm Chung', url: '/bao-hiem-tnc', the: '',
+  { ten: 'Trách Nhiệm Chung', url: '/bao-hiem-tnc', the: '',
     mo: 'Trách nhiệm dân sự phát sinh trong hoạt động kinh doanh.',
     tim: 'trach nhiem chung tnc dan su doanh nghiep' },
 
-  { ten: 'BH Trách Nhiệm Công Cộng', url: '/bao-hiem-tncc', the: '',
+  { ten: 'Trách Nhiệm Công Cộng', url: '/bao-hiem-tncc', the: '',
     mo: 'Thiệt hại thân thể, tài sản bên thứ ba trong khu vực kinh doanh.',
     tim: 'trach nhiem cong cong tncc khach hang nga trong quan cua hang' },
 
-  { ten: 'BH TNN Nghề Nghiệp – Khám Chữa Bệnh', url: '/bao-hiem-tnn-kcb', the: '',
+  { ten: 'Nghề Khám chữa bệnh', url: '/bao-hiem-tnn-kcb', the: '',
     mo: 'Dành cho cơ sở khám chữa bệnh, bác sĩ, chuyên gia y tế.',
     tim: 'trach nhiem nghe nghiep kcb bac si phong kham benh vien y te' },
 
-  { ten: 'BH TNN Nghề Nghiệp – Luật Sư & Công Chứng', url: '/bao-hiem-tnn-ls', the: '',
+  { ten: 'Nghề Luật sư & Công chứng', url: '/bao-hiem-tnn-ls', the: '',
     mo: 'Rủi ro nghề nghiệp cho luật sư, công chứng viên.',
     tim: 'trach nhiem nghe nghiep luat su cong chung vien phap ly van phong' },
 
-  { ten: 'BH TNN Nghề Nghiệp – Tư Vấn Thiết Kế & Giám Sát', url: '/bao-hiem-tnn-tvtk', the: '',
+  { ten: 'Nghề Tư vấn thiết kế & Giám sát', url: '/bao-hiem-tnn-tvtk', the: '',
     mo: 'Tư vấn thiết kế, giám sát thi công, quản lý dự án.',
     tim: 'trach nhiem nghe nghiep tu van thiet ke giam sat kien truc su ky su' },
 
-  { ten: 'BH Du Lịch Nội Địa', url: '/bao-hiem-du-lich-noi-dia', the: 'HOT',
+  { ten: 'Du Lịch Nội Địa', url: '/bao-hiem-du-lich-noi-dia', the: 'HOT',
     mo: 'Tai nạn, y tế và hành lý khi du lịch trong nước.',
     tim: 'du lich noi dia trong nuoc tour doan hanh ly tai nan' },
 
-  { ten: 'BH Du Lịch Quốc Tế', url: '/bao-hiem-du-lich-quoc-te', the: 'HOT',
+  { ten: 'Du Lịch Quốc Tế', url: '/bao-hiem-du-lich-quoc-te', the: 'HOT',
     mo: 'Hỗ trợ xin visa Schengen, Mỹ, Úc. Chi trả viện phí, hồi hương.',
     tim: 'du lich quoc te visa schengen chau au my uc nhat han quoc dai loan 30000 eur' },
 
-  { ten: 'BH Bệnh Nhiệt Đới', url: '/bao-hiem-benh-nhiet-doi', the: 'MỚI',
+  { ten: 'Bệnh Nhiệt Đới', url: '/bao-hiem-benh-nhiet-doi', the: 'MỚI',
     mo: 'Sốt xuất huyết, cúm, tay chân miệng, thủy đậu, sởi.',
     tim: 'benh nhiet doi sot xuat huyet cum tay chan mieng thuy dau soi' },
 
-  { ten: 'BH Sức Khỏe Cá Nhân DBVCare', url: '/bao-hiem-suc-khoe', the: 'HOT',
+  { ten: 'Sức Khỏe Cá Nhân DBVCare', url: '/bao-hiem-suc-khoe', the: 'HOT',
     mo: 'Nội trú, ngoại trú và nha khoa cho cá nhân và doanh nghiệp.',
     tim: 'suc khoe y te dbvcare noi tru ngoai tru nha khoa kham benh bao lanh vien phi' },
 
-  { ten: 'BH Tai Nạn 24 Giờ', url: '/bao-hiem-tai-nan', the: '',
+  { ten: 'Tai Nạn 24 Giờ', url: '/bao-hiem-tai-nan', the: '',
     mo: 'Tử vong, thương tật vĩnh viễn, chi phí y tế do tai nạn.',
     tim: 'tai nan 24 gio 24/24 con nguoi thuong tat tu vong nguoi lao dong' }
 ];
