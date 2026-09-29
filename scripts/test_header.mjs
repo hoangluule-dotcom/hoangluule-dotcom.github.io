@@ -1,4 +1,4 @@
-/* Kiểm thử header: hotline dạng chữ + nút Đăng nhập nền xanh (desktop), và
+/* Kiểm thử header: hotline dạng chữ + nút Đăng nhập nền trắng, viền và chữ xanh (desktop), và
    lối vào cộng tác viên nằm trong hamburger (mobile).
    Chạy: node scripts/test_header.mjs
 
@@ -7,7 +7,7 @@
 
    Ý ĐỒ THIẾT KẾ mà bộ test này khoá lại:
      · Desktop: hotline (icon + chữ, MÀU XANH, KHÔNG phải nút) đứng BÊN TRÁI
-       nút Đăng nhập (nền xanh, chữ trắng). Chỉ một hành động nổi bật.
+       nút Đăng nhập (nền trắng, viền và chữ xanh).
      · Mobile ≤640px: cả hotline và nút Đăng nhập ẩn khỏi header — lối vào cộng
        tác viên là mục ĐẦU TIÊN trong panel Danh mục; gọi điện đã có ở thanh CTA
        dưới cùng.
@@ -168,8 +168,8 @@ console.log('\n── Desktop 1440px ──');
   kiemTra('nút Đăng nhập hiện trên trang chủ', r.hien);
   kiemTra('nhãn là "Đăng nhập"', r.nhan.trim() === 'Đăng nhập', r.nhan);
   kiemTra('trỏ tới /ctv', r.href === '/ctv', r.href);
-  kiemTra('nền nút là xanh thương hiệu', r.nen === XANH, r.nen);
-  kiemTra('chữ trên nút màu trắng', r.chu === TRANG, r.chu);
+  kiemTra('nền nút là trắng', r.nen === TRANG, r.nen);
+  kiemTra('chữ trên nút màu xanh thương hiệu', r.chu === XANH, r.chu);
   kiemTra('nằm sát mép phải (cách ≤ 60px)', r.phai >= 0 && r.phai <= 60, 'cách ' + r.phai + 'px');
   kiemTra('không còn nút kính lúp nào trong header', !r.kinhLup);
   kiemTra('không tràn ngang', !r.tran);
@@ -192,7 +192,7 @@ console.log('\n── CTA hotline (desktop) ──');
 {
   const r = await xem('/bao-hiem-suc-khoe', 1440);
   kiemTra('trang sản phẩm cũng có nút, đúng nhãn và màu',
-    r.hien && r.nhan.trim() === 'Đăng nhập' && r.nen === XANH, r.nhan + ' / ' + r.nen);
+    r.hien && r.nhan.trim() === 'Đăng nhập' && r.nen === TRANG, r.nhan + ' / ' + r.nen);
   kiemTra('trang sản phẩm: hotline xanh, bên trái nút',
     r.htlHien && r.htlChu === XANH && r.htlBenTrai, r.htlChu);
   kiemTra('trang sản phẩm không còn kính lúp', !r.kinhLup);
@@ -200,7 +200,7 @@ console.log('\n── CTA hotline (desktop) ──');
 {
   const r = await xem('/tin-tuc/bao-hiem-xe-limo-green-phi-bao-nhieu', 1440);
   kiemTra('trang tin tức (bảng biến riêng) vẫn ra đúng màu nền nút',
-    r.nen === XANH, r.nen);
+    r.nen === TRANG, r.nen);
   kiemTra('trang tin tức: hotline đúng màu xanh', r.htlChu === XANH, r.htlChu);
 }
 
@@ -259,7 +259,7 @@ console.log('\n── Đã đăng nhập thì đổi nhãn ở CẢ HAI lối v�
   kiemTra('mục hamburger đổi thành "Bảng điều khiển cộng tác viên"',
     (r.mucNhan || '').trim() === 'Bảng điều khiển cộng tác viên', r.mucNhan);
   kiemTra('mục hamburger cũng trỏ vào /ctv-dashboard', r.mucHref === '/ctv-dashboard', r.mucHref);
-  kiemTra('nút vẫn giữ nền xanh khi đã đăng nhập', r.nen === XANH, r.nen);
+  kiemTra('nút vẫn giữ nền trắng khi đã đăng nhập', r.nen === TRANG, r.nen);
 }
 {
   const r = await xem('/', 390, async (t, c) => {
