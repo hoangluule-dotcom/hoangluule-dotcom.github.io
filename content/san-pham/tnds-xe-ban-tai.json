@@ -9,7 +9,7 @@
     "description": "Bảo hiểm TNDS bắt buộc xe bán tải (pickup), minivan: không kinh doanh 480.700đ, kinh doanh vận tải 1.026.300đ/năm (đã gồm VAT). Để lại số điện thoại, DBV247 liên hệ cấp đơn.",
     "og_title": "Bảo hiểm TNDS xe bán tải từ 480.700đ/năm | DBV247",
     "og_description": "Chọn mục đích sử dụng, để lại số điện thoại — DBV247 liên hệ xác nhận thông tin và cấp đơn. GCN do Bảo hiểm DBV phát hành.",
-    "og_image": "https://dbv247.com.vn/assets/img/bh-tnds-xe-ban-tai.webp",
+    "og_image": "https://dbv247.com.vn/assets/img/bh-tnds-xe-ban-tai-v2.webp",
     "canonical": "https://dbv247.com.vn/tnds-xe-ban-tai"
   },
   "product": {
@@ -79,7 +79,7 @@
       "subtitle": "Đăng ký online – Nhân viên DBV liên hệ cấp đơn",
       "images": [
         {
-          "src": "/assets/img/bh-tnds-xe-ban-tai.webp",
+          "src": "/assets/img/bh-tnds-xe-ban-tai-v2.webp",
           "alt": "Xe bán tải chở nông sản và tư vấn viên DBV247",
           "width": 1200,
           "height": 900
@@ -97,11 +97,6 @@
       },
       "rows": [
         {
-          "label": "Quyền lợi",
-          "icon": "shield",
-          "value": "150 triệu đ/người/vụ về người · 100 triệu đ/vụ về tài sản"
-        },
-        {
           "label": "Nhận GCN",
           "icon": "phone",
           "value": "Bản điện tử qua Zalo/email",
@@ -115,6 +110,133 @@
         }
       ],
       "_anh_ghi_chu": "Chỉ dùng ảnh NGANG (rộng > cao). Ảnh dọc bị bỏ qua khi build. Khung hiển thị 4:3."
+    },
+    {
+      "type": "tabs",
+      "id": "thong-tin",
+      "label": "Thông tin sản phẩm",
+      "tabs": [
+        {
+          "key": "quyen-loi",
+          "label": "Quyền lợi sản phẩm",
+          "short": "Quyền lợi",
+          "kind": "benefits",
+          "items": [
+            {
+              "icon": "user",
+              "value": "150 triệu đ",
+              "unit": "/người/vụ",
+              "title": "Thiệt hại về người",
+              "text": "Chi phí điều trị, tổn thất về tính mạng của người thứ ba do xe gây ra."
+            },
+            {
+              "icon": "car",
+              "value": "100 triệu đ",
+              "unit": "/vụ",
+              "title": "Thiệt hại tài sản",
+              "text": "Xe, nhà cửa, hàng hoá của người khác bị hư hỏng trong vụ tai nạn."
+            },
+            {
+              "icon": "wallet",
+              "value": "3 ngày",
+              "unit": "làm việc",
+              "title": "Tạm ứng bồi thường",
+              "text": "Tạm ứng cho thiệt hại về người kể từ khi nhận thông báo tai nạn (Điều 14 NĐ 67/2023)."
+            },
+            {
+              "icon": "phone",
+              "value": "Điện tử",
+              "unit": "+ bản giấy",
+              "title": "Giấy chứng nhận hợp lệ",
+              "text": "Xuất trình trên điện thoại khi CSGT kiểm tra; bản giấy gửi tận nơi miễn phí."
+            }
+          ],
+          "note": "Mức trách nhiệm theo Nghị định 67/2023/NĐ-CP. Phần thiệt hại vượt hạn mức vẫn thuộc trách nhiệm dân sự của chủ xe."
+        },
+        {
+          "key": "boi-thuong",
+          "label": "Quy trình bồi thường",
+          "short": "Bồi thường",
+          "kind": "steps",
+          "items": [
+            {
+              "title": "Giữ hiện trường, cấp cứu người bị nạn",
+              "text": "Bật đèn cảnh báo. Chụp ảnh, quay video toàn cảnh và biển số trước khi di chuyển xe."
+            },
+            {
+              "title": "Báo công an và gọi bảo hiểm",
+              "text": "Báo công an khi có thiệt hại về người hoặc hai bên không thống nhất. Gọi 1900 96 96 90 để được hướng dẫn tại chỗ."
+            },
+            {
+              "title": "Không tự trả tiền trước khi báo",
+              "text": "Tự thoả thuận là được, nhưng phải báo bảo hiểm trước và lập biên bản có chữ ký hai bên."
+            },
+            {
+              "title": "Nộp hồ sơ",
+              "text": "Chuyên viên DBV247 hướng dẫn và kiểm tra giấy tờ cùng bạn."
+            },
+            {
+              "title": "Nhận bồi thường",
+              "text": "Trong 15 ngày kể từ khi nhận đủ hồ sơ hợp lệ. Có thể chi trả trực tiếp cho người bị nạn."
+            }
+          ],
+          "aside": {
+            "title": "Gọi ngay khi có sự cố",
+            "contacts": [
+              {
+                "label": "Tổng đài bồi thường 24/7",
+                "value": "1900 96 96 90",
+                "href": "tel:1900969690"
+              },
+              {
+                "label": "Chuyên viên DBV247",
+                "value": "0869 656 561",
+                "href": "tel:0869656561"
+              }
+            ],
+            "checklist_title": "Hồ sơ thường cần",
+            "checklist": [
+              "Giấy chứng nhận bảo hiểm",
+              "Đăng ký xe, đăng kiểm, giấy phép lái xe",
+              "Biên bản công an hoặc biên bản thoả thuận",
+              "Ảnh, video hiện trường",
+              "Hồ sơ y tế / hoá đơn sửa chữa"
+            ]
+          }
+        },
+        {
+          "key": "faq",
+          "label": "Câu hỏi thường gặp",
+          "short": "Hỏi đáp",
+          "kind": "faq",
+          "items": [
+            {
+              "q": "Phí TNDS xe bán tải là bao nhiêu?",
+              "a": "Theo Nghị định 67/2023/NĐ-CP, đã gồm VAT: xe bán tải không kinh doanh vận tải 480.700đ/năm, xe kinh doanh vận tải 1.026.300đ/năm. Nhân viên sẽ xác nhận đúng mức phí theo giấy tờ xe khi gọi lại."
+            },
+            {
+              "q": "Xe bán tải tính phí như xe con hay như xe tải?",
+              "a": "Không tính theo trọng tải như xe tải. Nghị định 67/2023/NĐ-CP xếp xe bán tải (pickup) và minivan vào nhóm xe vừa chở người vừa chở hàng, có mức phí riêng cho xe không kinh doanh và xe kinh doanh vận tải."
+            },
+            {
+              "q": "Minivan chở hàng có áp dụng mức phí này không?",
+              "a": "Có. Minivan vừa chở người vừa chở hàng tính cùng mức phí với xe bán tải. Nếu chưa chắc xe của bạn thuộc loại nào, cứ để lại số điện thoại — nhân viên đối chiếu giấy đăng ký xe và báo đúng mức phí."
+            },
+            {
+              "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
+              "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
+            },
+            {
+              "q": "Tôi cần chuẩn bị những thông tin gì?",
+              "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
+            },
+            {
+              "q": "Tôi nhận giấy chứng nhận như thế nào?",
+              "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "specs",
@@ -188,38 +310,6 @@
       ]
     },
     {
-      "type": "faq",
-      "id": "faq",
-      "layout": "accordion",
-      "title": "Câu hỏi thường gặp",
-      "items": [
-        {
-          "q": "Phí TNDS xe bán tải là bao nhiêu?",
-          "a": "Theo Nghị định 67/2023/NĐ-CP, đã gồm VAT: xe bán tải không kinh doanh vận tải 480.700đ/năm, xe kinh doanh vận tải 1.026.300đ/năm. Nhân viên sẽ xác nhận đúng mức phí theo giấy tờ xe khi gọi lại."
-        },
-        {
-          "q": "Xe bán tải tính phí như xe con hay như xe tải?",
-          "a": "Không tính theo trọng tải như xe tải. Nghị định 67/2023/NĐ-CP xếp xe bán tải (pickup) và minivan vào nhóm xe vừa chở người vừa chở hàng, có mức phí riêng cho xe không kinh doanh và xe kinh doanh vận tải."
-        },
-        {
-          "q": "Minivan chở hàng có áp dụng mức phí này không?",
-          "a": "Có. Minivan vừa chở người vừa chở hàng tính cùng mức phí với xe bán tải. Nếu chưa chắc xe của bạn thuộc loại nào, cứ để lại số điện thoại — nhân viên đối chiếu giấy đăng ký xe và báo đúng mức phí."
-        },
-        {
-          "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
-          "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
-        },
-        {
-          "q": "Tôi cần chuẩn bị những thông tin gì?",
-          "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
-        },
-        {
-          "q": "Tôi nhận giấy chứng nhận như thế nào?",
-          "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
-        }
-      ]
-    },
-    {
       "type": "related",
       "id": "san-pham-tuong-tu",
       "title": "Sản phẩm tương tự",
@@ -227,9 +317,9 @@
         {
           "title": "Bảo hiểm TNDS ô tô 5 chỗ",
           "href": "/tnds-xe-5-cho",
-          "image": "/assets/img/bh-tnds-xe-5-cho.webp",
-          "width": 800,
-          "height": 640,
+          "image": "/assets/img/bh-tnds-xe-5-cho-43-v2.webp",
+          "width": 1000,
+          "height": 800,
           "price": 480700,
           "unit": "/năm",
           "sub": "Từ mức thấp nhất · đã gồm VAT",
@@ -238,9 +328,9 @@
         {
           "title": "Bảo hiểm TNDS ô tô 7 chỗ",
           "href": "/tnds-xe-7-cho",
-          "image": "/assets/img/bh-tnds-xe-7-cho.webp",
-          "width": 800,
-          "height": 640,
+          "image": "/assets/img/bh-tnds-xe-7-cho-43-v2.webp",
+          "width": 1000,
+          "height": 800,
           "price": 873400,
           "unit": "/năm",
           "sub": "Từ mức thấp nhất · đã gồm VAT",
@@ -249,7 +339,7 @@
         {
           "title": "Bảo hiểm TNDS xe tải",
           "href": "/tnds-xe-tai",
-          "image": "/assets/img/bh-tnds-xe-tai.webp",
+          "image": "/assets/img/bh-tnds-xe-tai-v2.webp",
           "width": 1200,
           "height": 900,
           "price": 938300,

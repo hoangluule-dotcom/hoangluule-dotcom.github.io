@@ -9,10 +9,10 @@
       "sub": "Sedan, hatchback, SUV/CUV 5 chỗ",
       "href": "/tnds-xe-5-cho",
       "price_from": 480700,
-      "image": "/assets/img/bh-tnds-xe-5-cho.webp",
+      "image": "/assets/img/bh-tnds-xe-5-cho-43-v2.webp",
       "alt": "Minh hoạ xe ô tô 5 chỗ",
-      "width": 800,
-      "height": 640
+      "width": 1000,
+      "height": 800
     },
     {
       "key": "tnds-xe-7-cho",
@@ -21,10 +21,10 @@
       "sub": "MPV, SUV 7 chỗ",
       "href": "/tnds-xe-7-cho",
       "price_from": 873400,
-      "image": "/assets/img/bh-tnds-xe-7-cho.webp",
+      "image": "/assets/img/bh-tnds-xe-7-cho-43-v2.webp",
       "alt": "Minh hoạ xe ô tô 7 chỗ",
-      "width": 800,
-      "height": 640
+      "width": 1000,
+      "height": 800
     },
     {
       "key": "tnds-xe-ban-tai",
@@ -33,7 +33,7 @@
       "sub": "Pickup, minivan vừa chở người vừa chở hàng",
       "href": "/tnds-xe-ban-tai",
       "price_from": 480700,
-      "image": "/assets/img/bh-tnds-xe-ban-tai.webp",
+      "image": "/assets/img/bh-tnds-xe-ban-tai-v2.webp",
       "alt": "Minh hoạ xe bán tải",
       "width": 1200,
       "height": 900
@@ -57,7 +57,7 @@
       "sub": "Xe du lịch, giường nằm, xe buýt từ 24 chỗ",
       "href": "/tnds-xe-khach",
       "price_from": 1397000,
-      "image": "/assets/img/bh-tnds-xe-khach.webp",
+      "image": "/assets/img/bh-tnds-xe-khach-v2.webp",
       "alt": "Minh hoạ xe khách",
       "width": 1200,
       "height": 900
@@ -69,7 +69,7 @@
       "sub": "Theo trọng tải, dưới 3 tấn đến trên 15 tấn",
       "href": "/tnds-xe-tai",
       "price_from": 938300,
-      "image": "/assets/img/bh-tnds-xe-tai.webp",
+      "image": "/assets/img/bh-tnds-xe-tai-v2.webp",
       "alt": "Minh hoạ xe tải",
       "width": 1200,
       "height": 900
@@ -81,7 +81,7 @@
       "sub": "Đầu kéo container, sơ mi rơ-moóc",
       "href": "/tnds-xe-dau-keo",
       "price_from": 5280000,
-      "image": "/assets/img/bh-tnds-xe-dau-keo.webp",
+      "image": "/assets/img/bh-tnds-xe-dau-keo-v2.webp",
       "alt": "Minh hoạ xe đầu kéo container",
       "width": 1200,
       "height": 900
@@ -93,7 +93,7 @@
       "sub": "Xe cẩu, bồn, trộn bê tông, cứu thương, tập lái",
       "href": "/tnds-xe-chuyen-dung",
       "price_from": 576840,
-      "image": "/assets/img/bh-tnds-xe-chuyen-dung.webp",
+      "image": "/assets/img/bh-tnds-xe-chuyen-dung-v2.webp",
       "alt": "Minh hoạ xe cẩu chuyên dùng",
       "width": 1200,
       "height": 900

@@ -365,3 +365,46 @@
     else location.href = 'tel:' + (b.getAttribute('data-phone') || '');
   });
 })();
+
+/* ── Tab ngang (Quyền lợi · Quy trình bồi thường · Câu hỏi thường gặp) ──
+   Mọi tab nằm sẵn trong HTML; ở đây chỉ bật/tắt, hỗ trợ phím mũi tên và
+   mở đúng tab khi URL có #faq / #boi-thuong / #quyen-loi. */
+(function(){
+  'use strict';
+  var lists = document.querySelectorAll('.plp-tabs[role="tablist"]');
+  Array.prototype.forEach.call(lists, function(list){
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    function bat(tab, focus){
+      tabs.forEach(function(t){
+        var on = t === tab;
+        t.classList.toggle('on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.setAttribute('tabindex', on ? '0' : '-1');
+        var p = document.getElementById(t.getAttribute('aria-controls'));
+        if(p) p.hidden = !on;
+      });
+      if(focus) tab.focus();
+      /* tab đang chọn luôn nằm trong vùng nhìn khi thanh tab cuộn ngang (mobile) */
+      try{ tab.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }catch(e){}
+    }
+    tabs.forEach(function(t, i){
+      t.addEventListener('click', function(){ bat(t); });
+      t.addEventListener('keydown', function(ev){
+        var j = null;
+        if(ev.key === 'ArrowRight') j = (i + 1) % tabs.length;
+        if(ev.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+        if(ev.key === 'Home') j = 0;
+        if(ev.key === 'End') j = tabs.length - 1;
+        if(j !== null){ ev.preventDefault(); bat(tabs[j], true); }
+      });
+    });
+    function theoHash(){
+      var h = (location.hash || '').slice(1);
+      if(!h) return;
+      var t = list.querySelector('[aria-controls="' + h + '"]');
+      if(t){ bat(t); var sec = list.closest('section'); if(sec) sec.scrollIntoView({ block: 'start' }); }
+    }
+    theoHash();
+    window.addEventListener('hashchange', theoHash);
+  });
+})();

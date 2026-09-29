@@ -252,11 +252,6 @@
       },
       "rows": [
         {
-          "label": "Quyền lợi",
-          "icon": "shield",
-          "value": "150 triệu đ/người/vụ về người · 100 triệu đ/vụ về tài sản"
-        },
-        {
           "label": "Nhận GCN",
           "icon": "phone",
           "value": "Bản điện tử qua Zalo/email",
@@ -270,6 +265,137 @@
         }
       ],
       "_anh_ghi_chu": "Chỉ dùng ảnh NGANG (rộng > cao). Ảnh dọc bị bỏ qua khi build. Khung hiển thị 4:3."
+    },
+    {
+      "type": "tabs",
+      "id": "thong-tin",
+      "label": "Thông tin sản phẩm",
+      "tabs": [
+        {
+          "key": "quyen-loi",
+          "label": "Quyền lợi sản phẩm",
+          "short": "Quyền lợi",
+          "kind": "benefits",
+          "items": [
+            {
+              "icon": "user",
+              "value": "150 triệu đ",
+              "unit": "/người/vụ",
+              "title": "Thiệt hại về người",
+              "text": "Chi phí điều trị, tổn thất về tính mạng của người thứ ba do xe gây ra."
+            },
+            {
+              "icon": "car",
+              "value": "100 triệu đ",
+              "unit": "/vụ",
+              "title": "Thiệt hại tài sản",
+              "text": "Xe, nhà cửa, hàng hoá của người khác bị hư hỏng trong vụ tai nạn."
+            },
+            {
+              "icon": "user",
+              "value": "150 triệu đ",
+              "unit": "/người/vụ",
+              "title": "Hành khách trên xe",
+              "text": "Áp dụng với xe kinh doanh vận tải hành khách (biển vàng, taxi)."
+            },
+            {
+              "icon": "wallet",
+              "value": "3 ngày",
+              "unit": "làm việc",
+              "title": "Tạm ứng bồi thường",
+              "text": "Tạm ứng cho thiệt hại về người kể từ khi nhận thông báo tai nạn (Điều 14 NĐ 67/2023)."
+            }
+          ],
+          "note": "Mức trách nhiệm theo Nghị định 67/2023/NĐ-CP. Phần thiệt hại vượt hạn mức vẫn thuộc trách nhiệm dân sự của chủ xe."
+        },
+        {
+          "key": "boi-thuong",
+          "label": "Quy trình bồi thường",
+          "short": "Bồi thường",
+          "kind": "steps",
+          "items": [
+            {
+              "title": "Giữ hiện trường, cấp cứu người bị nạn",
+              "text": "Bật đèn cảnh báo. Chụp ảnh, quay video toàn cảnh và biển số trước khi di chuyển xe."
+            },
+            {
+              "title": "Báo công an và gọi bảo hiểm",
+              "text": "Báo công an khi có thiệt hại về người hoặc hai bên không thống nhất. Gọi 1900 96 96 90 để được hướng dẫn tại chỗ."
+            },
+            {
+              "title": "Không tự trả tiền trước khi báo",
+              "text": "Tự thoả thuận là được, nhưng phải báo bảo hiểm trước và lập biên bản có chữ ký hai bên."
+            },
+            {
+              "title": "Nộp hồ sơ",
+              "text": "Chuyên viên DBV247 hướng dẫn và kiểm tra giấy tờ cùng bạn."
+            },
+            {
+              "title": "Nhận bồi thường",
+              "text": "Trong 15 ngày kể từ khi nhận đủ hồ sơ hợp lệ. Có thể chi trả trực tiếp cho người bị nạn."
+            }
+          ],
+          "aside": {
+            "title": "Gọi ngay khi có sự cố",
+            "contacts": [
+              {
+                "label": "Tổng đài bồi thường 24/7",
+                "value": "1900 96 96 90",
+                "href": "tel:1900969690"
+              },
+              {
+                "label": "Chuyên viên DBV247",
+                "value": "0869 656 561",
+                "href": "tel:0869656561"
+              }
+            ],
+            "checklist_title": "Hồ sơ thường cần",
+            "checklist": [
+              "Giấy chứng nhận bảo hiểm",
+              "Đăng ký xe, đăng kiểm, giấy phép lái xe",
+              "Biên bản công an hoặc biên bản thoả thuận",
+              "Ảnh, video hiện trường",
+              "Hồ sơ y tế / hoá đơn sửa chữa"
+            ]
+          }
+        },
+        {
+          "key": "faq",
+          "label": "Câu hỏi thường gặp",
+          "short": "Hỏi đáp",
+          "kind": "faq",
+          "items": [
+            {
+              "q": "Phí TNDS xe 16 chỗ là bao nhiêu?",
+              "a": "Đã gồm VAT: xe 16 chỗ biển trắng 1.397.000đ/năm, biển vàng (kinh doanh vận tải) 3.359.400đ/năm. Chọn loại biển và số chỗ ở phần tuỳ chọn để xem đúng mức phí của xe bạn."
+            },
+            {
+              "q": "Vì sao xe biển vàng đắt hơn biển trắng?",
+              "a": "Nghị định 67/2023/NĐ-CP tính phí xe kinh doanh vận tải theo từng số chỗ đăng ký, còn xe không kinh doanh tính theo nhóm (6–11 chỗ, 12–24 chỗ). Xe chạy dịch vụ lưu thông nhiều hơn nên mức phí cao hơn."
+            },
+            {
+              "q": "Xe 17–23 chỗ thì sao?",
+              "a": "Xe 17–23 chỗ biển trắng cùng mức với xe 12–16 chỗ (1.397.000đ/năm đã gồm VAT); biển vàng tính theo từng số chỗ. Để lại số điện thoại, nhân viên báo đúng mức phí theo giấy đăng ký xe."
+            },
+            {
+              "q": "Doanh nghiệp có nhiều xe thì đăng ký thế nào?",
+              "a": "Để lại số điện thoại một lần, ghi chú là đội xe khi nhân viên gọi. DBV247 nhận danh sách xe (file Excel hoặc ảnh cà-vẹt), lập báo giá cho cả đội và cấp đơn theo lô, xuất hoá đơn VAT cho doanh nghiệp."
+            },
+            {
+              "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
+              "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
+            },
+            {
+              "q": "Tôi cần chuẩn bị những thông tin gì?",
+              "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
+            },
+            {
+              "q": "Tôi nhận giấy chứng nhận như thế nào?",
+              "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "specs",
@@ -343,42 +469,6 @@
       ]
     },
     {
-      "type": "faq",
-      "id": "faq",
-      "layout": "accordion",
-      "title": "Câu hỏi thường gặp",
-      "items": [
-        {
-          "q": "Phí TNDS xe 16 chỗ là bao nhiêu?",
-          "a": "Đã gồm VAT: xe 16 chỗ biển trắng 1.397.000đ/năm, biển vàng (kinh doanh vận tải) 3.359.400đ/năm. Chọn loại biển và số chỗ ở phần tuỳ chọn để xem đúng mức phí của xe bạn."
-        },
-        {
-          "q": "Vì sao xe biển vàng đắt hơn biển trắng?",
-          "a": "Nghị định 67/2023/NĐ-CP tính phí xe kinh doanh vận tải theo từng số chỗ đăng ký, còn xe không kinh doanh tính theo nhóm (6–11 chỗ, 12–24 chỗ). Xe chạy dịch vụ lưu thông nhiều hơn nên mức phí cao hơn."
-        },
-        {
-          "q": "Xe 17–23 chỗ thì sao?",
-          "a": "Xe 17–23 chỗ biển trắng cùng mức với xe 12–16 chỗ (1.397.000đ/năm đã gồm VAT); biển vàng tính theo từng số chỗ. Để lại số điện thoại, nhân viên báo đúng mức phí theo giấy đăng ký xe."
-        },
-        {
-          "q": "Doanh nghiệp có nhiều xe thì đăng ký thế nào?",
-          "a": "Để lại số điện thoại một lần, ghi chú là đội xe khi nhân viên gọi. DBV247 nhận danh sách xe (file Excel hoặc ảnh cà-vẹt), lập báo giá cho cả đội và cấp đơn theo lô, xuất hoá đơn VAT cho doanh nghiệp."
-        },
-        {
-          "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
-          "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
-        },
-        {
-          "q": "Tôi cần chuẩn bị những thông tin gì?",
-          "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
-        },
-        {
-          "q": "Tôi nhận giấy chứng nhận như thế nào?",
-          "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
-        }
-      ]
-    },
-    {
       "type": "related",
       "id": "san-pham-tuong-tu",
       "title": "Sản phẩm tương tự",
@@ -386,9 +476,9 @@
         {
           "title": "Bảo hiểm TNDS ô tô 7 chỗ",
           "href": "/tnds-xe-7-cho",
-          "image": "/assets/img/bh-tnds-xe-7-cho.webp",
-          "width": 800,
-          "height": 640,
+          "image": "/assets/img/bh-tnds-xe-7-cho-43-v2.webp",
+          "width": 1000,
+          "height": 800,
           "price": 873400,
           "unit": "/năm",
           "sub": "Từ mức thấp nhất · đã gồm VAT",
@@ -397,7 +487,7 @@
         {
           "title": "Bảo hiểm TNDS xe khách",
           "href": "/tnds-xe-khach",
-          "image": "/assets/img/bh-tnds-xe-khach.webp",
+          "image": "/assets/img/bh-tnds-xe-khach-v2.webp",
           "width": 1200,
           "height": 900,
           "price": 1397000,
@@ -408,7 +498,7 @@
         {
           "title": "Bảo hiểm TNDS xe tải",
           "href": "/tnds-xe-tai",
-          "image": "/assets/img/bh-tnds-xe-tai.webp",
+          "image": "/assets/img/bh-tnds-xe-tai-v2.webp",
           "width": 1200,
           "height": 900,
           "price": 938300,
@@ -419,7 +509,7 @@
         {
           "title": "Bảo hiểm đội xe doanh nghiệp",
           "href": "/bao-hiem-doi-xe-doanh-nghiep",
-          "image": "/assets/img/bh-doi-xe-doanh-nghiep.webp",
+          "image": "/assets/img/bh-doi-xe-doanh-nghiep-v2.webp",
           "width": 1200,
           "height": 900,
           "price_text": "Một báo giá cho cả đội",

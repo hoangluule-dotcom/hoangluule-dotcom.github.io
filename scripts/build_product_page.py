@@ -10,6 +10,7 @@ biến thể bố cục (layout). Khối nào thiếu dữ liệu bắt buộc, 
     Component      Layout hỗ trợ                         Dữ liệu bắt buộc
     breadcrumb     —                                     items
     hero           content-left | image-left | lead      title   (lead = hero tối giản + form SĐT)
+    tabs           — (tab ngang: benefits | steps | faq)     tabs[].items
     product        — (ảnh + giá + tuỳ chọn + form SĐT)    title hoặc product.name
     shop           —                                     name
     specs          —                                     rows
@@ -47,8 +48,8 @@ import re
 import subprocess
 import sys
 
-CSS_VER = '3'
-JS_VER = '2'
+CSS_VER = '4'
+JS_VER = '3'
 
 # ── Tiện ích ────────────────────────────────────────────────────────────────
 
@@ -846,12 +847,60 @@ def c_trust(sec, P):
     return section(sec, out)
 
 
+def c_tabs(sec, P):
+    """Một khối, nhiều tab ngang (vd. Quyền lợi · Quy trình bồi thường · Câu hỏi thường gặp).
+    Mọi tab đều nằm sẵn trong HTML (Google đọc được); product-lp.js chỉ bật/tắt.
+    Mỗi tab có "kind": benefits (items) | steps (items + aside) | faq (items → JSON-LD FAQPage)."""
+    tabs = [t for t in (sec.get('tabs') or []) if t.get('items')]
+    if not tabs:
+        return ''
+    heads, panels = '', ''
+    for i, t in enumerate(tabs):
+        k = e(t.get('key') or 'tab%d' % i)
+        on = i == 0
+        heads += ('<button type="button" role="tab" class="plp-tab%s" id="tab-%s" aria-controls="%s" aria-selected="%s"%s>'
+                  '<span class="plp-tab-l">%s</span><span class="plp-tab-s">%s</span></button>'
+                  % (' on' if on else '', k, k, 'true' if on else 'false', '' if on else ' tabindex="-1"',
+                     e(t['label']), e(t.get('short', t['label']))))
+        kind = t.get('kind')
+        if kind == 'benefits':
+            body = '<ul class="plp-grid plp-cols-%d plp-tab-cards">%s</ul>' % (min(len(t['items']), 4), cards(t['items']))
+            if t.get('note'):
+                body += '<p class="plp-src">%s</p>' % e(t['note'])
+        elif kind == 'steps':
+            lis = ''.join('<li class="plp-step"><span class="plp-step-n">%d</span><div><h3>%s</h3><p>%s</p></div></li>'
+                          % (j + 1, e(it['title']), e(it.get('text', ''))) for j, it in enumerate(t['items']))
+            tl = '<ol class="plp-tl plp-tl-v">%s</ol>' % lis
+            a = t.get('aside')
+            if a:
+                contacts = ''.join('<a class="plp-contact" href="%s">%s<span><small>%s</small><b>%s</b></span></a>'
+                                   % (e(c['href']), icon('call', 20), e(c['label']), e(c['value'])) for c in a.get('contacts', []))
+                chk = ''.join('<li>%s%s</li>' % (icon('check', 15), e(x)) for x in a.get('checklist', []))
+                aside = ('<aside class="plp-aside"><b class="plp-aside-t">%s</b>%s%s</aside>'
+                         % (e(a.get('title', '')), contacts,
+                            ('<span class="plp-aside-st">%s</span><ul class="plp-chk">%s</ul>' % (e(a.get('checklist_title', '')), chk)) if chk else ''))
+                body = '<div class="plp-steps-grid">%s%s</div>' % (tl, aside)
+            else:
+                body = tl
+        elif kind == 'faq':
+            body = accordion([{'t': it['q'], 'b': '<p>%s</p>' % e(it['a'])} for it in t['items']], 'faq')
+            P['_faq'] = t['items']
+        else:
+            continue
+        panels += ('<div class="plp-tabp" role="tabpanel" id="%s" aria-labelledby="tab-%s" tabindex="0"%s>'
+                   '<h2 class="plp-sr">%s</h2>%s</div>' % (k, k, '' if on else ' hidden', e(t['label']), body))
+    inner = ('<div class="plp-tabs" role="tablist" aria-label="%s">%s</div>%s'
+             % (e(sec.get('label', 'Thông tin sản phẩm')), heads, panels))
+    return section(sec, inner)
+
+
 COMPONENTS = {
     'breadcrumb': c_breadcrumb, 'hero': c_hero, 'calculator': c_calculator,
     'benefits': c_benefits, 'coverage': c_coverage, 'plans': c_plans, 'reasons': c_reasons,
     'steps': c_steps, 'checkout': c_checkout, 'exclusions': c_exclusions, 'faq': c_faq,
     'final_cta': c_final_cta, 'sticky_cta': c_sticky_cta,
     'lead_band': c_lead_band, 'checklist': c_checklist, 'trust': c_trust,
+    'tabs': c_tabs,
     'product': c_product, 'shop': c_shop, 'specs': c_specs, 'related': c_related,
     'intro': c_intro, 'category': c_category, 'fee_table': c_fee_table,
 }

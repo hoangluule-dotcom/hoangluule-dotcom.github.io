@@ -9,7 +9,7 @@
     "description": "Bảo hiểm TNDS bắt buộc xe chuyên dùng: xe cẩu, xe bồn, xe trộn bê tông, xe cứu thương, xe tập lái — tính theo Nghị định 67/2023, đã gồm VAT. Để lại số điện thoại, DBV247 liên hệ cấp đơn.",
     "og_title": "Bảo hiểm TNDS xe chuyên dùng từ 576.840đ/năm | DBV247",
     "og_description": "Chọn loại xe, để lại số điện thoại — DBV247 liên hệ xác nhận thông tin và cấp đơn.",
-    "og_image": "https://dbv247.com.vn/assets/img/bh-tnds-xe-chuyen-dung.webp",
+    "og_image": "https://dbv247.com.vn/assets/img/bh-tnds-xe-chuyen-dung-v2.webp",
     "canonical": "https://dbv247.com.vn/tnds-xe-chuyen-dung"
   },
   "product": {
@@ -98,7 +98,7 @@
       "subtitle": "Đăng ký online – Nhân viên DBV liên hệ cấp đơn",
       "images": [
         {
-          "src": "/assets/img/bh-tnds-xe-chuyen-dung.webp",
+          "src": "/assets/img/bh-tnds-xe-chuyen-dung-v2.webp",
           "alt": "Xe cẩu chuyên dùng tại công trường và tư vấn viên DBV247",
           "width": 1200,
           "height": 900
@@ -116,11 +116,6 @@
       },
       "rows": [
         {
-          "label": "Quyền lợi",
-          "icon": "shield",
-          "value": "150 triệu đ/người/vụ về người · 100 triệu đ/vụ về tài sản"
-        },
-        {
           "label": "Nhận GCN",
           "icon": "phone",
           "value": "Bản điện tử qua Zalo/email",
@@ -134,6 +129,137 @@
         }
       ],
       "_anh_ghi_chu": "Chỉ dùng ảnh NGANG (rộng > cao). Ảnh dọc bị bỏ qua khi build. Khung hiển thị 4:3."
+    },
+    {
+      "type": "tabs",
+      "id": "thong-tin",
+      "label": "Thông tin sản phẩm",
+      "tabs": [
+        {
+          "key": "quyen-loi",
+          "label": "Quyền lợi sản phẩm",
+          "short": "Quyền lợi",
+          "kind": "benefits",
+          "items": [
+            {
+              "icon": "user",
+              "value": "150 triệu đ",
+              "unit": "/người/vụ",
+              "title": "Thiệt hại về người",
+              "text": "Chi phí điều trị, tổn thất về tính mạng của người thứ ba do xe gây ra."
+            },
+            {
+              "icon": "car",
+              "value": "100 triệu đ",
+              "unit": "/vụ",
+              "title": "Thiệt hại tài sản",
+              "text": "Xe, nhà cửa, hàng hoá của người khác bị hư hỏng trong vụ tai nạn."
+            },
+            {
+              "icon": "wallet",
+              "value": "3 ngày",
+              "unit": "làm việc",
+              "title": "Tạm ứng bồi thường",
+              "text": "Tạm ứng cho thiệt hại về người kể từ khi nhận thông báo tai nạn (Điều 14 NĐ 67/2023)."
+            },
+            {
+              "icon": "phone",
+              "value": "Điện tử",
+              "unit": "+ bản giấy",
+              "title": "Giấy chứng nhận hợp lệ",
+              "text": "Xuất trình trên điện thoại khi CSGT kiểm tra; bản giấy gửi tận nơi miễn phí."
+            }
+          ],
+          "note": "Mức trách nhiệm theo Nghị định 67/2023/NĐ-CP. Phần thiệt hại vượt hạn mức vẫn thuộc trách nhiệm dân sự của chủ xe."
+        },
+        {
+          "key": "boi-thuong",
+          "label": "Quy trình bồi thường",
+          "short": "Bồi thường",
+          "kind": "steps",
+          "items": [
+            {
+              "title": "Giữ hiện trường, cấp cứu người bị nạn",
+              "text": "Bật đèn cảnh báo. Chụp ảnh, quay video toàn cảnh và biển số trước khi di chuyển xe."
+            },
+            {
+              "title": "Báo công an và gọi bảo hiểm",
+              "text": "Báo công an khi có thiệt hại về người hoặc hai bên không thống nhất. Gọi 1900 96 96 90 để được hướng dẫn tại chỗ."
+            },
+            {
+              "title": "Không tự trả tiền trước khi báo",
+              "text": "Tự thoả thuận là được, nhưng phải báo bảo hiểm trước và lập biên bản có chữ ký hai bên."
+            },
+            {
+              "title": "Nộp hồ sơ",
+              "text": "Chuyên viên DBV247 hướng dẫn và kiểm tra giấy tờ cùng bạn."
+            },
+            {
+              "title": "Nhận bồi thường",
+              "text": "Trong 15 ngày kể từ khi nhận đủ hồ sơ hợp lệ. Có thể chi trả trực tiếp cho người bị nạn."
+            }
+          ],
+          "aside": {
+            "title": "Gọi ngay khi có sự cố",
+            "contacts": [
+              {
+                "label": "Tổng đài bồi thường 24/7",
+                "value": "1900 96 96 90",
+                "href": "tel:1900969690"
+              },
+              {
+                "label": "Chuyên viên DBV247",
+                "value": "0869 656 561",
+                "href": "tel:0869656561"
+              }
+            ],
+            "checklist_title": "Hồ sơ thường cần",
+            "checklist": [
+              "Giấy chứng nhận bảo hiểm",
+              "Đăng ký xe, đăng kiểm, giấy phép lái xe",
+              "Biên bản công an hoặc biên bản thoả thuận",
+              "Ảnh, video hiện trường",
+              "Hồ sơ y tế / hoá đơn sửa chữa"
+            ]
+          }
+        },
+        {
+          "key": "faq",
+          "label": "Câu hỏi thường gặp",
+          "short": "Hỏi đáp",
+          "kind": "faq",
+          "items": [
+            {
+              "q": "Xe chuyên dùng tính phí TNDS thế nào?",
+              "a": "Theo Nghị định 67/2023/NĐ-CP, xe ô tô chuyên dùng tính bằng 120% phí xe tải cùng trọng tải. Ví dụ xe cẩu dưới 3 tấn: 1.125.960đ/năm đã gồm VAT."
+            },
+            {
+              "q": "Xe cứu thương và xe tập lái phí bao nhiêu?",
+              "a": "Đã gồm VAT: xe cứu thương 1.231.560đ/năm; xe tập lái loại xe con 576.840đ/năm. Xe tập lái là xe tải tính bằng 120% phí xe tải cùng trọng tải — nhân viên sẽ báo đúng mức khi gọi lại."
+            },
+            {
+              "q": "Xe không ghi trọng tải trên giấy tờ thì sao?",
+              "a": "Xe chuyên dùng không có trọng tải thiết kế tính bằng 120% phí xe tải dưới 3 tấn. Để lại số điện thoại, nhân viên đối chiếu giấy tờ xe và báo đúng mức phí."
+            },
+            {
+              "q": "Doanh nghiệp có nhiều xe thì đăng ký thế nào?",
+              "a": "Để lại số điện thoại một lần, ghi chú là đội xe khi nhân viên gọi. DBV247 nhận danh sách xe (file Excel hoặc ảnh cà-vẹt), lập báo giá cho cả đội và cấp đơn theo lô, xuất hoá đơn VAT cho doanh nghiệp."
+            },
+            {
+              "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
+              "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
+            },
+            {
+              "q": "Tôi cần chuẩn bị những thông tin gì?",
+              "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
+            },
+            {
+              "q": "Tôi nhận giấy chứng nhận như thế nào?",
+              "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "specs",
@@ -207,42 +333,6 @@
       ]
     },
     {
-      "type": "faq",
-      "id": "faq",
-      "layout": "accordion",
-      "title": "Câu hỏi thường gặp",
-      "items": [
-        {
-          "q": "Xe chuyên dùng tính phí TNDS thế nào?",
-          "a": "Theo Nghị định 67/2023/NĐ-CP, xe ô tô chuyên dùng tính bằng 120% phí xe tải cùng trọng tải. Ví dụ xe cẩu dưới 3 tấn: 1.125.960đ/năm đã gồm VAT."
-        },
-        {
-          "q": "Xe cứu thương và xe tập lái phí bao nhiêu?",
-          "a": "Đã gồm VAT: xe cứu thương 1.231.560đ/năm; xe tập lái loại xe con 576.840đ/năm. Xe tập lái là xe tải tính bằng 120% phí xe tải cùng trọng tải — nhân viên sẽ báo đúng mức khi gọi lại."
-        },
-        {
-          "q": "Xe không ghi trọng tải trên giấy tờ thì sao?",
-          "a": "Xe chuyên dùng không có trọng tải thiết kế tính bằng 120% phí xe tải dưới 3 tấn. Để lại số điện thoại, nhân viên đối chiếu giấy tờ xe và báo đúng mức phí."
-        },
-        {
-          "q": "Doanh nghiệp có nhiều xe thì đăng ký thế nào?",
-          "a": "Để lại số điện thoại một lần, ghi chú là đội xe khi nhân viên gọi. DBV247 nhận danh sách xe (file Excel hoặc ảnh cà-vẹt), lập báo giá cho cả đội và cấp đơn theo lô, xuất hoá đơn VAT cho doanh nghiệp."
-        },
-        {
-          "q": "Đăng ký xong bao lâu sẽ được liên hệ?",
-          "a": "Trong giờ làm việc (Thứ Hai – Thứ Sáu, 8:00 – 18:00), chuyên viên DBV247 sẽ gọi lại sớm nhất có thể. Đăng ký ngoài giờ sẽ được liên hệ vào đầu giờ làm việc kế tiếp."
-        },
-        {
-          "q": "Tôi cần chuẩn bị những thông tin gì?",
-          "a": "Chỉ cần Giấy đăng ký xe (cà-vẹt) để đọc biển số, số khung, số máy khi nhân viên gọi — hoặc chụp ảnh gửi qua Zalo. Trên website bạn chỉ cần nhập số điện thoại."
-        },
-        {
-          "q": "Tôi nhận giấy chứng nhận như thế nào?",
-          "a": "Giấy chứng nhận điện tử gửi qua Zalo hoặc email, có giá trị khi CSGT kiểm tra theo Nghị định 67/2023/NĐ-CP. Nếu cần bản giấy, DBV247 gửi tận nơi miễn phí."
-        }
-      ]
-    },
-    {
       "type": "related",
       "id": "san-pham-tuong-tu",
       "title": "Sản phẩm tương tự",
@@ -250,7 +340,7 @@
         {
           "title": "Bảo hiểm TNDS xe tải",
           "href": "/tnds-xe-tai",
-          "image": "/assets/img/bh-tnds-xe-tai.webp",
+          "image": "/assets/img/bh-tnds-xe-tai-v2.webp",
           "width": 1200,
           "height": 900,
           "price": 938300,
@@ -261,7 +351,7 @@
         {
           "title": "Bảo hiểm TNDS xe đầu kéo",
           "href": "/tnds-xe-dau-keo",
-          "image": "/assets/img/bh-tnds-xe-dau-keo.webp",
+          "image": "/assets/img/bh-tnds-xe-dau-keo-v2.webp",
           "width": 1200,
           "height": 900,
           "price": 5280000,
@@ -272,7 +362,7 @@
         {
           "title": "Bảo hiểm TNDS xe bán tải",
           "href": "/tnds-xe-ban-tai",
-          "image": "/assets/img/bh-tnds-xe-ban-tai.webp",
+          "image": "/assets/img/bh-tnds-xe-ban-tai-v2.webp",
           "width": 1200,
           "height": 900,
           "price": 480700,
@@ -283,7 +373,7 @@
         {
           "title": "Bảo hiểm đội xe doanh nghiệp",
           "href": "/bao-hiem-doi-xe-doanh-nghiep",
-          "image": "/assets/img/bh-doi-xe-doanh-nghiep.webp",
+          "image": "/assets/img/bh-doi-xe-doanh-nghiep-v2.webp",
           "width": 1200,
           "height": 900,
           "price_text": "Một báo giá cho cả đội",

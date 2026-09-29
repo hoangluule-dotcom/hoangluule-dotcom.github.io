@@ -12,7 +12,7 @@
 
 .plp{
   --pg:#007437; --pg-d:#005a2b; --pg-dd:#0f2515; --pg-50:#f1f8f3; --pg-100:#dcefe2;
-  --po:#E8920A; --po-h:#d98200; --po-ink:#a95d00; --po-50:#fff5e6;
+  --po:#E8920A; --po-h:#d98200; --po-ink:#E8920A; --po-50:#FFF8E7;
   --pink:#0f2515; --ptx:#1f2a24; --pmu:#5a6560; --pline:#e2e8e4; --pbg:#f5f7f6;
   --pr:14px; --pr-s:10px;
   --psh:0 1px 2px rgba(15,37,21,.06),0 4px 16px rgba(15,37,21,.06);
@@ -45,7 +45,7 @@ body.plp-page{margin:0;background:#fff;color:#1f2a24;font-family:'Be Vietnam Pro
 
 /* ── Nút ── */
 .plp-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;border:1.5px solid transparent;font:inherit;font-size:16px;font-weight:700;line-height:1;text-decoration:none;cursor:pointer;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s;white-space:nowrap}
-.plp .plp-btn-buy{background:var(--po);color:#1c1200;box-shadow:0 2px 0 rgba(169,93,0,.35)}
+.plp .plp-btn-buy{background:var(--po);color:#fff;box-shadow:0 2px 0 rgba(169,93,0,.35)}
 .plp .plp-btn-buy:hover{background:var(--po-h)}
 .plp .plp-btn-buy:active{transform:translateY(1px);box-shadow:none}
 .plp .plp-btn-ghost{background:#fff;color:var(--pg-d);border-color:var(--pline)}
@@ -180,7 +180,7 @@ body.plp-page{margin:0;background:#fff;color:#1f2a24;font-family:'Be Vietnam Pro
 .plp-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
 .plp-plan{position:relative;display:flex;flex-direction:column;padding:26px 24px 24px;background:#fff;border:1.5px solid var(--pline);border-radius:16px}
 .plp-plan.featured{border-color:var(--pg);box-shadow:var(--psh-l)}
-.plp-tag{position:absolute;top:-12px;left:24px;padding:4px 10px;border-radius:6px;background:var(--po);color:#1c1200;font-size:12px;font-weight:700;letter-spacing:.2px}
+.plp-tag{position:absolute;top:-12px;left:24px;padding:4px 10px;border-radius:6px;background:var(--po);color:#fff;font-size:12px;font-weight:700;letter-spacing:.2px}
 .plp-plan-n{font-size:15px;font-weight:700;color:var(--pg-d);text-transform:uppercase;letter-spacing:.5px}
 .plp-plan-p{font-size:32px;font-weight:800;letter-spacing:-.8px;color:var(--pink);font-variant-numeric:tabular-nums;margin-top:6px;line-height:1.15}
 .plp-plan.featured .plp-plan-p{color:var(--po-ink)}
@@ -622,7 +622,7 @@ body.plp-page{margin:0;background:#fff;color:#1f2a24;font-family:'Be Vietnam Pro
 .plp-pill{padding:3px 8px;border-radius:4px;background:var(--pg-50);color:var(--pg-d);font-size:12px;font-weight:600;border:1px solid var(--pg-100)}
 .plp-pi-t{font-size:26px;line-height:1.3;font-weight:700;color:var(--pink)}
 .plp-pi-sub{margin-top:6px;font-size:15px;color:var(--pmu)}
-.plp-pi-price{margin:16px 0 6px;padding:14px 18px;background:#fff7ec;border-radius:6px}
+.plp-pi-price{margin:16px 0 6px;padding:14px 18px;background:#FFF8E7;border-radius:6px}
 .plp-pi-price>div{display:flex;align-items:baseline;gap:4px}
 .plp-pi-price b{font-size:34px;font-weight:800;color:var(--po-ink);letter-spacing:-.6px;font-variant-numeric:tabular-nums;line-height:1.15}
 .plp-pi-price span{font-size:16px;color:var(--pmu);font-weight:600}
@@ -641,7 +641,7 @@ body.plp-page{margin:0;background:#fff;color:#1f2a24;font-family:'Be Vietnam Pro
 .plp-var small{font-size:12px;color:var(--pmu)}
 .plp-var-p{font-size:13.5px;font-weight:700;color:var(--po-ink);font-variant-numeric:tabular-nums;margin-top:2px}
 .plp-var:hover{border-color:var(--po)}
-.plp-var.on{border-color:var(--po);background:#fffaf2}
+.plp-var.on{border-color:var(--po);background:#FFF8E7}
 .plp-var.on::after{content:"";position:absolute;right:-1px;bottom:-1px;width:18px;height:18px;background:var(--po);border-radius:6px 0 5px 0;
   -webkit-mask:linear-gradient(#000 0 0);clip-path:polygon(100% 0,100% 100%,0 100%)}
 .plp-var:focus-visible{outline:3px solid rgba(232,146,10,.35);outline-offset:2px}
@@ -936,3 +936,76 @@ body.plp-page{margin:0;background:#fff;color:#1f2a24;font-family:'Be Vietnam Pro
 /* khung ảnh thẻ loại xe cố định tỉ lệ dù ảnh gốc 4:3 hay 5:4 */
 .plp-cat-img{position:relative;overflow:hidden}
 .plp-cat-img img{position:absolute;inset:0}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   29/09/2026 — cam thương hiệu, chữ trắng trên nút, khối phí thấp hơn, tab thông tin
+   Cam dùng đúng --gold của site (#E8920A, màu thanh "Bảo hiểm trực tuyến" trên header).
+   ══════════════════════════════════════════════════════════════════════════ */
+.plp .plp-btn-buy,.plp .plp-lead-btn{color:#fff;letter-spacing:.3px}
+.plp .plp-btn-buy{box-shadow:0 2px 0 rgba(160,95,0,.28)}
+.plp .plp-btn-buy:hover{background:var(--po-h);color:#fff}
+
+/* Khối phí gọn hơn */
+.plp-pi-t{font-size:24px;line-height:1.25}
+.plp-pi-sub{margin-top:4px;font-size:14px}
+.plp-pi-price{margin:12px 0 2px;padding:10px 16px}
+.plp-pi-price b{font-size:30px}
+.plp-pi-price small{margin-top:0;font-size:12.5px}
+.plp-pi-row{padding:8px 0;gap:14px}
+.plp-pi-vars{padding-top:10px}
+.plp-pi-vars .plp-pi-lbl{padding-top:12px}
+.plp-var{min-height:50px;padding-top:7px;padding-bottom:7px}
+.plp-pi-val{font-size:14px}
+.plp-pi-val span{flex-direction:row;flex-wrap:wrap;column-gap:6px;align-items:baseline}
+.plp-pi-val small::before{content:"· "}
+.plp-pi-buy{margin-top:4px;padding-top:12px}
+.plp-pi-buy .plp-lead-after{margin-top:8px}
+@media (min-width:1025px){ .plp-pd{grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:32px} }
+.plp-theme-shop .plp-s-product>.plp-in{padding-top:20px;padding-bottom:18px}
+
+/* Tab ngang: Quyền lợi · Quy trình bồi thường · Câu hỏi thường gặp */
+.plp-tabs{display:flex;gap:4px;margin:-24px -28px 22px;padding:0 20px;border-bottom:1px solid var(--pline);overflow-x:auto;scrollbar-width:none}
+.plp-tabs::-webkit-scrollbar{display:none}
+.plp-tab{position:relative;flex:0 0 auto;padding:17px 16px 15px;border:0;background:none;font:inherit;font-size:16px;font-weight:700;color:var(--pmu);cursor:pointer;white-space:nowrap;transition:color .15s}
+.plp-tab:hover{color:var(--pink)}
+.plp-tab.on{color:var(--pg-d)}
+.plp-tab.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--pg)}
+.plp-tab:focus-visible{outline:3px solid rgba(0,116,55,.3);outline-offset:-3px;border-radius:8px}
+.plp-tab-s{display:none}
+.plp-tabp[hidden]{display:none}
+.plp-tabp:focus{outline:none}
+.plp-tabp .plp-src{margin-top:12px;font-size:12.5px}
+.plp-tabp .plp-steps-grid{gap:36px}
+.plp-tabp .plp-accs{max-width:none}
+
+@media (max-width:640px){
+  .plp-gal-sl{aspect-ratio:16/10}
+  .plp-pi-t{font-size:18px}
+  .plp-pi-sub{font-size:13px;margin-bottom:8px}
+  .plp-pi-price{padding:9px 16px;margin-bottom:2px}
+  .plp-pi-price b{font-size:26px}
+  .plp-pi-row{padding:8px 0}
+  .plp-pi-vars{padding-top:4px}
+  .plp-pi-vars .plp-pi-lbl{padding-top:0}
+  .plp-var{min-height:48px}
+  .plp-theme-shop .plp-s-product>.plp-in{padding-bottom:12px!important}
+  .plp-tabs{margin:-16px -16px 16px;padding:0;gap:0}
+  .plp-tab{flex:1 1 0;padding:14px 4px 12px;font-size:14.5px;text-align:center}
+  .plp-tab.on::after{left:10px;right:10px}
+  .plp-tab-l{display:none}
+  .plp-tab-s{display:inline}
+}
+@media (max-width:640px){
+  .plp-pi{padding-top:0}
+  .plp-pi-price{margin:0 -16px 10px;border-radius:0}
+}
+@media (max-width:640px){
+  /* quyền lợi trong tab: mỗi dòng một quyền lợi, icon bên trái — gọn hơn lưới 2 cột */
+  .plp-tab-cards.plp-grid{grid-template-columns:1fr;gap:8px}
+  .plp-tab-cards .plp-card{display:grid;grid-template-columns:36px 1fr;column-gap:12px;padding:12px 14px}
+  .plp-tab-cards .plp-card-ic{grid-row:span 3;margin:0}
+  .plp-tab-cards .plp-card-val{margin:0}
+  .plp-tab-cards .plp-card-val small{display:inline}
+  .plp-tab-cards .plp-card-t{font-size:14.5px}
+}
