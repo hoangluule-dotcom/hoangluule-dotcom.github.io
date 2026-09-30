@@ -32,21 +32,8 @@ d.setAttribute('data-nhom',a);
 k.rel='preload';k.as='image';k.media=p[0];k.href='/assets/img/trang-chu/hero-'+a+'-v2-'+p[1]+'.webp';k.setAttribute('fetchpriority','high');document.head.appendChild(k);});
 })();
 </script>
-<style>:root{--radius-sm:8px;--radius-control:12px;--radius-card:16px;--radius-panel:24px;--radius-pill:999px;--radius-circle:50%}
-@media(max-width:767px){:root{--radius-panel:20px}}
-
-:root{
-  --g:#007437;--gd:#005a2b;--gl:#e8f5e9;--g10:rgba(0,116,55,.10);
-  --gold:#E8920A;--goldd:#c97d08;--gold-bg:#FFF8E7;
-  --navy:#1B3A5C;--navyd:#132d47;
-  --dk:#0f2515;--tx:#1C1C1C;--tm:#4a5568;--ts:#718096;
-  --bd:#E2E8F0;--bg:#f8fafb;
-  --r8:var(--radius-sm);--r12:var(--radius-control);--r16:var(--radius-card);--r24:var(--radius-panel);
-  --zalo:#0068ff;
-  --container:1400px;
-  --gap-section:48px;
-}
-@media(min-width:768px){ :root{ --gap-section:64px } }
+<link rel="stylesheet" href="/assets/tokens.css">
+<style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{overflow-x:clip;scroll-behavior:smooth}
 body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:#fff;line-height:1.6;font-size:14px}
@@ -881,9 +868,7 @@ video.hm-why-img{display:block;object-fit:cover;background:#dfeee3}
   --hp-r:var(--radius-card); --hp-r-sm:var(--radius-sm);
   --hp-sh:0 4px 18px rgba(8,76,56,.07);
   --hp-sh-h:0 10px 28px rgba(8,76,56,.13);
-  --hp-gap:56px;
 }
-@media(max-width:767px){:root{--hp-gap:36px}}
 
 /* Hiện / ẩn theo nhóm. Không có JS → mặc định Doanh nghiệp. */
 html[data-nhom="cn"] .hp-dn{display:none!important}

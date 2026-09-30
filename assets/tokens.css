@@ -1,0 +1,83 @@
+/* ══════════════════════════════════════════════════════════════════════
+   DBV247 — TOKEN THỊ GIÁC DÙNG CHUNG (nguồn duy nhất)
+   Chuẩn: "Hệ thống thị giác cố định v1.0" (project DBV247, 30/09/2026)
+
+   • Mọi trang nạp file này TRƯỚC khối <style> của trang.
+   • Không khai lại các biến dưới đây trong trang. Trang nào còn khai một biến
+     trùng tên với giá trị KHÁC là ngoại lệ đang chờ xử lý ở bước 2.
+   • scripts/sync_layout.py đọc file này để lấy giá trị dự phòng cho khối
+     header/footer — đổi giá trị ở đây rồi chạy lại sync.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── 1. Màu chuẩn v1.0 ── */
+  --c-brand:#007437;          /* nút xanh, tab chọn, liên kết, icon */
+  --c-brand-hover:#005A2B;
+  --c-heading:#084C38;        /* H1–H3, nội dung nhấn mạnh */
+  --c-mint:#EFF8F2;           /* banner, khối tư vấn */
+  --c-mint-2:#E1F1E7;         /* điểm cuối gradient nền */
+  --c-green-soft:#E8F5E9;     /* badge, trạng thái chọn nhẹ */
+  --c-accent:#E8920A;         /* CTA ưu tiên — mỗi nhóm thao tác chỉ 1 nút cam */
+  --c-accent-hover:#C97D08;
+  --c-accent-soft:#FFF8E7;
+  --c-bg:#FFFFFF;
+  --c-bg-muted:#F8FAFB;
+  --c-text:#1C1C1C;
+  --c-text-muted:#4A5568;
+  --c-border:#E2E8F0;
+  --grad-mint:linear-gradient(135deg,var(--c-mint),var(--c-mint-2));
+
+  /* ── 2. Chữ ── */
+  --font:"Be Vietnam Pro",sans-serif;
+
+  /* ── 3. Bo góc ── */
+  --radius-sm:8px;            /* badge, ảnh nhỏ */
+  --radius-control:12px;      /* button, input, select, tab */
+  --radius-card:16px;         /* thẻ */
+  --radius-panel:24px;        /* banner, panel lớn (20px trên mobile) */
+  --radius-circle:50%;
+  --radius-pill:999px;        /* chỉ khi có yêu cầu riêng đã duyệt */
+
+  /* ── 4. Khoảng cách: 4/8/12/16/24/32/48/64 ── */
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;
+
+  /* ── 5. Bóng đổ ── */
+  --shadow-card:0 3px 14px rgba(8,76,56,.06);
+  --shadow-card-hover:0 8px 24px rgba(8,76,56,.10);
+
+  /* ── 6. Bố cục trang con (chưa áp dụng — bước 2) ── */
+  --container-page:1240px;
+  --gutter:24px;
+
+  /* ══ TÊN CŨ — giữ để các trang hiện có không đổi hiển thị ══
+     Trỏ về token chuẩn khi trùng giá trị. Mã mới dùng tên --c-*. */
+  --g:var(--c-brand);
+  --gd:var(--c-brand-hover);
+  --gp:var(--c-brand-hover);
+  --gl:var(--c-green-soft);
+  --g10:rgba(0,116,55,.10);
+  --gold:var(--c-accent);
+  --goldd:var(--c-accent-hover);
+  --gold-bg:var(--c-accent-soft);
+  --tx:var(--c-text);
+  --tm:var(--c-text-muted);
+  --bd:var(--c-border);
+  --bg:var(--c-bg-muted);
+  --white:var(--c-bg);
+  --r8:var(--radius-sm);
+  --r12:var(--radius-control);
+  --r16:var(--radius-card);
+  --r24:var(--radius-panel);
+  --zalo:#0068ff;             /* chỉ dùng trong biểu tượng Zalo */
+  --container:1400px;         /* header/footer — KHÔNG đổi để khớp trang con */
+  --gap-section:48px;
+
+  /* ══ NGOÀI CHUẨN v1.0 — còn dùng, sẽ loại ở bước 2 ══ */
+  --dk:#0f2515;               /* → --c-heading */
+  --ts:#718096;               /* chữ phụ nhạt → --c-text-muted */
+  --navy:#1B3A5C;             /* v1.0 không dùng navy */
+  --navyd:#132d47;
+}
+@media(max-width:767px){:root{--radius-panel:20px;--gutter:16px}}
+@media(min-width:768px){:root{--gap-section:64px}}

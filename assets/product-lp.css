@@ -1,5 +1,3 @@
-:root{--radius-sm:8px;--radius-control:12px;--radius-card:16px;--radius-panel:24px;--radius-pill:999px;--radius-circle:50%}
-@media(max-width:767px){:root{--radius-panel:20px}}
 /* ══════════════════════════════════════════════════════════════════════════
    DBV247 — Trang sản phẩm dạng e-commerce (product-lp)
    Dùng cho các trang dựng bằng scripts/build_product_page.py.

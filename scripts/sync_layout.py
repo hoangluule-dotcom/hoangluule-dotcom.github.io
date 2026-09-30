@@ -72,6 +72,24 @@ JS_CLOSE = '</script>'
 
 # Hàm phụ trợ cho header (mở/đóng dropdown, đổi nền khi cuộn).
 # Nằm cạnh script này trong assets/ vì logic ổn định, không lấy từ index.html.
+# (30/09/2026) Token thị giác dùng chung — nguồn duy nhất cho biến :root.
+# Các trang nạp file này qua <link>; script đọc nó để lấy giá trị dự phòng
+# cho khối layout (index.html không còn tự khai các biến này).
+TOKENS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           '..', 'assets', 'tokens.css')
+
+
+def tokens_style():
+    """Nội dung tokens.css bọc trong <style> để ghép trước bản chuẩn."""
+    p = os.path.normpath(TOKENS_PATH)
+    if not os.path.exists(p):
+        print('CẢNH BÁO: không thấy %s — biến màu của header/footer sẽ thiếu '
+              'giá trị dự phòng' % p)
+        return ''
+    with open(p, encoding='utf-8') as fh:
+        return '<style>' + fh.read() + '</style>\n'
+
+
 LAYOUT_JS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                               '..', 'assets', 'layout.js')
 
@@ -166,9 +184,54 @@ def find_block(html, spec):
 # ── Trích xuất từ bản chuẩn ─────────────────────────────────────────────────
 
 def extract_css_vars(src):
-    """Đọc :root để lấy giá trị dự phòng cho biến màu."""
-    m = re.search(r':root\s*\{(.*?)\}', src, re.DOTALL)
-    return dict(re.findall(r'(--[\w-]+)\s*:\s*([^;]+);', m.group(1))) if m else {}
+    """Gom MỌI khối :root top-level của bản chuẩn (không lấy trong @media).
+
+    (30/09/2026) Bản cũ chỉ đọc khối :root đầu tiên — ở index.html đó là khối
+    bán kính bo góc — nên --dk, --g, --tx… không có giá trị dự phòng.
+    """
+    out = {}
+    for css in re.findall(r'<style[^>]*>(.*?)</style>', src, re.DOTALL):
+        css = re.sub(r'/\*.*?\*/', '', css, flags=re.DOTALL)
+        for rule in split_rules(css):
+            if rule.startswith(':root'):
+                body = rule.split('{', 1)[1].rsplit('}', 1)[0]
+                out.update(dict(re.findall(r'(--[\w-]+)\s*:\s*([^;]+?)\s*(?:;|$)', body)))
+    # Tên cũ trong tokens.css trỏ về màu chuẩn (--g:var(--c-brand)) — thay bằng
+    # giá trị thật để khối layout không phụ thuộc thứ tự nạp CSS.
+    for _ in range(3):
+        for k, v in out.items():
+            out[k] = re.sub(r'var\((--c-[\w-]+)\)',
+                            lambda m: out.get(m.group(1), m.group(0)), v)
+    return out
+
+
+# Các phần tử gốc của khối layout. Biến màu và kiểu chữ được khai báo NGAY TRÊN
+# các phần tử này (giá trị lấy từ trang chủ) để trang nào đặt --dk, --container,
+# font-size, line-height khác cũng không kéo lệch header/footer.
+LAYOUT_ROOTS = '.hdr,.ftr,.float-cta,.mob-bar,.mob-sheet,.cat-dropdown'
+
+
+def scope_block(css_vars, src):
+    decl = ';'.join('%s:%s' % (k, v.strip()) for k, v in css_vars.items())
+    m = re.search(r'(?<![\w-])body\s*\{([^}]*)\}', src)
+    typo = ''
+    if m:
+        for prop in ('font-family', 'font-size', 'line-height', 'color'):
+            pm = re.search(r'(?<![\w-])%s\s*:\s*([^;}]+)' % prop, m.group(1))
+            if pm:
+                typo += ';%s:%s' % (prop, pm.group(1).strip())
+    extra = ''
+    for mq, body in re.findall(r'(@media[^{]*)\{\s*:root\s*\{([^}]*)\}\s*\}', src):
+        extra += '%s{%s{%s}}' % (mq, LAYOUT_ROOTS, body)
+    roots = LAYOUT_ROOTS.split(',')
+    # Trang chủ có *{margin:0;padding:0;box-sizing:border-box}. Trang thiếu
+    # reset này (vd. trang dùng product-lp.css) thì thanh CTA mobile, topbar
+    # header cao hơn 8px. Khai lại, nhưng CHỈ trong phạm vi các khối layout.
+    reset = ','.join(roots + [r + ' *' for r in roots])
+    focus = ','.join(r + ' *:focus-visible' for r in roots)
+    return ('%s{%s%s}%s\n%s{margin:0;padding:0;box-sizing:border-box}\n'
+            '%s{outline:2px solid var(--g);outline-offset:2px;border-radius:2px}'
+            % (LAYOUT_ROOTS, decl, typo, extra, reset, focus))
 
 
 def split_rules(css):
@@ -201,12 +264,16 @@ def is_layout_rule(rule):
 # Dùng :where() để độ ưu tiên bằng 0 — bất kỳ quy tắc .hdr nào của trang cũng
 # thắng được, nên đây chỉ là lưới an toàn, không phải thứ áp đặt.
 SAFE_DEFAULTS = (
-    ':where(.hdr){background:#fff;position:sticky;top:0;z-index:300;'
-    'border-bottom:1px solid var(--bd,#E2E8F0)}'
+    ':where(.hdr){background:#fff;border-bottom:1px solid #E2E8F0;position:sticky;'
+    'top:0;left:0;right:0;z-index:300;box-shadow:0 2px 12px rgba(0,0,0,.06)}'
 )
+# (30/09/2026) Chuẩn header trang con = đúng trạng thái "đã cuộn" của trang chủ.
+# Trang con không còn tự khai .hdr; chỉ trang cố ý làm header trong suốt đè
+# banner như trang chủ (tu-van.html) mới giữ quy tắc .hdr riêng — :where() để
+# quy tắc của trang đó thắng.
 
 
-def extract_layout_css(src, css_vars):
+def extract_layout_css(src, css_vars, var_src=None):
     """Gom CSS của các khối layout, thêm giá trị dự phòng cho biến màu.
 
     Trang tin tức có bảng biến riêng, đôi khi thiếu biến mà layout cần.
@@ -226,7 +293,7 @@ def extract_layout_css(src, css_vars):
             elif is_layout_rule(rule):
                 picked.append(rule)
 
-    out = SAFE_DEFAULTS + '\n' + '\n'.join(picked)
+    out = scope_block(css_vars, var_src or src) + '\n' + SAFE_DEFAULTS + '\n' + '\n'.join(picked)
 
     def add_fallback(m):
         if ',' in m.group(0):
@@ -468,7 +535,8 @@ def main():
 
     src = read(source)
     canon = extract_blocks(src)
-    css_block = extract_layout_css(src, extract_css_vars(src))
+    var_src = tokens_style() + src
+    css_block = extract_layout_css(src, extract_css_vars(var_src), var_src)
 
     js_block = ''
     js_path = os.path.normpath(LAYOUT_JS_PATH)
