@@ -521,6 +521,8 @@ svg.ico{width:24px;height:24px;fill:none;stroke:var(--g);stroke-width:1.8}
   .prod-img-card.spm-an,.cat-section.spm-an{display:none!important}
 }
 </style>
+<link rel="stylesheet" href="/assets/catalog.css">
+<script src="/assets/catalog.js" defer></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -721,404 +723,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 
-<div class="page-hero">
-  <div class="breadcrumb"><a href="/">Trang chủ</a><span class="breadcrumb-sep">›</span><span>Danh mục sản phẩm</span></div>
-  <br>
-  <h1>Danh Mục Sản Phẩm Bảo Hiểm</h1>
-  <p>23 sản phẩm bảo hiểm toàn diện – được cấp phép Bộ Tài chính – tư vấn miễn phí theo nhu cầu thực tế</p>
-</div>
-
-
-<!-- ══ DANH MỤC — GIAO DIỆN MOBILE (mockup 26/09/2026) — chỉ hiện ≤640px ══ -->
-<section class="spm" aria-label="Tìm nhanh sản phẩm">
-  <div class="spm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><label class="sr-only" for="spm-q">Tìm sản phẩm</label><input id="spm-q" type="search" placeholder="Tìm kiếm sản phẩm..." autocomplete="off"></div>
-  <a class="spm-banner" href="/bao-hiem-vat-chat-oto">
-    <b>Bảo hiểm ô tô</b>
-    <span>TNDS bắt buộc và vật chất thân vỏ cho xe của bạn</span>
-    <em>Xem sản phẩm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em>
-    <img src="/assets/img/bh-vat-chat-oto-v2.webp" alt="" width="1024" height="640" loading="lazy">
-  </a>
-  <h2 class="spm-h">Bạn đang cần bảo hiểm cho điều gì?</h2>
-  <div class="spm-tiles"><button type="button" class="spm-tile" data-cat="xe" onclick="spmChon('xe')"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10 16 6.5c-.3-.4-.8-.5-1.2-.5H9.2c-.5 0-.9.2-1.2.5L5.6 10 3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg></span><b>Xe cơ giới</b><small>6 sản phẩm</small></button><button type="button" class="spm-tile" data-cat="taisan" onclick="spmChon('taisan')"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span><b>Tài sản &amp; Kỹ thuật</b><small>7 sản phẩm</small></button><button type="button" class="spm-tile" data-cat="conguoi" onclick="spmChon('conguoi')"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.4 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.1 3 5.5l7 7z"/><path d="M3.2 12H9l.5-1 2 4.5 2-7 1.5 3.5h5.8"/></svg></span><b>Du lịch &amp; Con người</b><small>6 sản phẩm</small></button><button type="button" class="spm-tile" data-cat="hanghai" onclick="spmChon('hanghai')"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.4 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.3.8 4.4 2 6"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/><path d="M12 10v4M12 2v3"/></svg></span><b>Hàng hải</b><small>4 sản phẩm</small></button><button type="button" class="spm-tile" data-cat="trachnhiem" onclick="spmChon('trachnhiem')"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1zM2 16l3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1z"/><path d="M7 21h10M12 3v18M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span><b>Trách nhiệm</b><small>5 sản phẩm</small></button><button type="button" class="spm-tile" data-cat="all" onclick="spmChon('all')"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><b>Tất cả</b><small>Hơn 25 sản phẩm</small></button></div>
-  <div class="spm-h spm-h-row"><h2>Sản phẩm được quan tâm</h2><a href="#spm-all" onclick="spmChon('all');return false">Xem tất cả</a></div>
-  <div class="spm-list"><a class="spm-row" href="/bao-hiem-tnds-oto"><span class="spm-row-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10 16 6.5c-.3-.4-.8-.5-1.2-.5H9.2c-.5 0-.9.2-1.2.5L5.6 10 3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg></span><span class="spm-row-tx"><b>TNDS ô tô</b><small>Mọi loại xe · bắt buộc theo NĐ 67/2023</small><em>Từ 480.700đ/năm</em></span><svg class="spm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="spm-row" href="/bao-hiem-vat-chat-oto"><span class="spm-row-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10 16 6.5c-.3-.4-.8-.5-1.2-.5H9.2c-.5 0-.9.2-1.2.5L5.6 10 3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></svg></span><span class="spm-row-tx"><b>Vật chất ô tô</b><small>Bảo vệ thân vỏ xe toàn diện</small><em>Tỷ lệ từ 1,2%/năm</em></span><svg class="spm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a><a class="spm-row" href="/bao-hiem-tnds-xemay"><span class="spm-row-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h2l3 11.5"/><path d="M5.5 17.5 9 10h6l-3 7.5h-3"/></svg></span><span class="spm-row-tx"><b>TNDS xe máy</b><small>Bảo vệ bạn và người khác</small><em>Từ 60.500đ/năm</em></span><svg class="spm-row-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></div>
-  <h2 class="spm-h" id="spm-all">Tất cả sản phẩm</h2>
-</section>
-<div class="filter-bar">
-  <div class="filter-inner">
-    <button class="filter-btn active" onclick="filterCat('all',this)"><svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Tất cả (26)</button>
-    <button class="filter-btn" onclick="filterCat('xe',this)"><svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg>Xe Cơ Giới (6)</button>
-    <button class="filter-btn" onclick="filterCat('hanghai',this)"><svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Hàng Hải (4)</button>
-    <button class="filter-btn" onclick="filterCat('taisan',this)"><svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Tài Sản &amp; Kỹ Thuật (7)</button>
-    <button class="filter-btn" onclick="filterCat('trachnhiem',this)"><svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Trách Nhiệm (5)</button>
-    <button class="filter-btn" onclick="filterCat('conguoi',this)"><svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Du Lịch &amp; Con Người (4)</button>
-  </div>
-</div>
-
-<main class="main">
-
-  <div class="cat-section" data-cat="xe">
-    <div class="cat-header">
-      <div class="cat-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg></div>
-      <div class="cat-title">Bảo Hiểm Xe Cơ Giới</div>
-      <span class="cat-count">4 sản phẩm</span>
-    </div>
-    <div class="prod-img-grid">
-      <a class="prod-img-card" href="/bao-hiem-tnds-oto">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tnds-oto-v2.webp" alt="BH TNDS Ô Tô" loading="lazy">
-          <div class="prod-img-badge  hot">HOT</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Trách nhiệm dân sự Ô tô</div>
-          <div class="prod-img-card-desc">Bảo hiểm bắt buộc cho mọi loại ô tô – 5 chỗ, 7 chỗ, bán tải, xe khách, xe tải, đầu kéo, xe chuyên dùng. Chọn loại xe để xem giá, từ 480.700đ/năm.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Bắt buộc pháp luật</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thiệt hại bên thứ 3</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Cấp đơn ngay</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-tnds-xemay">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tnds-xe-may-v2.webp" alt="BH TNDS Xe Máy" loading="lazy">
-          <div class="prod-img-badge  hot">HOT</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Trách nhiệm dân sự xe máy</div>
-          <div class="prod-img-card-desc">Bảo hiểm bắt buộc cho chủ xe máy – phí thấp, thủ tục đơn giản, cấp đơn trong ngày.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Bắt buộc pháp luật</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Phí chỉ từ 60K</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Cấp đơn ngay</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-vat-chat-oto">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-vat-chat-oto-v2.webp" alt="BH Vật Chất Ô Tô" loading="lazy">
-          <div class="prod-img-badge  hot">HOT</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Vật Chất Ô Tô (Thân Vỏ)</div>
-          <div class="prod-img-card-desc">Bảo vệ toàn diện xe ô tô trước va chạm, lật đổ, cháy nổ, thiên tai và mất cắp bộ phận.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5h11L19 11"/><path d="M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg> Va chạm &amp; tai nạn</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg> Cháy nổ</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Thiên tai &amp; trộm</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-oto-dien">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-oto-dien-v2.webp" alt="BH Xe Ô Tô Điện" loading="lazy">
-          <div class="prod-img-badge">MỚI</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Xe Ô Tô Điện</div>
-          <div class="prod-img-card-desc">Bảo hiểm chuyên biệt cho xe điện – bảo vệ pin, bộ sạc, hệ thống điện và TNDS theo quy định mới.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg> Pin &amp; hệ thống điện</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5h11L19 11"/><path d="M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg> Va chạm &amp; trộm</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> TNDS bên thứ 3</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div class="cat-section" data-cat="hanghai">
-    <div class="cat-header">
-      <div class="cat-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-      <div class="cat-title">Bảo Hiểm Hàng Hải</div>
-      <span class="cat-count">4 sản phẩm</span>
-    </div>
-    <div class="prod-img-grid">
-      <a class="prod-img-card" href="/bao-hiem-xnk">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-hh-xnk-v2.webp" alt="BH Hàng Hóa XNK" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Hàng Hóa Xuất Nhập Khẩu</div>
-          <div class="prod-img-card-desc">Bảo vệ lô hàng XNK trong hành trình quốc tế – bồi thường theo điều kiện ICC A, B, C.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> ICC A / B / C</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Đường biển &amp; hàng không</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Tổn thất toàn bộ</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-van-chuyen">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-hh-van-chuyen-v2.webp" alt="BH Vận Chuyển Nội Địa" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Vận Chuyển Nội Địa</div>
-          <div class="prod-img-card-desc">Bảo hiểm hàng hóa vận chuyển bằng đường bộ, đường sắt, đường thủy nội địa toàn quốc.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Đường bộ &amp; thủy</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Toàn bộ hành trình</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Bồi thường nhanh</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-buu-gui">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-hh-buu-gui-v2.webp" alt="BH Bưu Gửi Quốc Tế" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Bưu Gửi Quốc Tế</div>
-          <div class="prod-img-card-desc">Bảo vệ bưu phẩm và hàng gửi quốc tế tránh thất lạc, hư hỏng trong suốt hành trình vận chuyển.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Thất lạc &amp; hư hỏng</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Hàng gửi quốc tế</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Bảo vệ toàn trình</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-than-tau-noi-dia">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-than-tau-v2.webp" alt="BH Thân Tàu Nội Địa" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Thân Tàu Nội Địa</div>
-          <div class="prod-img-card-desc">Bảo vệ tàu thuyền vận tải thủy nội địa khỏi tổn thất, đắm tàu, va chạm và rủi ro hàng hải.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="21"/><path d="M5 14H2a10 10 0 0 0 20 0h-3"/></svg> Va chạm &amp; đắm tàu</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Tổn thất toàn bộ</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Trách nhiệm bên thứ 3</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div class="cat-section" data-cat="taisan">
-    <div class="cat-header">
-      <div class="cat-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-      <div class="cat-title">Bảo Hiểm Tài Sản &amp; Kỹ Thuật</div>
-      <span class="cat-count">7 sản phẩm</span>
-    </div>
-    <div class="prod-img-grid">
-      <a class="prod-img-card" href="/bao-hiem-chay-no">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-chay-no-bat-buoc-v2.webp" alt="BH Cháy Nổ Bắt Buộc" loading="lazy">
-          <div class="prod-img-badge  hot">BẮT BUỘC</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Cháy Nổ Bắt Buộc</div>
-          <div class="prod-img-card-desc">Bảo hiểm bắt buộc theo pháp luật – tránh phạt vi phạm, bảo vệ tài sản cơ sở kinh doanh trước rủi ro cháy nổ.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Theo NĐ 105/2025</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Tránh phạt 50tr</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Cấp đơn nhanh</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-chay-no-hkd">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-chay-no-hkd-v2.webp" alt="BH Cháy Nổ HKD" loading="lazy">
-          <div class="prod-img-badge  hot">BẮT BUỘC</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Cháy Nổ Hộ Kinh Doanh</div>
-          <div class="prod-img-card-desc">Bắt buộc theo NĐ 67/2023 & NĐ 105/2025 – phạt đến 50 triệu nếu không mua bảo hiểm.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Hộ kinh doanh</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> NĐ 67 &amp; 105</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Phí từ 600K/năm</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-chay-no-chung-cu">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-chay-no-chung-cu-v2.webp" alt="BH Cháy Nổ Chung Cư" loading="lazy">
-          <div class="prod-img-badge">MỚI</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Cháy Nổ Căn Hộ Chung Cư</div>
-          <div class="prod-img-card-desc">Bảo hiểm bắt buộc cho căn hộ chung cư – bảo vệ tài sản, nội thất và trách nhiệm với các căn hộ liền kề.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Căn hộ chung cư</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Nội thất &amp; tài sản</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Trách nhiệm hàng xóm</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-hoa-hoan">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-hoa-hoan-v2.webp" alt="BH Hỏa Hoạn" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Hỏa Hoạn & Rủi Ro Đặc Biệt</div>
-          <div class="prod-img-card-desc">Bảo vệ tài sản doanh nghiệp trước hỏa hoạn, lũ lụt, sét đánh, bão, động đất và rủi ro đặc biệt.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg> Hỏa hoạn &amp; lũ lụt</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"/><polyline points="13 11 9 17 15 17 11 23"/></svg> Sét &amp; bão &amp; động đất</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Tài sản DN</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-moi-rui-ro">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-moi-rui-ro-v2.webp" alt="BH Mọi Rủi Ro" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Mọi Rủi Ro Tài Sản</div>
-          <div class="prod-img-card-desc">Phạm vi bảo hiểm toàn diện nhất cho tài sản doanh nghiệp – một hợp đồng bảo vệ trước mọi rủi ro bất ngờ.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Phạm vi toàn diện</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 1 hợp đồng duy nhất</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Rủi ro bất ngờ</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-xay-dung">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-xay-dung-v2.webp" alt="BH Rủi Ro Xây Dựng" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Rủi Ro Xây Dựng</div>
-          <div class="prod-img-card-desc">Bảo vệ toàn diện công trình, thiết bị và trách nhiệm bên thứ ba trong suốt quá trình thi công xây dựng.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l2.7-2.7a6 6 0 0 1-7.4 7.4l-4.3 4.3a2 2 0 0 1-2.8-2.8l4.3-4.3a6 6 0 0 1 7.4-7.4l-2.7 2.7z"/></svg> Công trình thi công</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Thiết bị máy móc</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Trách nhiệm bên 3</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-xay-dung-nha-dan-sinh">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-xay-dung-nha-dan-sinh-v2.webp" alt="BH Xây Dựng Nhà Dân Sinh" loading="lazy">
-          <div class="prod-img-badge">MỚI</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Xây Dựng Nhà Dân Sinh</div>
-          <div class="prod-img-card-desc">Dành riêng cho nhà ở riêng lẻ – bảo vệ công trình đang xây trước sập, cháy, thiên tai và trách nhiệm với bên thứ ba.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Nhà ở riêng lẻ</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Trách nhiệm bên 3</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Phí từ 0,04%</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div class="cat-section" data-cat="trachnhiem">
-    <div class="cat-header">
-      <div class="cat-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div class="cat-title">Bảo Hiểm Trách Nhiệm</div>
-      <span class="cat-count">5 sản phẩm</span>
-    </div>
-    <div class="prod-img-grid">
-      <a class="prod-img-card" href="/bao-hiem-tnc">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tn-chung-v2.webp" alt="BH Trách Nhiệm Chung" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Trách Nhiệm Chung</div>
-          <div class="prod-img-card-desc">Bảo hiểm trách nhiệm dân sự phát sinh trong hoạt động kinh doanh hàng ngày – bảo vệ doanh nghiệp trước thiệt hại bên thứ ba.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Hoạt động KD</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thiệt hại bên thứ 3</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Thân thể &amp; tài sản</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-tncc">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tn-cong-cong-v2.webp" alt="BH Trách Nhiệm Công Cộng" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Trách Nhiệm Công Cộng</div>
-          <div class="prod-img-card-desc">Bảo vệ trách nhiệm thiệt hại thân thể, tài sản của bên thứ ba xảy ra trong khu vực hoạt động kinh doanh.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Khu vực kinh doanh</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Tai nạn &amp; bồi thường</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Chi phí pháp lý</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-tnn-kcb">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tn-kcb-v2.webp" alt="BH TNN Nghề Nghiệp KCB" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Nghề Khám chữa bệnh</div>
-          <div class="prod-img-card-desc">Bảo hiểm trách nhiệm nghề nghiệp chuyên biệt cho cơ sở khám chữa bệnh, bác sĩ và chuyên gia y tế.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Y tế &amp; bác sĩ</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Sai sót nghề nghiệp</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Chi phí bồi thường</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-tnn-ls">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tn-luat-su-v2.webp" alt="BH TNN Nghề Nghiệp Luật" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Nghề Luật sư &amp; Công chứng</div>
-          <div class="prod-img-card-desc">Bảo hiểm rủi ro nghề nghiệp dành cho luật sư, công chứng viên và chuyên gia hành nghề pháp lý.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Luật sư &amp; công chứng</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Sai sót tư vấn</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Kiện tụng &amp; tranh chấp</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-tnn-tvtk">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tn-tvtk-v2.webp" alt="BH TNN TVTK" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Nghề Tư vấn thiết kế &amp; Giám sát</div>
-          <div class="prod-img-card-desc">Dành cho tư vấn thiết kế, giám sát thi công và quản lý dự án xây dựng – bảo vệ trước sai sót nghề nghiệp.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg> Tư vấn thiết kế</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Giám sát thi công</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Quản lý dự án</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div class="cat-section" data-cat="conguoi">
-    <div class="cat-header">
-      <div class="cat-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-      <div class="cat-title">Bảo Hiểm Du Lịch &amp; Con Người</div>
-      <span class="cat-count">6 sản phẩm</span>
-    </div>
-    <div class="prod-img-grid">
-      <a class="prod-img-card" href="/bao-hiem-du-lich-noi-dia">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-du-lich-noi-dia-v2.webp" alt="BH Du Lịch Nội Địa" loading="lazy">
-          <div class="prod-img-badge  hot">HOT</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Du Lịch Nội Địa</div>
-          <div class="prod-img-card-desc">Bảo hiểm tai nạn, y tế và hành lý khi du lịch trong nước – an tâm cho mọi hành trình khám phá Việt Nam.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Tai nạn du lịch</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Y tế &amp; cấp cứu</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Hành lý &amp; trì hoãn</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-du-lich-quoc-te">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-du-lich-quoc-te-v2.webp" alt="BH Du Lịch Quốc Tế" loading="lazy">
-          <div class="prod-img-badge  hot">HOT</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Du Lịch Quốc Tế</div>
-          <div class="prod-img-card-desc">Bảo hiểm toàn diện khi đi nước ngoài – hỗ trợ xin visa Schengen, Mỹ, Úc. Chi trả viện phí, hồi hương.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Viện phí nước ngoài</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Visa Schengen &amp; Mỹ</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg> Hồi hương khẩn cấp</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-benh-nhiet-doi">
-        <div class="prod-img-card-photo" style="background:linear-gradient(135deg,#e8f5e9,#f0fdf4);display:flex;align-items:center;justify-content:center;min-height:160px">
-          <div style="text-align:center;padding:16px">
-            <div style="font-size:2.5rem;margin-bottom:8px">🦟</div>
-            <div style="font-size:.85rem;font-weight:700;color:var(--dk)">5 Bệnh Nhiệt Đới</div>
-          </div>
-          <div class="prod-img-badge">MỚI</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Bệnh Nhiệt Đới</div>
-          <div class="prod-img-card-desc">Bảo vệ trước Sốt xuất huyết, Cúm, Tay chân miệng, Thủy đậu, Sởi — chỉ từ 58.000đ/năm.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 5 bệnh nhiệt đới</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Từ 58.000đ/năm</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> GCN điện tử ngay</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-suc-khoe">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-suc-khoe-v2.webp" alt="BH Sức Khỏe Cá Nhân DBVCare" loading="lazy">
-          <div class="prod-img-badge  hot">HOT</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Sức Khỏe Cá Nhân DBVCare</div>
-          <div class="prod-img-card-desc">Bảo hiểm nội trú, ngoại trú và nha khoa cho cá nhân và nhóm doanh nghiệp – chi trả trực tiếp tại bệnh viện.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Nội trú &amp; ngoại trú</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> Nha khoa</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Chi trả tại BV</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-tai-nan">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-tai-nan-v2.webp" alt="BH Tai Nạn 24 Giờ" loading="lazy">
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Tai Nạn 24 Giờ</div>
-          <div class="prod-img-card-desc">Bảo vệ toàn thời gian trước rủi ro tai nạn bất ngờ – tử vong, thương tật vĩnh viễn, chi phí y tế.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24/7 toàn thời gian</span><span class="prod-img-card-tag orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Tử vong &amp; thương tật</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Chi phí y tế</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-      <a class="prod-img-card" href="/bao-hiem-cham-soc-suc-khoe-dbvcare">
-        <div class="prod-img-card-photo">
-          <img height="640" width="1024" src="/assets/img/bh-suc-khoe-nhom-v2.webp" alt="BH Sức Khỏe Nhóm DBVCare" loading="lazy">
-          <div class="prod-img-badge">MỚI</div>
-        </div>
-        <div class="prod-img-card-body">
-          <div class="prod-img-card-name">Sức Khỏe Nhóm DBVCare</div>
-          <div class="prod-img-card-desc">Bảo hiểm sức khỏe nhóm cho doanh nghiệp từ 10 người – nằm viện, phẫu thuật, ngoại trú, nha khoa, bảo lãnh viện phí hơn 200 cơ sở y tế.</div>
-          <div class="prod-img-card-tags"><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 11h-6M19 8v6"/></svg> Nhóm doanh nghiệp</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16z"/><path d="M9 8h6M9 12h6"/></svg> Bảo lãnh 200+ CSYT</span><span class="prod-img-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Miễn chờ từ 50 người</span></div>
-          <span class="prod-img-card-cta">Xem chi tiết sản phẩm <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div class="cta-section">
-    <h2>Chưa tìm được sản phẩm phù hợp?</h2>
-    <p>Chuyên viên DBV sẽ phân tích nhu cầu và tư vấn sản phẩm tối ưu – hoàn toàn miễn phí</p>
-    <div class="cta-btns">
-      <a href="tel:0869656561" class="cta-btn-w">📞 Gọi 0869 656 561</a>
-      <a href="https://zalo.me/1283738895804393564" class="cta-btn-g">💬 Nhắn Zalo ngay</a>
-    </div>
-  </div>
-
-</main>
+<main class="dc" id="dc-catalog">
+<div class="dc-wrap">
+ <nav class="dc-breadcrumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a><span aria-hidden="true">/</span><span aria-current="page">Sản phẩm bảo hiểm</span></nav>
+ <section class="dc-hero" aria-labelledby="dc-title">
+  <div class="dc-hero-copy"><h1 id="dc-title">Sản phẩm bảo hiểm</h1><p>Tìm giải pháp phù hợp cho cá nhân, gia đình và doanh nghiệp.</p>
+  <form class="dc-search dc-js" id="dc-search" role="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><label class="sr-only" for="dc-query">Tìm sản phẩm bảo hiểm</label><input id="dc-query" type="search" placeholder="Bạn đang tìm bảo hiểm gì?" autocomplete="off"><button class="dc-btn dc-btn-orange" type="submit">Tìm kiếm</button></form></div>
+  <img class="dc-hero-art" src="/assets/img/trang-chu/tu-van-vien-nu-v2.webp" width="420" height="420" alt="Chuyên viên tư vấn DBV247" fetchpriority="high">
+ </section>
+ <div class="dc-audience dc-js" role="group" aria-label="Nhóm khách hàng"><button type="button" data-audience="all" aria-pressed="true">Tất cả</button><button type="button" data-audience="cn" aria-pressed="false">Cá nhân &amp; Gia đình</button><button type="button" data-audience="dn" aria-pressed="false">Doanh nghiệp</button></div>
+ <noscript><p class="dc-noscript">Danh sách đầy đủ bên dưới. Bật JavaScript để sử dụng tìm kiếm và bộ lọc.</p></noscript>
+ <div class="dc-layout">
+  <div id="dc-filter-home" class="dc-filter-home dc-js"><aside class="dc-sidebar" id="dc-sidebar" aria-labelledby="dc-filter-title"><div class="dc-filter-head"><h2 id="dc-filter-title">Lọc sản phẩm</h2><button type="button" class="dc-reset" data-reset>Đặt lại</button></div><fieldset><legend>Nhóm bảo hiểm</legend><label class="dc-check"><input type="checkbox" name="dc-category" value="xe"><span>Xe cơ giới</span></label><label class="dc-check"><input type="checkbox" name="dc-category" value="taisan"><span>Tài sản &amp; kỹ thuật</span></label><label class="dc-check"><input type="checkbox" name="dc-category" value="suckhoe"><span>Sức khỏe &amp; tai nạn</span></label><label class="dc-check"><input type="checkbox" name="dc-category" value="dulich"><span>Du lịch</span></label><label class="dc-check"><input type="checkbox" name="dc-category" value="hanghai"><span>Hàng hải</span></label><label class="dc-check"><input type="checkbox" name="dc-category" value="trachnhiem"><span>Trách nhiệm</span></label></fieldset><div class="dc-side-help"><b>Cần hỗ trợ lựa chọn?</b><a class="dc-phone" href="tel:0869656561">0869 656 561</a><a class="dc-btn" href="#dc-consult">Nhận tư vấn</a></div></aside></div>
+  <section aria-labelledby="dc-results"><div class="dc-toolbar"><div class="dc-toolbar-title"><h2 id="dc-results" tabindex="-1" style="scroll-margin-top:120px">Khám phá sản phẩm</h2><p class="dc-count" id="dc-count" role="status" aria-live="polite">26 sản phẩm</p></div><button class="dc-btn dc-filter-open dc-js" id="dc-filter-open" type="button" aria-haspopup="dialog" aria-controls="dc-filter-dialog"><span aria-hidden="true">☷</span><span id="dc-filter-label">Bộ lọc</span></button><label class="dc-sort dc-js"><span class="dc-sort-label">Sắp xếp</span><select id="dc-sort" aria-label="Sắp xếp sản phẩm"><option value="default">Mặc định</option><option value="name">Tên sản phẩm A–Z</option></select></label></div>
+  <div class="dc-grid" id="dc-grid"><a class="dc-card" href="/bao-hiem-tnds-oto" data-category="xe" data-audience="cn dn"><div class="dc-photo"><img src="/assets/img/bh-tnds-oto-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Trách nhiệm dân sự Ô tô</h3><p class="dc-desc">Bảo hiểm bắt buộc cho mọi loại ô tô – 5 chỗ, 7 chỗ, bán tải, xe khách, xe tải, đầu kéo, xe chuyên dùng. Chọn loại xe để xem giá, từ 480.700đ/năm.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-oto-dien" data-category="xe" data-audience="cn dn"><div class="dc-photo"><img src="/assets/img/bh-oto-dien-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"><span class="dc-badge">Mới</span></div><div class="dc-card-body"><h3>Xe Ô Tô Điện</h3><p class="dc-desc">Bảo hiểm chuyên biệt cho xe điện – bảo vệ pin, bộ sạc, hệ thống điện và TNDS theo quy định mới.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-suc-khoe" data-category="suckhoe" data-audience="cn"><div class="dc-photo"><img src="/assets/img/bh-suc-khoe-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Sức Khỏe Cá Nhân DBVCare</h3><p class="dc-desc">Bảo hiểm nội trú, ngoại trú và nha khoa cho cá nhân và nhóm doanh nghiệp – chi trả trực tiếp tại bệnh viện.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-du-lich-quoc-te" data-category="dulich" data-audience="cn dn"><div class="dc-photo"><img src="/assets/img/bh-du-lich-quoc-te-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Du Lịch Quốc Tế</h3><p class="dc-desc">Bảo hiểm toàn diện khi đi nước ngoài – hỗ trợ xin visa Schengen, Mỹ, Úc. Chi trả viện phí, hồi hương.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-chay-no" data-category="taisan" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-chay-no-bat-buoc-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Cháy Nổ Bắt Buộc</h3><p class="dc-desc">Bảo hiểm bắt buộc theo pháp luật – tránh phạt vi phạm, bảo vệ tài sản cơ sở kinh doanh trước rủi ro cháy nổ.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-van-chuyen" data-category="hanghai" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-hh-van-chuyen-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Vận Chuyển Nội Địa</h3><p class="dc-desc">Bảo hiểm hàng hóa vận chuyển bằng đường bộ, đường sắt, đường thủy nội địa toàn quốc.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-xay-dung" data-category="taisan" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-xay-dung-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Rủi Ro Xây Dựng</h3><p class="dc-desc">Bảo vệ toàn diện công trình, thiết bị và trách nhiệm bên thứ ba trong suốt quá trình thi công xây dựng.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-tnc" data-category="trachnhiem" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-tn-chung-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Trách Nhiệm Chung</h3><p class="dc-desc">Bảo hiểm trách nhiệm dân sự phát sinh trong hoạt động kinh doanh hàng ngày – bảo vệ doanh nghiệp trước thiệt hại bên thứ ba.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-tai-nan" data-category="suckhoe" data-audience="cn dn"><div class="dc-photo"><img src="/assets/img/bh-tai-nan-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Tai Nạn 24 Giờ</h3><p class="dc-desc">Bảo vệ toàn thời gian trước rủi ro tai nạn bất ngờ – tử vong, thương tật vĩnh viễn, chi phí y tế.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-tnds-xemay" data-category="xe" data-audience="cn"><div class="dc-photo"><img src="/assets/img/bh-tnds-xe-may-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Trách nhiệm dân sự xe máy</h3><p class="dc-desc">Bảo hiểm bắt buộc cho chủ xe máy – phí thấp, thủ tục đơn giản, cấp đơn trong ngày.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-vat-chat-oto" data-category="xe" data-audience="cn dn"><div class="dc-photo"><img src="/assets/img/bh-vat-chat-oto-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Vật Chất Ô Tô (Thân Vỏ)</h3><p class="dc-desc">Bảo vệ toàn diện xe ô tô trước va chạm, lật đổ, cháy nổ, thiên tai và mất cắp bộ phận.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-xnk" data-category="hanghai" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-hh-xnk-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Hàng Hóa Xuất Nhập Khẩu</h3><p class="dc-desc">Bảo vệ lô hàng XNK trong hành trình quốc tế – bồi thường theo điều kiện ICC A, B, C.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-buu-gui" data-category="hanghai" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-hh-buu-gui-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Bưu Gửi Quốc Tế</h3><p class="dc-desc">Bảo vệ bưu phẩm và hàng gửi quốc tế tránh thất lạc, hư hỏng trong suốt hành trình vận chuyển.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-than-tau-noi-dia" data-category="hanghai" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-than-tau-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Thân Tàu Nội Địa</h3><p class="dc-desc">Bảo vệ tàu thuyền vận tải thủy nội địa khỏi tổn thất, đắm tàu, va chạm và rủi ro hàng hải.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-chay-no-hkd" data-category="taisan" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-chay-no-hkd-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Cháy Nổ Hộ Kinh Doanh</h3><p class="dc-desc">Bắt buộc theo NĐ 67/2023 &amp; NĐ 105/2025 – phạt đến 50 triệu nếu không mua bảo hiểm.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-chay-no-chung-cu" data-category="taisan" data-audience="cn"><div class="dc-photo"><img src="/assets/img/bh-chay-no-chung-cu-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"><span class="dc-badge">Mới</span></div><div class="dc-card-body"><h3>Cháy Nổ Căn Hộ Chung Cư</h3><p class="dc-desc">Bảo hiểm bắt buộc cho căn hộ chung cư – bảo vệ tài sản, nội thất và trách nhiệm với các căn hộ liền kề.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-hoa-hoan" data-category="taisan" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-hoa-hoan-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Hỏa Hoạn &amp; Rủi Ro Đặc Biệt</h3><p class="dc-desc">Bảo vệ tài sản doanh nghiệp trước hỏa hoạn, lũ lụt, sét đánh, bão, động đất và rủi ro đặc biệt.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-moi-rui-ro" data-category="taisan" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-moi-rui-ro-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Mọi Rủi Ro Tài Sản</h3><p class="dc-desc">Phạm vi bảo hiểm toàn diện nhất cho tài sản doanh nghiệp – một hợp đồng bảo vệ trước mọi rủi ro bất ngờ.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-xay-dung-nha-dan-sinh" data-category="taisan" data-audience="cn"><div class="dc-photo"><img src="/assets/img/bh-xay-dung-nha-dan-sinh-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"><span class="dc-badge">Mới</span></div><div class="dc-card-body"><h3>Xây Dựng Nhà Dân Sinh</h3><p class="dc-desc">Dành riêng cho nhà ở riêng lẻ – bảo vệ công trình đang xây trước sập, cháy, thiên tai và trách nhiệm với bên thứ ba.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-tncc" data-category="trachnhiem" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-tn-cong-cong-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Trách Nhiệm Công Cộng</h3><p class="dc-desc">Bảo vệ trách nhiệm thiệt hại thân thể, tài sản của bên thứ ba xảy ra trong khu vực hoạt động kinh doanh.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-tnn-kcb" data-category="trachnhiem" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-tn-kcb-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Nghề Khám chữa bệnh</h3><p class="dc-desc">Bảo hiểm trách nhiệm nghề nghiệp chuyên biệt cho cơ sở khám chữa bệnh, bác sĩ và chuyên gia y tế.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-tnn-ls" data-category="trachnhiem" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-tn-luat-su-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Nghề Luật sư &amp; Công chứng</h3><p class="dc-desc">Bảo hiểm rủi ro nghề nghiệp dành cho luật sư, công chứng viên và chuyên gia hành nghề pháp lý.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-tnn-tvtk" data-category="trachnhiem" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-tn-tvtk-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Nghề Tư vấn thiết kế &amp; Giám sát</h3><p class="dc-desc">Dành cho tư vấn thiết kế, giám sát thi công và quản lý dự án xây dựng – bảo vệ trước sai sót nghề nghiệp.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-du-lich-noi-dia" data-category="dulich" data-audience="cn dn"><div class="dc-photo"><img src="/assets/img/bh-du-lich-noi-dia-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"></div><div class="dc-card-body"><h3>Du Lịch Nội Địa</h3><p class="dc-desc">Bảo hiểm tai nạn, y tế và hành lý khi du lịch trong nước – an tâm cho mọi hành trình khám phá Việt Nam.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-benh-nhiet-doi" data-category="suckhoe" data-audience="cn"><div class="dc-photo"><img src="/benh-nhiet-doi.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"><span class="dc-badge">Mới</span></div><div class="dc-card-body"><h3>Bệnh Nhiệt Đới</h3><p class="dc-desc">Bảo vệ trước Sốt xuất huyết, Cúm, Tay chân miệng, Thủy đậu, Sởi — chỉ từ 58.000đ/năm.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a><a class="dc-card" href="/bao-hiem-cham-soc-suc-khoe-dbvcare" data-category="suckhoe" data-audience="dn"><div class="dc-photo"><img src="/assets/img/bh-suc-khoe-nhom-v2.webp" alt="" width="1024" height="640" loading="lazy" decoding="async"><span class="dc-badge">Mới</span></div><div class="dc-card-body"><h3>Sức Khỏe Nhóm DBVCare</h3><p class="dc-desc">Bảo hiểm sức khỏe nhóm cho doanh nghiệp từ 10 người – nằm viện, phẫu thuật, ngoại trú, nha khoa, bảo lãnh viện phí hơn 200 cơ sở y tế.</p><span class="dc-card-cta">Xem sản phẩm <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div></a></div>
+  <div class="dc-empty" id="dc-empty" hidden><h3>Chưa tìm thấy sản phẩm phù hợp</h3><p>Thử từ khóa khác hoặc bỏ bớt bộ lọc.</p><button class="dc-btn" data-reset type="button">Xóa bộ lọc</button></div>
+  <div class="dc-more dc-js"><button class="dc-btn" type="button" id="dc-more">Xem thêm sản phẩm <span aria-hidden="true">⌄</span></button></div></section>
+ </div>
+ <section class="dc-consult" id="dc-consult" aria-labelledby="dc-consult-title" style="scroll-margin-top:120px"><img src="/assets/img/trang-chu/tu-van-vien-nu-v2.webp" width="420" height="420" alt="" loading="lazy"><div><h2 id="dc-consult-title">Chưa tìm được sản phẩm phù hợp?</h2><p>Chia sẻ nhu cầu, DBV247 sẽ hỗ trợ bạn.</p><p><a href="tel:0869656561">0869 656 561</a></p></div><div>
+ <form id="dc-form" name="dbv-tuvan" method="POST" action="/tu-van" data-netlify="true" data-netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="dbv-tuvan"><input type="hidden" name="nguon" value="Trang danh mục sản phẩm"><input type="hidden" name="nhu-cau" value="chua-ro"><input type="hidden" name="ho-ten"><input type="hidden" name="ghi-chu" value="Khách cần hỗ trợ lựa chọn sản phẩm"><input type="text" name="bot-field" hidden tabindex="-1" autocomplete="off"><input type="hidden" name="trang"><input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_term"><input type="hidden" name="utm_content"><input type="hidden" name="gclid"><input type="hidden" name="trang-vao-dau"><input type="hidden" name="nguon-gioi-thieu"><input type="hidden" name="dong-y-chinh-sach"><input type="hidden" name="thoi-diem-dong-y"><input type="hidden" name="ma-ctv"><input type="hidden" name="nguon-ghi-nhan">
+ <label class="sr-only" for="dc-phone">Số điện thoại</label><div class="dc-form-row"><input id="dc-phone" name="dien-thoai" type="tel" autocomplete="tel" inputmode="tel" placeholder="Số điện thoại" maxlength="18" required minlength="10"><button type="submit" class="dc-btn dc-btn-orange">Nhận tư vấn</button></div><label class="dc-consent"><input type="checkbox" name="dong-y-lien-he" required><span>Tôi đồng ý để DBV247 liên hệ tư vấn và xử lý dữ liệu theo <a href="/chinh-sach-bao-mat">Chính sách bảo vệ dữ liệu cá nhân</a>.</span></label></form><p id="dc-form-status" class="dc-form-status" role="status" aria-live="polite"></p></div></section>
+ <div class="dc-support"><a href="/boi-thuong"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg><span><b>Hướng dẫn bồi thường</b><small>Quy trình, hồ sơ và thông tin hỗ trợ.</small></span></a><a href="/servicemap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg><span><b>Mạng lưới dịch vụ</b><small>Tìm điểm hỗ trợ và garage liên kết.</small></span></a></div>
+ <dialog id="dc-filter-dialog" class="dc-dialog" aria-labelledby="dc-dialog-title"><div class="dc-dialog-top"><h2 id="dc-dialog-title">Bộ lọc sản phẩm</h2><button id="dc-filter-close" type="button" aria-label="Đóng bộ lọc">✕</button></div><div id="dc-dialog-content"></div><div class="dc-dialog-actions"><button class="dc-btn dc-btn-orange" id="dc-apply" type="button">Xem sản phẩm</button></div></dialog>
+</div></main>
 
 <footer class="ftr">
   <div class="ftr-inner">
@@ -1202,15 +829,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 
-<script>
-function filterCat(cat,btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  document.querySelectorAll('.cat-section').forEach(s=>{
-    s.style.display=(cat==='all'||s.dataset.cat===cat)?'':'none';
-  });
-}
-</script>
+
 <script>
 (function(){
   function toggleCatDropdown(e){e.stopPropagation();document.getElementById('cat-dropdown').classList.toggle('open')}
@@ -1477,37 +1096,6 @@ function filterCat(cat,btn){
 })();
 </script>
 <script id="dbv-chatbot" src="/assets/dbv-chatbot.js" defer></script>
-<script>
-/* Danh mục mobile: ô nhóm gọi lại filterCat() sẵn có của trang; ô tìm lọc thẻ theo tên (không dấu) */
-(function(){
-  function boDau(t){return (t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'d').toLowerCase().trim();}
-  window.spmChon=function(cat){
-    var nut=[].slice.call(document.querySelectorAll('.filter-btn')).filter(function(b){return (b.getAttribute('onclick')||'').indexOf("'"+cat+"'")>-1;})[0];
-    var q=document.getElementById('spm-q'); if(q&&q.value){q.value='';loc('');}
-    if(typeof filterCat==='function') filterCat(cat,nut);
-    [].forEach.call(document.querySelectorAll('.spm-tile'),function(t){t.classList.toggle('on',t.dataset.cat===cat&&cat!=='all');});
-    if(nut&&nut.scrollIntoView) nut.scrollIntoView({block:'nearest',inline:'center'});
-    var a=document.getElementById('spm-all'); if(a) a.scrollIntoView({behavior:'smooth',block:'start'});
-  };
-  function loc(q){
-    var w=boDau(q).split(/\s+/).filter(Boolean);
-    [].forEach.call(document.querySelectorAll('.prod-img-card'),function(c){
-      var t=boDau(c.textContent+' '+c.getAttribute('href'));
-      c.classList.toggle('spm-an',w.length>0&&!w.every(function(x){return t.indexOf(x)>-1;}));
-    });
-    [].forEach.call(document.querySelectorAll('.cat-section'),function(sec){
-      sec.classList.toggle('spm-an',w.length>0&&!sec.querySelector('.prod-img-card:not(.spm-an)'));
-    });
-  }
-  document.addEventListener('DOMContentLoaded',function(){
-    var q=document.getElementById('spm-q'); if(!q) return;
-    q.addEventListener('input',function(){
-      if(q.value&&typeof filterCat==='function'){var all=document.querySelector('.filter-btn');filterCat('all',all);}
-      loc(q.value);
-    });
-    q.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();q.blur();var a=document.getElementById('spm-all');if(a)a.scrollIntoView({behavior:'smooth'});}});
-  });
-})();
-</script>
+
 </body>
 </html>

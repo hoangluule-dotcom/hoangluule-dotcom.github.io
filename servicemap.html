@@ -456,6 +456,8 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--tx);background:var(--bg
 .page-hero::before{background:none}
 @media(max-width:768px){.page-hero{min-height:210px;padding:40px 18px}}
 </style>
+<link rel="stylesheet" href="/assets/service-page.css">
+<script src="/assets/service-page.js" defer></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -656,32 +658,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 
-<div class="page-hero">
-  <div class="breadcrumb"><a href="/">Trang chủ</a><span class="breadcrumb-sep">›</span><span>Mạng lưới dịch vụ</span></div>
-  <h1>Mạng Lưới Dịch Vụ</h1>
-  <p>Tự hào là doanh nghiệp bảo hiểm có mạng lưới phục vụ khách hàng rộng khắp toàn quốc, Tập đoàn bảo hiểm DBV hiện diện tại 34 tỉnh thành với hơn 100 chi nhánh và 12.000 điểm tư vấn, luôn sẵn sàng đáp ứng nhanh chóng và kịp thời mọi nhu cầu của khách hàng.</p>
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-num" id="s-cn">106</div><div class="stat-lbl">Chi nhánh</div></div>
-    <div class="stat-card"><div class="stat-num" id="s-gara">1.500</div><div class="stat-lbl">Gara liên kết</div></div>
-    <div class="stat-card"><div class="stat-num" id="s-yte">300</div><div class="stat-lbl">Cơ sở y tế bảo lãnh</div></div>
-    <div class="stat-card"><div class="stat-num">12.000</div><div class="stat-lbl">Đại lý</div></div>
-    <div class="stat-card"><div class="stat-num">400</div><div class="stat-lbl">Giám định viên</div></div>
-  </div>
-</div>
-
-<div class="toolbar">
-  <div class="toolbar-inner">
-    <div class="tabs" id="tabs">
+<main class="sm" id="sm-page"><div class="sm-wrap"><nav class="sm-breadcrumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a> / Mạng lưới dịch vụ</nav>
+<section class="sm-hero"><div><h1>Mạng lưới dịch vụ</h1><p>Tìm chi nhánh, gara và cơ sở y tế phù hợp với bạn.</p></div><img src="/assets/img/trang-chu/tu-van-vien-nu-v2.webp" width="420" height="420" alt=""></section>
+<div class="tabs" id="tabs">
       <button class="tab-btn active" data-type="1"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg> Chi nhánh DBV <span class="cnt" id="c1">0</span></button>
       <button class="tab-btn" data-type="2"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17h14M6 17l1.5-5h9L18 17M7 12l1-4h8l1 4M7 20v-3m10 3v-3"/></svg> Gara liên kết <span class="cnt" id="c2">0</span></button>
       <button class="tab-btn" data-type="3"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12M4 21h16V6a2 2 0 0 0-2-2h-3l-1-2h-4L9 4H6a2 2 0 0 0-2 2z"/></svg> Bệnh viện bảo lãnh <span class="cnt" id="c3">0</span></button>
     </div>
-    <div class="search-row">
-      <select id="province"><option value="">Tất cả tỉnh/thành</option></select>
-      <input id="q" type="text" placeholder="Tìm theo tên hoặc địa chỉ điểm giao dịch..." aria-label="Tìm theo tên hoặc địa chỉ điểm giao dịch...">
-      <button class="search-btn" id="searchBtn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Tìm kiếm</button>
-    </div>
-    <div class="gara-filter" id="garaFilter" hidden>
+<section class="sm-filters" aria-label="Tìm điểm dịch vụ"><div class="sm-search"><label>Tỉnh / thành phố<select id="province"><option value="">Tất cả tỉnh/thành</option></select></label><label>Tên hoặc địa chỉ<input id="q" type="search" placeholder="Nhập tên hoặc địa chỉ"></label><button type="button" class="sm-btn sm-orange" id="searchBtn">Tìm kiếm</button></div><div class="gara-filter" id="garaFilter" hidden>
       <span class="gf-lbl">Lọc gara:</span>
       <div class="gf-seg" role="group" aria-label="Loại gara">
         <button type="button" class="gf-btn on" data-o="">Tất cả <span class="n" id="gfAll"></span></button>
@@ -689,96 +673,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <button type="button" class="gf-btn" data-o="0">Đa hãng <span class="n" id="gfMulti"></span></button>
       </div>
       <select id="brand" aria-label="Tìm gara chính hãng theo hãng xe"><option value="">Chọn hãng xe (gara chính hãng)</option></select>
-    </div>
-  </div>
-</div>
-
-<div class="main">
-  <div class="layout">
-    <div class="results-wrap">
-      <div class="results-head">
-        <h2 id="rhTitle">Chi nhánh DBV</h2>
-        <span class="rc" id="rhCount">0 kết quả</span>
-      </div>
-      <div class="results" id="results"></div>
-    </div>
-    <div class="map-wrap">
-      <div id="map"></div>
-      <div class="map-note" id="mapNote"><b>Bản đồ cần Google Maps API key.</b> Nếu bản đồ không hiển thị, hãy khai báo domain dbv247 trong Google Cloud Console cho key, hoặc thay <code>GMAPS_KEY</code> ở cuối trang. Danh sách và nút “Chỉ đường” vẫn hoạt động bình thường.</div>
-    </div>
-  </div>
-
-</div>
-
-<section class="lead-section">
-  <div class="lead-inner">
-    <div class="lead-copy">
-      <h2>Nhận tư vấn <span>miễn phí</span><br>trong vòng 5 phút</h2>
-      <p>Điền thông tin — chuyên viên DBV247 sẽ liên hệ ngay để giúp bạn chọn đúng gói bảo hiểm phù hợp nhất.</p>
-      <div class="lead-promise">
-        <div class="lead-promise-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tư vấn 1-1, không phí, không ràng buộc</div>
-        <div class="lead-promise-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Nhận chương trình ưu đãi hiện có từ DBV</div>
-        <div class="lead-promise-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Hỗ trợ hồ sơ bồi thường trọn vẹn</div>
-        <div class="lead-promise-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Thông tin được bảo mật tuyệt đối</div>
-      </div>
-    </div>
-    <div class="lead-form-box">
-      <h3>Để lại thông tin, chúng tôi gọi lại ngay</h3>
-      <form id="lead-form" name="lead-form" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="submitLead(event)">
-      <input type="hidden" name="trang"/>
-        <input type="hidden" name="form-name" value="lead-form">
-      <input type="hidden" name="bot-field"/>
-        <div class="lf-row">
-          <div class="lf-group">
-            <label class="lf-label" for="lf-name">Họ và tên</label>
-            <input class="lf-input" id="lf-name" name="name" type="text" placeholder="Nguyễn Văn A" required autocomplete="name" aria-label="Họ và tên">
-          </div>
-          <div class="lf-group">
-            <label class="lf-label" for="lf-phone">Số điện thoại</label>
-            <input class="lf-input" id="lf-phone" name="phone" type="tel" placeholder="0912 345 678" required autocomplete="tel" inputmode="tel" maxlength="15" aria-label="Số điện thoại">
-          </div>
-        </div>
-        <div class="lf-group">
-          <label class="lf-label" for="lf-need">Nhu cầu bảo hiểm</label>
-          <select class="lf-select" id="lf-need" name="need" required>
-            <option value="" disabled selected>Chọn loại bảo hiểm...</option>
-            <option value="xe-oto">Xe ô tô</option>
-            <option value="suc-khoe">Sức khỏe</option>
-            <option value="tai-san">Tài sản</option>
-            <option value="du-lich">Du lịch</option>
-            <option value="hang-hai">Hàng hải</option>
-            <option value="trach-nhiem">Trách nhiệm</option>
-            <option value="khac">Khác</option>
-          </select>
-        </div>
-        <button class="lf-submit" type="submit">
-          <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-          Gửi thông tin tư vấn
-        </button>
-        <p class="lf-note"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Thông tin của bạn được bảo mật theo chính sách DBV247</p>
-      
-  <!-- Nguồn khách: assets/dbv-tracking.js tự điền khi form được gửi.
-       Netlify Forms CHỈ lưu những trường được khai báo ở đây — xoá đi là mất dữ liệu nguồn. -->
-  <input type="hidden" name="utm_source"/>
-  <input type="hidden" name="utm_medium"/>
-  <input type="hidden" name="utm_campaign"/>
-  <input type="hidden" name="utm_term"/>
-  <input type="hidden" name="utm_content"/>
-  <input type="hidden" name="gclid"/>
-  <input type="hidden" name="trang-vao-dau"/>
-  <input type="hidden" name="nguon-gioi-thieu"/>
-  <input type="hidden" name="dong-y-chinh-sach"/>
-  <input type="hidden" name="thoi-diem-dong-y"/>
-</form>
-      <div class="lf-success" id="lf-success">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-        <h4>Đã nhận thông tin!</h4>
-        <p>Chuyên viên sẽ gọi lại cho bạn trong vòng 5–10 phút.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
+    </div></section>
+<div class="sm-view" role="group" aria-label="Chế độ xem"><button type="button" data-view="list" aria-pressed="true">Danh sách</button><button type="button" data-view="map" aria-pressed="false">Bản đồ</button></div>
+<div class="sm-status"><p id="sm-summary" role="status" aria-live="polite"></p><button type="button" id="sm-reset">Xóa bộ lọc</button></div>
+<div class="sm-layout"><section class="sm-results-panel" aria-labelledby="rhTitle"><div class="results-head"><h2 id="rhTitle">Chi nhánh DBV</h2><span id="rhCount" class="rc"></span></div><div id="results" class="results"></div><button type="button" id="sm-more" class="sm-btn">Xem thêm địa điểm ↓</button></section><section class="map-wrap" aria-label="Bản đồ điểm dịch vụ"><div id="map"></div><div class="map-note" id="mapNote" role="status">Đang tải bản đồ. Bạn vẫn có thể dùng nút “Chỉ đường” để mở địa điểm trên Google Maps.</div></section></div>
+<noscript><p>Vui lòng bật JavaScript để tra cứu điểm dịch vụ hoặc gọi <a href="tel:0869656561">0869 656 561</a> để được hỗ trợ.</p></noscript>
+<section class="sm-help"><div><h2>Cần hỗ trợ tìm điểm dịch vụ?</h2><p>Vui lòng liên hệ trước khi đến để xác nhận thông tin dịch vụ.</p></div><a class="sm-phone" href="tel:0869656561">0869 656 561</a><a class="sm-btn sm-orange" href="/tu-van">Liên hệ DBV247 →</a></section>
+<div class="sm-support"><a href="/boi-thuong"><strong>Hướng dẫn bồi thường</strong><span>Quy trình, hồ sơ và thông tin hỗ trợ →</span></a><a href="/tin-tuc"><strong>Cẩm nang bảo hiểm</strong><span>Kiến thức và kinh nghiệm hữu ích cho bạn →</span></a></div></div></main>
 <footer class="ftr">
   <div class="ftr-inner">
     <!-- Cột 1: Brand -->
@@ -900,7 +801,7 @@ var map=null,markers=[],infoWin=null,mapReady=false;
 function norm(s){s=(s||"").toLowerCase();return s.normalize?s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d"):s;}
 function dirUrl(it){
   if(it.lat&&it.lng) return "https://www.google.com/maps/dir/?api=1&destination="+it.lat+","+it.lng;
-  return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(it.t+" "+(it.a||""));
+  return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(it.t+" "+(it.a||""));
 }
 function counts(){
   var c={1:0,2:0,3:0};
@@ -1044,11 +945,7 @@ function initUI(){
 window.initMap=initMap;
 document.addEventListener("DOMContentLoaded",function(){
   initUI();
-  var s=document.createElement("script");
-  s.src="https://maps.googleapis.com/maps/api/js?key="+GMAPS_KEY+"&callback=initMap&language=vi&region=VN";
-  s.async=true;s.defer=true;
-  s.onerror=function(){document.getElementById("mapNote").classList.remove("hide");};
-  document.head.appendChild(s);
+
 });
 function toggleCatDropdown(e){e.stopPropagation();document.getElementById('cat-dropdown').classList.toggle('open');}
 function closeCatDropdown(){var d=document.getElementById('cat-dropdown');if(d)d.classList.remove('open');}

@@ -575,6 +575,8 @@ a{color:inherit}
 .news-hero{min-height:300px;display:flex;flex-direction:column;justify-content:center;padding:60px 32px;box-sizing:border-box;background:linear-gradient(135deg,rgba(26,46,26,.84) 0%,rgba(0,116,55,.76) 60%,rgba(0,90,43,.68) 100%),url('/banner-hero.webp') center 45%/cover no-repeat;}
 @media(max-width:768px){.news-hero{min-height:210px;padding:40px 18px}}
 </style>
+<link rel="stylesheet" href="/assets/news-page.css">
+<script src="/assets/news-page.js" defer></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -775,39 +777,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 
-<!-- NEWS HERO -->
-<section class="news-hero">
-  <div class="news-hero-tag">📰 Tin tức &amp; kiến thức bảo hiểm</div>
-  <h1>Tin tức DBV247</h1>
-  <p>Cập nhật thông báo, chương trình ưu đãi và kiến thức bảo hiểm hữu ích từ đội ngũ DBV247</p>
-</section>
-
-<!-- ══ CẨM NANG BẢO HIỂM ══
-     Toàn bộ thẻ bài viết và tab lọc là HTML tĩnh do
-     scripts/build_news_index.py sinh ra từ các file trong tin-tuc/.
-     Trước đây phần này dựng bằng JavaScript từ articles.json, đồng thời lại có
-     một khối 6 thẻ hardcode ở trên — kết quả là 6 bài hiện hai lần trên cùng
-     trang, và crawler không chạy JS thì không thấy bài nào.
-     Thêm bài mới: bỏ file HTML vào tin-tuc/ rồi chạy lại script, không sửa tay. -->
-<section class="guide-wrap" id="newsListWrap">
-  <div class="guide-head">
-    <div class="guide-label">Cẩm nang bảo hiểm</div>
-    <h2>Hướng dẫn &amp; giải đáp chuyên sâu</h2>
-    <p>Các bài viết chuyên sâu do đội ngũ chuyên gia DBV247 biên soạn, cập nhật theo quy định pháp luật hiện hành.</p>
-  </div>
-
-  <div class="news-tabs" id="newsTabs" role="tablist" aria-label="Lọc bài viết theo nhóm sản phẩm">
-      <!-- DBV:NEWS-TABS:START -->
+<main class="nt" id="nt-page"><div class="nt-wrap">
+<nav class="nt-breadcrumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a><span aria-hidden="true"> / </span>Tin tức &amp; cẩm nang</nav>
+<section class="nt-hero"><div><h1>Tin tức &amp; cẩm nang bảo hiểm</h1><p>Hiểu đúng bảo hiểm, an tâm mỗi ngày.</p><form id="nt-search" class="nt-search nt-js" role="search"><label class="nt-sr" for="nt-query">Tìm bài viết</label><input type="search" id="nt-query" placeholder="Tìm bài viết, chủ đề bạn quan tâm" autocomplete="off"><button class="nt-btn nt-orange" type="submit">Tìm kiếm</button></form></div><img src="/assets/img/trang-chu/tu-van-vien-nu-v2.webp" width="420" height="420" alt="" fetchpriority="high"></section>
+<div class="news-tabs nt-js" id="newsTabs" role="group" aria-label="Lọc bài viết theo chủ đề"><!-- DBV:NEWS-TABS:START -->
       <button class="news-tab on" type="button" role="tab" aria-selected="true" data-cat="all">Tất cả <span class="n">63</span></button>
       <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="xe">Xe cơ giới <span class="n">24</span></button>
       <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="taisan">Tài sản &amp; Kỹ thuật <span class="n">23</span></button>
       <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="conguoi">Du lịch &amp; Con người <span class="n">11</span></button>
       <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="chung">Kiến thức chung <span class="n">5</span></button>
-      <!-- DBV:NEWS-TABS:END -->
-  </div>
-
-  <div class="guide-grid" id="newsGrid">
-      <!-- DBV:NEWS-CARDS:START -->
+      <!-- DBV:NEWS-TABS:END --></div>
+<section id="nt-featured" class="nt-featured" aria-labelledby="nt-feature-title"><h2 id="nt-feature-title">Bài viết nổi bật</h2><div class="nt-feature-grid"><a class="guide-card nt-feature-card" data-cat="xe" href="/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto">
+        <img src="/than-vo-oto.webp" alt="Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">23/07/2026</span></div>
+          <h3>Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết</h3>
+          <p>Tổng hợp kinh nghiệm thực tế khi sử dụng bảo hiểm xe ô tô: cách chọn gói phù hợp, quy trình bồi thường nhanh, những lỗi cần tránh và mẹo tiết kiệm phí bảo hiểm.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card nt-feature-card" data-cat="chung" href="/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv">
+        <img src="/than-vo-oto.webp" alt="Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố</h3>
+          <p>Hướng dẫn từng bước khai báo bồi thường Bảo hiểm DBV: việc cần làm trong 24h đầu, hồ sơ theo từng nghiệp vụ xe, sức khỏe, du lịch và thời gian nhận tiền.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card nt-feature-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-chi-tra-nhung-gi">
+        <img src="/du-lich-quoc-te.webp" alt="Bảo hiểm du lịch chi trả những gì?" loading="lazy" decoding="async" width="360" height="170">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Bảo hiểm du lịch chi trả những gì?</h3>
+          <p>Bốn nhóm quyền lợi và các trường hợp loại trừ. Quyền lợi dùng nhiều nhất không phải y tế mà là hành lý.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a></div></section>
+<section id="newsListWrap" aria-labelledby="nt-results"><div class="nt-toolbar"><div><h2 id="nt-results" tabindex="-1">Khám phá cẩm nang</h2><p id="nt-count" role="status" aria-live="polite">63 bài viết</p></div><label class="nt-sort nt-js">Sắp xếp <select id="nt-sort"><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option><option value="title">Tiêu đề A–Z</option></select></label></div><div class="guide-grid" id="newsGrid"><!-- DBV:NEWS-CARDS:START -->
       <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-vinfast-vf5-herio-green-phi-bao-nhieu">
         <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm xe VF 5 và bản Herio Green: phí khác nhau thế nào?" loading="lazy" decoding="async" width="360" height="170">
         <div class="guide-card-body">
@@ -1375,11 +1380,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="guide-card-more">Đọc bài viết →</div>
         </div>
       </a>
-      <!-- DBV:NEWS-CARDS:END -->
-  </div>
-
-  <div class="news-empty" id="newsEmpty" hidden>Hiện chưa có bài viết nào trong nhóm này.</div>
-</section>
+      <!-- DBV:NEWS-CARDS:END --></div><div class="nt-empty" id="newsEmpty" hidden><h3>Chưa tìm thấy bài viết phù hợp</h3><p>Thử từ khóa khác hoặc chọn lại chủ đề.</p><button type="button" class="nt-btn" id="nt-reset">Xóa bộ lọc</button></div><div class="nt-more nt-js"><button class="nt-btn" type="button" id="nt-more">Xem thêm bài viết ↓</button></div></section>
+<section class="nt-consult"><img src="/assets/img/trang-chu/tu-van-vien-nu-v2.webp" width="420" height="420" alt="" loading="lazy"><div><h2>Cần giải đáp về bảo hiểm?</h2><p>DBV247 sẵn sàng hỗ trợ bạn.</p></div><div class="nt-actions"><a class="nt-btn nt-orange" href="/tu-van">Nhận tư vấn</a><a class="nt-btn" href="/san-pham">Khám phá sản phẩm</a></div></section>
+<div class="nt-support"><a href="/boi-thuong"><strong>Hướng dẫn bồi thường</strong><span>Quy trình, hồ sơ và thông tin hỗ trợ →</span></a><a href="/servicemap"><strong>Mạng lưới dịch vụ</strong><span>Tìm điểm hỗ trợ và garage liên kết →</span></a></div>
+</div></main>
 
 <footer class="ftr">
   <div class="ftr-inner">
@@ -1462,41 +1466,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script>
-(function(){
-  // Lọc bài theo nhóm sản phẩm.
-  //
-  // Các thẻ đã có sẵn trong HTML nên script chỉ ẩn/hiện, không dựng lại DOM.
-  // Nghĩa là tắt JavaScript thì vẫn đọc được đủ 9 bài — chỉ mất nút lọc.
-  var tabsWrap = document.getElementById('newsTabs');
-  var grid     = document.getElementById('newsGrid');
-  var emptyMsg = document.getElementById('newsEmpty');
-  if(!tabsWrap || !grid) return;
 
-  var cards = Array.prototype.slice.call(grid.querySelectorAll('.guide-card'));
-  var tabs  = Array.prototype.slice.call(tabsWrap.querySelectorAll('.news-tab'));
-
-  function apply(cat){
-    var shown = 0;
-    cards.forEach(function(card){
-      var match = (cat === 'all' || card.getAttribute('data-cat') === cat);
-      card.hidden = !match;
-      if(match) shown++;
-    });
-    tabs.forEach(function(t){
-      var on = t.getAttribute('data-cat') === cat;
-      t.classList.toggle('on', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
-    if(emptyMsg) emptyMsg.hidden = shown > 0;
-  }
-
-  tabsWrap.addEventListener('click', function(e){
-    var btn = e.target.closest('.news-tab');
-    if(btn) apply(btn.getAttribute('data-cat'));
-  });
-})();
-</script>
 
 <script src="/site-settings.js" defer></script>
 
