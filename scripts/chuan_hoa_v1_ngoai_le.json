@@ -1,0 +1,98 @@
+{
+ "bao-hiem-benh-nhiet-doi.html": [
+  ".cta-form-box .fg input",
+  ".cta-form-box .fg label",
+  ".cta-form-box .fg select",
+  ".whyus-text strong"
+ ],
+ "bao-hiem-cham-soc-suc-khoe-dbvcare.html": [
+  ".cta-form-box .fg input",
+  ".cta-form-box .fg label",
+  ".cta-form-box .fg select"
+ ],
+ "bao-hiem-chay-no-chung-cu.html": [
+  ".calc-input-wrap input",
+  ".calc-total .cv",
+  ".dbv-dongy"
+ ],
+ "bao-hiem-chay-no-hkd.html": [
+  ".cta-form .fg input",
+  ".cta-form .fg label",
+  ".cta-form .fg select",
+  ".dbv-dongy"
+ ],
+ "bao-hiem-doanh-nghiep-han-quoc.html": [
+  ".kr-trust span"
+ ],
+ "bao-hiem-du-lich-quoc-te.html": [
+  ".calc-form .fg input",
+  ".calc-form .fg label",
+  ".calc-form .fg select",
+  ".calc-head .sec-h2",
+  ".calc-head .sec-sub",
+  ".calc-head .sec-tag",
+  ".cta-form .fg input",
+  ".cta-form .fg label",
+  ".cta-form .fg select",
+  ".cta-form .fg textarea",
+  ".dbv-dongy",
+  ".emg-line-num a"
+ ],
+ "bao-hiem-oto-dien.html": [
+  ".bs-chip b",
+  ".bs-chip span",
+  ".calc-form .fg input",
+  ".calc-form .fg label",
+  ".calc-form .fg select",
+  ".calc-head .sec-h2",
+  ".calc-head .sec-sub",
+  ".calc-head .sec-tag",
+  ".cta-form .fg input",
+  ".cta-form .fg label",
+  ".cta-form .fg select",
+  ".dbv-dongy"
+ ],
+ "bao-hiem-suc-khoe.html": [
+  ".calc-check small",
+  ".calc-check span",
+  ".calc-form .fg input",
+  ".calc-form .fg label",
+  ".calc-form .fg select",
+  ".calc-head .sec-h2",
+  ".calc-head .sec-sub",
+  ".calc-head .sec-tag",
+  ".cta-fin-form .fg input",
+  ".cta-fin-form .fg label",
+  ".cta-fin-form .fg select",
+  ".dbv-dongy",
+  ".emg-line-num a",
+  ".fg label"
+ ],
+ "bao-hiem-than-tau-noi-dia.html": [
+  ".cta-form .fg input",
+  ".cta-form .fg label",
+  ".cta-form .fg select",
+  ".dbv-dongy"
+ ],
+ "bao-hiem-van-chuyen.html": [
+  ".case-closing-text span",
+  ".step-body ul li"
+ ],
+ "bao-hiem-vat-chat-oto.html": [
+  ".bs-chip b",
+  ".bs-chip span",
+  ".calc-head .sec-h2",
+  ".calc-head .sec-sub",
+  ".calc-head .sec-tag",
+  ".cta-form .fg input",
+  ".cta-form .fg label",
+  ".cta-form .fg select",
+  ".cta-form .fg textarea",
+  ".dbv-dongy"
+ ],
+ "bao-hiem-xay-dung-nha-dan-sinh.html": [
+  ".cta-form-box .fg input",
+  ".cta-form-box .fg label",
+  ".cta-form-box .fg select"
+ ]
+}

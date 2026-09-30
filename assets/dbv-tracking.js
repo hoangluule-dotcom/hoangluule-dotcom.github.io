@@ -481,7 +481,7 @@ var DBV_CAUHINH = {
       var st = document.createElement('style');
       st.id = CSS_ID;
       st.textContent =
-        '.dbv-dongy{font-size:11.5px;line-height:1.5;color:#718096;margin-top:8px;' +
+        '.dbv-dongy{font-size:11.5px;line-height:1.5;color:var(--c-text-muted,#4A5568);margin-top:8px;' +
         'text-align:center;max-width:460px;margin-left:auto;margin-right:auto;' +
         'flex-basis:100%;width:100%;order:99}' +   /* phòng khi rơi vào khung flex */
         '.dbv-dongy a{color:#007437;text-decoration:underline}' +
@@ -498,6 +498,15 @@ var DBV_CAUHINH = {
     var daChen = 0, daGan = 0;
 
     nut.forEach(function (b) {
+      /* (30/09/2026) Bỏ qua ô tìm kiếm — không gửi thông tin cá nhân nên
+         không cần thông báo đồng ý (trước đây dòng này hiện dưới ô tìm kiếm
+         ở trang chủ, danh mục sản phẩm, tin tức, mạng lưới). Bỏ qua cả form đã
+         có ô tích "đồng ý" riêng, tránh hiện hai lần. */
+      var f = b.form || (b.closest ? b.closest('form') : null);
+      if (f && (f.getAttribute('role') === 'search' ||
+                f.querySelector('input[type="search"]'))) return;
+      if (f && f.querySelector('input[type="checkbox"]') &&
+          /đồng ý/i.test(f.textContent || '')) return;
       var khoi = timKhoiForm(b) || b.parentNode;
       if (!khoi || daXuLy.indexOf(khoi) !== -1) return;
       daXuLy.push(khoi);

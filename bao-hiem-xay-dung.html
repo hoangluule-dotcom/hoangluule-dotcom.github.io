@@ -97,8 +97,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --dk:#1A4D32;
-  --bg:#ffffff;
   --sh:0 4px 24px rgba(0,0,0,.08);
   --sh2:0 8px 40px rgba(0,0,0,.13);
 }
@@ -150,8 +148,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .xd-bc a{color:var(--xt);text-decoration:none}
 .xd-bc a:hover{color:var(--xg)}
 .xd-bc [aria-current]{color:var(--xgk);font-weight:600}
-.xd-badge{display:inline-block;background:var(--xg);color:#fff;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:var(--radius-pill)}
-.xd-hero h1{font-size:clamp(2.2rem,3.6vw,3.1rem);line-height:1.12;font-weight:800;color:var(--xgk);letter-spacing:-.6px;margin:14px 0 12px}
+.xd-badge{display:inline-block;background:var(--xg);color:#fff;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:var(--radius-sm)}
+.xd-hero h1{font-size: clamp(28px,1.23vw + 23.2px,38px);line-height:1.12;font-weight:800;color:var(--xgk);letter-spacing:-.6px;margin:14px 0 12px}
 .xd-hero h1 em{display:block;font-style:normal;color:var(--or)}
 .xd-hero-tag{font-size:1.15rem;font-weight:700;color:var(--xgk);margin-bottom:10px}
 .xd-hero-sub{font-size:14px;color:var(--xt);line-height:1.7;max-width:420px;margin-bottom:22px}
@@ -168,7 +166,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 /* Form */
 .xd-form{background:#fff;border-radius:var(--radius-card);padding:22px 20px 16px;box-shadow:var(--sh-3)}
-.xd-form h2{font-size:15.5px;font-weight:700;color:var(--xgk);margin-bottom:4px}
+.xd-form h2{font-size: clamp(22px,.25vw + 21px,24px);font-weight:700;color:var(--xgk);margin-bottom:4px}
 .xd-form-sub{font-size:11.5px;color:var(--xt);line-height:1.5;margin-bottom:14px}
 .xd-fg{position:relative;margin-bottom:9px}
 .xd-fg .xd-ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#9AA8A0;pointer-events:none}
@@ -197,13 +195,13 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .xd-sec-last{padding-bottom:48px}
 .xd-hd{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
 .xd-hd-main{min-width:0}
-.xd-hd h2{display:flex;align-items:center;gap:10px;font-size:clamp(1.2rem,1.8vw,1.42rem);font-weight:800;color:var(--xgk);line-height:1.3}
+.xd-hd h2{display:flex;align-items:center;gap:10px;font-size: clamp(22px,.25vw + 21px,24px);font-weight:800;color:var(--xgk);line-height:1.3}
 .xd-hd-ic{width:32px;height:32px;border-radius:var(--radius-circle);background:var(--xg);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .xd-hd-ic .xd-ic{width:17px;height:17px}
 .xd-hd p{font-size:12.5px;color:var(--xt);line-height:1.6;margin:4px 0 0 42px;max-width:640px}
 .xd-hd p:empty{display:none}
 .xd-hd-side{flex-shrink:0}
-.xd-hd.sm h2{font-size:1.1rem}
+.xd-hd.sm h2{font-size: clamp(22px,.25vw + 21px,24px)}
 .xd-hd.sm .xd-hd-ic{width:28px;height:28px}
 .xd-hd.sm p{margin-left:38px}
 
@@ -350,7 +348,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .xd-final>*{position:relative}
 .xd-final-ic{width:52px;height:52px;border-radius:var(--radius-circle);background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center}
 .xd-final-ic .xd-ic{width:26px;height:26px;color:#fff}
-.xd-final h2{font-size:1.2rem;font-weight:800;line-height:1.3;margin-bottom:4px}
+.xd-final h2{font-size: clamp(22px,.25vw + 21px,24px);font-weight:800;line-height:1.3;margin-bottom:4px}
 .xd-final p{font-size:12px;color:rgba(255,255,255,.85);line-height:1.55;max-width:440px}
 .xd-final ul{list-style:none;display:flex;flex-direction:column;gap:6px}
 .xd-final li{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
@@ -388,7 +386,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
   .xd-type .xd-btn{margin-top:auto;width:100%;padding:8px 10px;font-size:12px}
   .xd-wrap{padding:0 16px}
   .xd-sec{padding:22px 0}
-  .xd-hero h1{font-size:2rem}
+  .xd-hero h1{font-size: clamp(28px,1.23vw + 23.2px,38px)}
   .xd-feats{gap:10px}
   .xd-feats li{flex:1 1 100%}
   .xd-hero-cta .xd-btn{width:100%}

@@ -36,8 +36,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --dk:#1A4D32;
-  --bg:#ffffff;
   --sh:0 4px 24px rgba(0,0,0,.08);--sh2:0 8px 40px rgba(0,0,0,.13);
 }
 html{overflow-x:clip;scroll-behavior:smooth}
@@ -53,16 +51,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 
 /* USP BAR */
 .usp-bar{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:12px 0}
-.usp-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
-.usp-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--dk)}
+.usp-inner{max-width:var(--container-page);margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.usp-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--c-heading)}
 .usp-dot{width:6px;height:6px;border-radius:var(--radius-circle);background:var(--gold);flex-shrink:0}
 
 /* HERO */
 .hero{background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 50%,#fafffe 100%);display:flex;flex-direction:column;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;opacity:.07}
-.hero-inner{max-width:1200px;margin:0 auto;padding:48px 24px 48px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:1;width:100%}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:600;padding:6px 14px;border-radius:var(--radius-pill);margin-bottom:20px;letter-spacing:.5px}
-.hero-h1{font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:800;color:var(--dk);line-height:1.18;margin-bottom:20px;letter-spacing:-.5px}
+.hero-inner{max-width:var(--container-page);margin:0 auto;padding:48px 24px 48px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:1;width:100%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid rgba(0,116,55,.25);color:var(--g);font-size:12px;font-weight:600;padding:6px 14px;border-radius:var(--radius-sm);margin-bottom:20px;letter-spacing:.5px}
+.hero-h1{font-size: clamp(28px,1.23vw + 23.2px,38px);font-weight:800;color:var(--c-heading);line-height:1.18;margin-bottom:20px;letter-spacing:-.5px}
 .hero-h1 em{color:var(--gold);font-style:normal}
 .hero-sub{color:var(--tm);font-size:15px;line-height:1.8;margin-bottom:28px}
 .hero-stats{display:flex;gap:24px;flex-wrap:wrap}
@@ -70,8 +68,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .hero-stat:last-child{border-right:none}
 .hero-stat-num{font-size:1.8rem;font-weight:800;color:var(--g);line-height:1}
 .hero-stat-lbl{font-size:11px;color:var(--tm);margin-top:3px}
-.form-card{background:#fff;border-radius:var(--radius-card);padding:32px;box-shadow:0 12px 48px rgba(0,0,0,.18)}
-.form-card-title{font-size:1.1rem;font-weight:800;color:var(--dk);margin-bottom:4px}
+.form-card{background:#fff;border-radius:var(--radius-card);padding:32px;box-shadow: var(--shadow-card-hover)}
+.form-card-title{font-size:1.1rem;font-weight:800;color:var(--c-heading);margin-bottom:4px}
 .form-card-sub{font-size:13px;color:var(--tm);margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--bd)}
 .fg{margin-bottom:14px}
 .fg label{display:block;font-size:12px;font-weight:600;color:var(--tx);margin-bottom:5px;letter-spacing:.3px}
@@ -80,23 +78,23 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,116,55,.1)}
 .btn-primary{width:100%;background:var(--g);color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:14px;padding:14px;border:none;border-radius:var(--radius-control);cursor:pointer;transition:.2s;margin-top:2px;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-primary:hover{background:var(--gp);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,116,55,.3)}
-.form-disc{font-size:10px;color:var(--ts);text-align:center;margin-top:8px;line-height:1.5}
+.form-disc{font-size:10px;color:var(--c-text-muted);text-align:center;margin-top:8px;line-height:1.5}
 .form-succ{text-align:center;display:none;padding:18px;background:var(--gl);border-radius:var(--radius-card);font-weight:600;color:var(--g);font-size:14px;margin-top:8px}
 
 /* ══ TRANG DOANH NGHIỆP HÀN QUỐC ══ */
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.wrap{max-width:var(--container-page);margin:0 auto;padding:0 24px}
 @media(max-width:640px){.wrap{padding:0 16px}}
 /* chuyển ngôn ngữ */
-.lang-sw{display:inline-flex;background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-pill);padding:3px;gap:3px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.lang-sw{display:inline-flex;background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-sm);padding:3px;gap:3px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .lang-sw button{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--tm);font-family:inherit;font-size:12.5px;font-weight:700;
-  min-height:34px;padding:0 13px;border-radius:var(--radius-pill);cursor:pointer;transition:.2s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+  min-height:34px;padding:0 13px;border-radius:var(--radius-sm);cursor:pointer;transition:.2s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .lang-sw button:hover{background:var(--gl);color:var(--g)}
 .lang-sw button.on{background:var(--g);color:#fff}
 .lang-sw button.on:hover{background:var(--gp);color:#fff}
 .lang-sw .flag{font-size:14px;line-height:1}
-.lang-lbl{font-size:11px;color:var(--ts);font-weight:600;margin-right:9px;align-self:center}
+.lang-lbl{font-size:11px;color:var(--c-text-muted);font-weight:600;margin-right:9px;align-self:center}
 @media(max-width:520px){
-  .lang-sw{padding:2px;border-radius:var(--radius-pill);gap:2px}
+  .lang-sw{padding:2px;border-radius:var(--radius-sm);gap:2px}
   .lang-sw button{min-height:30px;padding:0 10px;font-size:11.5px;gap:4px}
   .lang-sw .flag{font-size:12.5px}
   .lang-lbl{display:none}
@@ -106,56 +104,56 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .kr-hero::after{content:"";position:absolute;right:-110px;top:-110px;width:360px;height:360px;border-radius:var(--radius-circle);background:radial-gradient(circle,rgba(0,116,55,.09),transparent 70%);pointer-events:none}
 .kr-hero-in{display:grid;grid-template-columns:1.06fr .94fr;gap:30px;align-items:stretch;position:relative;z-index:2}
 @media(max-width:920px){.kr-hero-in{grid-template-columns:1fr;gap:22px}}
-.kr-eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--gl);border:1px solid rgba(0,116,55,.22);color:var(--g);border-radius:var(--radius-pill);padding:5px 13px;font-size:11.5px;font-weight:700;margin-bottom:12px}
-.kr-h1{font-size:clamp(1.6rem,3.3vw,2.35rem);font-weight:800;color:var(--dk);line-height:1.22;letter-spacing:-.3px;margin-bottom:11px}
+.kr-eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--gl);border:1px solid rgba(0,116,55,.22);color:var(--g);border-radius:var(--radius-sm);padding:5px 13px;font-size:11.5px;font-weight:700;margin-bottom:12px}
+.kr-h1{font-size: clamp(28px,1.23vw + 23.2px,38px);font-weight:800;color:var(--c-heading);line-height:1.22;letter-spacing:-.3px;margin-bottom:11px}
 .kr-h1 em{color:var(--g);font-style:normal;display:block}
 .kr-sub{font-size:14.5px;color:var(--tm);line-height:1.68;max-width:544px}
 .kr-tip{background:#fffbf0;border-left:3px solid var(--gold);border-radius:0 var(--radius-control) var(--radius-control) 0;padding:10px 14px;font-size:13px;color:var(--tm);line-height:1.6;margin-top:14px}
 .kr-bul{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
 .kr-bul span{background:#fff;border:1.5px solid var(--bd);color:var(--tm);border-radius:var(--radius-card);padding:6px 12px;font-size:12px;font-weight:600}
 /* form */
-.kr-form{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-card);padding:20px;box-shadow:var(--sh);display:flex;flex-direction:column}
+.kr-form{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-card);padding:20px;box-shadow: var(--shadow-card);display:flex;flex-direction:column}
 .kr-form .btn-primary{margin-top:auto}
 @media(max-width:920px){.kr-form{display:block}}
-.kr-form h3{font-size:1.05rem;font-weight:800;color:var(--dk);margin-bottom:5px}
+.kr-form h3{font-size:1.05rem;font-weight:800;color:var(--c-heading);margin-bottom:5px}
 .kr-form .fsub{font-size:12px;color:var(--tm);line-height:1.55;margin-bottom:14px;padding-bottom:11px;border-bottom:1px solid var(--bd)}
 .kr-2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
 @media(max-width:520px){.kr-2{grid-template-columns:1fr}}
 /* trust strip */
 .kr-strip{background:linear-gradient(90deg,#edf7f1,#f0faf4);border-bottom:1px solid rgba(0,116,55,.15);padding:15px 0}
 .kr-strip-in{display:flex;gap:26px;flex-wrap:wrap;justify-content:center}
-.kr-strip span{font-size:12.5px;font-weight:600;color:var(--dk);display:flex;align-items:center;gap:7px}
+.kr-strip span{font-size:12.5px;font-weight:600;color:var(--c-heading);display:flex;align-items:center;gap:7px}
 .kr-strip span::before{content:"";width:6px;height:6px;border-radius:var(--radius-circle);background:var(--g);flex-shrink:0}
 /* section */
 .kr-sec{padding:62px 0}
 .kr-sec.alt{background:#f7f9fb}
 .kr-tag{display:inline-block;color:var(--g);font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px}
-.kr-h2{font-size:clamp(1.42rem,2.7vw,1.95rem);font-weight:800;color:var(--dk);line-height:1.26;margin-bottom:12px;max-width:820px}
+.kr-h2{font-size: clamp(22px,.25vw + 21px,24px);font-weight:800;color:var(--c-heading);line-height:1.26;margin-bottom:12px;max-width:820px}
 .kr-intro{font-size:14.5px;color:var(--tm);line-height:1.76;max-width:760px}
 /* lưới thẻ */
 .kr-grid{display:grid;gap:18px;margin-top:32px}
 .kr-g3{grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
 .kr-g4{grid-template-columns:repeat(auto-fit,minmax(228px,1fr))}
 .kr-card{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-card);padding:20px;transition:border-color .18s,box-shadow .18s,transform .18s}
-.kr-card:hover{border-color:rgba(0,116,55,.42);box-shadow:0 10px 30px rgba(0,0,0,.08);transform:translateY(-3px)}
+.kr-card:hover{border-color:rgba(0,116,55,.42);box-shadow: var(--shadow-card-hover);transform:translateY(-3px)}
 .kr-ic{width:44px;height:44px;border-radius:var(--radius-sm);background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
 .kr-ic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
-.kr-ct{font-size:15px;font-weight:800;color:var(--dk);margin-bottom:8px;line-height:1.35}
+.kr-ct{font-size:15px;font-weight:800;color:var(--c-heading);margin-bottom:8px;line-height:1.35}
 .kr-cb{font-size:13px;color:var(--tm);line-height:1.72}
 .kr-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px;padding-top:12px;border-top:1px dashed var(--bd)}
 .kr-tags span{background:#f2f7f4;color:var(--g);font-size:11px;font-weight:700;padding:3px 9px;border-radius:var(--radius-control)}
 /* số liệu */
 .kr-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:16px;margin-top:34px}
-.kr-stat{background:linear-gradient(135deg,var(--navy),var(--navyd));border-radius:var(--radius-card);padding:18px 16px;text-align:center;color:#fff}
-.kr-sec.alt .kr-stat{background:linear-gradient(135deg,var(--navy),var(--navyd))}
-.kr-sn{font-size:1.55rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:5px}
-.kr-sl{font-size:12px;color:rgba(255,255,255,.82);line-height:1.5}
-.kr-note{font-size:11.5px;color:var(--ts);margin-top:16px;line-height:1.6}
+.kr-stat{background: var(--grad-mint);border-radius:var(--radius-card);padding:18px 16px;text-align:center;color: var(--c-heading)}
+.kr-sec.alt .kr-stat{background: var(--grad-mint);color:var(--c-heading)}
+.kr-sn{font-size:1.55rem;font-weight:800;color: var(--c-heading);line-height:1.15;margin-bottom:5px}
+.kr-sl{font-size:12px;color: var(--c-text-muted);line-height:1.5}
+.kr-note{font-size:11.5px;color:var(--c-text-muted);margin-top:16px;line-height:1.6}
 /* 5 bước */
 .kr-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(186px,1fr));gap:14px;margin-top:32px}
 .kr-step{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-card);padding:18px 16px;position:relative}
 .kr-stn{width:29px;height:29px;border-radius:var(--radius-circle);background:var(--g);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.kr-stt{font-size:14px;font-weight:800;color:var(--dk);margin-bottom:6px}
+.kr-stt{font-size:14px;font-weight:800;color:var(--c-heading);margin-bottom:6px}
 .kr-stb{font-size:12.5px;color:var(--tm);line-height:1.65}
 /* dịch vụ 3 cột */
 .kr-svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:26px}
@@ -165,25 +163,25 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .kr-svc-c li{font-size:13px;color:var(--tm);display:flex;gap:8px;line-height:1.6}
 .kr-svc-c li::before{content:"✓";color:var(--g);font-weight:800;flex-shrink:0}
 /* khách hàng */
-.kr-cl-h{font-size:13px;font-weight:800;color:var(--dk);margin-bottom:12px}
+.kr-cl-h{font-size:13px;font-weight:800;color:var(--c-heading);margin-bottom:12px}
 .kr-chips{display:flex;gap:9px;flex-wrap:wrap}
-.kr-chip{background:#eef3f8;border:1px solid #dde6ef;border-radius:var(--radius-pill);padding:7px 14px;font-size:.82rem;font-weight:600;color:var(--navy)}
+.kr-chip{background:#eef3f8;border:1px solid #dde6ef;border-radius:var(--radius-control);padding:7px 14px;font-size:.82rem;font-weight:600;color:var(--c-heading)}
 .kr-chip.kr{background:#eaf6ee;border-color:rgba(0,116,55,.22);color:var(--g)}
 /* FAQ */
 .kr-faq{margin-top:34px;display:flex;flex-direction:column;gap:9px;max-width:840px}
 .kr-fi{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-card);overflow:hidden}
-.kr-fq{width:100%;text-align:left;background:none;border:none;padding:16px 19px;font-family:inherit;font-size:14px;font-weight:700;color:var(--dk);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.kr-fq{width:100%;text-align:left;background:none;border:none;padding:16px 19px;font-family:inherit;font-size:14px;font-weight:700;color:var(--c-heading);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .kr-fq:hover{color:var(--g)}
-.kr-fq .ar{font-size:12px;color:var(--ts);transition:.3s;flex-shrink:0}
+.kr-fq .ar{font-size:12px;color:var(--c-text-muted);transition:.3s;flex-shrink:0}
 .kr-fi.open .ar{transform:rotate(180deg)}
 .kr-fa{padding:0 19px;font-size:13.5px;color:var(--tm);line-height:1.78;max-height:0;overflow:hidden;transition:.35s ease}
 .kr-fi.open .kr-fa{max-height:460px;padding:0 19px 17px}
 /* CTA cuối */
-.kr-cta{background:linear-gradient(135deg,var(--navy),var(--navyd));padding:56px 0;color:#fff}
-.kr-cta h2{font-size:clamp(1.4rem,2.7vw,2rem);font-weight:800;margin-bottom:12px;line-height:1.28}
-.kr-cta p{font-size:14.5px;color:rgba(255,255,255,.8);line-height:1.76;max-width:640px;margin-bottom:24px}
+.kr-cta{background: var(--grad-mint);padding:56px 0;color: var(--c-heading)}
+.kr-cta h2{font-size: clamp(22px,.25vw + 21px,24px);font-weight:800;margin-bottom:12px;line-height:1.28}
+.kr-cta p{font-size:14.5px;color: var(--c-text-muted);line-height:1.76;max-width:640px;margin-bottom:24px}
 .kr-trust{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px}
-.kr-trust span{font-size:12.5px;color:rgba(255,255,255,.78);display:flex;align-items:center;gap:7px}
+.kr-trust span{font-size:12.5px;color: var(--c-text-muted);display:flex;align-items:center;gap:7px}
 .kr-trust span::before{content:"✓";color:var(--gold);font-weight:800}
 
 
@@ -205,8 +203,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .ct-card.ko:hover{box-shadow:0 12px 28px rgba(150,92,6,.2),0 2px 6px rgba(150,92,6,.1);border-color:rgba(232,146,10,.7)}
 .ct-flag{font-size:17px;line-height:1}
 .ct-hd{display:flex;align-items:center;gap:8px;margin-bottom:3px}
-.ct-hd b{font-size:13px;font-weight:800;color:var(--dk)}
-.ct-d{font-size:11px;color:var(--ts);line-height:1.45;margin-bottom:9px}
+.ct-hd b{font-size:13px;font-weight:800;color:var(--c-heading)}
+.ct-d{font-size:11px;color:var(--c-text-muted);line-height:1.45;margin-bottom:9px}
 .ct-tel{display:block;font-size:1.1rem;font-weight:800;color:var(--g);letter-spacing:-.3px;text-decoration:none;line-height:1.2;margin-bottom:8px}
 .ct-card.ko .ct-tel{color:#b8710a}
 .ct-btns{display:flex;gap:8px;flex-wrap:wrap}
@@ -225,7 +223,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
 .ct-kx{flex:1;min-width:0}
 .ct-kt{font-size:10.5px;color:var(--tm);line-height:1.45;margin-bottom:6px}
 .ct-kid{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.ct-kid code{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-sm);padding:3px 8px;font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;color:var(--dk)}
+.ct-kid code{background:#fff;border:1.5px solid var(--bd);border-radius:var(--radius-sm);padding:3px 8px;font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;color:var(--c-heading)}
 .ct-cp{background:none;border:none;color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;padding:6px 4px;min-height:32px}
 /* Nút tư vấn tiếng Hàn ở thanh CTA đáy */
 .mob-bar .mob-ko{background:var(--gold,#E8920A);color:#fff;border:none}
@@ -715,7 +713,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="ct-kx">
         <div class="ct-kt" data-i18n="ct_kakao">Quét mã để thêm bạn trên KakaoTalk</div>
         <div class="ct-kid">
-          <span style="font-size:11px;color:var(--ts);font-weight:600" data-i18n="ct_kid">KakaoTalk ID</span>
+          <span style="font-size:11px;color:var(--c-text-muted);font-weight:600" data-i18n="ct_kid">KakaoTalk ID</span>
           <code id="kk-id">yunha1601</code>
           <button type="button" class="ct-cp" onclick="cpKakao(this)" data-i18n="ct_copy">Sao chép</button>
         </div>
@@ -809,7 +807,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="ct-kx">
         <div class="ct-kt" data-i18n="ct_kakao">Quét mã để thêm bạn trên KakaoTalk</div>
         <div class="ct-kid">
-          <span style="font-size:11px;color:var(--ts);font-weight:600" data-i18n="ct_kid">KakaoTalk ID</span>
+          <span style="font-size:11px;color:var(--c-text-muted);font-weight:600" data-i18n="ct_kid">KakaoTalk ID</span>
           <code id="kk-id2">yunha1601</code>
           <button type="button" class="ct-cp" onclick="cpKakao(this,'kk-id2')" data-i18n="ct_copy">Sao chép</button>
         </div>
