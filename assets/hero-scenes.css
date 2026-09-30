@@ -1,0 +1,16 @@
+/* Shared banner art direction; scoped to the three inner-page heroes. */
+.dc .dc-hero,.nt .nt-hero,.sm .sm-hero{position:relative;isolation:isolate;display:flex;gap:0;align-items:center;min-height:300px;padding:32px 36px;overflow:hidden;background:#eff8f2;border:1px solid #e0ebe4;border-radius:var(--radius-panel,24px)}
+.dc-hero .dbv-hero-scene,.nt-hero .dbv-hero-scene,.sm-hero .dbv-hero-scene{position:absolute;inset:0;z-index:-1;display:block;width:100%;height:100%;pointer-events:none}
+.dbv-hero-scene img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.dc .dc-hero-copy,.nt .nt-hero>div,.sm .sm-hero>div{position:relative;width:59%;padding:0;min-width:0}
+.dc .dc-hero h1,.nt .nt-hero h1,.sm .sm-hero h1{max-width:650px;text-wrap:balance}
+.dc .dc-hero .dc-search,.nt .nt-hero .nt-search{width:100%;max-width:580px}
+@media(min-width:768px) and (max-width:1050px){.dc .dc-hero,.nt .nt-hero,.sm .sm-hero{min-height:280px;padding:28px}.dc .dc-hero h1,.nt .nt-hero h1,.sm .sm-hero h1{font-size:30px}.dc-hero .dbv-hero-scene img,.nt-hero .dbv-hero-scene img,.sm-hero .dbv-hero-scene img{object-position:65% top}}
+@media(max-width:767px){
+ .dc .dc-hero,.nt .nt-hero,.sm .sm-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:0;border-radius:var(--radius-panel,20px)}
+ .dc .dc-hero-copy,.nt .nt-hero>div,.sm .sm-hero>div{width:100%;padding:22px 18px 16px;background:#eff8f2}
+ .dc-hero .dbv-hero-scene,.nt-hero .dbv-hero-scene,.sm-hero .dbv-hero-scene{position:relative;inset:auto;z-index:0;width:100%;height:170px;order:2;overflow:hidden}
+ .dbv-hero-scene img{width:100%;height:100%;object-fit:cover;object-position:right center}
+ .dbv-hero-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#eff8f2,transparent 28%);pointer-events:none}
+ .dc .dc-hero h1,.nt .nt-hero h1,.sm .sm-hero h1{font-size:27px}
+}
