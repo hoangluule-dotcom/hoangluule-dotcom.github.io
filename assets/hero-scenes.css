@@ -7,20 +7,21 @@
 .dc .dc-hero .dc-search,.nt .nt-hero .nt-search{width:100%;max-width:580px}
 @media(min-width:768px) and (max-width:1050px){.dc .dc-hero,.nt .nt-hero,.sm .sm-hero{min-height:280px;padding:28px}.dc .dc-hero h1,.nt .nt-hero h1,.sm .sm-hero h1{font-size:30px}.dc-hero .dbv-hero-scene img,.nt-hero .dbv-hero-scene img,.sm-hero .dbv-hero-scene img{object-position:65% top}}
 @media(max-width:767px){
- .nt .nt-hero,.sm .sm-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:0;border-radius:var(--radius-panel,20px)}
- .nt .nt-hero>div,.sm .sm-hero>div{width:100%;padding:22px 18px 16px;background:#eff8f2}
- .nt-hero .dbv-hero-scene,.sm-hero .dbv-hero-scene{position:relative;inset:auto;z-index:0;width:100%;height:170px;order:2;overflow:hidden}
+ .sm .sm-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:0;border-radius:var(--radius-panel,20px)}
+ .sm .sm-hero>div{width:100%;padding:22px 18px 16px;background:#eff8f2}
+ .sm-hero .dbv-hero-scene{position:relative;inset:auto;z-index:0;width:100%;height:170px;order:2;overflow:hidden}
  .dbv-hero-scene img{width:100%;height:100%;object-fit:cover;object-position:right center}
  .dbv-hero-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#eff8f2,transparent 28%);pointer-events:none}
- .nt .nt-hero h1,.sm .sm-hero h1{font-size:27px}
+ .sm .sm-hero h1{font-size:27px}
  /* Danh mục: 2 cột (chữ | tư vấn viên trong khung riêng) + hàng tìm kiếm full ngang.
     Chữ và ô tìm kiếm không nằm đè lên ảnh; khối cao ~250px thay vì ~420px. */
- .dc .dc-hero{display:grid;grid-template-columns:minmax(0,1fr) 112px;grid-template-areas:"t a" "p a" "s s";column-gap:12px;min-height:0;padding:18px 16px 16px;border-radius:var(--radius-panel,20px)}
- .dc .dc-hero-copy{display:contents}
- .dc .dc-hero h1{grid-area:t;align-self:end;font-size:28px;margin:0 0 6px}
- .dc .dc-hero p{grid-area:p;align-self:start;margin:0}
- .dc .dc-hero .dc-search{grid-area:s;max-width:none;margin-top:14px}
- .dc-hero .dbv-hero-scene{grid-area:a;position:relative;inset:auto;z-index:0;width:150px;height:200px;align-self:end;margin:-18px -16px 0 0;align-self:start;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 34%),linear-gradient(to bottom,#000 68%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 34%),linear-gradient(to bottom,#000 68%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
+ .dc .dc-hero,.nt .nt-hero{display:grid;grid-template-columns:minmax(0,1fr) 112px;grid-template-areas:"t a" "p a" "s s";column-gap:12px;min-height:0;padding:18px 16px 16px;border-radius:var(--radius-panel,20px)}
+ .dc .dc-hero-copy,.nt .nt-hero>div{display:contents}
+ .dc .dc-hero h1,.nt .nt-hero h1{grid-area:t;align-self:end;font-size:28px;margin:0 0 6px}
+ .dc .dc-hero p,.nt .nt-hero p{grid-area:p;align-self:start;margin:0}
+ .dc .dc-hero .dc-search,.nt .nt-hero .nt-search{grid-area:s;max-width:none;margin-top:14px}
+ .dc-hero .dbv-hero-scene,.nt-hero .dbv-hero-scene{grid-area:a;position:relative;inset:auto;z-index:0;width:150px;height:200px;align-self:end;margin:-18px -16px 0 0;align-self:start;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 34%),linear-gradient(to bottom,#000 68%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 34%),linear-gradient(to bottom,#000 68%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
  .dc-hero .dbv-hero-scene img{object-position:88% top}
- .dc-hero .dbv-hero-scene::after{content:none}
+ .nt-hero .dbv-hero-scene img{object-position:92% top}
+ .dc-hero .dbv-hero-scene::after,.nt-hero .dbv-hero-scene::after{content:none}
 }

@@ -225,18 +225,6 @@ a{color:inherit}
 
 
 
-/* ══ THẺ TIN TỨC — DẢI MÀU THAY ẢNH BÌA ══
-   Ảnh bìa cũ bị nhiều bài dùng chung. Vẽ dải màu bằng CSS theo data-cat.
-   Giữ <img> trong HTML (chỉ ẩn) để build_news_index.py chạy lại không phá kiểu. */
-.guide-card>img{display:none}
-.guide-card::before{content:"Cẩm nang bảo hiểm";display:flex;align-items:flex-end;height:72px;padding:0 14px 9px;box-sizing:border-box;color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.28);background-repeat:no-repeat;background-position:right -8px top -10px,center;background-size:62px 62px,cover;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/><path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/></svg>"),linear-gradient(135deg,#123f28,#1e7d51)}
-.guide-card:hover::before{filter:brightness(1.08)}
-@media(max-width:600px){.guide-card::before{height:60px;padding:0 12px 8px;font-size:9.5px;background-size:50px 50px,cover}}
-.guide-card[data-cat="xe"]::before{content:"Xe cơ giới";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M5 17h14M6 17v-5l2-4h8l2 4v5'/><circle cx='8.5' cy='17' r='1.8'/><circle cx='15.5' cy='17' r='1.8'/></svg>"),linear-gradient(135deg,#0d3b66,#1f6ea0)}
-.guide-card[data-cat="taisan"]::before{content:"Tài sản & Kỹ thuật";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M3 21h18M5 21V9l7-5 7 5v12M10 21v-6h4v6'/></svg>"),linear-gradient(135deg,#7a3e0a,#c17c11)}
-.guide-card[data-cat="conguoi"]::before{content:"Du lịch & Con người";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M2 20a3 3 0 0 0 3-2 3 3 0 0 1 6 0 3 3 0 0 0 6 0 3 3 0 0 1 5 2'/><path d='M12 3v9M8 7l4-4 4 4'/></svg>"),linear-gradient(135deg,#0f5c3f,#1fa87c)}
-.guide-card[data-cat="chung"]::before{content:"Kiến thức chung";background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/><path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/><path d='M9 7h7M9 11h5'/></svg>"),linear-gradient(135deg,#3c3489,#5d54c4)}
-.guide-card-body{padding-top:11px}
 </style>
 
 <!-- Open Graph -->
@@ -261,71 +249,393 @@ a{color:inherit}
 <!-- Schema do scripts/build_news_index.py sinh ra. Đừng sửa tay phần giữa hai
      mốc — chạy lại script là bị ghi đè. -->
 <!-- DBV:NEWS-SCHEMA:START -->
-      <script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Cẩm nang bảo hiểm DBV247",
-  "numberOfItems": 9,
+  "numberOfItems": 63,
   "itemListElement": [
     {
       "@type": "ListItem",
       "position": 1,
+      "url": "https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto",
+      "name": "Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
       "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67",
       "name": "Bảo hiểm cháy nổ chung cư theo Nghị định 105/2025: Ai bắt buộc mua và phí bao nhiêu?"
     },
     {
       "@type": "ListItem",
-      "position": 2,
-      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-dbv-co-tot-khong",
-      "name": "Bảo hiểm DBV có tốt không? Đánh giá uy tín & Quy trình bồi thường"
-    },
-    {
-      "@type": "ListItem",
       "position": 3,
-      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-xin-visa-schengen",
-      "name": "Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026"
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-chi-tra-nhung-gi",
+      "name": "Bảo hiểm du lịch chi trả những gì?"
     },
     {
       "@type": "ListItem",
       "position": 4,
-      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong",
-      "name": "Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ"
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-suc-khoe-thoi-gian-cho-bao-lau",
+      "name": "Bảo hiểm sức khỏe có thời gian chờ bao lâu?"
     },
     {
       "@type": "ListItem",
       "position": 5,
-      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu",
-      "name": "Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026"
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-cho-kho-hang-xuong-nho",
+      "name": "Bảo hiểm cháy nổ cho kho hàng, xưởng nhỏ"
     },
     {
       "@type": "ListItem",
       "position": 6,
-      "url": "https://dbv247.com.vn/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv",
-      "name": "Tổng hợp Biểu phí & Quy tắc các gói Bảo hiểm DBV mới nhất"
-    },
-    {
-      "@type": "ListItem",
-      "position": 7,
-      "url": "https://dbv247.com.vn/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026",
-      "name": "Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024"
-    },
-    {
-      "@type": "ListItem",
-      "position": 8,
       "url": "https://dbv247.com.vn/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv",
       "name": "Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố"
     },
     {
       "@type": "ListItem",
+      "position": 7,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-xe-vinfast-vf5-herio-green-phi-bao-nhieu",
+      "name": "Bảo hiểm xe VF 5 và bản Herio Green: phí khác nhau thế nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-xe-vinfast-vf3-het-bao-nhieu-tien",
+      "name": "Bảo hiểm xe VinFast VF 3 hết bao nhiêu tiền một năm?"
+    },
+    {
+      "@type": "ListItem",
       "position": 9,
-      "url": "https://dbv247.com.vn/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto",
-      "name": "Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết"
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-xe-dien-chay-dich-vu-khac-gi-xe-gia-dinh",
+      "name": "Bảo hiểm xe điện chạy dịch vụ khác gì xe gia đình?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-xe-limo-green-phi-bao-nhieu",
+      "name": "Bảo hiểm xe Limo Green: phí bao nhiêu theo mục đích sử dụng?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-cong-trinh-xay-dung-thay-doi-gi-tu-1-7-2026",
+      "name": "Bảo hiểm công trình xây dựng thay đổi gì từ 01/7/2026?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "url": "https://dbv247.com.vn/tin-tuc/chu-dau-tu-hay-nha-thau-phai-mua-bao-hiem-cong-trinh",
+      "name": "Chủ đầu tư hay nhà thầu phải mua bảo hiểm công trình?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "url": "https://dbv247.com.vn/tin-tuc/muc-khau-tru-bao-hiem-vat-chat-o-to-nen-chon-bao-nhieu",
+      "name": "Mức khấu trừ bảo hiểm vật chất ô tô nên chọn bao nhiêu?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-o-to-dien-khac-xe-xang-o-diem-nao",
+      "name": "Bảo hiểm ô tô điện khác bảo hiểm xe xăng ở điểm nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "url": "https://dbv247.com.vn/tin-tuc/xay-nha-dan-sinh-co-can-mua-bao-hiem-khong",
+      "name": "Xây nhà dân sinh có cần mua bảo hiểm không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "url": "https://dbv247.com.vn/tin-tuc/gui-hang-bi-mat-hong-boi-thuong-the-nao",
+      "name": "Gửi hàng bị mất, hỏng thì bồi thường thế nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-tai-nan-24-24-chi-tra-nhung-gi",
+      "name": "Bảo hiểm tai nạn 24/24 chi trả những gì?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "url": "https://dbv247.com.vn/tin-tuc/sot-xuat-huyet-nam-vien-bao-hiem-chi-tra-bao-nhieu",
+      "name": "Sốt xuất huyết nằm viện, bảo hiểm chi trả bao nhiêu?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "url": "https://dbv247.com.vn/tin-tuc/xe-ngap-nuoc-thuy-kich-bao-hiem-boi-thuong-the-nao",
+      "name": "Xe ngập nước, thủy kích: bảo hiểm bồi thường thế nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-suc-khoe-co-chi-tra-benh-co-san-khong",
+      "name": "Bảo hiểm sức khỏe có chi trả bệnh có sẵn không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "url": "https://dbv247.com.vn/tin-tuc/mua-bao-hiem-suc-khoe-cho-bo-me-tren-60-tuoi",
+      "name": "Mua bảo hiểm sức khỏe cho bố mẹ trên 60 tuổi được không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "url": "https://dbv247.com.vn/tin-tuc/mua-bao-hiem-tnds-hoan-tien-co-dung-luat-khong",
+      "name": "Mua bảo hiểm TNDS được hoàn tiền, tặng quà có đúng luật không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 23,
+      "url": "https://dbv247.com.vn/tin-tuc/mua-bao-hiem-tnds-2-nam-3-nam-co-re-hon-khong",
+      "name": "Mua bảo hiểm TNDS 2 năm, 3 năm có rẻ hơn mua từng năm không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 24,
+      "url": "https://dbv247.com.vn/tin-tuc/dai-ly-bao-hiem-co-duoc-giam-gia-cho-khach-khong",
+      "name": "Đại lý bảo hiểm có được cắt hoa hồng giảm giá cho khách không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 25,
+      "url": "https://dbv247.com.vn/tin-tuc/mua-bao-hiem-tnds-o-to-o-dau-uy-tin",
+      "name": "Mua bảo hiểm TNDS ô tô ở đâu uy tín? Sáu tiêu chí để tự chọn"
+    },
+    {
+      "@type": "ListItem",
+      "position": 26,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-xe-may-ven-duong-20k-co-dung-duoc-khong",
+      "name": "Bảo hiểm xe máy bán ven đường 20.000đ có dùng được không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 27,
+      "url": "https://dbv247.com.vn/tin-tuc/cach-kiem-tra-giay-chung-nhan-bao-hiem-that-hay-gia",
+      "name": "Cách kiểm tra giấy chứng nhận bảo hiểm xe thật hay giả: sáu bước"
+    },
+    {
+      "@type": "ListItem",
+      "position": 28,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-tnds-o-to-gia-re-mua-tu-ai",
+      "name": "Bảo hiểm TNDS ô tô giá rẻ: đừng chỉ tìm nơi bán rẻ, hãy kiểm tra bạn đang mua từ ai"
+    },
+    {
+      "@type": "ListItem",
+      "position": 29,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-chung-cu-khong-boi-thuong-truong-hop-nao",
+      "name": "Bảo hiểm cháy nổ chung cư không bồi thường trong trường hợp nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 30,
+      "url": "https://dbv247.com.vn/tin-tuc/muc-khau-tru-bao-hiem-chay-no-bat-buoc-tinh-the-nao",
+      "name": "Mức khấu trừ trong bảo hiểm cháy nổ bắt buộc tính thế nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 31,
+      "url": "https://dbv247.com.vn/tin-tuc/truong-hop-nao-bao-hiem-tnds-khong-boi-thuong",
+      "name": "Trường hợp nào bảo hiểm TNDS không bồi thường?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 32,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-theo-doan-cach-tinh-phi-cho-cong-ty-tour",
+      "name": "Bảo hiểm du lịch theo đoàn: cách tính phí cho công ty tour"
+    },
+    {
+      "@type": "ListItem",
+      "position": 33,
+      "url": "https://dbv247.com.vn/tin-tuc/cach-tinh-gia-tri-tai-san-khai-bao-can-ho-chung-cu",
+      "name": "Cách tính giá trị tài sản khai báo cho căn hộ chung cư"
+    },
+    {
+      "@type": "ListItem",
+      "position": 34,
+      "url": "https://dbv247.com.vn/tin-tuc/thu-tuc-mua-bao-hiem-chay-no-bat-buoc-cho-doanh-nghiep",
+      "name": "Thủ tục mua bảo hiểm cháy nổ bắt buộc cho doanh nghiệp"
+    },
+    {
+      "@type": "ListItem",
+      "position": 35,
+      "url": "https://dbv247.com.vn/tin-tuc/phi-bao-hiem-chay-no-co-duoc-tinh-vao-chi-phi-duoc-tru",
+      "name": "Phí bảo hiểm cháy nổ có được tính vào chi phí được trừ khi tính thuế?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 36,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-tnds-o-to-boi-thuong-bao-nhieu",
+      "name": "Bảo hiểm TNDS ô tô bồi thường bao nhiêu? Mức trách nhiệm và giới hạn"
+    },
+    {
+      "@type": "ListItem",
+      "position": 37,
+      "url": "https://dbv247.com.vn/tin-tuc/that-lac-hanh-ly-cach-doi-boi-thuong-hang-bay-va-bao-hiem",
+      "name": "Thất lạc hành lý: cách đòi bồi thường từ hãng bay và từ bảo hiểm"
+    },
+    {
+      "@type": "ListItem",
+      "position": 38,
+      "url": "https://dbv247.com.vn/tin-tuc/sac-xe-dien-trong-chung-cu-quy-dinh-va-bao-hiem",
+      "name": "Sạc xe điện trong chung cư: quy định mới 15/12/2026 và ảnh hưởng tới bảo hiểm"
+    },
+    {
+      "@type": "ListItem",
+      "position": 39,
+      "url": "https://dbv247.com.vn/tin-tuc/bieu-phi-bao-hiem-chay-no-bat-buoc-2026",
+      "name": "Biểu phí bảo hiểm cháy nổ bắt buộc 2026 theo từng loại cơ sở"
+    },
+    {
+      "@type": "ListItem",
+      "position": 40,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-chay-no-quan-an-nha-hang",
+      "name": "Bảo hiểm cháy nổ cho quán ăn, nhà hàng: phí và lưu ý riêng"
+    },
+    {
+      "@type": "ListItem",
+      "position": 41,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-moi-rui-ro-tai-san-loai-tru-nhung-gi",
+      "name": "Bảo hiểm mọi rủi ro tài sản loại trừ những gì?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 42,
+      "url": "https://dbv247.com.vn/tin-tuc/thu-tuc-boi-thuong-bao-hiem-tnds-khi-gay-tai-nan",
+      "name": "Thủ tục bồi thường bảo hiểm TNDS khi gây tai nạn"
+    },
+    {
+      "@type": "ListItem",
+      "position": 43,
+      "url": "https://dbv247.com.vn/tin-tuc/hoan-huy-chuyen-bay-bao-hiem-du-lich-boi-thuong-the-nao",
+      "name": "Hoãn, hủy chuyến bay: bảo hiểm du lịch bồi thường thế nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 44,
+      "url": "https://dbv247.com.vn/tin-tuc/hang-hoa-hong-khi-van-chuyen-ai-chiu-trach-nhiem",
+      "name": "Hàng hóa hỏng khi vận chuyển: ai chịu trách nhiệm?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 45,
+      "url": "https://dbv247.com.vn/tin-tuc/ban-quan-tri-da-mua-bao-hiem-cu-dan-co-can-mua-nua",
+      "name": "Ban quản trị đã mua bảo hiểm, cư dân có cần mua nữa không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 46,
+      "url": "https://dbv247.com.vn/tin-tuc/khong-mua-bao-hiem-chay-no-bat-buoc-bi-phat-bao-nhieu",
+      "name": "Không mua bảo hiểm cháy nổ bắt buộc bị phạt bao nhiêu?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 47,
+      "url": "https://dbv247.com.vn/tin-tuc/thue-mat-bang-chu-nha-hay-nguoi-thue-mua-bao-hiem",
+      "name": "Thuê mặt bằng: chủ nhà hay người thuê phải mua bảo hiểm?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 48,
+      "url": "https://dbv247.com.vn/tin-tuc/doanh-nghiep-nen-chon-all-risk-hay-chay-no-bat-buoc",
+      "name": "Doanh nghiệp nên chọn all-risk hay cháy nổ bắt buộc?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 49,
+      "url": "https://dbv247.com.vn/tin-tuc/mua-bao-hiem-tnds-o-to-online-can-giay-to-gi",
+      "name": "Mua bảo hiểm TNDS ô tô online cần giấy tờ gì?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 50,
+      "url": "https://dbv247.com.vn/tin-tuc/incoterms-cif-fob-ai-mua-bao-hiem-hang-hoa",
+      "name": "Incoterms CIF, FOB — ai có trách nhiệm mua bảo hiểm?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 51,
+      "url": "https://dbv247.com.vn/tin-tuc/chung-cu-may-tang-phai-mua-bao-hiem-chay-no",
+      "name": "Chung cư mấy tầng phải mua bảo hiểm cháy nổ? Ngưỡng mới NĐ 105/2025"
+    },
+    {
+      "@type": "ListItem",
+      "position": 52,
+      "url": "https://dbv247.com.vn/tin-tuc/danh-muc-44-co-so-phai-mua-bao-hiem-chay-no",
+      "name": "Danh mục 44 cơ sở phải mua bảo hiểm cháy nổ bắt buộc"
+    },
+    {
+      "@type": "ListItem",
+      "position": 53,
+      "url": "https://dbv247.com.vn/tin-tuc/ho-kinh-doanh-nao-bat-buoc-mua-bao-hiem-chay-no",
+      "name": "Hộ kinh doanh nào bắt buộc mua bảo hiểm cháy nổ?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 54,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-moi-rui-ro-tai-san-la-gi",
+      "name": "Bảo hiểm mọi rủi ro tài sản (all-risk) là gì?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 55,
+      "url": "https://dbv247.com.vn/tin-tuc/bieu-phi-bao-hiem-tnds-o-to-2026",
+      "name": "Biểu phí bảo hiểm TNDS ô tô 2026 đầy đủ theo số chỗ và tải trọng"
+    },
+    {
+      "@type": "ListItem",
+      "position": 56,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-xin-visa-theo-tung-nuoc",
+      "name": "Bảo hiểm du lịch xin visa: nước nào bắt buộc, nước nào không?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 57,
+      "url": "https://dbv247.com.vn/tin-tuc/dieu-kien-icc-a-b-c-khac-nhau-the-nao",
+      "name": "Điều kiện ICC A, B, C khác nhau thế nào?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 58,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-dbv-co-tot-khong",
+      "name": "Bảo hiểm DBV có tốt không? Đánh giá uy tín & Quy trình bồi thường"
+    },
+    {
+      "@type": "ListItem",
+      "position": 59,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-du-lich-xin-visa-schengen",
+      "name": "Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026"
+    },
+    {
+      "@type": "ListItem",
+      "position": 60,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong",
+      "name": "Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ"
+    },
+    {
+      "@type": "ListItem",
+      "position": 61,
+      "url": "https://dbv247.com.vn/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu",
+      "name": "Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026"
+    },
+    {
+      "@type": "ListItem",
+      "position": 62,
+      "url": "https://dbv247.com.vn/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv",
+      "name": "Tổng hợp Biểu phí & Quy tắc các gói Bảo hiểm DBV mới nhất"
+    },
+    {
+      "@type": "ListItem",
+      "position": 63,
+      "url": "https://dbv247.com.vn/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026",
+      "name": "Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024"
     }
   ]
-}
-</script>
-      <!-- DBV:NEWS-SCHEMA:END -->
+}</script>
+<!-- DBV:NEWS-SCHEMA:END -->
 <style id="dbv-layout">
 .hdr,.ftr,.float-cta,.mob-bar,.mob-sheet,.cat-dropdown{--c-brand:#007437;--c-brand-hover:#005A2B;--c-heading:#084C38;--c-mint:#EFF8F2;--c-mint-2:#E1F1E7;--c-green-soft:#E8F5E9;--c-accent:#E8920A;--c-accent-hover:#C97D08;--c-accent-soft:#FFF8E7;--c-bg:#FFFFFF;--c-bg-muted:#F8FAFB;--c-text:#1C1C1C;--c-text-muted:#4A5568;--c-border:#E2E8F0;--grad-mint:linear-gradient(135deg,#EFF8F2,#E1F1E7);--font:"Be Vietnam Pro",sans-serif;--radius-sm:8px;--radius-control:12px;--radius-card:16px;--radius-panel:24px;--radius-circle:50%;--radius-pill:999px;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--shadow-card:0 3px 14px rgba(8,76,56,.06);--shadow-card-hover:0 8px 24px rgba(8,76,56,.10);--container-page:1240px;--gutter:24px;--g:#007437;--gd:#005A2B;--gp:#005A2B;--gl:#E8F5E9;--g10:rgba(0,116,55,.10);--gold:#E8920A;--goldd:#C97D08;--gold-bg:#FFF8E7;--tx:#1C1C1C;--tm:#4A5568;--bd:#E2E8F0;--bg:#F8FAFB;--white:#FFFFFF;--r8:var(--radius-sm,8px);--r12:var(--radius-control,12px);--r16:var(--radius-card,16px);--r24:var(--radius-panel,24px);--zalo:#0068ff;--container:1400px;--gap-section:48px;--dk:#0f2515;--ts:#718096;--navy:#1B3A5C;--navyd:#132d47;--hp-g:var(--g,#007437);--hp-dk:#084C38;--hp-or:var(--gold,#E8920A);--hp-or-d:var(--goldd,#C97D08);--hp-mint:#EFF8F2;--hp-bd:#E1EBE4;--hp-tx:#1C2B24;--hp-tm:#4F5F57;--hp-r:var(--radius-card,16px);--hp-r-sm:var(--radius-sm,8px);--hp-sh:0 4px 18px rgba(8,76,56,.07);--hp-sh-h:0 10px 28px rgba(8,76,56,.13);--hp-gap:60px;--hp-head:22px;--hp-cgap:20px;--hp-pad:18px;font-family:"Be Vietnam Pro",sans-serif;font-size:14px;line-height:1.6;color:var(--tx,#1C1C1C)}@media(max-width:767px){.hdr,.ftr,.float-cta,.mob-bar,.mob-sheet,.cat-dropdown{--radius-panel:20px;--gutter:16px}}@media(min-width:768px){.hdr,.ftr,.float-cta,.mob-bar,.mob-sheet,.cat-dropdown{--gap-section:64px}}@media(max-width:767px){.hdr,.ftr,.float-cta,.mob-bar,.mob-sheet,.cat-dropdown{--hp-gap:38px;--hp-head:15px;--hp-cgap:12px;--hp-pad:12px}}
 .hdr,.ftr,.float-cta,.mob-bar,.mob-sheet,.cat-dropdown,.hdr *,.ftr *,.float-cta *,.mob-bar *,.mob-sheet *,.cat-dropdown *{margin:0;padding:0;box-sizing:border-box}
@@ -576,9 +886,9 @@ a{color:inherit}
 .news-hero{min-height:300px;display:flex;flex-direction:column;justify-content:center;padding:60px 32px;box-sizing:border-box;background:linear-gradient(135deg,rgba(26,46,26,.84) 0%,rgba(0,116,55,.76) 60%,rgba(0,90,43,.68) 100%),url('/banner-hero.webp') center 45%/cover no-repeat;}
 @media(max-width:768px){.news-hero{min-height:210px;padding:40px 18px}}
 </style>
-<link rel="stylesheet" href="/assets/news-page.css">
-<script src="/assets/news-page.js" defer></script>
-<link rel="stylesheet" href="/assets/hero-scenes.css?v=20260930c">
+<link rel="stylesheet" href="/assets/news-page.css?v=20261002-mockup2">
+<script src="/assets/news-page.js?v=20261002-mockup2" defer></script>
+<link rel="stylesheet" href="/assets/news-mockup.css?v=20261002-mockup2">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -780,17 +1090,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <main class="nt" id="nt-page"><div class="nt-wrap">
-<nav class="nt-breadcrumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a><span aria-hidden="true"> / </span>Tin tức &amp; cẩm nang</nav>
-<section class="nt-hero"><div><h1>Tin tức &amp; cẩm nang bảo hiểm</h1><p>Hiểu đúng bảo hiểm, an tâm mỗi ngày.</p><form id="nt-search" class="nt-search nt-js" role="search"><label class="nt-sr" for="nt-query">Tìm bài viết</label><input type="search" id="nt-query" placeholder="Tìm bài viết, chủ đề bạn quan tâm" autocomplete="off"><button class="nt-btn nt-orange" type="submit">Tìm kiếm</button></form></div><picture class="dbv-hero-scene"><img src="/assets/img/banners/tin-tuc-hero-v1-2172.webp" srcset="/assets/img/banners/tin-tuc-hero-v1-1200.webp 1200w, /assets/img/banners/tin-tuc-hero-v1-2172.webp 2172w" sizes="(max-width: 767px) 510px, (max-width: 1240px) 100vw, 1192px" width="2172" height="724" alt="" fetchpriority="high" decoding="async"></picture></section>
-<div class="news-tabs nt-js" id="newsTabs" role="group" aria-label="Lọc bài viết theo chủ đề"><!-- DBV:NEWS-TABS:START -->
-      <button class="news-tab on" type="button" role="tab" aria-selected="true" data-cat="all">Tất cả <span class="n">63</span></button>
-      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="xe">Xe cơ giới <span class="n">24</span></button>
-      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="taisan">Tài sản &amp; Kỹ thuật <span class="n">23</span></button>
-      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="conguoi">Du lịch &amp; Con người <span class="n">11</span></button>
-      <button class="news-tab" type="button" role="tab" aria-selected="false" data-cat="chung">Kiến thức chung <span class="n">5</span></button>
-      <!-- DBV:NEWS-TABS:END --></div>
-<section id="nt-featured" class="nt-featured" aria-labelledby="nt-feature-title"><h2 id="nt-feature-title">Bài viết nổi bật</h2><div class="nt-feature-grid"><a class="guide-card nt-feature-card" data-cat="xe" href="/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto">
-        <img src="/than-vo-oto.webp" alt="Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết" loading="lazy" decoding="async" width="360" height="170">
+<nav class="nt-breadcrumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a><span aria-hidden="true">/</span>Tin tức &amp; cẩm nang</nav>
+<section class="nt-hero" aria-labelledby="nt-title"><picture class="nt-hero-art"><source srcset="/assets/img/tin-tuc/hero-office-v1.webp" type="image/webp"><img src="/assets/img/tin-tuc/hero-office-v1.webp" width="1855" height="848" alt="" fetchpriority="high" decoding="async"></picture><div class="nt-hero-copy"><h1 id="nt-title">Tin tức &amp; cẩm nang bảo hiểm</h1><p>Hiểu đúng bảo hiểm, an tâm mỗi ngày.</p><form id="nt-search" class="nt-search nt-js" role="search"><label class="nt-sr" for="nt-query">Tìm bài viết, chủ đề bạn quan tâm</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" id="nt-query" placeholder="Tìm bài viết, chủ đề bạn quan tâm" autocomplete="off"><button class="nt-btn nt-orange" type="submit">Tìm kiếm</button></form></div></section>
+<div class="news-tabs nt-js" id="newsTabs" role="group" aria-label="Lọc bài viết theo chủ đề"><!-- DBV:NEWS-TABS:START --><button class="news-tab on" type="button" aria-pressed="true" data-cat="all"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/></svg>Tất cả <span class="n">63</span></button><button class="news-tab" type="button" aria-pressed="false" data-cat="xe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m5 9 2-5h10l2 5M3 9h18v9H3zM6 18v3m12-3v3M6 13h2m8 0h2"/></svg>Xe cơ giới <span class="n">24</span></button><button class="news-tab" type="button" aria-pressed="false" data-cat="taisan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 21V3h14v18M9 7h2m2 0h2M9 11h2m2 0h2M9 15h2m2 0h2M10 21v-3h4v3"/></svg>Tài sản &amp; Kỹ thuật <span class="n">23</span></button><button class="news-tab" type="button" aria-pressed="false" data-cat="conguoi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m3 15 7-3V3l3-1 1 10 7 3v3l-7-2v4l2 2h-8l2-2v-4l-7 2z"/></svg>Du lịch &amp; Con người <span class="n">11</span></button><button class="news-tab" type="button" aria-pressed="false" data-cat="chung"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 5C8 2 3 3 3 3v17s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2zM12 5v17"/></svg>Kiến thức chung <span class="n">5</span></button><!-- DBV:NEWS-TABS:END --></div>
+<section id="nt-featured" class="nt-featured" aria-labelledby="nt-feature-title"><div class="nt-section-head"><h2 id="nt-feature-title">Bài viết nổi bật</h2><a href="#nt-results" class="nt-text-link">Xem tất cả <span aria-hidden="true">→</span></a></div><div class="nt-feature-grid"><a class="guide-card nt-feature-card" data-cat="xe" href="/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) calc(100vw - 32px), 620px" alt="Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết" loading="lazy" decoding="async" width="960" height="640">
         <div class="guide-card-body">
           <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">23/07/2026</span></div>
           <h3>Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết</h3>
@@ -798,593 +1102,529 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="guide-card-more">Đọc bài viết →</div>
         </div>
       </a><a class="guide-card nt-feature-card" data-cat="chung" href="/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv">
-        <img src="/than-vo-oto.webp" alt="Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố" loading="lazy" decoding="async" width="360" height="170">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố" loading="lazy" decoding="async" width="960" height="640">
         <div class="guide-card-body">
           <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
           <h3>Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố</h3>
           <p>Hướng dẫn từng bước khai báo bồi thường Bảo hiểm DBV: việc cần làm trong 24h đầu, hồ sơ theo từng nghiệp vụ xe, sức khỏe, du lịch và thời gian nhận tiền.</p>
           <div class="guide-card-more">Đọc bài viết →</div>
         </div>
-      </a><a class="guide-card nt-feature-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-chi-tra-nhung-gi">
-        <img src="/du-lich-quoc-te.webp" alt="Bảo hiểm du lịch chi trả những gì?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Bảo hiểm du lịch chi trả những gì?</h3>
-          <p>Bốn nhóm quyền lợi và các trường hợp loại trừ. Quyền lợi dùng nhiều nhất không phải y tế mà là hành lý.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a></div></section>
-<section id="newsListWrap" aria-labelledby="nt-results"><div class="nt-toolbar"><div><h2 id="nt-results" tabindex="-1">Khám phá cẩm nang</h2><p id="nt-count" role="status" aria-live="polite">63 bài viết</p></div><label class="nt-sort nt-js">Sắp xếp <select id="nt-sort"><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option><option value="title">Tiêu đề A–Z</option></select></label></div><div class="guide-grid" id="newsGrid"><!-- DBV:NEWS-CARDS:START -->
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-vinfast-vf5-herio-green-phi-bao-nhieu">
-        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm xe VF 5 và bản Herio Green: phí khác nhau thế nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">13/09/2026</span></div>
-          <h3>Bảo hiểm xe VF 5 và bản Herio Green: phí khác nhau thế nào?</h3>
-          <p>Cùng một mẫu xe nhưng hai vai trò khác nhau, và vì sao VF 5 nằm đúng vùng ngưỡng của mức phí tối thiểu.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-vinfast-vf3-het-bao-nhieu-tien">
-        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm xe VinFast VF 3 hết bao nhiêu tiền một năm?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">12/09/2026</span></div>
-          <h3>Bảo hiểm xe VinFast VF 3 hết bao nhiêu tiền một năm?</h3>
-          <p>Vì sao xe càng rẻ thì tỷ lệ phí vật chất thực tế lại càng cao, và khi nào nên bỏ qua phần này.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-dien-chay-dich-vu-khac-gi-xe-gia-dinh">
-        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm xe điện chạy dịch vụ khác gì xe gia đình?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">12/09/2026</span></div>
-          <h3>Bảo hiểm xe điện chạy dịch vụ khác gì xe gia đình?</h3>
-          <p>Ba lớp khác biệt về phí và phạm vi, và vì sao khai sai mục đích sử dụng là rủi ro lớn hơn khoản tiết kiệm.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-limo-green-phi-bao-nhieu">
-        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm xe Limo Green: phí bao nhiêu theo mục đích sử dụng?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">12/09/2026</span></div>
-          <h3>Bảo hiểm xe Limo Green: phí bao nhiêu theo mục đích sử dụng?</h3>
-          <p>Xe 7 chỗ chạy dịch vụ có ba mức phí TNDS khác nhau, chênh nhau hơn hai lần tuỳ mục đích khai trên đơn.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-cong-trinh-xay-dung-thay-doi-gi-tu-1-7-2026">
-        <img src="/moi-rui-ro-xay-dung.webp" alt="Bảo hiểm công trình xây dựng thay đổi gì từ 01/7/2026?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">12/09/2026</span></div>
-          <h3>Bảo hiểm công trình xây dựng thay đổi gì từ 01/7/2026?</h3>
-          <p>Năm điều khoản bị sửa, phụ lục mức phí bị thay, và việc chủ đầu tư cần làm lại trước khi ký hợp đồng bảo hiểm mới.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/chu-dau-tu-hay-nha-thau-phai-mua-bao-hiem-cong-trinh">
-        <img src="/moi-rui-ro-xay-dung.webp" alt="Chủ đầu tư hay nhà thầu phải mua bảo hiểm công trình?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">12/09/2026</span></div>
-          <h3>Chủ đầu tư hay nhà thầu phải mua bảo hiểm công trình?</h3>
-          <p>Ba loại bảo hiểm bắt buộc trong xây dựng, bên nào mua loại nào, và cách ghi vào hợp đồng để không có khoảng trống.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/muc-khau-tru-bao-hiem-vat-chat-o-to-nen-chon-bao-nhieu">
-        <img src="/than-vo-oto.webp" alt="Mức khấu trừ bảo hiểm vật chất ô tô nên chọn bao nhiêu?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Mức khấu trừ bảo hiểm vật chất ô tô nên chọn bao nhiêu?</h3>
-          <p>Nâng khấu trừ giảm 0,1–0,3% tỷ lệ phí. Xe dưới 800 triệu thường chọn mức 1 triệu/vụ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-o-to-dien-khac-xe-xang-o-diem-nao">
-        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm ô tô điện khác bảo hiểm xe xăng ở điểm nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Bảo hiểm ô tô điện khác bảo hiểm xe xăng ở điểm nào?</h3>
-          <p>Bốn khác biệt: pin thay mới không khấu hao, xưởng ủy quyền, loại trừ riêng, cách tính khi thuê pin.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/xay-nha-dan-sinh-co-can-mua-bao-hiem-khong">
-        <img src="/moi-rui-ro-xay-dung.webp" alt="Xây nhà dân sinh có cần mua bảo hiểm không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Xây nhà dân sinh có cần mua bảo hiểm không?</h3>
-          <p>Nhà dưới 7 tầng, sàn dưới 500m² là tự nguyện. Nhà 2 tỷ khoảng 800.000đ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/gui-hang-bi-mat-hong-boi-thuong-the-nao">
-        <img src="/hang-buu-gui.webp" alt="Gửi hàng bị mất, hỏng thì bồi thường thế nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Gửi hàng bị mất, hỏng thì bồi thường thế nào?</h3>
-          <p>Từ 1.000đ/đơn, bảo hiểm tối đa 30 triệu. Hóa đơn VAT nâng mức bảo vệ gấp năm lần.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-tai-nan-24-24-chi-tra-nhung-gi">
-        <img src="/tai-nan-ca-nhan.webp" alt="Bảo hiểm tai nạn 24/24 chi trả những gì?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">29/08/2026</span></div>
-          <h3>Bảo hiểm tai nạn 24/24 chi trả những gì?</h3>
-          <p>Năm nhóm quyền lợi, bồi thường gấp đôi trên phương tiện công cộng. Từ 250.000đ/năm cho 100 triệu.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/sot-xuat-huyet-nam-vien-bao-hiem-chi-tra-bao-nhieu">
-        <img src="/benh-nhiet-doi.webp" alt="Sốt xuất huyết nằm viện, bảo hiểm chi trả bao nhiêu?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">29/08/2026</span></div>
-          <h3>Sốt xuất huyết nằm viện, bảo hiểm chi trả bao nhiêu?</h3>
-          <p>Nằm viện đến 4 triệu/năm cộng trợ cấp 50.000đ/ngày. Phí 111.000đ/năm.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/xe-ngap-nuoc-thuy-kich-bao-hiem-boi-thuong-the-nao">
-        <img src="/than-vo-oto.webp" alt="Xe ngập nước, thủy kích: bảo hiểm bồi thường thế nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">29/08/2026</span></div>
-          <h3>Xe ngập nước, thủy kích: bảo hiểm bồi thường thế nào?</h3>
-          <p>Vật chất xe cơ bản không phủ thủy kích — cần điều khoản BS06, khấu trừ 20%.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-suc-khoe-thoi-gian-cho-bao-lau">
-        <img src="/suc-khoe.webp" alt="Bảo hiểm sức khỏe có thời gian chờ bao lâu?" loading="lazy" decoding="async" width="360" height="170">
+      </a><a class="guide-card nt-feature-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-suc-khoe-thoi-gian-cho-bao-lau">
+        <img src="/assets/img/tin-tuc/health-family-v1.webp" srcset="/assets/img/tin-tuc/health-family-v1-480.webp 480w, /assets/img/tin-tuc/health-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm sức khỏe có thời gian chờ bao lâu?" loading="lazy" decoding="async" width="960" height="640">
         <div class="guide-card-body">
           <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">24/08/2026</span></div>
           <h3>Bảo hiểm sức khỏe có thời gian chờ bao lâu?</h3>
           <p>Tai nạn không chờ, bệnh thông thường 30 ngày, bệnh có sẵn 12 tháng, sinh đẻ 270 ngày.</p>
           <div class="guide-card-more">Đọc bài viết →</div>
         </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-suc-khoe-co-chi-tra-benh-co-san-khong">
-        <img src="/suc-khoe.webp" alt="Bảo hiểm sức khỏe có chi trả bệnh có sẵn không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">24/08/2026</span></div>
-          <h3>Bảo hiểm sức khỏe có chi trả bệnh có sẵn không?</h3>
-          <p>Có — sau thời gian chờ 12 tháng, với điều kiện khai báo trung thực ngay từ đầu.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/mua-bao-hiem-suc-khoe-cho-bo-me-tren-60-tuoi">
-        <img src="/suc-khoe.webp" alt="Mua bảo hiểm sức khỏe cho bố mẹ trên 60 tuổi được không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">24/08/2026</span></div>
-          <h3>Mua bảo hiểm sức khỏe cho bố mẹ trên 60 tuổi được không?</h3>
-          <p>Được — nhận đến 65 tuổi. Nhưng mốc chờ 12 tháng khiến mỗi tháng trì hoãn đều có giá.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-hoan-tien-co-dung-luat-khong">
-        <img src="/tnds-oto.webp" alt="Mua bảo hiểm TNDS được hoàn tiền, tặng quà có đúng luật không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
-          <h3>Mua bảo hiểm TNDS được hoàn tiền, tặng quà có đúng luật không?</h3>
-          <p>Điều 75 NĐ 67/2023 cấm khuyến mại, chiết khấu dưới mọi hình thức. Khác hẳn hoàn phí khi huỷ hợp đồng.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-2-nam-3-nam-co-re-hon-khong">
-        <img src="/tnds-xemay.webp" alt="Mua bảo hiểm TNDS 2 năm, 3 năm có rẻ hơn mua từng năm không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
-          <h3>Mua bảo hiểm TNDS 2 năm, 3 năm có rẻ hơn mua từng năm không?</h3>
-          <p>Không rẻ hơn. Xe máy 3 năm là 198.000đ, ô tô 5 chỗ 3 năm là 1.442.100đ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/dai-ly-bao-hiem-co-duoc-giam-gia-cho-khach-khong">
-        <img src="/tnds-oto.webp" alt="Đại lý bảo hiểm có được cắt hoa hồng giảm giá cho khách không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
-          <h3>Đại lý bảo hiểm có được cắt hoa hồng giảm giá cho khách không?</h3>
-          <p>Hoa hồng là quan hệ giữa doanh nghiệp bảo hiểm và đại lý, không phải phần khách được trừ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-o-to-o-dau-uy-tin">
-        <img src="/tnds-oto.webp" alt="Mua bảo hiểm TNDS ô tô ở đâu uy tín? Sáu tiêu chí để tự chọn" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
-          <h3>Mua bảo hiểm TNDS ô tô ở đâu uy tín? Sáu tiêu chí để tự chọn</h3>
-          <p>Phí giống nhau ở mọi nơi nên không chọn theo giá — sáu tiêu chí thay thế.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-may-ven-duong-20k-co-dung-duoc-khong">
-        <img src="/tnds-xemay.webp" alt="Bảo hiểm xe máy bán ven đường 20.000đ có dùng được không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">15/08/2026</span></div>
-          <h3>Bảo hiểm xe máy bán ven đường 20.000đ có dùng được không?</h3>
-          <p>Phí đúng quy định là 66.000đ/năm. Điều 75 NĐ 67/2023 cấm chiết khấu, nên loại 10–20k thường là sản phẩm khác.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/cach-kiem-tra-giay-chung-nhan-bao-hiem-that-hay-gia">
-        <img src="/tnds-oto.webp" alt="Cách kiểm tra giấy chứng nhận bảo hiểm xe thật hay giả: sáu bước" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">15/08/2026</span></div>
-          <h3>Cách kiểm tra giấy chứng nhận bảo hiểm xe thật hay giả: sáu bước</h3>
-          <p>Đối chiếu mức phí, đọc tên sản phẩm, kiểm mã QR, gọi tổng đài tra số đơn.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-tnds-o-to-gia-re-mua-tu-ai">
-        <img src="/tnds-xemay.webp" alt="Bảo hiểm TNDS ô tô giá rẻ: đừng chỉ tìm nơi bán rẻ, hãy kiểm tra bạn đang mua từ ai" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">11/08/2026</span></div>
-          <h3>Bảo hiểm TNDS ô tô giá rẻ: đừng chỉ tìm nơi bán rẻ, hãy kiểm tra bạn đang mua từ ai</h3>
-          <p>Bảo hiểm TNDS giá rẻ có mua được không? Điều 75 NĐ 67/2023 cấm khuyến mại, chiết khấu dưới mọi hình thức.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-chung-cu-khong-boi-thuong-truong-hop-nao">
-        <img src="/nha-chung-cu.webp" alt="Bảo hiểm cháy nổ chung cư không bồi thường trong trường hợp nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Bảo hiểm cháy nổ chung cư không bồi thường trong trường hợp nào?</h3>
-          <p>Ba nhóm loại trừ, và lý do bị từ chối phổ biến nhất lại nằm ở phạm vi hợp đồng.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/muc-khau-tru-bao-hiem-chay-no-bat-buoc-tinh-the-nao">
-        <img src="/chay-no-bat-buoc.webp" alt="Mức khấu trừ trong bảo hiểm cháy nổ bắt buộc tính thế nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Mức khấu trừ trong bảo hiểm cháy nổ bắt buộc tính thế nào?</h3>
-          <p>Tối đa 1% số tiền bảo hiểm, khung tối thiểu 4–100 triệu theo giá trị tài sản.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-cho-kho-hang-xuong-nho">
-        <img src="/chay-no-ho-kinh-doanh.webp" alt="Bảo hiểm cháy nổ cho kho hàng, xưởng nhỏ" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Bảo hiểm cháy nổ cho kho hàng, xưởng nhỏ</h3>
-          <p>Tỷ lệ phí 0,2%–0,5%/năm theo hạng nguy hiểm A, B, C và cách kê khai hàng tồn kho.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/truong-hop-nao-bao-hiem-tnds-khong-boi-thuong">
-        <img src="/tnds-oto.webp" alt="Trường hợp nào bảo hiểm TNDS không bồi thường?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Trường hợp nào bảo hiểm TNDS không bồi thường?</h3>
-          <p>Nồng độ cồn, không có bằng lái hợp lệ, bỏ chạy — chủ xe tự gánh toàn bộ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-theo-doan-cach-tinh-phi-cho-cong-ty-tour">
-        <img src="/du-lich-trong-nuoc.webp" alt="Bảo hiểm du lịch theo đoàn: cách tính phí cho công ty tour" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">03/09/2026</span></div>
-          <h3>Bảo hiểm du lịch theo đoàn: cách tính phí cho công ty tour</h3>
-          <p>Phí đoàn = phí cá nhân × số người. Đoàn 40 khách đi 4 ngày khoảng 345.600đ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/cach-tinh-gia-tri-tai-san-khai-bao-can-ho-chung-cu">
-        <img src="/nha-chung-cu.webp" alt="Cách tính giá trị tài sản khai báo cho căn hộ chung cư" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">27/08/2026</span></div>
-          <h3>Cách tính giá trị tài sản khai báo cho căn hộ chung cư</h3>
-          <p>Khai theo chi phí làm lại phần bên trong, không theo giá bán. Căn 80m² thường khai 800 triệu – 1,2 tỷ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/thu-tuc-mua-bao-hiem-chay-no-bat-buoc-cho-doanh-nghiep">
-        <img src="/chay-no-bat-buoc.webp" alt="Thủ tục mua bảo hiểm cháy nổ bắt buộc cho doanh nghiệp" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">27/08/2026</span></div>
-          <h3>Thủ tục mua bảo hiểm cháy nổ bắt buộc cho doanh nghiệp</h3>
-          <p>Bốn nhóm hồ sơ, quy trình năm bước và mức phí 0,05%–0,5%/năm theo NĐ 105/2025.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/phi-bao-hiem-chay-no-co-duoc-tinh-vao-chi-phi-duoc-tru">
-        <img src="/chay-no-ho-kinh-doanh.webp" alt="Phí bảo hiểm cháy nổ có được tính vào chi phí được trừ khi tính thuế?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">27/08/2026</span></div>
-          <h3>Phí bảo hiểm cháy nổ có được tính vào chi phí được trừ khi tính thuế?</h3>
-          <p>Ba điều kiện để được trừ, và thay đổi với hộ kinh doanh sau khi bỏ thuế khoán từ 2026.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-tnds-o-to-boi-thuong-bao-nhieu">
-        <img src="/tnds-oto.webp" alt="Bảo hiểm TNDS ô tô bồi thường bao nhiêu? Mức trách nhiệm và giới hạn" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">27/08/2026</span></div>
-          <h3>Bảo hiểm TNDS ô tô bồi thường bao nhiêu? Mức trách nhiệm và giới hạn</h3>
-          <p>Tối đa 150 triệu/người/vụ và 100 triệu tài sản/vụ. Vượt mức, chủ xe tự chịu.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/that-lac-hanh-ly-cach-doi-boi-thuong-hang-bay-va-bao-hiem">
-        <img src="/du-lich-quoc-te.webp" alt="Thất lạc hành lý: cách đòi bồi thường từ hãng bay và từ bảo hiểm" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">27/08/2026</span></div>
-          <h3>Thất lạc hành lý: cách đòi bồi thường từ hãng bay và từ bảo hiểm</h3>
-          <p>Hãng bay tối đa 1.519 SDR theo Công ước Montreal. Mốc 21 ngày quyết định hồ sơ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/sac-xe-dien-trong-chung-cu-quy-dinh-va-bao-hiem">
-        <img src="/nha-chung-cu.webp" alt="Sạc xe điện trong chung cư: quy định mới 15/12/2026 và ảnh hưởng tới bảo hiểm" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
-          <h3>Sạc xe điện trong chung cư: quy định mới 15/12/2026 và ảnh hưởng tới bảo hiểm</h3>
-          <p>Chung cư bắt buộc bố trí khu sạc riêng theo Thông tư 31/2026. Sạc sai quy định có thể mất quyền bồi thường.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bieu-phi-bao-hiem-chay-no-bat-buoc-2026">
-        <img src="/chay-no-bat-buoc.webp" alt="Biểu phí bảo hiểm cháy nổ bắt buộc 2026 theo từng loại cơ sở" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
-          <h3>Biểu phí bảo hiểm cháy nổ bắt buộc 2026 theo từng loại cơ sở</h3>
-          <p>Tỷ lệ phí 0,05%–0,5%/năm theo Phụ lục VI NĐ 105/2025. Có sprinkler giảm một nửa phí.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-quan-an-nha-hang">
-        <img src="/chay-no-ho-kinh-doanh.webp" alt="Bảo hiểm cháy nổ cho quán ăn, nhà hàng: phí và lưu ý riêng" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
-          <h3>Bảo hiểm cháy nổ cho quán ăn, nhà hàng: phí và lưu ý riêng</h3>
-          <p>Ngưỡng 300 m² tính cả bếp và kho. Rủi ro riêng của ngành bếp và bốn điều khoản nên có.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-moi-rui-ro-tai-san-loai-tru-nhung-gi">
-        <img src="/moi-rui-ro-tai-san.webp" alt="Bảo hiểm mọi rủi ro tài sản loại trừ những gì?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
-          <h3>Bảo hiểm mọi rủi ro tài sản loại trừ những gì?</h3>
-          <p>Bảy nhóm loại trừ phổ biến và cách kiểm tra hợp đồng trước khi ký.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/thu-tuc-boi-thuong-bao-hiem-tnds-khi-gay-tai-nan">
-        <img src="/tnds-oto.webp" alt="Thủ tục bồi thường bảo hiểm TNDS khi gây tai nạn" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">20/08/2026</span></div>
-          <h3>Thủ tục bồi thường bảo hiểm TNDS khi gây tai nạn</h3>
-          <p>Việc cần làm ngay tại hiện trường, hồ sơ đầy đủ và mức trách nhiệm 150 triệu/người.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/hoan-huy-chuyen-bay-bao-hiem-du-lich-boi-thuong-the-nao">
-        <img src="/du-lich-quoc-te.webp" alt="Hoãn, hủy chuyến bay: bảo hiểm du lịch bồi thường thế nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">20/08/2026</span></div>
-          <h3>Hoãn, hủy chuyến bay: bảo hiểm du lịch bồi thường thế nào?</h3>
-          <p>Ba tình huống khác nhau và giấy tờ bắt buộc phải xin ngay tại sân bay.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="chung" href="/tin-tuc/hang-hoa-hong-khi-van-chuyen-ai-chiu-trach-nhiem">
-        <img src="/hang-hoa-van-chuyen-noi-dia.webp" alt="Hàng hóa hỏng khi vận chuyển: ai chịu trách nhiệm?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">20/08/2026</span></div>
-          <h3>Hàng hóa hỏng khi vận chuyển: ai chịu trách nhiệm?</h3>
-          <p>Trách nhiệm nhà xe có giới hạn thấp hơn giá trị hàng. Biên bản giao nhận là bước quyết định.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/ban-quan-tri-da-mua-bao-hiem-cu-dan-co-can-mua-nua">
-        <img src="/nha-chung-cu.webp" alt="Ban quản trị đã mua bảo hiểm, cư dân có cần mua nữa không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Ban quản trị đã mua bảo hiểm, cư dân có cần mua nữa không?</h3>
-          <p>Hợp đồng của ban quản trị chỉ phủ phần sở hữu chung. Nội thất trong căn hộ bạn không nằm trong đó.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/khong-mua-bao-hiem-chay-no-bat-buoc-bi-phat-bao-nhieu">
-        <img src="/chay-no-bat-buoc.webp" alt="Không mua bảo hiểm cháy nổ bắt buộc bị phạt bao nhiêu?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Không mua bảo hiểm cháy nổ bắt buộc bị phạt bao nhiêu?</h3>
-          <p>Nhóm 2 phạt 30–40 triệu, nhóm 1 phạt 40–50 triệu với cá nhân; tổ chức gấp đôi, tới 100 triệu theo NĐ 106/2025.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/thue-mat-bang-chu-nha-hay-nguoi-thue-mua-bao-hiem">
-        <img src="/chay-no-ho-kinh-doanh.webp" alt="Thuê mặt bằng: chủ nhà hay người thuê phải mua bảo hiểm?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Thuê mặt bằng: chủ nhà hay người thuê phải mua bảo hiểm?</h3>
-          <p>Chủ nhà bảo hiểm nhà, người thuê bảo hiểm hàng hóa và thiết bị. Mẫu điều khoản nên có trong hợp đồng thuê.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/doanh-nghiep-nen-chon-all-risk-hay-chay-no-bat-buoc">
-        <img src="/moi-rui-ro-tai-san.webp" alt="Doanh nghiệp nên chọn all-risk hay cháy nổ bắt buộc?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Doanh nghiệp nên chọn all-risk hay cháy nổ bắt buộc?</h3>
-          <p>Ba câu hỏi để tự quyết, bảng so sánh ba mức bảo vệ và lộ trình cho doanh nghiệp ngân sách hạn chế.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-o-to-online-can-giay-to-gi">
-        <img src="/tnds-oto.webp" alt="Mua bảo hiểm TNDS ô tô online cần giấy tờ gì?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Mua bảo hiểm TNDS ô tô online cần giấy tờ gì?</h3>
-          <p>Chỉ cần thông tin trên giấy đăng ký xe. Giấy chứng nhận điện tử có giá trị pháp lý đầy đủ theo NĐ 67/2023.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-chi-tra-nhung-gi">
-        <img src="/du-lich-quoc-te.webp" alt="Bảo hiểm du lịch chi trả những gì?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Bảo hiểm du lịch chi trả những gì?</h3>
-          <p>Bốn nhóm quyền lợi và các trường hợp loại trừ. Quyền lợi dùng nhiều nhất không phải y tế mà là hành lý.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="chung" href="/tin-tuc/incoterms-cif-fob-ai-mua-bao-hiem-hang-hoa">
-        <img src="/hang-hoa-xnk.webp" alt="Incoterms CIF, FOB — ai có trách nhiệm mua bảo hiểm?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">13/08/2026</span></div>
-          <h3>Incoterms CIF, FOB — ai có trách nhiệm mua bảo hiểm?</h3>
-          <p>Chỉ CIF và CIP buộc người bán mua. Bảng tra 11 điều kiện Incoterms 2020 kèm điểm chuyển rủi ro.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/chung-cu-may-tang-phai-mua-bao-hiem-chay-no">
-        <img src="/nha-chung-cu.webp" alt="Chung cư mấy tầng phải mua bảo hiểm cháy nổ? Ngưỡng mới NĐ 105/2025" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
-          <h3>Chung cư mấy tầng phải mua bảo hiểm cháy nổ? Ngưỡng mới NĐ 105/2025</h3>
-          <p>Ngưỡng đã hạ từ 7 tầng xuống 5 tầng hoặc 1.000 m² sàn từ 01/7/2025. Cách tự kiểm tra toà nhà của bạn trong 2 phút.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/danh-muc-44-co-so-phai-mua-bao-hiem-chay-no">
-        <img src="/chay-no-bat-buoc.webp" alt="Danh mục 44 cơ sở phải mua bảo hiểm cháy nổ bắt buộc" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
-          <h3>Danh mục 44 cơ sở phải mua bảo hiểm cháy nổ bắt buộc</h3>
-          <p>Bảng tra đầy đủ 44 loại cơ sở kèm ngưỡng cụ thể theo Phụ lục VII Nghị định 105/2025.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/ho-kinh-doanh-nao-bat-buoc-mua-bao-hiem-chay-no">
-        <img src="/chay-no-ho-kinh-doanh.webp" alt="Hộ kinh doanh nào bắt buộc mua bảo hiểm cháy nổ?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
-          <h3>Hộ kinh doanh nào bắt buộc mua bảo hiểm cháy nổ?</h3>
-          <p>Bán hàng dễ cháy từ 200 m², ăn uống từ 300 m². Ba chỗ chủ cơ sở hay tính sai diện tích sàn.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-moi-rui-ro-tai-san-la-gi">
-        <img src="/moi-rui-ro-tai-san.webp" alt="Bảo hiểm mọi rủi ro tài sản (all-risk) là gì?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
-          <h3>Bảo hiểm mọi rủi ro tài sản (all-risk) là gì?</h3>
-          <p>Khác gì cháy nổ bắt buộc, loại trừ những gì, và cách xác định số tiền bảo hiểm cho đúng.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bieu-phi-bao-hiem-tnds-o-to-2026">
-        <img src="/tnds-oto.webp" alt="Biểu phí bảo hiểm TNDS ô tô 2026 đầy đủ theo số chỗ và tải trọng" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">06/08/2026</span></div>
-          <h3>Biểu phí bảo hiểm TNDS ô tô 2026 đầy đủ theo số chỗ và tải trọng</h3>
-          <p>Xe gia đình dưới 6 chỗ 437.000đ, xe kinh doanh theo từng số chỗ, xe tải theo trọng tải. Kèm hệ số taxi, xe tập lái.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-xin-visa-theo-tung-nuoc">
-        <img src="/du-lich-quoc-te.webp" alt="Bảo hiểm du lịch xin visa: nước nào bắt buộc, nước nào không?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">06/08/2026</span></div>
-          <h3>Bảo hiểm du lịch xin visa: nước nào bắt buộc, nước nào không?</h3>
-          <p>Chỉ khối Schengen bắt buộc 30.000 EUR. Nhật, Hàn, Anh, Mỹ, Úc không yêu cầu trong hồ sơ visa du lịch.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="chung" href="/tin-tuc/dieu-kien-icc-a-b-c-khac-nhau-the-nao">
-        <img src="/hang-hoa-xnk.webp" alt="Điều kiện ICC A, B, C khác nhau thế nào?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">06/08/2026</span></div>
-          <h3>Điều kiện ICC A, B, C khác nhau thế nào?</h3>
-          <p>A bảo hiểm mọi rủi ro trừ loại trừ, B và C chỉ bảo hiểm rủi ro liệt kê. Mất cắp chỉ ICC A phủ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67">
-        <img src="/nha-chung-cu.webp" alt="Bảo hiểm cháy nổ chung cư theo Nghị định 105/2025: Ai bắt buộc mua và phí bao nhiêu?" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm cháy nổ chung cư theo Nghị định 105/2025: Ai bắt buộc mua và phí bao nhiêu?</h3>
-          <p>Chủ sở hữu căn hộ chung cư bắt buộc mua bảo hiểm cháy nổ theo Nghị định 105/2025/NĐ-CP. Tỷ lệ phí 0,05%/năm nếu có hệ thống chữa cháy tự động, 0,1%/năm nếu không. Hướng dẫn đầy đủ phạm vi, mức khấu trừ và hồ sơ bồi thường.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-dbv-co-tot-khong">
-        <img src="/doi-ngu-chuyen-gia.webp" alt="Bảo hiểm DBV có tốt không? Đánh giá uy tín &amp; Quy trình bồi thường" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm DBV có tốt không? Đánh giá uy tín &amp; Quy trình bồi thường</h3>
-          <p>Đánh giá Bảo hiểm DBV: giấy phép Bộ Tài chính, quy mô 18+ năm, mạng lưới 1.500+ gara liên kết và cam kết thời gian bồi thường thực tế theo từng nghiệp vụ.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-xin-visa-schengen">
-        <img src="/du-lich-quoc-te.webp" alt="Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026</h3>
-          <p>Xin visa Schengen bắt buộc phải có bảo hiểm du lịch mức tối thiểu 30.000 EUR, hiệu lực toàn bộ 29 nước Schengen và phủ kín thời gian lưu trú. Hướng dẫn 5 yêu cầu bắt buộc, lỗi khiến hồ sơ bị từ chối và cách mua.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong">
-        <img src="/than-vo-oto-dien.webp" alt="Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ</h3>
-          <p>Pin xe điện được bồi thường khi hư hỏng do tai nạn, va chạm, cháy nổ — nhưng bị loại trừ nếu pin tự hỏng do lỗi kỹ thuật hoặc suy giảm dung lượng tự nhiên. Phân tích 3 nhóm rủi ro và checklist trước khi ký hợp đồng.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu">
-        <img src="/than-vo-oto.webp" alt="Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026</h3>
-          <p>Phí bảo hiểm vật chất ô tô 2026 dao động 1,2%–1,8% giá trị xe/năm. Hướng dẫn công thức tính phí, bảng phí tham khảo theo giá trị xe, 6 yếu tố làm tăng giảm phí và 5 cách tiết kiệm hợp pháp.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="chung" href="/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv">
-        <img src="/tnds-oto.webp" alt="Tổng hợp Biểu phí &amp; Quy tắc các gói Bảo hiểm DBV mới nhất" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Tổng hợp Biểu phí &amp; Quy tắc các gói Bảo hiểm DBV mới nhất</h3>
-          <p>Tổng hợp các quyết định ban hành quy tắc và biểu phí Bảo hiểm DBV đang áp dụng, bảng phí TNDS bắt buộc theo Nghị định 67/2023 và cách tính phí vật chất xe.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026">
-        <img src="/tnds-oto.webp" alt="Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024</h3>
-          <p>Không có bảo hiểm TNDS bắt buộc bị phạt 100.000–200.000đ với xe máy và 400.000–600.000đ với ô tô theo Nghị định 168/2024/NĐ-CP. Chi tiết mức phạt, căn cứ pháp lý và thiệt hại thực sự lớn hơn tiền phạt.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="chung" href="/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv">
-        <img src="/than-vo-oto.webp" alt="Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố" loading="lazy" decoding="async" width="360" height="170">
-        <div class="guide-card-body">
-          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
-          <h3>Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố</h3>
-          <p>Hướng dẫn từng bước khai báo bồi thường Bảo hiểm DBV: việc cần làm trong 24h đầu, hồ sơ theo từng nghiệp vụ xe, sức khỏe, du lịch và thời gian nhận tiền.</p>
-          <div class="guide-card-more">Đọc bài viết →</div>
-        </div>
-      </a>
-      <a class="guide-card" data-cat="xe" href="/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto">
-        <img src="/than-vo-oto.webp" alt="Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết" loading="lazy" decoding="async" width="360" height="170">
+      </a></div></section>
+<section id="newsListWrap" aria-labelledby="nt-results"><div class="nt-toolbar"><div><h2 id="nt-results" tabindex="-1">Khám phá cẩm nang</h2><p id="nt-count" role="status" aria-live="polite">63 bài viết</p></div><label class="nt-sort nt-js"><span>Sắp xếp</span><select id="nt-sort" aria-label="Sắp xếp bài viết"><option value="suggested">Đề xuất</option><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option><option value="title">Tiêu đề A–Z</option></select></label></div><div class="guide-grid" id="newsGrid"><!-- DBV:NEWS-CARDS:START --><a class="guide-card" data-cat="xe" href="/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe-oto">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết" loading="lazy" decoding="async" width="960" height="640">
         <div class="guide-card-body">
           <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">23/07/2026</span></div>
           <h3>Kinh nghiệm sử dụng bảo hiểm xe ô tô hiệu quả — Những điều chủ xe cần biết</h3>
           <p>Tổng hợp kinh nghiệm thực tế khi sử dụng bảo hiểm xe ô tô: cách chọn gói phù hợp, quy trình bồi thường nhanh, những lỗi cần tránh và mẹo tiết kiệm phí bảo hiểm.</p>
           <div class="guide-card-more">Đọc bài viết →</div>
         </div>
-      </a>
-      <!-- DBV:NEWS-CARDS:END --></div><div class="nt-empty" id="newsEmpty" hidden><h3>Chưa tìm thấy bài viết phù hợp</h3><p>Thử từ khóa khác hoặc chọn lại chủ đề.</p><button type="button" class="nt-btn" id="nt-reset">Xóa bộ lọc</button></div><div class="nt-more nt-js"><button class="nt-btn" type="button" id="nt-more">Xem thêm bài viết ↓</button></div></section>
-<section class="nt-consult"><img src="/assets/img/trang-chu/tu-van-vien-nu-v2.webp" width="420" height="420" alt="" loading="lazy"><div><h2>Cần giải đáp về bảo hiểm?</h2><p>DBV247 sẵn sàng hỗ trợ bạn.</p></div><div class="nt-actions"><a class="nt-btn nt-orange" href="/tu-van">Nhận tư vấn</a><a class="nt-btn" href="/san-pham">Khám phá sản phẩm</a></div></section>
-<div class="nt-support"><a href="/boi-thuong"><strong>Hướng dẫn bồi thường</strong><span>Quy trình, hồ sơ và thông tin hỗ trợ →</span></a><a href="/servicemap"><strong>Mạng lưới dịch vụ</strong><span>Tìm điểm hỗ trợ và garage liên kết →</span></a></div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-chung-cu-nghi-dinh-67">
+        <img src="/assets/img/tin-tuc/home-v1.webp" srcset="/assets/img/tin-tuc/home-v1-480.webp 480w, /assets/img/tin-tuc/home-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm cháy nổ chung cư theo Nghị định 105/2025: Ai bắt buộc mua và phí bao nhiêu?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm cháy nổ chung cư theo Nghị định 105/2025: Ai bắt buộc mua và phí bao nhiêu?</h3>
+          <p>Chủ sở hữu căn hộ chung cư bắt buộc mua bảo hiểm cháy nổ theo Nghị định 105/2025/NĐ-CP. Tỷ lệ phí 0,05%/năm nếu có hệ thống chữa cháy tự động, 0,1%/năm nếu không. Hướng dẫn đầy đủ phạm vi, mức khấu trừ và hồ sơ bồi thường.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-chi-tra-nhung-gi">
+        <img src="/assets/img/tin-tuc/travel-v1.webp" srcset="/assets/img/tin-tuc/travel-v1-480.webp 480w, /assets/img/tin-tuc/travel-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm du lịch chi trả những gì?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Bảo hiểm du lịch chi trả những gì?</h3>
+          <p>Bốn nhóm quyền lợi và các trường hợp loại trừ. Quyền lợi dùng nhiều nhất không phải y tế mà là hành lý.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-suc-khoe-thoi-gian-cho-bao-lau">
+        <img src="/assets/img/tin-tuc/health-family-v1.webp" srcset="/assets/img/tin-tuc/health-family-v1-480.webp 480w, /assets/img/tin-tuc/health-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm sức khỏe có thời gian chờ bao lâu?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">24/08/2026</span></div>
+          <h3>Bảo hiểm sức khỏe có thời gian chờ bao lâu?</h3>
+          <p>Tai nạn không chờ, bệnh thông thường 30 ngày, bệnh có sẵn 12 tháng, sinh đẻ 270 ngày.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-cho-kho-hang-xuong-nho">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm cháy nổ cho kho hàng, xưởng nhỏ" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Bảo hiểm cháy nổ cho kho hàng, xưởng nhỏ</h3>
+          <p>Tỷ lệ phí 0,2%–0,5%/năm theo hạng nguy hiểm A, B, C và cách kê khai hàng tồn kho.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="chung" href="/tin-tuc/thu-tuc-khai-bao-boi-thuong-bao-hiem-dbv">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Hướng dẫn thủ tục khai báo bồi thường Bảo hiểm DBV khi xảy ra sự cố</h3>
+          <p>Hướng dẫn từng bước khai báo bồi thường Bảo hiểm DBV: việc cần làm trong 24h đầu, hồ sơ theo từng nghiệp vụ xe, sức khỏe, du lịch và thời gian nhận tiền.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-vinfast-vf5-herio-green-phi-bao-nhieu">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm xe VF 5 và bản Herio Green: phí khác nhau thế nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">13/09/2026</span></div>
+          <h3>Bảo hiểm xe VF 5 và bản Herio Green: phí khác nhau thế nào?</h3>
+          <p>Cùng một mẫu xe nhưng hai vai trò khác nhau, và vì sao VF 5 nằm đúng vùng ngưỡng của mức phí tối thiểu.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-vinfast-vf3-het-bao-nhieu-tien">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm xe VinFast VF 3 hết bao nhiêu tiền một năm?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">12/09/2026</span></div>
+          <h3>Bảo hiểm xe VinFast VF 3 hết bao nhiêu tiền một năm?</h3>
+          <p>Vì sao xe càng rẻ thì tỷ lệ phí vật chất thực tế lại càng cao, và khi nào nên bỏ qua phần này.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-dien-chay-dich-vu-khac-gi-xe-gia-dinh">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm xe điện chạy dịch vụ khác gì xe gia đình?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">12/09/2026</span></div>
+          <h3>Bảo hiểm xe điện chạy dịch vụ khác gì xe gia đình?</h3>
+          <p>Ba lớp khác biệt về phí và phạm vi, và vì sao khai sai mục đích sử dụng là rủi ro lớn hơn khoản tiết kiệm.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-limo-green-phi-bao-nhieu">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm xe Limo Green: phí bao nhiêu theo mục đích sử dụng?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">12/09/2026</span></div>
+          <h3>Bảo hiểm xe Limo Green: phí bao nhiêu theo mục đích sử dụng?</h3>
+          <p>Xe 7 chỗ chạy dịch vụ có ba mức phí TNDS khác nhau, chênh nhau hơn hai lần tuỳ mục đích khai trên đơn.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-cong-trinh-xay-dung-thay-doi-gi-tu-1-7-2026">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm công trình xây dựng thay đổi gì từ 01/7/2026?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">12/09/2026</span></div>
+          <h3>Bảo hiểm công trình xây dựng thay đổi gì từ 01/7/2026?</h3>
+          <p>Năm điều khoản bị sửa, phụ lục mức phí bị thay, và việc chủ đầu tư cần làm lại trước khi ký hợp đồng bảo hiểm mới.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/chu-dau-tu-hay-nha-thau-phai-mua-bao-hiem-cong-trinh">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Chủ đầu tư hay nhà thầu phải mua bảo hiểm công trình?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">12/09/2026</span></div>
+          <h3>Chủ đầu tư hay nhà thầu phải mua bảo hiểm công trình?</h3>
+          <p>Ba loại bảo hiểm bắt buộc trong xây dựng, bên nào mua loại nào, và cách ghi vào hợp đồng để không có khoảng trống.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/muc-khau-tru-bao-hiem-vat-chat-o-to-nen-chon-bao-nhieu">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mức khấu trừ bảo hiểm vật chất ô tô nên chọn bao nhiêu?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Mức khấu trừ bảo hiểm vật chất ô tô nên chọn bao nhiêu?</h3>
+          <p>Nâng khấu trừ giảm 0,1–0,3% tỷ lệ phí. Xe dưới 800 triệu thường chọn mức 1 triệu/vụ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-o-to-dien-khac-xe-xang-o-diem-nao">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm ô tô điện khác bảo hiểm xe xăng ở điểm nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Bảo hiểm ô tô điện khác bảo hiểm xe xăng ở điểm nào?</h3>
+          <p>Bốn khác biệt: pin thay mới không khấu hao, xưởng ủy quyền, loại trừ riêng, cách tính khi thuê pin.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/xay-nha-dan-sinh-co-can-mua-bao-hiem-khong">
+        <img src="/assets/img/tin-tuc/home-v1.webp" srcset="/assets/img/tin-tuc/home-v1-480.webp 480w, /assets/img/tin-tuc/home-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Xây nhà dân sinh có cần mua bảo hiểm không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Xây nhà dân sinh có cần mua bảo hiểm không?</h3>
+          <p>Nhà dưới 7 tầng, sàn dưới 500m² là tự nguyện. Nhà 2 tỷ khoảng 800.000đ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/gui-hang-bi-mat-hong-boi-thuong-the-nao">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Gửi hàng bị mất, hỏng thì bồi thường thế nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Gửi hàng bị mất, hỏng thì bồi thường thế nào?</h3>
+          <p>Từ 1.000đ/đơn, bảo hiểm tối đa 30 triệu. Hóa đơn VAT nâng mức bảo vệ gấp năm lần.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-tai-nan-24-24-chi-tra-nhung-gi">
+        <img src="/assets/img/tin-tuc/health-family-v1.webp" srcset="/assets/img/tin-tuc/health-family-v1-480.webp 480w, /assets/img/tin-tuc/health-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm tai nạn 24/24 chi trả những gì?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">29/08/2026</span></div>
+          <h3>Bảo hiểm tai nạn 24/24 chi trả những gì?</h3>
+          <p>Năm nhóm quyền lợi, bồi thường gấp đôi trên phương tiện công cộng. Từ 250.000đ/năm cho 100 triệu.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/sot-xuat-huyet-nam-vien-bao-hiem-chi-tra-bao-nhieu">
+        <img src="/assets/img/tin-tuc/health-family-v1.webp" srcset="/assets/img/tin-tuc/health-family-v1-480.webp 480w, /assets/img/tin-tuc/health-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Sốt xuất huyết nằm viện, bảo hiểm chi trả bao nhiêu?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">29/08/2026</span></div>
+          <h3>Sốt xuất huyết nằm viện, bảo hiểm chi trả bao nhiêu?</h3>
+          <p>Nằm viện đến 4 triệu/năm cộng trợ cấp 50.000đ/ngày. Phí 111.000đ/năm.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/xe-ngap-nuoc-thuy-kich-bao-hiem-boi-thuong-the-nao">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Xe ngập nước, thủy kích: bảo hiểm bồi thường thế nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">29/08/2026</span></div>
+          <h3>Xe ngập nước, thủy kích: bảo hiểm bồi thường thế nào?</h3>
+          <p>Vật chất xe cơ bản không phủ thủy kích — cần điều khoản BS06, khấu trừ 20%.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-suc-khoe-co-chi-tra-benh-co-san-khong">
+        <img src="/assets/img/tin-tuc/health-family-v1.webp" srcset="/assets/img/tin-tuc/health-family-v1-480.webp 480w, /assets/img/tin-tuc/health-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm sức khỏe có chi trả bệnh có sẵn không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">24/08/2026</span></div>
+          <h3>Bảo hiểm sức khỏe có chi trả bệnh có sẵn không?</h3>
+          <p>Có — sau thời gian chờ 12 tháng, với điều kiện khai báo trung thực ngay từ đầu.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/mua-bao-hiem-suc-khoe-cho-bo-me-tren-60-tuoi">
+        <img src="/assets/img/tin-tuc/health-family-v1.webp" srcset="/assets/img/tin-tuc/health-family-v1-480.webp 480w, /assets/img/tin-tuc/health-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mua bảo hiểm sức khỏe cho bố mẹ trên 60 tuổi được không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">24/08/2026</span></div>
+          <h3>Mua bảo hiểm sức khỏe cho bố mẹ trên 60 tuổi được không?</h3>
+          <p>Được — nhận đến 65 tuổi. Nhưng mốc chờ 12 tháng khiến mỗi tháng trì hoãn đều có giá.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-hoan-tien-co-dung-luat-khong">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mua bảo hiểm TNDS được hoàn tiền, tặng quà có đúng luật không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
+          <h3>Mua bảo hiểm TNDS được hoàn tiền, tặng quà có đúng luật không?</h3>
+          <p>Điều 75 NĐ 67/2023 cấm khuyến mại, chiết khấu dưới mọi hình thức. Khác hẳn hoàn phí khi huỷ hợp đồng.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-2-nam-3-nam-co-re-hon-khong">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mua bảo hiểm TNDS 2 năm, 3 năm có rẻ hơn mua từng năm không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
+          <h3>Mua bảo hiểm TNDS 2 năm, 3 năm có rẻ hơn mua từng năm không?</h3>
+          <p>Không rẻ hơn. Xe máy 3 năm là 198.000đ, ô tô 5 chỗ 3 năm là 1.442.100đ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/dai-ly-bao-hiem-co-duoc-giam-gia-cho-khach-khong">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Đại lý bảo hiểm có được cắt hoa hồng giảm giá cho khách không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
+          <h3>Đại lý bảo hiểm có được cắt hoa hồng giảm giá cho khách không?</h3>
+          <p>Hoa hồng là quan hệ giữa doanh nghiệp bảo hiểm và đại lý, không phải phần khách được trừ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-o-to-o-dau-uy-tin">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mua bảo hiểm TNDS ô tô ở đâu uy tín? Sáu tiêu chí để tự chọn" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">19/08/2026</span></div>
+          <h3>Mua bảo hiểm TNDS ô tô ở đâu uy tín? Sáu tiêu chí để tự chọn</h3>
+          <p>Phí giống nhau ở mọi nơi nên không chọn theo giá — sáu tiêu chí thay thế.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-xe-may-ven-duong-20k-co-dung-duoc-khong">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm xe máy bán ven đường 20.000đ có dùng được không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">15/08/2026</span></div>
+          <h3>Bảo hiểm xe máy bán ven đường 20.000đ có dùng được không?</h3>
+          <p>Phí đúng quy định là 66.000đ/năm. Điều 75 NĐ 67/2023 cấm chiết khấu, nên loại 10–20k thường là sản phẩm khác.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/cach-kiem-tra-giay-chung-nhan-bao-hiem-that-hay-gia">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Cách kiểm tra giấy chứng nhận bảo hiểm xe thật hay giả: sáu bước" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">15/08/2026</span></div>
+          <h3>Cách kiểm tra giấy chứng nhận bảo hiểm xe thật hay giả: sáu bước</h3>
+          <p>Đối chiếu mức phí, đọc tên sản phẩm, kiểm mã QR, gọi tổng đài tra số đơn.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-tnds-o-to-gia-re-mua-tu-ai">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm TNDS ô tô giá rẻ: đừng chỉ tìm nơi bán rẻ, hãy kiểm tra bạn đang mua từ ai" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">11/08/2026</span></div>
+          <h3>Bảo hiểm TNDS ô tô giá rẻ: đừng chỉ tìm nơi bán rẻ, hãy kiểm tra bạn đang mua từ ai</h3>
+          <p>Bảo hiểm TNDS giá rẻ có mua được không? Điều 75 NĐ 67/2023 cấm khuyến mại, chiết khấu dưới mọi hình thức.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-chung-cu-khong-boi-thuong-truong-hop-nao">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm cháy nổ chung cư không bồi thường trong trường hợp nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Bảo hiểm cháy nổ chung cư không bồi thường trong trường hợp nào?</h3>
+          <p>Ba nhóm loại trừ, và lý do bị từ chối phổ biến nhất lại nằm ở phạm vi hợp đồng.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/muc-khau-tru-bao-hiem-chay-no-bat-buoc-tinh-the-nao">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mức khấu trừ trong bảo hiểm cháy nổ bắt buộc tính thế nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Mức khấu trừ trong bảo hiểm cháy nổ bắt buộc tính thế nào?</h3>
+          <p>Tối đa 1% số tiền bảo hiểm, khung tối thiểu 4–100 triệu theo giá trị tài sản.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/truong-hop-nao-bao-hiem-tnds-khong-boi-thuong">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Trường hợp nào bảo hiểm TNDS không bồi thường?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Trường hợp nào bảo hiểm TNDS không bồi thường?</h3>
+          <p>Nồng độ cồn, không có bằng lái hợp lệ, bỏ chạy — chủ xe tự gánh toàn bộ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-theo-doan-cach-tinh-phi-cho-cong-ty-tour">
+        <img src="/assets/img/tin-tuc/travel-v1.webp" srcset="/assets/img/tin-tuc/travel-v1-480.webp 480w, /assets/img/tin-tuc/travel-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm du lịch theo đoàn: cách tính phí cho công ty tour" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">03/09/2026</span></div>
+          <h3>Bảo hiểm du lịch theo đoàn: cách tính phí cho công ty tour</h3>
+          <p>Phí đoàn = phí cá nhân × số người. Đoàn 40 khách đi 4 ngày khoảng 345.600đ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/cach-tinh-gia-tri-tai-san-khai-bao-can-ho-chung-cu">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Cách tính giá trị tài sản khai báo cho căn hộ chung cư" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">27/08/2026</span></div>
+          <h3>Cách tính giá trị tài sản khai báo cho căn hộ chung cư</h3>
+          <p>Khai theo chi phí làm lại phần bên trong, không theo giá bán. Căn 80m² thường khai 800 triệu – 1,2 tỷ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/thu-tuc-mua-bao-hiem-chay-no-bat-buoc-cho-doanh-nghiep">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Thủ tục mua bảo hiểm cháy nổ bắt buộc cho doanh nghiệp" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">27/08/2026</span></div>
+          <h3>Thủ tục mua bảo hiểm cháy nổ bắt buộc cho doanh nghiệp</h3>
+          <p>Bốn nhóm hồ sơ, quy trình năm bước và mức phí 0,05%–0,5%/năm theo NĐ 105/2025.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/phi-bao-hiem-chay-no-co-duoc-tinh-vao-chi-phi-duoc-tru">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Phí bảo hiểm cháy nổ có được tính vào chi phí được trừ khi tính thuế?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">27/08/2026</span></div>
+          <h3>Phí bảo hiểm cháy nổ có được tính vào chi phí được trừ khi tính thuế?</h3>
+          <p>Ba điều kiện để được trừ, và thay đổi với hộ kinh doanh sau khi bỏ thuế khoán từ 2026.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-tnds-o-to-boi-thuong-bao-nhieu">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm TNDS ô tô bồi thường bao nhiêu? Mức trách nhiệm và giới hạn" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">27/08/2026</span></div>
+          <h3>Bảo hiểm TNDS ô tô bồi thường bao nhiêu? Mức trách nhiệm và giới hạn</h3>
+          <p>Tối đa 150 triệu/người/vụ và 100 triệu tài sản/vụ. Vượt mức, chủ xe tự chịu.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/that-lac-hanh-ly-cach-doi-boi-thuong-hang-bay-va-bao-hiem">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Thất lạc hành lý: cách đòi bồi thường từ hãng bay và từ bảo hiểm" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">27/08/2026</span></div>
+          <h3>Thất lạc hành lý: cách đòi bồi thường từ hãng bay và từ bảo hiểm</h3>
+          <p>Hãng bay tối đa 1.519 SDR theo Công ước Montreal. Mốc 21 ngày quyết định hồ sơ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/sac-xe-dien-trong-chung-cu-quy-dinh-va-bao-hiem">
+        <img src="/assets/img/tin-tuc/home-v1.webp" srcset="/assets/img/tin-tuc/home-v1-480.webp 480w, /assets/img/tin-tuc/home-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Sạc xe điện trong chung cư: quy định mới 15/12/2026 và ảnh hưởng tới bảo hiểm" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
+          <h3>Sạc xe điện trong chung cư: quy định mới 15/12/2026 và ảnh hưởng tới bảo hiểm</h3>
+          <p>Chung cư bắt buộc bố trí khu sạc riêng theo Thông tư 31/2026. Sạc sai quy định có thể mất quyền bồi thường.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bieu-phi-bao-hiem-chay-no-bat-buoc-2026">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Biểu phí bảo hiểm cháy nổ bắt buộc 2026 theo từng loại cơ sở" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
+          <h3>Biểu phí bảo hiểm cháy nổ bắt buộc 2026 theo từng loại cơ sở</h3>
+          <p>Tỷ lệ phí 0,05%–0,5%/năm theo Phụ lục VI NĐ 105/2025. Có sprinkler giảm một nửa phí.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-chay-no-quan-an-nha-hang">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm cháy nổ cho quán ăn, nhà hàng: phí và lưu ý riêng" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
+          <h3>Bảo hiểm cháy nổ cho quán ăn, nhà hàng: phí và lưu ý riêng</h3>
+          <p>Ngưỡng 300 m² tính cả bếp và kho. Rủi ro riêng của ngành bếp và bốn điều khoản nên có.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-moi-rui-ro-tai-san-loai-tru-nhung-gi">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm mọi rủi ro tài sản loại trừ những gì?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">20/08/2026</span></div>
+          <h3>Bảo hiểm mọi rủi ro tài sản loại trừ những gì?</h3>
+          <p>Bảy nhóm loại trừ phổ biến và cách kiểm tra hợp đồng trước khi ký.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/thu-tuc-boi-thuong-bao-hiem-tnds-khi-gay-tai-nan">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Thủ tục bồi thường bảo hiểm TNDS khi gây tai nạn" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">20/08/2026</span></div>
+          <h3>Thủ tục bồi thường bảo hiểm TNDS khi gây tai nạn</h3>
+          <p>Việc cần làm ngay tại hiện trường, hồ sơ đầy đủ và mức trách nhiệm 150 triệu/người.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/hoan-huy-chuyen-bay-bao-hiem-du-lich-boi-thuong-the-nao">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Hoãn, hủy chuyến bay: bảo hiểm du lịch bồi thường thế nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">20/08/2026</span></div>
+          <h3>Hoãn, hủy chuyến bay: bảo hiểm du lịch bồi thường thế nào?</h3>
+          <p>Ba tình huống khác nhau và giấy tờ bắt buộc phải xin ngay tại sân bay.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="chung" href="/tin-tuc/hang-hoa-hong-khi-van-chuyen-ai-chiu-trach-nhiem">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Hàng hóa hỏng khi vận chuyển: ai chịu trách nhiệm?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">20/08/2026</span></div>
+          <h3>Hàng hóa hỏng khi vận chuyển: ai chịu trách nhiệm?</h3>
+          <p>Trách nhiệm nhà xe có giới hạn thấp hơn giá trị hàng. Biên bản giao nhận là bước quyết định.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/ban-quan-tri-da-mua-bao-hiem-cu-dan-co-can-mua-nua">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Ban quản trị đã mua bảo hiểm, cư dân có cần mua nữa không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Ban quản trị đã mua bảo hiểm, cư dân có cần mua nữa không?</h3>
+          <p>Hợp đồng của ban quản trị chỉ phủ phần sở hữu chung. Nội thất trong căn hộ bạn không nằm trong đó.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/khong-mua-bao-hiem-chay-no-bat-buoc-bi-phat-bao-nhieu">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Không mua bảo hiểm cháy nổ bắt buộc bị phạt bao nhiêu?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Không mua bảo hiểm cháy nổ bắt buộc bị phạt bao nhiêu?</h3>
+          <p>Nhóm 2 phạt 30–40 triệu, nhóm 1 phạt 40–50 triệu với cá nhân; tổ chức gấp đôi, tới 100 triệu theo NĐ 106/2025.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/thue-mat-bang-chu-nha-hay-nguoi-thue-mua-bao-hiem">
+        <img src="/assets/img/tin-tuc/home-v1.webp" srcset="/assets/img/tin-tuc/home-v1-480.webp 480w, /assets/img/tin-tuc/home-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Thuê mặt bằng: chủ nhà hay người thuê phải mua bảo hiểm?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Thuê mặt bằng: chủ nhà hay người thuê phải mua bảo hiểm?</h3>
+          <p>Chủ nhà bảo hiểm nhà, người thuê bảo hiểm hàng hóa và thiết bị. Mẫu điều khoản nên có trong hợp đồng thuê.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/doanh-nghiep-nen-chon-all-risk-hay-chay-no-bat-buoc">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Doanh nghiệp nên chọn all-risk hay cháy nổ bắt buộc?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Doanh nghiệp nên chọn all-risk hay cháy nổ bắt buộc?</h3>
+          <p>Ba câu hỏi để tự quyết, bảng so sánh ba mức bảo vệ và lộ trình cho doanh nghiệp ngân sách hạn chế.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/mua-bao-hiem-tnds-o-to-online-can-giay-to-gi">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mua bảo hiểm TNDS ô tô online cần giấy tờ gì?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Mua bảo hiểm TNDS ô tô online cần giấy tờ gì?</h3>
+          <p>Chỉ cần thông tin trên giấy đăng ký xe. Giấy chứng nhận điện tử có giá trị pháp lý đầy đủ theo NĐ 67/2023.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="chung" href="/tin-tuc/incoterms-cif-fob-ai-mua-bao-hiem-hang-hoa">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Incoterms CIF, FOB — ai có trách nhiệm mua bảo hiểm?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">13/08/2026</span></div>
+          <h3>Incoterms CIF, FOB — ai có trách nhiệm mua bảo hiểm?</h3>
+          <p>Chỉ CIF và CIP buộc người bán mua. Bảng tra 11 điều kiện Incoterms 2020 kèm điểm chuyển rủi ro.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/chung-cu-may-tang-phai-mua-bao-hiem-chay-no">
+        <img src="/assets/img/tin-tuc/home-v1.webp" srcset="/assets/img/tin-tuc/home-v1-480.webp 480w, /assets/img/tin-tuc/home-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Chung cư mấy tầng phải mua bảo hiểm cháy nổ? Ngưỡng mới NĐ 105/2025" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
+          <h3>Chung cư mấy tầng phải mua bảo hiểm cháy nổ? Ngưỡng mới NĐ 105/2025</h3>
+          <p>Ngưỡng đã hạ từ 7 tầng xuống 5 tầng hoặc 1.000 m² sàn từ 01/7/2025. Cách tự kiểm tra toà nhà của bạn trong 2 phút.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/danh-muc-44-co-so-phai-mua-bao-hiem-chay-no">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Danh mục 44 cơ sở phải mua bảo hiểm cháy nổ bắt buộc" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
+          <h3>Danh mục 44 cơ sở phải mua bảo hiểm cháy nổ bắt buộc</h3>
+          <p>Bảng tra đầy đủ 44 loại cơ sở kèm ngưỡng cụ thể theo Phụ lục VII Nghị định 105/2025.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/ho-kinh-doanh-nao-bat-buoc-mua-bao-hiem-chay-no">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Hộ kinh doanh nào bắt buộc mua bảo hiểm cháy nổ?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
+          <h3>Hộ kinh doanh nào bắt buộc mua bảo hiểm cháy nổ?</h3>
+          <p>Bán hàng dễ cháy từ 200 m², ăn uống từ 300 m². Ba chỗ chủ cơ sở hay tính sai diện tích sàn.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="taisan" href="/tin-tuc/bao-hiem-moi-rui-ro-tai-san-la-gi">
+        <img src="/assets/img/tin-tuc/business-v1.webp" srcset="/assets/img/tin-tuc/business-v1-480.webp 480w, /assets/img/tin-tuc/business-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm mọi rủi ro tài sản (all-risk) là gì?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Tài sản &amp; Kỹ thuật</span><span class="guide-card-date">06/08/2026</span></div>
+          <h3>Bảo hiểm mọi rủi ro tài sản (all-risk) là gì?</h3>
+          <p>Khác gì cháy nổ bắt buộc, loại trừ những gì, và cách xác định số tiền bảo hiểm cho đúng.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bieu-phi-bao-hiem-tnds-o-to-2026">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Biểu phí bảo hiểm TNDS ô tô 2026 đầy đủ theo số chỗ và tải trọng" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">06/08/2026</span></div>
+          <h3>Biểu phí bảo hiểm TNDS ô tô 2026 đầy đủ theo số chỗ và tải trọng</h3>
+          <p>Xe gia đình dưới 6 chỗ 437.000đ, xe kinh doanh theo từng số chỗ, xe tải theo trọng tải. Kèm hệ số taxi, xe tập lái.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-xin-visa-theo-tung-nuoc">
+        <img src="/assets/img/tin-tuc/travel-v1.webp" srcset="/assets/img/tin-tuc/travel-v1-480.webp 480w, /assets/img/tin-tuc/travel-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm du lịch xin visa: nước nào bắt buộc, nước nào không?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">06/08/2026</span></div>
+          <h3>Bảo hiểm du lịch xin visa: nước nào bắt buộc, nước nào không?</h3>
+          <p>Chỉ khối Schengen bắt buộc 30.000 EUR. Nhật, Hàn, Anh, Mỹ, Úc không yêu cầu trong hồ sơ visa du lịch.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="chung" href="/tin-tuc/dieu-kien-icc-a-b-c-khac-nhau-the-nao">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Điều kiện ICC A, B, C khác nhau thế nào?" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">06/08/2026</span></div>
+          <h3>Điều kiện ICC A, B, C khác nhau thế nào?</h3>
+          <p>A bảo hiểm mọi rủi ro trừ loại trừ, B và C chỉ bảo hiểm rủi ro liệt kê. Mất cắp chỉ ICC A phủ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-dbv-co-tot-khong">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm DBV có tốt không? Đánh giá uy tín &amp; Quy trình bồi thường" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm DBV có tốt không? Đánh giá uy tín &amp; Quy trình bồi thường</h3>
+          <p>Đánh giá Bảo hiểm DBV: giấy phép Bộ Tài chính, quy mô 18+ năm, mạng lưới 1.500+ gara liên kết và cam kết thời gian bồi thường thực tế theo từng nghiệp vụ.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="conguoi" href="/tin-tuc/bao-hiem-du-lich-xin-visa-schengen">
+        <img src="/assets/img/tin-tuc/travel-v1.webp" srcset="/assets/img/tin-tuc/travel-v1-480.webp 480w, /assets/img/tin-tuc/travel-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Du lịch &amp; Con người</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm du lịch xin visa Schengen: Yêu cầu 30.000 EUR và cách mua đúng chuẩn 2026</h3>
+          <p>Xin visa Schengen bắt buộc phải có bảo hiểm du lịch mức tối thiểu 30.000 EUR, hiệu lực toàn bộ 29 nước Schengen và phủ kín thời gian lưu trú. Hướng dẫn 5 yêu cầu bắt buộc, lỗi khiến hồ sơ bị từ chối và cách mua.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-o-to-dien-pin-co-duoc-boi-thuong">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm ô tô điện: Pin có được bồi thường không? Những điều khoản chủ xe EV phải đọc kỹ</h3>
+          <p>Pin xe điện được bồi thường khi hư hỏng do tai nạn, va chạm, cháy nổ — nhưng bị loại trừ nếu pin tự hỏng do lỗi kỹ thuật hoặc suy giảm dung lượng tự nhiên. Phân tích 3 nhóm rủi ro và checklist trước khi ký hợp đồng.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/bao-hiem-vat-chat-o-to-gia-bao-nhieu">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Bảo hiểm vật chất ô tô giá bao nhiêu? Cách tính phí và bảng phí tham khảo 2026</h3>
+          <p>Phí bảo hiểm vật chất ô tô 2026 dao động 1,2%–1,8% giá trị xe/năm. Hướng dẫn công thức tính phí, bảng phí tham khảo theo giá trị xe, 6 yếu tố làm tăng giảm phí và 5 cách tiết kiệm hợp pháp.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="chung" href="/tin-tuc/bieu-phi-quy-tac-bao-hiem-dbv">
+        <img src="/assets/img/tin-tuc/claims-v1.webp" srcset="/assets/img/tin-tuc/claims-v1-480.webp 480w, /assets/img/tin-tuc/claims-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Tổng hợp Biểu phí &amp; Quy tắc các gói Bảo hiểm DBV mới nhất" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Kiến thức chung</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Tổng hợp Biểu phí &amp; Quy tắc các gói Bảo hiểm DBV mới nhất</h3>
+          <p>Tổng hợp các quyết định ban hành quy tắc và biểu phí Bảo hiểm DBV đang áp dụng, bảng phí TNDS bắt buộc theo Nghị định 67/2023 và cách tính phí vật chất xe.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><a class="guide-card" data-cat="xe" href="/tin-tuc/muc-phat-khong-co-bao-hiem-xe-2026">
+        <img src="/assets/img/tin-tuc/auto-family-v1.webp" srcset="/assets/img/tin-tuc/auto-family-v1-480.webp 480w, /assets/img/tin-tuc/auto-family-v1.webp 960w" sizes="(max-width:767px) 100px, (max-width:900px) 50vw, 400px" alt="Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024" loading="lazy" decoding="async" width="960" height="640">
+        <div class="guide-card-body">
+          <div class="guide-card-meta"><span class="guide-card-cat">Xe cơ giới</span><span class="guide-card-date">01/08/2026</span></div>
+          <h3>Mức phạt không có bảo hiểm xe ô tô, xe máy 2026 — Cập nhật theo Nghị định 168/2024</h3>
+          <p>Không có bảo hiểm TNDS bắt buộc bị phạt 100.000–200.000đ với xe máy và 400.000–600.000đ với ô tô theo Nghị định 168/2024/NĐ-CP. Chi tiết mức phạt, căn cứ pháp lý và thiệt hại thực sự lớn hơn tiền phạt.</p>
+          <div class="guide-card-more">Đọc bài viết →</div>
+        </div>
+      </a><!-- DBV:NEWS-CARDS:END --></div><div class="nt-empty" id="newsEmpty" hidden><h3>Chưa tìm thấy bài viết phù hợp</h3><p>Thử từ khóa khác hoặc chọn một chủ đề khác.</p><button id="nt-reset" class="nt-btn" type="button">Xóa bộ lọc</button></div><div class="nt-more nt-js"><button id="nt-more" class="nt-btn" type="button">Xem thêm bài viết <span aria-hidden="true">⌄</span></button></div></section>
+<section class="nt-consult" aria-labelledby="nt-consult-title"><img src="/assets/img/tin-tuc/consult-v1.webp" width="420" height="560" alt="Tư vấn viên Bảo hiểm DBV" loading="lazy" decoding="async"><div class="nt-consult-copy"><h2 id="nt-consult-title">Cần giải đáp về bảo hiểm?</h2><p>DBV247 sẵn sàng hỗ trợ bạn.</p></div><div class="nt-actions"><a class="nt-btn nt-orange" href="/tu-van">Nhận tư vấn</a><a class="nt-btn" href="/san-pham">Khám phá sản phẩm</a></div></section>
+<div class="nt-support"><a href="/boi-thuong"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></svg><div><strong>Hướng dẫn bồi thường</strong><span>Quy trình, hồ sơ và thông tin hỗ trợ.</span></div><b aria-hidden="true">›</b></a><a href="/servicemap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Mạng lưới dịch vụ</strong><span>Tìm điểm hỗ trợ và garage liên kết.</span></div><b aria-hidden="true">›</b></a></div>
 </div></main>
 
 <footer class="ftr">
