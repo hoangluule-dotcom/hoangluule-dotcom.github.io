@@ -66,14 +66,10 @@
 .hk-note{display:flex;gap:var(--space-2);align-items:flex-start;background:var(--c-accent-soft);border:1px solid rgba(232,146,10,.25);border-radius:var(--radius-control);padding:10px 14px;font-size:13px;color:var(--c-text);margin-top:var(--space-4)}
 .hk-note svg{width:18px;height:18px;flex-shrink:0;color:var(--c-accent);margin-top:1px}
 
-/* ── 3. Công cụ tính phí ── */
-.hk-calc{background:var(--grad-mint);border-radius:var(--radius-panel);padding:var(--space-6)}
-.hk-calc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-5)}
-.hk-calc-head .hk-lead{margin-bottom:0!important}
+/* ── Ô nhập dùng chung (form tư vấn) ── */
 .hk-chosen{display:flex;align-items:center;gap:var(--space-2);background:#fff;border:1px solid var(--c-border);border-radius:var(--radius-control);padding:8px 14px;font-size:13px}
 .hk-chosen svg{width:16px;height:16px;color:var(--c-brand)}
 .hk-chosen a{font-weight:700;margin-left:auto;padding-left:10px;white-space:nowrap}
-.hk-calc-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--space-5);align-items:start}
 .hk-form{background:#fff;border-radius:var(--radius-card);padding:var(--space-5);box-shadow:var(--shadow-card)}
 .hk-fields{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
 .hk-field{display:flex;flex-direction:column;gap:6px;min-width:0}
@@ -87,39 +83,82 @@
 .hk-unit{position:relative}
 .hk-unit .hk-input{padding-right:46px}
 .hk-unit span{position:absolute;right:1px;top:1px;bottom:1px;display:flex;align-items:center;padding:0 14px;color:var(--c-text-muted);font-weight:600;background:var(--c-bg-muted);border-radius:0 11px 11px 0}
-.hk-radios{display:flex;flex-wrap:wrap;gap:var(--space-2)}
-.hk-radio{position:relative}
-.hk-radio input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.hk-radio span{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border:1.5px solid var(--c-border);border-radius:var(--radius-control);font-size:13.5px;font-weight:600;color:var(--c-text);background:#fff}
-.hk-radio input:checked+span{border-color:var(--c-brand);background:var(--c-green-soft);color:var(--c-heading)}
-.hk-radio input:focus-visible+span{outline:3px solid var(--c-accent);outline-offset:2px}
 .hk-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--c-text);cursor:pointer;line-height:1.5}
 .hk-check input{width:18px;height:18px;margin:2px 0 0;flex-shrink:0;accent-color:var(--c-brand)}
 .hk-err{font-size:12.5px;color:#C0392B;font-weight:600}
 .hk-form .hk-btn--cta{margin-top:var(--space-4)}
-
-.hk-result{background:#fff;border-radius:var(--radius-card);padding:var(--space-5);box-shadow:var(--shadow-card);border:1.5px solid var(--c-border)}
-.hk-result-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-2)}
-.hk-result-lbl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--c-heading)}
-.hk-result-lbl svg{width:18px;height:18px;color:var(--c-brand)}
-.hk .hk-result-logo{height:26px;width:auto}
-.hk-price{font-size:clamp(30px,2vw + 14px,40px);font-weight:800;color:var(--c-accent);line-height:1.15;letter-spacing:-.5px;word-break:break-word}
-.hk-price.is-range{font-size:clamp(24px,1.2vw + 12px,30px)}
-.hk-price.is-quote{font-size:22px;color:var(--c-heading);letter-spacing:0}
 .hk-formula{font-size:14px;font-weight:600;color:var(--c-heading);margin-top:6px!important}
-.hk-vat{font-size:12.5px;color:var(--c-text-muted);margin-top:2px!important}
-.hk-result-empty{display:flex;gap:var(--space-3);align-items:center}
-.hk-result-empty img{width:96px;height:96px;object-fit:contain;flex-shrink:0}
-.hk-result-empty p{font-size:13.5px;color:var(--c-text-muted)}
-.hk-warn{display:flex;gap:8px;align-items:flex-start;background:var(--c-accent-soft);border-radius:var(--radius-sm);padding:10px 12px;font-size:12.5px;line-height:1.5;margin-top:var(--space-3)}
-.hk-warn svg{width:16px;height:16px;flex-shrink:0;color:var(--c-accent);margin-top:1px}
-.hk-warn[hidden]{display:none}
-.hk-result-actions{display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-4)}
-.hk-zalo{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;font-size:13.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
-.hk-zalo img{width:22px;height:22px}
 .hk-status{font-size:12.5px;color:var(--c-brand);text-align:center;min-height:1em}
 .hk-status[data-error="true"]{color:#C0392B}
-.hk-basis{font-size:12px;color:var(--c-text-muted);margin-top:var(--space-3)!important;line-height:1.5}
+
+/* ── 3. Công cụ tính phí — sao cùng giao diện "Tính phí nhanh" của trang bao-hiem-chay-no (assets/chay-no.css) ── */
+.hk-fire{color:#4a5568;font:400 14px/1.65 var(--font);background:var(--grad-mint);border-radius:var(--radius-panel);padding:var(--space-6)}
+.hk-fire p{margin:0 0 12px}
+.hk-fire h2{font-size:27px;letter-spacing:-.65px;font-weight:800;margin-bottom:10px;color:var(--c-heading)}
+.hk-fire h3{font-size:16px;font-weight:700;margin-bottom:7px;color:var(--c-heading)}
+.hk-fire svg{width:24px;height:24px;color:#007437}
+.hk-fire .hk-calc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-4);flex-wrap:wrap;margin-bottom:24px}
+.hk-fire .hk-calc-head>div{flex:1 1 520px}
+.hk-fire .hk-calc-head>div p{margin:0}
+.hk-fire .hk-chosen{margin:0}
+.hk-fire .hk-chosen svg{width:16px;height:16px}
+.hk-fire .fire-estimator{display:grid;grid-template-columns:minmax(0,1fr) 345px;gap:24px}
+.hk-fire .fire-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:22px;align-content:start;background:#fff;border:1px solid #e0eae4;border-radius:16px}
+.hk-fire .fire-f-wide{grid-column:1/-1}
+.hk-fire .fire-fields>label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600;color:#34483f}
+.hk-fire .fire-fields small{font-weight:400;font-size:11px;color:#74847b}
+.hk-fire #fire-build-val{color:#007437;font-weight:600}
+.hk-fire .fire-fields em{font-style:normal;font-weight:400;color:#74847b}
+.hk-fire .fire-fields fieldset{border:0;min-width:0;margin:0;padding:0}
+.hk-fire .fire-fields legend{font-size:12px;font-weight:600;color:#34483f;margin-bottom:12px;padding:0}
+.hk-fire .fire-radios{display:flex;gap:22px;flex-wrap:wrap}
+.hk-fire .fire-radios label{display:flex;align-items:center;gap:7px;font-size:13px;min-height:36px;cursor:pointer}
+.hk-fire input[type=radio]{accent-color:#007437;width:17px;height:17px;flex-shrink:0;margin:0}
+.hk-fire input:not([type=radio]),.hk-fire select{display:block;width:100%;min-width:0;min-height:46px;border:1px solid #dbe5df;border-radius:12px;padding:11px 12px;background:#fff;color:#34483f;font:400 13px/1.5 var(--font)}
+.hk-fire input::placeholder{color:#819087}
+.hk-fire input:focus,.hk-fire select:focus{outline:none;border-color:var(--c-brand);box-shadow:0 0 0 3px rgba(0,116,55,.14)}
+.hk-fire .fire-unit{position:relative;display:block}
+.hk-fire .fire-unit input{padding-right:44px}
+.hk-fire .fire-unit span{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:#6b7d74}
+.hk-fire .fire-details{border:1px solid #e1eae5;border-radius:12px;background:#fff;overflow:hidden;margin-top:4px}
+.hk-fire .fire-details summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600;color:#084c38;padding:16px}
+.hk-fire summary::-webkit-details-marker{display:none}
+.hk-fire .fire-details summary:after{content:'⌄';margin-left:auto;flex-shrink:0;color:#007437}
+.hk-fire details[open]>summary:after{transform:rotate(180deg)}
+.hk-fire details[open]>summary{background:#f3faf6}
+.hk-fire .fire-answer{padding:0 16px 14px;font-size:12.5px}
+.hk-fire .fire-answer p:first-child{margin-top:12px}
+.hk-fire .fire-answer p:last-child{margin-bottom:0}
+.hk-fire .fire-result{background:#fff;border:1px solid #e0eae4;border-radius:16px;padding:24px;display:flex;flex-direction:column;align-items:flex-start;align-self:start;position:sticky;top:96px}
+.hk-fire .fire-estimate-result h3{display:flex;align-items:center;gap:8px;font-size:19px}
+.hk-fire .fire-sum{list-style:none;margin:6px 0 10px;padding:0;width:100%;border:1px solid #e3ece6;border-radius:12px;overflow:hidden}
+.hk-fire .fire-sum li{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;font-size:12.5px;border-top:1px solid #eef3f0}
+.hk-fire .fire-sum li:first-child{border-top:0}
+.hk-fire .fire-sum li b{color:#1c2b24;font-weight:600;white-space:nowrap}
+.hk-fire .fire-sum li.tot{background:#f2f9f4;font-weight:700;color:#084c38}
+.hk-fire .fire-sum li.tot b{color:#007437;font-weight:800}
+.hk-fire .fire-rate-line{font-size:12.5px;margin:0 0 6px}
+.hk-fire .fire-rate-line b{color:#084c38}
+.hk-fire #fire-estimate{display:block;font-size:22px;line-height:1.3;color:#c46f00;font-weight:800;margin:2px 0 6px}
+.hk-fire #fire-estimate-detail{font-size:13px}
+.hk-fire .fire-note{font-size:12px;line-height:1.6}
+.hk-fire .fire-disclaim{background:#fff8ee;border:1px solid #f6dfbd;border-radius:10px;padding:9px 11px;color:#7a5a2c}
+.hk-fire .fire-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:11px 10px;border:1px solid #e8920a;border-radius:12px;width:100%;margin-top:auto;font:700 12px/1.4 var(--font);text-align:center;text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s}
+.hk-fire .fire-primary{color:#fff!important;background:#e8920a}
+.hk-fire .fire-primary:hover{background:#c97d08;border-color:#c97d08}
+.hk-fire .fire-primary svg{color:inherit;width:17px;height:17px}
+@media(max-width:900px){
+ .hk-fire{padding:var(--space-5) var(--space-4);border-radius:20px}
+ .hk-fire .fire-estimator{grid-template-columns:1fr 300px;gap:20px}
+ .hk-fire .fire-fields{grid-template-columns:1fr;gap:14px;padding:18px}
+}
+@media(max-width:700px){
+ .hk-fire h2{font-size:23px;letter-spacing:-.5px}
+ .hk-fire .hk-calc-head p{font-size:13px}
+ .hk-fire .fire-estimator{grid-template-columns:1fr}
+ .hk-fire .fire-result{position:static}
+ .hk-fire #fire-estimate{font-size:19px}
+}
 
 /* ── 4. DBV hỗ trợ ── */
 .hk-help{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4);list-style:none;margin:0;padding:0}
@@ -196,8 +235,6 @@
   .hk-hero-copy{order:1;max-width:none;padding:var(--space-5) var(--space-5) var(--space-4)}
   .hk-hero-pic{order:2;position:relative;inset:auto;height:auto;display:block}
   .hk-hero-pic img{position:static;width:100%;height:auto;aspect-ratio:5/4;object-position:center 20%}
-  .hk-calc{padding:var(--space-5) var(--space-4);border-radius:20px}
-  .hk-calc-grid{grid-template-columns:1fr}
   .hk-help{grid-template-columns:1fr}
   .hk-assets{grid-template-columns:1fr}
   .hk-asset img{width:120px}
@@ -216,7 +253,7 @@
   .hk-type .hk-btn svg{width:14px;height:14px}
   .hk-badge{top:6px;right:6px;font-size:10.5px;padding:2px 8px}
   .hk-fields{grid-template-columns:1fr}
-  .hk-form,.hk-result,.hk-lead-form{padding:var(--space-4)}
+  .hk-lead-form{padding:var(--space-4)}
   .hk-hero-cta .hk-btn{flex:1 1 140px}
   .hk-help-card{padding:var(--space-3) var(--space-4) var(--space-3) var(--space-2);gap:var(--space-3)}
   .hk-help-card::before{width:92px}
