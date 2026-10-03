@@ -1,0 +1,234 @@
+/* DBV247 — Bảo hiểm cháy nổ hộ kinh doanh, body v2 (03/10/2026).
+   Chỉ dùng cho bao-hiem-chay-no-hkd.html. Mọi màu, chữ, bo góc lấy từ /assets/tokens.css.
+   Header/Footer/CTA dùng khối dbv-layout của site, file này không chạm tới. */
+
+.hk{--hk-gap:var(--space-5);--hk-sec:var(--space-7);font-family:var(--font);color:var(--c-text);font-size:15px;line-height:1.6}
+.hk *,.hk *::before,.hk *::after{box-sizing:border-box}
+.hk-wrap{max-width:var(--container-page);margin:0 auto;padding:0 var(--gutter)}
+.hk section{scroll-margin-top:84px}
+.hk h1,.hk h2,.hk h3{color:var(--c-heading);font-weight:800;line-height:1.25;margin:0}
+.hk p{margin:0}
+.hk img{max-width:100%;height:auto;display:block}
+.hk svg{width:18px;height:18px;flex-shrink:0}
+.hk-eyebrow svg{width:14px;height:14px}
+.hk a{color:var(--c-brand)}
+.hk-sec{padding:var(--hk-sec) 0 0}
+.hk-sec:last-of-type{padding-bottom:var(--hk-sec)}
+.hk-h2{font-size:clamp(21px,.6vw + 18px,26px);margin-bottom:var(--space-1)!important}
+.hk-lead{color:var(--c-text-muted);font-size:14px;margin-bottom:var(--space-5)!important}
+.hk-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ── Nút ── */
+.hk-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:44px;padding:10px 22px;border-radius:var(--radius-control);font:700 14px/1.2 var(--font);text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:background-color .18s,border-color .18s,color .18s,box-shadow .18s;white-space:nowrap}
+.hk-btn svg{width:16px;height:16px;flex-shrink:0}
+.hk-btn--cta{background:var(--c-accent);color:#fff!important;box-shadow:0 4px 14px rgba(232,146,10,.28)}
+.hk-btn--cta:hover{background:var(--c-accent-hover)}
+.hk-btn--brand{background:var(--c-brand);color:#fff!important}
+.hk-btn--brand:hover{background:var(--c-brand-hover)}
+.hk-btn--line{background:#fff;color:var(--c-brand)!important;border-color:var(--c-brand)}
+.hk-btn--line:hover{background:var(--c-green-soft)}
+.hk-btn--block{width:100%}
+.hk :focus-visible{outline:3px solid var(--c-accent);outline-offset:2px}
+.hk-btn:disabled{opacity:.6;cursor:not-allowed}
+
+/* ── 1. Banner ── */
+.hk-hero{padding-top:var(--space-5)}
+.hk-hero-box{position:relative;border-radius:var(--radius-panel);overflow:hidden;background:var(--grad-mint);aspect-ratio:1800/800;min-height:420px;display:flex;align-items:center}
+.hk-hero-pic,.hk-hero-pic img{position:absolute;inset:0;width:100%;height:100%}
+.hk-hero-pic img{object-fit:cover;object-position:right center}
+.hk-hero-box::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(239,248,242,.96) 0%,rgba(239,248,242,.86) 30%,rgba(239,248,242,0) 48%);pointer-events:none}
+.hk-hero-copy{position:relative;z-index:1;max-width:42%;padding:var(--space-6) 0 var(--space-6) clamp(28px,4vw,56px)}
+.hk-eyebrow{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--c-brand);border:1px solid rgba(0,116,55,.2);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--radius-sm);margin-bottom:var(--space-3)}
+.hk-hero h1{font-size:clamp(30px,2.3vw + 6px,44px);letter-spacing:-.5px;line-height:1.12}
+.hk-hero-tag{font-size:clamp(17px,.8vw + 10px,22px);font-weight:700;color:var(--c-heading);margin-top:var(--space-2)!important}
+.hk-hero-sub{color:var(--c-text-muted);font-size:14.5px;margin-top:var(--space-3)!important;max-width:460px}
+.hk-hero-cta{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-5)}
+
+/* ── 2. Tám nhóm cơ sở ── */
+.hk-types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);list-style:none;margin:0;padding:0}
+.hk-type{position:relative;display:flex;flex-direction:column;background:#fff;border:1.5px solid var(--c-border);border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--shadow-card);transition:border-color .18s,box-shadow .18s}
+.hk-type:hover{box-shadow:var(--shadow-card-hover)}
+.hk-type.is-selected{border-color:var(--c-accent);box-shadow:0 0 0 3px rgba(232,146,10,.18),var(--shadow-card-hover)}
+.hk-type-img{aspect-ratio:3/2;width:100%;object-fit:cover;object-position:center;background:var(--c-mint)}
+.hk-badge{position:absolute;top:10px;right:10px;background:var(--c-accent);color:#fff;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:var(--radius-sm);display:none}
+.hk-type.is-selected .hk-badge{display:inline-block}
+.hk-type-body{display:flex;flex-direction:column;flex:1;padding:var(--space-3) var(--space-4) var(--space-4)}
+.hk-type h3{font-size:15px;line-height:1.35}
+.hk-type-desc{font-size:13px;color:var(--c-text-muted);margin-top:4px!important;flex:1}
+.hk-cond-btn{display:inline-flex;align-items:center;gap:4px;background:none;border:0;padding:6px 0;margin:6px 0 8px;font:700 12.5px/1.3 var(--font);color:var(--c-brand);cursor:pointer;text-align:left;min-height:32px}
+.hk-cond-btn svg{width:14px;height:14px;transition:transform .18s}
+.hk-cond-btn[aria-expanded="true"] svg{transform:rotate(90deg)}
+.hk-cond{font-size:12.5px;line-height:1.55;background:var(--c-bg-muted);border-radius:var(--radius-sm);padding:10px 12px;margin:0 0 10px;color:var(--c-text)}
+.hk-cond dt{font-weight:700;color:var(--c-heading)}
+.hk-cond dd{margin:0 0 6px}
+.hk-cond dd:last-child{margin-bottom:0}
+.hk-type .hk-btn{min-height:40px;padding:8px 12px;font-size:13.5px}
+.hk-note{display:flex;gap:var(--space-2);align-items:flex-start;background:var(--c-accent-soft);border:1px solid rgba(232,146,10,.25);border-radius:var(--radius-control);padding:10px 14px;font-size:13px;color:var(--c-text);margin-top:var(--space-4)}
+.hk-note svg{width:18px;height:18px;flex-shrink:0;color:var(--c-accent);margin-top:1px}
+
+/* ── 3. Công cụ tính phí ── */
+.hk-calc{background:var(--grad-mint);border-radius:var(--radius-panel);padding:var(--space-6)}
+.hk-calc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-5)}
+.hk-calc-head .hk-lead{margin-bottom:0!important}
+.hk-chosen{display:flex;align-items:center;gap:var(--space-2);background:#fff;border:1px solid var(--c-border);border-radius:var(--radius-control);padding:8px 14px;font-size:13px}
+.hk-chosen svg{width:16px;height:16px;color:var(--c-brand)}
+.hk-chosen a{font-weight:700;margin-left:auto;padding-left:10px;white-space:nowrap}
+.hk-calc-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--space-5);align-items:start}
+.hk-form{background:#fff;border-radius:var(--radius-card);padding:var(--space-5);box-shadow:var(--shadow-card)}
+.hk-fields{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+.hk-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.hk-field--full{grid-column:1/-1}
+.hk-field>label,.hk-field>.hk-lbl{font-size:13px;font-weight:600;color:var(--c-heading)}
+.hk-field .hk-hint{font-size:12px;color:var(--c-text-muted)}
+.hk-input,.hk-select{width:100%;min-height:46px;padding:10px 14px;border:1.5px solid var(--c-border);border-radius:var(--radius-control);font:500 14.5px/1.3 var(--font);color:var(--c-text);background:#fff;appearance:none;-webkit-appearance:none}
+.hk-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23084C38' stroke-width='1.8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+.hk-input:focus,.hk-select:focus{outline:none;border-color:var(--c-brand);box-shadow:0 0 0 3px rgba(0,116,55,.14)}
+.hk-input[aria-invalid="true"]{border-color:#C0392B}
+.hk-unit{position:relative}
+.hk-unit .hk-input{padding-right:46px}
+.hk-unit span{position:absolute;right:1px;top:1px;bottom:1px;display:flex;align-items:center;padding:0 14px;color:var(--c-text-muted);font-weight:600;background:var(--c-bg-muted);border-radius:0 11px 11px 0}
+.hk-radios{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.hk-radio{position:relative}
+.hk-radio input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.hk-radio span{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border:1.5px solid var(--c-border);border-radius:var(--radius-control);font-size:13.5px;font-weight:600;color:var(--c-text);background:#fff}
+.hk-radio input:checked+span{border-color:var(--c-brand);background:var(--c-green-soft);color:var(--c-heading)}
+.hk-radio input:focus-visible+span{outline:3px solid var(--c-accent);outline-offset:2px}
+.hk-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--c-text);cursor:pointer;line-height:1.5}
+.hk-check input{width:18px;height:18px;margin:2px 0 0;flex-shrink:0;accent-color:var(--c-brand)}
+.hk-err{font-size:12.5px;color:#C0392B;font-weight:600}
+.hk-form .hk-btn--cta{margin-top:var(--space-4)}
+
+.hk-result{background:#fff;border-radius:var(--radius-card);padding:var(--space-5);box-shadow:var(--shadow-card);border:1.5px solid var(--c-border)}
+.hk-result-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-2)}
+.hk-result-lbl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--c-heading)}
+.hk-result-lbl svg{width:18px;height:18px;color:var(--c-brand)}
+.hk .hk-result-logo{height:26px;width:auto}
+.hk-price{font-size:clamp(30px,2vw + 14px,40px);font-weight:800;color:var(--c-accent);line-height:1.15;letter-spacing:-.5px;word-break:break-word}
+.hk-price.is-range{font-size:clamp(24px,1.2vw + 12px,30px)}
+.hk-price.is-quote{font-size:22px;color:var(--c-heading);letter-spacing:0}
+.hk-formula{font-size:14px;font-weight:600;color:var(--c-heading);margin-top:6px!important}
+.hk-vat{font-size:12.5px;color:var(--c-text-muted);margin-top:2px!important}
+.hk-result-empty{display:flex;gap:var(--space-3);align-items:center}
+.hk-result-empty img{width:96px;height:96px;object-fit:contain;flex-shrink:0}
+.hk-result-empty p{font-size:13.5px;color:var(--c-text-muted)}
+.hk-warn{display:flex;gap:8px;align-items:flex-start;background:var(--c-accent-soft);border-radius:var(--radius-sm);padding:10px 12px;font-size:12.5px;line-height:1.5;margin-top:var(--space-3)}
+.hk-warn svg{width:16px;height:16px;flex-shrink:0;color:var(--c-accent);margin-top:1px}
+.hk-warn[hidden]{display:none}
+.hk-result-actions{display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-4)}
+.hk-zalo{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;font-size:13.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.hk-zalo img{width:22px;height:22px}
+.hk-status{font-size:12.5px;color:var(--c-brand);text-align:center;min-height:1em}
+.hk-status[data-error="true"]{color:#C0392B}
+.hk-basis{font-size:12px;color:var(--c-text-muted);margin-top:var(--space-3)!important;line-height:1.5}
+
+/* ── 4. DBV hỗ trợ ── */
+.hk-help{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4);list-style:none;margin:0;padding:0}
+.hk-help-card{display:flex;gap:var(--space-4);align-items:center;background:#fff;border:1.5px solid var(--c-border);border-radius:var(--radius-card);padding:var(--space-4) var(--space-5) var(--space-4) var(--space-3);box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+.hk-help-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:132px;background:var(--grad-mint);z-index:0}
+.hk-help img{position:relative;z-index:1;width:116px;height:120px;object-fit:contain;object-position:center bottom;flex-shrink:0}
+.hk-help h3{font-size:15.5px;margin-bottom:6px}
+.hk-pts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.hk-pts li{position:relative;padding-left:16px;font-size:13px;color:var(--c-text-muted);line-height:1.5}
+.hk-pts li::before{content:"";position:absolute;left:2px;top:.6em;width:6px;height:6px;border-radius:var(--radius-circle);background:var(--c-brand)}
+
+/* ── 5. Tài sản được bảo vệ ── */
+.hk-assets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4);list-style:none;margin:0;padding:0}
+.hk-asset{display:flex;gap:var(--space-3);align-items:center;background:#fff;border:1.5px solid var(--c-border);border-radius:var(--radius-card);padding:var(--space-3);box-shadow:var(--shadow-card)}
+.hk-asset img{width:42%;max-width:150px;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius-control);flex-shrink:0}
+.hk-asset h3{font-size:15px;margin-bottom:4px}
+.hk-asset p{font-size:12.5px;color:var(--c-text-muted);line-height:1.5}
+
+/* ── Accordion dùng chung ── */
+.hk-acc-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-top:var(--space-4);align-items:start}
+.hk-acc{background:#fff;border:1.5px solid var(--c-border);border-radius:var(--radius-control);overflow:hidden}
+.hk-acc-btn{width:100%;display:flex;align-items:center;gap:var(--space-3);background:none;border:0;padding:14px 18px;font:700 14px/1.4 var(--font);color:var(--c-heading);text-align:left;cursor:pointer;min-height:52px}
+.hk-acc-btn .hk-ic{width:22px;height:22px;color:var(--c-brand);flex-shrink:0}
+.hk-acc-btn .hk-acc-t{flex:1}
+.hk-acc-btn small{display:block;font-weight:500;font-size:12px;color:var(--c-text-muted);margin-top:2px}
+.hk-acc-btn .hk-chev{width:18px;height:18px;color:var(--c-text-muted);transition:transform .2s;flex-shrink:0}
+.hk-acc-btn[aria-expanded="true"] .hk-chev{transform:rotate(180deg)}
+.hk-acc-panel{padding:0 18px 16px 18px;font-size:13.5px;line-height:1.7;color:var(--c-text)}
+.hk-acc-panel ul{margin:0;padding-left:20px}
+.hk-acc-panel li{margin-bottom:4px}
+.hk-foot{font-size:12px;color:var(--c-text-muted);margin-top:var(--space-3)!important;display:flex;gap:6px;align-items:flex-start}
+.hk-foot svg{width:14px;height:14px;flex-shrink:0;margin-top:2px}
+
+/* ── 6. Ba bước ── */
+.hk-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4);list-style:none;margin:0;padding:0;counter-reset:hk}
+.hk-step{display:flex;gap:var(--space-3);align-items:flex-start;background:#fff;border:1.5px solid var(--c-border);border-radius:var(--radius-card);padding:var(--space-4);position:relative}
+.hk-step-n{width:40px;height:40px;border-radius:var(--radius-circle);background:var(--c-brand);color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 0 4px var(--c-green-soft)}
+.hk-step h3{font-size:14.5px;margin-bottom:4px}
+.hk-step p{font-size:13px;color:var(--c-text-muted);line-height:1.5}
+.hk-steps+.hk-acc{margin-top:var(--space-4)}
+
+/* ── 7. Form tư vấn ── */
+.hk-lead-box{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:var(--space-5);background:var(--grad-mint);border-radius:var(--radius-panel);padding:var(--space-5) var(--space-6) var(--space-5) var(--space-5);align-items:center}
+.hk-lead-intro{display:flex;align-items:flex-end;gap:var(--space-3)}
+.hk-lead-intro img{width:170px;height:255px;object-fit:contain;object-position:center bottom;flex-shrink:0}
+.hk-lead-intro h2{font-size:clamp(22px,1vw + 14px,28px)}
+.hk-lead-intro p{color:var(--c-text-muted);font-size:14px;margin-top:var(--space-2)!important}
+.hk .hk-lead-intro .hk-lead-logo{height:30px;width:auto;margin-bottom:var(--space-3)}
+.hk-lead-intro>div{padding-bottom:var(--space-5)}
+.hk-lead-form{background:#fff;border-radius:var(--radius-card);padding:var(--space-5);box-shadow:var(--shadow-card)}
+.hk-lead-form .hk-check{margin-top:var(--space-4)}
+.hk-lead-attach{font-size:12.5px;color:var(--c-brand);margin-top:var(--space-3)!important;display:flex;gap:6px;align-items:flex-start}
+.hk-lead-attach[hidden]{display:none}
+.hk-lead-attach svg{width:15px;height:15px;flex-shrink:0;margin-top:2px}
+.hk-lead-form .hk-status{text-align:left;margin-top:var(--space-2)}
+.hk-honey{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* ── 8. FAQ ── */
+.hk-faq{display:flex;flex-direction:column;gap:var(--space-2);max-width:none}
+.hk-faq .hk-acc-btn{font-weight:600;color:var(--c-text)}
+.hk-faq .hk-acc-btn[aria-expanded="true"]{color:var(--c-heading)}
+
+/* ── Responsive ── */
+@media (max-width:1100px){
+  .hk-types{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hk-help-card::before{width:110px}
+  .hk-help img{width:96px;height:104px}
+}
+@media (max-width:900px){
+  .hk{--hk-sec:40px}
+  .hk-hero{padding-top:var(--space-4)}
+  .hk-hero-box{flex-direction:column;align-items:stretch;aspect-ratio:auto;min-height:0;border-radius:20px}
+  .hk-hero-box::after{display:none}
+  .hk-hero-copy{order:1;max-width:none;padding:var(--space-5) var(--space-5) var(--space-4)}
+  .hk-hero-pic{order:2;position:relative;inset:auto;height:auto;display:block}
+  .hk-hero-pic img{position:static;width:100%;height:auto;aspect-ratio:5/4;object-position:center 20%}
+  .hk-calc{padding:var(--space-5) var(--space-4);border-radius:20px}
+  .hk-calc-grid{grid-template-columns:1fr}
+  .hk-help{grid-template-columns:1fr}
+  .hk-assets{grid-template-columns:1fr}
+  .hk-asset img{width:120px}
+  .hk-acc-row{grid-template-columns:1fr}
+  .hk-steps{grid-template-columns:1fr}
+  .hk-lead-box{grid-template-columns:1fr;padding:var(--space-5) var(--space-4);border-radius:20px}
+  .hk-lead-intro img{width:120px;height:180px}
+  .hk-lead-intro>div{padding-bottom:var(--space-3)}
+}
+@media (max-width:640px){
+  .hk-types{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
+  .hk-type-body{padding:10px 10px 12px}
+  .hk-type h3{font-size:13.5px}
+  .hk-type-desc{font-size:12px}
+  .hk-type .hk-btn{font-size:12.5px;padding:8px 6px;gap:4px;white-space:normal;text-align:center}
+  .hk-type .hk-btn svg{width:14px;height:14px}
+  .hk-badge{top:6px;right:6px;font-size:10.5px;padding:2px 8px}
+  .hk-fields{grid-template-columns:1fr}
+  .hk-form,.hk-result,.hk-lead-form{padding:var(--space-4)}
+  .hk-hero-cta .hk-btn{flex:1 1 140px}
+  .hk-help-card{padding:var(--space-3) var(--space-4) var(--space-3) var(--space-2);gap:var(--space-3)}
+  .hk-help-card::before{width:92px}
+  .hk-help img{width:80px;height:96px}
+  .hk-chosen{width:100%}
+}
+@media (max-width:360px){
+  .hk-type .hk-btn{font-size:12px}
+  .hk-wrap{padding:0 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  .hk *,.hk *::before,.hk *::after{transition:none!important;animation:none!important}
+}
+.hk [hidden]{display:none!important}
