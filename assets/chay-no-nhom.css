@@ -1,0 +1,78 @@
+/* DBV247 — trang cháy nổ toà nhà, dùng chung chay-no.css + tokens.css; 06/10/2026 */
+.fire-tn .tn-pad{padding:32px}
+.tn-roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tn-role{display:flex;align-items:center;gap:14px;text-align:left;padding:18px;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;background:#fff;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;box-shadow:0 3px 14px rgba(8,76,56,.06);transition:border-color .15s,box-shadow .15s;min-height:44px}
+.tn-role:hover{border-color:#8fc4a5;box-shadow:0 8px 24px rgba(8,76,56,.10)}
+.tn-role[aria-pressed=true]{border-color:#007437;background:#E8F5E9;box-shadow:inset 0 0 0 1px #007437}
+.tn-role-ic{flex-shrink:0;width:48px;height:48px;border-radius:12px;background:#EFF8F2;display:flex;align-items:center;justify-content:center}
+.tn-role[aria-pressed=true] .tn-role-ic{background:#007437}
+.tn-role[aria-pressed=true] .tn-role-ic svg{color:#fff}
+.tn-role b{display:block;font-size:15px;line-height:1.35;color:#084C38;font-weight:700}
+.tn-role small{display:block;font-size:13px;line-height:1.5;color:#4A5568;margin-top:2px}
+.tn-role-note{margin-top:16px;padding:20px 24px}
+.tn-role-note h3{margin-bottom:6px}
+.tn-role-note p{margin:0;font-size:14px}
+.tn-types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.tn-type{background:#fff;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;padding:20px;box-shadow:0 3px 14px rgba(8,76,56,.06);transition:border-color .15s}
+.tn-type.is-hl{border-color:#007437;box-shadow:inset 0 0 0 1px #007437}
+.tn-type-n{display:inline-block;font:700 12px/1 'Be Vietnam Pro',sans-serif;color:#007437;background:#E8F5E9;border-radius:8px;padding:6px 8px;margin-bottom:12px}
+.tn-type h3{min-height:2.6em}
+.tn-th{font-size:14px;color:#1C1C1C;margin-bottom:8px!important}
+.tn-th b{color:#084C38}
+.tn-rate{font-size:13px;color:#4A5568;margin:0!important;padding-top:8px;border-top:1px dashed var(--c-border,#E2E8F0)}
+#dien-bat-buoc>.fire-note{margin:16px 0 0}
+.tn-build{margin:-4px 0 0;font-size:13px;color:#007437;font-weight:600}
+.fire #tn-floors,.fire #tn-area,.fire #tn-equip,.fire #tn-other{padding-right:52px}
+.tn-elig{width:100%;font-size:13px;line-height:1.55;padding:10px 12px;border-radius:12px;background:#F8FAFB;border:1px solid var(--c-border,#E2E8F0);margin:4px 0 10px!important}
+.tn-elig[data-state=yes]{background:#E8F5E9;border-color:#b9dcc6;color:#084C38}
+.tn-elig[data-state=yes]::before{content:'✓ ';font-weight:700;color:#007437}
+.tn-elig[data-state=no]{background:#FFF8E7;border-color:#f6dfbd;color:#5c4520}
+.tn-elig[data-state=no]::before{content:'ⓘ ';font-weight:700}
+.tn-save{font-size:13px;line-height:1.55;color:#084C38;background:#EFF8F2;border-radius:12px;padding:9px 11px;width:100%}
+.tn-split{display:grid;grid-template-columns:1.15fr 1fr;gap:16px}
+.tn-part{background:#fff;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;padding:24px;box-shadow:0 3px 14px rgba(8,76,56,.06)}
+.tn-part-common{background:linear-gradient(115deg,#EFF8F2,#E1F1E7);border-color:#d5ebdd}
+.tn-part-tag{display:inline-block;font:600 12px/1.3 'Be Vietnam Pro',sans-serif;color:#007437;background:#fff;border:1px solid #cfe6d7;border-radius:8px;padding:6px 8px;margin-bottom:12px}
+.tn-part ul{margin:8px 0 12px;padding-left:18px;font-size:14px;line-height:1.7;color:#1C1C1C}
+.tn-part a{font-size:14px;font-weight:600}
+#phan-chung-rieng>.fire-note{margin:16px 0 0}
+.tn-guidance{grid-template-columns:1fr}
+.tn-guidance>div{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tn-guidance .fire-details{margin-top:0}
+.tn-cross{margin:14px 0 0;font-size:13px}
+.tn-other h2{font-size:20px}
+.tn-other-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.tn-other-grid a{display:block;padding:16px 18px;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;background:#fff;text-decoration:none!important;box-shadow:0 3px 14px rgba(8,76,56,.06)}
+.tn-other-grid a:hover{border-color:#8fc4a5}
+.tn-other-grid b{display:block;color:#084C38;font-size:15px}
+.tn-other-grid span{display:block;color:#4A5568;font-size:13px;margin-top:2px}
+@media(max-width:1024px){.tn-types{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:767px){
+ .fire-tn .tn-pad{padding:20px 16px}
+ .tn-roles{grid-template-columns:1fr;gap:12px}
+ .tn-role{padding:14px}
+ .tn-types{grid-template-columns:1fr;gap:12px}
+ .tn-type h3{min-height:0}
+ .tn-split{grid-template-columns:1fr;gap:12px}
+ .tn-guidance>div{grid-template-columns:1fr}
+ .tn-other-grid{grid-template-columns:1fr;gap:12px}
+}
+/* ── Nhóm: nhà xưởng & kho vận (06/10/2026) ── */
+.fire #nx-area,.fire #nx-vol,.fire #nx-mach,.fire #nx-stock,.fire #kv-area,.fire #kv-vol,.fire #kv-equip,.fire #kv-peak,.fire #kv-avg{padding-right:52px}
+.tn-elig[data-state=part]{background:#EFF8F2;border-color:#cfe6d7;color:#084C38}
+.tn-elig[data-state=part]::before{content:'ⓘ ';font-weight:700;color:#007437}
+.nx-case{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;align-items:center;margin-top:16px;padding:24px;border-radius:16px;border:1px solid #d5ebdd}
+.nx-case h3{margin:0 0 6px;color:#084C38;font-size:18px}
+.nx-case p{margin:0;font-size:14px;line-height:1.65;color:#1C1C1C}
+.nx-bar{display:flex;height:56px;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #cfe6d7}
+.nx-bar span{display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6px;font:600 12px/1.25 'Be Vietnam Pro',sans-serif;color:#fff;background:#007437}
+.nx-bar span+span{background:#2f8f5b;border-left:2px solid #fff}
+.nx-bar span.miss{background:#FFF4E0;color:#9a5a00;border-left:2px dashed #E8920A}
+.kv-bars{display:grid;gap:6px}
+.kv-bars>div{display:grid;grid-template-columns:44px 1fr;gap:8px;align-items:center;font-size:12px;color:#4A5568}
+.kv-bars i{display:block;height:14px;border-radius:4px;background:#2f8f5b}
+.kv-bars i.over{background:linear-gradient(90deg,#2f8f5b var(--l,60%),#E8920A var(--l,60%))}
+.kv-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:12px;color:#4A5568}
+.kv-legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:#2f8f5b;vertical-align:-1px}
+.kv-legend span.o::before{background:#E8920A}
+@media(max-width:767px){.nx-case{grid-template-columns:1fr;gap:14px;padding:18px}.nx-bar{height:64px}.nx-bar span{font-size:11px}}

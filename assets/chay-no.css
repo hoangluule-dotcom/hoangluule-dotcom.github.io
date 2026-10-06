@@ -86,3 +86,19 @@
 .fire #fire-area,.fire #fire-fixed,.fire #fire-stock{padding-right:44px}
 #kiem-tra .fire-res-actions .fire-btn{grid-column:auto!important;grid-row:auto!important}
 .fire-factors{margin-top:4px}.fire-factors .fire-answer{padding:0 16px 14px;font-size:12.5px}
+
+/* Bạn thuộc nhóm nào? (06/10/2026) */
+.fire-groups{margin-top:32px}
+.fire-group-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.fire-group{display:flex;flex-direction:column;background:#fff;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;overflow:hidden;text-decoration:none!important;color:inherit;box-shadow:0 3px 14px rgba(8,76,56,.06);transition:border-color .15s,box-shadow .15s}
+.fire-group:hover{border-color:#8fc4a5;box-shadow:0 6px 20px rgba(8,76,56,.1)}
+.fire-group-ph{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#EFF8F2}
+.fire-group-ph img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.fire-group-tx{display:flex;flex-direction:column;gap:6px;padding:16px 16px 8px;flex:1}
+.fire-group-tx b{color:#084C38;font-size:16px;line-height:1.35}
+.fire-group-tx small{color:#4A5568;font-size:13px;line-height:1.5}
+.fire-group-tag{align-self:flex-start;margin-top:4px;font-size:12px;font-weight:600;color:#007437;background:#EFF8F2;border-radius:8px;padding:5px 8px}
+.fire-group-go{display:flex;align-items:center;gap:6px;padding:8px 16px 16px;font-size:13px;font-weight:600;color:#007437}
+.fire-group-go svg{width:16px;height:16px}
+@media(max-width:1024px){.fire-group-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.fire-groups{margin-top:24px}.fire-group-grid{grid-template-columns:1fr;gap:12px}.fire-group{display:grid;grid-template-columns:112px 1fr;grid-template-rows:1fr auto}.fire-group-ph{grid-row:1/3;aspect-ratio:auto;height:100%}.fire-group-tx{padding:12px 14px 4px}.fire-group-tx b{font-size:15px}.fire-group-tx small{font-size:12px}.fire-group-tag{display:none}.fire-group-go{padding:4px 14px 12px;font-size:12px}}
