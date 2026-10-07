@@ -296,7 +296,19 @@ var DBV_CAUHINH = {
             + chuoiThamSoNguon()
             // Cộng tác viên giới thiệu — xem ghi chú ở hàm chuoiThamSoCtv().
             + chuoiThamSoCtv(tuyChon.body);
-          baoLead(String(tuyChon.body));
+          /* Chỉ báo chuyển đổi khi Netlify nhận được thật (HTTP 2xx). Trước
+             07/10/2026 lead được báo ngay lúc bấm gửi, nên lượt gửi hỏng (mất
+             mạng, vượt hạn mức Forms) vẫn bị GA4/Google Ads tính là lead.
+             Đặt mốc ngay từ lúc gửi để bộ dự phòng 'submit' bên dưới không
+             đếm trùng trong khi chờ máy chủ trả lời. */
+          var bodyLead = String(tuyChon.body);
+          mocBaoLeadCuoi = Date.now();
+          var hua = fetchGoc.apply(this, arguments);
+          hua.then(function (r) {
+            if (r && r.ok) baoLead(bodyLead, true);
+            else log('Gửi lead thất bại — không tính chuyển đổi. HTTP', r && r.status);
+          }, function (e) { log('Gửi lead thất bại — không tính chuyển đổi:', e); });
+          return hua;
         }
       } catch (e) { log('lỗi khi đọc lead:', e); }
       return fetchGoc.apply(this, arguments);
@@ -312,8 +324,8 @@ var DBV_CAUHINH = {
   var mocBaoLeadCuoi = 0;
   function vuaBaoLead() { return (Date.now() - mocBaoLeadCuoi) < 3000; }
 
-  function baoLead(body) {
-    if (vuaBaoLead()) { log('Bỏ qua — lead này vừa được báo rồi'); return; }
+  function baoLead(body, daXacNhan) {
+    if (!daXacNhan && vuaBaoLead()) { log('Bỏ qua — lead này vừa được báo rồi'); return; }
     mocBaoLeadCuoi = Date.now();
 
     var duLieu = {};

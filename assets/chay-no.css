@@ -83,7 +83,7 @@
 .fire .fire-search input{padding-left:42px}
 @media(min-width:901px){.fire-tabs{flex-wrap:wrap;overflow:visible}}
 .fire #fire-q{padding-left:42px;font-size:14px}
-.fire #fire-area,.fire #fire-fixed,.fire #fire-stock{padding-right:44px}
+.fire #fire-area,.fire #fire-bv,.fire #fire-fixed,.fire #fire-stock{padding-right:44px}
 #kiem-tra .fire-res-actions .fire-btn{grid-column:auto!important;grid-row:auto!important}
 .fire-factors{margin-top:4px}.fire-factors .fire-answer{padding:0 16px 14px;font-size:12.5px}
 
@@ -102,3 +102,6 @@
 .fire-group-go svg{width:16px;height:16px}
 @media(max-width:1024px){.fire-group-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.fire-groups{margin-top:24px}.fire-group-grid{grid-template-columns:1fr;gap:12px}.fire-group{display:grid;grid-template-columns:112px 1fr;grid-template-rows:1fr auto}.fire-group-ph{grid-row:1/3;aspect-ratio:auto;height:100%}.fire-group-tx{padding:12px 14px 4px}.fire-group-tx b{font-size:15px}.fire-group-tx small{font-size:12px}.fire-group-tag{display:none}.fire-group-go{padding:4px 14px 12px;font-size:12px}}
+
+/* Phí dự kiến 1 mức + gợi ý sprinkler (07/10/2026) */
+.fire-alt{font-size:13px;line-height:1.55;color:#084C38;background:#EFF8F2;border-radius:12px;padding:9px 11px;margin:0 0 10px}

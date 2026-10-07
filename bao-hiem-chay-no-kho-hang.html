@@ -287,8 +287,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
      (Chú thích đặt TRONG @media: sync_layout.py bỏ qua khối @media có chú thích đứng trước) */
   .ftr .ftr-col{display:none}}
 </style>
-<link rel="stylesheet" href="/assets/chay-no.css?v=20261003b">
-<link rel="stylesheet" href="/assets/chay-no-nhom.css?v=20261006b">
+<link rel="stylesheet" href="/assets/chay-no.css?v=20261007a">
+<link rel="stylesheet" href="/assets/chay-no-nhom.css?v=20261007a">
 </head>
 <body class="fire-page">
 <!-- Google Tag Manager (noscript) -->
@@ -513,22 +513,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="dien-bat-buoc" class="fire-section fire-mint tn-pad">
  <div class="fire-section-head"><h2>Kho của bạn có thuộc diện bắt buộc?</h2><p>Với kho hàng, yếu tố quyết định là <b>hạng nguy hiểm cháy nổ của hàng hoá lưu trữ</b> và quy mô kho. Theo Phụ lục VII Nghị định 105/2025/NĐ-CP.</p></div>
  <div class="tn-types">
-  <article class="tn-type" data-for-type="abc"><span class="tn-type-n">Mục 28</span><h3>Kho hàng hoá, vật tư hạng A, B, C</h3><p class="tn-th">Tổng diện tích kho từ <b>200 m²</b></p><p class="tn-rate">0,2% – 0,5%/năm tuỳ hàng hoá</p></article>
-  <article class="tn-type" data-for-type="de"><span class="tn-type-n">Mục 30</span><h3>Kho hàng hoá, vật tư hạng D, E</h3><p class="tn-th">Khối tích từ <b>5.000 m³</b> hoặc diện tích từ <b>1.000 m²</b></p><p class="tn-rate">Tỷ lệ phí cần xác định theo hồ sơ</p></article>
+  <article class="tn-type" data-for-type="abc"><span class="tn-type-n">Mục 28</span><h3>Kho hàng hoá, vật tư hạng A, B, C</h3><p class="tn-th">Tổng diện tích kho từ <b>200 m²</b></p><p class="tn-rate">0,2%/năm · vải 0,25% · giấy, bao bì 0,35% · gỗ 0,5%</p></article>
+  <article class="tn-type" data-for-type="de"><span class="tn-type-n">Mục 30</span><h3>Kho hàng hoá, vật tư hạng D, E</h3><p class="tn-th">Khối tích từ <b>5.000 m³</b> hoặc diện tích từ <b>1.000 m²</b></p><p class="tn-rate">0,1%/năm</p></article>
   <article class="tn-type" data-for-type="kd"><span class="tn-type-n">Mục 13</span><h3>Kinh doanh hàng hoá dễ cháy</h3><p class="tn-th">Tổng diện tích kinh doanh từ <b>200 m²</b></p><p class="tn-rate">0,08%/năm</p></article>
-  <article class="tn-type" data-for-type="qg"><span class="tn-type-n">Mục 29</span><h3>Kho dự trữ quốc gia</h3><p class="tn-th"><b>Mọi quy mô</b></p><p class="tn-rate">Tỷ lệ phí cần xác định theo hồ sơ</p></article>
+  <article class="tn-type" data-for-type="qg"><span class="tn-type-n">Mục 29</span><h3>Kho dự trữ quốc gia</h3><p class="tn-th"><b>Mọi quy mô</b></p><p class="tn-rate">0,2%/năm</p></article>
  </div>
  <p class="fire-note">Hạng nguy hiểm của kho phụ thuộc hàng hoá lưu trữ (hàng cháy được, bao bì, chất lỏng…) và được thể hiện trong hồ sơ PCCC. Chưa rõ? <a href="#contact">Gửi danh mục hàng để chuyên viên tra giúp →</a>. Kho nằm trong nhà máy xem thêm <a href="/bao-hiem-chay-no-nha-xuong">bảo hiểm cháy nổ nhà xưởng</a>.</p>
 </section>
 
 <section id="tinh-phi" class="fire-section">
- <div class="fire-section-head"><h2>Tính phí nhanh cho kho hàng</h2><p>Chọn vai trò và loại kho, nhập diện tích và giá trị hàng tồn — phí được tính trên mức tồn cao điểm.</p></div>
+ <div class="fire-section-head"><h2>Tính phí nhanh cho kho hàng</h2><p>Chọn vai trò và loại hàng trong kho, nhập diện tích và giá trị hàng tồn — phí được tính trên mức tồn cao điểm.</p></div>
  <div class="fire-estimator"><div class="fire-fields">
   <label>Bạn là<select id="kv-role"><option value="">Chọn vai trò</option><option value="own">Chủ kho tự vận hành</option><option value="lease">Chủ kho cho thuê</option><option value="tenant">Doanh nghiệp thuê kho, gửi hàng</option></select></label>
-  <label>Loại kho<select id="kv-loai"><option value="">Chọn loại kho</option><option value="abc">Kho hàng cháy được (hạng A, B, C)</option><option value="de">Kho hàng khó cháy, không cháy (hạng D, E)</option><option value="kd">Kinh doanh hàng hoá dễ cháy</option><option value="unk">Chưa biết hạng</option></select></label>
+  <label>Hàng hoá chủ yếu trong kho<select id="kv-loai"><option value="">Chọn loại hàng</option><option value="tong">Hàng tổng hợp, nhựa, hoá chất, nông sản, kho lạnh…</option><option value="vai">Vải, len, sản phẩm dệt</option><option value="giay">Giấy, bìa, bao bì</option><option value="go">Gỗ, sản phẩm gỗ</option><option value="de">Hàng khó cháy, không cháy (gạch, kim loại, đồ uống…)</option><option value="kd">Cửa hàng kinh doanh hàng dễ cháy</option><option value="unk">Chưa rõ</option></select></label>
   <label><span>Diện tích kho</span><div class="fire-unit"><input id="kv-area" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 2.000" maxlength="9"><span>m²</span></div></label>
   <label id="kv-vol-wrap" hidden><span>Khối tích <em>(tùy chọn)</em></span><div class="fire-unit"><input id="kv-vol" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 20.000" maxlength="10"><span>m³</span></div></label>
-  <p class="fire-f-wide tn-build" id="kv-build">Giá trị nhà kho ước tính = diện tích × 15.000.000 đ/m²</p>
+  <p class="fire-f-wide tn-build" id="kv-build" hidden>Bạn thuê kho: công trình nhà kho thường do chủ kho bảo hiểm, không tính ở đây.</p>
+  <label class="fire-f-wide" id="kv-bv-wrap"><span>Giá trị xây dựng nhà kho <em>(nếu có số liệu kế toán)</em></span><div class="fire-unit"><input id="kv-bv" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 25.000.000.000" maxlength="22"><span>đ</span></div><small>Chưa xác định được? Để trống — hệ thống tự ước tính theo diện tích.</small></label>
   <label><span>Thiết bị kho <em>(tùy chọn)</em></span><div class="fire-unit"><input id="kv-equip" inputmode="numeric" autocomplete="off" placeholder="Kệ, xe nâng, kho lạnh…" maxlength="22"><span>đ</span></div></label>
   <label><span>Hàng tồn lúc cao điểm</span><div class="fire-unit"><input id="kv-peak" inputmode="numeric" autocomplete="off" placeholder="Giá trị hàng lúc kho đầy nhất" maxlength="22"><span>đ</span></div></label>
   <label class="fire-f-wide"><span>Hàng tồn bình quân <em>(tùy chọn)</em></span><div class="fire-unit"><input id="kv-avg" inputmode="numeric" autocomplete="off" placeholder="Để so sánh với mức cao điểm" maxlength="22"><span>đ</span></div></label>
@@ -538,6 +539,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="fire-rate-line">Tỷ lệ phí: <b id="kv-rate">—</b></p>
   <strong id="fire-estimate">Nhập thông tin để xem phí</strong>
   <p id="kv-detail">Phí dự kiến sẽ hiện ở đây.</p>
+  <p class="fire-alt" id="kv-alt" hidden></p>
   <p class="tn-save" id="kv-tip" hidden></p>
   <p class="fire-note fire-disclaim">Đây là phí dự kiến, chưa phải phí chính thức. Doanh nghiệp liên hệ với DBV để được tư vấn thêm các gói phương án bảo hiểm phù hợp với mức phí tối ưu.</p>
   <a href="#contact" class="fire-btn fire-primary">Nhận giải pháp cho kho <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></a></div></div>
@@ -601,7 +603,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="contact" class="fire-section fire-contact fire-mint"><img class="fire-contact-advisor" src="/assets/img/chay-no/advisor.webp" alt="Tư vấn viên DBV tiếp nhận yêu cầu tư vấn bảo hiểm kho hàng" width="960" height="1200" loading="lazy" decoding="async"><div class="fire-contact-content"><h2>Nhận giải pháp bảo hiểm cho kho hàng</h2><p>Để lại thông tin, chuyên viên DBV247 sẽ liên hệ, đánh giá kho và gửi phương án phù hợp với cách vận hành của bạn.</p>
  <form id="fire-lead" name="dbv-tuvan" method="POST" data-netlify="true" netlify-honeypot="bot-field">
  <input type="hidden" name="form-name" value="dbv-tuvan"><input type="hidden" name="san-pham" value="Bảo Hiểm Cháy Nổ Bắt Buộc — Kho hàng"><input type="hidden" name="ghi-chu"><input type="hidden" name="trang"><input type="hidden" name="dong-y-chinh-sach"><input type="hidden" name="thoi-diem-dong-y"><p hidden><label>Không điền mục này<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
- <div class="fire-lead-fields"><label>Số điện thoại <span aria-hidden="true">*</span><input name="dien-thoai" type="tel" autocomplete="tel" inputmode="tel" required placeholder="Nhập số điện thoại" maxlength="18"></label><label>Vai trò<select name="loai-hinh" id="tn-lead-role"><option value="">Chọn vai trò</option><option value="own">Chủ kho tự vận hành</option><option value="lease">Chủ kho cho thuê</option><option value="tenant">Doanh nghiệp thuê kho, gửi hàng</option></select></label><label>Loại kho<select name="loai-hinh-kd" id="lead-loai"><option value="">Chọn loại kho</option><option value="abc">Kho hàng cháy được (hạng A, B, C)</option><option value="de">Kho hàng khó cháy, không cháy (hạng D, E)</option><option value="kd">Kinh doanh hàng hoá dễ cháy</option><option value="unk">Chưa biết hạng</option></select></label><label>Hàng hoá lưu trữ<input name="hang-hoa" placeholder="Ví dụ: hàng tiêu dùng, linh kiện" maxlength="160"></label><label>Tên công ty (tùy chọn)<input name="ten-cong-ty" autocomplete="organization" placeholder="Nhập tên công ty" maxlength="180"></label><label>Tỉnh / khu kho<input name="tinh-thanh" placeholder="Ví dụ: Long Hậu, Long An" maxlength="120"></label></div>
+ <div class="fire-lead-fields"><label>Số điện thoại <span aria-hidden="true">*</span><input name="dien-thoai" type="tel" autocomplete="tel" inputmode="tel" required placeholder="Nhập số điện thoại" maxlength="18"></label><label>Vai trò<select name="loai-hinh" id="tn-lead-role"><option value="">Chọn vai trò</option><option value="own">Chủ kho tự vận hành</option><option value="lease">Chủ kho cho thuê</option><option value="tenant">Doanh nghiệp thuê kho, gửi hàng</option></select></label><label>Hàng hoá chủ yếu<select name="loai-hinh-kd" id="lead-loai"><option value="">Chọn loại hàng</option><option value="tong">Hàng tổng hợp, nhựa, hoá chất, nông sản, kho lạnh…</option><option value="vai">Vải, len, sản phẩm dệt</option><option value="giay">Giấy, bìa, bao bì</option><option value="go">Gỗ, sản phẩm gỗ</option><option value="de">Hàng khó cháy, không cháy (gạch, kim loại, đồ uống…)</option><option value="kd">Cửa hàng kinh doanh hàng dễ cháy</option><option value="unk">Chưa rõ</option></select></label><label>Hàng hoá lưu trữ<input name="hang-hoa" placeholder="Ví dụ: hàng tiêu dùng, linh kiện" maxlength="160"></label><label>Tên công ty (tùy chọn)<input name="ten-cong-ty" autocomplete="organization" placeholder="Nhập tên công ty" maxlength="180"></label><label>Tỉnh / khu kho<input name="tinh-thanh" placeholder="Ví dụ: Long Hậu, Long An" maxlength="120"></label></div>
  <input type="hidden" name="dien-tich" id="lead-size">
  <p id="fire-lead-summary" class="fire-note"></p><div class="fire-submit-row"><label class="fire-consent"><input type="checkbox" required name="consent" value="yes"><span>Tôi đồng ý để DBV247 liên hệ tư vấn theo <a href="/chinh-sach-bao-mat">chính sách bảo mật</a>.</span></label><button type="submit" class="fire-btn fire-primary">Nhận giải pháp cho kho <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button></div><p id="fire-form-status" role="status" aria-live="polite"></p>
  </form></div><div class="fire-direct"><span>Hoặc liên hệ trực tiếp</span><a class="fire-btn" href="https://zalo.me/1283738895804393564" target="_blank" rel="noopener">Chat qua Zalo</a><a class="fire-btn" href="tel:0869656561"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v4c0 8 6 14 14 14h4v-5l-5-2-2 3a15 15 0 0 1-7-7l3-2-2-5Z"/></svg>0869 656 561</a></div></section>
@@ -692,7 +694,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="/assets/chay-no-kho-hang.js?v=20261006b" defer></script>
+<script src="/assets/chay-no-kho-hang.js?v=20261007a" defer></script>
 
 <script src="/site-settings.js" defer></script>
 

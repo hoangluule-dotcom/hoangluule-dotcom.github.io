@@ -1,8 +1,8 @@
 /* DBV247 — Bảo hiểm cháy nổ hộ kinh doanh, body v2 (03/10/2026, cập nhật công cụ tính phí 03/10 tối).
    Chọn loại hình từ 8 thẻ → điền sẵn công cụ tính phí; gửi lead Netlify Forms (dbv-tuvan).
    Công cụ tính phí dùng CÙNG cách tính với trang bao-hiem-chay-no (assets/chay-no.js):
-   tổng số tiền BH = diện tích × 15.000.000 đ/m² + tài sản cố định + hàng hoá; × tỷ lệ phí tối thiểu (NĐ 67/2023 sửa đổi bởi NĐ 105/2025);
-   loại chưa có tỷ lệ riêng → khung chung 0,05–0,5%; từ 1.000 tỷ → thoả thuận riêng. Chưa gồm VAT 10%. */
+   tổng số tiền BH = giá trị xây dựng (khách nhập, hoặc diện tích × 12.000.000 đ/m² — không hiển thị công thức) + tài sản cố định + hàng hoá;
+   × tỷ lệ phí theo Phụ lục VI NĐ 105/2025; hiển thị 1 mức phí. Từ 1.000 tỷ → thoả thuận riêng. Chưa gồm VAT 10%. Cập nhật 07/10/2026. */
 (function () {
   'use strict';
   var root = document.querySelector('main.hk');
@@ -74,7 +74,7 @@
   });
 
   /* ── Tính phí nhanh — cùng cách tính với trang bao-hiem-chay-no (assets/chay-no.js) ── */
-  var UNIT_BUILD = 15000000; // đ/m² — đơn giá xây dựng quy ước để ước tính
+  var UNIT_BUILD = 12000000; // đ/m² — ước tính nội bộ khi khách chưa có giá trị xây dựng (không hiển thị)
   function rateText(r) {
     if (!r) return 'Cần chuyên viên xác định theo hồ sơ';
     if (r.s) return pct(r.s[0]) + '/năm nếu có chữa cháy tự động · ' + pct(r.s[1]) + '/năm nếu không có';
@@ -84,7 +84,7 @@
     var el = $(id);
     el.addEventListener('input', function () { var d = el.value.replace(/\D/g, '').slice(0, 16); el.value = d ? fmt(Number(d)) : ''; update(); });
   }
-  ['fire-area', 'fire-fixed', 'fire-stock'].forEach(live);
+  ['fire-area', 'fire-bv', 'fire-fixed', 'fire-stock'].forEach(live);
   function onType() {
     var v = V[rateSel.value];
     $('fire-spk-wrap').hidden = !(v && v.r && v.r.s);
@@ -97,49 +97,51 @@
   root.querySelectorAll('[name="fire-sprinkler"]').forEach(function (i) { i.addEventListener('change', update); });
 
   function quote() {
-    var v = V[rateSel.value], area = digits($('fire-area')), build = area * UNIT_BUILD,
+    var v = V[rateSel.value], area = digits($('fire-area')), bv = digits($('fire-bv')), build = bv || area * UNIT_BUILD, est = !bv && build > 0,
         fixed = digits($('fire-fixed')), stock = digits($('fire-stock')), total = build + fixed + stock;
-    var q = { v: v, build: build, fixed: fixed, stock: stock, total: total, area: area, rateTxt: '—', title: '', detail: '' };
+    var q = { v: v, build: build, est: est, fixed: fixed, stock: stock, total: total, area: area, rateTxt: '—', title: '', detail: '', alt: '' };
     if (!v) { q.title = 'Chọn loại cơ sở'; q.detail = 'Chọn loại cơ sở để áp đúng tỷ lệ phí theo biểu phí NĐ 105/2025.'; return q; }
-    var lo, hi, r = v.r, general = false;
-    if (!r) { lo = 0.05; hi = 0.5; general = true; q.rateTxt = 'Cần xác định theo hồ sơ (khung chung 0,05% – 0,5%)'; }
+    var rate = null, alt = null, r = v.r, sp = '';
+    if (!r) { q.rateTxt = 'Cần chuyên viên xác định theo hồ sơ'; }
     else if (r.s) {
-      var sp = root.querySelector('[name="fire-sprinkler"]:checked').value;
-      if (sp === 'yes') lo = hi = r.s[0]; else if (sp === 'no') lo = hi = r.s[1]; else { lo = r.s[0]; hi = r.s[1]; }
-      q.rateTxt = lo === hi ? pct(lo) + '/năm' : pct(lo) + ' – ' + pct(hi) + '/năm (tuỳ hệ thống chữa cháy tự động)';
-    } else { lo = r.r[0]; hi = r.r[1]; q.rateTxt = lo === hi ? pct(lo) + '/năm' : pct(lo) + ' – ' + pct(hi) + '/năm'; }
-    if (!total) { q.title = 'Nhập diện tích cơ sở'; q.detail = 'Nhập diện tích (và giá trị tài sản nếu có) để tính tổng số tiền bảo hiểm.'; return q; }
+      sp = root.querySelector('[name="fire-sprinkler"]:checked').value;
+      rate = sp === 'yes' ? r.s[0] : r.s[1]; if (sp === 'unknown') alt = r.s[0];
+      q.rateTxt = pct(rate) + '/năm' + (sp === 'yes' ? ' (có chữa cháy tự động)' : ' (không có chữa cháy tự động)');
+    } else { rate = r.r[0]; q.rateTxt = pct(rate) + '/năm'; }
+    if (!total) { q.title = 'Nhập diện tích cơ sở'; q.detail = 'Nhập diện tích (hoặc giá trị xây dựng) để tính tổng số tiền bảo hiểm.'; return q; }
     if (total >= 1e12) { q.title = 'Cần đánh giá riêng'; q.detail = 'Tổng số tiền bảo hiểm từ 1.000 tỷ đồng áp dụng cơ chế thoả thuận phí riêng — chuyên viên DBV sẽ tư vấn.'; return q; }
-    var a = total * lo / 100, b = total * hi / 100;
+    if (rate === null) { q.title = 'Chuyên viên báo phí'; q.detail = 'Loại cơ sở này chưa có tỷ lệ phí cố định trên công cụ. Gửi thông tin để chuyên viên DBV báo phí theo hồ sơ.'; return q; }
+    var a = total * rate / 100;
     q.ok = true;
-    q.title = a === b ? money(a) + ' / năm' : money(a) + ' – ' + money(b) + ' / năm';
-    q.detail = (general ? 'Khoảng tham khảo theo khung chung của biểu phí — tỷ lệ chính xác cần chuyên viên đối chiếu. ' : '') +
-      'Chưa gồm VAT 10%' + (a === b ? ' (≈ ' + money(a * 1.1) + ' đã gồm VAT).' : ' (≈ ' + money(a * 1.1) + ' – ' + money(b * 1.1) + ' đã gồm VAT).');
+    q.title = '≈ ' + money(a) + ' / năm';
+    q.detail = 'Chưa gồm VAT 10% (≈ ' + money(a * 1.1) + ' đã gồm VAT).' + (est ? ' Giá trị xây dựng đang được ước tính theo diện tích — nhập số liệu thực tế để kết quả sát hơn.' : '');
+    if (alt !== null) q.alt = 'Nếu cơ sở có hệ thống chữa cháy tự động, phí còn khoảng ' + money(total * alt / 100) + '/năm.';
     return q;
   }
   function update() {
     var q = quote();
-    $('fire-build-val').textContent = q.area ? fmt(q.area) + ' m² × 15.000.000 đ = ' + money(q.build) : 'Giá trị xây dựng = diện tích × 15.000.000 đ/m²';
-    $('fs-build').textContent = q.build ? money(q.build) : '—';
+    $('fs-build').textContent = q.build ? money(q.build) + (q.est ? ' (ước tính)' : '') : '—';
     $('fs-fixed').textContent = q.fixed ? money(q.fixed) : '—';
     $('fs-stock').textContent = q.stock ? money(q.stock) : '—';
     $('fs-total').textContent = q.total ? money(q.total) : '—';
     $('fire-rate-val').textContent = q.rateTxt;
     $('fire-estimate').textContent = q.title;
     $('fire-estimate-detail').textContent = q.detail;
+    $('fire-estimate-alt').hidden = !q.alt; $('fire-estimate-alt').textContent = q.alt;
     $('hk-l-attach').hidden = !(q.v || q.total);
   }
   function summary() {
     var q = quote(), sp = root.querySelector('[name="fire-sprinkler"]:checked').value;
     return [
       'Loại cơ sở tính phí: ' + (rateSel.value ? rateSel.options[rateSel.selectedIndex].text : 'Chưa chọn'),
-      'Diện tích: ' + (q.area ? fmt(q.area) + ' m²' : 'Chưa nhập') + ' → giá trị xây dựng ' + (q.build ? money(q.build) : '—'),
+      'Diện tích: ' + (q.area ? fmt(q.area) + ' m²' : 'Chưa nhập'),
+      'Giá trị xây dựng: ' + (q.build ? money(q.build) + (q.est ? ' (ước tính theo diện tích)' : ' (khách cung cấp)') : '—'),
       'Tài sản cố định: ' + (q.fixed ? money(q.fixed) : 'Không nhập'),
       'Hàng hoá lưu kho: ' + (q.stock ? money(q.stock) : 'Không nhập'),
       'Tổng số tiền bảo hiểm: ' + (q.total ? money(q.total) : '—'),
       (q.v && q.v.r && q.v.r.s) ? 'Chữa cháy tự động: ' + ({ yes: 'Có', no: 'Không', unknown: 'Chưa rõ' }[sp]) : '',
       'Tỷ lệ phí: ' + q.rateTxt,
-      'Phí dự kiến: ' + q.title + ' — ' + q.detail
+      'Phí dự kiến: ' + q.title + ' — ' + q.detail + (q.alt ? ' ' + q.alt : '')
     ].filter(Boolean).join('\n');
   }
   function hasCalc() { return !!(rateSel.value || quote().total); }

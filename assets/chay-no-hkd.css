@@ -269,3 +269,6 @@
   .hk *,.hk *::before,.hk *::after{transition:none!important;animation:none!important}
 }
 .hk [hidden]{display:none!important}
+
+/* 07/10/2026 */
+.fire-alt{font-size:13px;line-height:1.55;color:#084C38;background:#EFF8F2;border-radius:12px;padding:9px 11px;margin:0 0 10px}

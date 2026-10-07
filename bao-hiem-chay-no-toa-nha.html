@@ -287,8 +287,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
      (Chú thích đặt TRONG @media: sync_layout.py bỏ qua khối @media có chú thích đứng trước) */
   .ftr .ftr-col{display:none}}
 </style>
-<link rel="stylesheet" href="/assets/chay-no.css?v=20261003b">
-<link rel="stylesheet" href="/assets/chay-no-nhom.css?v=20261006b">
+<link rel="stylesheet" href="/assets/chay-no.css?v=20261007a">
+<link rel="stylesheet" href="/assets/chay-no-nhom.css?v=20261007a">
 </head>
 <body class="fire-page">
 <!-- Google Tag Manager (noscript) -->
@@ -522,13 +522,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <section id="tinh-phi" class="fire-section">
- <div class="fire-section-head"><h2>Tính phí nhanh cho toà nhà</h2><p>Nhập số tầng và tổng diện tích sàn — hệ thống kiểm tra ngưỡng bắt buộc, ước tính giá trị toà nhà và khoảng phí dự kiến.</p></div>
+ <div class="fire-section-head"><h2>Tính phí nhanh cho toà nhà</h2><p>Nhập số tầng và tổng diện tích sàn — hệ thống kiểm tra ngưỡng bắt buộc, ước tính giá trị toà nhà và phí dự kiến.</p></div>
  <div class="fire-estimator"><div class="fire-fields">
   <label class="fire-f-wide">Loại toà nhà<select id="tn-type"><option value="">Chọn loại toà nhà</option><option value="cc">Chung cư, nhà ở tập thể</option><option value="vp">Toà nhà văn phòng, trụ sở làm việc</option><option value="hh">Nhà đa năng, nhà hỗn hợp</option><option value="ks">Căn hộ dịch vụ, cơ sở lưu trú</option></select><small id="tn-type-hint">Chọn đúng công năng ghi trong hồ sơ PCCC của toà nhà.</small></label>
   <fieldset class="fire-f-wide" id="tn-spk-wrap" hidden><legend>Hệ thống chữa cháy tự động (sprinkler)</legend><div class="fire-radios"><label><input type="radio" name="tn-spk" value="yes"> Có</label><label><input type="radio" name="tn-spk" value="no"> Không</label><label><input type="radio" name="tn-spk" value="unknown" checked> Chưa rõ</label></div></fieldset>
   <label><span>Số tầng <em>(gồm tầng hầm)</em></span><div class="fire-unit"><input id="tn-floors" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 9" maxlength="3"><span>tầng</span></div></label>
   <label>Tổng diện tích sàn<div class="fire-unit"><input id="tn-area" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 6.000" maxlength="9"><span>m²</span></div></label>
-  <p class="fire-f-wide tn-build" id="tn-build">Giá trị xây dựng ước tính = diện tích sàn × 15.000.000 đ/m²</p>
+  <label class="fire-f-wide"><span>Giá trị xây dựng toà nhà <em>(nếu có số liệu kế toán)</em></span><div class="fire-unit"><input id="tn-bv" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 90.000.000.000" maxlength="22"><span>đ</span></div><small>Chưa xác định được? Để trống — hệ thống tự ước tính theo diện tích.</small></label>
   <label><span>Hệ thống kỹ thuật, trang thiết bị <em>(tùy chọn)</em></span><div class="fire-unit"><input id="tn-equip" inputmode="numeric" autocomplete="off" placeholder="Thang máy, PCCC, điện, điều hoà…" maxlength="22"><span>đ</span></div></label>
   <label><span>Tài sản khác <em>(tùy chọn)</em></span><div class="fire-unit"><input id="tn-other" inputmode="numeric" autocomplete="off" placeholder="Nội thất khu chung, nội thất căn hộ dịch vụ…" maxlength="22"><span>đ</span></div></label>
  </div><div class="fire-result fire-estimate-result" aria-live="polite"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h2M8 18h8"/></svg> Kết quả cho toà nhà</h3>
@@ -689,7 +689,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="/assets/chay-no-toa-nha.js?v=20261006a" defer></script>
+<script src="/assets/chay-no-toa-nha.js?v=20261007a" defer></script>
 
 <script src="/site-settings.js" defer></script>
 

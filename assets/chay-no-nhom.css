@@ -76,3 +76,5 @@
 .kv-legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:#2f8f5b;vertical-align:-1px}
 .kv-legend span.o::before{background:#E8920A}
 @media(max-width:767px){.nx-case{grid-template-columns:1fr;gap:14px;padding:18px}.nx-bar{height:64px}.nx-bar span{font-size:11px}}
+.fire #nx-bv,.fire #kv-bv,.fire #tn-bv{padding-right:52px}
+.fire-fields>label>small,.fire-fields>label small{display:block;margin-top:6px}

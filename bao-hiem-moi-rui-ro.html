@@ -364,7 +364,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;color:var(--tx);background:var(--wh
      (Chú thích đặt TRONG @media: sync_layout.py bỏ qua khối @media có chú thích đứng trước) */
   .ftr .ftr-col{display:none}}
 </style>
-<link rel="stylesheet" href="/assets/chay-no.css?v=20261003b">
+<link rel="stylesheet" href="/assets/chay-no.css?v=20261007a">
 <link rel="stylesheet" href="/assets/moi-rui-ro.css?v=20261003a">
 </head>
 <body class="fire-page">
@@ -608,7 +608,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  <div class="fire-estimator"><div class="fire-fields">
  <label class="fire-f-wide">Ngành nghề / loại cơ sở<select id="fire-rate-type"><option value="">Chọn ngành nghề</option></select><small id="fire-rate-hint">Hoặc chọn ngành ở phần tra cứu phía trên — hệ thống tự điền.</small></label>
  <fieldset class="fire-f-wide"><legend>Nhà xưởng, công trình có tham gia bảo hiểm?</legend><div class="fire-radios"><label><input type="radio" name="mrr-build" value="yes" checked> Có — tài sản của tôi</label><label><input type="radio" name="mrr-build" value="no"> Không — đi thuê mặt bằng</label></div></fieldset>
- <label class="fire-f-wide" id="mrr-area-wrap">Diện tích nhà xưởng, công trình (m²)<div class="fire-unit"><input id="fire-area" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 1.200" maxlength="22"><span>m²</span></div><small id="fire-build-val">Giá trị xây dựng ước tính = diện tích × 15.000.000 đ/m²</small></label>
+ <label class="fire-f-wide" id="mrr-area-wrap">Diện tích nhà xưởng, công trình (m²)<div class="fire-unit"><input id="fire-area" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 1.200" maxlength="22"><span>m²</span></div></label>
+ <label class="fire-f-wide" id="mrr-bv-wrap"><span>Giá trị xây dựng công trình <em>(nếu có số liệu kế toán)</em></span><div class="fire-unit"><input id="fire-bv" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 15.000.000.000" maxlength="22"><span>đ</span></div><small>Chưa xác định được? Để trống — hệ thống tự ước tính theo diện tích.</small></label>
  <label><span>Máy móc, thiết bị <em>(tùy chọn)</em></span><div class="fire-unit"><input id="fire-fixed" inputmode="numeric" autocomplete="off" placeholder="Dây chuyền, máy móc…" maxlength="22"><span>đ</span></div></label>
  <label><span>Hàng hoá, nguyên vật liệu <em>(tùy chọn)</em></span><div class="fire-unit"><input id="fire-stock" inputmode="numeric" autocomplete="off" placeholder="Tồn kho bình quân…" maxlength="22"><span>đ</span></div></label>
  <details class="fire-details fire-f-wide fire-factors"><summary>Những yếu tố ảnh hưởng đến phí thực tế</summary><div class="fire-answer"><p><b>Ngành nghề và nhóm rủi ro:</b> xác định tỷ lệ phí cơ sở.</p><p><b>Hệ thống PCCC, cách bố trí kho, vị trí cơ sở và lịch sử tổn thất:</b> là căn cứ để chuyên viên đánh giá rủi ro thực tế.</p><p><b>Rủi ro mở rộng và mức khấu trừ:</b> thêm động đất, lũ lụt, gián đoạn kinh doanh… hoặc chọn mức khấu trừ khác sẽ làm phí thay đổi.</p></div></details>
@@ -759,7 +760,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="/assets/moi-rui-ro.js?v=20261003a" defer></script>
+<script src="/assets/moi-rui-ro.js?v=20261007a" defer></script>
 
 <script src="/site-settings.js" defer></script>
 
