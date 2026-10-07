@@ -74,7 +74,7 @@ var DBV_SANPHAM = [
     mo: 'Phạm vi rộng nhất cho tài sản doanh nghiệp trong một hợp đồng.',
     tim: 'moi rui ro tai san doanh nghiep nha may kho xuong may moc' },
 
-  { ten: 'Rủi Ro Xây Dựng', url: '/bao-hiem-xay-dung', the: '',
+  { ten: 'Rủi Ro Xây Dựng & Lắp Đặt', url: '/bao-hiem-xay-dung', the: '',
     mo: 'Công trình, thiết bị và trách nhiệm bên thứ ba khi thi công.',
     tim: 'xay dung cong trinh thi cong lap dat nha thau car ear' },
 
