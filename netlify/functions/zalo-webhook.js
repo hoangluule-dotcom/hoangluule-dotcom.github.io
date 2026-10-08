@@ -16,13 +16,27 @@
 'use strict';
 
 exports.handler = async function (event) {
-  if (event.httpMethod !== 'POST') return { statusCode: 200, body: 'ok' };
-
   const token  = process.env.ZALO_BOT_TOKEN;
   const secret = process.env.ZALO_WEBHOOK_SECRET;
+
+  /* Mở bằng trình duyệt để tự kiểm tra cấu hình — chỉ báo CÓ/KHÔNG, không lộ giá trị */
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      body: 'zalo-webhook v2\n' +
+            'ZALO_BOT_TOKEN: ' + (token ? 'CÓ' : 'THIẾU') + '\n' +
+            'ZALO_WEBHOOK_SECRET: ' + (secret ? 'CÓ' : 'THIẾU')
+    };
+  }
+
   const h = event.headers || {};
   const nhan = h['x-bot-api-secret-token'] || h['X-Bot-Api-Secret-Token'];
   if (!token || !secret || nhan !== secret) {
+    console.error('Zalo webhook bị từ chối:',
+      !token ? 'thiếu ZALO_BOT_TOKEN' : !secret ? 'thiếu ZALO_WEBHOOK_SECRET' :
+      !nhan ? 'Zalo không gửi header secret' : 'secret KHÔNG KHỚP với lệnh setWebhook',
+      '| header nhận được:', Object.keys(h).join(','));
     return { statusCode: 403, body: 'forbidden' };
   }
 
