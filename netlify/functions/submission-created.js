@@ -13,6 +13,8 @@
 /* Chỉ xử lý đúng form cấp đơn TNDS. Các form khác của site (dbv-tuvan,
    chatbot-lead, dbv-float...) đã có telegram-notify.js lo qua webhook — nếu
    hàm này cũng gửi thì mỗi lead bị báo hai lần. */
+const { guiZalo } = require('./lib/zalo');  // gửi song song vào nhóm Zalo vận hành
+
 const FORM_CAP_DON = 'dbv-capdon-tnds';
 const TRANG_THAI_DA_CK = 'Khách báo đã chuyển khoản';
 const TRANG_THAI_GIAO  = 'Đăng ký nhận bản giấy';
@@ -40,10 +42,8 @@ exports.handler = async function (event) {
   const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
   const CHAT  = process.env.TELEGRAM_CHAT_ID;
 
-  if (!TOKEN || !CHAT) {
-    console.error('Thiếu TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID');
-    return { statusCode: 200, body: 'missing env' };
-  }
+  /* Thiếu Telegram vẫn chạy tiếp để gửi Zalo (nếu đã khai ZALO_*) */
+  if (!TOKEN || !CHAT) console.error('Thiếu TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID');
 
   let d = {};
   let formName = '';
@@ -139,7 +139,7 @@ exports.handler = async function (event) {
   }
   if (sdt) msg += `\n📞 Gọi khách: <a href="tel:${esc(sdt)}">${esc(sdt)}</a>`;
 
-  try {
+  if (TOKEN && CHAT) try {
     const r = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -154,6 +154,8 @@ exports.handler = async function (event) {
   } catch (e) {
     console.error('Không gọi được Telegram:', e.message);
   }
+
+  await guiZalo(msg);
 
   /* Luôn trả 200 — lỗi Telegram không được làm hỏng việc lưu đơn của Netlify */
   return { statusCode: 200, body: 'ok' };

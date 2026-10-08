@@ -9,6 +9,8 @@
    Cần 2 biến môi trường: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 */
 
+const { guiZalo } = require('./lib/zalo');  // gửi song song vào nhóm Zalo vận hành
+
 const FORM_LABELS = {
   "dbv-tuvan":    "Form tư vấn (trang sản phẩm)",
   "dbv-float":    "Nút liên hệ nhanh (nổi)",
@@ -83,8 +85,9 @@ exports.handler = async function (event) {
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) {
-    return { statusCode: 500, body: "Thiếu TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID." };
+  const coZalo = !!(process.env.ZALO_BOT_TOKEN && process.env.ZALO_CHAT_ID);
+  if ((!token || !chatId) && !coZalo) {
+    return { statusCode: 500, body: "Thiếu TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID và ZALO_BOT_TOKEN/ZALO_CHAT_ID." };
   }
 
   let sub;
@@ -126,6 +129,10 @@ exports.handler = async function (event) {
   if (data["trang"]) lines.push("Trang: " + esc(data["trang"]));
 
   const text = lines.join("\n");
+
+  /* Zalo gửi trước, độc lập — lỗi Zalo không chặn Telegram và ngược lại */
+  await guiZalo(text);
+  if (!token || !chatId) return { statusCode: 200, body: "OK (chỉ Zalo)" };
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
