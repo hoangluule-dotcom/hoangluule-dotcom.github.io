@@ -16,6 +16,7 @@
 */
 
 const KB = require("./kb-data.js");
+const { nhanDien } = require("./lib/kich-ban-khai-thac.js");
 const { getStore } = require("@netlify/blobs");
 
 const SITE_ID = "df7ffacd-8e52-4769-b95b-23c978b36e29";
@@ -89,7 +90,7 @@ function pickPages(question, history) {
   return scored.map((x) => x.p);
 }
 
-function buildSystemPrompt(pages) {
+function buildSystemPrompt(pages, nhom) {
   const index = KB.pages
     .map((p) => "- " + p.title + " → " + p.url + (p.desc ? " (" + p.desc + ")" : ""))
     .join("\n");
@@ -117,6 +118,19 @@ function buildSystemPrompt(pages) {
     "- Sau khi trả lời, nếu câu hỏi thuộc loại cần báo giá hoặc cần xem hồ sơ, mời khách để lại số điện thoại để tư vấn viên gọi lại, hoặc gọi 0869 656 561.",
     "- Câu hỏi ngoài phạm vi bảo hiểm và DBV247 (thời tiết, chính trị, code, chuyện riêng...) thì từ chối lịch sự và kéo về chủ đề bảo hiểm.",
     "- Không hứa hẹn \"chắc chắn được bồi thường\", \"rẻ nhất thị trường\", \"duyệt trong 1 ngày\".",
+    "",
+    "== KHAI THÁC NHU CẦU (quan trọng) ==",
+    "Bạn làm việc như một tư vấn viên giỏi: trả lời xong thì HỎI TIẾP để hiểu nhu cầu, nhờ đó tư vấn viên gọi lại báo phí chính xác ngay, khách không phải kể lại từ đầu.",
+    "Khách có vẻ đang quan tâm: " + nhom.ten + ".",
+    "Thông tin cần biết (theo thứ tự ưu tiên):",
+    nhom.hoi.map(function (h, i) { return (i + 1) + ". " + h; }).join("\n"),
+    "Cách hỏi:",
+    "- Đọc lại hội thoại, bỏ qua những gì khách ĐÃ nói. Mỗi lượt chỉ hỏi ĐÚNG MỘT câu — câu quan trọng nhất còn thiếu — đặt ở cuối câu trả lời, tự nhiên, kèm lý do ngắn (vd \"để em ước phí sát hơn\").",
+    "- Nếu khách mới chào hoặc hỏi chung chung, hỏi câu số 1.",
+    "- Khi đã biết khoảng 2–3 thông tin chính, tóm tắt lại 1 câu những gì đã hiểu và mời khách để lại số điện thoại để tư vấn viên gọi báo phí. Không mời lại liên tục nếu khách chưa muốn.",
+    "- Khách không muốn trả lời thì thôi, không ép, chuyển sang giải đáp.",
+    "- TUYỆT ĐỐI không hỏi số CCCD, số tài khoản, mật khẩu, mã OTP, hay chi tiết bệnh tình. Những việc đó tư vấn viên làm khi lập hồ sơ.",
+    "- Nếu khách đang gặp sự cố/cần bồi thường: không chào bán, đưa hotline 1900 969 690 trước, rồi mới hỏi thông tin sự cố.",
     "",
     "== TƯ LIỆU: THÔNG TIN DOANH NGHIỆP ==",
     KB.company,
@@ -341,6 +355,7 @@ exports.handler = async function (event) {
   if (!question) return json(400, { error: "Chưa có nội dung câu hỏi." });
 
   const history = Array.isArray(payload.history) ? payload.history : [];
+  const page = String(payload.page || "").slice(0, 200);
 
   const ip =
     (event.headers["x-nf-client-connection-ip"] ||
@@ -360,11 +375,16 @@ exports.handler = async function (event) {
 
   try {
     const pages = pickPages(question, history);
-    const systemPrompt = buildSystemPrompt(pages);
+    // Nhận diện nhóm sản phẩm từ lời khách (không lấy lời bot, kẻo bot tự dắt sai)
+    const loiKhach = history.filter((m) => m.role !== "bot").slice(-4)
+      .map((m) => m.text).join(" ") + " " + question;
+    const nhom = nhanDien(loiKhach, page);
+    const systemPrompt = buildSystemPrompt(pages, nhom);
     const reply = await askGemini(systemPrompt, history, question);
 
     return json(200, {
       reply: reply,
+      nhom: nhom.ma,
       sources: pages.map((p) => ({ title: p.title, url: p.url })),
     });
   } catch (err) {
@@ -390,4 +410,4 @@ exports.handler = async function (event) {
 };
 
 /* Cho bot Zalo nội bộ dùng lại bộ tìm tư liệu + gọi Gemini (zalo-hoidap-background.js) */
-exports._noiBo = { pickPages, askGemini, KB };
+exports._noiBo = { pickPages, askGemini, KB, noAccent };
