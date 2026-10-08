@@ -48,36 +48,45 @@ function catTin(text) {
   return phan;
 }
 
-/* Không bao giờ ném lỗi — lỗi Zalo không được làm hỏng Telegram hay việc lưu đơn */
-async function guiZalo(text) {
+/* Gửi một nội dung tới MỘT cuộc trò chuyện. Không bao giờ ném lỗi. */
+async function guiDen(chatId, text) {
   const token = process.env.ZALO_BOT_TOKEN;
-  const ds = String(process.env.ZALO_CHAT_ID || '').split(',').map(s => s.trim()).filter(Boolean);
-  if (!token || !ds.length) return false;
-
   const noiDung = chuThuong(text);
-  if (!noiDung) return false;
-
+  if (!token || !chatId || !noiDung) return false;
   let ok = true;
-  for (const chatId of ds) {
-    for (const phan of catTin(noiDung)) {
-      try {
-        const r = await fetch(API + token + '/sendMessage', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: chatId, text: phan })
-        });
-        const kq = await r.json().catch(() => ({}));
-        if (!r.ok || kq.ok === false) {
-          ok = false;
-          console.error('Zalo lỗi:', chatId, r.status, JSON.stringify(kq));
-        }
-      } catch (e) {
+  for (const phan of catTin(noiDung)) {
+    try {
+      const r = await fetch(API + token + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: phan })
+      });
+      const kq = await r.json().catch(() => ({}));
+      if (!r.ok || kq.ok === false) {
         ok = false;
-        console.error('Không gọi được Zalo:', e.message);
+        console.error('Zalo lỗi:', chatId, r.status, JSON.stringify(kq));
       }
+    } catch (e) {
+      ok = false;
+      console.error('Không gọi được Zalo:', e.message);
     }
   }
   return ok;
 }
 
-module.exports = { guiZalo, chuThuong };
+/* Danh sách nơi nhận thông báo lead (biến ZALO_CHAT_ID, ngăn cách dấu phẩy) */
+function dsNhan() {
+  return String(process.env.ZALO_CHAT_ID || '').split(',').map(s => s.trim()).filter(Boolean);
+}
+
+/* Gửi thông báo lead tới mọi nơi trong ZALO_CHAT_ID.
+   Không bao giờ ném lỗi — lỗi Zalo không được làm hỏng Telegram hay việc lưu đơn */
+async function guiZalo(text) {
+  let ok = true;
+  for (const chatId of dsNhan()) {
+    if (!(await guiDen(chatId, text))) ok = false;
+  }
+  return dsNhan().length ? ok : false;
+}
+
+module.exports = { guiZalo, guiDen, dsNhan, chuThuong };

@@ -388,3 +388,6 @@ exports.handler = async function (event) {
     });
   }
 };
+
+/* Cho bot Zalo nội bộ dùng lại bộ tìm tư liệu + gọi Gemini (zalo-hoidap-background.js) */
+exports._noiBo = { pickPages, askGemini, KB };
