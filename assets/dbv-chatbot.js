@@ -173,6 +173,14 @@
     "#dbvchat-send:disabled{opacity:.45;cursor:default}",
     "#dbvchat-note{font-size:.66rem;color:#718096;text-align:center;margin:6px 0 0;line-height:1.4}",
 
+    /* Chế độ "gắn vào trang" (banner AI trang chủ desktop): khung chat nằm trong
+       một phần tử của trang thay vì nổi góc phải. Ghi đè vị trí fixed. */
+    "#dbvchat-panel.dbvc-docked{position:relative;right:auto;bottom:auto;left:auto;top:auto;z-index:2;",
+      "width:100%;max-width:none;height:100%;max-height:none;box-shadow:0 18px 44px rgba(8,76,56,.22);",
+      "animation:dbvcDock .35s ease}",
+    "@keyframes dbvcDock{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}",
+    "@media(prefers-reduced-motion:reduce){#dbvchat-panel.dbvc-docked{animation:none}}",
+    "body.dbvc-dang-gan #dbvchat-btn,body.dbvc-dang-gan #dbvchat-hello{display:none!important}",
     /* Mobile: nhường chỗ cho thanh CTA dưới đáy, tránh đè lên nhau */
     "@media(max-width:640px){",
       "#dbvchat-btn{width:50px;height:50px;right:14px;bottom:66px}",
@@ -470,8 +478,28 @@
 
   /* ── Đóng mở ──────────────────────────────────────────────────────────── */
 
+  /* ── Gắn khung chat vào một phần tử của trang (banner AI trang chủ) ── */
+  var noiGan = null, khiThao = null;
+  function ganVao(el, cbThao) {
+    if (!el) return;
+    if (noiGan !== el) { el.appendChild(panel); noiGan = el; }
+    khiThao = cbThao || null;
+    panel.classList.add("dbvc-docked");
+    document.body.classList.add("dbvc-dang-gan");
+  }
+  function thaoRa() {
+    if (!noiGan) return;
+    wrap.appendChild(panel);
+    panel.classList.remove("dbvc-docked");
+    document.body.classList.remove("dbvc-dang-gan");
+    noiGan = null;
+    var cb = khiThao; khiThao = null;
+    if (cb) cb();
+  }
+
   function toggle(open) {
     var willOpen = open === undefined ? !panel.classList.contains("show") : open;
+    if (!willOpen && noiGan) { panel.classList.remove("show"); thaoRa(); return; }
     panel.classList.toggle("show", willOpen);
     btn.classList.toggle("open", willOpen);
     btn.setAttribute("aria-expanded", String(willOpen));
@@ -522,17 +550,19 @@
 
   /* Cho trang ngoài gọi vào (banner AI trang chủ): mở khung chat và hỏi luôn.
      Đang bận trả lời câu trước thì chờ xong mới hỏi, không nuốt mất câu. */
-  function hoiTuNgoai(cau) {
+  function hoiTuNgoai(cau, o) {
+    if (o && o.ganVao) ganVao(o.ganVao, o.khiDong);
     toggle(true);
     (function thu(lan) {
       if (!busy) return ask(cau);
       if (lan < 40) setTimeout(function () { thu(lan + 1); }, 250);
     })(0);
   }
-  window.dbvChat = { open: function () { toggle(true); }, ask: hoiTuNgoai };
+  window.dbvChat = { open: function () { toggle(true); }, ask: hoiTuNgoai, close: function () { toggle(false); } };
   // Câu khách bấm trên banner trước khi tệp này kịp tải
   if (window.__dbvChatCho && window.__dbvChatCho.length) {
-    hoiTuNgoai(window.__dbvChatCho.pop());
+    var cho = window.__dbvChatCho.pop();
+    if (typeof cho === "string") hoiTuNgoai(cho); else hoiTuNgoai(cho.cau, cho.o);
     window.__dbvChatCho = [];
   }
 })();

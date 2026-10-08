@@ -1433,6 +1433,17 @@ html[data-nhom="cn"] .hp-fld-row{grid-template-columns:1fr}
 .hp-ai-more svg{width:18px;height:18px}
 .hp-ai-more:hover{color:var(--hp-g,#007437)}
 @media(max-width:1023px){.hp-ai{height:360px;padding:0 28px}.hp-ai-in{width:58%}}
+/* Đang chat trong banner (chỉ desktop ≥1024px): banner cao thêm cho đủ chỗ hội thoại,
+   khung chat chiếm nửa phải (chỗ ảnh tư vấn viên). */
+.hp-ai{transition:height .35s ease}
+.hp-ai-chat{display:none}
+@media(min-width:1024px){
+ .hp-ai.dang-chat{height:540px}
+ .hp-ai.dang-chat .hp-ai-chat{display:block;position:absolute;z-index:2;top:22px;bottom:22px;right:28px;width:min(460px,44%)}
+ .hp-ai.dang-chat .hp-ai-in{width:min(520px,48%)}
+ .hp-ai.dang-chat .hp-ai-h1{font-size:clamp(1.8rem,2.6vw,2.5rem)}
+}
+@media(prefers-reduced-motion:reduce){.hp-ai{transition:none}}
 @media(max-width:599px){
  .hp-ai{height:auto;aspect-ratio:2/3;min-height:520px;padding:18px 16px 16px;align-items:stretch;border-radius:var(--radius-panel,20px);background-image:url(/assets/img/trang-chu/hero-ai-m.webp);background-size:100% auto;background-position:center top}
  .hp-ai::before{inset:auto 0 0 0;height:46%;background:linear-gradient(180deg,rgba(239,248,242,0) 0,rgba(239,248,242,.85) 45%,#EFF8F2 70%)}
@@ -1826,6 +1837,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      </div>
     </div>
    </div>
+   <!-- Desktop: khung hội thoại hiện ngay trong banner (dbv-chatbot.js gắn vào đây) -->
+   <div class="hp-ai-chat" id="hp-ai-chat"></div>
   </div>
   <a class="hp-ai-more" href="#catalog">Hoặc tự xem sản phẩm<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
  </div>
@@ -2447,12 +2460,24 @@ function hmAbout(force){
   function gui(cau, nguon){
     cau=String(cau||'').trim(); if(!cau) return;
     if(window.dataLayer) window.dataLayer.push({event:'hm_hero_hoi', nguon:nguon, nhom:html.getAttribute('data-nhom')});
-    if(window.dbvChat && window.dbvChat.ask){ window.dbvChat.ask(cau); }
-    else { (window.__dbvChatCho=window.__dbvChatCho||[]).push(cau); } // khung chat chưa tải xong → hỏi ngay khi tải
+    /* Desktop: hội thoại hiện ngay trong banner. Điện thoại/tablet: mở khung chat như cũ. */
+    var tuyChon=null, hero=document.querySelector('.hp-ai'), noi=document.getElementById('hp-ai-chat');
+    if(hero && noi && window.matchMedia && matchMedia('(min-width:1024px)').matches){
+      hero.classList.add('dang-chat');
+      tuyChon={ganVao:noi, khiDong:function(){ hero.classList.remove('dang-chat'); }};
+      var r=hero.getBoundingClientRect();
+      if(r.top<0||r.top>window.innerHeight*0.4) hero.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    if(window.dbvChat && window.dbvChat.ask){ window.dbvChat.ask(cau,tuyChon); }
+    else { (window.__dbvChatCho=window.__dbvChatCho||[]).push({cau:cau,o:tuyChon}); } // khung chat chưa tải xong → hỏi ngay khi tải
   }
   window.hpAiHoi=function(e){ e.preventDefault(); if(!o) return; var v=o.value; o.value=''; if(v.trim()) gui(v,'o-hoi'); else o.focus(); };
   [].forEach.call(document.querySelectorAll('.hp-ai-chips button'),function(b){
     b.addEventListener('click',function(){ gui(b.getAttribute('data-hoi')||b.textContent,'goi-y:'+b.textContent.trim()); });
+  });
+  // Thu cửa sổ xuống dưới cỡ desktop khi đang chat trong banner → trả khung chat về chỗ cũ
+  window.addEventListener('resize',function(){
+    if(document.querySelector('.hp-ai.dang-chat') && !matchMedia('(min-width:1024px)').matches && window.dbvChat && window.dbvChat.close) window.dbvChat.close();
   });
   if(!o) return;
   /* Ngắn (≤ 26 ký tự) để không bị cắt trên điện thoại */
