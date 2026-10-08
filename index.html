@@ -28,8 +28,8 @@ if(/^(dn|doanh-nghiep)$/.test(m))a='dn';else if(/^(cn|ca-nhan)$/.test(m))a='cn';
 if(!a){var l=localStorage.getItem('dbv_nhom');if(l==='dn'||l==='cn')a=l;}}catch(e){}
 if(!a)a=(window.matchMedia&&matchMedia('(min-width:1024px)').matches)?'dn':'cn';
 d.setAttribute('data-nhom',a);
-[['(max-width:767px)','m'],['(min-width:768px)','1200']].forEach(function(p){var k=document.createElement('link');
-k.rel='preload';k.as='image';k.media=p[0];k.href='/assets/img/trang-chu/hero-'+a+'-v2-'+p[1]+'.webp';k.setAttribute('fetchpriority','high');document.head.appendChild(k);});
+[['(max-width:599px)','m'],['(min-width:600px)','1600']].forEach(function(p){var k=document.createElement('link');
+k.rel='preload';k.as='image';k.media=p[0];k.href='/assets/img/trang-chu/hero-ai-'+p[1]+'.webp';k.setAttribute('fetchpriority','high');document.head.appendChild(k);});
 })();
 </script>
 <link rel="stylesheet" href="/assets/tokens.css">
@@ -1408,6 +1408,49 @@ html[data-nhom="cn"] .hp-fld-row{grid-template-columns:1fr}
 <script src="/assets/dbv-tracking.js" defer></script>
 <link rel="stylesheet" href="/assets/dbv-header.css">
 <script src="/assets/dbv-menu-search.js" defer></script>
+<style id="hp-ai-css">
+/* ── Banner AI trang chủ (08/10/2026) — thay .hp-hero cũ. Cao 400px như banner trước. ── */
+.hp-ai{position:relative;height:400px;box-sizing:border-box;display:flex;align-items:center;padding:0 48px;border:1px solid var(--hp-bd,#E1EBE4);border-radius:var(--radius-panel,24px);overflow:hidden;background:#EFF8F2 url(/assets/img/trang-chu/hero-ai-1600.webp) right center/cover no-repeat}
+.hp-ai::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(239,248,242,.92) 0,rgba(239,248,242,.7) 34%,rgba(239,248,242,0) 56%)}
+.hp-ai-in{position:relative;z-index:1;width:min(560px,52%);display:flex;flex-direction:column;gap:18px}
+.hp-ai-top,.hp-ai-bot{display:flex;flex-direction:column;gap:16px}
+.hp-ai-live{display:flex;align-items:center;gap:8px;margin:0;font-size:13px;font-weight:600;color:var(--hp-dk,#084C38)}
+.hp-ai-live i{width:9px;height:9px;border-radius:50%;background:#22C55E;flex-shrink:0;animation:hpAiPulse 2s infinite}
+@keyframes hpAiPulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.hp-ai-h1{margin:0;font-size:clamp(1.9rem,3.2vw,2.9rem);line-height:1.12;font-weight:800;letter-spacing:-.5px;color:var(--hp-dk,#084C38)}
+.hp-ai-h1 span{color:var(--hp-g,#007437)}
+.hp-ai-ask{display:flex;align-items:center;gap:10px;margin:0;background:#fff;border:2px solid var(--hp-g,#007437);border-radius:18px;padding:7px 7px 7px 20px;box-shadow:0 10px 28px rgba(8,76,56,.14)}
+.hp-ai-ask:focus-within{box-shadow:0 0 0 4px rgba(0,116,55,.16),0 10px 28px rgba(8,76,56,.14)}
+.hp-ai-ask input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-family:inherit;font-size:16px;color:var(--hp-tx,#1C2B24);padding:12px 0}
+.hp-ai-ask input::placeholder{color:#6B7A72}
+.hp-ai-ask button{flex-shrink:0;height:50px;display:flex;align-items:center;gap:8px;border:0;border-radius:13px;background:var(--hp-g,#007437);color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:0 22px;cursor:pointer}
+.hp-ai-ask button:hover{background:#005a2b}
+.hp-ai-ask button svg{width:18px;height:18px}
+.hp-ai-chips{display:flex;flex-wrap:wrap;gap:8px}
+.hp-ai-chips button{font-family:inherit;font-size:14px;font-weight:600;color:var(--hp-g,#007437);background:#fff;border:1px solid #BFDCC9;border-radius:999px;padding:9px 16px;min-height:40px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.hp-ai-chips button:hover,.hp-ai-chips button:focus-visible{background:var(--hp-g,#007437);color:#fff;border-color:var(--hp-g,#007437)}
+.hp-ai-more{display:flex;width:max-content;margin:12px auto 0;align-items:center;gap:6px;padding:8px;font-size:14px;font-weight:600;color:var(--hp-dk,#084C38);text-decoration:none}
+.hp-ai-more svg{width:18px;height:18px}
+.hp-ai-more:hover{color:var(--hp-g,#007437)}
+@media(max-width:1023px){.hp-ai{height:360px;padding:0 28px}.hp-ai-in{width:58%}}
+@media(max-width:599px){
+ .hp-ai{height:auto;aspect-ratio:2/3;min-height:520px;padding:18px 16px 16px;align-items:stretch;border-radius:var(--radius-panel,20px);background-image:url(/assets/img/trang-chu/hero-ai-m.webp);background-size:100% auto;background-position:center top}
+ .hp-ai::before{inset:auto 0 0 0;height:46%;background:linear-gradient(180deg,rgba(239,248,242,0) 0,rgba(239,248,242,.85) 45%,#EFF8F2 70%)}
+ .hp-ai-in{width:100%;justify-content:space-between}
+ .hp-ai-top{gap:10px}
+ .hp-ai-bot{gap:12px}
+ .hp-ai-live{font-size:12px}
+ .hp-ai-h1{font-size:28px;line-height:1.18;letter-spacing:-.3px}
+ .hp-ai-ask{padding:5px 5px 5px 14px;border-radius:16px;box-shadow:0 8px 22px rgba(8,76,56,.18)}
+ .hp-ai-ask input{padding:10px 0}
+ .hp-ai-ask button{height:46px;padding:0 16px;border-radius:12px}
+ .hp-ai-ask button svg{display:none}
+ .hp-ai-chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px;scrollbar-width:none}
+ .hp-ai-chips::-webkit-scrollbar{display:none}
+ .hp-ai-chips button{flex-shrink:0;min-height:44px;padding:10px 16px}
+}
+@media(prefers-reduced-motion:reduce){.hp-ai-live i{animation:none}}
+</style>
 </head>
 <body class="hp-home">
 <!-- Google Tag Manager (noscript) -->
@@ -1754,22 +1797,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
    <button type="button" class="hp-sw-b" data-nhom="dn" aria-pressed="true" onclick="hpNhom('dn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg>Doanh nghiệp</button>
    <button type="button" class="hp-sw-b" data-nhom="cn" aria-pressed="false" onclick="hpNhom('cn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Cá nhân &amp; Gia đình</button>
   </div>
-  <div class="hp-hero">
-   <div class="hp-hero-tx">
-    <h1 class="hp-h1" id="hp-h1">Chào mừng đến<br>hệ sinh thái của<br><span>Bảo hiểm DBV</span></h1>
-    <p class="hp-lead hp-dn">Bảo vệ tài sản và hoạt động kinh doanh.</p>
-    <p class="hp-lead hp-cn">Bảo vệ xe, ngôi nhà và người thân.</p>
+  <!-- Banner AI (08/10/2026): ô hỏi mở khung chat dbv-chatbot.js. Ảnh nền: assets/img/trang-chu/hero-ai-*.webp -->
+  <div class="hp-ai">
+   <div class="hp-ai-in">
+    <div class="hp-ai-top">
+     <p class="hp-ai-live"><i aria-hidden="true"></i>Trợ lý AI đang online</p>
+     <h1 class="hp-ai-h1" id="hp-h1">Cần bảo hiểm gì?<br><span>Hỏi ngay Trợ lý DBV247.</span></h1>
+    </div>
+    <div class="hp-ai-bot">
+     <form class="hp-ai-ask" onsubmit="hpAiHoi(event)">
+      <label class="sr-only" for="hp-ai-q">Hỏi Trợ lý DBV247</label>
+      <input id="hp-ai-q" type="text" autocomplete="off" maxlength="600" enterkeyhint="send" placeholder="Hỏi về bảo hiểm...">
+      <button type="submit">Hỏi<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
+     </form>
+     <div class="hp-ai-chips hp-dn">
+      <button type="button" data-hoi="Cơ sở kinh doanh của tôi có phải mua bảo hiểm cháy nổ bắt buộc không?">Cháy nổ</button>
+      <button type="button" data-hoi="Bảo hiểm hàng hóa vận chuyển tính phí thế nào?">Hàng hóa</button>
+      <button type="button" data-hoi="Công trình xây dựng cần mua bảo hiểm gì?">Xây dựng</button>
+      <button type="button" data-hoi="Bảo hiểm sức khỏe cho nhân viên công ty gồm những gì?">Nhân viên</button>
+      <button type="button" data-hoi="Công ty có nhiều xe thì mua bảo hiểm thế nào?">Đội xe</button>
+     </div>
+     <div class="hp-ai-chips hp-cn">
+      <button type="button" data-hoi="Bảo hiểm ô tô gồm những loại nào?">Ô tô</button>
+      <button type="button" data-hoi="Phí bảo hiểm TNDS xe máy bao nhiêu?">Xe máy</button>
+      <button type="button" data-hoi="Nhà tôi có phải mua bảo hiểm cháy nổ không?">Nhà ở</button>
+      <button type="button" data-hoi="Bảo hiểm sức khỏe cho gia đình tôi gồm những gì?">Sức khỏe</button>
+      <button type="button" data-hoi="Đi du lịch nước ngoài cần mua bảo hiểm gì?">Du lịch</button>
+     </div>
+    </div>
    </div>
-   <div class="hp-hero-art">
-    <picture class="hp-dn"><source media="(max-width:767px)" srcset="/assets/img/trang-chu/hero-dn-v2-m.webp" width="640" height="736"><img src="/assets/img/trang-chu/hero-dn-v2-1200.webp" alt="Chuyên viên tư vấn DBV247 cùng khách hàng doanh nghiệp trước nhà xưởng" width="1200" height="719" loading="lazy" decoding="async" fetchpriority="high"></picture>
-    <picture class="hp-cn"><source media="(max-width:767px)" srcset="/assets/img/trang-chu/hero-cn-v2-m.webp" width="640" height="736"><img src="/assets/img/trang-chu/hero-cn-v2-1200.webp" alt="Chuyên viên tư vấn DBV247 cùng gia đình, ô tô và ngôi nhà được bảo vệ" width="1200" height="719" loading="lazy" decoding="async" fetchpriority="high"></picture>
-   </div>
-   <form class="hp-hero-cta hp-hsearch" role="search" onsubmit="hpTimBanner(event)">
-    <label class="sr-only" for="hp-hq">Tìm sản phẩm bảo hiểm</label>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="hp-hq" type="search" autocomplete="off" data-dn="Tìm: cháy nổ, hàng hóa, đội xe..." data-cn="Tìm: ô tô, sức khỏe, du lịch..." placeholder="Tìm sản phẩm bảo hiểm...">
-    <button type="button" class="hp-btn hp-btn-pri" onclick="hpTimBanner(event)">Tìm kiếm</button>
-   </form>
   </div>
+  <a class="hp-ai-more" href="#catalog">Hoặc tự xem sản phẩm<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
  </div>
 </section>
 <main id="catalog">
@@ -2360,6 +2418,8 @@ function hmAbout(force){
   <input type="text" name="name"><input type="tel" name="phone">
   <input type="text" name="need"><input type="text" name="page">
   <textarea name="transcript"></textarea>
+  <!-- "co" = phiếu gọi lại AI đã gửi Zalo/Telegram → telegram-notify bỏ bản tin thô -->
+  <input type="hidden" name="phieu-ai">
 
   <!-- Nguồn khách: assets/dbv-tracking.js tự điền khi form được gửi.
        Netlify Forms CHỈ lưu những trường được khai báo ở đây — xoá đi là mất dữ liệu nguồn. -->
@@ -2380,6 +2440,32 @@ function hmAbout(force){
     <input type="hidden" name="ma-ctv"/>
     <input type="hidden" name="nguon-ghi-nhan"/>
     </form>
+<script id="hp-ai-js">
+/* Banner AI: câu hỏi ở banner chuyển sang khung chat (assets/dbv-chatbot.js → window.dbvChat) */
+(function(){
+  var html=document.documentElement, o=document.getElementById('hp-ai-q');
+  function gui(cau, nguon){
+    cau=String(cau||'').trim(); if(!cau) return;
+    if(window.dataLayer) window.dataLayer.push({event:'hm_hero_hoi', nguon:nguon, nhom:html.getAttribute('data-nhom')});
+    if(window.dbvChat && window.dbvChat.ask){ window.dbvChat.ask(cau); }
+    else { (window.__dbvChatCho=window.__dbvChatCho||[]).push(cau); } // khung chat chưa tải xong → hỏi ngay khi tải
+  }
+  window.hpAiHoi=function(e){ e.preventDefault(); if(!o) return; var v=o.value; o.value=''; if(v.trim()) gui(v,'o-hoi'); else o.focus(); };
+  [].forEach.call(document.querySelectorAll('.hp-ai-chips button'),function(b){
+    b.addEventListener('click',function(){ gui(b.getAttribute('data-hoi')||b.textContent,'goi-y:'+b.textContent.trim()); });
+  });
+  if(!o) return;
+  /* Ngắn (≤ 26 ký tự) để không bị cắt trên điện thoại */
+  var GY={dn:['Nhà xưởng cần mua cháy nổ?','Phí bảo hiểm hàng hóa?','Sức khỏe cho 20 nhân viên?','Đội 5 xe tải mua gì?'],
+          cn:['Bảo hiểm VinFast VF6 giá bao nhiêu?','Phí TNDS xe máy?','Chung cư phải mua cháy nổ?','Bảo hiểm xin visa Schengen?']};
+  var i=0;
+  function dat(){ var ds=GY[html.getAttribute('data-nhom')==='dn'?'dn':'cn']; o.placeholder=ds[i%ds.length]; }
+  dat();
+  var tinh=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!tinh) setInterval(function(){ if(document.activeElement===o||o.value) return; i++; dat(); },2800);
+  new MutationObserver(function(){ i=0; dat(); }).observe(html,{attributes:true,attributeFilter:['data-nhom']});
+})();
+</script>
 <script id="dbv-chatbot" src="/assets/dbv-chatbot.js" defer></script>
 <script src="/assets/layout.js" defer></script>
 </body>

@@ -27,6 +27,27 @@ function normPhone(raw) {
   return /^0\d{9}$/.test(s) ? s : null;
 }
 
+async function goiPhieu(duLieu) {
+  const khoa = process.env.PHIEU_SECRET || process.env.ZALO_WEBHOOK_SECRET || process.env.DASHBOARD_KEY;
+  if (!khoa) return false;
+  const ctrl = new AbortController();
+  const hen = setTimeout(() => ctrl.abort(), 5000);
+  try {
+    const r = await fetch(SITE_URL.replace(/\/$/, "") + "/.netlify/functions/phieu-tu-van-background", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-noi-bo": khoa },
+      body: JSON.stringify(duLieu),
+      signal: ctrl.signal,
+    });
+    return r.status === 202 || r.status === 200;
+  } catch (err) {
+    console.error("chat-lead.js: không gọi được phiếu tư vấn:", err.message);
+    return false;
+  } finally {
+    clearTimeout(hen);
+  }
+}
+
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") return json(405, { error: "Chỉ nhận POST." });
 
@@ -47,11 +68,12 @@ exports.handler = async function (event) {
 
   // Kèm lại vài lượt chat gần nhất để tư vấn viên biết khách đang quan tâm gì,
   // gọi lại không phải hỏi từ đầu.
-  const history = Array.isArray(p.history) ? p.history.slice(-8) : [];
-  const transcript = history
-    .map((m) => (m.role === "bot" ? "DBV247: " : "Khách: ") + String(m.text || "").slice(0, 400))
-    .join("\n")
-    .slice(0, 3000);
+  const history = Array.isArray(p.history) ? p.history.slice(-16) : [];
+  const dongChat = history
+    .map((m) => (m.role === "bot" ? "DBV247: " : "Khách: ") + String(m.text || "").slice(0, 500));
+  // Bản đầy đủ cho AI soạn phiếu; bản lưu Forms giữ 3000 ký tự CUỐI (phần mới nhất)
+  const transcriptDai = dongChat.join("\n").slice(-6000);
+  const transcript = transcriptDai.slice(-3000);
 
   const form = new URLSearchParams();
   form.set("form-name", "chatbot-lead");
@@ -71,6 +93,18 @@ exports.handler = async function (event) {
     form.set("ma-ctv", maCtv);
     form.set("nguon-ghi-nhan", "cookie_link");
   }
+
+  /* Phiếu gọi lại do AI soạn (phieu-tu-van-background.js). Gọi TRƯỚC khi lưu
+     Forms để biết hàm nền đã nhận việc chưa: nhận rồi thì telegram-notify bỏ qua
+     bản tin thô (tránh báo hai lần); chưa nhận thì bản tin thô vẫn đi như cũ. */
+  // Đánh dấu phiên chat này đã để lại số (báo cáo tuần tính tỷ lệ chat → lead)
+  await require("./lib/nhat-ky.js").danhDauLead(String(p.sid || "")).catch(() => {});
+
+  const coPhieu = await goiPhieu({
+    phone: phone, name: name, page: String(p.page || "").slice(0, 200),
+    ctv: maCtv, transcript: transcriptDai,
+  });
+  form.set("phieu-ai", coPhieu ? "co" : "khong");
 
   try {
     const res = await fetch(SITE_URL, {

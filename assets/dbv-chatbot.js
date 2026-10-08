@@ -16,6 +16,20 @@
 
   var API_CHAT = "/.netlify/functions/chat";
   var API_LEAD = "/.netlify/functions/chat-lead";
+  var API_VOTE = "/.netlify/functions/chat-danh-gia";
+
+  /* Mã phiên chat (ngẫu nhiên, chỉ sống trong tab này) — để ghép các câu của cùng
+     một cuộc chat trong nhật ký và gắn đánh giá 👍/👎. Không chứa thông tin cá nhân. */
+  var SID = (function () {
+    var k = "dbvchat-sid", v = "";
+    try { v = sessionStorage.getItem(k) || ""; } catch (e) {}
+    if (!/^[a-z0-9]{16}$/.test(v)) {
+      v = "";
+      for (var i = 0; i < 16; i++) v += "abcdefghijklmnopqrstuvwxyz0123456789".charAt(Math.floor(Math.random() * 36));
+      try { sessionStorage.setItem(k, v); } catch (e) {}
+    }
+    return v;
+  })();
 
   /* Mã cộng tác viên do /r/<MÃ> đặt vào cookie ở cấp tên miền. */
   function maCtvTuCookie() {
@@ -34,8 +48,9 @@
   var opened = false;
 
   var GREETING =
-    "Chào anh/chị, em là trợ lý của DBV247. Anh/chị đang quan tâm bảo hiểm gì ạ? " +
-    "Em giải đáp nhanh, còn phần báo phí cụ thể thì tư vấn viên sẽ gọi lại cho chính xác.";
+    "Chào anh/chị, em là trợ lý của DBV247. Anh/chị đang cần bảo hiểm cho gì ạ — xe, nhà/tài sản, " +
+    "hàng hóa, công trình hay con người? Em giải đáp nhanh và ghi lại nhu cầu, để tư vấn viên gọi " +
+    "báo phí chính xác mà anh/chị không phải kể lại từ đầu.";
 
   var SUGGESTS = [
     "Bảo hiểm vật chất ô tô gồm những gì?",
@@ -138,7 +153,15 @@
     "#dbvchat-lead button:hover{background:#c97d08}",
     "#dbvchat-lead button:disabled{opacity:.6;cursor:default}",
     "#dbvchat-leadmsg{font-size:.75rem;margin:7px 0 0;line-height:1.4}",
+    "#dbvchat-lead .dbvc-consent{font-size:.68rem;color:#8a6d3b;margin:6px 0 0}",
+    "#dbvchat-lead .dbvc-consent a{color:inherit;text-decoration:underline}",
 
+    /* Đánh giá câu trả lời */
+    ".dbvc-vote{align-self:flex-start;display:flex;align-items:center;gap:4px;margin:-4px 0 0 4px;font-size:.7rem;color:#718096}",
+    ".dbvc-vote button{border:1px solid #E2E8F0;background:#fff;border-radius:8px;width:30px;height:26px;padding:0;cursor:pointer;",
+      "display:flex;align-items:center;justify-content:center;color:#718096}",
+    ".dbvc-vote button:hover{border-color:#007437;color:#007437}",
+    ".dbvc-vote button:focus-visible{outline:2px solid #E8920A;outline-offset:1px}",
     "#dbvchat-foot{padding:9px 11px;border-top:1px solid #E2E8F0;background:#fff;flex-shrink:0}",
     "#dbvchat-form{display:flex;gap:7px;align-items:flex-end}",
     "#dbvchat-input{flex:1;min-width:0;border:1px solid #E2E8F0;border-radius:20px;padding:9px 14px;",
@@ -198,6 +221,8 @@
           '<input id="dbvchat-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại" aria-label="Số điện thoại">' +
           '<button id="dbvchat-leadbtn" type="button">Gửi</button>' +
         '</div>' +
+        '<p class="dbvc-consent">Bấm Gửi là anh/chị đồng ý để DBV247 dùng số điện thoại và nội dung chat để liên hệ tư vấn. ' +
+          '<a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">Chính sách bảo mật</a></p>' +
         '<p id="dbvchat-leadmsg" hidden></p>' +
       '</div>' +
       '<div id="dbvchat-foot">' +
@@ -333,7 +358,7 @@
     add("user", text);
     typing(true);
 
-    var payload = { message: text, history: history.slice(-10) };
+    var payload = { message: text, history: history.slice(-10), page: location.pathname, sid: SID };
     history.push({ role: "user", text: text });
 
     fetch(API_CHAT, {
@@ -350,10 +375,14 @@
         }
         add("bot", res.j.reply);
         history.push({ role: "bot", text: res.j.reply });
+        if (typeof res.j.luot === "number" && res.j.luot >= 0) nutDanhGia(res.j.luot);
 
         // Sau 2 lượt trao đổi thì mời để lại số — đủ để khách thấy có ích trước
         // khi bị hỏi thông tin, mà chưa lâu tới mức khách bỏ đi.
-        if (!leadSent && history.length >= 4) leadBox.classList.add("show");
+        // Bot chủ động mời để lại số (sau khi đã khai thác đủ ý) thì hiện ô nhập ngay.
+        if (!leadSent && (history.length >= 4 || /số điện thoại/i.test(res.j.reply))) {
+          leadBox.classList.add("show");
+        }
 
         if (window.dataLayer) {
           window.dataLayer.push({ event: "chatbot_reply", chatbot_turn: history.length / 2 });
@@ -368,6 +397,28 @@
         send.disabled = false;
         input.focus();
       });
+  }
+
+  /* ── Đánh giá 👍/👎 ─────────────────────────────────────────────────────
+     Khách bấm 👎 → câu đó vào mục "câu bị chê" của báo cáo tuần trong nhóm Zalo. */
+  var ICON_LEN = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>';
+  var ICON_XUONG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>';
+  function nutDanhGia(luot) {
+    var d = document.createElement("div");
+    d.className = "dbvc-vote";
+    d.innerHTML = '<span>Câu trả lời có hữu ích?</span>' +
+      '<button type="button" data-v="1" aria-label="Hữu ích">' + ICON_LEN + '</button>' +
+      '<button type="button" data-v="-1" aria-label="Chưa hữu ích">' + ICON_XUONG + '</button>';
+    d.onclick = function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      var v = +b.getAttribute("data-v");
+      d.innerHTML = '<span>' + (v > 0 ? "Cảm ơn anh/chị!" : "Cảm ơn anh/chị, DBV247 sẽ cải thiện câu trả lời này.") + '</span>';
+      fetch(API_VOTE, { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sid: SID, luot: luot, vote: v }) }).catch(function () {});
+      if (window.dataLayer) window.dataLayer.push({ event: "chatbot_danh_gia", vote: v });
+    };
+    body.appendChild(d);
+    body.scrollTop = body.scrollHeight;
   }
 
   /* ── Gửi số điện thoại ────────────────────────────────────────────────── */
@@ -390,12 +441,13 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         phone: phone,
-        history: history.slice(-8),
+        history: history.slice(-16),
         page: location.pathname,
         /* Mã cộng tác viên giới thiệu. Lead của khung chat đi qua hàm máy chủ
            chứ không POST thẳng lên Netlify Forms, nên bộ bắt form trong
            dbv-tracking.js không với tới được — phải tự gửi kèm ở đây. */
         ctv: maCtvTuCookie(),
+        sid: SID,
       }),
     })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
@@ -467,4 +519,20 @@
       form.dispatchEvent(new Event("submit"));
     }
   });
+
+  /* Cho trang ngoài gọi vào (banner AI trang chủ): mở khung chat và hỏi luôn.
+     Đang bận trả lời câu trước thì chờ xong mới hỏi, không nuốt mất câu. */
+  function hoiTuNgoai(cau) {
+    toggle(true);
+    (function thu(lan) {
+      if (!busy) return ask(cau);
+      if (lan < 40) setTimeout(function () { thu(lan + 1); }, 250);
+    })(0);
+  }
+  window.dbvChat = { open: function () { toggle(true); }, ask: hoiTuNgoai };
+  // Câu khách bấm trên banner trước khi tệp này kịp tải
+  if (window.__dbvChatCho && window.__dbvChatCho.length) {
+    hoiTuNgoai(window.__dbvChatCho.pop());
+    window.__dbvChatCho = [];
+  }
 })();

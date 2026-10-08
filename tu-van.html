@@ -1622,6 +1622,8 @@ function hmAbout(force){
   <input type="text" name="name"><input type="tel" name="phone">
   <input type="text" name="need"><input type="text" name="page">
   <textarea name="transcript"></textarea>
+  <!-- "co" = phiếu gọi lại AI đã gửi Zalo/Telegram → telegram-notify bỏ bản tin thô -->
+  <input type="hidden" name="phieu-ai">
 
   <!-- Nguồn khách: assets/dbv-tracking.js tự điền khi form được gửi.
        Netlify Forms CHỈ lưu những trường được khai báo ở đây — xoá đi là mất dữ liệu nguồn. -->

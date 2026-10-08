@@ -74,7 +74,7 @@ const FIELDS = [
 ];
 
 const UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
-const SKIP = new Set(["form-name", "bot-field", "ip", "user_agent", "referrer"]);
+const SKIP = new Set(["form-name", "bot-field", "ip", "user_agent", "referrer", "phieu-ai"]);
 
 function esc(v) {
   return String(v).replace(/[*_`\[\]]/g, "").trim();
@@ -102,6 +102,12 @@ exports.handler = async function (event) {
      Nếu hàm này gửi thêm thì mỗi đơn bị báo hai lần trên Telegram. */
   if (formName === "dbv-capdon-tnds") {
     return { statusCode: 200, body: "skipped: submission-created.js đã xử lý" };
+  }
+  /* Lead chatbot đã có phiếu gọi lại do AI soạn (phieu-tu-van-background.js
+     gửi Zalo + Telegram, kèm SĐT). Gửi thêm bản thô ở đây là báo hai lần.
+     Chỉ bỏ qua khi chat-lead.js xác nhận hàm phiếu đã nhận việc. */
+  if (formName === "chatbot-lead" && data["phieu-ai"] === "co") {
+    return { statusCode: 200, body: "skipped: phieu-tu-van-background.js đã xử lý" };
   }
   const lines = ["🔔 *DBV247 — Khách hàng mới để lại thông tin*", ""];
   lines.push("Nguồn: " + (FORM_LABELS[formName] || formName || "Không rõ"));

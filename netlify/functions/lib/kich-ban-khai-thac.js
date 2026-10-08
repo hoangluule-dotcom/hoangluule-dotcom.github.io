@@ -39,7 +39,9 @@ const NHOM = [
     ma: 'tnds',
     ten: 'TNDS bắt buộc ô tô / xe máy',
     url: ['/bao-hiem-tnds', '/tnds', '/cap-don', '/tin-tuc/muc-phat-khong-co-bao-hiem'],
-    tuKhoa: ['tnds', 'bat buoc xe', 'trach nhiem dan su', 'xe may', 'xe tai', 'cho ngoi', 'cho kinh doanh', 'bao hiem bat buoc o to', 'phat khong co bao hiem'],
+    tuKhoa: ['tnds', 'bat buoc xe', 'trach nhiem dan su', 'xe may', 'xe tai', 'cho ngoi', 'cho kinh doanh', 'bao hiem bat buoc o to', 'phat khong co bao hiem', '4 cho', '5 cho', '7 cho', '9 cho', '16 cho', 'grab', 'chay app', 'xe khach'],
+    /* Từ chung về xe (điểm thấp): chỉ để không rơi về "chưa rõ" khi khách nói "xe" mà chưa nói loại bảo hiểm */
+    tuKhoaPhu: ['o to', 'oto', 'xe'],
     hoi: [
       'Loại xe: ô tô hay xe máy; ô tô bao nhiêu chỗ hoặc xe tải bao nhiêu tấn',
       'Xe có kinh doanh vận tải không (taxi, chạy app, xe hợp đồng, chở hàng thuê)',
@@ -72,7 +74,7 @@ const NHOM = [
       'Xe thường đi và sửa ở tỉnh/thành nào',
     ],
     noiBo: [
-      'Phí ≈ giá trị xe × 1,2–1,8%/năm tùy năm SX, mục đích, mức khấu trừ, lịch sử tổn thất. PHÍ TỐI THIỂU 6.000.000đ/xe (áp cả sau giảm).',
+      'Phí theo biểu phí QĐ 219/2026 (công cụ tính phí trên web, bot cũng tính được): tùy giá trị xe, tuổi xe, mục đích, điều khoản bổ sung. Xe cũ/giá trị thấp có tỷ lệ cao hơn hẳn. PHÍ TỐI THIỂU 6.000.000đ/xe (áp cả sau giảm).',
       'Xe dưới khoảng 333–500 triệu sẽ chạm mức sàn 6 triệu → NÓI TRƯỚC với khách để giữ niềm tin, đừng để khách tự phát hiện lúc nhận báo phí.',
       'Xe kinh doanh vận tải tỷ lệ cao hơn xe gia đình. Xe điện: pin nằm trong phạm vi bảo hiểm gốc.',
       'Báo phí chính xác cần ảnh đăng ký/đăng kiểm và có thể cần giám định xe — hẹn khách gửi qua Zalo 0869 656 561.',
@@ -87,7 +89,7 @@ const NHOM = [
     ma: 'tai-san',
     ten: 'Cháy nổ bắt buộc / Mọi rủi ro tài sản',
     url: ['/bao-hiem-chay-no', '/bao-hiem-hoa-hoan', '/bao-hiem-moi-rui-ro', '/tin-tuc/bao-hiem-chay-no'],
-    tuKhoa: ['chay no', 'hoa hoan', 'pccc', 'phong chay', 'nha xuong', 'kho hang', 'chung cu', 'can ho', 'ho kinh doanh', 'toa nha', 'moi rui ro tai san', 'tai san'],
+    tuKhoa: ['chay no', 'hoa hoan', 'pccc', 'phong chay', 'nha xuong', 'kho hang', 'chung cu', 'can ho', 'ho kinh doanh', 'toa nha', 'moi rui ro tai san', 'bao hiem tai san', 'bao hiem nha'],
     hoi: [
       'Loại cơ sở: căn hộ chung cư, hộ kinh doanh, kho, nhà xưởng, tòa nhà, văn phòng',
       'Ngành nghề / hàng hóa lưu trữ ở đó',
@@ -131,7 +133,7 @@ const NHOM = [
     ma: 'cong-trinh',
     ten: 'Bảo hiểm xây dựng / lắp đặt',
     url: ['/bao-hiem-xay-dung', '/bao-hiem-lap-dat'],
-    tuKhoa: ['xay dung', 'lap dat', 'cong trinh', 'goi thau', 'nha thau', 'chu dau tu', 'thi cong', 'car', 'ear'],
+    tuKhoa: ['xay dung', 'lap dat', 'cong trinh', 'goi thau', 'nha thau', 'chu dau tu', 'thi cong'],
     hoi: [
       'Loại công trình và địa điểm',
       'Tổng giá trị hợp đồng / gói thầu',
@@ -150,7 +152,7 @@ const NHOM = [
     ma: 'con-nguoi',
     ten: 'Sức khỏe / Tai nạn con người',
     url: ['/bao-hiem-suc-khoe', '/bao-hiem-tai-nan', '/bao-hiem-cham-soc-suc-khoe', '/bao-hiem-benh-nhiet-doi'],
-    tuKhoa: ['suc khoe', 'vien phi', 'noi tru', 'ngoai tru', 'bao lanh vien phi', 'tai nan', 'thai san', 'dbvcare', 'sot xuat huyet', 'nhiet doi', 'nhan vien', 'gia dinh'],
+    tuKhoa: ['suc khoe', 'vien phi', 'noi tru', 'ngoai tru', 'bao lanh vien phi', 'tai nan', 'thai san', 'dbvcare', 'sot xuat huyet', 'nhiet doi', 'bao hiem nhan vien'],
     hoi: [
       'Bảo vệ cho ai: bản thân, gia đình hay nhân viên công ty',
       'Số người và độ tuổi từng người (khoảng tuổi là đủ)',
@@ -243,8 +245,9 @@ function nhanDien(text, page) {
   let tot = null, diemTot = 0;
   NHOM.forEach((n) => {
     let d = 0;
-    if (p && n.url.some((u) => p.startsWith(u))) d += 2;
-    n.tuKhoa.forEach((k) => { if (t.includes(' ' + k + ' ') || t.includes(' ' + k)) d += 3; });
+    if (p && n.url.some((u) => p.startsWith(u))) d += 1.5;  // trang đang xem: thắng từ chung "xe", thua từ khoá rõ ràng
+    n.tuKhoa.forEach((k) => { if (t.includes(' ' + k)) d += 3; });
+    (n.tuKhoaPhu || []).forEach((k) => { if (t.includes(' ' + k + ' ')) d += 1; });
     if (d > diemTot) { diemTot = d; tot = n; }
   });
   return tot || CHUNG;

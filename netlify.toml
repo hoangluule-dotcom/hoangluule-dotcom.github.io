@@ -2,7 +2,9 @@
   publish = "."
   # Bắt buộc phải có command này, nếu không Netlify sẽ bỏ qua bước cài
   # dependency và function lead-status.js không tìm thấy @netlify/blobs.
-  command = "npm install"
+  # build_kb.py dựng lại kho kiến thức chatbot từ toàn bộ trang (netlify/functions/kb-data.js).
+  # Lỗi thì vẫn deploy bằng bản kb-data.js đang có trong thư mục — không để chatbot chặn cả site.
+  command = "npm install && (python3 scripts/build_kb.py || echo 'build_kb.py loi - dung kb-data.js co san')"
 
 [build.processing]
   skip_processing = false
@@ -21,6 +23,11 @@
 # Muốn chạy tay: Netlify > Functions > gia-thi-truong-cron > nút "Run now".
 [functions."gia-thi-truong-cron"]
   schedule = "0 * * * *"
+
+# ── Báo cáo chatbot hằng tuần vào nhóm Zalo vận hành ────────────────────────
+# 01:00 UTC thứ Hai = 8:00 sáng thứ Hai giờ Việt Nam.
+[functions."chat-bao-cao"]
+  schedule = "0 1 * * 1"
 
 # ── Chặn tệp nội bộ ─────────────────────────────────────────────────────────
 # Netlify đưa MỌI tệp trong thư mục này lên internet, không chỉ trang web.
@@ -41,6 +48,13 @@
 
 # Thư mục scripts nằm trong repo để GitHub Actions chạy được, nhưng không có
 # lý do gì để nó xuất hiện trên internet.
+# Kho hỏi–đáp nội bộ của chatbot (tệp .md đã bị chặn ở trên, chặn thêm cả thư mục)
+[[redirects]]
+  from = "/kien-thuc/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/scripts/*"
   to = "/404.html"
