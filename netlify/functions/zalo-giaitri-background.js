@@ -19,7 +19,8 @@ const { bangPhiTnds } = require('./lib/bieu-phi-tnds');
 const TRI_THUC = require('./lib/tri-thuc-em-gai');  // kho tri thức riêng — sửa ở tệp đó
 const { pickPages, hoiGemini, KB, noAccent } = require('./chat.js')._noiBo;
 const QUY_TAC_PHI = require('./lib/quy-tac-phi');
-const DAY = require('./lib/day-bot');  // dùng chung với chatbot web → cùng con số
+const DAY = require('./lib/day-bot');
+const G = require('./lib/giai-tri-tu-dong');  // dùng chung với chatbot web → cùng con số
 // Bot chạy nền, chờ được → tra giá xe qua Google ngay nếu chưa có (chatbot web thì nhờ hàm nền)
 require('./lib/tinh-phi').datCheDoTraGia('ngay');
 
@@ -143,7 +144,13 @@ exports.handler = async function (event) {
     /* Điều quản trị đã dạy: kho giải trí luôn dùng; kho nghiệp vụ khi câu hỏi dính nghiệp vụ */
     const daDay = DAY.khoiPrompt((await DAY.timDaDay('giai-tri', cau, 8))
       .concat(nghiepVu ? await DAY.timDaDay('nghiep-vu', cau, 6) : []));
-    const kq = await hoiGemini(prompt(bangPhi, pages) + daDay, ls, hoi,
+    /* Câu đố đang mở: bot biết để trêu/gợi ý khi có người đoán (đáp án KHÔNG đưa vào, khỏi lộ) */
+    let doVui = '';
+    try {
+      const cdo = await G.cauDoDangMo(chatId);
+      if (cdo) doVui = '\n\n== ĐANG CÓ CÂU ĐỐ CHƯA AI GIẢI ==\n' + cdo + '\nNếu tin nhắn giống một câu trả lời cho câu đố này thì đó là đáp án CHƯA ĐÚNG: trêu nhẹ, khuyến khích đoán tiếp, có thể gợi ý mơ hồ. Em không biết đáp án, đừng đoán hộ.';
+    } catch (e) { /* bỏ qua */ }
+    const kq = await hoiGemini(prompt(bangPhi, pages) + daDay + doVui, ls, hoi,
       { congCu: true, key: key, temperature: nghiepVu ? 0.3 : 0.9 });  // công cụ tính phí như chatbot web
     await guiDen(chatId, kq.text, token);
 

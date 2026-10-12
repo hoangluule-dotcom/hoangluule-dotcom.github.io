@@ -26,7 +26,19 @@
 
 const { guiDen } = require('./lib/zalo');
 const DAY = require('./lib/day-bot');
-const SN = require('./lib/sinh-nhat');  // danh sách sinh nhật + tự chúc  // "học: … | …" — quản trị dạy bot ngay trong Zalo
+const SN = require('./lib/sinh-nhat');  // danh sách sinh nhật + tự chúc
+const NS = require('./lib/nhan-su');    // danh sách nhân sự (tên, phòng, ngày vào DBV)
+const G = require('./lib/giai-tri-tu-dong');  // đố vui, góc khen, chào mừng, lịch tự động
+
+/* Giao việc cho hàm nền (gọi AI mất vài giây) */
+async function goiNen(body) {
+  const goc = (process.env.URL || 'https://dbv247.com.vn').replace(/\/$/, '');
+  await fetch(goc + '/.netlify/functions/zalo-giaitri-lich-background', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'x-noi-bo': process.env.ZALO_GT_WEBHOOK_SECRET },
+    body: JSON.stringify(body),
+  }).catch((e) => console.error('giaitri goiNen:', e.message));
+}
+const VIEC_THU = ['dovui', 'dovuisp', 'thuhai', 'thusau', 'caphe', 'le', 'thamnien', 'tongket'];  // "học: … | …" — quản trị dạy bot ngay trong Zalo
 
 const tenBot = () => (process.env.ZALO_GT_BOT_NAME || 'Bot em gái DBV').trim();
 
@@ -104,6 +116,25 @@ exports.handler = async function (event) {
     return { statusCode: 200, body: 'ok' };
   }
 
+  /* Lệnh quản trị: nhân sự, chạy thử, chào mừng thành viên mới */
+  const laAdminGT = laQuanTri('ZALO_GT_ADMIN_ID', msg.from && msg.from.id);
+  try {
+    const ns = await NS.xuLyLenh(cau, { laAdmin: laAdminGT });
+    if (ns) { await guiDen(chat.id, ns, token); return { statusCode: 200, body: 'ok' }; }
+  } catch (e) { console.error('nhan-su:', e.message); }
+  const kdCau = DAY.boDau(cau);
+  if (laAdminGT && /^thu\s*:/.test(kdCau)) {
+    const v = kdCau.replace(/^thu\s*:/, '').trim().replace(/\s+/g, '');
+    if (!VIEC_THU.includes(v)) { await guiDen(chat.id, 'Chạy thử được: ' + VIEC_THU.join(', ') + '\nVd: thử: dovui', token); return { statusCode: 200, body: 'ok' }; }
+    await guiDen(chat.id, '⏳ Đang chạy thử "' + v + '" vào cuộc trò chuyện này…', token);
+    await goiNen({ viec: [v], chatIds: [chat.id], thu: true });
+    return { statusCode: 200, body: 'ok' };
+  }
+  if (laAdminGT && /^chao mung\s*:/.test(kdCau)) {
+    await goiNen({ chaoMung: cau, chatIds: [chat.id] });
+    return { statusCode: 200, body: 'ok' };
+  }
+
   /* Lệnh dạy bot — chỉ ZALO_GT_ADMIN_ID được dạy; kho 'giai-tri' chỉ bot này dùng */
   try {
     const tl = await DAY.xuLyLenh(cau, { ten: 'giai-tri', bienAdmin: 'ZALO_GT_ADMIN_ID',
@@ -129,6 +160,26 @@ exports.handler = async function (event) {
     await guiDen(chat.id, `ID của ${chat.chat_type === 'GROUP' ? 'NHÓM' : 'CHAT RIÊNG'} này:\n${chat.id}`, token);
     return { statusCode: 200, body: 'ok' };
   }
+  /* Đố vui: ai reply/tag đúng đáp án câu đố đang mở → chúc mừng + cộng điểm */
+  if (duocPhep(chat.id) || laAdminGT) {
+    try {
+      const dung = await G.kiemTraDapAn(chat.id, cau, { id: (msg.from && msg.from.id) || '', ten: nguoi });
+      if (dung) { await guiDen(chat.id, dung, token); return { statusCode: 200, body: 'ok' }; }
+      if (/^(bxh|bang xep hang)\b/.test(kdCau)) {
+        const diem = await G.diemThang(G.bayGio().thang);
+        await guiDen(chat.id, Object.keys(diem).length ? '🏆 Bảng xếp hạng đố vui tháng này:\n' + G.bangXep(diem, 10)
+          : 'Tháng này chưa ai ghi điểm. 15:00 các ngày làm việc có đố vui trà chiều nha 🍵', token);
+        return { statusCode: 200, body: 'ok' };
+      }
+      if (/^khen\s*:/.test(kdCau) && !G.tat('khen')) {
+        const k = await G.khen(cau, { ten: nguoi });
+        if (k.loi) { await guiDen(chat.id, k.loi, token); return { statusCode: 200, body: 'ok' }; }
+        await goiNen({ khen: k, chatIds: [chat.id] });
+        return { statusCode: 200, body: 'ok' };
+      }
+    } catch (e) { console.error('giaitri lenh:', e.message); }
+  }
+
   if (!duocPhep(chat.id) && !laQuanTri('ZALO_GT_ADMIN_ID', msg.from && msg.from.id)) {
     await guiDen(chat.id, 'Em là bot của nhóm nội bộ, chỗ này em chưa được sếp duyệt ngồi ạ.', token);
     return { statusCode: 200, body: 'not allowed' };

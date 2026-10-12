@@ -29,6 +29,11 @@
 [functions."zalo-sinh-nhat-cron"]
   schedule = "0 1 * * *"
 
+# Bot em gái DBV: lịch gắn kết (đố vui 15h, chào thứ Hai, thứ Sáu, ngày lễ,
+# kỷ niệm ngày vào DBV, tổng kết tháng). Chạy mỗi giờ, tự xem giờ VN.
+[functions."zalo-giaitri-lich"]
+  schedule = "0 * * * *"
+
 # ── Báo cáo chatbot hằng tuần vào nhóm Zalo vận hành ────────────────────────
 # 01:00 UTC thứ Hai = 8:00 sáng thứ Hai giờ Việt Nam.
 [functions."chat-bao-cao"]
