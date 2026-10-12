@@ -8,9 +8,11 @@
 
    Sửa kịch bản ở đây là cả chatbot lẫn phiếu cùng đổi theo.
 
-   Ba loại nội dung, phân biệt rõ:
-   - hoi     : câu hỏi được phép hỏi KHÁCH trên web (không hỏi CCCD, tài khoản,
-               tình trạng bệnh — những thứ đó tư vấn viên hỏi theo tờ khai).
+   Bốn loại nội dung, phân biệt rõ:
+   - baoPhi  : CHATBOT WEB dùng — tối thiểu cần hỏi gì để báo phí sơ bộ ngay (1–2 câu),
+               giả định mặc định để khỏi hỏi thêm, công cụ tính phí tương ứng.
+   - hoi     : danh sách khai thác ĐẦY ĐỦ — dành cho SALE hỏi khi gọi lại (in vào phiếu).
+               Chatbot web KHÔNG hỏi hết danh sách này (khách sẽ chán và rời đi).
    - noiBo   : lưu ý CHỈ cho sale đọc trong phiếu. KHÔNG bao giờ đưa vào chatbot
                web (vd tư vấn mở rộng cháy nổ chỉ được trao đổi trực tiếp).
    - phanDoi : khách hay nói gì → sale đáp thế nào. Chỉ dùng trong phiếu.
@@ -21,6 +23,7 @@
 const NHOM = [
   {
     ma: 'boi-thuong',
+    baoPhi: { can: "Không báo phí. Hỏi gọn MỘT câu: sự cố gì, đã gọi hotline 1900 969 690 chưa.", giaDinh: "", congCu: "" },
     ten: 'Khách cần hỗ trợ BỒI THƯỜNG / sự cố',
     url: ['/boi-thuong', '/tin-tuc/thu-tuc-khai-bao-boi-thuong'],
     tuKhoa: ['boi thuong', 'tai nan roi', 'va cham', 'dam xe', 'quet xe', 'bi dam', 'su co', 'giam dinh', 'ho so boi thuong', 'chay roi', 'bi mat cap'],
@@ -37,6 +40,7 @@ const NHOM = [
   },
   {
     ma: 'tnds',
+    baoPhi: { can: "Loại xe: ô tô mấy chỗ / xe tải mấy tấn / xe máy.", giaDinh: "Xe không kinh doanh vận tải, mua 1 năm. Nói rõ giả định trong 1 vế ngắn.", congCu: "bieu_phi_tnds" },
     ten: 'TNDS bắt buộc ô tô / xe máy',
     url: ['/bao-hiem-tnds', '/tnds', '/cap-don', '/tin-tuc/muc-phat-khong-co-bao-hiem'],
     tuKhoa: ['tnds', 'bat buoc xe', 'trach nhiem dan su', 'xe may', 'xe tai', 'cho ngoi', 'cho kinh doanh', 'bao hiem bat buoc o to', 'phat khong co bao hiem', '4 cho', '5 cho', '7 cho', '9 cho', '16 cho', 'grab', 'chay app', 'xe khach'],
@@ -62,6 +66,7 @@ const NHOM = [
   },
   {
     ma: 'vat-chat-oto',
+    baoPhi: { can: "Dòng xe + năm sản xuất — hỏi chung MỘT câu: \"Xe anh/chị là xe gì, đời năm nào ạ?\". Khách đã nói giá trị xe thì dùng luôn.", giaDinh: "Xe gia đình; nhiều phiên bản thì nêu khoảng phí thấp–cao, KHÔNG hỏi phiên bản. Khách chỉ nói dòng xe mà chưa nói năm → vẫn gọi công cụ ngay (bỏ trống năm), báo phí theo các đời mới nhất và nói rõ giả định.", congCu: "phi_vat_chat_oto (truyền hang, dong, nam nếu chưa có giá trị xe)" },
     ten: 'Bảo hiểm vật chất (thân vỏ) ô tô',
     url: ['/bao-hiem-vat-chat-oto', '/bao-hiem-oto-dien', '/bao-hiem-doi-xe', '/tin-tuc/bao-hiem-vat-chat', '/tin-tuc/bao-hiem-o-to-dien', '/tin-tuc/kinh-nghiem-su-dung-bao-hiem-xe', '/dinh-gia-xe', '/gia-xe'],
     tuKhoa: ['vat chat', 'than vo', 'than xe', 'thuy kich', 'ngap nuoc', 'tray xuoc', 'gara', 'chinh hang', 'khau tru', 'o to dien', 'vinfast', 'pin', 'doi xe', 'hai chieu'],
@@ -87,6 +92,7 @@ const NHOM = [
   },
   {
     ma: 'tai-san',
+    baoPhi: { can: "Loại cơ sở + diện tích sàn (m²) hoặc giá trị nhà — hỏi chung MỘT câu.", giaDinh: "Chưa biết máy móc/hàng hóa thì tính phần nhà trước và nói phí sẽ tăng nếu cộng tài sản; chưa rõ có chữa cháy tự động thì nêu cả hai mức.", congCu: "phi_chay_no" },
     ten: 'Cháy nổ bắt buộc / Mọi rủi ro tài sản',
     url: ['/bao-hiem-chay-no', '/bao-hiem-hoa-hoan', '/bao-hiem-moi-rui-ro', '/tin-tuc/bao-hiem-chay-no'],
     tuKhoa: ['chay no', 'hoa hoan', 'pccc', 'phong chay', 'nha xuong', 'kho hang', 'chung cu', 'can ho', 'ho kinh doanh', 'toa nha', 'moi rui ro tai san', 'bao hiem tai san', 'bao hiem nha'],
@@ -110,6 +116,7 @@ const NHOM = [
   },
   {
     ma: 'hang-hoa',
+    baoPhi: { can: "Mặt hàng + giá trị lô hàng — hỏi chung MỘT câu.", giaDinh: "Nội địa: đường bộ, từng chuyến. Xuất nhập khẩu: nêu điều kiện A, B, C.", congCu: "phi_hang_hoa_noi_dia hoặc phi_hang_hoa_xnk" },
     ten: 'Bảo hiểm hàng hóa (XNK / vận chuyển nội địa / bưu gửi)',
     url: ['/bao-hiem-xnk', '/bao-hiem-van-chuyen', '/bao-hiem-buu-gui', '/bao-hiem-hang-hoa'],
     tuKhoa: ['hang hoa', 'xuat nhap khau', 'xnk', 'van chuyen', 'container', 'cif', 'fob', 'buu gui', 'chuyen phat', 'lo hang', 'van don'],
@@ -131,6 +138,7 @@ const NHOM = [
   },
   {
     ma: 'cong-trinh',
+    baoPhi: { can: "Loại công trình + tổng giá trị hợp đồng — MỘT câu.", giaDinh: "Chưa có công cụ tính: nêu mức/tỷ lệ phí tham khảo nếu tư liệu có, không có thì nói phí theo thẩm định hồ sơ.", congCu: "" },
     ten: 'Bảo hiểm xây dựng / lắp đặt',
     url: ['/bao-hiem-xay-dung', '/bao-hiem-lap-dat'],
     tuKhoa: ['xay dung', 'lap dat', 'cong trinh', 'goi thau', 'nha thau', 'chu dau tu', 'thi cong'],
@@ -150,6 +158,7 @@ const NHOM = [
   },
   {
     ma: 'con-nguoi',
+    baoPhi: { can: "Bảo hiểm cho mấy người, khoảng tuổi — MỘT câu.", giaDinh: "Nêu mức phí \"từ …\" có trong tư liệu (gói sức khỏe, tai nạn).", congCu: "" },
     ten: 'Sức khỏe / Tai nạn con người',
     url: ['/bao-hiem-suc-khoe', '/bao-hiem-tai-nan', '/bao-hiem-cham-soc-suc-khoe', '/bao-hiem-benh-nhiet-doi'],
     tuKhoa: ['suc khoe', 'vien phi', 'noi tru', 'ngoai tru', 'bao lanh vien phi', 'tai nan', 'thai san', 'dbvcare', 'sot xuat huyet', 'nhiet doi', 'bao hiem nhan vien'],
@@ -171,6 +180,7 @@ const NHOM = [
   },
   {
     ma: 'du-lich',
+    baoPhi: { can: "Đi nước nào, mấy ngày, mấy người — MỘT câu.", giaDinh: "Nêu mức phí \"từ …\" có trong tư liệu.", congCu: "" },
     ten: 'Bảo hiểm du lịch',
     url: ['/bao-hiem-du-lich', '/tin-tuc/bao-hiem-du-lich'],
     tuKhoa: ['du lich', 'visa', 'schengen', 'nuoc ngoai', 'cong tac', 'du hoc', 'chuyen bay'],
@@ -187,6 +197,7 @@ const NHOM = [
   },
   {
     ma: 'trach-nhiem',
+    baoPhi: { can: "Ngành nghề + quy mô (doanh thu hoặc số nhân sự) — MỘT câu.", giaDinh: "Phí theo thẩm định: nêu mức tham khảo nếu tư liệu có.", congCu: "" },
     ten: 'Bảo hiểm trách nhiệm (công cộng / nghề nghiệp)',
     url: ['/bao-hiem-tn', '/bao-hiem-doanh-nghiep'],
     tuKhoa: ['trach nhiem cong cong', 'trach nhiem nghe nghiep', 'luat su', 'cong chung', 'kham chua benh', 'phong kham', 'tu van thiet ke', 'giam sat', 'doanh nghiep han quoc'],
@@ -204,6 +215,7 @@ const NHOM = [
   },
   {
     ma: 'tau',
+    baoPhi: { can: "Loại tàu + giá trị tàu — MỘT câu.", giaDinh: "Phí theo thẩm định hồ sơ tàu.", congCu: "" },
     ten: 'Bảo hiểm thân tàu thủy nội địa',
     url: ['/bao-hiem-than-tau'],
     tuKhoa: ['tau', 'than tau', 'sa lan', 'ghe', 'tau ca', 'tau thuy'],
@@ -220,6 +232,7 @@ const NHOM = [
 
 const CHUNG = {
   ma: 'chung',
+  baoPhi: { can: "Cần bảo hiểm cho gì: xe, nhà/tài sản, hàng hóa, công trình, con người hay chuyến đi.", giaDinh: "", congCu: "" },
   ten: 'Chưa rõ sản phẩm',
   url: [],
   tuKhoa: [],

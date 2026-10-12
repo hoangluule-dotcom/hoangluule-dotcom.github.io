@@ -49,9 +49,8 @@
   var opened = false;
 
   var GREETING =
-    "Chào anh/chị, em là trợ lý của DBV247. Anh/chị đang cần bảo hiểm cho gì ạ — xe, nhà/tài sản, " +
-    "hàng hóa, công trình hay con người? Em giải đáp nhanh và ghi lại nhu cầu, để tư vấn viên gọi " +
-    "báo phí chính xác mà anh/chị không phải kể lại từ đầu.";
+    "Chào anh/chị! Anh/chị cần bảo hiểm cho gì ạ — xe, nhà/tài sản, hàng hóa hay sức khỏe? " +
+    "Cho em biết sơ qua (vd \"VinFast VF6 2025\"), em báo phí tham khảo ngay.";
 
   var SUGGESTS = [
     "Bảo hiểm vật chất ô tô gồm những gì?",

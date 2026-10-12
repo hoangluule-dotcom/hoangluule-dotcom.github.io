@@ -139,6 +139,30 @@ async function bieuVc() {
   return BIEU_VC;
 }
 async function phi_vat_chat_oto(a) {
+  /* Khách chỉ nói "xe gì, đời năm nào": tự tra giá xe rồi tính cho mọi phiên bản,
+     trả về khoảng phí thấp–cao — bot không phải hỏi thêm phiên bản hay giá trị. */
+  if (!so(a.gia_tri_xe) && a.dong) {
+    const g = await tra_gia_xe({ hang: a.hang, dong: a.dong, nam: a.nam_dang_ky || a.nam });
+    if (!g.ok) return g;
+    const kq = [];
+    for (const pb of g.phien_ban.slice(0, 8)) {
+      const r = await phi_vat_chat_oto(Object.assign({}, a, { gia_tri_xe: pb.gia_tri_so, nam_dang_ky: pb.nam, dong: null,
+        xe_dien: a.xe_dien || /đi[eệ]n/i.test(pb.nhien_lieu || '') }));
+      if (r.ok) kq.push({ phien_ban: pb.nam + ' ' + pb.phien_ban, gia_tri_xe: pb.gia_tri_tham_khao, phi: r.phi_goi_day_du, so: r._phi, toi_thieu: r.ap_phi_toi_thieu });
+      else return r;
+    }
+    if (!kq.length) return { ok: false, thong_diep: 'Không tính được — hỏi khách giá trị xe ước tính.' };
+    kq.sort((x, y) => x.so - y.so);
+    const thap = kq[0], cao = kq[kq.length - 1];
+    return {
+      ok: true, xe: g.hang + ' ' + g.dong + (a.nam_dang_ky ? ' ' + a.nam_dang_ky : ''),
+      phi_goi_day_du: thap.so === cao.so ? thap.phi : 'từ ' + thap.phi.replace('/năm', '') + ' đến ' + cao.phi,
+      theo_phien_ban: kq.slice(0, 4).map((x) => x.phien_ban + ' (giá trị ~' + x.gia_tri_xe + '): ' + x.phi),
+      ap_phi_toi_thieu: kq.some((x) => x.toi_thieu),
+      gia_dinh: (a.muc_dich === 'kinh_doanh' ? 'Xe kinh doanh' : 'Xe gia đình') + ', gói đầy đủ điều khoản bổ sung, giá trị xe theo giá thị trường tham khảo.',
+      luu_y: 'Phí tham khảo (đã gồm VAT). Nêu khoảng phí, KHÔNG hỏi khách phiên bản. Phí chính thức sau khi tư vấn viên xem đăng ký/đăng kiểm.',
+    };
+  }
   const B = await bieuVc();
   const nhom = { gia_dinh: 'nkd', kinh_doanh: 'kd', pickup_van: 'pv' }[a.muc_dich] || 'nkd';
   const p = {
@@ -155,6 +179,7 @@ async function phi_vat_chat_oto(a) {
     goi_day_du_gom: 'Thay mới không khấu hao, sửa garage chính hãng' + (day.dkbs.bs02.chon ? '' : ' (không áp dụng cho tuổi xe này)') + ', thủy kích',
     phi_goi_co_ban: coBan.ok ? VND(coBan.phi) + '/năm' : null,
     ap_phi_toi_thieu: day.ap_phi_toi_thieu,
+    _phi: day.phi,
     luu_y: (day.ap_phi_toi_thieu ? 'Đang áp phí tối thiểu 6.000.000đ cho gói đầy đủ. ' : '') +
       'Phí tham khảo (đã gồm VAT) theo biểu phí DBV; phí chính thức sau khi tư vấn viên xem đăng ký/đăng kiểm và có thể giám định xe.',
   };
@@ -322,11 +347,11 @@ const KHAI_BAO = [
     parameters: { type: 'OBJECT', properties: { loai_xe: S('Loại xe khách hỏi, vd "ô tô 7 chỗ không kinh doanh"') } } },
   { name: 'tra_gia_xe', description: 'Tra giá trị thị trường tham khảo của xe ô tô theo hãng, dòng, năm sản xuất (CSDL giá xe DBV247). Gọi trước phi_vat_chat_oto khi khách chưa biết giá trị xe.',
     parameters: { type: 'OBJECT', properties: { hang: S('Hãng xe, vd Toyota'), dong: S('Dòng xe, vd Vios'), nam: N('Năm sản xuất') }, required: ['dong'] } },
-  { name: 'phi_vat_chat_oto', description: 'Ước tính phí bảo hiểm vật chất (thân vỏ) ô tô theo biểu phí DBV. Cần giá trị xe (VNĐ) và năm đăng ký lần đầu.',
+  { name: 'phi_vat_chat_oto', description: 'Ước tính phí bảo hiểm vật chất (thân vỏ) ô tô theo biểu phí DBV. Chỉ cần DÒNG XE (+ năm nếu khách nói; không có năm thì tính theo các đời mới nhất) — công cụ tự tra giá xe và trả khoảng phí theo các phiên bản), hoặc giá trị xe + năm nếu khách đã nói giá trị.',
     parameters: { type: 'OBJECT', properties: {
-      gia_tri_xe: N('Giá trị xe, số VNĐ đầy đủ (vd 450000000)'), nam_dang_ky: N('Năm đăng ký lần đầu (gần bằng năm sản xuất)'),
-      muc_dich: S('Mục đích sử dụng', ['gia_dinh', 'kinh_doanh', 'pickup_van']), o_ha_noi: BL('Xe đăng ký/hoạt động ở Hà Nội'), xe_dien: BL('Xe điện') },
-      required: ['gia_tri_xe', 'nam_dang_ky'] } },
+      hang: S('Hãng xe, vd VinFast, Toyota'), dong: S('Dòng xe, vd VF6, Vios — dùng khi khách chưa nói giá trị xe'),
+      gia_tri_xe: N('Giá trị xe, số VNĐ đầy đủ (vd 450000000) — chỉ khi khách nói'), nam_dang_ky: N('Năm sản xuất / đăng ký lần đầu'),
+      muc_dich: S('Mục đích sử dụng', ['gia_dinh', 'kinh_doanh', 'pickup_van']), o_ha_noi: BL('Xe đăng ký/hoạt động ở Hà Nội'), xe_dien: BL('Xe điện') } } },
   { name: 'phi_chay_no', description: 'Ước tính phí bảo hiểm cháy nổ bắt buộc theo loại cơ sở và giá trị (NĐ 105/2025). Cũng cho biết ngưỡng thuộc diện bắt buộc.',
     parameters: { type: 'OBJECT', properties: {
       loai_co_so: S('Loại cơ sở, vd "nhà xưởng may mặc", "kho hàng", "căn hộ chung cư", "cửa hàng tạp hóa"'),
