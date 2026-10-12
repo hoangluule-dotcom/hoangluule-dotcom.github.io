@@ -55,7 +55,7 @@ function noAccent(s) {
     .replace(/\u0111/g, "d");
 }
 
-function buildSystemPrompt(doan, nhom) {
+function buildSystemPrompt(doan, nhom, daCoSo) {
   return [
     "Bạn là Trợ lý DBV247 — kênh bảo hiểm trực tuyến của Tập đoàn Bảo hiểm DBV, Chi nhánh Thành Đô.",
     "Trả lời bằng tiếng Việt, xưng \"DBV247\", gọi khách là \"anh/chị\". Giọng gần gũi, thẳng thắn, không hoa mỹ.",
@@ -86,8 +86,17 @@ function buildSystemPrompt(doan, nhom) {
     nhom.hoi.map(function (h, i) { return (i + 1) + ". " + h; }).join("\n"),
     "Cách hỏi:",
     "- Đọc lại hội thoại, bỏ qua những gì khách ĐÃ nói. Mỗi lượt chỉ hỏi ĐÚNG MỘT câu — câu quan trọng nhất còn thiếu — đặt ở cuối câu trả lời, tự nhiên, kèm lý do ngắn (vd \"để ước phí sát hơn\").",
-    "- Đủ thông tin để tính phí thì GỌI CÔNG CỤ và báo phí tham khảo ngay, rồi mời khách để lại số điện thoại để tư vấn viên chốt phí chính thức.",
-    "- Khi đã biết khoảng 2–3 thông tin chính, tóm tắt lại 1 câu những gì đã hiểu và mời khách để lại số điện thoại. Không mời lại liên tục nếu khách chưa muốn.",
+    "- Đủ thông tin để tính phí thì GỌI CÔNG CỤ và báo phí tham khảo ngay.",
+    "",
+    "== MỜI ĐỂ LẠI SỐ ĐIỆN THOẠI (tiết chế) ==",
+    daCoSo
+      ? "- Khách ĐÃ để lại số điện thoại. TUYỆT ĐỐI không xin số nữa. Nếu phù hợp chỉ nói ngắn: tư vấn viên sẽ gọi lại."
+      : "- Khung chat đã có sẵn một thanh nhỏ để khách để số, nên KHÔNG cần mời trong mọi câu trả lời.\n" +
+        "- Chỉ mời khi: vừa báo xong phí tham khảo, hoặc khách hỏi điều cần xem hồ sơ (phí chính thức, bồi thường cụ thể), hoặc khách tỏ ý muốn mua. " +
+        "Nếu trong 2 câu trả lời gần nhất của bạn đã mời rồi thì KHÔNG mời nữa.\n" +
+        "- Câu mời đúng MỘT câu ngắn, đặt cuối, ví dụ: \"Anh/chị nhắn số điện thoại ngay tại đây, tư vấn viên gọi báo phí chính xác ạ.\" Không giải thích dài, không lặp lý do.\n" +
+        "- Một câu trả lời chỉ kết thúc bằng MỘT lời kêu gọi: hoặc một câu hỏi khai thác, hoặc lời mời để số — không cả hai.",
+    "",
     "- Khách không muốn trả lời thì thôi, không ép, chuyển sang giải đáp.",
     "- TUYỆT ĐỐI không hỏi số CCCD, số tài khoản, mật khẩu, mã OTP, hay chi tiết bệnh tình.",
     "- Khách đang gặp sự cố/cần bồi thường: không chào bán, đưa hotline 1900 969 690 trước, rồi mới hỏi thông tin sự cố.",
@@ -325,6 +334,7 @@ exports.handler = async function (event) {
   const history = Array.isArray(payload.history) ? payload.history : [];
   const page = String(payload.page || "").slice(0, 200);
   const sid = String(payload.sid || "").slice(0, 32);
+  const daCoSo = payload.daCoSo === true;
 
   const ip =
     (event.headers["x-nf-client-connection-ip"] ||
@@ -349,7 +359,7 @@ exports.handler = async function (event) {
     const nhom = nhanDien(loiKhach, page);
     const gan = history.filter((m) => m.role !== "bot").slice(-2).map((m) => m.text).join(" ");
     const doan = timDoan(question + " " + question + " " + gan, { page: page, k: 6 });
-    const systemPrompt = buildSystemPrompt(doan, nhom);
+    const systemPrompt = buildSystemPrompt(doan, nhom, daCoSo);
     const kq = await hoiGemini(systemPrompt, history, question);
     const luot = await ghiLuot({ sid: sid, page: page, q: question, a: kq.text, nhom: nhom.ma, congCu: kq.congCu });
 

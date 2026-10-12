@@ -45,6 +45,7 @@
   var history = [];      // [{role:'user'|'bot', text}]
   var busy = false;
   var leadSent = false;
+  var leadAn = false;    // khách bấm "để sau" → thanh xin số ẩn tới khi bot mời lại
   var opened = false;
 
   var GREETING =
@@ -140,21 +141,31 @@
       "font-weight:600;padding:6px 11px;border-radius:20px;cursor:pointer;font-family:inherit;text-align:left}",
     "#dbvchat-sug button:hover{background:#e8f5e9;border-color:#007437}",
 
-    /* Khối xin số điện thoại — hiện sau vài lượt trao đổi */
-    "#dbvchat-lead{display:none;padding:11px 14px;background:#fffaf0;border-top:1px solid #f6e0b8;flex-shrink:0}",
+    /* Thanh xin số điện thoại — GỌN: 1 dòng mảnh, bấm mới mở ô nhập.
+       Khách cũng có thể gõ số thẳng vào ô chat (tự nhận ra là số điện thoại). */
+    "#dbvchat-lead{display:none;border-top:1px solid #f3e3c3;background:#fffaf0;flex-shrink:0}",
     "#dbvchat-lead.show{display:block}",
-    "#dbvchat-lead p{margin:0 0 8px;font-size:.78rem;color:#744210;line-height:1.45}",
-    "#dbvchat-lead .dbvc-row{display:flex;gap:6px}",
-    "#dbvchat-lead input{flex:1;min-width:0;padding:8px 11px;border:1px solid #E2E8F0;border-radius:var(--radius-control,12px);",
-      "font-size:.85rem;font-family:inherit}",
-    "#dbvchat-lead input:focus{outline:none;border-color:#007437;box-shadow:0 0 0 2px rgba(0,116,55,.15)}",
-    "#dbvchat-lead button{background:#E8920A;color:#fff;border:none;border-radius:var(--radius-control,12px);padding:8px 15px;",
+    "#dbvchat-leadopen{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;padding:8px 14px;",
+      "font-family:inherit;font-size:.78rem;font-weight:600;color:#8a5a00;cursor:pointer;text-align:left}",
+    "#dbvchat-leadopen:hover{background:#fff3dc}",
+    "#dbvchat-leadopen svg{flex-shrink:0}",
+    "#dbvchat-leadopen span{flex:1}",
+    "#dbvchat-leadopen b{font-weight:700;color:#E8920A}",
+    "#dbvchat-leadrow{display:none;align-items:center;gap:6px;padding:7px 10px 7px 14px}",
+    "#dbvchat-lead.mo #dbvchat-leadopen{display:none}",
+    "#dbvchat-lead.mo #dbvchat-leadrow{display:flex}",
+    "#dbvchat-leadrow input{flex:1;min-width:0;height:36px;padding:0 11px;border:1px solid #E2E8F0;border-radius:10px;",
+      "font-size:.88rem;font-family:inherit;background:#fff}",
+    "#dbvchat-leadrow input:focus{outline:none;border-color:#007437;box-shadow:0 0 0 2px rgba(0,116,55,.15)}",
+    "#dbvchat-leadbtn{height:36px;background:#E8920A;color:#1C1C1C;border:none;border-radius:10px;padding:0 14px;",
       "font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit;white-space:nowrap}",
-    "#dbvchat-lead button:hover{background:#c97d08}",
-    "#dbvchat-lead button:disabled{opacity:.6;cursor:default}",
-    "#dbvchat-leadmsg{font-size:.75rem;margin:7px 0 0;line-height:1.4}",
-    "#dbvchat-lead .dbvc-consent{font-size:.68rem;color:#8a6d3b;margin:6px 0 0}",
-    "#dbvchat-lead .dbvc-consent a{color:inherit;text-decoration:underline}",
+    "#dbvchat-leadbtn:hover{background:#d88508}",
+    "#dbvchat-leadbtn:disabled{opacity:.6;cursor:default}",
+    "#dbvchat-leadx{width:28px;height:28px;border:0;background:none;color:#a0aec0;cursor:pointer;border-radius:8px;padding:0;",
+      "display:flex;align-items:center;justify-content:center;flex-shrink:0}",
+    "#dbvchat-leadx:hover{background:#f6ead2;color:#744210}",
+    "#dbvchat-leadmsg{font-size:.72rem;margin:0;padding:0 14px 7px;line-height:1.4;color:#9b2c2c}",
+    "#dbvchat-note a{color:inherit}",
 
     /* Đánh giá câu trả lời */
     ".dbvc-vote{align-self:flex-start;display:flex;align-items:center;gap:4px;margin:-4px 0 0 4px;font-size:.7rem;color:#718096}",
@@ -224,13 +235,18 @@
       '<div id="dbvchat-body" role="log" aria-live="polite" aria-atomic="false"></div>' +
       '<div id="dbvchat-sug"></div>' +
       '<div id="dbvchat-lead">' +
-        '<p>Để tư vấn viên báo phí chính xác và gọi lại trong giờ làm việc, anh/chị để lại số điện thoại giúp em nhé.</p>' +
-        '<div class="dbvc-row">' +
-          '<input id="dbvchat-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại" aria-label="Số điện thoại">' +
-          '<button id="dbvchat-leadbtn" type="button">Gửi</button>' +
+        '<button id="dbvchat-leadopen" type="button">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E8920A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>' +
+          '<span>Để số, tư vấn viên gọi <b>báo phí chính xác</b></span>' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>' +
+        '</button>' +
+        '<div id="dbvchat-leadrow">' +
+          '<input id="dbvchat-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại của anh/chị" aria-label="Số điện thoại">' +
+          '<button id="dbvchat-leadbtn" type="button">Gọi tôi</button>' +
+          '<button id="dbvchat-leadx" type="button" aria-label="Để sau">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+          '</button>' +
         '</div>' +
-        '<p class="dbvc-consent">Bấm Gửi là anh/chị đồng ý để DBV247 dùng số điện thoại và nội dung chat để liên hệ tư vấn. ' +
-          '<a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">Chính sách bảo mật</a></p>' +
         '<p id="dbvchat-leadmsg" hidden></p>' +
       '</div>' +
       '<div id="dbvchat-foot">' +
@@ -240,8 +256,9 @@
             '<svg width="17" height="17" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>' +
           '</button>' +
         '</form>' +
-        '<p id="dbvchat-note">Trợ lý tự động — thông tin mang tính tham khảo. ' +
-          'Phí và quyền lợi chính thức căn cứ hợp đồng. Gọi <a href="tel:' + HOTLINE + '">0869 656 561</a>.</p>' +
+        '<p id="dbvchat-note">Trợ lý tự động, thông tin tham khảo. Gửi số điện thoại là đồng ý ' +
+          '<a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">chính sách bảo mật</a>. ' +
+          'Gọi <a href="tel:' + HOTLINE + '">0869 656 561</a>.</p>' +
       '</div>' +
     '</div>';
   document.body.appendChild(wrap);
@@ -356,18 +373,36 @@
 
   /* ── Gửi câu hỏi ──────────────────────────────────────────────────────── */
 
+  /* Khách gõ số điện thoại thẳng vào ô chat → gửi làm lead luôn, không cần ô riêng */
+  var RE_SDT = /(?:\+?84|0)(?:[\s.\-]?\d){9}\b/;
+  function laSoDienThoai(t) {
+    var m = String(t).match(RE_SDT);
+    return m ? m[0] : "";
+  }
+
   function ask(text) {
     text = String(text || "").trim().slice(0, MAX_LEN);
     if (!text || busy) return;
 
+    var sdt = !leadSent && laSoDienThoai(text);
+    if (sdt) {
+      add("user", text);
+      history.push({ role: "user", text: text });
+      sug.innerHTML = "";
+      guiSo(sdt, null);
+      // Tin nhắn chỉ có số (± vài chữ như "sđt của tôi") thì không cần hỏi AI
+      if (text.replace(RE_SDT, "").replace(/[^a-zA-ZÀ-ỹ]/g, "").length < 15) return;
+      text = text.replace(RE_SDT, "[đã gửi số]");
+    }
+
     busy = true;
     send.disabled = true;
     sug.innerHTML = "";
-    add("user", text);
+    if (!sdt) add("user", text);
     typing(true);
 
-    var payload = { message: text, history: history.slice(-10), page: location.pathname, sid: SID };
-    history.push({ role: "user", text: text });
+    var payload = { message: text, history: history.slice(-10), page: location.pathname, sid: SID, daCoSo: leadSent };
+    if (!sdt) history.push({ role: "user", text: text });
 
     fetch(API_CHAT, {
       method: "POST",
@@ -385,11 +420,11 @@
         history.push({ role: "bot", text: res.j.reply });
         if (typeof res.j.luot === "number" && res.j.luot >= 0) nutDanhGia(res.j.luot);
 
-        // Sau 2 lượt trao đổi thì mời để lại số — đủ để khách thấy có ích trước
-        // khi bị hỏi thông tin, mà chưa lâu tới mức khách bỏ đi.
-        // Bot chủ động mời để lại số (sau khi đã khai thác đủ ý) thì hiện ô nhập ngay.
-        if (!leadSent && (history.length >= 4 || /số điện thoại/i.test(res.j.reply))) {
-          leadBox.classList.add("show");
+        // Thanh xin số chỉ là 1 dòng mảnh. Hiện sau 2 lượt, hoặc khi bot vừa mời để lại số
+        // (kể cả khi khách đã bấm "để sau" trước đó).
+        if (!leadSent) {
+          var botMoi = /số điện thoại|để lại số|để số/i.test(res.j.reply);
+          if (botMoi || (!leadAn && history.length >= 4)) { leadAn = false; leadBox.classList.add("show"); }
         }
 
         if (window.dataLayer) {
@@ -431,19 +466,17 @@
 
   /* ── Gửi số điện thoại ────────────────────────────────────────────────── */
 
-  $("dbvchat-leadbtn").onclick = function () {
-    var phoneEl = $("dbvchat-phone"), msg = $("dbvchat-leadmsg"), b = this;
-    var phone = phoneEl.value.trim();
-    if (!/^(0|\+84|84)\d{8,10}$/.test(phone.replace(/[\s.\-]/g, ""))) {
-      msg.hidden = false;
-      msg.style.color = "#9b2c2c";
-      msg.textContent = "Số điện thoại chưa đúng. Anh/chị nhập lại giúp em (10 số, bắt đầu bằng 0).";
-      return;
-    }
-    b.disabled = true;
-    b.textContent = "Đang gửi...";
-    msg.hidden = true;
+  function chuanSo(raw) {
+    var x = String(raw || "").replace(/[\s.\-]/g, "");
+    return /^(0|\+84|84)\d{8,10}$/.test(x) ? x : "";
+  }
 
+  /* Gửi số cho tư vấn viên (dùng chung cho thanh xin số và số gõ trong ô chat).
+     nut: nút "Gọi tôi" nếu gửi từ thanh xin số (để bật/tắt trạng thái). */
+  function guiSo(phone, nut) {
+    var msg = $("dbvchat-leadmsg");
+    if (nut) { nut.disabled = true; nut.textContent = "Đang gửi..."; }
+    msg.hidden = true;
     fetch(API_LEAD, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -462,18 +495,40 @@
       .then(function (res) {
         if (!res.ok || res.j.error) throw new Error(res.j.error || "");
         leadSent = true;
-        leadBox.classList.remove("show");
-        add("bot", "Em nhận được số của anh/chị rồi ạ. Tư vấn viên sẽ gọi lại trong giờ làm việc. " +
-                   "Trong lúc chờ, anh/chị cứ hỏi tiếp em nhé.");
+        leadBox.classList.remove("show", "mo");
+        var cam = "Em đã nhận số của anh/chị. Tư vấn viên sẽ gọi lại trong giờ làm việc — trong lúc chờ, anh/chị cứ hỏi tiếp em nhé.";
+        add("bot", cam);
+        history.push({ role: "bot", text: cam });
         if (window.dataLayer) window.dataLayer.push({ event: "generate_lead", lead_source: "chatbot" });
       })
       .catch(function (e) {
-        b.disabled = false;
-        b.textContent = "Gửi";
+        if (nut) { nut.disabled = false; nut.textContent = "Gọi tôi"; }
+        leadBox.classList.add("show", "mo");
         msg.hidden = false;
-        msg.style.color = "#9b2c2c";
         msg.textContent = String(e.message) || "Chưa gửi được. Anh/chị gọi giúp 0869 656 561 nhé.";
       });
+  }
+
+  $("dbvchat-leadopen").onclick = function () {
+    leadBox.classList.add("mo");
+    setTimeout(function () { $("dbvchat-phone").focus(); }, 50);
+  };
+  $("dbvchat-leadx").onclick = function () {
+    leadBox.classList.remove("mo", "show");
+    $("dbvchat-leadmsg").hidden = true;
+    leadAn = true;
+  };
+  $("dbvchat-phone").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); $("dbvchat-leadbtn").click(); }
+  });
+  $("dbvchat-leadbtn").onclick = function () {
+    var phone = chuanSo($("dbvchat-phone").value), msg = $("dbvchat-leadmsg");
+    if (!phone) {
+      msg.hidden = false;
+      msg.textContent = "Số chưa đúng — anh/chị nhập 10 số, bắt đầu bằng 0.";
+      return;
+    }
+    guiSo(phone, this);
   };
 
   /* ── Đóng mở ──────────────────────────────────────────────────────────── */
