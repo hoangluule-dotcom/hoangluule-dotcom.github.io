@@ -34,6 +34,9 @@ function boTag(text) {
   return String(text || '').replace(new RegExp('@' + esc, 'gi'), ' ').replace(/\s+/g, ' ').trim();
 }
 
+/* Quản trị viên được chat riêng với bot đầy đủ chức năng (không cần nằm trong danh sách nhóm) */
+const laQuanTri = (bien, id) => !!id && String(process.env[bien] || '').split(',').map((s) => s.trim()).includes(id);
+
 function duocPhep(chatId) {
   const ds = String(process.env.ZALO_GT_CHAT_ID || '').split(',').map(s => s.trim()).filter(Boolean);
   return !ds.length || ds.includes(chatId);
@@ -82,6 +85,16 @@ exports.handler = async function (event) {
   try {
     const tl = await DAY.xuLyLenh(cau, { ten: 'giai-tri', bienAdmin: 'ZALO_GT_ADMIN_ID',
       idNguoi: (msg.from && msg.from.id) || '', tenNguoi: nguoi });
+    if (tl && tl.docTaiLieu) {
+      /* "học: <link>" → hàm nền đọc tài liệu, gửi bản xem trước, chờ "lưu" */
+      await guiDen(chat.id, '📥 Em đang đọc tài liệu, khoảng 10–40 giây nữa sẽ gửi bản tóm tắt để anh/chị duyệt…', token);
+      const goc = (process.env.URL || 'https://dbv247.com.vn').replace(/\/$/, '');
+      await fetch(goc + '/.netlify/functions/zalo-hoc-tai-lieu-background', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-noi-bo': secret },
+        body: JSON.stringify({ bot: 'gt', chatId: chat.id, idNguoi: (msg.from && msg.from.id) || '', url: tl.docTaiLieu })
+      }).catch((e) => console.error('hoc-tai-lieu dispatch:', e.message));
+      return { statusCode: 200, body: 'ok' };
+    }
     if (tl) { await guiDen(chat.id, tl, token); return { statusCode: 200, body: 'ok' }; }
   } catch (e) {
     console.error('day-bot GT:', e.message);
@@ -93,7 +106,7 @@ exports.handler = async function (event) {
     await guiDen(chat.id, `ID của ${chat.chat_type === 'GROUP' ? 'NHÓM' : 'CHAT RIÊNG'} này:\n${chat.id}`, token);
     return { statusCode: 200, body: 'ok' };
   }
-  if (!duocPhep(chat.id)) {
+  if (!duocPhep(chat.id) && !laQuanTri('ZALO_GT_ADMIN_ID', msg.from && msg.from.id)) {
     await guiDen(chat.id, 'Em là bot của nhóm nội bộ, chỗ này em chưa được sếp duyệt ngồi ạ.', token);
     return { statusCode: 200, body: 'not allowed' };
   }

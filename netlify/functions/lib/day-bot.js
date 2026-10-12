@@ -81,10 +81,46 @@ async function xuLyLenh(cau, { ten, bienAdmin, idNguoi, tenNguoi }) {
   const laHoc = /^(hoc|day)\s*:/.test(kd);
   const laQuen = /^(quen|xoa)\s*:/.test(kd);
   const laXem = /^(da hoc|danh sach hoc|ds hoc)\s*$/.test(kd);
-  if (!laHoc && !laQuen && !laXem) return null;
+  const laLuu = /^luu(\s+[\d,\s]+)?\s*$/.test(kd);       // lưu  |  lưu 1,3,5
+  const laHuy = /^huy\s*$/.test(kd);
+  if (!laHoc && !laQuen && !laXem && !laLuu && !laHuy) return null;
 
   if (!laAdmin(bienAdmin, idNguoi)) {
     return 'Chỉ quản trị viên mới dạy được bot ạ. (Nhắn "tôi là ai" để lấy ID, rồi nhờ quản trị khai vào ' + bienAdmin + '.)';
+  }
+
+  /* ── Học từ tài liệu (link): bước duyệt "lưu" / "huỷ" ── */
+  const khoaCho = 'cho-luu/' + ten + '/' + idNguoi;
+  if (laHuy) {
+    const k = kho(); if (k) await k.delete(khoaCho).catch(() => {});
+    return 'Đã huỷ, không lưu gì từ tài liệu vừa rồi.';
+  }
+  if (laLuu) {
+    const k = kho();
+    const cho = k ? await k.get(khoaCho, { type: 'json' }).catch(() => null) : null;
+    if (!cho || !cho.muc || !cho.muc.length) return 'Không có tài liệu nào đang chờ lưu. Gửi: học: [link tài liệu]';
+    const chon = (c.match(/\d+/g) || []).map(Number);
+    const lay = chon.length ? cho.muc.filter((m, i) => chon.includes(i + 1)) : cho.muc;
+    if (!lay.length) return 'Số thứ tự không khớp. Gõ "lưu" để lưu hết, hoặc "lưu 1,3" để lưu mục 1 và 3.';
+    const ds0 = await doc(ten);
+    let id = ds0.reduce((m, x) => Math.max(m, x.id || 0), 0);
+    const luc = new Date().toISOString();
+    let moi = 0, capNhat = 0;
+    for (const m of lay) {
+      const cu = ds0.find((x) => boDau(x.q).replace(/[^a-z0-9]/g, '') === boDau(m.q).replace(/[^a-z0-9]/g, ''));
+      if (cu) { Object.assign(cu, { a: m.a, nguoi: tenNguoi || '', luc, nguon: cho.nguon }); capNhat++; }
+      else if (ds0.length < TOI_DA) { ds0.push({ id: ++id, q: m.q, a: m.a, nguoi: tenNguoi || '', luc, nguon: cho.nguon }); moi++; }
+    }
+    await ghi(ten, ds0);
+    await k.delete(khoaCho).catch(() => {});
+    return 'Đã lưu ✓ ' + moi + ' mục mới' + (capNhat ? ', cập nhật ' + capNhat + ' mục' : '') +
+      (moi + capNhat < lay.length ? ' (kho đã đầy ' + TOI_DA + ' mục, bỏ bớt phần thừa)' : '') + '. Nhắn "đã học" để xem.';
+  }
+
+  /* học: <link>  → chuyển sang hàm nền đọc tài liệu (mất 10–40 giây) */
+  if (laHoc && !c.includes('|')) {
+    const m = c.match(/https?:\/\/\S+/i);
+    if (m) return { docTaiLieu: m[0].replace(/[)\].,;]+$/, '') };
   }
 
   const ds = await doc(ten);
@@ -109,7 +145,9 @@ async function xuLyLenh(cau, { ten, bienAdmin, idNguoi, tenNguoi }) {
   const than = c.replace(/^[^:]*:/, '').trim();
   const cat = than.split('|');
   if (cat.length < 2 || !cat[0].trim() || !cat.slice(1).join('|').trim()) {
-    return 'Sai cú pháp. Viết: học: câu hỏi | câu trả lời\nVí dụ: học: Phí TNDS xe máy điện bao nhiêu? | 60.500đ/năm đã gồm VAT';
+    return 'Sai cú pháp. Có 2 cách dạy:\n' +
+      '1) học: câu hỏi | câu trả lời\n   vd: học: Phí TNDS xe máy điện bao nhiêu? | 60.500đ/năm đã gồm VAT\n' +
+      '2) học: link tài liệu (Google Docs/Sheets/Slides, file PDF trên Google Drive, hoặc trang web)\n   vd: học: https://docs.google.com/document/d/...';
   }
   const q = cat[0].trim().slice(0, 300);
   const a = cat.slice(1).join('|').trim().slice(0, 1500);
@@ -127,4 +165,4 @@ async function xuLyLenh(cau, { ten, bienAdmin, idNguoi, tenNguoi }) {
   return 'Đã học mục ' + id + ' ✓\nHỏi: ' + q + '\nĐáp: ' + a;
 }
 
-module.exports = { xuLyLenh, timDaDay, khoiPrompt, doc };
+module.exports = { xuLyLenh, timDaDay, khoiPrompt, doc, kho, boDau, TOI_DA };

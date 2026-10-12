@@ -38,6 +38,9 @@ function boTag(text) {
     .trim();
 }
 
+/* Quản trị viên được chat riêng với bot đầy đủ chức năng (không cần nằm trong danh sách nhóm) */
+const laQuanTri = (bien, id) => !!id && String(process.env[bien] || '').split(',').map((s) => s.trim()).includes(id);
+
 function duocHoiDap(chatId) {
   const them = String(process.env.ZALO_HOI_DAP_CHO || '').split(',').map(s => s.trim()).filter(Boolean);
   return dsNhan().concat(them).includes(chatId);
@@ -87,6 +90,16 @@ exports.handler = async function (event) {
   try {
     const tl = await DAY.xuLyLenh(cau, { ten: 'nghiep-vu', bienAdmin: 'ZALO_ADMIN_ID',
       idNguoi: (msg.from && msg.from.id) || '', tenNguoi: nguoi });
+    if (tl && tl.docTaiLieu) {
+      /* "học: <link>" → hàm nền đọc tài liệu, gửi bản xem trước, chờ "lưu" */
+      await guiDen(chat.id, '📥 Em đang đọc tài liệu, khoảng 10–40 giây nữa sẽ gửi bản tóm tắt để anh/chị duyệt…');
+      const goc = (process.env.URL || 'https://dbv247.com.vn').replace(/\/$/, '');
+      await fetch(goc + '/.netlify/functions/zalo-hoc-tai-lieu-background', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-noi-bo': secret },
+        body: JSON.stringify({ bot: 'ops', chatId: chat.id, idNguoi: (msg.from && msg.from.id) || '', url: tl.docTaiLieu })
+      }).catch((e) => console.error('hoc-tai-lieu dispatch:', e.message));
+      return { statusCode: 200, body: 'ok' };
+    }
     if (tl) { await guiDen(chat.id, tl); return { statusCode: 200, body: 'ok' }; }
   } catch (e) {
     console.error('day-bot:', e.message);
@@ -102,7 +115,7 @@ exports.handler = async function (event) {
   }
 
   /* 2. Tra phí / hỏi đáp — chỉ nơi được phép, tránh người lạ đốt hạn mức AI */
-  if (!duocHoiDap(chat.id)) {
+  if (!duocHoiDap(chat.id) && !laQuanTri('ZALO_ADMIN_ID', msg.from && msg.from.id)) {
     await guiDen(chat.id, 'Bot DBV247 chỉ trả lời trong nhóm vận hành DBV247.');
     return { statusCode: 200, body: 'not allowed' };
   }
