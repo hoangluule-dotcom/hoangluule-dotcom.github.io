@@ -119,8 +119,17 @@ async function xuLyLenh(cau, { ten, bienAdmin, idNguoi, tenNguoi }) {
 
   /* học: <link>  → chuyển sang hàm nền đọc tài liệu (mất 10–40 giây) */
   if (laHoc && !c.includes('|')) {
-    const m = c.match(/https?:\/\/\S+/i);
-    if (m) return { docTaiLieu: m[0].replace(/[)\].,;]+$/, '') };
+    const m = c.match(/https?:\/\/\S+/i) || c.match(/(?:www\.|docs\.google\.com|drive\.google\.com|[a-z0-9-]+\.(?:com|vn|net|org)(?:\.vn)?\/)\S*/i);
+    if (m) {
+      let url = m[0].replace(/[)\].,;]+$/, '');
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+      if (/(^|\.)(facebook\.com|fb\.com|fb\.watch|instagram\.com|tiktok\.com|zalo\.me)\//i.test(url.replace(/^https?:\/\//, '') + '/')) {
+        return 'Facebook/Instagram/TikTok/Zalo chặn bot đọc nội dung (phải đăng nhập), nên em không học được từ link này.\n' +
+          'Cách thay thế:\n- Copy nội dung bài viết, dạy em bằng: học: câu hỏi | câu trả lời\n' +
+          '- Hoặc dán nội dung nhiều bài vào một Google Docs (chia sẻ "Bất kỳ ai có đường liên kết") rồi gửi: học: link Google Docs';
+      }
+      return { docTaiLieu: url };
+    }
   }
 
   const ds = await doc(ten);

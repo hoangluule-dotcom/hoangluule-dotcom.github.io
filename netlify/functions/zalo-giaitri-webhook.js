@@ -73,8 +73,12 @@ exports.handler = async function (event) {
   const msg = ev.message || {};
   const chat = msg.chat || {};
   if (!chat.id) return { statusCode: 200, body: 'no chat' };
-  if (ev.event_name && ev.event_name !== 'message.text.received') {
-    return { statusCode: 200, body: 'skip' };  // ảnh/sticker: im lặng cho đỡ ồn
+  if (ev.event_name && ev.event_name !== 'message.text.received' && !String(msg.text || '').trim()) {
+    console.log('Zalo GT sự kiện khác:', ev.event_name, JSON.stringify(msg).slice(0, 800));
+    if (laQuanTri('ZALO_GT_ADMIN_ID', msg.from && msg.from.id) && /unsupported|link/.test(ev.event_name)) {
+      await guiDen(chat.id, 'Em không đọc được tin vừa rồi (dạng "' + ev.event_name + '"). Nếu là link, anh/chị gõ lại bỏ "https://", ví dụ:\nhọc: docs.google.com/document/d/...', token);
+    }
+    return { statusCode: 200, body: 'skip' };  // ảnh/sticker của người khác: im lặng cho đỡ ồn
   }
 
   const cau = boTag(msg.text);

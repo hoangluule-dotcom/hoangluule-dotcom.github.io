@@ -83,8 +83,16 @@ exports.handler = async function (event) {
   const nguoi = (msg.from && msg.from.display_name) || '';
   console.log('Zalo:', chat.chat_type, chat.id, nguoi, '|', cau.slice(0, 200));
 
-  /* Tin không phải chữ (ảnh, sticker...) — bỏ qua */
-  if (ev.event_name && ev.event_name !== 'message.text.received') return { statusCode: 200, body: 'skip' };
+  /* Tin không phải chữ. Zalo có thể gửi tin chứa LINK dưới dạng khác (xem trước liên kết):
+     vẫn còn chữ thì xử lý như tin chữ; không còn chữ thì ghi log để dò, báo quản trị. */
+  if (ev.event_name && ev.event_name !== 'message.text.received' && !String(msg.text || '').trim()) {
+    console.log('Zalo sự kiện khác:', ev.event_name, JSON.stringify(msg).slice(0, 800));
+    if (laQuanTri('ZALO_ADMIN_ID', msg.from && msg.from.id) && /unsupported|link/.test(ev.event_name)) {
+      await guiDen(chat.id, 'Em không đọc được nội dung tin vừa rồi (Zalo gửi dạng "' + ev.event_name + '"). ' +
+        'Nếu là link, anh/chị gõ lại kèm chữ phía trước, bỏ "https://", ví dụ:\nhọc: docs.google.com/document/d/...');
+    }
+    return { statusCode: 200, body: 'skip' };
+  }
 
   /* 0. Lệnh dạy bot (học / đã học / quên / tôi là ai) — chỉ ZALO_ADMIN_ID được dạy */
   try {
