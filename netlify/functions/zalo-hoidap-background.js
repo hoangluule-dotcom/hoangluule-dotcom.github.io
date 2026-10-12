@@ -17,7 +17,8 @@
 const { guiDen } = require('./lib/zalo');
 const { bangPhiTnds } = require('./lib/bieu-phi-tnds');
 const { pickPages, hoiGemini, KB } = require('./chat.js')._noiBo;
-const QUY_TAC_PHI = require('./lib/quy-tac-phi');  // dùng chung với chatbot web → cùng con số
+const QUY_TAC_PHI = require('./lib/quy-tac-phi');
+const DAY = require('./lib/day-bot');  // dùng chung với chatbot web → cùng con số
 // Bot chạy nền, chờ được → tra giá xe qua Google ngay nếu chưa có (chatbot web thì nhờ hàm nền)
 require('./lib/tinh-phi').datCheDoTraGia('ngay');
 
@@ -78,7 +79,8 @@ exports.handler = async function (event) {
   try {
     const [bangPhi, pages] = await Promise.all([bangPhiTnds(), Promise.resolve(pickPages(cau, []))]);
     // Bật công cụ tính phí (như chatbot web) để phí vật chất, cháy nổ, hàng hóa... khớp với web
-    const traLoi = (await hoiGemini(promptNoiBo(bangPhi, pages), [], cau, { congCu: true })).text;
+    const daDay = DAY.khoiPrompt(await DAY.timDaDay('nghiep-vu', cau, 8));   // điều quản trị đã dạy
+    const traLoi = (await hoiGemini(promptNoiBo(bangPhi, pages) + daDay, [], cau, { congCu: true })).text;
     const dau = d.nguoi ? d.nguoi + ' ơi, ' : '';
     await guiDen(chatId, dau + traLoi);
   } catch (e) {

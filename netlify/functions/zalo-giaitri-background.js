@@ -18,7 +18,8 @@ const { guiDen } = require('./lib/zalo');
 const { bangPhiTnds } = require('./lib/bieu-phi-tnds');
 const TRI_THUC = require('./lib/tri-thuc-em-gai');  // kho tri thức riêng — sửa ở tệp đó
 const { pickPages, hoiGemini, KB, noAccent } = require('./chat.js')._noiBo;
-const QUY_TAC_PHI = require('./lib/quy-tac-phi');  // dùng chung với chatbot web → cùng con số
+const QUY_TAC_PHI = require('./lib/quy-tac-phi');
+const DAY = require('./lib/day-bot');  // dùng chung với chatbot web → cùng con số
 // Bot chạy nền, chờ được → tra giá xe qua Google ngay nếu chưa có (chatbot web thì nhờ hàm nền)
 require('./lib/tinh-phi').datCheDoTraGia('ngay');
 
@@ -136,7 +137,10 @@ exports.handler = async function (event) {
       ? [await bangPhiTnds(), pickPages(cau, [])]
       : ['', []];
     const hoi = (nguoi ? nguoi + ': ' : '') + cau;
-    const kq = await hoiGemini(prompt(bangPhi, pages), ls, hoi,
+    /* Điều quản trị đã dạy: kho giải trí luôn dùng; kho nghiệp vụ khi câu hỏi dính nghiệp vụ */
+    const daDay = DAY.khoiPrompt((await DAY.timDaDay('giai-tri', cau, 8))
+      .concat(nghiepVu ? await DAY.timDaDay('nghiep-vu', cau, 6) : []));
+    const kq = await hoiGemini(prompt(bangPhi, pages) + daDay, ls, hoi,
       { congCu: true, key: key, temperature: nghiepVu ? 0.3 : 0.9 });  // công cụ tính phí như chatbot web
     await guiDen(chatId, kq.text, token);
 

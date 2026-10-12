@@ -25,6 +25,7 @@
 'use strict';
 
 const { guiDen } = require('./lib/zalo');
+const DAY = require('./lib/day-bot');  // "học: … | …" — quản trị dạy bot ngay trong Zalo
 
 const tenBot = () => (process.env.ZALO_GT_BOT_NAME || 'Bot em gái DBV').trim();
 
@@ -76,6 +77,17 @@ exports.handler = async function (event) {
   const cau = boTag(msg.text);
   const nguoi = (msg.from && msg.from.display_name) || '';
   console.log('Zalo GT:', chat.chat_type, chat.id, nguoi, '|', cau.slice(0, 200));
+
+  /* Lệnh dạy bot — chỉ ZALO_GT_ADMIN_ID được dạy; kho 'giai-tri' chỉ bot này dùng */
+  try {
+    const tl = await DAY.xuLyLenh(cau, { ten: 'giai-tri', bienAdmin: 'ZALO_GT_ADMIN_ID',
+      idNguoi: (msg.from && msg.from.id) || '', tenNguoi: nguoi });
+    if (tl) { await guiDen(chat.id, tl, token); return { statusCode: 200, body: 'ok' }; }
+  } catch (e) {
+    console.error('day-bot GT:', e.message);
+    await guiDen(chat.id, 'Em chưa ghi nhớ được (lỗi kho lưu), anh/chị dạy lại em sau chút nhé.', token);
+    return { statusCode: 200, body: 'ok' };
+  }
 
   if (/^id\s*$/i.test(cau)) {
     await guiDen(chat.id, `ID của ${chat.chat_type === 'GROUP' ? 'NHÓM' : 'CHAT RIÊNG'} này:\n${chat.id}`, token);

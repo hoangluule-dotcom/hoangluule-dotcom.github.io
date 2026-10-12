@@ -26,6 +26,7 @@
 'use strict';
 
 const { guiDen, dsNhan } = require('./lib/zalo');
+const DAY = require('./lib/day-bot');  // "học: … | …" — quản trị dạy bot ngay trong Zalo
 
 /* Bỏ phần "@Bot DBV247" khỏi câu hỏi */
 function boTag(text) {
@@ -81,6 +82,17 @@ exports.handler = async function (event) {
 
   /* Tin không phải chữ (ảnh, sticker...) — bỏ qua */
   if (ev.event_name && ev.event_name !== 'message.text.received') return { statusCode: 200, body: 'skip' };
+
+  /* 0. Lệnh dạy bot (học / đã học / quên / tôi là ai) — chỉ ZALO_ADMIN_ID được dạy */
+  try {
+    const tl = await DAY.xuLyLenh(cau, { ten: 'nghiep-vu', bienAdmin: 'ZALO_ADMIN_ID',
+      idNguoi: (msg.from && msg.from.id) || '', tenNguoi: nguoi });
+    if (tl) { await guiDen(chat.id, tl); return { statusCode: 200, body: 'ok' }; }
+  } catch (e) {
+    console.error('day-bot:', e.message);
+    await guiDen(chat.id, 'Chưa lưu được (lỗi kho lưu). Anh/chị thử lại sau ít phút.');
+    return { statusCode: 200, body: 'ok' };
+  }
 
   /* 1. Lệnh lấy ID */
   if (/^id\s*$/i.test(cau)) {

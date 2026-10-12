@@ -26,6 +26,7 @@ const { KB, timDoan, tuLieu, pickPages, danhMucSanPham } = require("./lib/kien-t
 const { nhanDien } = require("./lib/kich-ban-khai-thac.js");
 const { KHAI_BAO, goiHam } = require("./lib/tinh-phi.js");
 const { ghiLuot } = require("./lib/nhat-ky.js");
+const DAY = require("./lib/day-bot.js");  // hỏi–đáp dạy qua Zalo
 const { getStore } = require("@netlify/blobs");
 
 const SITE_ID = "df7ffacd-8e52-4769-b95b-23c978b36e29";
@@ -364,7 +365,11 @@ exports.handler = async function (event) {
     const nhom = nhanDien(loiKhach, page);
     const gan = history.filter((m) => m.role !== "bot").slice(-2).map((m) => m.text).join(" ");
     const doan = timDoan(question + " " + question + " " + gan, { page: page, k: 6 });
-    const systemPrompt = buildSystemPrompt(doan, nhom, daCoSo);
+    /* Hỏi–đáp quản trị dạy qua Bot DBV247 trên Zalo (kho 'nghiep-vu', ưu tiên cao nhất).
+       Lỗi kho thì bỏ qua, không làm chậm/hỏng câu trả lời cho khách. */
+    let daDay = '';
+    try { daDay = DAY.khoiPrompt(await DAY.timDaDay('nghiep-vu', question, 6)); } catch (e) { /* bỏ qua */ }
+    const systemPrompt = buildSystemPrompt(doan, nhom, daCoSo) + daDay;
     const kq = await hoiGemini(systemPrompt, history, question);
     const luot = await ghiLuot({ sid: sid, page: page, q: question, a: kq.text, nhom: nhom.ma, congCu: kq.congCu });
 
