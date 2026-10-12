@@ -16,7 +16,10 @@
 
 const { guiDen } = require('./lib/zalo');
 const { bangPhiTnds } = require('./lib/bieu-phi-tnds');
-const { pickPages, askGemini, KB } = require('./chat.js')._noiBo;
+const { pickPages, hoiGemini, KB } = require('./chat.js')._noiBo;
+const QUY_TAC_PHI = require('./lib/quy-tac-phi');  // dùng chung với chatbot web → cùng con số
+// Bot chạy nền, chờ được → tra giá xe qua Google ngay nếu chưa có (chatbot web thì nhờ hàm nền)
+require('./lib/tinh-phi').datCheDoTraGia('ngay');
 
 function promptNoiBo(bangPhi, pages) {
   const detail = pages.length
@@ -30,9 +33,12 @@ function promptNoiBo(bangPhi, pages) {
     '== QUY TẮC BẮT BUỘC ==',
     '1. Hỏi phí TNDS bắt buộc: CHỈ lấy số từ BIỂU PHÍ TNDS bên dưới, chép đúng con số, không tự nhân chia. Luôn ghi: phí chưa VAT, VAT, tổng/năm. Hỏi nhiều năm thì nhân tổng/năm với số năm và ghi rõ phép nhân.',
     '2. Thiếu thông tin để chọn đúng dòng (không rõ kinh doanh hay không, bao nhiêu chỗ, bao nhiêu tấn) thì liệt kê ngắn các khả năng và hỏi lại — không đoán.',
-    '3. Sản phẩm khác (vật chất xe, sức khỏe, cháy nổ, tài sản, hàng hóa...): chỉ dùng thông tin trong TƯ LIỆU. Có tỷ lệ phí/mức phí trong tư liệu thì nêu kèm điều kiện; phí phụ thuộc thẩm định thì nói rõ cần thẩm định.',
+    '3. Sản phẩm khác (vật chất xe, cháy nổ, hàng hóa...) và mọi câu hỏi về PHÍ: tuân theo QUY TẮC BÁO PHÍ bên dưới. Kiến thức (quyền lợi, thủ tục) chỉ dùng TƯ LIỆU.',
     '4. Không có trong tư liệu thì nói "chưa có thông tin trong dữ liệu của bot" — TUYỆT ĐỐI không bịa con số, điều khoản, quy định.',
     '5. Không dùng từ ngữ so sánh vượt trội ("số 1", "tốt nhất", "rẻ nhất").',
+    '',
+    '== QUY TẮC BÁO PHÍ (giống chatbot web) ==',
+    QUY_TAC_PHI,
     '',
     '== ĐỊNH DẠNG (Zalo không hiển thị markdown) ==',
     '- Chữ thường, KHÔNG dùng **, #, bảng. Gạch đầu dòng bằng "- ".',
@@ -71,7 +77,8 @@ exports.handler = async function (event) {
 
   try {
     const [bangPhi, pages] = await Promise.all([bangPhiTnds(), Promise.resolve(pickPages(cau, []))]);
-    const traLoi = await askGemini(promptNoiBo(bangPhi, pages), [], cau);
+    // Bật công cụ tính phí (như chatbot web) để phí vật chất, cháy nổ, hàng hóa... khớp với web
+    const traLoi = (await hoiGemini(promptNoiBo(bangPhi, pages), [], cau, { congCu: true })).text;
     const dau = d.nguoi ? d.nguoi + ' ơi, ' : '';
     await guiDen(chatId, dau + traLoi);
   } catch (e) {

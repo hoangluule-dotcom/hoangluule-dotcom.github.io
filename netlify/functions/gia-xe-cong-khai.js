@@ -29,6 +29,7 @@
 "use strict";
 
 const { getStore } = require("@netlify/blobs");
+const GX = require("./lib/gia-xe-chung");  // bộ tra giá dùng chung với chatbot & bot Zalo
 
 const SITE_ID = "df7ffacd-8e52-4769-b95b-23c978b36e29";
 const STORE_NAME = "dbv247-gia-xe-cong-khai";
@@ -113,138 +114,7 @@ async function checkRate(ip) {
   }
 }
 
-/* ── Chỉ dẫn hệ thống cho Gemini ─────────────────────────────────────────── */
-const CHI_DAN = `Bạn là công cụ tra giá xe ô tô cũ tại thị trường Việt Nam cho một trang bảo hiểm.
-
-Dùng công cụ tìm kiếm Google được cấp để tìm CÁC TIN RAO BÁN hoặc bài định giá
-đang có thật trên mạng, đúng hãng xe, đúng dòng xe, đúng năm sản xuất được hỏi
-(sai lệch năm ±1 năm chỉ dùng khi không tìm được đúng năm, phải nêu rõ trong
-ghi_chu). Ưu tiên các nguồn Việt Nam: bonbanh.com, chotot.com, oto.com.vn,
-carmudi.vn, các sàn/diễn đàn mua bán xe cũ uy tín.
-
-QUY TẮC BẮT BUỘC:
-1. CHỈ dùng số liệu tìm thấy qua tìm kiếm thật. Tuyệt đối không suy đoán,
-   không lấy từ kiến thức có sẵn không kèm nguồn.
-2. Nếu không tìm thấy tin rao nào phù hợp, trả tim_thay=false — thà không có
-   kết quả còn hơn đưa số sai, vì số này ảnh hưởng tới số tiền bảo hiểm của
-   khách hàng thật.
-3. Đơn vị VNĐ nguyên (không viết tắt). "650 triệu" → 650000000.
-4. Bỏ qua giá bất thường (dưới 30 triệu hoặc trên 60 tỷ) — tin câu view/gõ nhầm.
-5. trung_vi là giá Ở GIỮA dãy giá tìm được, không phải trung bình cộng.
-6. Trả lời DUY NHẤT một object JSON hợp lệ, không kèm lời dẫn, không dùng
-   markdown code fence, đúng các khoá sau:
-   {"tim_thay":boolean,"trung_vi":number,"thap_nhat":number,"cao_nhat":number,
-    "so_tin_tham_khao":number,"ghi_chu":string}`;
-
-/* Vì sao KHÔNG bật thinkingConfig ở đây (khác chat.js): hàm này chạy đồng bộ
-   sau một request HTTP của khách, và Netlify giới hạn function đồng bộ ở
-   MẶC ĐỊNH 10 GIÂY (bị nền tảng cắt ngang, trả về lỗi 502 rỗng — không phải
-   lỗi do code mình, nên client không nhận được JSON để hiển thị lý do thật).
-   Google Search grounding tự nó đã tốn vài giây tìm kiếm; cộng thêm bước suy
-   nghĩ (thinking) hoặc gọi lại lần 2 khi model từ chối tham số là hai cách
-   chắc chắn nhất để vượt quá 10 giây đó. Nên: một lượt gọi duy nhất, không
-   thinking, và tự bỏ cuộc ở 7 giây (dưới ngưỡng nền tảng) để còn kịp trả về
-   một JSON lỗi tử tế thay vì bị nền tảng giết ngang không dấu vết. */
-async function timGiaBangGoogleSearch({ hang, dong, nam, phienBan }) {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) return { ok: false, ly_do: "thieu_GEMINI_API_KEY" };
-
-  const model = process.env.GEMINI_MODEL || "gemini-3.6-flash";
-  const url =
-    "https://generativelanguage.googleapis.com/v1beta/models/" +
-    encodeURIComponent(model) + ":generateContent";
-
-  const cauHoi =
-    `Xe cần tra giá thị trường xe cũ: ${hang} ${dong}` +
-    (phienBan ? ` (phiên bản ${phienBan})` : "") +
-    `, năm sản xuất ${nam}. Tìm kiếm Google ngay bây giờ rồi trả JSON theo đúng quy tắc.`;
-
-  const payload = JSON.stringify({
-    system_instruction: { parts: [{ text: CHI_DAN }] },
-    contents: [{ role: "user", parts: [{ text: cauHoi }] }],
-    tools: [{ google_search: {} }],
-    generationConfig: { temperature: 0, maxOutputTokens: 1200, topP: 0.9 },
-    safetySettings: [
-      { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
-      { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
-      { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
-      { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
-    ],
-  });
-
-  const headers = { "Content-Type": "application/json", "x-goog-api-key": key };
-  const ctrl = new AbortController();
-  const hetGio = setTimeout(() => ctrl.abort(), 7000);
-
-  try {
-    const r = await fetch(url, { method: "POST", headers, body: payload, signal: ctrl.signal });
-
-    if (r.status === 400) {
-      const first = await r.text();
-      return { ok: false, ly_do: "gemini_400", chi_tiet: first.slice(0, 300) };
-    }
-
-    if (!r.ok) {
-      const body = await r.text();
-      return { ok: false, ly_do: "gemini_loi_" + r.status, chi_tiet: body.slice(0, 300) };
-    }
-
-    const data = await r.json();
-    const cand = data.candidates && data.candidates[0];
-    const parts = cand && cand.content && cand.content.parts;
-    let text = parts
-      ? parts.filter((p) => !p.thought).map((p) => p.text || "").join("").trim()
-      : "";
-
-    if (!text) return { ok: false, ly_do: "gemini_khong_tra_loi", finish: cand && cand.finishReason };
-
-    // Phòng khi model vẫn kèm code fence dù đã dặn không dùng.
-    text = text.replace(/^```(?:json)?/i, "").replace(/```$/i, "").trim();
-    const m = text.match(/\{[\s\S]*\}/);
-    if (!m) return { ok: false, ly_do: "khong_doc_duoc_json", chi_tiet: text.slice(0, 300) };
-
-    let kq;
-    try {
-      kq = JSON.parse(m[0]);
-    } catch (e) {
-      return { ok: false, ly_do: "json_khong_hop_le", chi_tiet: text.slice(0, 300) };
-    }
-
-    if (!kq.tim_thay) return { ok: false, ly_do: "khong_tim_thay", ghi_chu: kq.ghi_chu || "" };
-
-    const hopLe = (x) => typeof x === "number" && x >= 30e6 && x <= 60e9;
-    if (!hopLe(kq.trung_vi)) return { ok: false, ly_do: "so_vo_ly", ghi_chu: kq.ghi_chu || "" };
-
-    const lamTron = (x) => (hopLe(x) ? Math.round(x / 1e6) * 1e6 : 0);
-
-    // Số nguồn thực sự Google trả — càng nhiều càng chắc, không tin số model tự khai.
-    const soNguonThat =
-      (cand.groundingMetadata && cand.groundingMetadata.groundingChunks &&
-        cand.groundingMetadata.groundingChunks.length) || 0;
-
-    return {
-      ok: true,
-      nguon: "Gemini + Google Search (thời gian thực)",
-      do_tin_cay: soNguonThat >= 3 ? "trung_binh" : "thap",
-      trung_vi: lamTron(kq.trung_vi),
-      thap_nhat: lamTron(kq.thap_nhat) || lamTron(kq.trung_vi * 0.9),
-      cao_nhat: lamTron(kq.cao_nhat) || lamTron(kq.trung_vi * 1.1),
-      so_tin: Math.max(0, Math.round(kq.so_tin_tham_khao || 0)),
-      so_nguon_tim_kiem: soNguonThat,
-      ghi_chu: kq.ghi_chu || "",
-      doc_luc: new Date().toISOString(),
-    };
-  } catch (e) {
-    const hetGioCho = e && (e.name === "AbortError" || /abort/i.test(String(e.message)));
-    return {
-      ok: false,
-      ly_do: hetGioCho ? "het_gio_cho" : "ngoai_le",
-      chi_tiet: String(e && e.message),
-    };
-  } finally {
-    clearTimeout(hetGio);
-  }
-}
+/* Phần tra Google + kiểm dịch đã chuyển sang lib/gia-xe-chung.js (dùng chung). */
 
 /* Toàn bộ logic bên dưới đã tự bắt lỗi ở từng bước, nhưng vẫn bọc thêm một lớp
    try/catch ngoài cùng: lỡ có gì bất ngờ (vd. lỗi hiếm gặp từ SDK) thì hàm vẫn
@@ -306,8 +176,13 @@ async function xuLy(event) {
     });
   }
 
+  /* Quy về đúng tên hãng/dòng trong CSDL để dùng CHUNG bộ nhớ với chatbot và bot Zalo
+     ("VF 6", "vinfast vf6" → VINFAST|VF6) */
+  let hangC = hang, dongC = dong;
+  try { const x = await GX.timDongXe(hang, dong); if (x) { hangC = x.hang; dongC = x.dong; } } catch (e) { /* giữ nguyên */ }
+
   const store = openStore(STORE_NAME);
-  const key = khoaCache(hang, dong, nam);
+  const key = khoaCache(hangC, dongC, nam);
 
   if (!boQuaCache && store) {
     try {
@@ -318,11 +193,8 @@ async function xuLy(event) {
     } catch (e) { /* cache lỗi thì tra mới, không chặn khách */ }
   }
 
-  const ketQua = await timGiaBangGoogleSearch({ hang, dong, nam, phienBan });
-
-  if (store) {
-    try { await store.setJSON(key, ketQua); } catch (e) { /* không chặn phản hồi khách vì lỗi ghi cache */ }
-  }
+  // Tra Google + kiểm dịch so với CSDL (lệch 60–140% hoặc vượt giá niêm yết thì loại) + ghi bộ nhớ chung
+  const ketQua = await GX.traMoiVaLuu(hangC, dongC, nam, phienBan, 7000);
 
   if (!ketQua.ok) {
     const khongTim = ketQua.ly_do === "khong_tim_thay" || ketQua.ly_do === "so_vo_ly";

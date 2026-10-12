@@ -82,31 +82,21 @@ async function bieu_phi_tnds() {
 }
 
 /* ── 2. Giá trị xe ───────────────────────────────────────────────────────── */
-let DB_XE = null;
-async function dbXe() {
-  if (!DB_XE) DB_XE = JSON.parse(await taiTep('/data/gia-xe-db.json'));
-  return DB_XE;
-}
-const chuanXe = (s) => boDau(s).toUpperCase().replace(/[^A-Z0-9]/g, '');
+/* Giá trị xe: bộ tra giá dùng chung lib/gia-xe-chung.js (giá Google 48h đã
+   kiểm dịch → phân bổ theo phiên bản trong CSDL; không có thì CSDL). */
+const GX = require('./gia-xe-chung');
+let CHE_DO_GIA = 'nen';   // 'nen' cho chatbot web (phải nhanh) | 'ngay' cho bot Zalo chạy nền
+function datCheDoTraGia(m) { CHE_DO_GIA = m === 'ngay' ? 'ngay' : 'nen'; }
+const ngayVN = (iso) => { try { return new Date(iso).toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }); } catch (e) { return ''; } };
+const tron100k = (x) => Math.round(x / 1e5) * 1e5;
+
 async function tra_gia_xe(a) {
-  const db = await dbXe();
-  const H = chuanXe(a.hang), D = chuanXe(a.dong), nam = parseInt(a.nam, 10) || 0;
-  if (!D) return { ok: false, thong_diep: 'Cần tên dòng xe (vd Vios, CR-V, VF 5).' };
-  const ung = [];
-  Object.keys(db.data).forEach((hang) => {
-    const hk = chuanXe(hang);
-    if (H && !(hk.includes(H) || H.includes(hk))) return;
-    Object.keys(db.data[hang]).forEach((dong) => {
-      const dk = chuanXe(dong);
-      if (dk === D) ung.push({ hang, dong, d: 3 });
-      else if (dk.startsWith(D) || D.startsWith(dk)) ung.push({ hang, dong, d: 2 });
-      else if (dk.includes(D)) ung.push({ hang, dong, d: 1 });
-    });
-  });
-  if (!ung.length) return { ok: false, thong_diep: 'Không tìm thấy dòng xe này trong cơ sở dữ liệu giá xe. Hỏi khách giá trị xe ước tính hoặc giá mua.' };
-  ung.sort((x, y) => y.d - x.d);
-  const { hang, dong } = ung[0];
-  let rows = db.data[hang][dong];
+  if (!String(a.dong || '').trim()) return { ok: false, thong_diep: 'Cần tên dòng xe (vd Vios, CR-V, VF 5).' };
+  const x = await GX.timDongXe(a.hang, a.dong);
+  if (!x) return { ok: false, thong_diep: 'Không tìm thấy dòng xe này trong cơ sở dữ liệu giá xe. Hỏi khách giá trị xe ước tính hoặc giá mua.' };
+  const { hang, dong } = x;
+  const nam = parseInt(a.nam, 10) || 0;
+  let rows = x.rows;
   if (nam) {
     const gan = rows.reduce((m, r) => Math.min(m, Math.abs(r[0] - nam)), 99);
     rows = rows.filter((r) => Math.abs(r[0] - nam) === gan);
@@ -114,16 +104,39 @@ async function tra_gia_xe(a) {
     const moi = Math.max.apply(null, rows.map((r) => r[0]));
     rows = rows.filter((r) => r[0] >= moi - 2);
   }
+
+  /* Giá thị trường theo từng năm (tra song song) → tỷ lệ điều chỉnh từng năm */
+  const cacNam = Array.from(new Set(rows.map((r) => r[0])));
+  const thiTruong = {};
+  await Promise.all(cacNam.map(async (y) => {
+    try {
+      const g = await GX.giaThiTruong(hang, dong, y, CHE_DO_GIA);
+      if (!g) return;
+      const rowsNam = x.rows.filter((r) => r[0] === y);
+      const kd = GX.kiemDich(g.trung_vi, rowsNam);       // kiểm lại phòng cache cũ ghi trước khi có kiểm dịch
+      if (kd.hop_le && kd.ty_le) thiTruong[y] = { ty_le: kd.ty_le, ngay: ngayVN(g.doc_luc), trung_vi: g.trung_vi };
+    } catch (e) { console.error('tra_gia_xe thị trường:', e.message); }
+  }));
+
+  const pb = rows.slice(0, 10).map((r) => {
+    const t = thiTruong[r[0]];
+    const v = t ? tron100k(r[2] * t.ty_le) : r[2];
+    const lo = t ? tron100k(r[3] * t.ty_le) : r[3], hi = t ? tron100k(r[4] * t.ty_le) : r[4];
+    return { nam: r[0], phien_ban: r[1], gia_tri_tham_khao: VND(v), gia_tri_so: v, khoang: VND(lo) + ' – ' + VND(hi),
+      nhien_lieu: r[5], so_ghe: r[6], nguon_gia: t ? 'thi_truong' : 'csdl' };
+  });
+  const coTT = Object.keys(thiTruong).length;
+  const ngayTT = coTT ? Object.values(thiTruong).map((t) => t.ngay).sort().pop() : '';
   return {
     ok: true, hang, dong,
-    nguon: db.meta && db.meta.nguon,
-    phien_ban: rows.slice(0, 10).map((r) => ({
-      nam: r[0], phien_ban: r[1], gia_tri_tham_khao: VND(r[2]), gia_tri_so: r[2],
-      khoang: VND(r[3]) + ' – ' + VND(r[4]), nhien_lieu: r[5], so_ghe: r[6],
-    })),
+    nguon: coTT
+      ? 'Giá thị trường xe cũ tra qua Google ngày ' + ngayTT + ', phân bổ theo phiên bản từ CSDL giá xe DBV247' +
+        (coTT < cacNam.length ? ' (một số năm chưa có giá thị trường, dùng CSDL)' : '')
+      : (x.meta && x.meta.nguon) || 'CSDL giá xe DBV247',
+    phien_ban: pb,
     luu_y: (nam && rows.length && rows[0][0] !== nam ? 'Không có đúng năm ' + nam + ', đang dùng năm gần nhất. ' : '') +
       'Giá trị tham khảo thị trường; giá trị bảo hiểm chính thức xác định khi giám định xe.',
-    dong_khac: ung.slice(1, 4).map((u) => u.hang + ' ' + u.dong),
+    dong_khac: x.khac,
   };
 }
 
@@ -160,6 +173,7 @@ async function phi_vat_chat_oto(a) {
       theo_phien_ban: kq.slice(0, 4).map((x) => x.phien_ban + ' (giá trị ~' + x.gia_tri_xe + '): ' + x.phi),
       ap_phi_toi_thieu: kq.some((x) => x.toi_thieu),
       gia_dinh: (a.muc_dich === 'kinh_doanh' ? 'Xe kinh doanh' : 'Xe gia đình') + ', gói đầy đủ điều khoản bổ sung, giá trị xe theo giá thị trường tham khảo.',
+      nguon_gia_xe: g.nguon,   // nêu nguồn giá cho người hỏi
       luu_y: 'Phí tham khảo (đã gồm VAT). Nêu khoảng phí, KHÔNG hỏi khách phiên bản. Phí chính thức sau khi tư vấn viên xem đăng ký/đăng kiểm.',
     };
   }
@@ -377,4 +391,4 @@ async function goiHam(ten, thamSo) {
   catch (e) { console.error('tinh-phi', ten, e.message); return { ok: false, thong_diep: 'Công cụ tính phí tạm lỗi — mời khách để lại số để tư vấn viên báo phí.' }; }
 }
 
-module.exports = { KHAI_BAO, goiHam, HAM };
+module.exports = { KHAI_BAO, goiHam, HAM, datCheDoTraGia };

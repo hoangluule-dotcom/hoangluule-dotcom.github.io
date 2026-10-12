@@ -18,6 +18,9 @@ const { guiDen } = require('./lib/zalo');
 const { bangPhiTnds } = require('./lib/bieu-phi-tnds');
 const TRI_THUC = require('./lib/tri-thuc-em-gai');  // kho tri thức riêng — sửa ở tệp đó
 const { pickPages, hoiGemini, KB, noAccent } = require('./chat.js')._noiBo;
+const QUY_TAC_PHI = require('./lib/quy-tac-phi');  // dùng chung với chatbot web → cùng con số
+// Bot chạy nền, chờ được → tra giá xe qua Google ngay nếu chưa có (chatbot web thì nhờ hàm nền)
+require('./lib/tinh-phi').datCheDoTraGia('ngay');
 
 const SITE_ID = 'df7ffacd-8e52-4769-b95b-23c978b36e29';
 const NHO = 8;
@@ -69,8 +72,11 @@ function prompt(bangPhi, pages) {
     '',
     '== KHI BỊ HỎI NGHIỆP VỤ BẢO HIỂM ==',
     '- Chuyển sang nghiêm túc (có thể mở đầu 1 câu đùa ngắn rồi vào việc).',
-    '- Phí TNDS: CHỈ chép đúng số trong BIỂU PHÍ TNDS (phí chưa VAT, VAT, tổng/năm). Thiếu thông tin (kinh doanh hay không, số chỗ, tải trọng) thì hỏi lại.',
-    '- Nghiệp vụ khác: chỉ dùng TƯ LIỆU. Không có thì nói thật là chưa có dữ liệu, gợi ý hỏi nhóm vận hành. Không bịa số, điều khoản.',
+    '- Mọi câu hỏi về PHÍ (TNDS, vật chất xe, cháy nổ, hàng hóa...): BẮT BUỘC theo QUY TẮC BÁO PHÍ bên dưới — gọi công cụ, không tự đoán.',
+    '- Kiến thức nghiệp vụ khác: chỉ dùng TƯ LIỆU. Không có thì nói thật là chưa có dữ liệu, gợi ý hỏi nhóm vận hành. Không bịa số, điều khoản.',
+    '',
+    '== QUY TẮC BÁO PHÍ (giống chatbot web) ==',
+    QUY_TAC_PHI,
     '- Không dùng "số 1", "tốt nhất", "rẻ nhất".',
     '',
     '== ĐỊNH DẠNG (Zalo không hiện markdown) ==',
@@ -131,7 +137,7 @@ exports.handler = async function (event) {
       : ['', []];
     const hoi = (nguoi ? nguoi + ': ' : '') + cau;
     const kq = await hoiGemini(prompt(bangPhi, pages), ls, hoi,
-      { congCu: false, key: key, temperature: nghiepVu ? 0.3 : 0.9 });
+      { congCu: true, key: key, temperature: nghiepVu ? 0.3 : 0.9 });  // công cụ tính phí như chatbot web
     await guiDen(chatId, kq.text, token);
 
     if (store) {
