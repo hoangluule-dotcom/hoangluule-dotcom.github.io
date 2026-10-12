@@ -215,14 +215,15 @@ const SAFETY = [
 const MODEL = () => process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 /* Một lượt gọi API. Model cũ không hiểu thinkingLevel → tự gọi lại không kèm. */
-async function goiApi(systemPrompt, contents, coCongCu) {
+async function goiApi(systemPrompt, contents, coCongCu, o) {
+  o = o || {};  // o.key, o.temperature — để bot Zalo giải trí dùng khoá/độ sáng tạo riêng
   const url = "https://generativelanguage.googleapis.com/v1beta/models/" +
     encodeURIComponent(MODEL()) + ":generateContent";
-  const headers = { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY };
+  const headers = { "Content-Type": "application/json", "x-goog-api-key": o.key || process.env.GEMINI_API_KEY };
   function body(withThinking) {
     /* Gemini 3 mặc định BẬT suy nghĩ, token suy nghĩ tính chung vào
        maxOutputTokens → hạ mức "low" và nới ngân sách, kẻo câu trả lời bị cắt. */
-    const gen = { temperature: 0.3, maxOutputTokens: 2400, topP: 0.9 };
+    const gen = { temperature: o.temperature != null ? o.temperature : 0.3, maxOutputTokens: 2400, topP: 0.9 };
     if (withThinking) gen.thinkingConfig = { thinkingLevel: "low" };
     const b = {
       system_instruction: { parts: [{ text: systemPrompt }] },
@@ -269,7 +270,7 @@ async function hoiGemini(systemPrompt, history, question, o) {
   let cand = null;
   for (let vong = 0; vong < 4; vong++) {
     const choGoi = o.congCu !== false && vong < 3;
-    const data = await goiApi(systemPrompt, contents, choGoi);
+    const data = await goiApi(systemPrompt, contents, choGoi, o);
     cand = data.candidates && data.candidates[0];
     const parts = (cand && cand.content && cand.content.parts) || [];
     const lenh = parts.filter((p) => p.functionCall);

@@ -49,8 +49,8 @@ function catTin(text) {
 }
 
 /* Gửi một nội dung tới MỘT cuộc trò chuyện. Không bao giờ ném lỗi. */
-async function guiDen(chatId, text) {
-  const token = process.env.ZALO_BOT_TOKEN;
+async function guiDen(chatId, text, tokenRieng) {
+  const token = tokenRieng || process.env.ZALO_BOT_TOKEN;  // bot giải trí truyền token riêng
   const noiDung = chuThuong(text);
   if (!token || !chatId || !noiDung) return false;
   let ok = true;
