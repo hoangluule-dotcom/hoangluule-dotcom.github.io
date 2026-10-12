@@ -88,8 +88,10 @@ exports.handler = async function (event) {
   if (ev.event_name && ev.event_name !== 'message.text.received' && !String(msg.text || '').trim()) {
     console.log('Zalo sự kiện khác:', ev.event_name, JSON.stringify(msg).slice(0, 800));
     if (laQuanTri('ZALO_ADMIN_ID', msg.from && msg.from.id) && /unsupported|link/.test(ev.event_name)) {
-      await guiDen(chat.id, 'Em không đọc được nội dung tin vừa rồi (Zalo gửi dạng "' + ev.event_name + '"). ' +
-        'Nếu là link, anh/chị gõ lại kèm chữ phía trước, bỏ "https://", ví dụ:\nhọc: docs.google.com/document/d/...');
+      await guiDen(chat.id, 'Zalo không chuyển tin chứa link cho bot, nên em chưa đọc được 😅\n' +
+        'Anh/chị gửi lại theo 1 trong 2 cách:\n' +
+        '1) Gõ chữ trước link: học: drive.google.com/file/d/...\n' +
+        '2) Chỉ gửi MÃ tài liệu (đoạn dài nằm giữa /d/ và /view hoặc /edit trong link):\n   học: 1AbCdEfGhIjKlMnOpQrStUvWxYz');
     }
     return { statusCode: 200, body: 'skip' };
   }

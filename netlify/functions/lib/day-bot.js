@@ -130,6 +130,10 @@ async function xuLyLenh(cau, { ten, bienAdmin, idNguoi, tenNguoi }) {
       }
       return { docTaiLieu: url };
     }
+    /* Zalo không chuyển tin có link cho bot → cho phép gửi riêng MÃ tài liệu Google
+       (đoạn dài giữa /d/ và /edit trong link), vd: học: 1AbCdEfGh...xyz */
+    const id = c.replace(/^[^:]*:/, '').trim().match(/^([\w-]{25,})$/);
+    if (id) return { docTaiLieu: 'gid:' + id[1] };
   }
 
   const ds = await doc(ten);

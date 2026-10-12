@@ -25,7 +25,8 @@
 'use strict';
 
 const { guiDen } = require('./lib/zalo');
-const DAY = require('./lib/day-bot');  // "học: … | …" — quản trị dạy bot ngay trong Zalo
+const DAY = require('./lib/day-bot');
+const SN = require('./lib/sinh-nhat');  // danh sách sinh nhật + tự chúc  // "học: … | …" — quản trị dạy bot ngay trong Zalo
 
 const tenBot = () => (process.env.ZALO_GT_BOT_NAME || 'Bot em gái DBV').trim();
 
@@ -76,7 +77,10 @@ exports.handler = async function (event) {
   if (ev.event_name && ev.event_name !== 'message.text.received' && !String(msg.text || '').trim()) {
     console.log('Zalo GT sự kiện khác:', ev.event_name, JSON.stringify(msg).slice(0, 800));
     if (laQuanTri('ZALO_GT_ADMIN_ID', msg.from && msg.from.id) && /unsupported|link/.test(ev.event_name)) {
-      await guiDen(chat.id, 'Em không đọc được tin vừa rồi (dạng "' + ev.event_name + '"). Nếu là link, anh/chị gõ lại bỏ "https://", ví dụ:\nhọc: docs.google.com/document/d/...', token);
+      await guiDen(chat.id, 'Zalo không chuyển tin chứa link cho bot, nên em chưa đọc được 😅\n' +
+        'Anh/chị gửi lại theo 1 trong 2 cách:\n' +
+        '1) Gõ chữ trước link: học: drive.google.com/file/d/...\n' +
+        '2) Chỉ gửi MÃ tài liệu (đoạn dài nằm giữa /d/ và /view hoặc /edit trong link):\n   học: 1AbCdEfGhIjKlMnOpQrStUvWxYz', token);
     }
     return { statusCode: 200, body: 'skip' };  // ảnh/sticker của người khác: im lặng cho đỡ ồn
   }
@@ -84,6 +88,21 @@ exports.handler = async function (event) {
   const cau = boTag(msg.text);
   const nguoi = (msg.from && msg.from.display_name) || '';
   console.log('Zalo GT:', chat.chat_type, chat.id, nguoi, '|', cau.slice(0, 200));
+
+  /* Lệnh sinh nhật (sinh nhật: … / ds sinh nhật / xoá sinh nhật: … / thử chúc sinh nhật) */
+  try {
+    const sn = await SN.xuLyLenh(cau, { laAdmin: laQuanTri('ZALO_GT_ADMIN_ID', msg.from && msg.from.id) });
+    if (sn && sn.thuChuc) {
+      const tin = await SN.tinHomNay(true, 6000);  // hàm thường bị cắt ở 10 giây
+      for (const t of tin) await guiDen(chat.id, t, token);
+      return { statusCode: 200, body: 'ok' };
+    }
+    if (sn) { await guiDen(chat.id, sn, token); return { statusCode: 200, body: 'ok' }; }
+  } catch (e) {
+    console.error('sinh-nhat:', e.message);
+    await guiDen(chat.id, 'Em chưa xử lý được lệnh sinh nhật (lỗi kho lưu), anh/chị thử lại sau nhé.', token);
+    return { statusCode: 200, body: 'ok' };
+  }
 
   /* Lệnh dạy bot — chỉ ZALO_GT_ADMIN_ID được dạy; kho 'giai-tri' chỉ bot này dùng */
   try {

@@ -47,6 +47,27 @@ const htmlSangChu = (h) => h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\
   .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
   .replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim();
 
+/* Chỉ có MÃ tài liệu Google (không biết là Docs, Sheets, Slides hay file Drive):
+   thử lần lượt, cái nào mở được thì dùng. */
+async function taiTheoMa(id) {
+  const thu = [
+    'https://docs.google.com/document/d/' + id + '/edit',
+    'https://docs.google.com/spreadsheets/d/' + id + '/edit',
+    'https://docs.google.com/presentation/d/' + id + '/edit',
+    'https://drive.google.com/file/d/' + id + '/view',
+  ];
+  let loiCuoi = null;
+  for (const u of thu) {
+    try {
+      const kq = await taiTaiLieu(u);
+      if (!kq.loi) return kq;
+      loiCuoi = kq;
+    } catch (e) { loiCuoi = { loi: 'Không tải được: ' + e.message }; }
+  }
+  return loiCuoi && /chia sẻ|Word\/Excel/.test(loiCuoi.loi) ? loiCuoi
+    : { loi: 'Không mở được tài liệu với mã này. Kiểm tra lại mã, và đã bật chia sẻ "Bất kỳ ai có đường liên kết đều xem được".' };
+}
+
 /* Tải tài liệu → { chu } hoặc { tep: {mime, base64} } hoặc { loi } */
 async function taiTaiLieu(url) {
   const t = linkTai(url);
@@ -60,7 +81,7 @@ async function taiTaiLieu(url) {
   const buf = Buffer.from(await r.arrayBuffer());
   if (buf.length > TOI_DA_BYTE) return { loi: 'Tài liệu lớn quá 15MB, anh/chị tách nhỏ giúp em.' };
   // Drive trả trang đăng nhập/cảnh báo thay vì file → thường là chưa chia sẻ công khai
-  if (t.loai === 'Google Drive' && mime === 'text/html' && /accounts\.google|ServiceLogin|Sign in/i.test(buf.toString('utf8', 0, 20000))) {
+  if (t.loai !== 'Trang web' && mime === 'text/html' && /accounts\.google|ServiceLogin|Sign in/i.test(buf.toString('utf8', 0, 20000))) {
     return { loi: 'File trên Drive chưa chia sẻ công khai. Bật "Bất kỳ ai có đường liên kết đều xem được" rồi gửi lại.' };
   }
   if (mime === 'application/pdf' || mime.startsWith('image/')) return { tep: { mime, base64: buf.toString('base64') }, loai: t.loai };
@@ -124,7 +145,7 @@ exports.handler = async function (event) {
   const gui = (t) => guiDen(chatId, t, ch.token);
 
   try {
-    const tl = await taiTaiLieu(url);
+    const tl = url.startsWith('gid:') ? await taiTheoMa(url.slice(4)) : await taiTaiLieu(url);
     if (tl.loi) { await gui('⚠ ' + tl.loi); return { statusCode: 200 }; }
     if (!ch.key) { await gui('Thiếu khoá Gemini trên Netlify nên chưa đọc được tài liệu.'); return { statusCode: 200 }; }
     const kq = await tomTat(ch.key, ch.ten, tl);

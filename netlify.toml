@@ -24,6 +24,11 @@
 [functions."gia-thi-truong-cron"]
   schedule = "0 * * * *"
 
+# ── Bot em gái DBV tự chúc sinh nhật ────────────────────────────────────────
+# 01:00 UTC = 8:00 sáng giờ Việt Nam, mỗi ngày. Tắt: ZALO_GT_SINH_NHAT=off
+[functions."zalo-sinh-nhat-cron"]
+  schedule = "0 1 * * *"
+
 # ── Báo cáo chatbot hằng tuần vào nhóm Zalo vận hành ────────────────────────
 # 01:00 UTC thứ Hai = 8:00 sáng thứ Hai giờ Việt Nam.
 [functions."chat-bao-cao"]
@@ -34,6 +39,16 @@
 # Tài liệu hướng dẫn và script nội bộ đã được chuyển ra ngoài thư mục deploy,
 # nhưng giữ các luật dưới đây làm lớp chặn dự phòng — lỡ tay để sót một tệp
 # thì nó bị trả 404 thay vì phơi ra cho ai cũng đọc được.
+# Mã nguồn hàm: Netlify phát hành MỌI tệp trong thư mục này,
+# kể cả netlify/functions/*.js (đã kiểm tra 12/10/2026: tải được công khai).
+# Chặn để không lộ logic, kho tri thức nội bộ của bot. Hàm vẫn chạy bình thường
+# vì hàm gọi qua đường dẫn /.netlify/functions/... (có dấu chấm), khác đường này.
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/*.md"
   to = "/404.html"
