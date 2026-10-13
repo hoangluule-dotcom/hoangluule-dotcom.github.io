@@ -10,7 +10,7 @@ async function vietAI(yeuCau, o) {
   const key = process.env.GEMINI_GT_API_KEY || process.env.GEMINI_API_KEY;
   if (!key) throw new Error('thiếu khoá Gemini');
   const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
-  const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), o.hetGio || 20000);
+  const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), o.hetGio || 45000);
   try {
     /* Gemini 3 mặc định BẬT "suy nghĩ" và token suy nghĩ tính chung vào
        maxOutputTokens — ngân sách nhỏ là nghĩ hết, trả về RỖNG (lỗi đã gặp:
@@ -25,15 +25,29 @@ async function vietAI(yeuCau, o) {
         generationConfig: gen,
       });
     };
-    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent';
+    /* Google hay báo 503 "high demand" / 429 lúc đông. Thử lại sau vài giây,
+       vẫn lỗi thì chuyển sang model dự phòng (GEMINI_GT_MODEL_DU_PHONG). */
     const h = { 'Content-Type': 'application/json', 'x-goog-api-key': key };
-    let r = await fetch(url, { method: 'POST', signal: ctrl.signal, headers: h, body: body(true) });
-    if (r.status === 400) {   // model cũ không hiểu thinkingLevel → gọi lại không kèm
-      const t1 = await r.text();
-      if (!/thinking/i.test(t1)) throw new Error('Gemini 400: ' + t1.slice(0, 200));
-      r = await fetch(url, { method: 'POST', signal: ctrl.signal, headers: h, body: body(false) });
+    const cacModel = [model, process.env.GEMINI_GT_MODEL_DU_PHONG || 'gemini-3.5-flash-lite'].filter((m, i, a) => m && a.indexOf(m) === i);
+    const ngu = (ms) => new Promise((ok) => setTimeout(ok, ms));
+    let r = null, loiCuoi = '';
+    vong: for (const md of cacModel) {
+      const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(md) + ':generateContent';
+      for (let lan = 0; lan < 2; lan++) {
+        r = await fetch(url, { method: 'POST', signal: ctrl.signal, headers: h, body: body(true) });
+        if (r.status === 400) {   // model cũ không hiểu thinkingLevel → gọi lại không kèm
+          const t1 = await r.text();
+          if (!/thinking/i.test(t1)) throw new Error('Gemini 400: ' + t1.slice(0, 200));
+          r = await fetch(url, { method: 'POST', signal: ctrl.signal, headers: h, body: body(false) });
+        }
+        if (r.ok) break vong;
+        loiCuoi = 'Gemini ' + r.status + ' (' + md + '): ' + (await r.text()).slice(0, 150);
+        if (![429, 500, 502, 503, 504].includes(r.status)) throw new Error(loiCuoi);
+        console.warn('gt-ai: ' + loiCuoi + ' → thử lại');
+        await ngu(lan === 0 ? 2000 : 0);
+      }
     }
-    if (!r.ok) throw new Error('Gemini ' + r.status + ': ' + (await r.text()).slice(0, 200));
+    if (!r || !r.ok) throw new Error('Google AI đang quá tải, thử lại sau ít phút. (' + loiCuoi.slice(0, 80) + ')');
     const j = await r.json();
     const c = j.candidates && j.candidates[0];
     const p = c && c.content && c.content.parts;

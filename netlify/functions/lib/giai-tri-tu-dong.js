@@ -73,6 +73,22 @@ function dungDapAn(traLoi, cd) {
     return x.length >= 2 && t.includes(' ' + x + ' ');
   });
 }
+/* Kho câu đố dự phòng — dùng khi Google AI quá tải */
+const DU_PHONG = [
+  { cau_hoi: 'Cái gì càng rửa càng bẩn? 🤔', dap_an: 'nước', chap_nhan: ['nuoc', 'nước rửa'], giai_thich: 'Rửa càng nhiều thì nước càng đục!' },
+  { cau_hoi: 'Con gì đầu dê mình ốc? 🐐🐌', dap_an: 'con dốc', chap_nhan: ['doc', 'dốc'], giai_thich: 'Dê + ốc = dốc, chơi chữ thôi ạ 😆' },
+  { cau_hoi: 'Cái gì của bạn nhưng người khác dùng nhiều hơn bạn? 😏', dap_an: 'tên', chap_nhan: ['ten', 'cái tên', 'ten cua ban'], giai_thich: 'Mọi người gọi tên mình suốt ngày!' },
+  { cau_hoi: 'Tháng nào có 28 ngày? 📅', dap_an: 'tất cả', chap_nhan: ['tat ca', 'thang nao cung co', 'ca 12 thang', '12 thang'], giai_thich: 'Tháng nào cũng có ngày 28 hết ạ!' },
+  { cau_hoi: 'Cái gì luôn đi lên mà không bao giờ đi xuống? 📈', dap_an: 'tuổi', chap_nhan: ['tuoi', 'tuổi tác'], giai_thich: 'Tuổi chỉ có tăng thôi, buồn ghê 😅' },
+  { cau_hoi: 'Con gì càng to càng nhỏ? 🦀', dap_an: 'con cua', chap_nhan: ['cua'], giai_thich: 'Cua càng to thì... càng nhỏ so với thân, đùa chút thôi 😆' },
+  { cau_hoi: 'Cái gì có cổ nhưng không có đầu, có tay nhưng không có ngón? 👕', dap_an: 'áo', chap_nhan: ['ao', 'cái áo', 'ao so mi'], giai_thich: 'Cái áo có cổ áo, tay áo!' },
+  { cau_hoi: 'Bỏ ngoài nướng trong, ăn ngoài bỏ trong là gì? 🌽', dap_an: 'bắp ngô', chap_nhan: ['bap', 'ngo', 'bap ngo', 'ngô'], giai_thich: 'Bỏ vỏ ngoài, nướng bắp, ăn hạt, bỏ lõi!' },
+  { cau_hoi: 'Cái gì đen khi bạn mua, đỏ khi dùng và xám khi vứt đi? 🔥', dap_an: 'than', chap_nhan: ['than', 'cuc than'], giai_thich: 'Than đen, cháy đỏ, thành tro xám!' },
+  { cau_hoi: 'Có 3 quả táo, bạn lấy đi 2 quả. Bạn có mấy quả? 🍎', dap_an: '2', chap_nhan: ['hai', '2 qua'], giai_thich: 'Bạn lấy 2 quả thì bạn có 2 quả chứ!' },
+  { cau_hoi: 'Cái gì có răng mà không cắn? 🪮', dap_an: 'lược', chap_nhan: ['luoc', 'cái lược', 'cai cua'], giai_thich: 'Lược có răng nhưng hiền lắm!' },
+  { cau_hoi: 'Đố vui bảo hiểm: Bảo hiểm TNDS bắt buộc ô tô bồi thường cho ai? 🚗', dap_an: 'bên thứ ba', chap_nhan: ['ben thu ba', 'nguoi thu ba', 'ben thu 3', 'nguoi bi thiet hai'], giai_thich: 'TNDS bồi thường cho bên thứ ba bị thiệt hại do xe mình gây ra, không phải xe mình.' },
+];
+
 async function taoCauDo(loai) {
   const lichSu = await doc('do-vui-lich-su', []);
   let tuLieu = '';
@@ -90,7 +106,14 @@ async function taoCauDo(loai) {
     '\nĐáp án phải NGẮN (1–4 chữ hoặc một con số) để so khớp được.' +
     '\nKhông lặp các câu đã ra: ' + (lichSu.slice(-25).join(' | ') || '(chưa có)') + tuLieu +
     '\nTrả JSON: {"cau_hoi": "câu đố, có mở đầu vui", "dap_an": "đáp án ngắn", "chap_nhan": ["các cách viết khác cùng nghĩa, không dấu, số/chữ"], "giai_thich": "1–2 câu giải thích vui"}';
-  const q = await vietAI(yc, { json: true, nhiet: 1 });
+  let q;
+  try { q = await vietAI(yc, { json: true, nhiet: 1 }); }
+  catch (e) {
+    // AI lỗi/quá tải → lấy câu trong kho dự phòng (chưa ra gần đây) để lịch không bị lỡ
+    console.warn('do-vui: AI lỗi, dùng câu dự phòng —', e.message);
+    const con = DU_PHONG.filter((x) => !lichSu.includes(x.cau_hoi.slice(0, 120)));
+    q = (con.length ? con : DU_PHONG)[Math.floor(Math.random() * (con.length || DU_PHONG.length))];
+  }
   if (!q.cau_hoi || !q.dap_an) throw new Error('câu đố thiếu nội dung');
   await ghi('do-vui-lich-su', lichSu.concat([String(q.cau_hoi).slice(0, 120)]).slice(-40));
   return q;
