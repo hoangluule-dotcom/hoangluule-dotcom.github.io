@@ -219,11 +219,12 @@ async function viec(ten, o) {
 }
 
 /* Lịch theo giờ VN → danh sách việc */
+/* Mỗi việc có KHUNG giờ: lỡ lượt đầu (Netlify chạy trễ, AI lỗi) thì giờ sau chạy bù */
 function viecTheoGio(t) {
   const v = [];
-  if (t.h === 8) { if (t.thu === 1) v.push('thuhai'); v.push('le', 'thamnien'); if (t.d === 1) v.push('tongket'); }
-  if (t.h === 15 && t.thu >= 1 && t.thu <= 5) v.push(t.thu === 4 ? 'dovuisp' : 'dovui');
-  if (t.h === 16 && t.thu === 5) v.push('thusau');
+  if (t.h >= 8 && t.h <= 10) { if (t.thu === 1) v.push('thuhai'); v.push('le', 'thamnien'); if (t.d === 1) v.push('tongket'); }
+  if (t.h >= 15 && t.h <= 16 && t.thu >= 1 && t.thu <= 5) v.push(t.thu === 4 ? 'dovuisp' : 'dovui');
+  if (t.h >= 16 && t.h <= 17 && t.thu === 5) v.push('thusau');
   return v.filter((x) => !tat(x));
 }
 

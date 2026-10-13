@@ -62,33 +62,12 @@ async function viet(loai, nguoi, thang, hetGioMs) {
       ' tuổi mới thật nhiều sức khỏe, vui vẻ, công việc thuận buồm xuôi gió và ví lúc nào cũng dày 💰. Cả nhà vào thả tim chúc mừng nào! 🥳'
     : '📅 Tháng ' + thang + ' này nhà mình có ' + nguoi.length + ' thọ tinh: ' +
       nguoi.map((x) => x.ten + ' (' + dd(x.d) + '/' + dd(x.m) + ')').join(', ') + '. Cả nhà nhớ chuẩn bị bánh kem nha 🎂';
-  const key = process.env.GEMINI_GT_API_KEY || process.env.GEMINI_API_KEY;
-  if (!key) return mau;
   const yeuCau = loai === 'ngay'
     ? 'Viết lời chúc mừng sinh nhật hôm nay cho: ' + nguoi.map((x) => x.ten).join(', ') + '.'
     : 'Viết lời điểm danh vui các người có sinh nhật trong tháng ' + thang + ': ' +
       nguoi.map((x) => x.ten + ' ngày ' + dd(x.d) + '/' + dd(x.m)).join('; ') + '. Liệt kê đủ tên kèm ngày/tháng.';
   try {
-    const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
-    const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), hetGioMs || 15000);
-    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent', {
-      method: 'POST', signal: ctrl.signal,
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text:
-          'Bạn là "Bot em gái DBV" — cô em út lém lỉnh trong nhóm Zalo của cán bộ Chi nhánh DBV Thành Đô. ' +
-          'Viết tiếng Việt, xưng "em", gọi "anh/chị"; vui, ấm áp, hài nhẹ kiểu dân văn phòng, 2–4 emoji. ' +
-          'Tối đa 5 câu. KHÔNG nhắc tuổi, năm sinh, già/trẻ; không đùa ngoại hình, tình cảm. ' +
-          'Không dùng markdown (**, #). Kết bằng một câu rủ cả nhóm vào chúc mừng.' }] },
-        contents: [{ role: 'user', parts: [{ text: yeuCau }] }],
-        generationConfig: { temperature: 1, maxOutputTokens: 600 },
-      }),
-    });
-    clearTimeout(t);
-    if (!r.ok) return mau;
-    const j = await r.json();
-    const p = j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts;
-    const s = p ? p.filter((x) => !x.thought).map((x) => x.text || '').join('').trim() : '';
+    const s = await require('./gt-ai').vietAI(yeuCau + ' Tối đa 5 câu. Kết bằng một câu rủ cả nhóm vào chúc mừng.', { hetGio: hetGioMs || 20000 });
     // AI phải nhắc đủ tên; thiếu ai thì dùng mẫu cho chắc
     if (!s || !nguoi.every((x) => s.includes(x.ten.split(/\s+/).pop()))) return mau;
     return s;

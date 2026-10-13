@@ -12,22 +12,33 @@ async function vietAI(yeuCau, o) {
   const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
   const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), o.hetGio || 20000);
   try {
-    const gen = { temperature: o.nhiet != null ? o.nhiet : 1, maxOutputTokens: o.json ? 2000 : 900 };
-    if (o.json) gen.responseMimeType = 'application/json';
-    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent', {
-      method: 'POST', signal: ctrl.signal,
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-      body: JSON.stringify({
+    /* Gemini 3 mặc định BẬT "suy nghĩ" và token suy nghĩ tính chung vào
+       maxOutputTokens — ngân sách nhỏ là nghĩ hết, trả về RỖNG (lỗi đã gặp:
+       đố vui 15:00 không đăng). Nên: hạ suy nghĩ xuống "low" + nới ngân sách. */
+    const body = (nghi) => {
+      const gen = { temperature: o.nhiet != null ? o.nhiet : 1, maxOutputTokens: o.json ? 6000 : 3000 };
+      if (o.json) gen.responseMimeType = 'application/json';
+      if (nghi) gen.thinkingConfig = { thinkingLevel: 'low' };
+      return JSON.stringify({
         system_instruction: { parts: [{ text: VAI + (o.them ? '\n' + o.them : '') }] },
         contents: [{ role: 'user', parts: [{ text: yeuCau }] }],
         generationConfig: gen,
-      }),
-    });
+      });
+    };
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent';
+    const h = { 'Content-Type': 'application/json', 'x-goog-api-key': key };
+    let r = await fetch(url, { method: 'POST', signal: ctrl.signal, headers: h, body: body(true) });
+    if (r.status === 400) {   // model cũ không hiểu thinkingLevel → gọi lại không kèm
+      const t1 = await r.text();
+      if (!/thinking/i.test(t1)) throw new Error('Gemini 400: ' + t1.slice(0, 200));
+      r = await fetch(url, { method: 'POST', signal: ctrl.signal, headers: h, body: body(false) });
+    }
     if (!r.ok) throw new Error('Gemini ' + r.status + ': ' + (await r.text()).slice(0, 200));
     const j = await r.json();
-    const p = j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts;
+    const c = j.candidates && j.candidates[0];
+    const p = c && c.content && c.content.parts;
     const s = p ? p.filter((x) => !x.thought).map((x) => x.text || '').join('').trim() : '';
-    if (!s) throw new Error('AI trả rỗng');
+    if (!s) throw new Error('AI trả rỗng (finishReason: ' + (c && c.finishReason) + ')');
     if (!o.json) return s.replace(/\*\*/g, '');
     const m = s.match(/\{[\s\S]*\}/);
     if (!m) throw new Error('AI không trả JSON');
