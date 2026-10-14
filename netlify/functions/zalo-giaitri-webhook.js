@@ -151,6 +151,15 @@ exports.handler = async function (event) {
     return { statusCode: 200, body: 'ok' };
   }
 
+  /* "giải thưởng: …" đặt phần thưởng tháng · "giải thưởng: tắt" bỏ · "giải thưởng" xem */
+  if (laAdminGT && /^giai thuong\b/.test(kdCau)) {
+    const nd = cau.includes(':') ? cau.replace(/^[^:]*:/, '').trim() : null;
+    if (nd === null) { const g = await G.giaiThuong(); await guiDen(chat.id, g ? '🎁 Giải tháng đang đặt: ' + g : 'Chưa đặt giải. Gửi: giải thưởng: nội dung', token); }
+    else if (/^(tat|xoa|bo|off)$/.test(DAY.boDau(nd))) { await G.ghi('giai-thuong', null); await guiDen(chat.id, 'Đã bỏ giải thưởng tháng.', token); }
+    else { await G.ghi('giai-thuong', { noi_dung: nd.slice(0, 300), luc: new Date().toISOString() }); await guiDen(chat.id, '✓ Đã đặt giải tháng: ' + nd + '\nBot sẽ nhắc trong mỗi câu đố, bảng xếp hạng, lời chào thứ Hai và công bố người thắng ngày 1 tháng sau.', token); }
+    return { statusCode: 200, body: 'ok' };
+  }
+
   if (laAdminGT && /^chao mung\s*:/.test(kdCau)) {
     await goiNen({ chaoMung: cau, chatIds: [chat.id] });
     return { statusCode: 200, body: 'ok' };
@@ -188,8 +197,10 @@ exports.handler = async function (event) {
       if (dung) { await guiDen(chat.id, dung, token); return { statusCode: 200, body: 'ok' }; }
       if (/^(bxh|bang xep hang)\b/.test(kdCau)) {
         const diem = await G.diemThang(G.bayGio().thang);
-        await guiDen(chat.id, Object.keys(diem).length ? '🏆 Bảng xếp hạng đố vui tháng này:\n' + G.bangXep(diem, 10)
-          : 'Tháng này chưa ai ghi điểm. 15:00 các ngày làm việc có đố vui trà chiều nha 🍵', token);
+        const giai = await G.giaiThuong();
+        await guiDen(chat.id, (Object.keys(diem).length ? '🏆 Bảng xếp hạng đố vui tháng này:\n' + G.bangXep(diem, 10)
+          : 'Tháng này chưa ai ghi điểm. 15:00 các ngày làm việc có đố vui trà chiều nha 🍵') +
+          '\n\nCách tính: đoán là +1 điểm (1 lần/ngày), đúng đầu tiên +3 điểm.' + (giai ? '\n🎁 GIẢI THÁNG: ' + giai : ''), token);
         return { statusCode: 200, body: 'ok' };
       }
       if (/^khen\s*:/.test(kdCau) && !G.tat('khen')) {

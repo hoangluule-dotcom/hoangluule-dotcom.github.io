@@ -120,25 +120,55 @@ async function taoCauDo(loai) {
 }
 async function diemThang(thang) { return doc('diem/' + thang, {}); }
 function bangXep(diem, n) {
-  return Object.values(diem).sort((a, b) => b.diem - a.diem).slice(0, n || 5)
+  return Object.values(diem).sort((a, b) => b.diem - a.diem || (b.dung || 0) - (a.dung || 0)).slice(0, n || 5)
     .map((x, i) => (['🥇', '🥈', '🥉'][i] || (i + 1) + '.') + ' ' + x.ten + ': ' + x.diem + ' điểm').join('\n');
 }
 
-/* Gọi từ webhook với MỌI tin vào nhóm: đúng đáp án câu đố đang mở → chúc mừng + cộng điểm */
+/* ── Giải thưởng tháng (quản trị đặt bằng lệnh "giải thưởng: ...", lưu Blobs) ── */
+async function top3Ngan(thang) {
+  const d = await diemThang(thang);
+  const ds = Object.values(d).sort((a, b) => b.diem - a.diem || (b.dung || 0) - (a.dung || 0)).slice(0, 3);
+  return ds.length ? '\n📊 Đang dẫn đầu: ' + ds.map((x) => x.ten + ' ' + x.diem + 'đ').join(' · ') : '\n📊 Bảng xếp hạng tháng còn trống — ai đoán đầu tiên là lên top luôn!';
+}
+async function giaiThuong() { const g = await doc('giai-thuong', null); return g && g.noi_dung ? g.noi_dung : ''; }
+const dongGiai = async () => { const g = await giaiThuong(); return g ? '\n🎁 GIẢI THÁNG: ' + g : ''; };
+
+/* Cách tính điểm (khuyến khích THAM GIA, không chỉ người giỏi):
+     +1  mỗi ngày có đoán câu đố (đúng hay sai, tối đa 1 lần/ngày)
+     +3  người trả lời ĐÚNG đầu tiên
+   Bằng điểm thì ai đúng nhiều hơn xếp trên. */
+const DIEM_THAM_GIA = 1, DIEM_DUNG = 3;
+function laLuotDoan(cau) {
+  const c = bd(cau).trim();
+  return c.length > 0 && c.length <= 60 && !/^(khen|bxh|bang xep hang|hoc|day|quen|thu|sinh nhat|nhan su|trang thai|giai thuong|chao mung|id|toi la ai)\b/.test(c);
+}
+function cong(diem, id, ten, so, dung, ngay) {
+  const r = diem[id] || { ten, diem: 0, dung: 0, ngay_choi: '' };
+  r.ten = ten || r.ten; r.diem += so; if (dung) r.dung = (r.dung || 0) + 1; if (ngay) r.ngay_choi = ngay;
+  diem[id] = r; return r;
+}
+
+/* Gọi từ webhook với MỌI tin vào nhóm. Trả về câu trả lời (đúng đáp án) hoặc null.
+   Đoán sai vẫn được ghi +1 điểm tham gia (1 lần/ngày) rồi để AI trêu tiếp. */
 async function kiemTraDapAn(chatId, cau, nguoi) {
   if (tat('dovui') && tat('dovuisp')) return null;
   const cd = await doc(kq(chatId), null);
   const t = bayGio();
-  if (!cd || cd.xong || cd.ngay !== t.ngay || !nguoi.id) return null;
-  if (!dungDapAn(cau, cd)) return null;
-  cd.xong = true; cd.nguoi = nguoi.ten; await ghi(kq(chatId), cd);
+  if (!cd || cd.xong || cd.ngay !== t.ngay || !nguoi.id || !laLuotDoan(cau)) return null;
   const diem = await diemThang(t.thang);
-  const r = diem[nguoi.id] || { ten: nguoi.ten, diem: 0 };
-  r.ten = nguoi.ten || r.ten; r.diem += 1; diem[nguoi.id] = r;
+  const lanDau = !diem[nguoi.id] || diem[nguoi.id].ngay_choi !== t.ngay;
+  const dung = dungDapAn(cau, cd);
+  if (!dung) {
+    if (lanDau) { cong(diem, nguoi.id, nguoi.ten, DIEM_THAM_GIA, false, t.ngay); await ghi('diem/' + t.thang, diem); }
+    return null;
+  }
+  cd.xong = true; cd.nguoi = nguoi.ten; await ghi(kq(chatId), cd);
+  const r = cong(diem, nguoi.id, nguoi.ten, DIEM_DUNG + (lanDau ? DIEM_THAM_GIA : 0), true, t.ngay);
   await ghi('diem/' + t.thang, diem);
-  return '🎉 CHÍNH XÁC! ' + (nguoi.ten || 'Anh/chị') + ' nhanh tay nhất, +1 điểm (tháng này: ' + r.diem + ' điểm).\n' +
+  return '🎉 CHÍNH XÁC! ' + (nguoi.ten || 'Anh/chị') + ' nhanh tay nhất, +' + (DIEM_DUNG + (lanDau ? DIEM_THAM_GIA : 0)) +
+    ' điểm (tháng này: ' + r.diem + ' điểm).\n' +
     'Đáp án: ' + cd.dap_an + (cd.giai_thich ? '\n💡 ' + cd.giai_thich : '') +
-    '\n\n🏆 Bảng xếp hạng tháng:\n' + bangXep(diem, 3) + '\nHẹn cả nhà 15:00 mai nhé!';
+    '\n\n🏆 Bảng xếp hạng tháng:\n' + bangXep(diem, 3) + (await dongGiai()) + '\nHẹn cả nhà 15:00 mai nhé!';
 }
 async function cauDoDangMo(chatId) {
   const cd = await doc(kq(chatId), null);
@@ -193,7 +223,11 @@ async function viec(ten, o) {
     const sao = Object.entries(dem).sort((a, b) => b[1] - a[1]).slice(0, 3);
     const thongTin = (Object.keys(diem).length ? 'Bảng xếp hạng đố vui tháng ' + (tr.getUTCMonth() + 1) + ':\n' + bangXep(diem, 5) : '') +
       (sao.length ? '\nNgôi sao được khen nhiều nhất: ' + sao.map(([n, c]) => n + ' (' + c + ' lời khen)').join(', ') + '. Tổng ' + khen.length + ' lời khen.' : '');
-    const loi = await vietAI('Viết lời tổng kết tháng vui, vinh danh (tối đa 4 câu), KHÔNG lặp lại bảng số liệu (em sẽ dán kèm). Dữ liệu:\n' + thongTin);
+    const giai = await giaiThuong();
+    const vo = Object.values(diem).sort((a, b) => b.diem - a.diem || (b.dung || 0) - (a.dung || 0))[0];
+    const loi = await vietAI('Viết lời tổng kết tháng vui, vinh danh (tối đa 5 câu), KHÔNG lặp lại bảng số liệu (em sẽ dán kèm).' +
+      (giai && vo ? ' Công bố người thắng giải tháng là ' + vo.ten + ', phần thưởng: ' + giai + '. Chúc mừng thật long trọng, lịch sự với lãnh đạo.' : '') +
+      ' Rủ cả nhà tháng mới chơi đố vui 15:00 để giành giải. Dữ liệu:\n' + thongTin);
     return [loi + '\n\n' + thongTin.trim()];
   }
   if (ten === 'thuhai' || ten === 'caphe') {
@@ -205,7 +239,9 @@ async function viec(ten, o) {
         const x = new Date(Date.UTC(t.y, t.m - 1, t.d + i));
         sn.filter((s) => s.d === x.getUTCDate() && s.m === x.getUTCMonth() + 1).forEach((s) => trongTuan.push(s.ten + ' (' + dd(s.d) + '/' + dd(s.m) + ')'));
       }
+      const giai = await giaiThuong();
       phan.push(await vietAI('Viết lời chào sáng thứ Hai đầu tuần cho cả nhóm (tối đa 4 câu), tiếp năng lượng, hài hước nhẹ.' +
+        (giai ? ' Nhắc khéo: chơi đố vui 15:00 tích điểm, cuối tháng ' + giai + '.' : '') +
         (trongTuan.length ? ' Nhắc tuần này có sinh nhật: ' + trongTuan.join(', ') + '.' : '')));
     }
     if (!tat('caphe')) {
@@ -234,7 +270,8 @@ async function viec(ten, o) {
       const q = await taoCauDo(ten);
       await ghi(kq(chatId), Object.assign({}, q, { ngay: t.ngay, loai: ten, xong: false }));
       out.push({ chatId, text: lo + (ten === 'dovuisp' ? '🧠 ĐỐ VUI SẢN PHẨM DBV' : '🍵 ĐỐ VUI TRÀ CHIỀU') + '\n' + q.cau_hoi +
-        '\n\n👉 Reply tin này để trả lời. Ai đúng đầu tiên +1 điểm vào bảng xếp hạng tháng!' });
+        '\n\n👉 Reply tin này để đoán: đoán là có +1 điểm tham gia, ai ĐÚNG đầu tiên +3 điểm!' +
+        (await dongGiai()) + await top3Ngan(t.thang) });
     }
     return out;
   }
@@ -279,4 +316,4 @@ async function chaoMung(cau) {
     ' gia nhập nhà DBV Thành Đô. Viết lời chào (tối đa 4 câu) và kèm 3 câu hỏi làm quen vui (sở thích, món ruột, biệt tài) để người mới trả lời trong nhóm.');
 }
 
-module.exports = { bayGio, viec, viecTheoGio, kiemTraDapAn, cauDoDangMo, khen, vietKhen, chaoMung, diemThang, bangXep, tat, leHomNay, dungDapAn, ghepDoi, doc, ghi };
+module.exports = { giaiThuong, top3Ngan, bayGio, viec, viecTheoGio, kiemTraDapAn, cauDoDangMo, khen, vietKhen, chaoMung, diemThang, bangXep, tat, leHomNay, dungDapAn, ghepDoi, doc, ghi };

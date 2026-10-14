@@ -156,6 +156,11 @@ exports.handler = async function (event) {
       const cdo = await G.cauDoDangMo(chatId);
       if (cdo) doVui = '\n\n== ĐANG CÓ CÂU ĐỐ CHƯA AI GIẢI ==\n' + cdo + '\nNếu tin nhắn giống một câu trả lời cho câu đố này thì đó là đáp án CHƯA ĐÚNG: trêu nhẹ, khuyến khích đoán tiếp, có thể gợi ý mơ hồ. Em không biết đáp án, đừng đoán hộ.';
     } catch (e) { /* bỏ qua */ }
+    try {
+      const giai = await G.giaiThuong();
+      doVui += '\n\n== THI ĐUA ĐỐ VUI THÁNG ==\nĐố vui 15:00 các ngày làm việc. Đoán là +1 điểm (1 lần/ngày), đúng đầu tiên +3 điểm. Gõ "bxh" xem bảng xếp hạng.' +
+        (giai ? '\nGiải tháng: ' + giai + '. Khi hợp ngữ cảnh, rủ mọi người tham gia để giành giải (đừng nhắc quá dày).' : '');
+    } catch (e) { /* bỏ qua */ }
     const kq = await hoiGemini(prompt(bangPhi, pages) + daDay + doVui, ls, hoi,
       { congCu: true, key: key, temperature: nghiepVu ? 0.3 : 0.9 });  // công cụ tính phí như chatbot web
     await guiDen(chatId, kq.text, token);
