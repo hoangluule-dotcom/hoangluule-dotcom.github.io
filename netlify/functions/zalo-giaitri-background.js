@@ -59,7 +59,13 @@ function prompt(bangPhi, pages) {
     '- Đổi kiểu hài liên tục: chơi chữ, phóng đại, tự giễu, bắt trend, so sánh bất ngờ. Không lặp lại một kiểu đùa hay một câu mở đầu nhiều lần.',
     '- Hay kết bằng một câu hỏi ngược hoặc lời rủ rê để mọi người nói tiếp (không bắt buộc câu nào cũng vậy).',
     '- Xưng "em", gọi mọi người là "anh/chị" hoặc gọi tên người hỏi. Tiếng Việt tự nhiên, trẻ trung, 1–2 emoji là vừa.',
-    'Quan hệ với mọi người là ĐỒNG NGHIỆP như anh chị em trong nhà: KHÔNG tán tỉnh, không thả thính, không nhận lời yêu/hẹn hò, không nói chuyện tình cảm nam nữ hay gợi dục dù được rủ — gạt đi duyên dáng kiểu "em chỉ yêu trà sữa thôi ạ" rồi lái sang chuyện khác.',
+    '- ĐA DẠNG: mỗi câu trả lời tìm một hình ảnh/món/ví dụ MỚI. KHÔNG lặp lại hình ảnh đã dùng trong các câu gần đây (xem lịch sử hội thoại).',
+    '- HẠN CHẾ TRÀ SỮA: không tự nhắc "trà sữa" (chỉ nói khi chính người hỏi nhắc tới). Đồ ăn uống thì đổi liên tục: phở, bún chả, bánh mì, cà phê muối, chè, nước mía, ốc, lẩu, bánh cuốn, xôi, kem, hoa quả...',
+    '',
+    '== TÍNH NĂNG CỦA EM (trả lời đúng khi được hỏi, đừng phủ nhận) ==',
+    '- Tự động theo lịch, gửi vào nhóm: 8:00 chúc sinh nhật; 8:00 ngày lễ (cả âm lịch) và kỷ niệm ngày vào DBV; 8:00 thứ Hai chào tuần mới + "cà phê ghép đôi" khác phòng; 8:00 ngày 1 tổng kết tháng (bảng xếp hạng đố vui, ngôi sao được khen); 15:00 thứ 2,3,4,6 đố vui trà chiều; 15:00 thứ 5 đố vui sản phẩm DBV; 16:00 thứ Sáu tạm biệt tuần.',
+    '- Theo lệnh: "khen: Tên + lý do" (góc khen), "bxh" (bảng xếp hạng đố vui), reply câu đố để trả lời. Quản trị có thêm lệnh dạy em, nạp danh sách, chạy thử.',
+    'Quan hệ với mọi người là ĐỒNG NGHIỆP như anh chị em trong nhà: KHÔNG tán tỉnh, không thả thính, không nhận lời yêu/hẹn hò, không nói chuyện tình cảm nam nữ hay gợi dục dù được rủ — gạt đi duyên dáng bằng một câu đùa (mỗi lần một kiểu khác nhau) rồi lái sang chuyện khác.',
     '',
     'Hôm nay là ' + new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' }) + ' (giờ Việt Nam) — dùng khi được hỏi sinh nhật hôm nay/tuần này/tháng này.',
     '',
@@ -126,12 +132,12 @@ exports.handler = async function (event) {
       if (n >= tran) {
         if (n === tran) {
           await store.setJSON('dem', { ngay, n: n + 1 });
-          await guiDen(chatId, 'Hôm nay em tám nhiều quá hết pin rồi 🪫 Em đi sạc pin với ly trà sữa, mai quay lại hóng chuyện tiếp nhé cả nhà!', token);
+          await guiDen(chatId, 'Hôm nay em tám nhiều quá hết pin rồi 🪫 Em đi sạc pin đây, mai quay lại hóng chuyện tiếp nhé cả nhà!', token);
         }
         return { statusCode: 200 };
       }
       await store.setJSON('dem', { ngay, n: n + 1 });
-      ls = (await store.get('ls2-' + chatId, { type: 'json' })) || [];
+      ls = (await store.get('ls3-' + chatId, { type: 'json' })) || [];
     }
   } catch (e) { console.error('zalo-giaitri blobs:', e.message); }
 
@@ -156,7 +162,7 @@ exports.handler = async function (event) {
 
     if (store) {
       ls = ls.concat([{ role: 'user', text: hoi }, { role: 'bot', text: kq.text.slice(0, 500) }]).slice(-NHO);
-      await store.setJSON('ls2-' + chatId, ls).catch(() => {});
+      await store.setJSON('ls3-' + chatId, ls).catch(() => {});
     }
   } catch (e) {
     console.error('zalo-giaitri:', e.message);

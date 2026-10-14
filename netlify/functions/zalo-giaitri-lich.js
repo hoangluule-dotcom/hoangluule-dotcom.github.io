@@ -7,9 +7,14 @@ const G = require('./lib/giai-tri-tu-dong');
 
 exports.handler = async function () {
   const secret = process.env.ZALO_GT_WEBHOOK_SECRET;
-  if (!process.env.ZALO_GT_BOT_TOKEN || !secret || !process.env.ZALO_GT_CHAT_ID) return { statusCode: 200 };
+  if (!process.env.ZALO_GT_BOT_TOKEN || !secret || !process.env.ZALO_GT_CHAT_ID) {
+    await G.ghi('nhip/lich', { luc: new Date().toISOString(), loi: 'thiếu ZALO_GT_BOT_TOKEN / ZALO_GT_WEBHOOK_SECRET / ZALO_GT_CHAT_ID' }).catch(() => {});
+    return { statusCode: 200 };
+  }
   const t = G.bayGio();
   let viec = G.viecTheoGio(t);
+  // Nhịp tim: để lệnh "trạng thái bot" biết lịch có thực sự chạy không
+  await G.ghi('nhip/lich', { luc: new Date().toISOString(), gio: t.h, viec_den_han: viec }).catch(() => {});
   if (!viec.length) return { statusCode: 200 };
   // Bỏ việc đã chạy THÀNH CÔNG hôm nay, và việc đang chạy dở (dưới 50 phút)
   const da = await G.doc('lich-da-chay', {});

@@ -33,11 +33,13 @@ exports.handler = async function (event) {
         else await gui(x.chatId, x.text);
       }
       console.log('giaitri-viec:', v, kq.length, 'tin');
+      await G.ghi('nhip/viec/' + v, { luc: new Date().toISOString(), so_tin: kq.length, thu: !!d.thu }).catch(() => {});
       if (d.ngay && !d.thu) {   // chạy theo lịch thành công → đánh dấu, khỏi chạy bù
         const da = await G.doc('lich-da-chay', {}); da[v] = d.ngay; await G.ghi('lich-da-chay', da);
       }
     } catch (e) {
       console.error('giaitri-viec', v, e.message);
+      await G.ghi('nhip/viec/' + v, { luc: new Date().toISOString(), loi: String(e.message).slice(0, 200) }).catch(() => {});
       if (d.thu) await guiTatCa('(Thử "' + v + '") lỗi: ' + String(e.message).slice(0, 150));
       else if (d.ngay) {        // lỗi → bỏ dấu "đang chạy" để giờ sau chạy bù
         const dang = await G.doc('lich-dang-chay', {}); delete dang[v]; await G.ghi('lich-dang-chay', dang);

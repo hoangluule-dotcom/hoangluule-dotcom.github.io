@@ -38,6 +38,7 @@ async function goiNen(body) {
     body: JSON.stringify(body),
   }).catch((e) => console.error('giaitri goiNen:', e.message));
 }
+const dd2 = (n) => String(n).padStart(2, '0');
 const VIEC_THU = ['dovui', 'dovuisp', 'thuhai', 'thusau', 'caphe', 'le', 'thamnien', 'tongket'];  // "học: … | …" — quản trị dạy bot ngay trong Zalo
 
 const tenBot = () => (process.env.ZALO_GT_BOT_NAME || 'Bot em gái DBV').trim();
@@ -130,6 +131,26 @@ exports.handler = async function (event) {
     await goiNen({ viec: [v], chatIds: [chat.id], thu: true });
     return { statusCode: 200, body: 'ok' };
   }
+  /* "trạng thái bot": chẩn đoán lịch tự động (có chạy không, lỗi gì, dữ liệu đủ chưa) */
+  if (laAdminGT && /^trang thai( bot)?\s*$/.test(kdCau)) {
+    const fmt = (iso) => iso ? new Date(iso).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : 'CHƯA TỪNG CHẠY';
+    const t = G.bayGio();
+    const [nl, ns2, sn, ns, da] = await Promise.all([G.doc('nhip/lich', null), G.doc('nhip/sinh-nhat', null),
+      SN.docDs(), NS.docNs(), G.doc('lich-da-chay', {})]);
+    const viecs = ['dovui', 'dovuisp', 'thuhai', 'thusau', 'le', 'thamnien', 'tongket'];
+    const nv = await Promise.all(viecs.map((v) => G.doc('nhip/viec/' + v, null)));
+    const dongViec = viecs.map((v, i) => nv[i] ? '- ' + v + ': ' + fmt(nv[i].luc) + (nv[i].loi ? ' ❌ ' + nv[i].loi : ' ✓ ' + nv[i].so_tin + ' tin') + (nv[i].thu ? ' (thử)' : '') : null).filter(Boolean);
+    await guiDen(chat.id, '🩺 TRẠNG THÁI BOT (' + dd2(t.d) + '/' + dd2(t.m) + ' ' + t.h + 'h)\n' +
+      'Lịch mỗi giờ: ' + (nl ? fmt(nl.luc) + (nl.loi ? ' ❌ ' + nl.loi : '') : 'CHƯA TỪNG CHẠY ❌') + '\n' +
+      'Sinh nhật 8:00: ' + (ns2 ? fmt(ns2.luc) + ' · ' + (ns2.loi ? '❌ ' + ns2.loi : (ns2.trang_thai || '') + (ns2.so_tin != null ? ', ' + ns2.so_tin + ' tin' : '')) : 'CHƯA TỪNG CHẠY ❌') + '\n' +
+      'Danh sách sinh nhật: ' + sn.length + ' người · Nhân sự: ' + ns.length + ' người\n' +
+      'Nhóm nhận tin (ZALO_GT_CHAT_ID): ' + (process.env.ZALO_GT_CHAT_ID ? 'có' : 'THIẾU ❌') + (process.env.ZALO_GT_TAT ? ' · Đang tắt: ' + process.env.ZALO_GT_TAT : '') + '\n' +
+      'Việc đến hạn giờ này: ' + (G.viecTheoGio(t).join(', ') || 'không') + '\n' +
+      'Đã chạy hôm nay: ' + (Object.keys(da).filter((k) => da[k] === t.ngay).join(', ') || 'chưa') +
+      (dongViec.length ? '\nLần chạy gần nhất:\n' + dongViec.join('\n') : ''), token);
+    return { statusCode: 200, body: 'ok' };
+  }
+
   if (laAdminGT && /^chao mung\s*:/.test(kdCau)) {
     await goiNen({ chaoMung: cau, chatIds: [chat.id] });
     return { statusCode: 200, body: 'ok' };
