@@ -81,7 +81,7 @@ async function xuLyLenh(cau, { laAdmin }) {
   const laThem = /^sinh nhat\s*:/.test(kd);
   const laXem = /^(ds|danh sach) sinh nhat\s*$/.test(kd);
   const laXoa = /^(xoa|bo) sinh nhat\s*:/.test(kd);
-  const laThu = /^thu chuc sinh nhat\s*$/.test(kd);
+  const laThu = /^(thu )?chuc( mung)? sinh nhat( hom nay)?\s*[!.]*$/.test(kd) && /^thu /.test(kd);  // "thử chúc (mừng) sinh nhật"
   if (!laThem && !laXem && !laXoa && !laThu) return null;
   if (!laAdmin) return 'Chỉ quản trị viên mới sửa được danh sách sinh nhật ạ 🎂';
 

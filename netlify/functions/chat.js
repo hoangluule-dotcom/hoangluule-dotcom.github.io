@@ -218,8 +218,11 @@ const MODEL = () => process.env.GEMINI_MODEL || "gemini-3.6-flash";
 /* Một lượt gọi API. Model cũ không hiểu thinkingLevel → tự gọi lại không kèm. */
 async function goiApi(systemPrompt, contents, coCongCu, o) {
   o = o || {};  // o.key, o.temperature — để bot Zalo giải trí dùng khoá/độ sáng tạo riêng
-  const url = "https://generativelanguage.googleapis.com/v1beta/models/" +
-    encodeURIComponent(MODEL()) + ":generateContent";
+  /* Google hay báo 503 "high demand"/429 lúc đông → thử ngay model dự phòng
+     (không chờ, vì chatbot web chỉ có 10 giây). */
+  const cacModel = [MODEL(), process.env.GEMINI_MODEL_DU_PHONG || "gemini-3.5-flash-lite"].filter((m, i, a) => m && a.indexOf(m) === i);
+  let url = "https://generativelanguage.googleapis.com/v1beta/models/" +
+    encodeURIComponent(cacModel[0]) + ":generateContent";
   const headers = { "Content-Type": "application/json", "x-goog-api-key": o.key || process.env.GEMINI_API_KEY };
   function body(withThinking) {
     /* Gemini 3 mặc định BẬT suy nghĩ, token suy nghĩ tính chung vào
@@ -242,6 +245,12 @@ async function goiApi(systemPrompt, contents, coCongCu, o) {
     } else {
       throw new Error("Gemini 400: " + first.slice(0, 300));
     }
+  }
+  if (!res.ok && [429, 500, 502, 503, 504].includes(res.status) && cacModel[1]) {
+    console.warn("chat.js: Gemini " + res.status + " (" + cacModel[0] + ") -> thu model du phong " + cacModel[1]);
+    url = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(cacModel[1]) + ":generateContent";
+    res = await fetch(url, { method: "POST", headers: headers, body: body(true) });
+    if (res.status === 400) res = await fetch(url, { method: "POST", headers: headers, body: body(false) });
   }
   if (!res.ok) {
     const t = await res.text();
