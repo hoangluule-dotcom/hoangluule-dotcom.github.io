@@ -5,8 +5,10 @@
                      thamnien  kỷ niệm ngày vào DBV (tròn năm)
      8:00 ngày 1     tongket   bảng xếp hạng đố vui + ngôi sao được khen tháng trước
      8:00 thứ Hai    thuhai    chào tuần mới + sinh nhật trong tuần + cà phê ghép đôi
-     15:00 T2,T3,T4,T6  dovui  đố vui trà chiều (reply đúng đầu tiên +1 điểm)
-     15:00 thứ Năm   dovuisp   đố vui sản phẩm DBV (lấy từ nội dung website)
+     15:00 T2,T4,T6  dovui    đố vui SUY LUẬN tự sáng tác (không tra Google được)
+     15:00 T3        dovui    đố vui NGHIỆP VỤ từ website (gợi ý tên trang dbv247.com.vn)
+     15:00 thứ Năm   dovuisp  đố vui nghiệp vụ từ website
+                     mỗi câu: +1 tham gia, +3 đúng đầu tiên, rồi CÂU BỔ SUNG +2 (người ăn câu chính không tính)
      16:00 thứ Sáu   thusau    tạm biệt tuần + rủ kể chuyện vui
    (Sinh nhật: zalo-sinh-nhat-cron.js, 8:00 — tính năng riêng.)
 
@@ -14,7 +16,7 @@
      khen: Tên + lý do        ai cũng dùng được → bot đăng lời khen, cuối tháng tổng kết
      bxh                       bảng xếp hạng đố vui tháng này
      chào mừng: Tên, Phòng     (quản trị) chào thành viên mới
-     thử: dovui|dovuisp|thuhai|thusau|caphe|le|thamnien|tongket   (quản trị) chạy thử vào chính chat này
+     thử: dovui|dovuisp|dovuisl|dovuiweb|thuhai|thusau|caphe|le|thamnien|tongket   (quản trị) chạy thử vào chính chat này
 
    TẮT từng tính năng: ZALO_GT_TAT=dovui,khen,... (cách nhau dấu phẩy)
    Ngày thành lập để chúc: ZALO_GT_NGAY_THANH_LAP=dd/mm (vd 06/06)
@@ -61,63 +63,98 @@ function leHomNay(t) {
   return ds;
 }
 
-/* ── Đố vui ──────────────────────────────────────────────────────────────── */
+/* ── Đố vui ──────────────────────────────────────────────────────────────────
+   Hai kiểu câu đố (đổi theo thứ trong tuần):
+     suyluan  T2, T4, T6  câu đố suy luận TỰ SÁNG TÁC (dãy số, đếm, ai nói dối, tính giờ/tuổi, mật mã…)
+                          — không tra Google được, phải nghĩ thật.
+     web      T3, T5      câu hỏi nghiệp vụ lấy từ MỘT trang sản phẩm trên dbv247.com.vn, kèm gợi ý
+                          tên trang → mọi người vào website tìm đáp án.
+   Mỗi câu chính có thêm CÂU BỔ SUNG (+2): mở ra ngay khi câu chính có người đúng; người đã ăn
+   điểm câu chính không được tính điểm câu bổ sung (mỗi ngày chỉ ăn điểm "đúng" 1 lần). */
 const kq = (chatId) => 'do-vui/' + chatId;
-const chuanDap = (s) => ' ' + bd(s).replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
+const chuanDap = (s) => ' ' + bd(s).replace(/(\d)[.,](?=\d{3}(\D|$))/g, '$1').replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
 function dungDapAn(traLoi, cd) {
-  const t = chuanDap(traLoi);
+  if (!cd) return false;
+  const t = chuanDap(traLoi).trim();
   return [cd.dap_an].concat(cd.chap_nhan || []).some((a) => {
     const x = chuanDap(a).trim();
     if (!x) return false;
-    if (/^\d+$/.test(x)) return new RegExp('(^| )' + x + '( |$)').test(t.trim());
-    return x.length >= 2 && t.includes(' ' + x + ' ');
+    // Đáp án là số: phải đúng nguyên con số (cho phép đuôi đơn vị: 15s, 500k, 10d, 20tr…)
+    if (/^\d+$/.test(x)) return new RegExp('(^| )' + x + '(d|k|s|h|p|tr|ty|trieu|dong|giay|phut|gio|nam|tuoi|cai|xe|don|nguoi|lan)?( |$)').test(t);
+    return x.length >= 2 && (' ' + t + ' ').includes(' ' + x + ' ');
   });
 }
-/* Kho câu đố dự phòng — dùng khi Google AI quá tải */
+/* Kho dự phòng (khi Google AI quá tải) — câu suy luận tự soạn, có câu bổ sung */
 const DU_PHONG = [
-  { cau_hoi: 'Cái gì càng rửa càng bẩn? 🤔', dap_an: 'nước', chap_nhan: ['nuoc', 'nước rửa'], giai_thich: 'Rửa càng nhiều thì nước càng đục!' },
-  { cau_hoi: 'Con gì đầu dê mình ốc? 🐐🐌', dap_an: 'con dốc', chap_nhan: ['doc', 'dốc'], giai_thich: 'Dê + ốc = dốc, chơi chữ thôi ạ 😆' },
-  { cau_hoi: 'Cái gì của bạn nhưng người khác dùng nhiều hơn bạn? 😏', dap_an: 'tên', chap_nhan: ['ten', 'cái tên', 'ten cua ban'], giai_thich: 'Mọi người gọi tên mình suốt ngày!' },
-  { cau_hoi: 'Tháng nào có 28 ngày? 📅', dap_an: 'tất cả', chap_nhan: ['tat ca', 'thang nao cung co', 'ca 12 thang', '12 thang'], giai_thich: 'Tháng nào cũng có ngày 28 hết ạ!' },
-  { cau_hoi: 'Cái gì luôn đi lên mà không bao giờ đi xuống? 📈', dap_an: 'tuổi', chap_nhan: ['tuoi', 'tuổi tác'], giai_thich: 'Tuổi chỉ có tăng thôi, buồn ghê 😅' },
-  { cau_hoi: 'Con gì càng to càng nhỏ? 🦀', dap_an: 'con cua', chap_nhan: ['cua'], giai_thich: 'Cua càng to thì... càng nhỏ so với thân, đùa chút thôi 😆' },
-  { cau_hoi: 'Cái gì có cổ nhưng không có đầu, có tay nhưng không có ngón? 👕', dap_an: 'áo', chap_nhan: ['ao', 'cái áo', 'ao so mi'], giai_thich: 'Cái áo có cổ áo, tay áo!' },
-  { cau_hoi: 'Bỏ ngoài nướng trong, ăn ngoài bỏ trong là gì? 🌽', dap_an: 'bắp ngô', chap_nhan: ['bap', 'ngo', 'bap ngo', 'ngô'], giai_thich: 'Bỏ vỏ ngoài, nướng bắp, ăn hạt, bỏ lõi!' },
-  { cau_hoi: 'Cái gì đen khi bạn mua, đỏ khi dùng và xám khi vứt đi? 🔥', dap_an: 'than', chap_nhan: ['than', 'cuc than'], giai_thich: 'Than đen, cháy đỏ, thành tro xám!' },
-  { cau_hoi: 'Có 3 quả táo, bạn lấy đi 2 quả. Bạn có mấy quả? 🍎', dap_an: '2', chap_nhan: ['hai', '2 qua'], giai_thich: 'Bạn lấy 2 quả thì bạn có 2 quả chứ!' },
-  { cau_hoi: 'Cái gì có răng mà không cắn? 🪮', dap_an: 'lược', chap_nhan: ['luoc', 'cái lược', 'cai cua'], giai_thich: 'Lược có răng nhưng hiền lắm!' },
-  { cau_hoi: 'Đố vui bảo hiểm: Bảo hiểm TNDS bắt buộc ô tô bồi thường cho ai? 🚗', dap_an: 'bên thứ ba', chap_nhan: ['ben thu ba', 'nguoi thu ba', 'ben thu 3', 'nguoi bi thiet hai'], giai_thich: 'TNDS bồi thường cho bên thứ ba bị thiệt hại do xe mình gây ra, không phải xe mình.' },
-  { cau_hoi: 'Đố vui xây lắp: Dự án tổng mức đầu tư 1.200 tỷ, trong đó chi phí xây dựng 200 tỷ, thiết bị 700 tỷ, còn lại là đền bù, tư vấn, lãi vay, dự phòng. Số tiền bảo hiểm công trình là bao nhiêu tỷ? 🏗️', dap_an: '900', chap_nhan: ['900 ty', 'chin tram', 'chin tram ty'], giai_thich: 'Chỉ bảo hiểm cái có thể hỏng: 200 xây dựng + 700 thiết bị. Lãi vay với tiền đền bù thì có gì mà hỏng!' },
-  { cau_hoi: 'Đố vui xây lắp: Một trận mưa làm hỏng 3 hạng mục công trình thì bị trừ mấy lần mức khấu trừ? 🌧️', dap_an: '1', chap_nhan: ['mot', '1 lan', 'mot lan'], giai_thich: 'Tính theo số sự cố, không theo số hạng mục: một trận mưa là một sự cố, trừ một lần.' },
-  { cau_hoi: 'Đố vui xây lắp: Nhà máy điện mặt trời nhìn toàn san nền, đóng cọc, nhưng 78% giá trị là thiết bị. Đây là công trình xây dựng hay lắp đặt? ☀️', dap_an: 'lắp đặt', chap_nhan: ['lap dat', 'cong trinh lap dat', 'ear'], giai_thich: 'Xếp loại theo tiền, không theo mắt nhìn: phần nào trên 50% giá trị thì theo loại đó.' },
+  { cau_hoi: 'Họp đầu tuần phòng Kinh doanh có 5 người, ai cũng bắt tay mỗi người còn lại đúng 1 lần. Có tất cả bao nhiêu cái bắt tay? 🤝', dap_an: '10', chap_nhan: ['muoi'], giai_thich: '5×4÷2 = 10 cái.',
+    phu: { cau_hoi: 'Đúng lúc đó sếp vào và bắt tay tất cả 5 người. Giờ tổng cộng có bao nhiêu cái bắt tay?', dap_an: '15', chap_nhan: ['muoi lam', 'muoi nam'], giai_thich: '10 cũ + 5 cái của sếp = 15.' } },
+  { cau_hoi: 'Số hợp đồng chị Mai chốt theo từng tuần: 2, 3, 5, 8, 12, … Tuần tiếp theo chị chốt bao nhiêu hợp đồng? 📈', dap_an: '17', chap_nhan: ['muoi bay'], giai_thich: 'Khoảng cách tăng dần 1, 2, 3, 4 → tiếp theo +5: 12 + 5 = 17.',
+    phu: { cau_hoi: 'Giữ đúng quy luật đó, tuần sau nữa chị Mai chốt bao nhiêu hợp đồng?', dap_an: '23', chap_nhan: ['hai muoi ba', 'hai ba'], giai_thich: '17 + 6 = 23.' } },
+  { cau_hoi: 'Trong pantry có cái cốc bị vỡ. An: "Bình làm vỡ". Bình: "Không phải tôi". Chi: "Không phải tôi". Biết chỉ có ĐÚNG MỘT người nói thật. Ai làm vỡ cốc? ☕', dap_an: 'Chi', chap_nhan: ['chi lam', 'ban chi'], giai_thich: 'Thử từng người: chỉ khi Chi làm vỡ thì mới có đúng 1 câu thật (câu của Bình).',
+    phu: { cau_hoi: 'Vậy trong ba người An, Bình, Chi, ai là người duy nhất nói thật?', dap_an: 'Bình', chap_nhan: ['binh'], giai_thich: 'Chi làm vỡ → câu "Không phải tôi" của Bình là câu thật duy nhất.' } },
+  { cau_hoi: 'Giao ban bắt đầu lúc 8:45 và kéo dài 95 phút. Mấy giờ thì tan họp? ⏰', dap_an: '10h20', chap_nhan: ['10 20', '10 gio 20', '10h20p'], giai_thich: '8:45 + 1 giờ 35 phút = 10:20.',
+    phu: { cau_hoi: 'Nếu cuộc họp bắt đầu muộn 20 phút nhưng được rút ngắn 30 phút thì mấy giờ tan họp?', dap_an: '10h10', chap_nhan: ['10 10', '10 gio 10', '10h10p'], giai_thich: 'Bắt đầu 9:05, họp 65 phút → 10:10.' } },
+  { cau_hoi: 'Năm nay tuổi chị Lan gấp 3 lần tuổi con. 10 năm nữa tuổi chị chỉ còn gấp 2 lần tuổi con. Năm nay chị Lan bao nhiêu tuổi? 👩‍👦', dap_an: '30', chap_nhan: ['ba muoi'], giai_thich: 'Con x tuổi: 3x + 10 = 2(x + 10) → x = 10, chị Lan 30.',
+    phu: { cau_hoi: 'Cách đây mấy năm thì tuổi chị Lan gấp 5 lần tuổi con?', dap_an: '5', chap_nhan: ['nam'], giai_thich: '30 − y = 5(10 − y) → y = 5 năm trước (chị 25, con 5).' } },
+  { cau_hoi: 'Bãi xe khách hàng có ô tô và xe máy, tổng cộng 20 xe và 56 bánh. Có bao nhiêu ô tô? 🚗🏍️', dap_an: '8', chap_nhan: ['tam'], giai_thich: 'Coi hết là xe máy: 40 bánh, dư 16 bánh, mỗi ô tô thêm 2 → 8 ô tô.',
+    phu: { cau_hoi: 'Bán bảo hiểm TNDS: mỗi ô tô 1 đơn, còn xe máy cứ 2 xe gộp 1 đơn. Cả bãi cần bao nhiêu đơn?', dap_an: '14', chap_nhan: ['muoi bon'], giai_thich: '8 đơn ô tô + 12 xe máy ÷ 2 = 6 đơn → 14.' } },
+  { cau_hoi: 'Mật mã nội bộ: DBV = 4-2-22 (thứ tự chữ cái trong bảng chữ cái tiếng Anh). Vậy "XE" là gì? 🔐', dap_an: '24-5', chap_nhan: ['24 5', '245'], giai_thich: 'X là chữ thứ 24, E là chữ thứ 5.',
+    phu: { cau_hoi: 'Cùng mật mã đó, cộng các số của chữ "BAO" lại được bao nhiêu?', dap_an: '18', chap_nhan: ['muoi tam'], giai_thich: 'B 2 + A 1 + O 15 = 18.' } },
+  { cau_hoi: 'Đồng hồ treo phòng điểm 3 tiếng "boong" lúc 3 giờ, mất 6 giây tính từ tiếng đầu đến tiếng cuối. Lúc 6 giờ, điểm 6 tiếng thì mất bao nhiêu giây? 🕕', dap_an: '15', chap_nhan: ['muoi lam', 'muoi nam'], giai_thich: '3 tiếng có 2 khoảng → 3 giây/khoảng. 6 tiếng có 5 khoảng → 15 giây.',
+    phu: { cau_hoi: 'Vẫn chiếc đồng hồ đó, lúc 12 giờ điểm 12 tiếng thì mất bao nhiêu giây?', dap_an: '33', chap_nhan: ['ba muoi ba', 'ba ba'], giai_thich: '11 khoảng × 3 giây = 33 giây.' } },
 ];
 
-async function taoCauDo(loai) {
+const YC_SUY_LUAN = 'Tự SÁNG TÁC một câu đố SUY LUẬN NGUYÊN BẢN cho dân văn phòng chơi lúc 15:00.' +
+  '\nYÊU CẦU:' +
+  '\n- KHÔNG dùng câu đố mẹo, đố chữ dân gian hay câu đố nổi tiếng có sẵn trên mạng (gõ Google ra đáp án là hỏng). Người chơi phải tự nghĩ.' +
+  '\n- Chọn MỘT dạng (đổi dạng so với các câu gần đây): dãy số/chữ có quy luật; đếm (bắt tay, đếm bánh xe, chia nhóm); ai nói thật – ai nói dối; xếp thứ tự chỗ ngồi/ai đến trước; tính giờ, tính tuổi; mật mã chữ–số; cân đo, rót nước; xác suất đơn giản.' +
+  '\n- Bối cảnh văn phòng DBV Thành Đô cho vui (đồng nghiệp tên hư cấu, phòng ban, hợp đồng, xe cộ, cà phê…). KHÔNG dùng tên thật của ai.' +
+  '\n- Giải được trong 1–3 phút, chỉ cần cộng trừ nhân chia; có DUY NHẤT một đáp án. Đáp án là một con số hoặc 1–3 chữ.' +
+  '\n- Kèm CÂU BỔ SUNG nối tiếp câu chính (cùng bối cảnh, hơi khác), cũng có đáp án duy nhất, KHÔNG lộ đáp án câu chính.' +
+  '\n- Viết "loi_giai" từng bước TRƯỚC, kiểm tra lại cẩn thận rồi mới chốt đáp án. Nếu thấy có hơn một đáp án thì sửa đề.';
+
+function yeuCauWeb(trang) {
+  return 'Ra MỘT câu hỏi đố vui NGHIỆP VỤ dựa trên nội dung trang "' + trang.title + '" của website dbv247.com.vn (tư liệu bên dưới).' +
+    '\nMục đích: mọi người phải VÀO WEBSITE đọc trang này mới tìm ra đáp án, qua đó hiểu sản phẩm.' +
+    '\nYÊU CẦU:' +
+    '\n- Hỏi một chi tiết CỤ THỂ CÓ TRONG TƯ LIỆU: con số (mức phí, số tiền, tỷ lệ %, số ngày, độ tuổi, thời hạn), tên quyền lợi/điều khoản, đối tượng được bảo hiểm, trường hợp loại trừ…' +
+    '\n- Không hỏi điều ai cũng đoán được, không hỏi điều tư liệu không nói rõ. Không bịa số.' +
+    '\n- Đáp án NGẮN (con số hoặc 1–4 chữ) để so khớp.' +
+    '\n- Kèm CÂU BỔ SUNG về một chi tiết KHÁC cũng trên trang này.' +
+    '\n- Câu hỏi có mở đầu vui, ngắn gọn; KHÔNG ghi đáp án trong câu hỏi.' +
+    '\n- Thêm trường "ten_trang": tên trang viết tiếng Việt CÓ DẤU, ngắn gọn (vd "Bảo hiểm vật chất ô tô") để làm gợi ý.';
+}
+
+async function taoCauDo(kieu) {
   const lichSu = await doc('do-vui-lich-su', []);
-  let tuLieu = '';
-  if (loai === 'dovuisp') {
+  let yc, trang = null;
+  if (kieu === 'web') {
     const { KB } = require('./kien-thuc');
-    // Chọn ngẫu nhiên một trang SẢN PHẨM, gom các đoạn nội dung của trang đó
-    const trang = KB.pages.filter((p) => p.sp && KB.chunks.some((c) => c.u === p.url));
-    const p = trang[Math.floor(Math.random() * trang.length)];
-    const noiDung = KB.chunks.filter((c) => c.u === p.url).map((c) => (c.h ? '[' + c.h + '] ' : '') + c.x).join('\n');
-    tuLieu = '\nTƯ LIỆU (chỉ hỏi điều có trong đây):\n' + p.title + '\n' + noiDung.slice(0, 3500);
+    const ds = KB.pages.filter((p) => p.sp && KB.chunks.some((c) => c.u === p.url));
+    if (ds.length) {
+      trang = ds[Math.floor(Math.random() * ds.length)];
+      const noiDung = KB.chunks.filter((c) => c.u === trang.url).map((c) => (c.h ? '[' + c.h + '] ' : '') + c.x).join('\n');
+      yc = yeuCauWeb(trang) + '\nTƯ LIỆU (chỉ hỏi điều có trong đây):\n' + trang.title + '\n' + noiDung.slice(0, 5000);
+    } else kieu = 'suyluan';
   }
-  const yc = (loai === 'dovuisp'
-    ? 'Ra MỘT câu đố vui về sản phẩm/nghiệp vụ bảo hiểm DBV dựa trên tư liệu, kiểu "học mà chơi", dễ vừa phải.'
-    : 'Ra MỘT câu đố vui trà chiều cho dân văn phòng: câu đố mẹo, đố chữ, đố vui dân gian hoặc kiến thức thú vị. Lành mạnh, ai cũng chơi được.') +
-    '\nĐáp án phải NGẮN (1–4 chữ hoặc một con số) để so khớp được.' +
-    '\nKhông lặp các câu đã ra: ' + (lichSu.slice(-25).join(' | ') || '(chưa có)') + tuLieu +
-    '\nTrả JSON: {"cau_hoi": "câu đố, có mở đầu vui", "dap_an": "đáp án ngắn", "chap_nhan": ["các cách viết khác cùng nghĩa, không dấu, số/chữ"], "giai_thich": "1–2 câu giải thích vui"}';
+  if (kieu === 'suyluan') yc = YC_SUY_LUAN;
+  yc += '\nKhông lặp các câu đã ra: ' + (lichSu.slice(-25).join(' | ') || '(chưa có)') +
+    '\nTrả JSON: {"loi_giai": "giải từng bước câu chính", "cau_hoi": "câu đố", "dap_an": "đáp án ngắn", "chap_nhan": ["các cách viết khác cùng nghĩa: không dấu, số viết bằng chữ, có đơn vị…"], "giai_thich": "1–2 câu giải thích vui",' +
+    ' "phu": {"loi_giai": "...", "cau_hoi": "câu bổ sung", "dap_an": "...", "chap_nhan": ["..."], "giai_thich": "..."}}';
   let q;
-  try { q = await vietAI(yc, { json: true, nhiet: 1 }); }
-  catch (e) {
+  try {
+    q = await vietAI(yc, kieu === 'suyluan' ? { json: true, nhiet: 1, muc: 'medium', hetGio: 120000 } : { json: true, nhiet: 0.7, hetGio: 90000 });
+    if (!q || !q.cau_hoi || !q.dap_an) throw new Error('câu đố thiếu nội dung');
+    if (q.phu && (!q.phu.cau_hoi || !q.phu.dap_an)) delete q.phu;
+  } catch (e) {
     // AI lỗi/quá tải → lấy câu trong kho dự phòng (chưa ra gần đây) để lịch không bị lỡ
     console.warn('do-vui: AI lỗi, dùng câu dự phòng —', e.message);
     const con = DU_PHONG.filter((x) => !lichSu.includes(x.cau_hoi.slice(0, 120)));
-    q = (con.length ? con : DU_PHONG)[Math.floor(Math.random() * (con.length || DU_PHONG.length))];
+    q = JSON.parse(JSON.stringify((con.length ? con : DU_PHONG)[Math.floor(Math.random() * (con.length || DU_PHONG.length))]));
+    kieu = 'suyluan'; trang = null;
   }
-  if (!q.cau_hoi || !q.dap_an) throw new Error('câu đố thiếu nội dung');
+  delete q.loi_giai; if (q.phu) delete q.phu.loi_giai;
+  q.kieu = kieu; if (trang) q.trang = String(q.ten_trang || trang.title).slice(0, 80); delete q.ten_trang;
   await ghi('do-vui-lich-su', lichSu.concat([String(q.cau_hoi).slice(0, 120)]).slice(-40));
   return q;
 }
@@ -138,9 +175,11 @@ const dongGiai = async () => { const g = await giaiThuong(); return g ? '\n🎁 
 
 /* Cách tính điểm (khuyến khích THAM GIA, không chỉ người giỏi):
      +1  mỗi ngày có đoán câu đố (đúng hay sai, tối đa 1 lần/ngày)
-     +3  người trả lời ĐÚNG đầu tiên
+     +3  người trả lời ĐÚNG câu chính đầu tiên
+     +2  người trả lời ĐÚNG câu bổ sung đầu tiên (không tính cho người đã ăn điểm câu chính)
    Bằng điểm thì ai đúng nhiều hơn xếp trên. */
-const DIEM_THAM_GIA = 1, DIEM_DUNG = 3;
+const DIEM_THAM_GIA = 1, DIEM_DUNG = 3, DIEM_PHU = 2;
+const CACH_TINH = 'đoán là +1 điểm (1 lần/ngày), đúng câu chính đầu tiên +3, đúng câu bổ sung đầu tiên +2 (người đã ăn điểm câu chính không tính).';
 function laLuotDoan(cau) {
   const c = bd(cau).trim();
   return c.length > 0 && c.length <= 60 && !/^(khen|bxh|bang xep hang|hoc|day|quen|thu|sinh nhat|nhan su|trang thai|giai thuong|chao mung|id|toi la ai)\b/.test(c);
@@ -150,32 +189,57 @@ function cong(diem, id, ten, so, dung, ngay) {
   r.ten = ten || r.ten; r.diem += so; if (dung) r.dung = (r.dung || 0) + 1; if (ngay) r.ngay_choi = ngay;
   diem[id] = r; return r;
 }
+const goiYWeb = (cd) => cd.kieu === 'web' && cd.trang ? '\n🔎 Gợi ý: đáp án có trên website dbv247.com.vn – trang "' + cd.trang + '"' : '';
+const phuMo = (cd) => !!(cd && cd.xong && cd.phu && cd.phu_mo && !cd.phu_xong);
 
-/* Gọi từ webhook với MỌI tin vào nhóm. Trả về câu trả lời (đúng đáp án) hoặc null.
+/* Gọi từ webhook với MỌI tin vào nhóm. Trả về câu trả lời (khi đúng) hoặc null.
    Đoán sai vẫn được ghi +1 điểm tham gia (1 lần/ngày) rồi để AI trêu tiếp. */
 async function kiemTraDapAn(chatId, cau, nguoi) {
   if (tat('dovui') && tat('dovuisp')) return null;
   const cd = await doc(kq(chatId), null);
   const t = bayGio();
-  if (!cd || cd.xong || cd.ngay !== t.ngay || !nguoi.id || !laLuotDoan(cau)) return null;
+  if (!cd || cd.ngay !== t.ngay || !nguoi.id || !laLuotDoan(cau)) return null;
+  if (cd.xong && !phuMo(cd)) return null;
+  const ten = nguoi.ten || 'Anh/chị';
   const diem = await diemThang(t.thang);
   const lanDau = !diem[nguoi.id] || diem[nguoi.id].ngay_choi !== t.ngay;
-  const dung = dungDapAn(cau, cd);
-  if (!dung) {
-    if (lanDau) { cong(diem, nguoi.id, nguoi.ten, DIEM_THAM_GIA, false, t.ngay); await ghi('diem/' + t.thang, diem); }
-    return null;
+  const thamGia = async () => { if (lanDau) { cong(diem, nguoi.id, nguoi.ten, DIEM_THAM_GIA, false, t.ngay); await ghi('diem/' + t.thang, diem); } return null; };
+
+  /* 1) Câu chính còn mở */
+  if (!cd.xong) {
+    if (!dungDapAn(cau, cd)) return thamGia();
+    const so = DIEM_DUNG + (lanDau ? DIEM_THAM_GIA : 0);
+    cd.xong = true; cd.nguoi = nguoi.ten; cd.nguoi_id = nguoi.id; if (cd.phu) cd.phu_mo = true;
+    await ghi(kq(chatId), cd);
+    const r = cong(diem, nguoi.id, nguoi.ten, so, true, t.ngay);
+    await ghi('diem/' + t.thang, diem);
+    return '🎉 CHÍNH XÁC! ' + ten + ' nhanh tay nhất, +' + so + ' điểm (tháng này: ' + r.diem + ' điểm).\n' +
+      'Đáp án: ' + cd.dap_an + (cd.giai_thich ? '\n💡 ' + cd.giai_thich : '') +
+      (cd.phu
+        ? '\n\n⭐ CÂU HỎI BỔ SUNG (+2 điểm) — cơ hội cho người CHƯA ăn điểm:\n' + cd.phu.cau_hoi + goiYWeb(cd) +
+          '\n👉 Reply tin này để trả lời. (' + ten + ' vừa ăn điểm câu chính rồi nên nhường lượt nha, đừng spoil 🤐)'
+        : '\n\n🏆 Bảng xếp hạng tháng:\n' + bangXep(diem, 3) + (await dongGiai()) + '\nHẹn cả nhà 15:00 mai nhé!');
   }
-  cd.xong = true; cd.nguoi = nguoi.ten; await ghi(kq(chatId), cd);
-  const r = cong(diem, nguoi.id, nguoi.ten, DIEM_DUNG + (lanDau ? DIEM_THAM_GIA : 0), true, t.ngay);
+
+  /* 2) Câu bổ sung đang mở */
+  if (!dungDapAn(cau, cd.phu)) return thamGia();
+  if (nguoi.id === cd.nguoi_id)
+    return '😆 Đúng rồi đó ' + ten + ', nhưng anh/chị đã ăn điểm câu chính hôm nay rồi — câu bổ sung không tính điểm nha, nhường cơ hội cho mọi người! Cả nhà vẫn còn cơ hội +2 điểm đó 💨';
+  const so = DIEM_PHU + (lanDau ? DIEM_THAM_GIA : 0);
+  cd.phu_xong = true; cd.nguoi_phu = nguoi.ten; await ghi(kq(chatId), cd);
+  const r = cong(diem, nguoi.id, nguoi.ten, so, true, t.ngay);
   await ghi('diem/' + t.thang, diem);
-  return '🎉 CHÍNH XÁC! ' + (nguoi.ten || 'Anh/chị') + ' nhanh tay nhất, +' + (DIEM_DUNG + (lanDau ? DIEM_THAM_GIA : 0)) +
-    ' điểm (tháng này: ' + r.diem + ' điểm).\n' +
-    'Đáp án: ' + cd.dap_an + (cd.giai_thich ? '\n💡 ' + cd.giai_thich : '') +
+  return '⭐ XUẤT SẮC! ' + ten + ' giải được câu bổ sung, +' + so + ' điểm (tháng này: ' + r.diem + ' điểm).\n' +
+    'Đáp án: ' + cd.phu.dap_an + (cd.phu.giai_thich ? '\n💡 ' + cd.phu.giai_thich : '') +
     '\n\n🏆 Bảng xếp hạng tháng:\n' + bangXep(diem, 3) + (await dongGiai()) + '\nHẹn cả nhà 15:00 mai nhé!';
 }
+/* Câu đố còn mở (để AI chat biết mà trêu/gợi ý, KHÔNG lộ đáp án) */
 async function cauDoDangMo(chatId) {
   const cd = await doc(kq(chatId), null);
-  return cd && !cd.xong && cd.ngay === bayGio().ngay ? cd.cau_hoi : null;
+  if (!cd || cd.ngay !== bayGio().ngay) return null;
+  if (!cd.xong) return cd.cau_hoi;
+  if (phuMo(cd)) return '(Câu bổ sung +2 điểm, ' + (cd.nguoi || 'người') + ' đã giải câu chính nên không tính điểm cho người đó) ' + cd.phu.cau_hoi;
+  return null;
 }
 
 /* ── Cà phê ghép đôi ─────────────────────────────────────────────────────── */
@@ -265,15 +329,21 @@ async function viec(ten, o) {
       (cuoiTuan.length ? ' Nhắc cuối tuần này sinh nhật: ' + cuoiTuan.join(', ') + ' — rủ chúc sớm.' : '') +
       (khen ? ' Tháng này nhóm đã gửi nhau ' + khen + ' lời khen qua "Góc khen".' : ''))];
   }
-  if (ten === 'dovui' || ten === 'dovuisp') {
+  if (['dovui', 'dovuisp', 'dovuisl', 'dovuiweb'].includes(ten)) {
+    // dovuisl / dovuiweb: chỉ để quản trị chạy thử từng kiểu
+    const kieu = ten === 'dovuisl' ? 'suyluan' : (ten === 'dovuiweb' || ten === 'dovuisp' || t.thu === 2) ? 'web' : 'suyluan';
     const out = [];
     for (const chatId of o.nhom) {
       const cu = await doc(kq(chatId), null);
-      const lo = cu && !cu.xong ? '📖 Đáp án câu đố trước: ' + cu.dap_an + (cu.giai_thich ? ' — ' + cu.giai_thich : '') + '\n\n' : '';
-      const q = await taoCauDo(ten);
+      let lo = '';
+      if (cu && !cu.xong) lo = '📖 Đáp án câu đố trước: ' + cu.dap_an + (cu.giai_thich ? ' — ' + cu.giai_thich : '') +
+        (cu.phu ? '\n📖 Câu bổ sung: ' + cu.phu.dap_an + (cu.phu.giai_thich ? ' — ' + cu.phu.giai_thich : '') : '') + '\n\n';
+      else if (cu && cu.phu && !cu.phu_xong) lo = '📖 Đáp án câu bổ sung hôm trước: ' + cu.phu.dap_an + (cu.phu.giai_thich ? ' — ' + cu.phu.giai_thich : '') + '\n\n';
+      const q = await taoCauDo(kieu);
       await ghi(kq(chatId), Object.assign({}, q, { ngay: t.ngay, loai: ten, xong: false }));
-      out.push({ chatId, text: lo + (ten === 'dovuisp' ? '🧠 ĐỐ VUI SẢN PHẨM DBV' : '🍵 ĐỐ VUI TRÀ CHIỀU') + '\n' + q.cau_hoi +
-        '\n\n👉 Reply tin này để đoán: đoán là có +1 điểm tham gia, ai ĐÚNG đầu tiên +3 điểm!' +
+      out.push({ chatId, text: lo + (q.kieu === 'web' ? '🔎 ĐỐ VUI NGHIỆP VỤ DBV' : '🧩 ĐỐ VUI TRÀ CHIỀU – SUY LUẬN') + '\n' + q.cau_hoi + goiYWeb(q) +
+        '\n\n👉 Reply tin này để đoán: đoán là +1 điểm tham gia, ai ĐÚNG đầu tiên +3 điểm!' +
+        (q.phu ? '\n⭐ Có người đúng xong em tung tiếp CÂU BỔ SUNG +2 điểm cho những người còn lại.' : '') +
         (await dongGiai()) + await top3Ngan(t.thang) });
     }
     return out;
@@ -319,4 +389,4 @@ async function chaoMung(cau) {
     ' gia nhập nhà DBV Thành Đô. Viết lời chào (tối đa 4 câu) và kèm 3 câu hỏi làm quen vui (sở thích, món ruột, biệt tài) để người mới trả lời trong nhóm.');
 }
 
-module.exports = { giaiThuong, top3Ngan, bayGio, viec, viecTheoGio, kiemTraDapAn, cauDoDangMo, khen, vietKhen, chaoMung, diemThang, bangXep, tat, leHomNay, dungDapAn, ghepDoi, doc, ghi };
+module.exports = { CACH_TINH, giaiThuong, top3Ngan, bayGio, viec, viecTheoGio, kiemTraDapAn, cauDoDangMo, khen, vietKhen, chaoMung, diemThang, bangXep, tat, leHomNay, dungDapAn, ghepDoi, doc, ghi };

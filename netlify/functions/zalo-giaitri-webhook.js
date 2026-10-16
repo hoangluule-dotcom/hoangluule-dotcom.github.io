@@ -39,7 +39,7 @@ async function goiNen(body) {
   }).catch((e) => console.error('giaitri goiNen:', e.message));
 }
 const dd2 = (n) => String(n).padStart(2, '0');
-const VIEC_THU = ['dovui', 'dovuisp', 'thuhai', 'thusau', 'caphe', 'le', 'thamnien', 'tongket'];  // "học: … | …" — quản trị dạy bot ngay trong Zalo
+const VIEC_THU = ['dovui', 'dovuisp', 'dovuisl', 'dovuiweb', 'thuhai', 'thusau', 'caphe', 'le', 'thamnien', 'tongket'];  // "học: … | …" — quản trị dạy bot ngay trong Zalo
 
 const tenBot = () => (process.env.ZALO_GT_BOT_NAME || 'Bot em gái DBV').trim();
 
@@ -200,7 +200,7 @@ exports.handler = async function (event) {
         const giai = await G.giaiThuong();
         await guiDen(chat.id, (Object.keys(diem).length ? '🏆 Bảng xếp hạng đố vui tháng này:\n' + G.bangXep(diem, 10)
           : 'Tháng này chưa ai ghi điểm. 15:00 các ngày làm việc có đố vui trà chiều nha 🍵') +
-          '\n\nCách tính: đoán là +1 điểm (1 lần/ngày), đúng đầu tiên +3 điểm.' + (giai ? '\n🎁 GIẢI THÁNG: ' + giai : ''), token);
+          '\n\nCách tính: ' + G.CACH_TINH + (giai ? '\n🎁 GIẢI THÁNG: ' + giai : ''), token);
         return { statusCode: 200, body: 'ok' };
       }
       if (/^khen\s*:/.test(kdCau) && !G.tat('khen')) {

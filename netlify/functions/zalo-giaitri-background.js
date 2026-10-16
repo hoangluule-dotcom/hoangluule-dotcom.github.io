@@ -63,7 +63,7 @@ function prompt(bangPhi, pages) {
     '- HẠN CHẾ TRÀ SỮA: không tự nhắc "trà sữa" (chỉ nói khi chính người hỏi nhắc tới). Đồ ăn uống thì đổi liên tục: phở, bún chả, bánh mì, cà phê muối, chè, nước mía, ốc, lẩu, bánh cuốn, xôi, kem, hoa quả...',
     '',
     '== TÍNH NĂNG CỦA EM (trả lời đúng khi được hỏi, đừng phủ nhận) ==',
-    '- Tự động theo lịch, gửi vào nhóm: 8:00 chúc sinh nhật; 8:00 ngày lễ (cả âm lịch) và kỷ niệm ngày vào DBV; 8:00 thứ Hai chào tuần mới + "cà phê ghép đôi" khác phòng; 8:00 ngày 1 tổng kết tháng (bảng xếp hạng đố vui, ngôi sao được khen); 15:00 thứ 2,3,4,6 đố vui trà chiều; 15:00 thứ 5 đố vui sản phẩm DBV; 16:00 thứ Sáu tạm biệt tuần.',
+    '- Tự động theo lịch, gửi vào nhóm: 8:00 chúc sinh nhật; 8:00 ngày lễ (cả âm lịch) và kỷ niệm ngày vào DBV; 8:00 thứ Hai chào tuần mới + "cà phê ghép đôi" khác phòng; 8:00 ngày 1 tổng kết tháng (bảng xếp hạng đố vui, ngôi sao được khen); 15:00 thứ 2,4,6 đố vui SUY LUẬN (tự sáng tác, phải nghĩ, không tra Google được); 15:00 thứ 3 và thứ 5 đố vui NGHIỆP VỤ (đáp án nằm trên website dbv247.com.vn); mỗi câu có thêm câu bổ sung +2 điểm sau khi câu chính có người đúng; 16:00 thứ Sáu tạm biệt tuần.',
     '- Theo lệnh: "khen: Tên + lý do" (góc khen), "bxh" (bảng xếp hạng đố vui), reply câu đố để trả lời. Quản trị có thêm lệnh dạy em, nạp danh sách, chạy thử.',
     'Quan hệ với mọi người là ĐỒNG NGHIỆP như anh chị em trong nhà: KHÔNG tán tỉnh, không thả thính, không nhận lời yêu/hẹn hò, không nói chuyện tình cảm nam nữ hay gợi dục dù được rủ — gạt đi duyên dáng bằng một câu đùa (mỗi lần một kiểu khác nhau) rồi lái sang chuyện khác.',
     '',
@@ -154,11 +154,11 @@ exports.handler = async function (event) {
     let doVui = '';
     try {
       const cdo = await G.cauDoDangMo(chatId);
-      if (cdo) doVui = '\n\n== ĐANG CÓ CÂU ĐỐ CHƯA AI GIẢI ==\n' + cdo + '\nNếu tin nhắn giống một câu trả lời cho câu đố này thì đó là đáp án CHƯA ĐÚNG: trêu nhẹ, khuyến khích đoán tiếp, có thể gợi ý mơ hồ. Em không biết đáp án, đừng đoán hộ.';
+      if (cdo) doVui = '\n\n== ĐANG CÓ CÂU ĐỐ CHƯA AI GIẢI ==\n' + cdo + '\nNếu tin nhắn giống một câu trả lời cho câu đố này thì đó là đáp án CHƯA ĐÚNG: trêu nhẹ, khuyến khích đoán tiếp, có thể gợi ý mơ hồ. Em không biết đáp án, đừng đoán hộ. Câu nghiệp vụ thì rủ mọi người vào website dbv247.com.vn đọc trang được gợi ý.';
     } catch (e) { /* bỏ qua */ }
     try {
       const giai = await G.giaiThuong();
-      doVui += '\n\n== THI ĐUA ĐỐ VUI THÁNG ==\nĐố vui 15:00 các ngày làm việc. Đoán là +1 điểm (1 lần/ngày), đúng đầu tiên +3 điểm. Gõ "bxh" xem bảng xếp hạng.' +
+      doVui += '\n\n== THI ĐUA ĐỐ VUI THÁNG ==\nĐố vui 15:00 các ngày làm việc. Cách tính: ' + G.CACH_TINH + ' Gõ "bxh" xem bảng xếp hạng.' +
         (giai ? '\nGiải tháng: ' + giai + '. Khi hợp ngữ cảnh, rủ mọi người tham gia để giành giải (đừng nhắc quá dày).' : '');
     } catch (e) { /* bỏ qua */ }
     const kq = await hoiGemini(prompt(bangPhi, pages) + daDay + doVui, ls, hoi,

@@ -16,9 +16,9 @@ async function vietAI(yeuCau, o) {
        maxOutputTokens — ngân sách nhỏ là nghĩ hết, trả về RỖNG (lỗi đã gặp:
        đố vui 15:00 không đăng). Nên: hạ suy nghĩ xuống "low" + nới ngân sách. */
     const body = (nghi) => {
-      const gen = { temperature: o.nhiet != null ? o.nhiet : 1, maxOutputTokens: o.json ? 6000 : 3000 };
+      const gen = { temperature: o.nhiet != null ? o.nhiet : 1, maxOutputTokens: o.muc ? 16000 : o.json ? 6000 : 3000 };
       if (o.json) gen.responseMimeType = 'application/json';
-      if (nghi) gen.thinkingConfig = { thinkingLevel: 'low' };
+      if (nghi) gen.thinkingConfig = { thinkingLevel: o.muc || 'low' };  // o.muc: 'medium'/'high' cho việc cần suy luận (đố vui)
       return JSON.stringify({
         system_instruction: { parts: [{ text: VAI + (o.them ? '\n' + o.them : '') }] },
         contents: [{ role: 'user', parts: [{ text: yeuCau }] }],
