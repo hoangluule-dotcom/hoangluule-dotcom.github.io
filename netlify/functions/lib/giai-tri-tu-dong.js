@@ -87,6 +87,9 @@ const DU_PHONG = [
   { cau_hoi: 'Có 3 quả táo, bạn lấy đi 2 quả. Bạn có mấy quả? 🍎', dap_an: '2', chap_nhan: ['hai', '2 qua'], giai_thich: 'Bạn lấy 2 quả thì bạn có 2 quả chứ!' },
   { cau_hoi: 'Cái gì có răng mà không cắn? 🪮', dap_an: 'lược', chap_nhan: ['luoc', 'cái lược', 'cai cua'], giai_thich: 'Lược có răng nhưng hiền lắm!' },
   { cau_hoi: 'Đố vui bảo hiểm: Bảo hiểm TNDS bắt buộc ô tô bồi thường cho ai? 🚗', dap_an: 'bên thứ ba', chap_nhan: ['ben thu ba', 'nguoi thu ba', 'ben thu 3', 'nguoi bi thiet hai'], giai_thich: 'TNDS bồi thường cho bên thứ ba bị thiệt hại do xe mình gây ra, không phải xe mình.' },
+  { cau_hoi: 'Đố vui xây lắp: Dự án tổng mức đầu tư 1.200 tỷ, trong đó chi phí xây dựng 200 tỷ, thiết bị 700 tỷ, còn lại là đền bù, tư vấn, lãi vay, dự phòng. Số tiền bảo hiểm công trình là bao nhiêu tỷ? 🏗️', dap_an: '900', chap_nhan: ['900 ty', 'chin tram', 'chin tram ty'], giai_thich: 'Chỉ bảo hiểm cái có thể hỏng: 200 xây dựng + 700 thiết bị. Lãi vay với tiền đền bù thì có gì mà hỏng!' },
+  { cau_hoi: 'Đố vui xây lắp: Một trận mưa làm hỏng 3 hạng mục công trình thì bị trừ mấy lần mức khấu trừ? 🌧️', dap_an: '1', chap_nhan: ['mot', '1 lan', 'mot lan'], giai_thich: 'Tính theo số sự cố, không theo số hạng mục: một trận mưa là một sự cố, trừ một lần.' },
+  { cau_hoi: 'Đố vui xây lắp: Nhà máy điện mặt trời nhìn toàn san nền, đóng cọc, nhưng 78% giá trị là thiết bị. Đây là công trình xây dựng hay lắp đặt? ☀️', dap_an: 'lắp đặt', chap_nhan: ['lap dat', 'cong trinh lap dat', 'ear'], giai_thich: 'Xếp loại theo tiền, không theo mắt nhìn: phần nào trên 50% giá trị thì theo loại đó.' },
 ];
 
 async function taoCauDo(loai) {
