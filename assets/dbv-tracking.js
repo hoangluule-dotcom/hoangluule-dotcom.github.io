@@ -515,6 +515,9 @@ var DBV_CAUHINH = {
          ở trang chủ, danh mục sản phẩm, tin tức, mạng lưới). Bỏ qua cả form đã
          có ô tích "đồng ý" riêng, tránh hiện hai lần. */
       var f = b.form || (b.closest ? b.closest('form') : null);
+      /* (20/10/2026) Form có data-khong-dong-y (ví dụ ô hỏi Trợ lý AI trên
+         banner trang chủ) không gửi thông tin liên hệ → không chèn dòng này. */
+      if (f && f.hasAttribute('data-khong-dong-y')) return;
       if (f && (f.getAttribute('role') === 'search' ||
                 f.querySelector('input[type="search"]'))) return;
       if (f && f.querySelector('input[type="checkbox"]') &&
