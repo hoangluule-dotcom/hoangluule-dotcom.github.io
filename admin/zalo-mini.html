@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Đơn Zalo Mini App — Quản trị DBV247</title>
+<link rel="stylesheet" href="/assets/tokens.css">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font,"Be Vietnam Pro",sans-serif);background:var(--c-bg-muted,#F8FAFB);color:var(--c-text,#1C1C1C);font-size:14px;line-height:1.5}
+  header{background:#fff;border-bottom:1px solid var(--c-border,#E2E8F0);padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  h1{font-size:20px;margin:0;color:var(--c-heading,#084C38)}
+  main{padding:20px 24px;max-width:1400px;margin:0 auto}
+  .khoa{display:flex;gap:8px;margin-left:auto}
+  input,select{font:inherit;border:1px solid var(--c-border,#E2E8F0);border-radius:12px;padding:9px 12px;background:#fff}
+  button{font:inherit;font-weight:700;border-radius:12px;padding:9px 14px;border:1.5px solid var(--c-brand,#007437);background:#fff;color:var(--c-brand,#007437);cursor:pointer;min-height:40px}
+  button.xanh{background:var(--c-brand,#007437);color:#fff}
+  button:disabled{opacity:.5;cursor:default}
+  .the{background:#fff;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;box-shadow:0 3px 14px rgba(8,76,56,.06);overflow:auto}
+  table{width:100%;border-collapse:collapse;min-width:1100px}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--c-border,#E2E8F0);text-align:left;vertical-align:top}
+  th{font-size:12px;color:var(--c-text-muted,#4A5568);background:var(--c-mint,#EFF8F2);position:sticky;top:0}
+  td.so{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  .nhan{display:inline-block;padding:2px 8px;border-radius:8px;font-size:12px;font-weight:700}
+  .cho_thanh_toan{background:var(--c-accent-soft,#FFF8E7);color:#8a5300}
+  .da_thanh_toan{background:#E8F5E9;color:#005A2B}
+  .hieu_luc{background:var(--c-brand,#007437);color:#fff}
+  .mo{color:var(--c-text-muted,#4A5568);font-size:12px}
+  .loc{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .bao{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:var(--c-accent-soft,#FFF8E7);display:none}
+  code{font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Đơn Zalo Mini App</h1>
+  <span class="mo">Gắn giấy chứng nhận PDF · báo Zalo đã nhận tiền chuyển khoản</span>
+  <div class="khoa">
+    <input id="khoa" type="password" placeholder="Khoá quản trị (DASHBOARD_KEY)" autocomplete="off">
+    <button class="xanh" id="vao">Tải danh sách</button>
+  </div>
+</header>
+<main>
+  <p class="bao" id="bao" role="status"></p>
+  <div class="loc">
+    <input id="tim" placeholder="Tìm mã đơn, biển số, tên, SĐT">
+    <select id="tt">
+      <option value="">Mọi trạng thái</option>
+      <option value="cho_thanh_toan">Chờ thanh toán</option>
+      <option value="da_thanh_toan">Đã nhận tiền</option>
+      <option value="hieu_luc">Đã gắn GCN</option>
+    </select>
+  </div>
+  <div class="the">
+    <table>
+      <thead><tr>
+        <th>Mã đơn / thời điểm</th><th>Sản phẩm</th><th>Khách</th><th>Nội dung CK</th>
+        <th>Phí</th><th>CTV</th><th>Trạng thái</th><th>Việc</th>
+      </tr></thead>
+      <tbody id="ds"><tr><td colspan="8" class="mo">Nhập khoá rồi bấm Tải danh sách.</td></tr></tbody>
+    </table>
+  </div>
+  <p class="mo">"Đã nhận tiền" chỉ bấm sau khi đã thấy dòng sao kê. Nút này đóng đơn phía Zalo cho khách, không sinh hoa hồng — hoa hồng vẫn do sổ chính (Google Sheets) sinh từ sao kê.</p>
+</main>
+<input type="file" id="chon-pdf" accept="application/pdf" hidden>
+<script>
+(function(){
+  var API='/.netlify/functions/zalo-mini-admin';
+  var NHAN={cho_thanh_toan:'Chờ thanh toán',da_thanh_toan:'Đã nhận tiền',hieu_luc:'Đã gắn GCN'};
+  var DS=[], dangGan=null;
+  var $=function(id){return document.getElementById(id)};
+  try{ $('khoa').value = localStorage.getItem('dbv247_key') || ''; }catch(e){}
+  function khoa(){ return $('khoa').value.trim(); }
+  function bao(t){ var b=$('bao'); b.textContent=t; b.style.display=t?'block':'none'; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}); }
+  function tien(n){ return (Math.round(n)||0).toLocaleString('vi-VN')+'đ'; }
+  function tai(){
+    bao('Đang tải…');
+    try{ localStorage.setItem('dbv247_key', khoa()); }catch(e){}
+    fetch(API+'?viec=ds',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json().then(function(j){return {r:r,j:j}})}).then(function(x){
+      if(!x.r.ok){ bao(x.j.error||'Lỗi'); return; }
+      DS=x.j.don||[]; bao(DS.length?'':'Chưa có đơn nào từ Mini App.'); ve();
+    }).catch(function(){ bao('Không kết nối được máy chủ.'); });
+  }
+  function ve(){
+    var q=$('tim').value.trim().toLowerCase(), tt=$('tt').value;
+    var h=DS.filter(function(d){
+      if(tt && d.trangThai!==tt) return false;
+      if(!q) return true;
+      return [d.maDon,d.bienSo,d.hoTen,d.sdt,d.email].join(' ').toLowerCase().indexOf(q)>=0;
+    }).map(function(d){
+      return '<tr><td><b>'+esc(d.maDon)+'</b><div class="mo">'+esc(new Date(d.taoLuc).toLocaleString('vi-VN'))+'</div>'+
+        (d.soChinh!=='da_ghi'?'<div class="mo">Sổ chính lỗi — đơn ở Netlify Forms</div>':'')+'</td>'+
+        '<td>'+esc(d.sanPham)+'<div class="mo">'+esc(d.bienSo||'Chưa có biển')+'</div></td>'+
+        '<td>'+esc(d.hoTen)+'<div class="mo">'+esc(d.sdt)+' · '+esc(d.email)+'</div></td>'+
+        '<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div></td>'+
+        '<td class="so">'+tien(d.phi)+'</td><td>'+esc(d.maCtv||'—')+'</td>'+
+        '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span><div class="mo">'+d.soGcn+' GCN</div></td>'+
+        '<td><button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> '+
+        (d.trangThai==='cho_thanh_toan'?'<button class="xanh" data-tien="'+esc(d.maDon)+'">Đã nhận tiền</button>':'')+'</td></tr>';
+    }).join('');
+    $('ds').innerHTML = h || '<tr><td colspan="8" class="mo">Không có đơn khớp bộ lọc.</td></tr>';
+  }
+  function goi(viec, than){
+    return fetch(API+'?viec='+viec,{method:'POST',headers:{'x-dashboard-key':khoa(),'Content-Type':'application/json'},body:JSON.stringify(than)})
+      .then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Lỗi'); return j; })});
+  }
+  $('ds').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.gcn){ dangGan=b.dataset.gcn; $('chon-pdf').value=''; $('chon-pdf').click(); }
+    if(b.dataset.tien){
+      if(!confirm('Xác nhận đã thấy tiền của đơn '+b.dataset.tien+' trong sao kê?')) return;
+      b.disabled=true;
+      goi('da-nhan-tien',{maDon:b.dataset.tien}).then(function(j){ bao('Đã ghi nhận. '+(j.zalo&&j.zalo.ghiChu||'')); tai(); })
+        .catch(function(err){ b.disabled=false; bao(err.message); });
+    }
+  });
+  $('chon-pdf').addEventListener('change',function(){
+    var f=this.files[0]; if(!f||!dangGan) return;
+    if(f.size>4.5*1024*1024){ bao('File quá 4,5 MB.'); return; }
+    var rd=new FileReader();
+    rd.onload=function(){
+      bao('Đang tải giấy chứng nhận lên…');
+      goi('gan-gcn',{maDon:dangGan,ten:f.name,base64:String(rd.result).split(',')[1]})
+        .then(function(){ bao('Đã gắn GCN cho '+dangGan+'. Khách thấy ngay trong mục Đơn của tôi.'); tai(); })
+        .catch(function(err){ bao(err.message); });
+    };
+    rd.readAsDataURL(f);
+  });
+  $('vao').onclick=tai; $('tim').oninput=ve; $('tt').onchange=ve;
+  if(khoa()) tai();
+})();
+</script>
+</body>
+</html>
