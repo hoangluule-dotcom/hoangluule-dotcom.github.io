@@ -6,6 +6,12 @@
    GET  ?viec=ds                         danh sách đơn Mini App mới nhất
    POST ?viec=gan-gcn      {maDon, ten, base64}   gắn PDF giấy chứng nhận
    POST ?viec=da-nhan-tien {maDon}               báo Zalo đơn chuyển khoản đã nhận tiền
+   POST ?viec=nhan-lai     {maDon}               gửi lại tin OA "giấy chứng nhận đã sẵn sàng"
+   GET  ?viec=oa                                 đã kết nối Zalo OA chưa
+
+   Gắn giấy chứng nhận xong, OA DBV247 TỰ NHẮN khách (lib/zalo-oa.js). Không
+   nhắn được (khách chưa Quan tâm OA, quá 7 ngày không tương tác, chưa kết nối
+   OA…) thì trang quản trị hiện lý do để nhân viên gọi/nhắn khách thủ công.
 
    "Đã nhận tiền" chỉ bấm SAU khi kế toán thấy dòng sao kê. Nó đóng đơn phía
    Zalo cho khách thấy "thành công"; nó KHÔNG sinh hoa hồng — hoa hồng vẫn do
@@ -15,6 +21,33 @@
 'use strict';
 
 const C = require('./lib/zalo-mini-chung');
+const OA = require('./lib/zalo-oa');
+
+const LINK_APP = 'https://zalo.me/s/' + C.MINI_APP_ID + '/';
+
+/* Tin nhắn cố ý KHÔNG có tên, biển số, SĐT — chỉ mã đơn. */
+function noiDungTin(d) {
+  const dau = 'DBV247 xin thông báo: giấy chứng nhận bảo hiểm của đơn ' + d.maDon + ' đã sẵn sàng.\n';
+  const cuoi = 'Cần hỗ trợ, anh/chị nhắn ngay tại đây hoặc gọi ' + C.HOTLINE + '.';
+  /* Đơn không gắn được tài khoản Zalo thì file không hiện trong "Đơn của tôi" —
+     nhân viên gửi file PDF trong khung chat OA này. */
+  if (!d.zaloId) return dau + 'Nhân viên DBV247 sẽ gửi file PDF cho anh/chị ngay trong khung chat này.\n' + cuoi;
+  return dau + 'Anh/chị mở Mini App "Bảo hiểm DBV247" → Đơn của tôi để xem và tải file PDF:\n' + LINK_APP + '\n' + cuoi;
+}
+
+async function nhanKhach(kho, d) {
+  let idOA = d.idOA;
+  if (!idOA && d.zaloId) {
+    const oa = await kho.get('kh/' + d.zaloId + '/oa', { type: 'json' });
+    if (oa && oa.idOA) idOA = d.idOA = oa.idOA;
+  }
+  const kq = idOA
+    ? await OA.guiTinTuVan(idOA, noiDungTin(d))
+    : { ok: false, loi: 'Khách chưa Quan tâm OA trong Mini App nên OA chưa nhắn được.' };
+  d.tinOA = Object.assign({ luc: new Date().toISOString() }, kq);
+  if (!kq.ok) console.error('zalo-mini-admin: chưa nhắn được khách', d.maDon, kq.loi);
+  return d.tinOA;
+}
 
 function kiemKhoa(event) {
   const h = event.headers || {};
@@ -36,6 +69,7 @@ async function danhSach(kho) {
       hoTen: d.hoTen, sdt: d.sdt, email: d.email, maCtv: d.maCtv, noiDungCk: d.noiDungCk,
       trangThai: d.trangThai, maDonZalo: d.maDonZalo, kenh: d.kenhThanhToan || '',
       soChinh: d.soChinh, soGcn: (d.gcn || []).length,
+      coOA: !!d.idOA, tinOA: d.tinOA || null,
     });
   }
   ds.sort((a, b) => String(b.taoLuc).localeCompare(String(a.taoLuc)));
@@ -50,6 +84,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET' && viec === 'ds') return C.json(200, { ok: true, don: await danhSach(kho) });
+    if (event.httpMethod === 'GET' && viec === 'oa') return C.json(200, Object.assign({ ok: true }, await OA.trangThai()));
     if (event.httpMethod !== 'POST') return C.json(405, { error: 'Không hỗ trợ.' });
 
     const p = JSON.parse(event.body || '{}');
@@ -63,13 +98,23 @@ exports.handler = async function (event) {
       const maTep = C.ngauNhien(12);
       const ten = (String(p.ten || 'GCN-' + d.maDon).replace(/[\u0000-\u001f"<>|*?:\\/]/g, '').replace(/\.pdf$/i, '') + '.pdf').slice(0, 120);
       await kho.set('tep/' + maTep, buf, { metadata: { mime: 'application/pdf', ten } });
-      await kho.setJSON('kh/' + d.zaloId + '/tep/' + maTep, {
-        maTep, ten, kich: buf.length, mime: 'application/pdf', luc: new Date().toISOString(), nguon: 'dbv', maDon: d.maDon,
-      });
+      if (d.zaloId) {
+        await kho.setJSON('kh/' + d.zaloId + '/tep/' + maTep, {
+          maTep, ten, kich: buf.length, mime: 'application/pdf', luc: new Date().toISOString(), nguon: 'dbv', maDon: d.maDon,
+        });
+      }
       d.gcn = (d.gcn || []).concat([{ maTep, ten, luc: new Date().toISOString() }]);
       d.trangThai = 'hieu_luc';
+      const tinOA = await nhanKhach(kho, d);
       await kho.setJSON('don/' + d.maDon, d);
-      return C.json(200, { ok: true, maTep });
+      return C.json(200, { ok: true, maTep, tinOA, coTrongApp: !!d.zaloId });
+    }
+
+    if (viec === 'nhan-lai') {
+      if (!(d.gcn || []).length) return C.json(400, { error: 'Đơn chưa có giấy chứng nhận.' });
+      const tinOA = await nhanKhach(kho, d);
+      await kho.setJSON('don/' + d.maDon, d);
+      return C.json(200, { ok: true, tinOA });
     }
 
     if (viec === 'da-nhan-tien') {

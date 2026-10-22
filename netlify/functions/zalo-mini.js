@@ -13,6 +13,8 @@
    ctv-dang-nhap   CTV đăng nhập (dùng lại ctv-auth.js — cùng tài khoản với dbv247.com.vn/ctv)
    ctv-dang-ky     CTV đăng ký mới (dùng lại ctv-auth.js)
    ctv-du-lieu     dashboard CTV (dùng lại gas-ctv.js)
+   dang-ky-oa      lưu ID của khách theo OA (idByOA) để OA nhắn khi có giấy
+                   chứng nhận — gọi sau khi khách bấm Quan tâm OA
 
    NGUYÊN TẮC
    • Người dùng là ai do MÁY CHỦ hỏi Zalo bằng access token — không tin ID do
@@ -242,7 +244,13 @@ async function xuLyTaoDon(p) {
     tong = Number(so.kq.tong_phi);
   }
 
-  const noiDungCk = ('TNDS ' + (bienSo.replace(/[^A-Z0-9]/g, '') || maDon) + (goi['ma-ctv'] ? ' ' + goi['ma-ctv'] : '')).slice(0, 25);
+  /* Nội dung chuyển khoản — cùng quy tắc với trang cấp đơn website:
+     có biển số:  "TNDS <BIỂN SỐ> <MÃ CTV>"   vd TNDS 30A12345 K7X2
+     xe chưa biển: "<MÃ ĐƠN> <MÃ CTV>"        vd TNDS261022XY7K K7X2
+     (mã đơn đã có sẵn tiền tố TNDS — không thêm lần nữa)
+     Chỉ chữ in hoa + số, mã CTV đứng cuối vì app ngân hàng cắt chuỗi từ cuối. */
+  const bienGon = bienSo.replace(/[^A-Z0-9]/g, '');
+  const noiDungCk = ((bienGon ? 'TNDS ' + bienGon : maDon) + (goi['ma-ctv'] ? ' ' + goi['ma-ctv'] : '')).slice(0, 25);
 
   const kho = C.moKho();
   const banGhi = {
@@ -252,10 +260,11 @@ async function xuLyTaoDon(p) {
     hieuLucTu: goi['ngay-hieu-luc'], hieuLucDen: goi['ngay-het-han'],
     hoTen: goi['ho-ten'], sdt, email: goi.email, maCtv: goi['ma-ctv'],
     noiDungCk, trangThai: 'cho_thanh_toan', soChinh: so.ok ? 'da_ghi' : 'du_phong_forms',
-    maDonZalo: '', gcn: [],
+    maDonZalo: '', gcn: [], idOA: idOaHopLe(p.idOA),
   };
   await kho.setJSON('don/' + maDon, banGhi);
   if (nd.id) await kho.setJSON('kh/' + nd.id + '/don/' + maDon, { maDon, taoLuc: banGhi.taoLuc });
+  if (nd.id && banGhi.idOA) await kho.setJSON('kh/' + nd.id + '/oa', { idOA: banGhi.idOA, luc: banGhi.taoLuc });
 
   /* Tham số Checkout SDK — kênh chuyển khoản ngân hàng (BANK). */
   let thanhToan = null;
@@ -296,6 +305,35 @@ async function xuLyGanDonZalo(p) {
   if (cho && cho.method) d.kenhThanhToan = cho.method;
   await kho.setJSON('don/' + d.maDon, d);
   await kho.setJSON('zdon/' + z, { maDon: d.maDon });
+  return C.json(200, { ok: true });
+}
+
+/* ═════════════ ID KHÁCH THEO OA ═════════════
+   idByOA (getUserInfo) chỉ có khi khách đang Quan tâm OA DBV247. OA dùng nó để
+   nhắn "giấy chứng nhận đã sẵn sàng". Tin nhắn KHÔNG chứa tên, biển số hay
+   thông tin cá nhân — chỉ mã đơn và link mở Mini App — nên kể cả ID bị khai
+   sai thì người nhận nhầm cũng không thấy dữ liệu của ai. */
+function idOaHopLe(v) {
+  const s = String(v || '').replace(/\D/g, '');
+  return s.length >= 6 && s.length <= 32 ? s : '';
+}
+
+async function xuLyDangKyOa(p) {
+  const idOA = idOaHopLe(p.idOA);
+  if (!idOA) return C.json(400, { error: 'Thiếu ID theo OA.' });
+  const nd = await C.layNguoiDung(p.accessToken);
+  const kho = C.moKho();
+  if (nd) await kho.setJSON('kh/' + nd.id + '/oa', { idOA, luc: new Date().toISOString() });
+  const maDon = String(p.maDon || '');
+  if (maDon) {
+    const d = await kho.get('don/' + maDon, { type: 'json' });
+    /* Đơn có chủ: chỉ chủ đơn sửa. Đơn chưa xác minh được chủ: chỉ điền khi còn trống. */
+    const duocSua = d && (d.zaloId ? nd && nd.id === d.zaloId : !d.idOA);
+    if (duocSua) {
+      d.idOA = idOA;
+      await kho.setJSON('don/' + maDon, d);
+    }
+  }
   return C.json(200, { ok: true });
 }
 
@@ -389,6 +427,7 @@ const VIEC = {
   'ctv-dang-nhap': xuLyCtvDangNhap,
   'ctv-dang-ky': xuLyCtvDangKy,
   'ctv-du-lieu': xuLyCtvDuLieu,
+  'dang-ky-oa': xuLyDangKyOa,
 };
 
 exports.handler = async function (event) {

@@ -35,7 +35,7 @@
 <body>
 <header>
   <h1>Đơn Zalo Mini App</h1>
-  <span class="mo">Gắn giấy chứng nhận PDF · báo Zalo đã nhận tiền chuyển khoản</span>
+  <span class="mo">Gắn giấy chứng nhận PDF (OA tự nhắn khách) · báo Zalo đã nhận tiền chuyển khoản</span>
   <div class="khoa">
     <input id="khoa" type="password" placeholder="Khoá quản trị (DASHBOARD_KEY)" autocomplete="off">
     <button class="xanh" id="vao">Tải danh sách</button>
@@ -43,6 +43,10 @@
 </header>
 <main>
   <p class="bao" id="bao" role="status"></p>
+  <div class="loc" id="oa-thanh" style="align-items:center">
+    <span id="oa-tt" class="mo">Zalo OA: chưa kiểm tra</span>
+    <button id="oa-noi">Kết nối Zalo OA</button>
+  </div>
   <div class="loc">
     <input id="tim" placeholder="Tìm mã đơn, biển số, tên, SĐT">
     <select id="tt">
@@ -76,7 +80,7 @@
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}); }
   function tien(n){ return (Math.round(n)||0).toLocaleString('vi-VN')+'đ'; }
   function tai(){
-    bao('Đang tải…');
+    bao('Đang tải…'); kiemOA();
     try{ localStorage.setItem('dbv247_key', khoa()); }catch(e){}
     fetch(API+'?viec=ds',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json().then(function(j){return {r:r,j:j}})}).then(function(x){
       if(!x.r.ok){ bao(x.j.error||'Lỗi'); return; }
@@ -96,18 +100,44 @@
         '<td>'+esc(d.hoTen)+'<div class="mo">'+esc(d.sdt)+' · '+esc(d.email)+'</div></td>'+
         '<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div></td>'+
         '<td class="so">'+tien(d.phi)+'</td><td>'+esc(d.maCtv||'—')+'</td>'+
-        '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span><div class="mo">'+d.soGcn+' GCN</div></td>'+
+        '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span><div class="mo">'+d.soGcn+' GCN</div>'+tinOA(d)+'</td>'+
         '<td><button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> '+
+        (d.soGcn&&!(d.tinOA&&d.tinOA.ok)?'<button data-nhan="'+esc(d.maDon)+'">Nhắn lại khách</button> ':'')+
         (d.trangThai==='cho_thanh_toan'?'<button class="xanh" data-tien="'+esc(d.maDon)+'">Đã nhận tiền</button>':'')+'</td></tr>';
     }).join('');
     $('ds').innerHTML = h || '<tr><td colspan="8" class="mo">Không có đơn khớp bộ lọc.</td></tr>';
   }
+  function tinOA(d){
+    if(d.tinOA&&d.tinOA.ok) return '<div class="mo">✓ OA đã nhắn khách</div>';
+    if(d.tinOA) return '<div class="mo" style="color:#C97D08">Chưa nhắn được: '+esc(d.tinOA.loi)+' — gọi/nhắn khách thủ công</div>';
+    return '<div class="mo">'+(d.coOA?'Khách có theo dõi OA':'Khách chưa theo dõi OA')+'</div>';
+  }
+  function baoTin(t){
+    if(!t) return '';
+    return t.ok?' OA DBV247 đã nhắn khách.':' Chưa nhắn được khách qua OA ('+t.loi+') — anh/chị gọi hoặc nhắn khách thủ công.';
+  }
+  function kiemOA(){
+    fetch(API+'?viec=oa',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json()}).then(function(j){
+      if(j.error) return;
+      $('oa-tt').textContent = j.daKetNoi ? 'Zalo OA: đã kết nối'+(j.oaId?' (OA '+j.oaId+')':'')+' — tự nhắn khách khi gắn GCN' : 'Zalo OA: CHƯA kết nối — gắn GCN sẽ không tự nhắn khách';
+      $('oa-noi').textContent = j.daKetNoi ? 'Kết nối lại' : 'Kết nối Zalo OA';
+    }).catch(function(){});
+  }
+  $('oa-noi').onclick=function(){
+    if(!khoa()){ bao('Nhập khoá quản trị trước.'); return; }
+    location.href='/.netlify/functions/zalo-oa-ket-noi?khoa='+encodeURIComponent(khoa());
+  };
   function goi(viec, than){
     return fetch(API+'?viec='+viec,{method:'POST',headers:{'x-dashboard-key':khoa(),'Content-Type':'application/json'},body:JSON.stringify(than)})
       .then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Lỗi'); return j; })});
   }
   $('ds').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.nhan){
+      b.disabled=true;
+      goi('nhan-lai',{maDon:b.dataset.nhan}).then(function(j){ bao('Đơn '+b.dataset.nhan+':'+baoTin(j.tinOA)); tai(); })
+        .catch(function(err){ b.disabled=false; bao(err.message); });
+    }
     if(b.dataset.gcn){ dangGan=b.dataset.gcn; $('chon-pdf').value=''; $('chon-pdf').click(); }
     if(b.dataset.tien){
       if(!confirm('Xác nhận đã thấy tiền của đơn '+b.dataset.tien+' trong sao kê?')) return;
@@ -123,7 +153,7 @@
     rd.onload=function(){
       bao('Đang tải giấy chứng nhận lên…');
       goi('gan-gcn',{maDon:dangGan,ten:f.name,base64:String(rd.result).split(',')[1]})
-        .then(function(){ bao('Đã gắn GCN cho '+dangGan+'. Khách thấy ngay trong mục Đơn của tôi.'); tai(); })
+        .then(function(j){ bao('Đã gắn GCN cho '+dangGan+'.'+(j.coTrongApp?' Khách thấy ngay trong mục Đơn của tôi.':' Đơn chưa gắn tài khoản Zalo nên file KHÔNG hiện trong app — gửi file cho khách qua chat OA/email.')+baoTin(j.tinOA)); tai(); })
         .catch(function(err){ bao(err.message); });
     };
     rd.readAsDataURL(f);
