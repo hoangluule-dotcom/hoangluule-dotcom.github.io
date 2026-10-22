@@ -149,11 +149,21 @@ var DBV_CAUHINH = {
     var gclid = q.get('gclid') || q.get('gbraid') || q.get('wbraid');
     if (gclid) { kq.gclid = gclid.slice(0, 150); coThamSo = true; }
 
+    /* Mã click của Facebook (fbclid — gắn cả vào link bài đăng thường, không
+       chỉ quảng cáo) và TikTok Ads (ttclid). Giữ lại để sau này gửi kết quả
+       chốt đơn ngược về nền tảng (Conversions API / Events API). */
+    var fbclid = q.get('fbclid');
+    if (fbclid) { kq.fbclid = fbclid.slice(0, 200); coThamSo = true; }
+    var ttclid = q.get('ttclid');
+    if (ttclid) { kq.ttclid = ttclid.slice(0, 200); coThamSo = true; }
+
     if (!coThamSo) return null;
 
     /* Khách bấm quảng cáo nhưng chưa chắc đã gắn UTM — điền mặc định để
        không bao giờ có lead thiếu nguồn. */
     if (kq.gclid && !kq.utm_source) { kq.utm_source = 'google'; kq.utm_medium = 'cpc'; }
+    if (kq.ttclid && !kq.utm_source) { kq.utm_source = 'tiktok'; kq.utm_medium = 'cpc'; }
+    if (kq.fbclid && !kq.utm_source) { kq.utm_source = 'facebook'; kq.utm_medium = 'mang-xa-hoi'; }
 
     kq['trang-vao-dau']    = location.pathname;
     kq['nguon-gioi-thieu'] = tenMienGioiThieu();
@@ -170,6 +180,12 @@ var DBV_CAUHINH = {
         'trang-vao-dau': location.pathname,
         'nguon-gioi-thieu': ''
       };
+    }
+    /* Đến từ mạng xã hội mà không có tham số (link trong bio, bình luận…). */
+    var mxh = /(^|\.)(facebook\.com|fb\.com|fb\.me|messenger\.com|instagram\.com)$/i.test(tenMien) ? 'facebook'
+            : /(^|\.)(tiktok\.com|tiktokv\.com)$/i.test(tenMien) ? 'tiktok' : '';
+    if (mxh) {
+      return { utm_source: mxh, utm_medium: 'mang-xa-hoi', 'trang-vao-dau': location.pathname, 'nguon-gioi-thieu': tenMien };
     }
     return {
       utm_source: tenMien,

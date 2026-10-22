@@ -50,17 +50,12 @@ function json(statusCode, payload) {
   };
 }
 
-function checkKey(event) {
-  const provided = event.headers["x-dashboard-key"] || "";
-  const expected = process.env.DASHBOARD_KEY || "";
-  if (!expected) return "Thiếu biến môi trường DASHBOARD_KEY trên Netlify.";
-  if (provided !== expected) return "Sai hoặc thiếu khoá truy cập.";
-  return null;
-}
+const A = require("./lib/quan-tri-auth");
 
 exports.handler = async function (event) {
-  const keyError = checkKey(event);
-  if (keyError) return json(401, { error: keyError });
+  /* Quyền: Quản lý, Vận hành. */
+  const q = await A.kiemQuyen(event, ["quan-ly", "van-hanh"]);
+  if (q.loi) return json(q.ma, { error: q.loi });
 
   let store;
   try {
@@ -88,7 +83,10 @@ exports.handler = async function (event) {
       return json(400, { error: "Body không phải JSON hợp lệ." });
     }
 
-    const { leadId, patch = {}, actor = "Không rõ", activity = null } = payload;
+    const { leadId, patch = {}, activity = null } = payload;
+    /* Người thực hiện lấy từ tài khoản đã đăng nhập, không tin tên trang gửi lên.
+       Chỉ khi dùng khoá chung (chưa có tài khoản riêng) mới dùng tên tự khai. */
+    const actor = q.nv.khoaChung ? String(payload.actor || "Không rõ").slice(0, 100) : q.nv.hoTen;
     if (!leadId) return json(400, { error: "Thiếu leadId." });
 
     if (patch.stage && STAGES.indexOf(patch.stage) === -1) {

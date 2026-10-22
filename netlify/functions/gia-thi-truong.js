@@ -54,10 +54,9 @@ exports.handler = async function (event) {
   }
 
   /* ── Kiểm tra khoá ─────────────────────────────────────────────────────── */
-  const khoaGui = event.headers["x-dashboard-key"] || "";
-  const khoaThat = process.env.DASHBOARD_KEY || "";
-  if (!khoaThat) return json(500, { loi: "Máy chủ chưa cấu hình DASHBOARD_KEY" });
-  if (khoaGui !== khoaThat) return json(401, { loi: "Không có quyền truy cập" });
+  /* Mọi nhân viên đã đăng nhập /quan-tri (hoặc khoá chung khi chưa tắt). */
+  const quyen = await require("./lib/quan-tri-auth").kiemQuyen(event);
+  if (quyen.loi) return json(quyen.ma, { loi: quyen.loi });
 
   /* ── Tham số ───────────────────────────────────────────────────────────── */
   const q = event.queryStringParameters || {};

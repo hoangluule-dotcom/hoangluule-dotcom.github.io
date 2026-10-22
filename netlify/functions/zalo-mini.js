@@ -4,6 +4,7 @@
 
    lead            khách để lại SĐT nhận báo giá (mọi sản phẩm)
    ctv             tra tên rút gọn của CTV theo mã
+   bao-phi         báo phí TNDS từ biểu phí gốc (bước "Thông tin" của luồng mua)
    tao-don-tnds    khách tự nhập thông tin xe → ghi đơn vào sổ chính (gas-don)
                    → trả tham số + MAC cho Checkout SDK (chuyển khoản)
    gan-don-zalo    lưu mã đơn Checkout SDK của một đơn (để webhook tra ngược)
@@ -13,6 +14,8 @@
    ctv-dang-nhap   CTV đăng nhập (dùng lại ctv-auth.js — cùng tài khoản với dbv247.com.vn/ctv)
    ctv-dang-ky     CTV đăng ký mới (dùng lại ctv-auth.js)
    ctv-du-lieu     dashboard CTV (dùng lại gas-ctv.js)
+   ctv-nhan-tien   CTV khai/đổi nơi nhận hoa hồng: ví ZaloPay hoặc ngân hàng
+                   (dùng lại ctv-toi.js — bắt nhập lại mật khẩu)
    dang-ky-oa      lưu ID của khách theo OA (idByOA) để OA nhắn khi có giấy
                    chứng nhận — gọi sau khi khách bấm Quan tâm OA
 
@@ -58,6 +61,15 @@ async function xuLyLead(p) {
   }
   const maCtv = C.chuanHoaMaCtv(p.ctv);
   const nhuCau = sanPham + (phi ? ' · phí tham khảo ' + dinhDang(phi) + ' đ' : '');
+  /* Màn hình "Tư vấn bảo hiểm" gửi thêm vài câu trả lời ngắn — đưa vào
+     transcript để tư vấn viên đọc trước khi gọi. Không nhận thông tin sức khoẻ. */
+  const cat = (v) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+  const them = [
+    p.doiTuong && 'Muốn bảo vệ: ' + cat(p.doiTuong),
+    p.nganSach && 'Ngân sách dự kiến: ' + cat(p.nganSach),
+    p.thoiGian && 'Giờ tiện liên hệ: ' + cat(p.thoiGian),
+    p.ghiChu && 'Khách ghi: ' + String(p.ghiChu).trim().slice(0, 300),
+  ].filter(Boolean);
 
   const form = new URLSearchParams();
   form.set('form-name', 'chatbot-lead');
@@ -67,7 +79,8 @@ async function xuLyLead(p) {
   form.set('page', 'Zalo Mini App');
   form.set('transcript',
     'Nguồn: Zalo Mini App Bảo hiểm DBV247\nSố điện thoại: ' + cachLay + '\nSản phẩm: ' + (sanPham || '(chưa rõ)') +
-    (phi ? '\nPhí tham khảo khách đã xem: ' + dinhDang(phi) + ' đ (đã gồm VAT)' : ''));
+    (phi ? '\nPhí tham khảo khách đã xem: ' + dinhDang(phi) + ' đ (đã gồm VAT)' : '') +
+    (them.length ? '\n' + them.join('\n') : ''));
   form.set('utm_source', 'zalo-mini-app');
   form.set('phieu-ai', 'khong');
   if (maCtv.length === 4) {
@@ -168,6 +181,25 @@ async function ghiSoChinh(goi) {
     });
   } catch (e) { /* đã ghi log ở trên */ }
   return { ok: false };
+}
+
+/* Báo phí cho bước "Thông tin" — cùng hàm phiNam() mà tạo đơn dùng, nên số
+   khách thấy ở bước Kiểm tra trùng với số ghi vào đơn. */
+async function xuLyBaoPhi(p) {
+  const xe = p.xe || {};
+  xe.loai = xe.loai === 'moto' ? 'moto' : 'oto';
+  const soNam = xe.loai === 'moto' ? Math.min(Math.max(parseInt(xe.soNam, 10) || 1, 1), 3) : 1;
+  let gia;
+  try {
+    gia = await phiNam(xe);
+  } catch (err) {
+    console.error('zalo-mini bao-phi:', err.message);
+    return C.json(502, { error: 'Chưa tính được phí lúc này. Anh/chị thử lại sau ít phút.' });
+  }
+  if (!gia) return C.json(400, { error: 'Loại xe chưa hợp lệ, anh/chị chọn lại giúp.' });
+  const phiGoc = Math.round(gia.phi * soNam);
+  const vat = Math.round(phiGoc * 0.1);
+  return C.json(200, { ok: true, nhan: gia.nhan, soNam, phiGoc, vat, tong: phiGoc + vat });
 }
 
 async function xuLyTaoDon(p) {
@@ -415,10 +447,26 @@ async function xuLyCtvDuLieu(p) {
   return { statusCode: kq.statusCode, headers: Object.assign({}, kq.headers, C.CORS), body: kq.body };
 }
 
+async function xuLyCtvNhanTien(p) {
+  const than = {
+    phuong_thuc_nhan: p.phuongThuc === 'zalopay' ? 'zalopay' : 'ngan_hang',
+    vi_sdt: p.viSdt, ngan_hang: p.nganHang, so_tai_khoan: p.soTaiKhoan,
+    chu_tai_khoan: p.chuTaiKhoan, mat_khau_xac_nhan: p.matKhau, kenh: 'zalo-mini-app',
+  };
+  if (than.phuong_thuc_nhan === 'zalopay') { delete than.ngan_hang; delete than.so_tai_khoan; }
+  const kq = await require('./ctv-toi.js').handler({
+    httpMethod: 'POST',
+    headers: { authorization: 'Bearer ' + String(p.token || ''), 'content-type': 'application/json' },
+    body: JSON.stringify(than),
+  });
+  return { statusCode: kq.statusCode, headers: Object.assign({}, kq.headers, C.CORS), body: kq.body };
+}
+
 /* ═════════════ ĐIỀU PHỐI ═════════════ */
 const VIEC = {
   lead: xuLyLead,
   ctv: xuLyTenCtv,
+  'bao-phi': xuLyBaoPhi,
   'tao-don-tnds': xuLyTaoDon,
   'gan-don-zalo': xuLyGanDonZalo,
   don: xuLyDon,
@@ -427,6 +475,7 @@ const VIEC = {
   'ctv-dang-nhap': xuLyCtvDangNhap,
   'ctv-dang-ky': xuLyCtvDangKy,
   'ctv-du-lieu': xuLyCtvDuLieu,
+  'ctv-nhan-tien': xuLyCtvNhanTien,
   'dang-ky-oa': xuLyDangKyOa,
 };
 

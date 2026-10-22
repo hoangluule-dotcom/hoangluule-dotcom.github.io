@@ -49,8 +49,10 @@ exports.handler = async function (event) {
     }
 
     /* Bước 1–2: bắt đầu — chỉ người có khoá quản trị */
-    if (!process.env.DASHBOARD_KEY || q.khoa !== process.env.DASHBOARD_KEY) {
-      return { statusCode: 401, headers: { 'Content-Type': 'text/plain; charset=utf-8' }, body: 'Sai khoá quản trị.' };
+    /* Chỉ Quản lý (vé đăng nhập /quan-tri, hoặc khoá chung khi chưa tắt). */
+    const quyen = await require('./lib/quan-tri-auth').kiemQuyen({ headers: { 'x-dashboard-key': String(q.khoa || '') } }, ['quan-ly']);
+    if (quyen.loi) {
+      return { statusCode: quyen.ma, headers: { 'Content-Type': 'text/plain; charset=utf-8' }, body: quyen.loi };
     }
     if (q['trang-thai']) return C.json(200, await OA.trangThai());
 

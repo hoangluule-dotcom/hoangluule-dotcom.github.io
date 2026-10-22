@@ -4,7 +4,8 @@
   # dependency và function lead-status.js không tìm thấy @netlify/blobs.
   # build_kb.py dựng lại kho kiến thức chatbot từ toàn bộ trang (netlify/functions/kb-data.js).
   # Lỗi thì vẫn deploy bằng bản kb-data.js đang có trong thư mục — không để chatbot chặn cả site.
-  command = "npm install && (python3 scripts/build_kb.py || echo 'build_kb.py loi - dung kb-data.js co san')"
+  # build_mini_app_data.py sinh content/mini-app/*.json (cẩm nang + mạng lưới) cho Zalo Mini App.
+  command = "npm install && (python3 scripts/build_kb.py || echo 'build_kb.py loi - dung kb-data.js co san') && (python3 scripts/build_mini_app_data.py || echo 'build_mini_app_data.py loi - dung ban cu')"
 
 [build.processing]
   skip_processing = false
@@ -121,6 +122,13 @@
 # Giúp khách xem trang thứ hai trở đi tải gần như tức thì, và cải thiện
 # chỉ số Core Web Vitals (LCP) mà Google dùng để xếp hạng.
 # Khi cần thay ảnh: đổi tên file (vd banner-hero-v2.webp) thay vì ghi đè.
+# Dữ liệu cho Zalo Mini App — app chạy ở tên miền của Zalo nên cần CORS.
+[[headers]]
+  for = "/content/mini-app/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=3600"
+
 [[headers]]
   for = "/*.webp"
   [headers.values]

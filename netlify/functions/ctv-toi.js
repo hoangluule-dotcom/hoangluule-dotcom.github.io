@@ -4,7 +4,20 @@
         → { ok:true, ctv:{...}, thong_ke:{...}, don_hang:[], ghi_nhan_dang_bat:false }
 
    POST /.netlify/functions/ctv-toi        (Authorization: Bearer <token>)
-        { ho_ten?, email?, ngan_hang?, so_tai_khoan?, chu_tai_khoan?, mat_khau_moi?, mat_khau_cu? }
+        { ho_ten?, email?, ngan_hang?, so_tai_khoan?, chu_tai_khoan?, mat_khau_moi?, mat_khau_cu?,
+          phuong_thuc_nhan?: 'zalopay'|'ngan_hang', vi_sdt?, mat_khau_xac_nhan?, kenh? }
+
+   NƠI NHẬN HOA HỒNG (22/10/2026)
+   Hai cách: ví ZaloPay (theo số điện thoại) hoặc tài khoản ngân hàng. Ví
+   ZaloPay được lưu bằng chính ba trường cũ — ngan_hang = "ZaloPay",
+   so_tai_khoan = số điện thoại ví — để sheet CTV và màn hình chi trả của kế
+   toán không phải đổi gì. Kế toán chuyển vào ví bằng số điện thoại; khi DBV có
+   tài khoản chi hộ ZaloPay thì chuyển tự động bằng đúng dữ liệu này.
+
+   ĐỔI NƠI NHẬN TIỀN PHẢI NHẬP LẠI MẬT KHẨU (mat_khau_xac_nhan). Đây là cửa
+   duy nhất để tiền đi ra: kẻ chiếm được phiên đăng nhập chỉ cần đổi số nhận
+   tiền rồi chờ kỳ chi. Khi có OTP Zalo ZNS thì thay bằng OTP. Mỗi lần đổi được
+   ghi vào lich_su_nhan_tien và báo nhóm Zalo vận hành.
         → { ok:true, ctv:{...} }
 
    Mọi nhánh trong hàm này đều đã qua token. Hàm không cần token nằm ở
@@ -145,10 +158,32 @@ async function capNhat(kho, ban, event) {
     coDoi = true;
   }
 
-  /* Thông tin nhận tiền.
-     Ở bước 1 chưa có tiền nên cho sửa tự do. KHI MỞ CHỨC NĂNG RÚT TIỀN, ba
-     trường dưới đây phải yêu cầu OTP mới được đổi — kẻ chiếm tài khoản không
-     cần xem bảng điều khiển, hắn chỉ cần đổi số nhận tiền rồi bấm rút. */
+  /* Thông tin nhận tiền — xem đầu tệp. */
+  const cu = { nh: ban.ngan_hang || '', stk: ban.so_tai_khoan || '', chu: ban.chu_tai_khoan || '' };
+  if (than.phuong_thuc_nhan === 'zalopay') {
+    const sdtVi = chuanHoaSdtVi(than.vi_sdt || ban.sdt);
+    if (!sdtVi) return K.json(400, { error: 'Số điện thoại ví ZaloPay chưa đúng.', truong: 'vi_sdt' });
+    than.ngan_hang = 'ZaloPay';
+    than.so_tai_khoan = sdtVi;
+    than.chu_tai_khoan = String(than.chu_tai_khoan || ban.ho_ten || '').trim();
+    if (!than.chu_tai_khoan) return K.json(400, { error: 'Thiếu tên chủ ví.', truong: 'chu_tai_khoan' });
+  } else if (than.phuong_thuc_nhan === 'ngan_hang') {
+    if (!String(than.ngan_hang || '').trim() || !String(than.so_tai_khoan || '').trim() || !String(than.chu_tai_khoan || '').trim()) {
+      return K.json(400, { error: 'Điền đủ ngân hàng, số tài khoản và chủ tài khoản.' });
+    }
+    if (/^zalo\s*pay$/i.test(String(than.ngan_hang).trim())) {
+      return K.json(400, { error: 'Muốn nhận vào ví ZaloPay thì chọn mục "Ví ZaloPay".', truong: 'ngan_hang' });
+    }
+  }
+  const doiNhanTien = ['ngan_hang', 'so_tai_khoan', 'chu_tai_khoan'].some((k) => than[k] !== undefined);
+  if (doiNhanTien) {
+    const mk = String(than.mat_khau_xac_nhan || '');
+    /* 400, không phải 401 — xem ghi chú ở phần đổi mật khẩu bên dưới. */
+    if (!mk) return K.json(400, { error: 'Nhập mật khẩu đăng nhập để xác nhận đổi nơi nhận tiền.', truong: 'mat_khau_xac_nhan' });
+    if (!K.soSanhBam(K.bamMatKhau(mk, ban.muoi), ban.mat_khau_bam)) {
+      return K.json(400, { error: 'Mật khẩu xác nhận không đúng.', truong: 'mat_khau_xac_nhan' });
+    }
+  }
   if (than.ngan_hang !== undefined) {
     const v = String(than.ngan_hang || '').trim();
     ban.ngan_hang = v ? v.slice(0, NGAN_HANG_TOI_DA) : null;
@@ -193,8 +228,40 @@ async function capNhat(kho, ban, event) {
 
   if (!coDoi) return K.json(400, { error: 'Không có thông tin nào để cập nhật.' });
 
+  /* Ghi lịch sử + báo nhóm vận hành khi nơi nhận tiền THỰC SỰ đổi. */
+  let canhBaoTen = null;
+  const daDoiNhanTien = doiNhanTien &&
+    (cu.nh !== (ban.ngan_hang || '') || cu.stk !== (ban.so_tai_khoan || '') || cu.chu !== (ban.chu_tai_khoan || ''));
+  if (daDoiNhanTien) {
+    const khopTen = boDau(ban.chu_tai_khoan) === boDau(ban.ho_ten);
+    if (!khopTen) {
+      canhBaoTen = 'Tên chủ tài khoản khác họ tên cộng tác viên. Kế toán sẽ kiểm tra trước kỳ chi — ' +
+                   'chỉ chuyển vào tài khoản chính chủ.';
+    }
+    ban.nhan_tien_can_kiem = !khopTen;
+    ban.lich_su_nhan_tien = [{
+      luc: new Date().toISOString(),
+      noi: ban.ngan_hang || '', so: anSo(ban.so_tai_khoan), chu: ban.chu_tai_khoan || '',
+      truoc: cu.stk ? (cu.nh + ' ' + anSo(cu.stk)) : '(chưa có)',
+      kenh: than.kenh === 'zalo-mini-app' ? 'zalo-mini-app' : 'web',
+    }].concat(ban.lich_su_nhan_tien || []).slice(0, 20);
+  }
+
   ban.ngay_cap_nhat = new Date().toISOString();
   await K.ghiCtv(kho, ban);
+
+  if (daDoiNhanTien) {
+    try {
+      await require('./lib/zalo').guiZalo(
+        'CTV ' + ban.ma_ctv + ' (' + (ban.ho_ten || '') + ') vừa đổi nơi nhận hoa hồng\n' +
+        'Mới: ' + (ban.ngan_hang || '') + ' ' + anSo(ban.so_tai_khoan) + ' · ' + (ban.chu_tai_khoan || '') + '\n' +
+        'Cũ: ' + (cu.stk ? cu.nh + ' ' + anSo(cu.stk) : '(chưa có)') + '\n' +
+        (canhBaoTen ? '⚠ Tên chủ tài khoản KHÁC họ tên CTV — kiểm tra trước kỳ chi.\n' : '') +
+        'Nếu CTV không tự đổi: khoá tài khoản CTV ngay.');
+    } catch (err) {
+      console.error('[ctv-toi] không báo được nhóm vận hành:', err.message || err);
+    }
+  }
 
   /* Đẩy sang sheet CTV của bảng tính Affiliate.
      BẮT BUỘC với thông tin ngân hàng: màn hình chi trả đọc tài khoản nhận tiền
@@ -229,5 +296,21 @@ async function capNhat(kho, ban, event) {
      chi trả của kế toán đọc số tài khoản TỪ SHEET. Báo "Đã lưu" trơn trong khi
      sheet vẫn giữ số cũ là để người ta yên tâm chờ tiền vào một tài khoản đã
      đổi. Trả cờ này ra để giao diện nói rõ. */
-  return K.json(200, { ok: true, ctv: K.hoSoCongKhai(ban), dong_bo_sheet: dongBoSheet });
+  return K.json(200, { ok: true, ctv: K.hoSoCongKhai(ban), dong_bo_sheet: dongBoSheet, canh_bao_ten: canhBaoTen });
+}
+
+function chuanHoaSdtVi(v) {
+  let s = String(v || '').replace(/[^\d+]/g, '');
+  if (s.startsWith('+84')) s = '0' + s.slice(3);
+  else if (/^84\d{9}$/.test(s)) s = '0' + s.slice(2);
+  return /^0(3|5|7|8|9)\d{8}$/.test(s) ? s : null;
+}
+function boDau(v) {
+  return String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/gi, 'd')
+    .toUpperCase().replace(/[^A-Z ]/g, '').replace(/\s+/g, ' ').trim();
+}
+/* Chỉ giữ 4 số cuối khi ghi lịch sử và báo nhóm chat. */
+function anSo(v) {
+  const s = String(v || '');
+  return s.length > 4 ? '••••' + s.slice(-4) : s;
 }

@@ -7,7 +7,7 @@
    POST /.netlify/functions/gas-admin             → cập nhật đơn, ghi về sheet
         { action:'trangThai'|'hoSo', orderId, ... }
 
-   Header bắt buộc: x-dashboard-key: <DASHBOARD_KEY>
+   Header bắt buộc: x-dashboard-key: <vé đăng nhập /quan-tri> (hoặc khoá chung khi chưa tắt)
 
    VÌ SAO PHẢI CÓ HÀM NÀY, KHÔNG GỌI THẲNG APPS SCRIPT TỪ TRANG QUẢN TRỊ
    Khoá nội bộ của Apps Script (GAS_KHOA_NOI_BO) chỉ được nằm ở biến môi trường
@@ -15,27 +15,35 @@
    DevTools cũng đọc được, và khoá đó mở được TOÀN BỘ sổ cái.
    Hàm này giữ khoá ở phía máy chủ và chỉ nhận DASHBOARD_KEY của nhân viên.
 
-   MỘT KHOÁ DÙNG CHUNG LÀ ĐIỂM YẾU ĐÃ BIẾT
-   DASHBOARD_KEY dùng chung cho cả nhóm, nên cột "Người thực hiện" trong NHAT_KY
-   chỉ ghi được cái tên mà trang gửi lên, không xác thực được ai thật sự bấm.
-   Đủ để lần vết khi mọi người trung thực, KHÔNG đủ để quy trách nhiệm. Muốn
-   chặt hơn thì phải cho mỗi nhân viên một tài khoản riêng — việc đó chưa làm.
+   NGƯỜI THỰC HIỆN (từ 22/10/2026)
+   Mỗi nhân viên đăng nhập bằng tài khoản riêng ở /quan-tri, nên cột "Người
+   thực hiện" trong NHAT_KY là tên tài khoản đã xác thực. Chỉ khi còn dùng khoá
+   chung DASHBOARD_KEY (quản lý chưa tắt) thì mới là tên do trang tự khai.
 */
 
 'use strict';
 
 const G = require('./lib/gas');
+const A = require('./lib/quan-tri-auth');
 
-function kiemKhoa(event) {
-  const h = event.headers || {};
-  const daGui = h['x-dashboard-key'] || h['X-Dashboard-Key'] || '';
-  const mong = process.env.DASHBOARD_KEY || '';
-  if (!mong) return 'Thiếu biến môi trường DASHBOARD_KEY trên Netlify.';
-  /* So sánh thường, không hằng thời gian: khoá này nằm sau đăng nhập nội bộ và
-     không phải bí mật cấp mật khẩu. Ghi ra đây để người sau biết là đã cân
-     nhắc chứ không phải bỏ sót. */
-  if (daGui !== mong) return 'Sai hoặc thiếu khoá truy cập.';
-  return null;
+/* PHÂN QUYỀN (từ 22/10/2026 mỗi nhân viên một tài khoản — lib/quan-tri-auth.js)
+     xem đơn                      : mọi vai trò
+     xem CTV & tiền               : Quản lý, Kế toán
+     đánh dấu đã nhận tiền / huỷ  : Quản lý, Kế toán
+     đánh dấu đã cấp GCN, sửa hồ sơ: Quản lý, Vận hành
+   "Người thực hiện" ghi vào NHAT_KY lấy từ tài khoản đăng nhập. */
+function vaiTroCan(event, p) {
+  if (event.httpMethod === 'GET') {
+    const view = ((event.queryStringParameters || {}).view || 'don').trim();
+    return view === 'ctv' ? ['quan-ly', 'ke-toan'] : null;
+  }
+  if (!p) return ['quan-ly'];
+  if (p.action === 'trangThai') {
+    if (p.paymentStatus && p.gcnStatus) return ['quan-ly'];
+    if (p.paymentStatus) return ['quan-ly', 'ke-toan'];
+    return ['quan-ly', 'van-hanh'];
+  }
+  return ['quan-ly', 'van-hanh'];
 }
 
 function docThan(event) {
@@ -48,12 +56,13 @@ function docThan(event) {
 }
 
 exports.handler = async function (event) {
-  const loiKhoa = kiemKhoa(event);
-  if (loiKhoa) return G.json(401, { error: loiKhoa });
+  const p = event.httpMethod === 'POST' ? docThan(event) : null;
+  const q = await A.kiemQuyen(event, vaiTroCan(event, p));
+  if (q.loi) return G.json(q.ma, { error: q.loi });
 
   try {
     if (event.httpMethod === 'GET') return await xem(event);
-    if (event.httpMethod === 'POST') return await ghi(event);
+    if (event.httpMethod === 'POST') return await ghi(p, q.nv);
     return G.json(405, { error: 'Method không được hỗ trợ.' });
   } catch (err) {
     /* Ghi log đầy đủ ở máy chủ, KHÔNG trả chi tiết hệ thống về trình duyệt. */
@@ -85,13 +94,12 @@ async function xem(event) {
   return G.json(400, { error: 'view phải là "don" hoặc "ctv".' });
 }
 
-async function ghi(event) {
-  const p = docThan(event);
+async function ghi(p, nv) {
   if (!p) return G.json(400, { error: 'Nội dung gửi lên không đọc được.' });
 
   const ma = String(p.orderId || '').trim();
   if (!ma) return G.json(400, { error: 'Thiếu mã đơn.' });
-  const nguoi = String(p.nguoi || '').trim() || 'quan-tri';
+  const nguoi = nv && !nv.khoaChung ? nv.hoTen : (String(p.nguoi || '').trim() || 'quan-tri');
 
   /* HAI ĐƯỜNG GHI KHÁC NHAU, KHÔNG GỘP.
      'trangThai' đụng tới TIỀN: đánh dấu đã nhận tiền là mốc sinh hoa hồng, nên

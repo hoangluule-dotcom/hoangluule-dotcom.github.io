@@ -46,7 +46,7 @@ MOC = '<!-- CAP-DON-TNDS -->'
 
 FORM_NAME = 'dbv-capdon-tnds'
 
-SKIP_DIRS = {'admin', 'node_modules', 'Originals', '_skill-build', '_to_delete'}
+SKIP_DIRS = {'admin', 'quan-tri', 'node_modules', 'Originals', '_skill-build', '_to_delete'}
 
 # Mã inline của bản cũ — gỡ đi khi gặp, vì nay đã tách ra file dùng chung.
 # Trước 12/09/2026 công cụ nằm inline trong bao-hiem-tnds-oto.html.

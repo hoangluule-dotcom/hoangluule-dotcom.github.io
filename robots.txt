@@ -2,6 +2,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 Disallow: /index-test
 Disallow: /bao-hiem-du-lich-quoc-te-demo
 
@@ -16,60 +17,73 @@ Disallow: /bao-hiem-du-lich-quoc-te-demo
 User-agent: GPTBot
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 # Anthropic — Claude
 User-agent: ClaudeBot
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 User-agent: Claude-User
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 # Google — Gemini và AI Overviews
 User-agent: Google-Extended
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 User-agent: Perplexity-User
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 # Microsoft Copilot
 User-agent: bingbot
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 # Apple Intelligence
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 # Meta AI
 User-agent: meta-externalagent
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 # Common Crawl — nguồn dữ liệu huấn luyện nhiều mô hình sử dụng
 User-agent: CCBot
 Allow: /
 Disallow: /admin/
+Disallow: /quan-tri/
 
 Sitemap: https://dbv247.com.vn/sitemap.xml

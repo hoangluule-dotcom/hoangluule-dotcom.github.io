@@ -27,7 +27,7 @@ MIN_DOAN, MAX_DOAN = 300, 1400
 
 SKIP = {'google067cc8913a387cda.html', 'index-test.html', 'bao-hiem-du-lich-quoc-te-demo.html',
         'servicemap.html', '404.html', 'ctv-dashboard.html'}
-SKIP_DIRS = ('admin', 'sao-luu', 'node_modules', 'scripts', 'supabase', 'apps-script', '_')
+SKIP_DIRS = ('admin', 'quan-tri', 'sao-luu', 'node_modules', 'scripts', 'supabase', 'apps-script', '_')
 
 COMPANY = """
 DBV247 là kênh tư vấn và cấp đơn bảo hiểm trực tuyến của Công ty Cổ phần Tập đoàn

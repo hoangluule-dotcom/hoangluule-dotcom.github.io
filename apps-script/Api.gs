@@ -169,8 +169,19 @@ function doGet(e) {
           return String(d.commission_status || '') !== '';
         })});
       }
+      /* Lịch sử các kỳ đã chi (sheet PAYOUTS) — thêm 22/10/2026 cho Zalo Mini
+         App. Bọc try: sheet PAYOUTS lỗi thì vẫn trả bảng điều khiển. */
+      var chiTra = [];
+      try {
+        chiTra = docSheet(CH.SHEET.PAYOUTS).filter(function (p) {
+          return chuanHoaMaCtv(p.ctv_id || '') === maCtv;
+        }).map(function (p) {
+          return { ma: p.payout_id, ky: p.ky, so_tien: chuanHoaTien(p.so_tien) || 0,
+                   ngay: p.ngay_thanh_toan, ghi_chu: p.ghi_chu || '' };
+        }).reverse().slice(0, 24);
+      } catch (loiChi) { chiTra = []; }
       return tra({ ok: true, tong_quan: tongQuanCtv(cua), don: cua.slice(0, 200),
-                   cap_nhat: chuoiNgay() });
+                   chi_tra: chiTra, cap_nhat: chuoiNgay() });
     }
 
     /* ── Màn hình quản trị ──────────────────────────────────────────────

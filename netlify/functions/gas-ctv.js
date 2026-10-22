@@ -101,6 +101,8 @@ exports.handler = async function (event) {
       hoa_hong_phat_sinh: q.hoa_hong_phat_sinh || 0,
     },
     don_hang: don,
+    /* Các kỳ đã chi (sheet PAYOUTS). Apps Script bản cũ chưa trả thì là []. */
+    chi_tra: Array.isArray(kq.chi_tra) ? kq.chi_tra : [],
     cap_nhat: kq.cap_nhat || null,
     ghi_nhan_dang_bat: true,
     hoa_hong_dang_bat: true,

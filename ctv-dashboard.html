@@ -761,7 +761,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <input id="p-chu" type="text" maxlength="120" placeholder="Viết hoa, không dấu">
             <span class="hint">Chủ tài khoản phải là chính chủ CTV.</span>
           </div>
+          <div class="fld">
+            <label for="p-nh-mk">Mật khẩu đăng nhập</label>
+            <input id="p-nh-mk" type="password" autocomplete="current-password" placeholder="Để xác nhận đổi nơi nhận tiền">
+            <span class="hint">Bắt buộc mỗi lần đổi — để người khác lấy được máy của bạn cũng không đổi được nơi nhận tiền.</span>
+          </div>
         </div>
+        <p class="hint" style="margin:8px 0 0">Muốn nhận vào <b>ví ZaloPay</b>: ô Ngân hàng ghi <b>ZaloPay</b>, ô Số tài khoản ghi số điện thoại của ví. Hoặc khai trong Zalo Mini App "Bảo hiểm DBV247" → Cộng tác viên.</p>
         <div class="hs-act">
           <button type="button" class="btn-save" id="btn-nh">Lưu số tài khoản</button>
           <span class="hs-msg" id="nh-msg"></span>
@@ -1064,9 +1070,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* Ba ô đi cùng nhau: kế toán không chuyển được tiền nếu thiếu một trong ba.
        Chặn tại đây để không ghi vào sổ một tài khoản dùng không được. */
     if ($('p-nh').value.trim() && stk && $('p-chu').value.trim()) {
+      if (!$('p-nh-mk').value) {
+        msg.className = 'hs-msg bad';
+        msg.textContent = 'Nhập mật khẩu đăng nhập để xác nhận đổi nơi nhận tiền.';
+        return;
+      }
       guiHoSo({ ngan_hang: $('p-nh').value.trim(), so_tai_khoan: stk,
-                chu_tai_khoan: $('p-chu').value.trim() },
-              'btn-nh', 'Lưu số tài khoản', 'nh-msg');
+                chu_tai_khoan: $('p-chu').value.trim(), mat_khau_xac_nhan: $('p-nh-mk').value },
+              'btn-nh', 'Lưu số tài khoản', 'nh-msg', function(d){
+                $('p-nh-mk').value = '';
+                if (d.canh_bao_ten) setTimeout(function(){ var m=$('nh-msg'); m.className='hs-msg bad'; m.textContent='Đã lưu. ' + d.canh_bao_ten; }, 0);
+              });
       return;
     }
     msg.className = 'hs-msg bad';

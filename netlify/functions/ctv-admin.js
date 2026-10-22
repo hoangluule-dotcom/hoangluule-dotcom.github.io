@@ -26,15 +26,7 @@
 'use strict';
 
 const K = require('./lib/ctv-kho');
-
-function kiemKhoa(event) {
-  const h = event.headers || {};
-  const daGui = h['x-dashboard-key'] || h['X-Dashboard-Key'] || '';
-  const mong = process.env.DASHBOARD_KEY || '';
-  if (!mong) return 'Thiếu biến môi trường DASHBOARD_KEY trên Netlify.';
-  if (daGui !== mong) return 'Sai hoặc thiếu khoá truy cập.';
-  return null;
-}
+const A = require('./lib/quan-tri-auth');
 
 /* Đọc mọi hồ sơ cộng tác viên trong kho. */
 async function docMoiCtv(kho) {
@@ -47,8 +39,9 @@ async function docMoiCtv(kho) {
 }
 
 exports.handler = async function (event) {
-  const loiKhoa = kiemKhoa(event);
-  if (loiKhoa) return K.json(401, { error: loiKhoa });
+  /* Quyền: Quản lý, Kế toán. */
+  const q = await A.kiemQuyen(event, ['quan-ly', 'ke-toan']);
+  if (q.loi) return K.json(q.ma, { error: q.loi });
 
   if (event.httpMethod !== 'GET') return K.json(405, { error: 'Chỉ nhận GET.' });
 

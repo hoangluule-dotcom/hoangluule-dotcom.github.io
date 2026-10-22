@@ -31,7 +31,7 @@ SKIP_NAMES = {
     'index-test.html',
     'bao-hiem-du-lich-quoc-te-demo.html',
 }
-SKIP_DIRS = {'admin', 'node_modules', 'Originals', '_skill-build'}
+SKIP_DIRS = {'admin', 'quan-tri', 'node_modules', 'Originals', '_skill-build'}
 
 # Các khối HTML được đồng bộ.
 # ('tag', tên_thẻ, class)  — thẻ không lồng nhau được, dùng regex là đủ

@@ -155,9 +155,29 @@ const than = (r) => JSON.parse(r.body);
 
   console.log('\n── Cập nhật hồ sơ ──');
   r = await goiToi('POST', token1, { ho_ten: 'Nguyễn Văn An', email: 'an@example.com', ngan_hang: 'Techcombank', so_tai_khoan: '1903 1234 5678', chu_tai_khoan: 'NGUYEN VAN AN' });
+  kiemTra('đổi nơi nhận tiền KHÔNG có mật khẩu xác nhận bị chặn 400', r.statusCode === 400 && than(r).truong === 'mat_khau_xac_nhan', r.body);
+  r = await goiToi('POST', token1, { ngan_hang: 'Techcombank', so_tai_khoan: '190312345678', chu_tai_khoan: 'X', mat_khau_xac_nhan: 'sai-roi' });
+  kiemTra('mật khẩu xác nhận sai bị chặn 400', r.statusCode === 400 && than(r).truong === 'mat_khau_xac_nhan', r.body);
+  r = await goiToi('POST', token1, { ho_ten: 'Nguyễn Văn An', email: 'an@example.com', ngan_hang: 'Techcombank', so_tai_khoan: '1903 1234 5678', chu_tai_khoan: 'NGUYEN VAN AN', mat_khau_xac_nhan: 'matkhau123' });
   kiemTra('cập nhật trả 200', r.statusCode === 200, r.body);
+  kiemTra('tên chủ TK khớp họ tên → không cảnh báo', than(r).canh_bao_ten === null && than(r).ctv.nhan_tien_can_kiem === false, r.body);
+  kiemTra('phương thức = ngân hàng', than(r).ctv.phuong_thuc_nhan === 'ngan_hang');
+  kiemTra('lịch sử ghi số đã che', than(r).ctv.lich_su_nhan_tien[0].so === '••••5678' && than(r).ctv.lich_su_nhan_tien[0].truoc === '(chưa có)');
   kiemTra('số tài khoản đã bỏ khoảng trắng', than(r).ctv.so_tai_khoan === '190312345678', than(r).ctv.so_tai_khoan);
   kiemTra('tên đã đổi', than(r).ctv.ho_ten === 'Nguyễn Văn An');
+
+  r = await goiToi('POST', token1, { phuong_thuc_nhan: 'zalopay', vi_sdt: '+84 912 345 678', mat_khau_xac_nhan: 'matkhau123' });
+  kiemTra('đổi sang ví ZaloPay', r.statusCode === 200 && than(r).ctv.ngan_hang === 'ZaloPay' && than(r).ctv.so_tai_khoan === '0912345678'
+    && than(r).ctv.chu_tai_khoan === 'Nguyễn Văn An' && than(r).ctv.phuong_thuc_nhan === 'zalopay', r.body);
+  kiemTra('lịch sử có lần đổi trước', than(r).ctv.lich_su_nhan_tien.length === 2 && /Techcombank/.test(than(r).ctv.lich_su_nhan_tien[0].truoc));
+  r = await goiToi('POST', token1, { phuong_thuc_nhan: 'zalopay', vi_sdt: '0212345678', mat_khau_xac_nhan: 'matkhau123' });
+  kiemTra('số ví sai bị chặn', r.statusCode === 400 && than(r).truong === 'vi_sdt', r.body);
+  r = await goiToi('POST', token1, { phuong_thuc_nhan: 'zalopay', vi_sdt: '0987654321', chu_tai_khoan: 'Trần Thị B', mat_khau_xac_nhan: 'matkhau123' });
+  kiemTra('tên chủ ví khác họ tên → lưu nhưng cảnh báo + đánh dấu cần kiểm', r.statusCode === 200 && !!than(r).canh_bao_ten && than(r).ctv.nhan_tien_can_kiem === true, r.body);
+  r = await goiToi('POST', token1, { phuong_thuc_nhan: 'ngan_hang', ngan_hang: 'ZaloPay', so_tai_khoan: '0987654321', chu_tai_khoan: 'NGUYEN VAN AN', mat_khau_xac_nhan: 'matkhau123' });
+  kiemTra('chọn ngân hàng mà ghi ZaloPay bị chặn', r.statusCode === 400, r.body);
+  r = await goiToi('POST', token1, { ngan_hang: 'Techcombank', so_tai_khoan: '1903 1234 5678', chu_tai_khoan: 'NGUYEN VAN AN', mat_khau_xac_nhan: 'matkhau123' });
+  kiemTra('đổi lại ngân hàng, hết cảnh báo', r.statusCode === 200 && than(r).ctv.nhan_tien_can_kiem === false);
 
   r = await goiToi('POST', token1, { email: 'khong-phai-email' });
   kiemTra('email sai bị chặn 400', r.statusCode === 400 && than(r).truong === 'email');

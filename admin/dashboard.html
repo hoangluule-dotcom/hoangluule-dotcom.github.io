@@ -141,6 +141,33 @@ tbody tr.active{background:var(--gl)}
 .c-phone{font-size:12px;color:var(--ts);font-variant-numeric:tabular-nums}
 .c-prod{font-size:13px}
 .c-src{font-size:11px;color:var(--ts);margin-top:2px}
+/* Kênh khách đến (22/10/2026) */
+.kenh{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px;margin-top:4px;white-space:nowrap;background:#f1f3f5;color:var(--tm)}
+.kenh.k-facebook{background:#e7f0fd;color:#1b5fc1}
+.kenh.k-tiktok{background:#1c1c1c;color:#fff}
+.kenh.k-google{background:#fdf1e3;color:#a35a00}
+.kenh.k-zalo{background:#e6f2ff;color:#0068ff}
+.kenh.k-thu-cong{background:var(--gl);color:var(--gd)}
+.kenh .ads{background:rgba(255,255,255,.25);border-radius:4px;padding:0 4px;font-size:9.5px;letter-spacing:.3px}
+.kenh.k-facebook .ads,.kenh.k-google .ads,.kenh.k-zalo .ads{background:rgba(0,0,0,.08)}
+.dup{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:6px;background:#fff4e5;color:#b45309;margin-left:6px;vertical-align:1px}
+.dup-list{display:flex;flex-direction:column;gap:6px}
+.dup-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--bd);border-radius:9px;font-size:12.5px;cursor:pointer;background:#fff}
+.dup-item:hover{border-color:var(--g)}
+.btn-add{height:38px;padding:0 14px;border-radius:9px;border:0;background:var(--g);color:#fff;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.btn-add:hover{background:var(--gd)}
+.btn-add svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.4}
+.md-ov{position:fixed;inset:0;background:rgba(15,37,21,.45);z-index:300;display:none;align-items:flex-start;justify-content:center;padding:6vh 16px;overflow:auto}
+.md-ov.on{display:flex}
+.md{background:#fff;border-radius:16px;width:100%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:22px 22px 18px}
+.md h2{font-size:18px;color:#084C38;margin:0 0 4px}
+.md .md-sub{font-size:12.5px;color:var(--ts);margin-bottom:14px}
+.md .md-row{margin-bottom:11px}
+.md .md-warn{background:#fff4e5;color:#92400e;border-radius:9px;padding:10px 12px;font-size:12.5px;margin-bottom:11px;display:none}
+.md .md-act{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.kenh-chips{display:flex;flex-wrap:wrap;gap:6px}
+.kenh-chips button{border:1.5px solid var(--bd);background:#fff;border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:600;color:var(--tm);cursor:pointer}
+.kenh-chips button.on{border-color:var(--g);background:var(--gl);color:var(--gd)}
 .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
 .s-moi{background:var(--blue-bg);color:var(--blue)}
 .s-da-lien-he{background:var(--gold-bg);color:var(--goldd)}
@@ -274,6 +301,10 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
         </div>
       </div>
       <div class="tb-right">
+        <button class="btn-add" onclick="moThemKhach()" title="Nhập khách từ Messenger, TikTok, điện thoại…">
+          <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Thêm khách</span>
+        </button>
         <button class="btn-g" onclick="loadAll(false)" title="Tải lại dữ liệu">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
         </button>
@@ -319,6 +350,9 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
           </div>
           <select class="sel" id="fProduct" onchange="render()">
             <option value="">Tất cả sản phẩm</option>
+          </select>
+          <select class="sel" id="fKenh" onchange="render()">
+            <option value="">Tất cả kênh</option>
           </select>
           <select class="sel" id="fOwner" onchange="render()">
             <option value="">Tất cả người phụ trách</option>
@@ -453,6 +487,40 @@ textarea.ctrl{resize:vertical;min-height:78px;line-height:1.6}
   </div>
 </div>
 
+<!-- ══ THÊM KHÁCH THỦ CÔNG ══ -->
+<div class="md-ov" id="mdThem" onclick="if(event.target===this)dongThemKhach()">
+  <div class="md" role="dialog" aria-labelledby="mdThemH">
+    <h2 id="mdThemH">Thêm khách</h2>
+    <div class="md-sub">Khách nhắn Messenger, TikTok, bình luận, gọi hotline… để lại số điện thoại thì nhập vào đây để chăm sóc chung một chỗ.</div>
+    <div class="md-row">
+      <label class="lbl">Khách đến từ đâu? <span style="color:#b42318">*</span></label>
+      <div class="kenh-chips" id="tkKenh"></div>
+    </div>
+    <div class="row2 md-row">
+      <div><label class="lbl" for="tkPhone">Số điện thoại <span style="color:#b42318">*</span></label><input class="ctrl" id="tkPhone" type="tel" inputmode="tel" placeholder="09xx xxx xxx" oninput="kiemTrung()"></div>
+      <div><label class="lbl" for="tkName">Họ tên</label><input class="ctrl" id="tkName" placeholder="Tên khách (nếu biết)"></div>
+    </div>
+    <div class="md-warn" id="tkWarn"></div>
+    <div class="md-row">
+      <label class="lbl" for="tkProd">Sản phẩm quan tâm</label>
+      <input class="ctrl" id="tkProd" list="tkProdList" placeholder="vd: TNDS ô tô, Vật chất ô tô, Sức khỏe…">
+      <datalist id="tkProdList"></datalist>
+    </div>
+    <div class="row2 md-row">
+      <div><label class="lbl" for="tkCamp">Bài đăng / chiến dịch</label><input class="ctrl" id="tkCamp" placeholder="vd: video TNDS 11/2026"></div>
+      <div><label class="lbl" for="tkOwner">Giao cho</label><select class="ctrl" id="tkOwner"></select></div>
+    </div>
+    <div class="md-row">
+      <label class="lbl" for="tkNote">Ghi chú</label>
+      <textarea class="ctrl" id="tkNote" rows="2" placeholder="Khách hỏi gì, hẹn gọi lúc nào…" style="height:auto;padding-top:8px"></textarea>
+    </div>
+    <div class="md-act">
+      <button class="btn-g" onclick="dongThemKhach()">Huỷ</button>
+      <button class="btn-add" id="tkLuu" onclick="luuThemKhach()">Lưu khách</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast">
   <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
   <span id="toastText"></span>
@@ -508,14 +576,87 @@ var FIELD_LABELS = {
   'goi-quan-tam':'Gói quan tâm', 'xe':'Xe', 'so-nguoi':'Số người', 'so-ngay':'Số ngày',
   'ma-ho-so':'Mã hồ sơ', 'dia-chi':'Địa chỉ', 'nguoi-duoc-bh':'Người được bảo hiểm',
   'nguoi-thu-huong':'Người thụ hưởng', 'tong-phi':'Tổng phí',
-  'ten-cong-ty':'Tên công ty', 'ngon-ngu':'Ngôn ngữ tư vấn'
+  'ten-cong-ty':'Tên công ty', 'ngon-ngu':'Ngôn ngữ tư vấn',
+  'utm_source':'Nguồn (utm_source)', 'utm_medium':'Loại nguồn (utm_medium)', 'utm_campaign':'Chiến dịch',
+  'utm_term':'Từ khoá', 'utm_content':'Mẫu quảng cáo', 'trang-vao-dau':'Trang vào đầu tiên',
+  'nguon-gioi-thieu':'Trang giới thiệu', 'kenh-thu-cong':'Kênh', 'chien-dich':'Bài đăng / chiến dịch',
+  'nhap-boi':'Người nhập'
 
 };
 var NEED_LABELS = {
   'xe-oto':'Xe ô tô', 'xe-may':'Xe máy', 'suc-khoe':'Sức khỏe', 'tai-san':'Tài sản',
   'du-lich':'Du lịch', 'hang-hai':'Hàng hải', 'trach-nhiem':'Trách nhiệm', 'khac':'Khác'
 };
-var META_KEYS = ['ip','user_agent','referrer','form-name','bot-field'];
+var META_KEYS = ['ip','user_agent','referrer','form-name','bot-field','gclid','fbclid','ttclid','dong-y-chinh-sach','thoi-diem-dong-y'];
+
+/* ══ KÊNH KHÁCH ĐẾN (22/10/2026) ══════════════════════════════════════
+   Suy ra từ dữ liệu form: utm_source/utm_medium (assets/dbv-tracking.js tự
+   gắn), mã click gclid/fbclid/ttclid, tên form, hoặc kênh nhân viên chọn khi
+   "Thêm khách". Lead từ quảng cáo trả tiền (ads=true) phải gọi trong
+   SLA_ADS_PHUT phút — khách vừa điền xong và đang so sánh với bên khác. */
+var SLA_ADS_PHUT = 30;
+var KENH_THU_CONG = [
+  ['messenger','Messenger','facebook'], ['binh-luan-fb','Bình luận Facebook','facebook'],
+  ['form-fb','Form quảng cáo Facebook','facebook'],
+  ['tiktok-tin-nhan','Tin nhắn TikTok','tiktok'], ['binh-luan-tiktok','Bình luận TikTok','tiktok'],
+  ['form-tiktok','Form quảng cáo TikTok','tiktok'],
+  ['zalo','Zalo','zalo'], ['hotline','Gọi hotline','khac'], ['gioi-thieu','Người quen giới thiệu','khac'], ['khac','Khác','khac']
+];
+function leadKenh(l){
+  if(l._kenh) return l._kenh;
+  var d = l.data || {}, kq;
+  var src = String(d.utm_source || '').toLowerCase(), med = String(d.utm_medium || '').toLowerCase();
+  var traTien = /(^|[^a-z])(cpc|ppc|paid|ads?|quang-cao|cpm)([^a-z]|$)/.test(med);
+  if(d['kenh-thu-cong']){
+    var m = KENH_THU_CONG.filter(function(x){ return x[0] === d['kenh-thu-cong']; })[0] || ['khac','Khác','khac'];
+    kq = { k: m[2] === 'khac' ? 'thu-cong' : m[2], ten: m[1], ads: /^form-/.test(m[0]), loc: m[2] === 'khac' ? 'Nhập tay' : (m[2] === 'facebook' ? 'Facebook' : m[2] === 'tiktok' ? 'TikTok' : 'Zalo') };
+  } else if(/facebook|^fb$|instagram|^ig$|messenger|meta/.test(src)){
+    kq = { k:'facebook', ten:'Facebook', ads: traTien, loc:'Facebook' };
+  } else if(/tiktok/.test(src) || d.ttclid){
+    kq = { k:'tiktok', ten:'TikTok', ads: traTien || !!d.ttclid, loc:'TikTok' };
+  } else if(d.gclid || (/google/.test(src) && traTien)){
+    kq = { k:'google', ten:'Google', ads:true, loc:'Google' };
+  } else if(/google|bing|coccoc|yahoo/.test(src)){
+    kq = { k:'google', ten:'Tìm kiếm Google', ads:false, loc:'Google' };
+  } else if(/zalo/.test(src) || l.form_name === 'zalo-mini-app'){
+    kq = { k:'zalo', ten: /mini/.test(src) ? 'Zalo Mini App' : 'Zalo', ads: traTien, loc:'Zalo' };
+  } else if(src === '(truc-tiep)'){
+    kq = { k:'web', ten:'Vào thẳng website', ads:false, loc:'Website' };
+  } else if(src){
+    kq = { k:'web', ten: src.length > 22 ? src.slice(0,22) + '…' : src, ads: traTien, loc:'Website' };
+  } else {
+    kq = { k:'web', ten:'Không rõ nguồn', ads:false, loc:'Không rõ' };
+  }
+  kq.loc = kq.loc + (kq.ads ? ' · Quảng cáo' : '');
+  l._kenh = kq;
+  return kq;
+}
+function kenhHtml(l){
+  var k = leadKenh(l);
+  return '<span class="kenh k-' + k.k + '">' + esc(k.ten) + (k.ads ? ' <span class="ads">ADS</span>' : '') + '</span>';
+}
+
+/* ══ TRÙNG SỐ ĐIỆN THOẠI ══
+   Một khách có thể thấy quảng cáo TikTok, nhắn Facebook rồi điền form website
+   — vẫn là MỘT khách. Đánh dấu để không ba người cùng gọi. */
+var DUP = {};
+function chuanSdt(v){
+  var s = String(v || '').replace(/[^0-9+]/g, '');
+  if(s.indexOf('+84') === 0) s = '0' + s.slice(3);
+  else if(s.indexOf('84') === 0 && s.length === 11) s = '0' + s.slice(2);
+  return s.length >= 9 ? s : '';
+}
+function dungDup(){
+  DUP = {};
+  LEADS.forEach(function(l){
+    var p = chuanSdt(leadPhone(l)); if(!p) return;
+    (DUP[p] = DUP[p] || []).push(l.id);
+  });
+}
+function leadTrung(l){
+  var p = chuanSdt(leadPhone(l));
+  return p && DUP[p] ? DUP[p].filter(function(id){ return id !== l.id; }) : [];
+}
 
 var KEY_LS = 'dbv247_key';
 var WHO_LS = 'dbv247_who';
@@ -709,9 +850,11 @@ function loadAll(isFirst){
       return;
     }
     LEADS = L.j.submissions || [];
+    dungDup();
     CARE = (C.ok && C.j.records) ? C.j.records : {};
     if(isFirst) enterApp();
     fillProductFilter();
+    fillKenhFilter();
     renderTabs();
     render();
     if(!isFirst) toast('Đã tải lại dữ liệu');
@@ -902,7 +1045,23 @@ function setHiddenView(on){
 
 function isLate(lead){
   var c = careOf(lead.id);
-  return (c.stage || 'moi') === 'moi' && hoursSince(lead.created_at) > SLA_HOURS;
+  var han = leadKenh(lead).ads ? SLA_ADS_PHUT / 60 : SLA_HOURS;
+  return (c.stage || 'moi') === 'moi' && hoursSince(lead.created_at) > han;
+}
+
+/* Bộ lọc kênh — dựng từ dữ liệu thật, kèm số lượng. */
+function fillKenhFilter(){
+  var sel = document.getElementById('fKenh'), keep = sel.value, counts = {}, nTrung = 0;
+  LEADS.forEach(function(l){
+    var k = leadKenh(l).loc; counts[k] = (counts[k] || 0) + 1;
+    if(leadTrung(l).length) nTrung++;
+  });
+  var names = Object.keys(counts).sort(function(a,b){ return counts[b] - counts[a]; });
+  var html = '<option value="">Tất cả kênh</option>';
+  names.forEach(function(n){ html += '<option value="' + esc(n) + '">' + esc(n) + ' (' + counts[n] + ')</option>'; });
+  html += '<option value="__trung">⚠ Trùng số điện thoại (' + nTrung + ')</option>';
+  sel.innerHTML = html;
+  if(keep && (keep === '__trung' || names.indexOf(keep) !== -1)) sel.value = keep;
 }
 
 /* Dựng danh sách sản phẩm từ dữ liệu thật, kèm số lượng lead mỗi loại.
@@ -936,6 +1095,7 @@ function clearFilters(){
   document.getElementById('q').value = '';
   document.getElementById('fProduct').value = '';
   document.getElementById('fOwner').value = '';
+  document.getElementById('fKenh').value = '';
   document.getElementById('fSort').selectedIndex = 0;
   curStage = 'all';
   lateOnly = false;
@@ -947,6 +1107,7 @@ function filtered(){
   var q = document.getElementById('q').value.trim().toLowerCase();
   var fp = document.getElementById('fProduct').value;
   var fo = document.getElementById('fOwner').value;
+  var fk = document.getElementById('fKenh').value;
   var sort = document.getElementById('fSort').value;
 
   var out = baseList().filter(function(l){
@@ -966,6 +1127,8 @@ function filtered(){
       if(!p || p === '—') p = '(Không rõ)';
       if(p !== fp) return false;
     }
+    if(fk === '__trung' && !leadTrung(l).length) return false;
+    if(fk && fk !== '__trung' && leadKenh(l).loc !== fk) return false;
     if(fo === '__none__' && c.owner) return false;
     if(fo && fo !== '__none__' && c.owner !== fo) return false;
     if(q){
@@ -1005,6 +1168,7 @@ function render(){
   var hasFilter = document.getElementById('q').value.trim()
     || document.getElementById('fProduct').value
     || document.getElementById('fOwner').value
+    || document.getElementById('fKenh').value
     || document.getElementById('fSort').selectedIndex !== 0
     || curStage !== 'all' || lateOnly;
   document.getElementById('btnClear').style.display = hasFilter ? 'inline-flex' : 'none';
@@ -1063,7 +1227,7 @@ function rowLead(l){
   var slaHtml = '';
 
   if(isLate(l)){
-    slaHtml = '<div class="sla late"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Chưa gọi · ' + Math.floor(hoursSince(l.created_at)) + ' giờ</div>';
+    slaHtml = '<div class="sla late"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Chưa gọi · ' + (hoursSince(l.created_at) < 1 ? Math.floor(hoursSince(l.created_at) * 60) + ' phút' : Math.floor(hoursSince(l.created_at)) + ' giờ') + '</div>';
   } else if(c.nextFollowUp){
     var dt = new Date(c.nextFollowUp);
     var over = dt.getTime() < Date.now();
@@ -1078,8 +1242,8 @@ function rowLead(l){
 
   return '<tr class="' + (curLead === l.id ? 'active ' : '') + (isSel(l.id) ? 'sel-row' : '') + '" onclick="openDrawer(\'' + esc(l.id) + '\')">'
     + cbTd(l.id)
-    + '<td><div class="c-name">' + esc(leadName(l)) + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div>' + hidNote(c) + '</td>'
-    + '<td><div class="c-prod">' + esc(leadProduct(l)) + '</div><div class="c-src">' + esc(l.form_name || '') + '</div></td>'
+    + '<td><div class="c-name">' + esc(leadName(l)) + (leadTrung(l).length ? '<span class="dup" title="Số điện thoại này còn ở ' + leadTrung(l).length + ' lead khác">Trùng SĐT ×' + (leadTrung(l).length + 1) + '</span>' : '') + '</div><div class="c-phone">' + esc(leadPhone(l) || '—') + '</div>' + hidNote(c) + '</td>'
+    + '<td><div class="c-prod">' + esc(leadProduct(l)) + '</div>' + kenhHtml(l) + '</td>'
     + '<td><span class="pill ' + st.cls + '">' + esc(st.label) + '</span>' + slaHtml + '</td>'
     + '<td>' + ownHtml + '</td>'
     + '<td><div class="c-time">' + ago(l.created_at) + '</div></td>'
@@ -1159,7 +1323,7 @@ function renderStats(){
 
     wrap.innerHTML =
         card('i-new',  'inbox', 'Lead mới',      nNew,  nUnclaimed + ' chưa ai nhận', '', "setStage('moi')")
-      + card('i-late', 'alert', 'Quá hạn gọi',   nLate, 'Chưa gọi quá ' + SLA_HOURS + ' giờ', 'dgr', 'setLateFilter()')
+      + card('i-late', 'alert', 'Quá hạn gọi',   nLate, 'Quảng cáo quá ' + SLA_ADS_PHUT + ' phút · khác quá ' + SLA_HOURS + ' giờ', 'dgr', 'setLateFilter()')
       + card('i-care', 'chat',  'Đang chăm sóc', nCare, nOverdue ? (nOverdue + ' quá hẹn gọi lại') : 'Đã liên hệ + đang tư vấn', nOverdue ? 'dgr' : '', "setStage('dang-tu-van')")
       + card('i-won',  'check', 'Đã chốt',       nWon,  'Tỷ lệ chuyển đổi ' + rate + '%', 'up', "setView('customer')");
 
@@ -1184,6 +1348,97 @@ function renderStats(){
   }
 }
 
+/* Danh sách lead trùng SĐT trong panel chi tiết. */
+function veTrung(lead){
+  var box = document.getElementById('drTrung');
+  if(!box){
+    box = document.createElement('div'); box.id = 'drTrung'; box.className = 'dr-sec';
+    var f = document.getElementById('drFields').parentNode;
+    f.parentNode.insertBefore(box, f);
+  }
+  var ids = leadTrung(lead);
+  if(!ids.length){ box.style.display = 'none'; box.innerHTML = ''; return; }
+  var ds = LEADS.filter(function(l){ return ids.indexOf(l.id) !== -1; });
+  box.style.display = '';
+  box.innerHTML = '<div class="dr-sec-h" style="color:#b45309">Cùng số điện thoại · ' + ds.length + ' lead khác</div>'
+    + '<div class="dup-list">' + ds.map(function(l){
+        var c = careOf(l.id);
+        return '<div class="dup-item" onclick="openDrawer(\'' + esc(l.id) + '\')"><span>' + esc(fmtDate(l.created_at)) + ' · ' + esc(leadProduct(l)) + ' · ' + kenhHtml(l) + '</span>'
+          + '<span class="pill ' + (STAGES[c.stage||'moi']||STAGES.moi).cls + '">' + esc((STAGES[c.stage||'moi']||STAGES.moi).label) + (c.hidden ? ' · đã ẩn' : '') + '</span></div>';
+      }).join('') + '</div>'
+    + '<div style="font-size:12px;color:var(--ts);margin:8px 0">Chỉ nên chăm sóc một lead. Ẩn các lead còn lại (khôi phục được ở tab "Đã ẩn").</div>'
+    + '<button class="btn-g" onclick="anTrung(\'' + esc(lead.id) + '\')">Giữ lead này, ẩn ' + ds.filter(function(l){ return !careOf(l.id).hidden; }).length + ' lead trùng</button>';
+}
+function anTrung(id){
+  var goc = LEADS.filter(function(l){ return l.id === id; })[0];
+  if(!goc) return;
+  var ids = leadTrung(goc).filter(function(x){ return !careOf(x).hidden; });
+  if(!ids.length){ toast('Không còn lead trùng nào đang hiện'); return; }
+  var con = ids.length;
+  ids.forEach(function(x){
+    postCare(x, { hidden:true }, { type:'note', text:'Ẩn vì trùng số điện thoại — chăm sóc tiếp ở lead nhận lúc ' + fmtDate(goc.created_at) + '.' }, function(){
+      if(--con === 0){ toast('Đã ẩn ' + ids.length + ' lead trùng'); openDrawer(id); }
+    });
+  });
+}
+
+/* ══ THÊM KHÁCH THỦ CÔNG ══ */
+var TK_KENH = '';
+function moThemKhach(){
+  TK_KENH = '';
+  document.getElementById('tkKenh').innerHTML = KENH_THU_CONG.map(function(x){
+    return '<button type="button" data-k="' + x[0] + '" onclick="chonKenhTk(\'' + x[0] + '\')">' + esc(x[1]) + '</button>';
+  }).join('');
+  ['tkPhone','tkName','tkProd','tkCamp','tkNote'].forEach(function(id){ document.getElementById(id).value = ''; });
+  var o = document.getElementById('tkOwner');
+  o.innerHTML = '<option value="">— Chưa giao ai —</option>' + STAFF.map(function(n){ return '<option value="' + esc(n) + '"' + (n === ME ? ' selected' : '') + '>' + esc(n) + '</option>'; }).join('');
+  var sp = {}; LEADS.forEach(function(l){ var p = leadProduct(l); if(p && p !== '—') sp[p] = 1; });
+  document.getElementById('tkProdList').innerHTML = Object.keys(sp).sort().map(function(p){ return '<option value="' + esc(p) + '">'; }).join('');
+  document.getElementById('tkWarn').style.display = 'none';
+  document.getElementById('tkLuu').disabled = false;
+  document.getElementById('mdThem').classList.add('on');
+  setTimeout(function(){ document.getElementById('tkPhone').focus(); }, 50);
+}
+function dongThemKhach(){ document.getElementById('mdThem').classList.remove('on'); }
+function chonKenhTk(k){
+  TK_KENH = k;
+  [].forEach.call(document.querySelectorAll('#tkKenh button'), function(b){ b.classList.toggle('on', b.dataset.k === k); });
+}
+function kiemTrung(){
+  var p = chuanSdt(document.getElementById('tkPhone').value), w = document.getElementById('tkWarn');
+  var ds = p && DUP[p] ? LEADS.filter(function(l){ return DUP[p].indexOf(l.id) !== -1; }) : [];
+  if(!ds.length){ w.style.display = 'none'; return; }
+  var l = ds[0], c = careOf(l.id);
+  w.innerHTML = '⚠ Số này đã có ' + ds.length + ' lead (gần nhất ' + esc(ago(l.created_at)) + ', ' + esc(leadProduct(l)) + ', '
+    + (c.owner ? 'đang do <b>' + esc(c.owner) + '</b> phụ trách' : 'chưa ai nhận') + '). '
+    + '<a href="#" onclick="dongThemKhach();openDrawer(\'' + esc(l.id) + '\');return false">Mở lead đó</a> thay vì tạo mới — hoặc vẫn lưu nếu đây là nhu cầu khác.';
+  w.style.display = 'block';
+}
+function luuThemKhach(){
+  var sdt = document.getElementById('tkPhone').value.trim();
+  if(!TK_KENH){ toast('Chọn khách đến từ đâu', true); return; }
+  if(!chuanSdt(sdt)){ toast('Số điện thoại chưa đúng', true); return; }
+  var b = document.getElementById('tkLuu'); b.disabled = true;
+  var owner = document.getElementById('tkOwner').value;
+  fetch('/.netlify/functions/leads', {
+    method:'POST',
+    headers:{ 'Content-Type':'application/json', 'x-dashboard-key': ACCESS_KEY },
+    body: JSON.stringify({ khachMoi: {
+      kenh: TK_KENH, dienThoai: sdt, hoTen: document.getElementById('tkName').value,
+      sanPham: document.getElementById('tkProd').value, chienDich: document.getElementById('tkCamp').value,
+      ghiChu: document.getElementById('tkNote').value, nguoiNhap: ME
+    } })
+  }).then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); }).then(function(res){
+    if(!res.ok){ b.disabled = false; toast(res.j.error || 'Không lưu được', true); return; }
+    var l = res.j.lead; l._kenh = null;
+    LEADS.unshift(l); dungDup(); fillProductFilter(); fillKenhFilter();
+    dongThemKhach();
+    var xong = function(){ toast('Đã thêm khách'); renderTabs(); render(); };
+    if(owner) postCare(l.id, { owner: owner, stage: 'moi' }, { type:'claim', text:'Nhập tay từ ' + leadKenh(l).ten + ', giao cho ' + owner + '.' }, xong);
+    else xong();
+  }).catch(function(){ b.disabled = false; toast('Lỗi kết nối', true); });
+}
+
 /* ══ NHẬN LEAD ══ */
 function claimLead(id){
   postCare(id, { owner: ME, stage: 'da-lien-he' }, { type:'claim', text:'Đã nhận lead.' }, function(){
@@ -1204,7 +1459,9 @@ function openDrawer(id){
   document.getElementById('drName').textContent = leadName(lead);
   document.getElementById('drMeta').innerHTML =
     esc(leadPhone(lead) || 'Không có SĐT') + ' · ' + esc(leadProduct(lead))
-    + '<br>Nhận lúc ' + fmtDate(lead.created_at) + ' · Nguồn: ' + esc(lead.form_name || '—');
+    + '<br>Nhận lúc ' + fmtDate(lead.created_at) + ' · Kênh: ' + esc(leadKenh(lead).ten) + (leadKenh(lead).ads ? ' (quảng cáo)' : '')
+    + (lead.form_name && lead.form_name !== 'thu-cong' ? ' · Form: ' + esc(lead.form_name) : '');
+  veTrung(lead);
 
   var phone = leadPhone(lead).replace(/[^0-9+]/g,'');
   /* iOS/Android mở Zalo qua Universal Link — cơ chế này KHÔNG hoạt động khi
@@ -1224,6 +1481,7 @@ function openDrawer(id){
     if(META_KEYS.indexOf(k) !== -1) return;
     var v = d[k];
     if(v === null || v === undefined || String(v).trim() === '') return;
+    if(k === 'kenh-thu-cong') v = leadKenh(lead).ten;
     fields += '<div class="fld"><div class="fld-l">' + esc(FIELD_LABELS[k] || k) + '</div><div class="fld-v">' + esc(NEED_LABELS[v] || v) + '</div></div>';
   });
   document.getElementById('drFields').innerHTML = fields || '<div class="fld"><div class="fld-v" style="font-weight:400;color:var(--ts)">Không có dữ liệu bổ sung</div></div>';
@@ -1391,7 +1649,7 @@ function exportCsv(){
     });
   } else {
     fname = 'dbv247-leads-';
-    rows = [['Thoi gian','Ho ten','So dien thoai','San pham','Trang thai','Phu trach','Hen lien he lai','Ghi chu moi nhat','Nguon']];
+    rows = [['Thoi gian','Ho ten','So dien thoai','San pham','Trang thai','Phu trach','Hen lien he lai','Ghi chu moi nhat','Form','Kenh','Chien dich']];
     list.forEach(function(l){
       var c = careOf(l.id);
       var lastNote = (c.activities && c.activities[0]) ? c.activities[0].text : '';
@@ -1404,7 +1662,9 @@ function exportCsv(){
         c.owner || 'Chua ai nhan',
         c.nextFollowUp ? fmtDate(c.nextFollowUp) : '',
         lastNote,
-        l.form_name || ''
+        l.form_name || '',
+        leadKenh(l).loc,
+        (l.data || {}).utm_campaign || (l.data || {})['chien-dich'] || ''
       ]);
     });
   }
@@ -1426,11 +1686,21 @@ function exportCsv(){
 
 /* ══ KHỞI ĐỘNG ══ */
 document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape') closeDrawer();
+  if(e.key === 'Escape'){ closeDrawer(); dongThemKhach(); }
 });
 
 // Đổi trạng thái trong panel → hiện/ẩn mục hợp đồng ngay
 document.getElementById('dStage').addEventListener('change', toggleContractBox);
+
+/* Đăng nhập qua cổng /quan-tri (vé "nv1."): tên người dùng lấy từ tài khoản,
+   không bắt chọn trong danh sách. Thêm tên vào STAFF nếu chưa có để các ô
+   "người phụ trách" vẫn chọn được. */
+(function(){
+  try{
+    var k = localStorage.getItem(KEY_LS) || '', w = localStorage.getItem(WHO_LS) || '';
+    if(k.indexOf('nv1.') === 0 && w && STAFF.indexOf(w) === -1) STAFF.push(w);
+  }catch(e){}
+})();
 
 fillStaffSelects();
 

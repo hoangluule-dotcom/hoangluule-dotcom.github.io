@@ -49,14 +49,15 @@ async function nhanKhach(kho, d) {
   return d.tinOA;
 }
 
-function kiemKhoa(event) {
-  const h = event.headers || {};
-  const gui = h['x-dashboard-key'] || h['X-Dashboard-Key'] || '';
-  const mong = process.env.DASHBOARD_KEY || '';
-  if (!mong) return 'Thiếu biến môi trường DASHBOARD_KEY trên Netlify.';
-  if (!gui || gui !== mong) return 'Sai khoá quản trị.';
-  return null;
-}
+const A = require('./lib/quan-tri-auth');
+
+/* Quyền: xem — mọi vai trò; gắn GCN, nhắn lại — Quản lý, Vận hành;
+   đã nhận tiền — Quản lý, Kế toán. */
+const QUYEN = {
+  'gan-gcn': ['quan-ly', 'van-hanh'],
+  'nhan-lai': ['quan-ly', 'van-hanh'],
+  'da-nhan-tien': ['quan-ly', 'ke-toan'],
+};
 
 async function danhSach(kho) {
   const { blobs } = await kho.list({ prefix: 'don/' });
@@ -77,9 +78,10 @@ async function danhSach(kho) {
 }
 
 exports.handler = async function (event) {
-  const loiKhoa = kiemKhoa(event);
-  if (loiKhoa) return C.json(401, { error: loiKhoa });
   const viec = (event.queryStringParameters || {}).viec;
+  const q = await A.kiemQuyen(event, event.httpMethod === 'POST' ? (QUYEN[viec] || ['quan-ly']) : null);
+  if (q.loi) return C.json(q.ma, { error: q.loi });
+  const nguoi = q.nv.hoTen;
   const kho = C.moKho();
 
   try {
@@ -103,7 +105,7 @@ exports.handler = async function (event) {
           maTep, ten, kich: buf.length, mime: 'application/pdf', luc: new Date().toISOString(), nguon: 'dbv', maDon: d.maDon,
         });
       }
-      d.gcn = (d.gcn || []).concat([{ maTep, ten, luc: new Date().toISOString() }]);
+      d.gcn = (d.gcn || []).concat([{ maTep, ten, luc: new Date().toISOString(), nguoi }]);
       d.trangThai = 'hieu_luc';
       const tinOA = await nhanKhach(kho, d);
       await kho.setJSON('don/' + d.maDon, d);
@@ -125,6 +127,7 @@ exports.handler = async function (event) {
       }
       if (d.trangThai === 'cho_thanh_toan') d.trangThai = 'da_thanh_toan';
       d.daNhanTienLuc = new Date().toISOString();
+      d.daNhanTienBoi = nguoi;
       await kho.setJSON('don/' + d.maDon, d);
       return C.json(200, { ok: true, zalo });
     }
