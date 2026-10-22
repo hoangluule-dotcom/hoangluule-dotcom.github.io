@@ -169,8 +169,9 @@ async function ghiSoChinh(goi) {
 }
 
 async function xuLyTaoDon(p) {
-  const nd = await C.layNguoiDung(p.accessToken);
-  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo. Anh/chị mở lại Mini App giúp.' });
+  /* Không xác minh được Zalo ID thì VẪN nhận đơn — mất đơn của khách tệ hơn
+     nhiều so với việc đơn đó tạm không hiện trong "Đơn của tôi". */
+  const nd = (await C.layNguoiDung(p.accessToken)) || { id: '', ten: '' };
 
   const xe = p.xe || {};
   xe.loai = xe.loai === 'moto' ? 'moto' : 'oto';
@@ -254,7 +255,7 @@ async function xuLyTaoDon(p) {
     maDonZalo: '', gcn: [],
   };
   await kho.setJSON('don/' + maDon, banGhi);
-  await kho.setJSON('kh/' + nd.id + '/don/' + maDon, { maDon, taoLuc: banGhi.taoLuc });
+  if (nd.id) await kho.setJSON('kh/' + nd.id + '/don/' + maDon, { maDon, taoLuc: banGhi.taoLuc });
 
   /* Tham số Checkout SDK — kênh chuyển khoản ngân hàng (BANK). */
   let thanhToan = null;
@@ -282,10 +283,11 @@ async function layDonCuaToi(kho, zaloId, maDon) {
 
 async function xuLyGanDonZalo(p) {
   const nd = await C.layNguoiDung(p.accessToken);
-  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
   const kho = C.moKho();
-  const d = await layDonCuaToi(kho, nd.id, String(p.maDon || ''));
-  if (!d) return C.json(404, { error: 'Không tìm thấy đơn.' });
+  const d = await kho.get('don/' + String(p.maDon || ''), { type: 'json' });
+  /* Đơn có chủ thì chỉ chủ đơn gắn được; đơn chưa xác minh được chủ thì cho gắn
+     (chỉ là mã đơn Zalo để webhook tra ngược, không lộ dữ liệu gì). */
+  if (!d || (d.zaloId && (!nd || nd.id !== d.zaloId))) return C.json(404, { error: 'Không tìm thấy đơn.' });
   const z = String(p.maDonZalo || '').slice(0, 64);
   if (!z) return C.json(400, { error: 'Thiếu mã đơn Zalo.' });
   d.maDonZalo = z;

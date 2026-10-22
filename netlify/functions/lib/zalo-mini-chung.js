@@ -95,12 +95,16 @@ async function layNguoiDung(accessToken) {
   const ctrl = new AbortController();
   const hen = setTimeout(() => ctrl.abort(), 8000);
   try {
-    const r = await fetch('https://graph.zalo.me/v2.0/me?fields=id,name', {
-      headers: { access_token: String(accessToken) },
-      signal: ctrl.signal,
-    });
+    const headers = { access_token: String(accessToken) };
+    /* Graph API của Zalo đòi appsecret_proof = HMAC-SHA256(access_token, khoá bí mật của app) */
+    const secret = process.env.ZALO_MINIAPP_SECRET_KEY;
+    if (secret) headers.appsecret_proof = crypto.createHmac('sha256', secret).update(String(accessToken)).digest('hex');
+    const r = await fetch('https://graph.zalo.me/v2.0/me?fields=id', { headers, signal: ctrl.signal });
     const kq = await r.json().catch(() => ({}));
-    if (!kq || !kq.id || (kq.error && kq.error !== 0)) return null;
+    if (!kq || !kq.id || (kq.error && kq.error !== 0)) {
+      console.error('zalo-mini: Zalo không xác minh người dùng:', r.status, JSON.stringify(kq).slice(0, 300));
+      return null;
+    }
     return { id: String(kq.id), ten: String(kq.name || '') };
   } catch (err) {
     console.error('zalo-mini: không xác minh được người dùng:', err.message);
