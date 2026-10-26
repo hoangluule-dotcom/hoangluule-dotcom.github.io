@@ -58,7 +58,7 @@
   </div>
   <details class="form" id="f-ngoai">
     <summary>Gắn PDF cho khách mua ngoài Zalo (web, điện thoại, tại quầy…)</summary>
-    <p class="huong">Nhập <b>đúng số điện thoại khách đang dùng Zalo</b>. Khách mở Mini App <b>Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo</b>, xác minh số điện thoại là thấy hợp đồng và file PDF. Khách đã xác minh số này từ trước thì hợp đồng hiện ngay và OA tự nhắn (nếu khách đang theo dõi OA).</p>
+    <p class="huong">Nhập <b>đúng số điện thoại khách đang dùng Zalo</b>. Khách mở Mini App <b>Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo</b>, xác minh số điện thoại là thấy hợp đồng và file PDF. Khách đã xác minh số này từ trước thì hợp đồng hiện ngay và OA tự nhắn (nếu khách đang theo dõi OA).<br>Mỗi hợp đồng còn có <b>mã liên kết 8 ký tự</b> (hạn 30 ngày, dùng một lần): khách vào Hợp đồng → "Nhập mã liên kết" là nhận được, kể cả khi không xác minh được số điện thoại.</p>
     <form class="luoi" id="ng-form" autocomplete="off">
       <label>Số điện thoại khách *<input id="ng-sdt" inputmode="tel" placeholder="09xx xxx xxx" required></label>
       <label>Sản phẩm *<input id="ng-sp" list="ng-ds-sp" placeholder="VD: Vật chất ô tô" required></label>
@@ -129,7 +129,7 @@
         '<td>'+esc(d.sanPham)+'<div class="mo">'+esc(d.bienSo||'Chưa có biển')+'</div></td>'+
         '<td>'+esc(d.hoTen)+'<div class="mo">'+esc(d.sdt)+' · '+esc(d.email)+'</div></td>'+
         (d.nguon==='ngoai'
-          ?'<td><div class="mo">'+(d.daLienKet?'✓ Khách đã liên kết — thấy trong app':'Chờ khách xác minh SĐT trong app')+'</div></td>'
+          ?'<td><div class="mo">'+(d.daLienKet?'✓ Khách đã liên kết — thấy trong app':'Chờ khách liên kết trong app')+'</div>'+(d.maLienKet?'<div>Mã liên kết: <code style="font-size:14px;font-weight:700">'+esc(d.maLienKet.slice(0,4)+'-'+d.maLienKet.slice(4))+'</code></div>':'')+'</td>'
           :'<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div></td>')+
         '<td class="so">'+tien(d.phi)+'</td><td>'+esc(d.maCtv||'—')+'</td>'+
         '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span><div class="mo">'+d.soGcn+' GCN</div>'+tinOA(d)+'</td>'+
@@ -208,7 +208,7 @@
         nut.disabled=false; $('ng-form').reset();
         bao('Đã tạo hợp đồng '+j.maDon+'. '+(j.daLienKet
           ? 'Số này đã liên kết Mini App — khách thấy ngay trong mục Hợp đồng.'+baoTin(j.tinOA)
-          : 'Nhắn khách: "Anh/chị mở Zalo, tìm Mini App Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo, xác minh số điện thoại để xem giấy chứng nhận."'));
+          : 'Mã liên kết: '+j.maLienKet.slice(0,4)+'-'+j.maLienKet.slice(4)+'. Nhắn khách: "Anh/chị mở Mini App Bảo hiểm DBV trên Zalo → Hợp đồng → Nhập mã liên kết: '+j.maLienKet.slice(0,4)+'-'+j.maLienKet.slice(4)+' để xem giấy chứng nhận (mã dùng một lần, hạn 30 ngày)."'));
         tai();
       }).catch(function(err){ nut.disabled=false; bao(err.message); });
     };

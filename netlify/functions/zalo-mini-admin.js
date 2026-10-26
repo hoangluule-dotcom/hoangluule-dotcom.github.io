@@ -13,6 +13,9 @@
                             (web, điện thoại, tại quầy…). Tạo đơn nguồn "ngoai"
                             theo SĐT; khách mở Mini App → Hợp đồng → "Liên kết
                             hợp đồng mua ngoài Zalo" → xác minh đúng số đó là thấy.
+                            Kèm MÃ LIÊN KẾT 8 ký tự (hạn 30 ngày, dùng một lần) —
+                            khách nhập mã trong app khi không xác minh được SĐT
+                            (quyền SĐT chưa duyệt, mua bằng số khác số Zalo).
 
    Gắn giấy chứng nhận xong, OA DBV247 TỰ NHẮN khách (lib/zalo-oa.js). Không
    nhắn được (khách chưa Quan tâm OA, quá 7 ngày không tương tác, chưa kết nối
@@ -108,6 +111,7 @@ async function ganNgoai(kho, p, nguoi) {
 
   const lk = await kho.get('sdt/' + sdt, { type: 'json' });
   let tinOA = null;
+  let maLienKet = '';
   if (lk && lk.zaloId) {
     d.zaloId = lk.zaloId;
     d.lienKetLuc = luc;
@@ -116,9 +120,12 @@ async function ganNgoai(kho, p, nguoi) {
     tinOA = await nhanKhach(kho, d);
   } else {
     await kho.setJSON('cho/' + sdt + '/' + maDon, { maDon, luc });
+    maLienKet = C.ngauNhien(8);
+    d.maLienKet = maLienKet;
+    await kho.setJSON('ma/' + maLienKet, { maDon, sdt, het: Date.now() + 30 * 86400000 });
   }
   await kho.setJSON('don/' + maDon, d);
-  return C.json(200, { ok: true, maDon, daLienKet: !!d.zaloId, tinOA });
+  return C.json(200, { ok: true, maDon, daLienKet: !!d.zaloId, tinOA, maLienKet });
 }
 
 async function danhSach(kho) {
@@ -127,13 +134,19 @@ async function danhSach(kho) {
   for (const b of blobs.slice(-300)) {
     const d = await kho.get(b.key, { type: 'json' });
     if (!d) continue;
+    /* Đơn ngoài Zalo tạo trước khi có mã liên kết → cấp mã luôn. */
+    if (d.nguon === 'ngoai' && !d.zaloId && !d.maLienKet) {
+      d.maLienKet = C.ngauNhien(8);
+      await kho.setJSON('ma/' + d.maLienKet, { maDon: d.maDon, sdt: d.sdt, het: Date.now() + 30 * 86400000 });
+      await kho.setJSON('don/' + d.maDon, d);
+    }
     ds.push({
       maDon: d.maDon, taoLuc: d.taoLuc, sanPham: d.sanPham, bienSo: d.bienSo, phi: d.phi,
       hoTen: d.hoTen, sdt: d.sdt, email: d.email, maCtv: d.maCtv, noiDungCk: d.noiDungCk,
       trangThai: d.trangThai, maDonZalo: d.maDonZalo, kenh: d.kenhThanhToan || '',
       soChinh: d.soChinh, soGcn: (d.gcn || []).length,
       coOA: !!d.idOA, tinOA: d.tinOA || null,
-      nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId,
+      nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId, maLienKet: d.zaloId ? '' : d.maLienKet || '',
     });
   }
   ds.sort((a, b) => String(b.taoLuc).localeCompare(String(a.taoLuc)));

@@ -18,6 +18,8 @@
                    (dùng lại ctv-toi.js — bắt nhập lại mật khẩu)
    lien-ket-sdt    khách xác minh SĐT Zalo → nhận các hợp đồng mua NGOÀI Zalo
                    mà nhân viên đã gắn PDF theo đúng số đó (zalo-mini-admin gan-ngoai)
+   nhap-ma-lien-ket  khách nhập mã liên kết 8 ký tự nhân viên gửi → nhận hợp đồng mua
+                   ngoài Zalo (dùng khi chưa xác minh được SĐT)
    dang-ky-oa      lưu ID của khách theo OA (idByOA) để OA nhắn khi có giấy
                    chứng nhận — gọi sau khi khách bấm Quan tâm OA
 
@@ -386,6 +388,9 @@ function anSdt(sdt) {
 async function nhanDonVeTaiKhoan(kho, d, zaloId) {
   d.zaloId = zaloId;
   d.lienKetLuc = new Date().toISOString();
+  if (d.maLienKet) await kho.delete('ma/' + d.maLienKet);
+  if (d.sdt) await kho.delete('cho/' + d.sdt + '/' + d.maDon);
+  delete d.maLienKet;
   await kho.setJSON('kh/' + zaloId + '/don/' + d.maDon, { maDon: d.maDon, taoLuc: d.taoLuc });
   for (const g of d.gcn || []) {
     await kho.setJSON('kh/' + zaloId + '/tep/' + g.maTep, {
@@ -417,6 +422,24 @@ async function xuLyLienKetSdt(p) {
     await kho.delete(b.key);
   }
   return C.json(200, { ok: true, soDon, sdt: anSdt(sdt) });
+}
+
+/* Mã liên kết: 8 ký tự ngẫu nhiên (32^8 ≈ 10^12 khả năng), một lần, hạn 30 ngày.
+   Chỉ cần biết ai đang mở app (access token) — KHÔNG cần quyền số điện thoại. */
+async function xuLyNhapMaLienKet(p) {
+  const nd = await C.layNguoiDung(p.accessToken);
+  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
+  const ma = String(p.ma || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const sai = C.json(404, { error: 'Mã liên kết chưa đúng hoặc đã hết hạn. Anh/chị kiểm tra lại hoặc nhắn DBV.' });
+  if (ma.length !== 8) return sai;
+  const kho = C.moKho();
+  const m = await kho.get('ma/' + ma, { type: 'json' });
+  if (!m || m.het < Date.now()) return sai;
+  const d = await kho.get('don/' + m.maDon, { type: 'json' });
+  if (!d) return sai;
+  if (d.zaloId && d.zaloId !== nd.id) return C.json(409, { error: 'Mã này đã được dùng cho một tài khoản Zalo khác.' });
+  if (!d.zaloId) await nhanDonVeTaiKhoan(kho, d, nd.id);
+  return C.json(200, { ok: true, soDon: 1, sanPham: d.sanPham });
 }
 
 /* ═════════════ ĐƠN CỦA TÔI ═════════════ */
@@ -529,6 +552,7 @@ const VIEC = {
   'ctv-nhan-tien': xuLyCtvNhanTien,
   'dang-ky-oa': xuLyDangKyOa,
   'lien-ket-sdt': xuLyLienKetSdt,
+  'nhap-ma-lien-ket': xuLyNhapMaLienKet,
 };
 
 exports.handler = async function (event) {
