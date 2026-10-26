@@ -8,6 +8,10 @@
    POST ?viec=da-nhan-tien {maDon}               báo Zalo đơn chuyển khoản đã nhận tiền
    POST ?viec=nhan-lai     {maDon}               gửi lại tin OA "giấy chứng nhận đã sẵn sàng"
    GET  ?viec=oa                                 đã kết nối Zalo OA chưa
+   POST ?viec=cap-lai-ma   {maDon}               cấp (lại) mã liên kết 8 ký tự cho một đơn
+                                                 — khách đổi máy, xoá Zalo, hoặc đơn chưa
+                                                 gắn được vào app. Mã mới chuyển đơn sang
+                                                 máy đang nhập mã.
    POST ?viec=gan-ngoai    {sdt, sanPham, bienSo, hieuLucTu, hieuLucDen, phi,
                             hoTen, ten, base64}  gắn PDF cho khách mua NGOÀI Zalo
                             (web, điện thoại, tại quầy…). Tạo đơn nguồn "ngoai"
@@ -64,6 +68,7 @@ const A = require('./lib/quan-tri-auth');
 const QUYEN = {
   'gan-gcn': ['quan-ly', 'van-hanh'],
   'gan-ngoai': ['quan-ly', 'van-hanh'],
+  'cap-lai-ma': ['quan-ly', 'van-hanh'],
   'nhan-lai': ['quan-ly', 'van-hanh'],
   'da-nhan-tien': ['quan-ly', 'ke-toan'],
 };
@@ -146,7 +151,7 @@ async function danhSach(kho) {
       trangThai: d.trangThai, maDonZalo: d.maDonZalo, kenh: d.kenhThanhToan || '',
       soChinh: d.soChinh, soGcn: (d.gcn || []).length,
       coOA: !!d.idOA, tinOA: d.tinOA || null,
-      nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId, maLienKet: d.zaloId ? '' : d.maLienKet || '',
+      nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId, maLienKet: d.maLienKet || '',
     });
   }
   ds.sort((a, b) => String(b.taoLuc).localeCompare(String(a.taoLuc)));
@@ -187,6 +192,14 @@ exports.handler = async function (event) {
       const tinOA = await nhanKhach(kho, d);
       await kho.setJSON('don/' + d.maDon, d);
       return C.json(200, { ok: true, maTep, tinOA, coTrongApp: !!d.zaloId });
+    }
+
+    if (viec === 'cap-lai-ma') {
+      if (d.maLienKet) await kho.delete('ma/' + d.maLienKet);
+      d.maLienKet = C.ngauNhien(8);
+      await kho.setJSON('ma/' + d.maLienKet, { maDon: d.maDon, sdt: d.sdt || '', het: Date.now() + 30 * 86400000, chuyen: true, boi: nguoi });
+      await kho.setJSON('don/' + d.maDon, d);
+      return C.json(200, { ok: true, maLienKet: d.maLienKet });
     }
 
     if (viec === 'nhan-lai') {

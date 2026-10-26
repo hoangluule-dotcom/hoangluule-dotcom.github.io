@@ -90,8 +90,14 @@ function maDonMoi() {
    Mini App gửi access token của người dùng (getAccessToken). Máy chủ tự hỏi
    Zalo đó là ai — KHÔNG tin ID do Mini App tự khai, vì ai cũng gửi được một
    ID bất kỳ để xem đơn và file của người khác. */
+/* Lý do lần xác minh gần nhất thất bại — trả về cho app (mã lỗi Zalo, không có
+   dữ liệu cá nhân) để biết phải sửa ở đâu: thiếu khoá, khoá sai, token hết hạn… */
+let _loiXacMinh = '';
+function loiXacMinhGanNhat() { return _loiXacMinh; }
+
 async function layNguoiDung(accessToken) {
-  if (!accessToken) return null;
+  _loiXacMinh = '';
+  if (!accessToken) { _loiXacMinh = 'thieu-token'; return null; }
   const ctrl = new AbortController();
   const hen = setTimeout(() => ctrl.abort(), 8000);
   try {
@@ -102,16 +108,39 @@ async function layNguoiDung(accessToken) {
     const r = await fetch('https://graph.zalo.me/v2.0/me?fields=id', { headers, signal: ctrl.signal });
     const kq = await r.json().catch(() => ({}));
     if (!kq || !kq.id || (kq.error && kq.error !== 0)) {
+      _loiXacMinh = (secret ? '' : 'thieu-ZALO_MINIAPP_SECRET_KEY ') + 'zalo ' + (kq && kq.error) + ' ' + String((kq && kq.message) || r.status).slice(0, 80);
       console.error('zalo-mini: Zalo không xác minh người dùng:', r.status, JSON.stringify(kq).slice(0, 300));
       return null;
     }
     return { id: String(kq.id), ten: String(kq.name || '') };
   } catch (err) {
+    _loiXacMinh = 'mang ' + String(err.message).slice(0, 60);
     console.error('zalo-mini: không xác minh được người dùng:', err.message);
     return null;
   } finally {
     clearTimeout(hen);
   }
+}
+
+/* ── Khoá thiết bị (thay cho xác minh qua Graph API) ─────────────────────
+   Zalo chặn Graph API trả thông tin người dùng cho máy chủ ngoài Việt Nam
+   (lỗi -501 "IP address not inside Vietnam") — Netlify Functions chạy ở Mỹ.
+   Nên Mini App tự sinh một KHOÁ BÍ MẬT ngẫu nhiên (32+ ký tự) lưu trong
+   nativeStorage của Zalo trên máy khách, gửi kèm mọi yêu cầu. Máy chủ chỉ lưu
+   mã băm của khoá làm "ID khách". Không ai đoán được khoá của người khác;
+   đổi máy/xoá Zalo thì mất khoá → nhân viên cấp lại mã liên kết.
+   Khi có máy chủ trung chuyển đặt tại VN thì quay lại dùng layNguoiDung(). */
+function idTuKhoaThietBi(k) {
+  k = String(k || '');
+  if (!/^[A-Za-z0-9_-]{32,64}$/.test(k)) return null;
+  return 'tb_' + crypto.createHash('sha256').update('dbv247-thiet-bi:' + k).digest('hex').slice(0, 32);
+}
+async function xacMinhNguoiDung(p) {
+  _loiXacMinh = '';
+  const id = idTuKhoaThietBi(p && p.khoaThietBi);
+  if (id) return { id, ten: '' };
+  _loiXacMinh = 'thieu-khoa-thiet-bi';
+  return null;
 }
 
 /* Token getPhoneNumber → số điện thoại (dùng một lần, hết hạn 2 phút). */
@@ -216,6 +245,6 @@ async function baoZaloDaThanhToan(maDonZalo, resultCode) {
 module.exports = {
   MINI_APP_ID, HOTLINE, CORS, json, moKho, datKhoThu,
   chuanHoaSdt, chuanHoaMaCtv, maDonMoi, ngauNhien,
-  layNguoiDung, doiTokenRaSdt, kyVe, giaiVe,
+  layNguoiDung, xacMinhNguoiDung, idTuKhoaThietBi, loiXacMinhGanNhat, doiTokenRaSdt, kyVe, giaiVe,
   macDonHang, soSanhMac, baoZaloDaThanhToan,
 };

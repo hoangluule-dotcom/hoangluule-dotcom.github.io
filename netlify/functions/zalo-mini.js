@@ -24,8 +24,10 @@
                    chứng nhận — gọi sau khi khách bấm Quan tâm OA
 
    NGUYÊN TẮC
-   • Người dùng là ai do MÁY CHỦ hỏi Zalo bằng access token — không tin ID do
-     Mini App khai. Thiếu điều này là ai cũng đọc được đơn của người khác.
+   • Người dùng là ai: theo KHOÁ THIẾT BỊ bí mật app tự sinh (lib/zalo-mini-chung
+     xacMinhNguoiDung) — Zalo chặn Graph API với máy chủ ngoài VN (lỗi -501).
+     Không tin ID do Mini App khai; khoá không đoán được nên không ai đọc được
+     đơn của người khác.
    • Phí do MÁY CHỦ tính từ biểu phí gốc của website (assets/cap-don-tnds.js)
      rồi Apps Script tính lại lần nữa. Số tiền Mini App gửi lên bị bỏ qua.
    • Đơn đi vào đúng sổ chính của website: hoa hồng, đối soát, dashboard CTV
@@ -209,7 +211,7 @@ async function xuLyBaoPhi(p) {
 async function xuLyTaoDon(p) {
   /* Không xác minh được Zalo ID thì VẪN nhận đơn — mất đơn của khách tệ hơn
      nhiều so với việc đơn đó tạm không hiện trong "Đơn của tôi". */
-  const nd = (await C.layNguoiDung(p.accessToken)) || { id: '', ten: '' };
+  const nd = (await C.xacMinhNguoiDung(p)) || { id: '', ten: '' };
 
   const xe = p.xe || {};
   xe.loai = xe.loai === 'moto' ? 'moto' : 'oto';
@@ -327,7 +329,7 @@ async function layDonCuaToi(kho, zaloId, maDon) {
 }
 
 async function xuLyGanDonZalo(p) {
-  const nd = await C.layNguoiDung(p.accessToken);
+  const nd = await C.xacMinhNguoiDung(p);
   const kho = C.moKho();
   const d = await kho.get('don/' + String(p.maDon || ''), { type: 'json' });
   /* Đơn có chủ thì chỉ chủ đơn gắn được; đơn chưa xác minh được chủ thì cho gắn
@@ -357,7 +359,7 @@ function idOaHopLe(v) {
 async function xuLyDangKyOa(p) {
   const idOA = idOaHopLe(p.idOA);
   if (!idOA) return C.json(400, { error: 'Thiếu ID theo OA.' });
-  const nd = await C.layNguoiDung(p.accessToken);
+  const nd = await C.xacMinhNguoiDung(p);
   const kho = C.moKho();
   if (nd) await kho.setJSON('kh/' + nd.id + '/oa', { idOA, luc: new Date().toISOString() });
   const maDon = String(p.maDon || '');
@@ -401,8 +403,8 @@ async function nhanDonVeTaiKhoan(kho, d, zaloId) {
 }
 
 async function xuLyLienKetSdt(p) {
-  const nd = await C.layNguoiDung(p.accessToken);
-  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
+  const nd = await C.xacMinhNguoiDung(p);
+  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.', ma: C.loiXacMinhGanNhat() });
   const sdt = p.tokenSdt ? await C.doiTokenRaSdt(p.accessToken, p.tokenSdt) : null;
   if (!sdt) return C.json(400, { error: 'Chưa xác minh được số điện thoại. Anh/chị thử lại hoặc nhắn DBV.' });
 
@@ -427,8 +429,8 @@ async function xuLyLienKetSdt(p) {
 /* Mã liên kết: 8 ký tự ngẫu nhiên (32^8 ≈ 10^12 khả năng), một lần, hạn 30 ngày.
    Chỉ cần biết ai đang mở app (access token) — KHÔNG cần quyền số điện thoại. */
 async function xuLyNhapMaLienKet(p) {
-  const nd = await C.layNguoiDung(p.accessToken);
-  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
+  const nd = await C.xacMinhNguoiDung(p);
+  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.', ma: C.loiXacMinhGanNhat() });
   const ma = String(p.ma || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
   const sai = C.json(404, { error: 'Mã liên kết chưa đúng hoặc đã hết hạn. Anh/chị kiểm tra lại hoặc nhắn DBV.' });
   if (ma.length !== 8) return sai;
@@ -437,8 +439,15 @@ async function xuLyNhapMaLienKet(p) {
   if (!m || m.het < Date.now()) return sai;
   const d = await kho.get('don/' + m.maDon, { type: 'json' });
   if (!d) return sai;
-  if (d.zaloId && d.zaloId !== nd.id) return C.json(409, { error: 'Mã này đã được dùng cho một tài khoản Zalo khác.' });
+  if (d.zaloId && d.zaloId !== nd.id) {
+    if (!m.chuyen) return C.json(409, { error: 'Mã này đã được dùng cho một tài khoản khác.' });
+    /* Mã cấp lại (khách đổi máy / xoá Zalo): chuyển hợp đồng sang máy mới. */
+    await kho.delete('kh/' + d.zaloId + '/don/' + d.maDon);
+    for (const g of d.gcn || []) await kho.delete('kh/' + d.zaloId + '/tep/' + g.maTep);
+    d.zaloId = '';
+  }
   if (!d.zaloId) await nhanDonVeTaiKhoan(kho, d, nd.id);
+  else { await kho.delete('ma/' + ma); delete d.maLienKet; await kho.setJSON('don/' + d.maDon, d); }
   return C.json(200, { ok: true, soDon: 1, sanPham: d.sanPham });
 }
 
@@ -448,8 +457,8 @@ function urlTep(maTep, zaloId) {
 }
 
 async function xuLyDon(p) {
-  const nd = await C.layNguoiDung(p.accessToken);
-  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
+  const nd = await C.xacMinhNguoiDung(p);
+  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.', ma: C.loiXacMinhGanNhat() });
   const kho = C.moKho();
 
   const { blobs: dsDon } = await kho.list({ prefix: 'kh/' + nd.id + '/don/' });
@@ -480,15 +489,15 @@ async function xuLyDon(p) {
 }
 
 async function xuLyVeTaiLen(p) {
-  const nd = await C.layNguoiDung(p.accessToken);
-  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
+  const nd = await C.xacMinhNguoiDung(p);
+  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.', ma: C.loiXacMinhGanNhat() });
   const ve = C.kyVe({ z: nd.id, k: 'len' }, 15);
   return C.json(200, { ok: true, url: API_GOC + '/zalo-mini-tep?ve=' + encodeURIComponent(ve) });
 }
 
 async function xuLyXoaTep(p) {
-  const nd = await C.layNguoiDung(p.accessToken);
-  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
+  const nd = await C.xacMinhNguoiDung(p);
+  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.', ma: C.loiXacMinhGanNhat() });
   const kho = C.moKho();
   const ma = String(p.maTep || '').replace(/[^A-Z0-9]/g, '');
   const t = await kho.get('kh/' + nd.id + '/tep/' + ma, { type: 'json' });
