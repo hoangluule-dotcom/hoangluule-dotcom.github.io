@@ -5,6 +5,11 @@
    POST dang-nhap    {ten, matKhau}                  → {ve, nv}
    POST khoi-tao     {khoa, ten, hoTen, matKhau}     tạo tài khoản QUẢN LÝ đầu tiên
                      bằng khoá chung DASHBOARD_KEY (chỉ khi chưa có quản lý nào)
+   POST khoi-phuc    {ma}                            → danh sách tài khoản quản lý
+                     {ma, ten, matKhau}              → đặt lại mật khẩu, vào luôn
+                     Quên tên đăng nhập / mật khẩu: ma = biến môi trường
+                     QUAN_TRI_MA_KHOI_PHUC (chỉ người có quyền vào Netlify đặt được).
+                     Sai 5 lần → khoá 1 giờ. Mỗi lần dùng: ghi nhật ký + báo nhóm Zalo.
    GET  toi                                          → hồ sơ của chính mình
    POST doi-mat-khau {cu, moi}                       → vé mới (vé cũ hết hiệu lực)
 
@@ -85,6 +90,49 @@ async function taoNv(p, vaiTro, phaiDoi, nguoiTao) {
   return { nv };
 }
 
+async function khoiPhuc(p) {
+  const mong = process.env.QUAN_TRI_MA_KHOI_PHUC || '';
+  if (mong.length < 12) {
+    return json(400, { error: 'Chưa bật khôi phục. Vào Netlify → Site configuration → Environment variables, thêm biến QUAN_TRI_MA_KHOI_PHUC (chuỗi tự đặt, ≥ 12 ký tự), deploy lại rồi thử.' });
+  }
+  const kho = A.moKho();
+  const kp = (await kho.get('khoi-phuc', { type: 'json' })) || { sai: 0, den: 0 };
+  if (kp.den && Date.now() < kp.den) {
+    return json(429, { error: 'Nhập sai mã khôi phục quá nhiều lần. Thử lại sau ' + Math.ceil((kp.den - Date.now()) / 60000) + ' phút.' });
+  }
+  const crypto = require('node:crypto');
+  const a = Buffer.from(String(p.ma || '')), b = Buffer.from(mong);
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
+    kp.sai = (kp.sai || 0) + 1;
+    if (kp.sai >= 5) { kp.den = Date.now() + 3600000; kp.sai = 0; }
+    await kho.setJSON('khoi-phuc', kp);
+    await A.ghiNhatKy('khoi-phuc', 'khoi-phuc-sai', 'Nhập sai mã khôi phục');
+    return json(401, { error: 'Mã khôi phục không đúng.' });
+  }
+  await kho.setJSON('khoi-phuc', { sai: 0, den: 0 });
+  const quanLy = (await A.dsNv()).filter((n) => n.vaiTro === 'quan-ly');
+  if (!p.ten) {
+    return json(200, { ok: true, quanLy: quanLy.map((n) => ({ ten: n.ten, hoTen: n.hoTen, biKhoa: !!n.biKhoa })) });
+  }
+  const nv = quanLy.find((n) => n.ten === A.chuanHoaTen(p.ten));
+  if (!nv) return json(404, { error: 'Không có tài khoản quản lý này.' });
+  const loi = A.matKhauHopLe(p.matKhau);
+  if (loi) return json(400, { error: loi });
+  nv.matKhau = A.bamMatKhau(p.matKhau);
+  nv.phien = (nv.phien || 1) + 1;
+  nv.phaiDoiMatKhau = false;
+  nv.biKhoa = false;
+  nv.saiLan = 0;
+  nv.khoaDen = 0;
+  nv.dangNhapLuc = new Date().toISOString();
+  await A.luuNv(nv);
+  await A.ghiNhatKy(nv.ten, 'khoi-phuc', 'Đặt lại mật khẩu bằng mã khôi phục');
+  try {
+    await require('./lib/zalo').guiZalo('Cổng quản trị DBV247: tài khoản quản lý "' + nv.ten + '" (' + nv.hoTen + ') vừa được đặt lại mật khẩu bằng mã khôi phục. Nếu không phải anh/chị làm, đổi ngay biến QUAN_TRI_MA_KHOI_PHUC trên Netlify.');
+  } catch (e) { /* không chặn */ }
+  return json(200, { ok: true, ve: A.kyVe(nv), nv: A.congKhai(nv) });
+}
+
 async function dsNhatKy() {
   const kho = A.moKho();
   const { blobs } = await kho.list({ prefix: 'nhat-ky/' });
@@ -106,6 +154,7 @@ exports.handler = async function (event) {
   try {
     if (viec === 'dang-nhap' && event.httpMethod === 'POST') return await dangNhap(p);
     if (viec === 'khoi-tao' && event.httpMethod === 'POST') return await khoiTao(p);
+    if (viec === 'khoi-phuc' && event.httpMethod === 'POST') return await khoiPhuc(p);
     if (viec === 'can-khoi-tao') {
       const ds = await A.dsNv();
       return json(200, { ok: true, canKhoiTao: !ds.some((n) => n.vaiTro === 'quan-ly' && !n.biKhoa) });

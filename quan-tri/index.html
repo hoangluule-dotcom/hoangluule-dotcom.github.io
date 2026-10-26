@@ -140,6 +140,18 @@ a.the:hover{box-shadow:var(--shadow-card-hover);border-color:var(--c-brand)}
       <input class="o" id="k-mk" type="password" autocomplete="new-password">
     </div>
 
+    <div id="khoi-khoi-phuc" class="an">
+      <label class="nhan" for="p-ma">Mã khôi phục</label>
+      <input class="o" id="p-ma" type="password" autocomplete="off">
+      <p class="mo" style="margin:6px 0 0">Là giá trị biến <b>QUAN_TRI_MA_KHOI_PHUC</b> trong Netlify → Site configuration → Environment variables.</p>
+      <div id="p-buoc2" class="an">
+        <label class="nhan" for="p-ten">Tài khoản quản lý</label>
+        <select class="o" id="p-ten"></select>
+        <label class="nhan" for="p-mk">Mật khẩu mới (≥ 8 ký tự, có chữ và số)</label>
+        <input class="o" id="p-mk" type="password" autocomplete="new-password">
+      </div>
+    </div>
+
     <div id="khoi-doi-mk" class="an">
       <label class="nhan" for="d-cu">Mật khẩu tạm quản lý đưa</label>
       <input class="o" id="d-cu" type="password" autocomplete="current-password">
@@ -153,6 +165,9 @@ a.the:hover{box-shadow:var(--shadow-card-hover);border-color:var(--c-brand)}
     <button class="nut xanh" id="vao-nut" type="submit">Đăng nhập</button>
     <p class="mo an" id="vao-khoi-tao-link" style="margin-top:16px;text-align:center">
       Lần đầu dùng hệ thống? <a href="#" id="mo-khoi-tao">Tạo tài khoản quản lý đầu tiên</a>
+    </p>
+    <p class="mo" id="vao-quen" style="margin-top:12px;text-align:center">
+      <a href="#" id="mo-khoi-phuc">Quên tên đăng nhập hoặc mật khẩu?</a>
     </p>
   </form>
 </div>
@@ -524,14 +539,25 @@ function veTaiKhoan(){
 }
 
 /* ═════════ ĐĂNG NHẬP / RA ═════════ */
-var CHE_DO = 'vao';  // vao | khoi-tao | doi-mk
+var CHE_DO = 'vao';  // vao | khoi-tao | doi-mk | khoi-phuc
 function cheDo(m){
   CHE_DO = m;
   $('khoi-dang-nhap').classList.toggle('an', m!=='vao');
   $('khoi-khoi-tao').classList.toggle('an', m!=='khoi-tao');
   $('khoi-doi-mk').classList.toggle('an', m!=='doi-mk');
+  $('khoi-khoi-phuc').classList.toggle('an', m!=='khoi-phuc');
+  $('vao-quen').innerHTML = m==='vao' ? '<a href="#" id="mo-khoi-phuc">Quên tên đăng nhập hoặc mật khẩu?</a>' : '<a href="#" id="ve-dang-nhap">← Quay lại đăng nhập</a>';
+  var a1=$('mo-khoi-phuc'), a2=$('ve-dang-nhap');
+  if(a1) a1.onclick=function(e){ e.preventDefault(); $('p-buoc2').classList.add('an'); cheDo('khoi-phuc'); };
+  if(a2) a2.onclick=function(e){ e.preventDefault(); cheDo('vao'); };
   $('vao-khoi-tao-link').classList.toggle('an', m!=='vao' || !CAN_KHOI_TAO);
-  $('vao-tieu').textContent = m==='vao' ? 'Đăng nhập quản trị' : m==='khoi-tao' ? 'Tạo tài khoản quản lý đầu tiên' : 'Đặt mật khẩu của anh/chị';
+  $('vao-tieu').textContent = m==='vao' ? 'Đăng nhập quản trị' : m==='khoi-tao' ? 'Tạo tài khoản quản lý đầu tiên' : m==='khoi-phuc' ? 'Khôi phục tài khoản quản lý' : 'Đặt mật khẩu của anh/chị';
+  if(m==='khoi-phuc'){
+    $('vao-mo').textContent = 'Dành cho người có quyền vào Netlify của website. Nhân viên quên mật khẩu thì nhờ quản lý bấm "Đặt lại mật khẩu".';
+    $('vao-nut').textContent = $('p-buoc2').classList.contains('an') ? 'Tiếp tục' : 'Đặt mật khẩu mới và vào';
+    $('vao-loi').classList.add('an');
+    return;
+  }
   $('vao-mo').textContent = m==='vao' ? 'Dùng tài khoản riêng do quản lý cấp.' : m==='khoi-tao' ? 'Chỉ làm một lần. Xác nhận bằng khoá chung đang dùng ở các trang /admin cũ.' : 'Mật khẩu tạm chỉ dùng một lần. Đặt mật khẩu riêng để tiếp tục.';
   $('vao-nut').textContent = m==='vao' ? 'Đăng nhập' : m==='khoi-tao' ? 'Tạo tài khoản và vào' : 'Lưu mật khẩu và vào';
   $('vao-loi').classList.add('an');
@@ -550,6 +576,18 @@ $('f-vao').addEventListener('submit', function(e){
   var b=$('vao-nut'); b.disabled=true;
   var p;
   if(CHE_DO==='vao') p = goi('dang-nhap',{ ten:$('v-ten').value, matKhau:$('v-mk').value });
+  else if(CHE_DO==='khoi-phuc'){
+    if($('p-buoc2').classList.contains('an')){
+      goi('khoi-phuc',{ ma:$('p-ma').value }).then(function(j){
+        b.disabled=false;
+        if(!j.quanLy.length){ $('vao-loi').textContent='Chưa có tài khoản quản lý nào — dùng "Tạo tài khoản quản lý đầu tiên".'; $('vao-loi').classList.remove('an'); return; }
+        $('p-ten').innerHTML = j.quanLy.map(function(n){ return '<option value="'+esc(n.ten)+'">'+esc(n.ten)+' — '+esc(n.hoTen)+(n.biKhoa?' (đang khoá)':'')+'</option>'; }).join('');
+        $('p-buoc2').classList.remove('an'); cheDo('khoi-phuc'); $('p-mk').focus();
+      }).catch(function(err){ b.disabled=false; $('vao-loi').textContent=err.message; $('vao-loi').classList.remove('an'); });
+      return;
+    }
+    p = goi('khoi-phuc',{ ma:$('p-ma').value, ten:$('p-ten').value, matKhau:$('p-mk').value });
+  }
   else if(CHE_DO==='khoi-tao') p = goi('khoi-tao',{ khoa:$('k-khoa').value, hoTen:$('k-hoten').value, ten:$('k-ten').value, matKhau:$('k-mk').value });
   else {
     if($('d-moi').value !== $('d-moi2').value){ b.disabled=false; $('vao-loi').textContent='Hai lần nhập mật khẩu mới chưa khớp.'; $('vao-loi').classList.remove('an'); return; }
