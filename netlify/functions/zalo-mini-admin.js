@@ -8,6 +8,11 @@
    POST ?viec=da-nhan-tien {maDon}               báo Zalo đơn chuyển khoản đã nhận tiền
    POST ?viec=nhan-lai     {maDon}               gửi lại tin OA "giấy chứng nhận đã sẵn sàng"
    GET  ?viec=oa                                 đã kết nối Zalo OA chưa
+   POST ?viec=gan-ngoai    {sdt, sanPham, bienSo, hieuLucTu, hieuLucDen, phi,
+                            hoTen, ten, base64}  gắn PDF cho khách mua NGOÀI Zalo
+                            (web, điện thoại, tại quầy…). Tạo đơn nguồn "ngoai"
+                            theo SĐT; khách mở Mini App → Hợp đồng → "Liên kết
+                            hợp đồng mua ngoài Zalo" → xác minh đúng số đó là thấy.
 
    Gắn giấy chứng nhận xong, OA DBV247 TỰ NHẮN khách (lib/zalo-oa.js). Không
    nhắn được (khách chưa Quan tâm OA, quá 7 ngày không tương tác, chưa kết nối
@@ -32,7 +37,7 @@ function noiDungTin(d) {
   /* Đơn không gắn được tài khoản Zalo thì file không hiện trong "Đơn của tôi" —
      nhân viên gửi file PDF trong khung chat OA này. */
   if (!d.zaloId) return dau + 'Nhân viên DBV247 sẽ gửi file PDF cho anh/chị ngay trong khung chat này.\n' + cuoi;
-  return dau + 'Anh/chị mở Mini App "Bảo hiểm DBV247" → Đơn của tôi để xem và tải file PDF:\n' + LINK_APP + '\n' + cuoi;
+  return dau + 'Anh/chị mở Mini App "Bảo hiểm DBV" → Hợp đồng để xem và tải file PDF:\n' + LINK_APP + '\n' + cuoi;
 }
 
 async function nhanKhach(kho, d) {
@@ -55,9 +60,66 @@ const A = require('./lib/quan-tri-auth');
    đã nhận tiền — Quản lý, Kế toán. */
 const QUYEN = {
   'gan-gcn': ['quan-ly', 'van-hanh'],
+  'gan-ngoai': ['quan-ly', 'van-hanh'],
   'nhan-lai': ['quan-ly', 'van-hanh'],
   'da-nhan-tien': ['quan-ly', 'ke-toan'],
 };
+
+function docPdf(p) {
+  const buf = Buffer.from(String(p.base64 || ''), 'base64');
+  if (buf.slice(0, 5).toString('latin1') !== '%PDF-') return { loi: [415, 'Chỉ nhận file PDF.'] };
+  if (buf.length > 4.5 * 1024 * 1024) return { loi: [413, 'File quá 4,5 MB.'] };
+  return { buf };
+}
+const tenTep = (t, du) => (String(t || du).replace(/[\u0000-\u001f"<>|*?:\\/]/g, '').replace(/\.pdf$/i, '') + '.pdf').slice(0, 120);
+const ngayHop = (v) => (/^\d{2}\/\d{2}\/\d{4}$/.test(String(v || '').trim()) ? String(v).trim() : '');
+
+function maDonNgoai() {
+  const d = new Date(Date.now() + 7 * 3600000);
+  const p2 = (x) => String(x).padStart(2, '0');
+  return 'NG' + String(d.getUTCFullYear()).slice(2) + p2(d.getUTCMonth() + 1) + p2(d.getUTCDate()) + C.ngauNhien(4);
+}
+
+/* Đơn mua ngoài Zalo: nếu SĐT đã từng được khách xác minh trong Mini App thì
+   gắn thẳng vào tài khoản đó; chưa thì chờ ở "cho/<sdt>/" tới khi khách xác minh. */
+async function ganNgoai(kho, p, nguoi) {
+  const sdt = C.chuanHoaSdt(p.sdt);
+  if (!sdt) return C.json(400, { error: 'Số điện thoại khách chưa đúng (10 số, bắt đầu bằng 0).' });
+  const sanPham = String(p.sanPham || '').trim().slice(0, 120);
+  if (!sanPham) return C.json(400, { error: 'Nhập tên sản phẩm bảo hiểm.' });
+  const f = docPdf(p);
+  if (f.loi) return C.json(f.loi[0], { error: f.loi[1] });
+
+  const maDon = maDonNgoai();
+  const luc = new Date().toISOString();
+  const maTep = C.ngauNhien(12);
+  const ten = tenTep(p.ten, 'GCN-' + maDon);
+  await kho.set('tep/' + maTep, f.buf, { metadata: { mime: 'application/pdf', ten } });
+
+  const d = {
+    maDon, nguon: 'ngoai', zaloId: '', taoLuc: luc, taoBoi: nguoi,
+    sanPham, bienSo: String(p.bienSo || '').toUpperCase().replace(/\s+/g, '').slice(0, 15),
+    phi: Math.max(0, Math.round(Number(String(p.phi || '').replace(/\D/g, '')) || 0)),
+    hieuLucTu: ngayHop(p.hieuLucTu), hieuLucDen: ngayHop(p.hieuLucDen),
+    hoTen: String(p.hoTen || '').trim().slice(0, 100), sdt, email: '', maCtv: '',
+    noiDungCk: '', trangThai: 'hieu_luc', soChinh: 'ngoai', maDonZalo: '',
+    gcn: [{ maTep, ten, kich: f.buf.length, luc, nguoi }], idOA: '',
+  };
+
+  const lk = await kho.get('sdt/' + sdt, { type: 'json' });
+  let tinOA = null;
+  if (lk && lk.zaloId) {
+    d.zaloId = lk.zaloId;
+    d.lienKetLuc = luc;
+    await kho.setJSON('kh/' + lk.zaloId + '/don/' + maDon, { maDon, taoLuc: luc });
+    await kho.setJSON('kh/' + lk.zaloId + '/tep/' + maTep, { maTep, ten, kich: f.buf.length, mime: 'application/pdf', luc, nguon: 'dbv', maDon });
+    tinOA = await nhanKhach(kho, d);
+  } else {
+    await kho.setJSON('cho/' + sdt + '/' + maDon, { maDon, luc });
+  }
+  await kho.setJSON('don/' + maDon, d);
+  return C.json(200, { ok: true, maDon, daLienKet: !!d.zaloId, tinOA });
+}
 
 async function danhSach(kho) {
   const { blobs } = await kho.list({ prefix: 'don/' });
@@ -71,6 +133,7 @@ async function danhSach(kho) {
       trangThai: d.trangThai, maDonZalo: d.maDonZalo, kenh: d.kenhThanhToan || '',
       soChinh: d.soChinh, soGcn: (d.gcn || []).length,
       coOA: !!d.idOA, tinOA: d.tinOA || null,
+      nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId,
     });
   }
   ds.sort((a, b) => String(b.taoLuc).localeCompare(String(a.taoLuc)));
@@ -90,22 +153,23 @@ exports.handler = async function (event) {
     if (event.httpMethod !== 'POST') return C.json(405, { error: 'Không hỗ trợ.' });
 
     const p = JSON.parse(event.body || '{}');
+    if (viec === 'gan-ngoai') return await ganNgoai(kho, p, nguoi);
     const d = await kho.get('don/' + String(p.maDon || ''), { type: 'json' });
     if (!d) return C.json(404, { error: 'Không tìm thấy đơn ' + p.maDon });
 
     if (viec === 'gan-gcn') {
-      const buf = Buffer.from(String(p.base64 || ''), 'base64');
-      if (buf.slice(0, 5).toString('latin1') !== '%PDF-') return C.json(415, { error: 'Chỉ nhận file PDF.' });
-      if (buf.length > 4.5 * 1024 * 1024) return C.json(413, { error: 'File quá 4,5 MB.' });
+      const f = docPdf(p);
+      if (f.loi) return C.json(f.loi[0], { error: f.loi[1] });
+      const buf = f.buf;
       const maTep = C.ngauNhien(12);
-      const ten = (String(p.ten || 'GCN-' + d.maDon).replace(/[\u0000-\u001f"<>|*?:\\/]/g, '').replace(/\.pdf$/i, '') + '.pdf').slice(0, 120);
+      const ten = tenTep(p.ten, 'GCN-' + d.maDon);
       await kho.set('tep/' + maTep, buf, { metadata: { mime: 'application/pdf', ten } });
       if (d.zaloId) {
         await kho.setJSON('kh/' + d.zaloId + '/tep/' + maTep, {
           maTep, ten, kich: buf.length, mime: 'application/pdf', luc: new Date().toISOString(), nguon: 'dbv', maDon: d.maDon,
         });
       }
-      d.gcn = (d.gcn || []).concat([{ maTep, ten, luc: new Date().toISOString(), nguoi }]);
+      d.gcn = (d.gcn || []).concat([{ maTep, ten, kich: buf.length, luc: new Date().toISOString(), nguoi }]);
       d.trangThai = 'hieu_luc';
       const tinOA = await nhanKhach(kho, d);
       await kho.setJSON('don/' + d.maDon, d);

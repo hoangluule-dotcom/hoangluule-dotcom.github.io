@@ -1,4 +1,4 @@
-/* DBV247 — Cổng máy chủ cho Zalo Mini App "Bảo hiểm DBV247"
+/* DBV247 — Cổng máy chủ cho Zalo Mini App "Bảo hiểm DBV"
    ---------------------------------------------------------------------------
    POST /.netlify/functions/zalo-mini?hanh-dong=<việc>     (JSON)
 
@@ -16,6 +16,8 @@
    ctv-du-lieu     dashboard CTV (dùng lại gas-ctv.js)
    ctv-nhan-tien   CTV khai/đổi nơi nhận hoa hồng: ví ZaloPay hoặc ngân hàng
                    (dùng lại ctv-toi.js — bắt nhập lại mật khẩu)
+   lien-ket-sdt    khách xác minh SĐT Zalo → nhận các hợp đồng mua NGOÀI Zalo
+                   mà nhân viên đã gắn PDF theo đúng số đó (zalo-mini-admin gan-ngoai)
    dang-ky-oa      lưu ID của khách theo OA (idByOA) để OA nhắn khi có giấy
                    chứng nhận — gọi sau khi khách bấm Quan tâm OA
 
@@ -369,6 +371,54 @@ async function xuLyDangKyOa(p) {
   return C.json(200, { ok: true });
 }
 
+/* ═════════════ HỢP ĐỒNG MUA NGOÀI ZALO ═════════════
+   Nhân viên gắn PDF theo SĐT khách (zalo-mini-admin ?viec=gan-ngoai). Đơn nằm ở
+   "cho/<sdt>/<maDon>" tới khi khách mở Mini App và XÁC MINH SĐT bằng Zalo
+   (getPhoneNumber → máy chủ đổi token ra số qua Graph API). Chỉ số do Zalo
+   xác nhận mới mở được đơn — khách KHÔNG tự gõ số, nên không ai nhận nhầm
+   hợp đồng của người khác. */
+function anSdt(sdt) {
+  const s = String(sdt || '');
+  return s.length >= 10 ? s.slice(0, 3) + '****' + s.slice(-3) : '';
+}
+
+/** Gắn đơn (chưa có chủ) vào tài khoản Zalo: chỉ mục đơn + mọi file GCN. */
+async function nhanDonVeTaiKhoan(kho, d, zaloId) {
+  d.zaloId = zaloId;
+  d.lienKetLuc = new Date().toISOString();
+  await kho.setJSON('kh/' + zaloId + '/don/' + d.maDon, { maDon: d.maDon, taoLuc: d.taoLuc });
+  for (const g of d.gcn || []) {
+    await kho.setJSON('kh/' + zaloId + '/tep/' + g.maTep, {
+      maTep: g.maTep, ten: g.ten, kich: g.kich || 0, mime: 'application/pdf', luc: g.luc, nguon: 'dbv', maDon: d.maDon,
+    });
+  }
+  await kho.setJSON('don/' + d.maDon, d);
+}
+
+async function xuLyLienKetSdt(p) {
+  const nd = await C.layNguoiDung(p.accessToken);
+  if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.' });
+  const sdt = p.tokenSdt ? await C.doiTokenRaSdt(p.accessToken, p.tokenSdt) : null;
+  if (!sdt) return C.json(400, { error: 'Chưa xác minh được số điện thoại. Anh/chị thử lại hoặc nhắn DBV.' });
+
+  const kho = C.moKho();
+  const luc = new Date().toISOString();
+  await kho.setJSON('sdt/' + sdt, { zaloId: nd.id, luc });
+  await kho.setJSON('kh/' + nd.id + '/sdt', { sdt, luc });
+
+  const { blobs } = await kho.list({ prefix: 'cho/' + sdt + '/' });
+  let soDon = 0;
+  for (const b of blobs) {
+    const d = await kho.get('don/' + b.key.split('/').pop(), { type: 'json' });
+    if (d && !d.zaloId && d.sdt === sdt) {
+      await nhanDonVeTaiKhoan(kho, d, nd.id);
+      soDon++;
+    }
+    await kho.delete(b.key);
+  }
+  return C.json(200, { ok: true, soDon, sdt: anSdt(sdt) });
+}
+
 /* ═════════════ ĐƠN CỦA TÔI ═════════════ */
 function urlTep(maTep, zaloId) {
   return API_GOC + '/zalo-mini-tep?ve=' + encodeURIComponent(C.kyVe({ t: maTep, z: zaloId, k: 'xem' }, 120));
@@ -387,7 +437,7 @@ async function xuLyDon(p) {
     don.push({
       id: d.maDon, sanPham: d.sanPham, bienSo: d.bienSo, phi: d.phi,
       hieuLucTu: d.hieuLucTu, hieuLucDen: d.hieuLucDen, taoLuc: d.taoLuc,
-      trangThai: d.trangThai, noiDungCk: d.noiDungCk,
+      trangThai: d.trangThai, noiDungCk: d.noiDungCk, nguon: d.nguon || 'zalo',
       gcn: (d.gcn || []).map((g) => ({ id: g.maTep, ten: g.ten, url: urlTep(g.maTep, nd.id) })),
     });
   }
@@ -402,7 +452,8 @@ async function xuLyDon(p) {
   }
   tep.sort((a, b) => String(b.luc).localeCompare(String(a.luc)));
 
-  return C.json(200, { ok: true, don, tep, ganBaoGia: { nganHang: BANK } });
+  const lk = await kho.get('kh/' + nd.id + '/sdt', { type: 'json' });
+  return C.json(200, { ok: true, don, tep, ganBaoGia: { nganHang: BANK }, sdtLienKet: lk ? anSdt(lk.sdt) : '' });
 }
 
 async function xuLyVeTaiLen(p) {
@@ -477,6 +528,7 @@ const VIEC = {
   'ctv-du-lieu': xuLyCtvDuLieu,
   'ctv-nhan-tien': xuLyCtvNhanTien,
   'dang-ky-oa': xuLyDangKyOa,
+  'lien-ket-sdt': xuLyLienKetSdt,
 };
 
 exports.handler = async function (event) {

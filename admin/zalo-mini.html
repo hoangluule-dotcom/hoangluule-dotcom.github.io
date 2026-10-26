@@ -30,12 +30,21 @@
   .loc{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
   .bao{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:var(--c-accent-soft,#FFF8E7);display:none}
   code{font-size:12px}
+  .ngoai{background:#E8EEF9;color:#1D3F8F}
+  details.form{background:#fff;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;margin-bottom:14px}
+  details.form>summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--c-heading,#084C38);list-style:none}
+  details.form>summary::before{content:"＋ "}
+  details.form[open]>summary::before{content:"－ "}
+  .luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;padding:0 16px 16px}
+  .luoi label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--c-text-muted,#4A5568)}
+  .luoi .rong{grid-column:1/-1}
+  .huong{margin:0 16px 14px;padding:10px 14px;border-radius:12px;background:var(--c-mint,#EFF8F2);font-size:13px}
 </style>
 </head>
 <body>
 <header>
   <h1>Đơn Zalo Mini App</h1>
-  <span class="mo">Gắn giấy chứng nhận PDF (OA tự nhắn khách) · báo Zalo đã nhận tiền chuyển khoản</span>
+  <span class="mo">Gắn giấy chứng nhận PDF (OA tự nhắn khách) · khách mua ngoài Zalo · báo Zalo đã nhận tiền chuyển khoản</span>
   <div class="khoa">
     <input id="khoa" type="password" placeholder="Khoá quản trị (DASHBOARD_KEY)" autocomplete="off">
     <button class="xanh" id="vao">Tải danh sách</button>
@@ -47,6 +56,26 @@
     <span id="oa-tt" class="mo">Zalo OA: chưa kiểm tra</span>
     <button id="oa-noi">Kết nối Zalo OA</button>
   </div>
+  <details class="form" id="f-ngoai">
+    <summary>Gắn PDF cho khách mua ngoài Zalo (web, điện thoại, tại quầy…)</summary>
+    <p class="huong">Nhập <b>đúng số điện thoại khách đang dùng Zalo</b>. Khách mở Mini App <b>Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo</b>, xác minh số điện thoại là thấy hợp đồng và file PDF. Khách đã xác minh số này từ trước thì hợp đồng hiện ngay và OA tự nhắn (nếu khách đang theo dõi OA).</p>
+    <form class="luoi" id="ng-form" autocomplete="off">
+      <label>Số điện thoại khách *<input id="ng-sdt" inputmode="tel" placeholder="09xx xxx xxx" required></label>
+      <label>Sản phẩm *<input id="ng-sp" list="ng-ds-sp" placeholder="VD: Vật chất ô tô" required></label>
+      <label>Họ tên khách<input id="ng-ten" placeholder="Chỉ nhân viên thấy"></label>
+      <label>Biển số (nếu có)<input id="ng-bien" placeholder="30A-123.45"></label>
+      <label>Hiệu lực từ<input id="ng-tu" type="date"></label>
+      <label>Hiệu lực đến<input id="ng-den" type="date"></label>
+      <label>Phí đã gồm VAT (đ)<input id="ng-phi" inputmode="numeric" placeholder="0"></label>
+      <label>File PDF giấy chứng nhận *<input id="ng-pdf" type="file" accept="application/pdf" required></label>
+      <div class="rong"><button class="xanh" type="submit" id="ng-gui">Gắn PDF cho khách</button></div>
+    </form>
+    <datalist id="ng-ds-sp">
+      <option>TNDS ô tô</option><option>TNDS xe máy</option><option>Vật chất ô tô</option><option>Vật chất xe ô tô điện</option>
+      <option>Sức khỏe An Tâm Vui Khỏe</option><option>Tai nạn 24 giờ</option><option>Bệnh nhiệt đới</option>
+      <option>Du lịch quốc tế</option><option>Du lịch nội địa</option><option>Cháy nổ căn hộ chung cư</option><option>Xây dựng nhà dân sinh</option>
+    </datalist>
+  </details>
   <div class="loc">
     <input id="tim" placeholder="Tìm mã đơn, biển số, tên, SĐT">
     <select id="tt">
@@ -54,6 +83,7 @@
       <option value="cho_thanh_toan">Chờ thanh toán</option>
       <option value="da_thanh_toan">Đã nhận tiền</option>
       <option value="hieu_luc">Đã gắn GCN</option>
+      <option value="ngoai">Mua ngoài Zalo</option>
     </select>
   </div>
   <div class="the">
@@ -90,15 +120,17 @@
   function ve(){
     var q=$('tim').value.trim().toLowerCase(), tt=$('tt').value;
     var h=DS.filter(function(d){
-      if(tt && d.trangThai!==tt) return false;
+      if(tt==='ngoai'){ if(d.nguon!=='ngoai') return false; } else if(tt && d.trangThai!==tt) return false;
       if(!q) return true;
       return [d.maDon,d.bienSo,d.hoTen,d.sdt,d.email].join(' ').toLowerCase().indexOf(q)>=0;
     }).map(function(d){
       return '<tr><td><b>'+esc(d.maDon)+'</b><div class="mo">'+esc(new Date(d.taoLuc).toLocaleString('vi-VN'))+'</div>'+
-        (d.soChinh!=='da_ghi'?'<div class="mo">Sổ chính lỗi — đơn ở Netlify Forms</div>':'')+'</td>'+
+        (d.nguon==='ngoai'?'<div><span class="nhan ngoai">Mua ngoài Zalo</span></div>':(d.soChinh!=='da_ghi'?'<div class="mo">Sổ chính lỗi — đơn ở Netlify Forms</div>':''))+'</td>'+
         '<td>'+esc(d.sanPham)+'<div class="mo">'+esc(d.bienSo||'Chưa có biển')+'</div></td>'+
         '<td>'+esc(d.hoTen)+'<div class="mo">'+esc(d.sdt)+' · '+esc(d.email)+'</div></td>'+
-        '<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div></td>'+
+        (d.nguon==='ngoai'
+          ?'<td><div class="mo">'+(d.daLienKet?'✓ Khách đã liên kết — thấy trong app':'Chờ khách xác minh SĐT trong app')+'</div></td>'
+          :'<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div></td>')+
         '<td class="so">'+tien(d.phi)+'</td><td>'+esc(d.maCtv||'—')+'</td>'+
         '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span><div class="mo">'+d.soGcn+' GCN</div>'+tinOA(d)+'</td>'+
         '<td><button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> '+
@@ -114,7 +146,7 @@
   }
   function baoTin(t){
     if(!t) return '';
-    return t.ok?' OA DBV247 đã nhắn khách.':' Chưa nhắn được khách qua OA ('+t.loi+') — anh/chị gọi hoặc nhắn khách thủ công.';
+    return t.ok?' OA đã nhắn khách.':' Chưa nhắn được khách qua OA ('+t.loi+') — anh/chị gọi hoặc nhắn khách thủ công.';
   }
   function kiemOA(){
     fetch(API+'?viec=oa',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json()}).then(function(j){
@@ -153,8 +185,32 @@
     rd.onload=function(){
       bao('Đang tải giấy chứng nhận lên…');
       goi('gan-gcn',{maDon:dangGan,ten:f.name,base64:String(rd.result).split(',')[1]})
-        .then(function(j){ bao('Đã gắn GCN cho '+dangGan+'.'+(j.coTrongApp?' Khách thấy ngay trong mục Đơn của tôi.':' Đơn chưa gắn tài khoản Zalo nên file KHÔNG hiện trong app — gửi file cho khách qua chat OA/email.')+baoTin(j.tinOA)); tai(); })
+        .then(function(j){ var d=DS.find(function(x){return x.maDon===dangGan})||{}; bao('Đã gắn GCN cho '+dangGan+'.'+(j.coTrongApp?' Khách thấy ngay trong mục Hợp đồng.':(d.nguon==='ngoai'?' Khách sẽ thấy file sau khi xác minh SĐT trong app.':' Đơn chưa gắn tài khoản Zalo nên file KHÔNG hiện trong app — gửi file cho khách qua chat OA/email.'))+baoTin(j.tinOA)); tai(); })
         .catch(function(err){ bao(err.message); });
+    };
+    rd.readAsDataURL(f);
+  });
+  function ngayVN(v){ if(!v) return ''; var a=v.split('-'); return a[2]+'/'+a[1]+'/'+a[0]; }
+  $('ng-phi').addEventListener('input',function(){ var n=this.value.replace(/\D/g,''); this.value=n?(+n).toLocaleString('vi-VN'):''; });
+  $('ng-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=$('ng-pdf').files[0];
+    if(!f){ bao('Chọn file PDF.'); return; }
+    if(f.size>4.5*1024*1024){ bao('File quá 4,5 MB.'); return; }
+    var nut=$('ng-gui'); nut.disabled=true; bao('Đang tải PDF lên…');
+    var rd=new FileReader();
+    rd.onload=function(){
+      goi('gan-ngoai',{
+        sdt:$('ng-sdt').value, sanPham:$('ng-sp').value, hoTen:$('ng-ten').value, bienSo:$('ng-bien').value,
+        hieuLucTu:ngayVN($('ng-tu').value), hieuLucDen:ngayVN($('ng-den').value), phi:$('ng-phi').value,
+        ten:f.name, base64:String(rd.result).split(',')[1]
+      }).then(function(j){
+        nut.disabled=false; $('ng-form').reset();
+        bao('Đã tạo hợp đồng '+j.maDon+'. '+(j.daLienKet
+          ? 'Số này đã liên kết Mini App — khách thấy ngay trong mục Hợp đồng.'+baoTin(j.tinOA)
+          : 'Nhắn khách: "Anh/chị mở Zalo, tìm Mini App Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo, xác minh số điện thoại để xem giấy chứng nhận."'));
+        tai();
+      }).catch(function(err){ nut.disabled=false; bao(err.message); });
     };
     rd.readAsDataURL(f);
   });
