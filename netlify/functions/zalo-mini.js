@@ -20,6 +20,7 @@
                    mà nhân viên đã gắn PDF theo đúng số đó (zalo-mini-admin gan-ngoai)
    nhap-ma-lien-ket  khách nhập SĐT đã mua + mã 4 số nhân viên nhắn → nhận hợp đồng
                    mua ngoài Zalo; SĐT được ghi nhớ, hợp đồng sau hiện thẳng
+   dong-bo         mở app: nhớ Zalo User ID ↔ khoá thiết bị (cho webhook xoá dữ liệu)
    dang-ky-oa      lưu ID của khách theo OA (idByOA) để OA nhắn khi có giấy
                    chứng nhận — gọi sau khi khách bấm Quan tâm OA
 
@@ -473,6 +474,24 @@ async function xuLyNhapMaLienKet(p) {
   return C.json(200, { ok: true, soDon, sdt: anSdt(sdt) });
 }
 
+/* Đồng bộ khi mở app: nhớ Zalo User ID (getUserID) ↔ khoá thiết bị để xử lý
+   webhook "rút lại sự đồng ý & xoá dữ liệu" (zalo-mini-webhook.js). User ID do
+   app tự khai nên CHỈ dùng cho việc xoá — không bao giờ dùng để mở dữ liệu. */
+async function xuLyDongBo(p) {
+  const nd = await C.xacMinhNguoiDung(p);
+  if (!nd) return C.json(200, { ok: true });
+  const uid = String(p.zaloUserId || '').replace(/[^0-9A-Za-z_-]/g, '').slice(0, 64);
+  if (uid) {
+    const kho = C.moKho();
+    const zu = (await kho.get('zu/' + uid, { type: 'json' })) || { ids: [] };
+    if (zu.ids.indexOf(nd.id) < 0) {
+      zu.ids = zu.ids.concat([nd.id]).slice(-5);
+      await kho.setJSON('zu/' + uid, zu);
+    }
+  }
+  return C.json(200, { ok: true });
+}
+
 /* ═════════════ ĐƠN CỦA TÔI ═════════════ */
 function urlTep(maTep, zaloId) {
   return API_GOC + '/zalo-mini-tep?ve=' + encodeURIComponent(C.kyVe({ t: maTep, z: zaloId, k: 'xem' }, 120));
@@ -585,6 +604,7 @@ const VIEC = {
   'dang-ky-oa': xuLyDangKyOa,
   'lien-ket-sdt': xuLyLienKetSdt,
   'nhap-ma-lien-ket': xuLyNhapMaLienKet,
+  'dong-bo': xuLyDongBo,
 };
 
 exports.handler = async function (event) {
