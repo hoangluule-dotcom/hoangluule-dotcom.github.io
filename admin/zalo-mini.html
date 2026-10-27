@@ -58,10 +58,13 @@
   </div>
   <details class="form" id="f-ngoai">
     <summary>Gắn PDF cho khách mua ngoài Zalo (web, điện thoại, tại quầy…)</summary>
-    <p class="huong">Gắn xong, hệ thống tạo <b>mã liên kết 8 ký tự</b> (hạn 30 ngày, dùng một lần). Gửi mã cho khách qua Zalo/SMS: khách mở Mini App <b>Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo</b>, nhập mã là thấy hợp đồng và file PDF. Khách đổi máy hoặc xoá Zalo → bấm <b>"Cấp mã liên kết"</b> trên dòng đơn để gửi mã mới.</p>
+    <p class="huong">Gắn xong, hệ thống tạo <b>mã liên kết 4 số</b> gắn với số điện thoại khách (hạn 30 ngày; nhiều hợp đồng cùng số dùng chung một mã). Nhắn khách: mở Mini App <b>Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo</b> → nhập <b>số điện thoại đã mua + mã 4 số</b>. Liên kết một lần, các hợp đồng sau của số đó hiện thẳng trong app. Khách đổi máy hoặc xoá Zalo → bấm <b>"Cấp mã liên kết"</b> trên dòng đơn.</p>
     <form class="luoi" id="ng-form" autocomplete="off">
       <label>Số điện thoại khách *<input id="ng-sdt" inputmode="tel" placeholder="09xx xxx xxx" required></label>
       <label>Sản phẩm *<input id="ng-sp" list="ng-ds-sp" placeholder="VD: Vật chất ô tô" required></label>
+      <label>Số ấn chỉ / số GCN (Tổng công ty cấp)<input id="ng-sac" placeholder="Hiện cho khách thay mã đơn"></label>
+      <label>Nhân viên chăm sóc<input id="ng-pt-ten" placeholder="Họ tên hiện cho khách"></label>
+      <label>SĐT nhân viên chăm sóc<input id="ng-pt-sdt" inputmode="tel" placeholder="09xx xxx xxx"></label>
       <label>Họ tên khách<input id="ng-ten" placeholder="Chỉ nhân viên thấy"></label>
       <label>Biển số (nếu có)<input id="ng-bien" placeholder="30A-123.45"></label>
       <label>Hiệu lực từ<input id="ng-tu" type="date"></label>
@@ -122,9 +125,10 @@
     var h=DS.filter(function(d){
       if(tt==='ngoai'){ if(d.nguon!=='ngoai') return false; } else if(tt && d.trangThai!==tt) return false;
       if(!q) return true;
-      return [d.maDon,d.bienSo,d.hoTen,d.sdt,d.email].join(' ').toLowerCase().indexOf(q)>=0;
+      return [d.maDon,d.soAnChi,d.bienSo,d.hoTen,d.sdt,d.email].join(' ').toLowerCase().indexOf(q)>=0;
     }).map(function(d){
-      return '<tr><td><b>'+esc(d.maDon)+'</b><div class="mo">'+esc(new Date(d.taoLuc).toLocaleString('vi-VN'))+'</div>'+
+      return '<tr><td><b>'+esc(d.soAnChi||d.maDon)+'</b>'+(d.soAnChi?'<div class="mo">Mã đơn: '+esc(d.maDon)+'</div>':'<div class="mo" style="color:#C97D08">Chưa có số ấn chỉ</div>')+'<div class="mo">'+esc(new Date(d.taoLuc).toLocaleString('vi-VN'))+'</div>'+
+        '<div class="mo">Chăm sóc: '+(d.phuTrach?esc(d.phuTrach.ten)+(d.phuTrach.sdt?' · '+esc(d.phuTrach.sdt):''):'<i>chưa gán</i>')+'</div>'+
         (d.nguon==='ngoai'?'<div><span class="nhan ngoai">Mua ngoài Zalo</span></div>':(d.soChinh!=='da_ghi'?'<div class="mo">Sổ chính lỗi — đơn ở Netlify Forms</div>':''))+'</td>'+
         '<td>'+esc(d.sanPham)+'<div class="mo">'+esc(d.bienSo||'Chưa có biển')+'</div></td>'+
         '<td>'+esc(d.hoTen)+'<div class="mo">'+esc(d.sdt)+' · '+esc(d.email)+'</div></td>'+
@@ -133,14 +137,17 @@
           :'<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div>'+maLk(d)+'</td>')+
         '<td class="so">'+tien(d.phi)+'</td><td>'+esc(d.maCtv||'—')+'</td>'+
         '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span><div class="mo">'+d.soGcn+' GCN</div>'+tinOA(d)+'</td>'+
-        '<td><button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> <button data-ma="'+esc(d.maDon)+'">Cấp mã liên kết</button> '+
+        '<td><button data-sua="'+esc(d.maDon)+'">Sửa số ấn chỉ / chăm sóc</button> <button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> <button data-ma="'+esc(d.maDon)+'">Cấp mã liên kết</button> '+
         (d.soGcn&&!(d.tinOA&&d.tinOA.ok)?'<button data-nhan="'+esc(d.maDon)+'">Nhắn lại khách</button> ':'')+
         (d.trangThai==='cho_thanh_toan'?'<button class="xanh" data-tien="'+esc(d.maDon)+'">Đã nhận tiền</button>':'')+'</td></tr>';
     }).join('');
     $('ds').innerHTML = h || '<tr><td colspan="8" class="mo">Không có đơn khớp bộ lọc.</td></tr>';
   }
   function maLk(d){
-    return d.maLienKet?'<div>Mã liên kết: <code style="font-size:14px;font-weight:700">'+esc(d.maLienKet.slice(0,4)+'-'+d.maLienKet.slice(4))+'</code></div>':'';
+    return d.maLienKet?'<div>Mã liên kết: <code style="font-size:15px;font-weight:700;letter-spacing:2px">'+esc(d.maLienKet)+'</code> <span class="mo">(SĐT '+esc(d.sdt)+')</span></div>':'';
+  }
+  function tinMa(sdt,ma){
+    return 'Nhắn khách: "DBV gửi anh/chị mã liên kết hợp đồng: '+ma+'. Anh/chị mở Mini App Bảo hiểm DBV trên Zalo → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo → nhập số điện thoại '+sdt+' và mã '+ma+' (hạn 30 ngày)."';
   }
   function tinOA(d){
     if(d.tinOA&&d.tinOA.ok) return '<div class="mo">✓ OA đã nhắn khách</div>';
@@ -160,7 +167,12 @@
   }
   $('oa-noi').onclick=function(){
     if(!khoa()){ bao('Nhập khoá quản trị trước.'); return; }
-    location.href='/.netlify/functions/zalo-oa-ket-noi?khoa='+encodeURIComponent(khoa());
+    /* Trang đăng nhập của Zalo không cho mở bên trong khung (iframe của cổng
+       /quan-tri) → mở ở tab mới; không mở được tab thì chuyển cả cửa sổ. */
+    var url='/.netlify/functions/zalo-oa-ket-noi?khoa='+encodeURIComponent(khoa());
+    var w=null; try{ w=window.open(url,'_blank'); }catch(e){}
+    if(!w){ try{ window.top.location.href=url; }catch(e){ location.href=url; } }
+    else bao('Đã mở trang kết nối Zalo OA ở tab mới. Đăng nhập bằng tài khoản quản trị OA, xong quay lại đây bấm "Tải danh sách".');
   };
   function goi(viec, than){
     return fetch(API+'?viec='+viec,{method:'POST',headers:{'x-dashboard-key':khoa(),'Content-Type':'application/json'},body:JSON.stringify(than)})
@@ -174,13 +186,25 @@
         .catch(function(err){ b.disabled=false; bao(err.message); });
     }
     if(b.dataset.ma){
-      if(!confirm('Cấp mã liên kết mới cho đơn '+b.dataset.ma+'? Mã cũ (nếu có) hết hiệu lực; khách nhập mã mới trên máy nào thì đơn chuyển sang máy đó.')) return;
+      if(!confirm('Cấp mã liên kết mới cho số điện thoại của đơn '+b.dataset.ma+'? Mã cũ hết hiệu lực; khách nhập mã mới trên máy nào thì mọi hợp đồng của số đó chuyển sang máy đó.')) return;
       b.disabled=true;
       goi('cap-lai-ma',{maDon:b.dataset.ma}).then(function(j){
-        var m=j.maLienKet.slice(0,4)+'-'+j.maLienKet.slice(4);
-        bao('Mã liên kết mới của đơn '+b.dataset.ma+': '+m+'. Nhắn khách: "Anh/chị mở Mini App Bảo hiểm DBV trên Zalo → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo → nhập mã '+m+' (dùng một lần, hạn 30 ngày)."');
+        bao('Mã liên kết mới cho SĐT '+j.sdt+': '+j.maLienKet+'. '+tinMa(j.sdt,j.maLienKet));
         tai();
       }).catch(function(err){ b.disabled=false; bao(err.message); });
+    }
+    if(b.dataset.sua){
+      var d=DS.find(function(x){return x.maDon===b.dataset.sua})||{};
+      var sac=prompt('Số ấn chỉ / số GCN do Tổng công ty cấp (để trống nếu chưa có):', d.soAnChi||'');
+      if(sac===null) return;
+      var pt=d.phuTrach||nhoPT();
+      var ten=prompt('Họ tên nhân viên chăm sóc đơn này (khách sẽ thấy):', pt.ten||'');
+      if(ten===null) return;
+      var sdt=ten.trim()?prompt('Số điện thoại nhân viên chăm sóc:', pt.sdt||''):'';
+      if(sdt===null) return;
+      luuPT(ten,sdt);
+      goi('sua-don',{maDon:d.maDon,soAnChi:sac,phuTrachTen:ten,phuTrachSdt:sdt}).then(function(){ bao('Đã cập nhật đơn '+(sac||d.maDon)+'. Khách thấy ngay trong app.'); tai(); })
+        .catch(function(err){ bao(err.message); });
     }
     if(b.dataset.gcn){ dangGan=b.dataset.gcn; $('chon-pdf').value=''; $('chon-pdf').click(); }
     if(b.dataset.tien){
@@ -214,18 +238,24 @@
     rd.onload=function(){
       goi('gan-ngoai',{
         sdt:$('ng-sdt').value, sanPham:$('ng-sp').value, hoTen:$('ng-ten').value, bienSo:$('ng-bien').value,
+        soAnChi:$('ng-sac').value, phuTrachTen:$('ng-pt-ten').value, phuTrachSdt:$('ng-pt-sdt').value,
         hieuLucTu:ngayVN($('ng-tu').value), hieuLucDen:ngayVN($('ng-den').value), phi:$('ng-phi').value,
         ten:f.name, base64:String(rd.result).split(',')[1]
       }).then(function(j){
-        nut.disabled=false; $('ng-form').reset();
+        nut.disabled=false; luuPT($('ng-pt-ten').value,$('ng-pt-sdt').value); $('ng-form').reset(); dienPT();
         bao('Đã tạo hợp đồng '+j.maDon+'. '+(j.daLienKet
           ? 'Số này đã liên kết Mini App — khách thấy ngay trong mục Hợp đồng.'+baoTin(j.tinOA)
-          : 'Mã liên kết: '+j.maLienKet.slice(0,4)+'-'+j.maLienKet.slice(4)+'. Nhắn khách: "Anh/chị mở Mini App Bảo hiểm DBV trên Zalo → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo → nhập mã '+j.maLienKet.slice(0,4)+'-'+j.maLienKet.slice(4)+' để xem giấy chứng nhận (mã dùng một lần, hạn 30 ngày)."'));
+          : 'Mã liên kết: '+j.maLienKet+'. '+tinMa(j.sdt,j.maLienKet)));
         tai();
       }).catch(function(err){ nut.disabled=false; bao(err.message); });
     };
     rd.readAsDataURL(f);
   });
+  /* Nhớ người chăm sóc lần trước trên máy này để đỡ gõ lại. */
+  function nhoPT(){ try{ return JSON.parse(localStorage.getItem('dbv247_phutrach')||'{}'); }catch(e){ return {}; } }
+  function luuPT(ten,sdt){ try{ if(String(ten).trim()) localStorage.setItem('dbv247_phutrach',JSON.stringify({ten:ten.trim(),sdt:String(sdt||'').trim()})); }catch(e){} }
+  function dienPT(){ var pt=nhoPT(); if(pt.ten){ $('ng-pt-ten').value=pt.ten; $('ng-pt-sdt').value=pt.sdt||''; } }
+  dienPT();
   $('vao').onclick=tai; $('tim').oninput=ve; $('tt').onchange=ve;
   if(khoa()) tai();
 })();

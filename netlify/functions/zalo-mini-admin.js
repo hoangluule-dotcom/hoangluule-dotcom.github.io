@@ -8,18 +8,18 @@
    POST ?viec=da-nhan-tien {maDon}               báo Zalo đơn chuyển khoản đã nhận tiền
    POST ?viec=nhan-lai     {maDon}               gửi lại tin OA "giấy chứng nhận đã sẵn sàng"
    GET  ?viec=oa                                 đã kết nối Zalo OA chưa
-   POST ?viec=cap-lai-ma   {maDon}               cấp (lại) mã liên kết 8 ký tự cho một đơn
-                                                 — khách đổi máy, xoá Zalo, hoặc đơn chưa
-                                                 gắn được vào app. Mã mới chuyển đơn sang
-                                                 máy đang nhập mã.
-   POST ?viec=gan-ngoai    {sdt, sanPham, bienSo, hieuLucTu, hieuLucDen, phi,
-                            hoTen, ten, base64}  gắn PDF cho khách mua NGOÀI Zalo
-                            (web, điện thoại, tại quầy…). Tạo đơn nguồn "ngoai"
-                            theo SĐT; khách mở Mini App → Hợp đồng → "Liên kết
-                            hợp đồng mua ngoài Zalo" → xác minh đúng số đó là thấy.
-                            Kèm MÃ LIÊN KẾT 8 ký tự (hạn 30 ngày, dùng một lần) —
-                            khách nhập mã trong app khi không xác minh được SĐT
-                            (quyền SĐT chưa duyệt, mua bằng số khác số Zalo).
+   POST ?viec=cap-lai-ma   {maDon}               cấp mã liên kết 4 số MỚI cho SĐT của đơn
+                                                 (khách đổi máy, xoá Zalo, đơn chưa vào app).
+                                                 Khách nhập SĐT + mã → mọi hợp đồng của SĐT
+                                                 đó chuyển sang máy đang nhập.
+   POST ?viec=sua-don      {maDon, soAnChi?, phuTrachTen?, phuTrachSdt?}
+                                                 số ấn chỉ do Tổng công ty cấp (hiện cho khách
+                                                 thay mã đơn) + nhân viên chăm sóc đơn.
+   POST ?viec=gan-ngoai    {sdt, sanPham, soAnChi, phuTrachTen, phuTrachSdt, bienSo,
+                            hieuLucTu, hieuLucDen, phi, hoTen, ten, base64}
+                            gắn PDF cho khách mua NGOÀI Zalo. SĐT đã liên kết app
+                            → hiện thẳng; chưa → trả MÃ 4 SỐ (lib/lien-ket.js) để
+                            nhắn khách: Hợp đồng → Liên kết → nhập SĐT + mã.
 
    Gắn giấy chứng nhận xong, OA DBV247 TỰ NHẮN khách (lib/zalo-oa.js). Không
    nhắn được (khách chưa Quan tâm OA, quá 7 ngày không tương tác, chưa kết nối
@@ -34,6 +34,7 @@
 
 const C = require('./lib/zalo-mini-chung');
 const OA = require('./lib/zalo-oa');
+const LK = require('./lib/lien-ket');
 
 const LINK_APP = 'https://zalo.me/s/' + C.MINI_APP_ID + '/';
 
@@ -69,6 +70,7 @@ const QUYEN = {
   'gan-gcn': ['quan-ly', 'van-hanh'],
   'gan-ngoai': ['quan-ly', 'van-hanh'],
   'cap-lai-ma': ['quan-ly', 'van-hanh'],
+  'sua-don': ['quan-ly', 'van-hanh'],
   'nhan-lai': ['quan-ly', 'van-hanh'],
   'da-nhan-tien': ['quan-ly', 'ke-toan'],
 };
@@ -90,6 +92,14 @@ function maDonNgoai() {
 
 /* Đơn mua ngoài Zalo: nếu SĐT đã từng được khách xác minh trong Mini App thì
    gắn thẳng vào tài khoản đó; chưa thì chờ ở "cho/<sdt>/" tới khi khách xác minh. */
+/* Số ấn chỉ (số GCN/hợp đồng do hệ thống Tổng công ty cấp) — nhập tay cho tới
+   khi có API. Chỉ giữ chữ, số và - / . để hiện gọn trên app. */
+const soAnChiHop = (v) => String(v || '').toUpperCase().replace(/[^A-Z0-9\-\/.]/g, '').slice(0, 40);
+function phuTrachHop(ten, sdt, macDinh) {
+  const t = String(ten == null ? macDinh || '' : ten).trim().replace(/\s+/g, ' ').slice(0, 60);
+  return t ? { ten: t, sdt: C.chuanHoaSdt(sdt) || '' } : null;
+}
+
 async function ganNgoai(kho, p, nguoi) {
   const sdt = C.chuanHoaSdt(p.sdt);
   if (!sdt) return C.json(400, { error: 'Số điện thoại khách chưa đúng (10 số, bắt đầu bằng 0).' });
@@ -112,6 +122,7 @@ async function ganNgoai(kho, p, nguoi) {
     hoTen: String(p.hoTen || '').trim().slice(0, 100), sdt, email: '', maCtv: '',
     noiDungCk: '', trangThai: 'hieu_luc', soChinh: 'ngoai', maDonZalo: '',
     gcn: [{ maTep, ten, kich: f.buf.length, luc, nguoi }], idOA: '',
+    soAnChi: soAnChiHop(p.soAnChi), phuTrach: phuTrachHop(p.phuTrachTen, p.phuTrachSdt, nguoi === 'Khoá chung' ? '' : nguoi),
   };
 
   const lk = await kho.get('sdt/' + sdt, { type: 'json' });
@@ -125,12 +136,10 @@ async function ganNgoai(kho, p, nguoi) {
     tinOA = await nhanKhach(kho, d);
   } else {
     await kho.setJSON('cho/' + sdt + '/' + maDon, { maDon, luc });
-    maLienKet = C.ngauNhien(8);
-    d.maLienKet = maLienKet;
-    await kho.setJSON('ma/' + maLienKet, { maDon, sdt, het: Date.now() + 30 * 86400000 });
+    maLienKet = await LK.capMa(kho, sdt, { boi: nguoi });
   }
   await kho.setJSON('don/' + maDon, d);
-  return C.json(200, { ok: true, maDon, daLienKet: !!d.zaloId, tinOA, maLienKet });
+  return C.json(200, { ok: true, maDon, sdt, daLienKet: !!d.zaloId, tinOA, maLienKet });
 }
 
 async function danhSach(kho) {
@@ -139,19 +148,17 @@ async function danhSach(kho) {
   for (const b of blobs.slice(-300)) {
     const d = await kho.get(b.key, { type: 'json' });
     if (!d) continue;
-    /* Đơn ngoài Zalo tạo trước khi có mã liên kết → cấp mã luôn. */
-    if (d.nguon === 'ngoai' && !d.zaloId && !d.maLienKet) {
-      d.maLienKet = C.ngauNhien(8);
-      await kho.setJSON('ma/' + d.maLienKet, { maDon: d.maDon, sdt: d.sdt, het: Date.now() + 30 * 86400000 });
-      await kho.setJSON('don/' + d.maDon, d);
-    }
+    /* Đơn ngoài Zalo đang chờ khách liên kết: hiện mã 4 số còn hạn (hết hạn → cấp mới). */
+    let maLienKet = '';
+    if (!d.zaloId && d.nguon === 'ngoai' && d.sdt) maLienKet = (await LK.maConHan(kho, d.sdt)) || (await LK.capMa(kho, d.sdt));
     ds.push({
       maDon: d.maDon, taoLuc: d.taoLuc, sanPham: d.sanPham, bienSo: d.bienSo, phi: d.phi,
       hoTen: d.hoTen, sdt: d.sdt, email: d.email, maCtv: d.maCtv, noiDungCk: d.noiDungCk,
       trangThai: d.trangThai, maDonZalo: d.maDonZalo, kenh: d.kenhThanhToan || '',
       soChinh: d.soChinh, soGcn: (d.gcn || []).length,
       coOA: !!d.idOA, tinOA: d.tinOA || null,
-      nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId, maLienKet: d.maLienKet || '',
+      nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId, maLienKet,
+      soAnChi: d.soAnChi || '', phuTrach: d.phuTrach || null,
     });
   }
   ds.sort((a, b) => String(b.taoLuc).localeCompare(String(a.taoLuc)));
@@ -195,11 +202,23 @@ exports.handler = async function (event) {
     }
 
     if (viec === 'cap-lai-ma') {
-      if (d.maLienKet) await kho.delete('ma/' + d.maLienKet);
-      d.maLienKet = C.ngauNhien(8);
-      await kho.setJSON('ma/' + d.maLienKet, { maDon: d.maDon, sdt: d.sdt || '', het: Date.now() + 30 * 86400000, chuyen: true, boi: nguoi });
+      if (!d.sdt) return C.json(400, { error: 'Đơn chưa có số điện thoại khách.' });
+      if (!d.zaloId) await kho.setJSON('cho/' + d.sdt + '/' + d.maDon, { maDon: d.maDon, luc: new Date().toISOString() });
+      else if (!(await kho.get('sdt/' + d.sdt, { type: 'json' }))) {
+        /* Đơn mua trong app (gắn theo máy cũ) → ghi nhớ máy cũ để chuyển được sang máy mới. */
+        await kho.setJSON('sdt/' + d.sdt, { zaloId: d.zaloId, luc: new Date().toISOString() });
+      }
+      const maLienKet = await LK.capMa(kho, d.sdt, { moi: true, chuyen: true, boi: nguoi });
+      return C.json(200, { ok: true, maLienKet, sdt: d.sdt });
+    }
+
+    if (viec === 'sua-don') {
+      if (p.soAnChi !== undefined) d.soAnChi = soAnChiHop(p.soAnChi);
+      if (p.phuTrachTen !== undefined) d.phuTrach = phuTrachHop(p.phuTrachTen, p.phuTrachSdt, '');
+      d.suaLuc = new Date().toISOString();
+      d.suaBoi = nguoi;
       await kho.setJSON('don/' + d.maDon, d);
-      return C.json(200, { ok: true, maLienKet: d.maLienKet });
+      return C.json(200, { ok: true, soAnChi: d.soAnChi || '', phuTrach: d.phuTrach || null });
     }
 
     if (viec === 'nhan-lai') {

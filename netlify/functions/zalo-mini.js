@@ -18,8 +18,8 @@
                    (dùng lại ctv-toi.js — bắt nhập lại mật khẩu)
    lien-ket-sdt    khách xác minh SĐT Zalo → nhận các hợp đồng mua NGOÀI Zalo
                    mà nhân viên đã gắn PDF theo đúng số đó (zalo-mini-admin gan-ngoai)
-   nhap-ma-lien-ket  khách nhập mã liên kết 8 ký tự nhân viên gửi → nhận hợp đồng mua
-                   ngoài Zalo (dùng khi chưa xác minh được SĐT)
+   nhap-ma-lien-ket  khách nhập SĐT đã mua + mã 4 số nhân viên nhắn → nhận hợp đồng
+                   mua ngoài Zalo; SĐT được ghi nhớ, hợp đồng sau hiện thẳng
    dang-ky-oa      lưu ID của khách theo OA (idByOA) để OA nhắn khi có giấy
                    chứng nhận — gọi sau khi khách bấm Quan tâm OA
 
@@ -37,6 +37,7 @@
 'use strict';
 
 const C = require('./lib/zalo-mini-chung');
+const LK = require('./lib/lien-ket');
 
 const BANK = {
   nganHang: 'Techcombank',
@@ -390,9 +391,7 @@ function anSdt(sdt) {
 async function nhanDonVeTaiKhoan(kho, d, zaloId) {
   d.zaloId = zaloId;
   d.lienKetLuc = new Date().toISOString();
-  if (d.maLienKet) await kho.delete('ma/' + d.maLienKet);
   if (d.sdt) await kho.delete('cho/' + d.sdt + '/' + d.maDon);
-  delete d.maLienKet;
   await kho.setJSON('kh/' + zaloId + '/don/' + d.maDon, { maDon: d.maDon, taoLuc: d.taoLuc });
   for (const g of d.gcn || []) {
     await kho.setJSON('kh/' + zaloId + '/tep/' + g.maTep, {
@@ -426,29 +425,52 @@ async function xuLyLienKetSdt(p) {
   return C.json(200, { ok: true, soDon, sdt: anSdt(sdt) });
 }
 
-/* Mã liên kết: 8 ký tự ngẫu nhiên (32^8 ≈ 10^12 khả năng), một lần, hạn 30 ngày.
-   Chỉ cần biết ai đang mở app (access token) — KHÔNG cần quyền số điện thoại. */
+/* Liên kết bằng SĐT + mã 4 số (lib/lien-ket.js). Không cần quyền số điện thoại
+   của Zalo: khách tự gõ số đã mua bảo hiểm + mã nhân viên nhắn. */
+async function chuyenDonCuaSdt(kho, idCu, sdt, idMoi) {
+  const { blobs } = await kho.list({ prefix: 'kh/' + idCu + '/don/' });
+  let n = 0;
+  for (const b of blobs) {
+    const d = await kho.get('don/' + b.key.split('/').pop(), { type: 'json' });
+    if (!d || d.sdt !== sdt || d.zaloId !== idCu) continue;
+    await kho.delete(b.key);
+    for (const g of d.gcn || []) await kho.delete('kh/' + idCu + '/tep/' + g.maTep);
+    await nhanDonVeTaiKhoan(kho, d, idMoi);
+    n++;
+  }
+  return n;
+}
+
 async function xuLyNhapMaLienKet(p) {
   const nd = await C.xacMinhNguoiDung(p);
   if (!nd) return C.json(401, { error: 'Chưa xác minh được tài khoản Zalo.', ma: C.loiXacMinhGanNhat() });
-  const ma = String(p.ma || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-  const sai = C.json(404, { error: 'Mã liên kết chưa đúng hoặc đã hết hạn. Anh/chị kiểm tra lại hoặc nhắn DBV.' });
-  if (ma.length !== 8) return sai;
+  const sdt = C.chuanHoaSdt(p.sdt);
+  const ma = String(p.ma || '').replace(/\D/g, '');
+  if (!sdt) return C.json(400, { error: 'Số điện thoại gồm 10 số, bắt đầu bằng 0.', truong: 'sdt' });
+  if (ma.length !== 4) return C.json(400, { error: 'Mã liên kết gồm 4 chữ số.', truong: 'ma' });
+
   const kho = C.moKho();
-  const m = await kho.get('ma/' + ma, { type: 'json' });
-  if (!m || m.het < Date.now()) return sai;
-  const d = await kho.get('don/' + m.maDon, { type: 'json' });
-  if (!d) return sai;
-  if (d.zaloId && d.zaloId !== nd.id) {
-    if (!m.chuyen) return C.json(409, { error: 'Mã này đã được dùng cho một tài khoản khác.' });
-    /* Mã cấp lại (khách đổi máy / xoá Zalo): chuyển hợp đồng sang máy mới. */
-    await kho.delete('kh/' + d.zaloId + '/don/' + d.maDon);
-    for (const g of d.gcn || []) await kho.delete('kh/' + d.zaloId + '/tep/' + g.maTep);
-    d.zaloId = '';
+  const kq = await LK.kiemMa(kho, sdt, ma, nd.id);
+  if (!kq.ok) return C.json(kq.ma, { error: kq.loi });
+
+  let soDon = 0;
+  const cu = await kho.get('sdt/' + sdt, { type: 'json' });
+  if (kq.lk.chuyen && cu && cu.zaloId && cu.zaloId !== nd.id) soDon += await chuyenDonCuaSdt(kho, cu.zaloId, sdt, nd.id);
+
+  const { blobs } = await kho.list({ prefix: 'cho/' + sdt + '/' });
+  for (const b of blobs) {
+    const d = await kho.get('don/' + b.key.split('/').pop(), { type: 'json' });
+    if (d && !d.zaloId && d.sdt === sdt) {
+      await nhanDonVeTaiKhoan(kho, d, nd.id);
+      soDon++;
+    }
+    await kho.delete(b.key);
   }
-  if (!d.zaloId) await nhanDonVeTaiKhoan(kho, d, nd.id);
-  else { await kho.delete('ma/' + ma); delete d.maLienKet; await kho.setJSON('don/' + d.maDon, d); }
-  return C.json(200, { ok: true, soDon: 1, sanPham: d.sanPham });
+  const luc = new Date().toISOString();
+  await kho.setJSON('sdt/' + sdt, { zaloId: nd.id, luc });
+  await kho.setJSON('kh/' + nd.id + '/sdt', { sdt, luc });
+  await kho.delete('lk/' + sdt);
+  return C.json(200, { ok: true, soDon, sdt: anSdt(sdt) });
 }
 
 /* ═════════════ ĐƠN CỦA TÔI ═════════════ */
@@ -470,6 +492,7 @@ async function xuLyDon(p) {
       id: d.maDon, sanPham: d.sanPham, bienSo: d.bienSo, phi: d.phi,
       hieuLucTu: d.hieuLucTu, hieuLucDen: d.hieuLucDen, taoLuc: d.taoLuc,
       trangThai: d.trangThai, noiDungCk: d.noiDungCk, nguon: d.nguon || 'zalo',
+      soAnChi: d.soAnChi || '', phuTrach: d.phuTrach && d.phuTrach.ten ? d.phuTrach : null,
       gcn: (d.gcn || []).map((g) => ({ id: g.maTep, ten: g.ten, url: urlTep(g.maTep, nd.id) })),
     });
   }
