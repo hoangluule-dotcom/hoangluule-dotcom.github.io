@@ -121,20 +121,35 @@ async function xuLyTenCtv(p) {
 
 /* ═════════════ ĐƠN TNDS ═════════════ */
 
-/* Phí năm (chưa VAT) theo đúng biểu phí gốc trên website. */
+/* Phí năm (chưa VAT) theo đúng biểu phí gốc trên website (cap-don-tnds.js → phiNam).
+   xe = {loai:'moto', muc} | {loai:'oto', nhom:'nkd'|'tai', muc}
+      | {loai:'oto', nhom:'kd', muc:'kdseat'|'kdpickup', soCho}
+      | {loai:'oto', nhom:'khac', muc:<khoá KHAC>, soCho (taxi, buýt)} */
 async function phiNam(xe) {
   const B = await require('./lib/bieu-phi-tnds.js')._taiBieuPhi();
   if (xe.loai === 'moto') {
     const m = B.MOTO[xe.muc];
     return m ? { phi: m.f, nhan: m.t } : null;
   }
+  const n = parseInt(xe.soCho, 10);
   if (xe.nhom === 'kd') {
-    const n = parseInt(xe.soCho, 10);
+    if (xe.muc === 'kdpickup') return { phi: 933000, nhan: 'Pickup / minivan kinh doanh vận tải' };
+    if (!(n >= 1 && n <= 100)) return null;
     const phi = B.phiKD(n);
     return phi ? { phi, nhan: 'Xe kinh doanh vận tải ' + n + ' chỗ' } : null;
   }
-  const bang = xe.nhom === 'tai' ? B.TAI : B.NKD;
-  const m = bang[xe.muc];
+  if (xe.nhom === 'khac') {
+    const o = Object.prototype.hasOwnProperty.call(B.KHAC, xe.muc) ? B.KHAC[xe.muc] : null;
+    if (!o) return null;
+    if (o.seats) {
+      if (!(n >= 1 && n <= 100)) return null;
+      const goc = o.base === 'kdseat' ? B.phiKD(n) : B.phiNkdTheoCho(n);
+      return goc ? { phi: Math.round(goc * o.k), nhan: o.t + ' — ' + n + ' chỗ', seats: true } : null;
+    }
+    return { phi: Math.round(o.base * o.k), nhan: o.t };
+  }
+  const bang = xe.nhom === 'tai' ? B.TAI : xe.nhom === 'nkd' || !xe.nhom ? B.NKD : null;
+  const m = bang && Object.prototype.hasOwnProperty.call(bang, xe.muc) ? bang[xe.muc] : null;
   return m ? { phi: m.f, nhan: m.t } : null;
 }
 
@@ -153,8 +168,15 @@ function kiemTraDon(p) {
   const re8 = /^[A-Za-z0-9]{6,8}$/;
   const sk = String(p.soKhung || '').replace(/[\s.\-]/g, '');
   const sm = String(p.soMay || '').replace(/[\s.\-]/g, '');
-  if (!re8.test(sk)) loi.soKhung = 'Nhập 6–8 ký tự cuối của số khung.';
-  if (!re8.test(sm)) loi.soMay = 'Nhập 6–8 ký tự cuối của số máy.';
+  /* Có biển số là đủ nhận diện xe; xe mới chưa có biển mới bắt buộc số khung + số máy. */
+  const coBien = String(p.bienSo || '').replace(/[^A-Za-z0-9]/g, '').length >= 5;
+  if (!coBien) {
+    if (!re8.test(sk)) loi.soKhung = 'Nhập 6–8 ký tự cuối của số khung.';
+    if (!re8.test(sm)) loi.soMay = 'Nhập 6–8 ký tự cuối của số máy.';
+  } else {
+    if (sk && !re8.test(sk)) loi.soKhung = 'Số khung 6–8 ký tự cuối (hoặc để trống).';
+    if (sm && !re8.test(sm)) loi.soMay = 'Số máy 6–8 ký tự cuối (hoặc để trống).';
+  }
   if (String(p.hoTen || '').trim().length < 3) loi.hoTen = 'Nhập họ tên chủ xe như trên đăng ký xe.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(p.email || '').trim())) loi.email = 'Email chưa đúng — giấy chứng nhận gửi về email này.';
   const hl = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(p.ngayHieuLuc || ''));
@@ -250,7 +272,7 @@ async function xuLyTaoDon(p) {
     'loai-xe': xe.loai === 'moto' ? 'Xe máy / mô tô' : 'Ô tô',
     'nhom-xe': xe.loai === 'moto' ? 'moto' : (xe.nhom || 'nkd'),
     'chi-tiet-xe': gia.nhan,
-    'so-cho': xe.nhom === 'kd' ? String(parseInt(xe.soCho, 10) || '') : '',
+    'so-cho': (xe.nhom === 'kd' && xe.muc !== 'kdpickup') || gia.seats ? String(parseInt(xe.soCho, 10) || '') : '',
     'thoi-han': soNam + ' năm',
     'phi-goc': String(phiGoc),
     'vat': String(vat),
