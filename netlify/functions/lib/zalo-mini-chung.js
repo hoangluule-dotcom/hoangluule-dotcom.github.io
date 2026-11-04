@@ -225,7 +225,9 @@ function soSanhMac(chuoi, mac) {
   return String(mac) === hex || String(mac).toLowerCase() === hex || String(mac) === b64;
 }
 
-/* Báo Zalo một đơn chuyển khoản đã nhận đủ tiền (resultCode 1). */
+/* Cập nhật trạng thái giao dịch chuyển khoản lên Checkout SDK (updateOrderStatus):
+   resultCode 1 = thành công (đã nhận tiền), -1 = thất bại (huỷ / quá hạn), 0 = đã hoàn tiền.
+   Zalo yêu cầu: giao dịch không được treo mãi ở "Đang chờ kết quả". */
 async function baoZaloDaThanhToan(maDonZalo, resultCode) {
   const rc = resultCode == null ? 1 : resultCode;
   const k = khoaCheckout();
@@ -242,9 +244,36 @@ async function baoZaloDaThanhToan(maDonZalo, resultCode) {
   return { ok: kq.err === 0 || kq.error === 0, kq };
 }
 
+/* Phút giữ đơn chờ chuyển khoản trước khi tự huỷ (đổi bằng biến ZALO_HAN_THANH_TOAN_PHUT). */
+function hanThanhToanPhut() {
+  const n = parseInt(process.env.ZALO_HAN_THANH_TOAN_PHUT, 10);
+  return n >= 15 && n <= 7 * 24 * 60 ? n : 60;
+}
+
+/* Huỷ một đơn chưa thanh toán: báo Zalo -1 (nếu đơn đã qua Checkout), ghi trạng thái.
+   Trả {zalo:{ok,ghiChu}}. Không đụng đơn đã nhận tiền. */
+async function huyDonChuaTra(kho, d, lyDo, boi) {
+  let zalo = { ok: true, ghiChu: 'Đơn không qua Checkout của Zalo.' };
+  if (d.maDonZalo) {
+    try {
+      const kq = await baoZaloDaThanhToan(d.maDonZalo, -1);
+      zalo = { ok: kq.ok, ghiChu: kq.ok ? 'Đã báo Zalo: giao dịch không thành công' : 'Zalo trả: ' + JSON.stringify(kq.kq).slice(0, 200) };
+    } catch (err) {
+      zalo = { ok: false, ghiChu: 'Chưa gọi được Zalo: ' + String(err.message || err).slice(0, 150) };
+    }
+  }
+  d.trangThai = 'huy';
+  d.huyLuc = new Date().toISOString();
+  d.huyLyDo = lyDo;
+  d.huyBoi = boi || '';
+  d.zaloCapNhat = Object.assign({ luc: d.huyLuc, resultCode: -1 }, zalo);
+  await kho.setJSON('don/' + d.maDon, d);
+  return { zalo };
+}
+
 module.exports = {
   MINI_APP_ID, HOTLINE, CORS, json, moKho, datKhoThu,
   chuanHoaSdt, chuanHoaMaCtv, maDonMoi, ngauNhien,
   layNguoiDung, xacMinhNguoiDung, idTuKhoaThietBi, loiXacMinhGanNhat, doiTokenRaSdt, kyVe, giaiVe,
-  macDonHang, soSanhMac, baoZaloDaThanhToan,
+  macDonHang, soSanhMac, baoZaloDaThanhToan, hanThanhToanPhut, huyDonChuaTra,
 };

@@ -26,6 +26,7 @@
   .cho_thanh_toan{background:var(--c-accent-soft,#FFF8E7);color:#8a5300}
   .da_thanh_toan{background:#E8F5E9;color:#005A2B}
   .hieu_luc{background:var(--c-brand,#007437);color:#fff}
+  .huy{background:#F2F4F7;color:#475467}
   .mo{color:var(--c-text-muted,#4A5568);font-size:12px}
   .loc{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
   .bao{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:var(--c-accent-soft,#FFF8E7);display:none}
@@ -86,6 +87,7 @@
       <option value="cho_thanh_toan">Chờ thanh toán</option>
       <option value="da_thanh_toan">Đã nhận tiền</option>
       <option value="hieu_luc">Đã gắn GCN</option>
+      <option value="huy">Đã huỷ</option>
       <option value="ngoai">Mua ngoài Zalo</option>
     </select>
   </div>
@@ -98,13 +100,18 @@
       <tbody id="ds"><tr><td colspan="8" class="mo">Nhập khoá rồi bấm Tải danh sách.</td></tr></tbody>
     </table>
   </div>
-  <p class="mo">"Đã nhận tiền" chỉ bấm sau khi đã thấy dòng sao kê. Nút này đóng đơn phía Zalo cho khách, không sinh hoa hồng — hoa hồng vẫn do sổ chính (Google Sheets) sinh từ sao kê.</p>
+  <p class="mo">"Đã nhận tiền" chỉ bấm sau khi đã thấy dòng sao kê. Nút này báo Zalo giao dịch thành công, không sinh hoa hồng — hoa hồng vẫn do sổ chính (Google Sheets) sinh từ sao kê. Đơn chờ thanh toán quá 60 phút tự huỷ và báo Zalo "không thành công"; khách chuyển muộn thì vẫn bấm "Đã nhận tiền" được. "Huỷ đơn" dùng khi chắc chắn khách không chuyển.</p>
 </main>
 <input type="file" id="chon-pdf" accept="application/pdf" hidden>
 <script>
 (function(){
   var API='/.netlify/functions/zalo-mini-admin';
-  var NHAN={cho_thanh_toan:'Chờ thanh toán',da_thanh_toan:'Đã nhận tiền',hieu_luc:'Đã gắn GCN'};
+  var NHAN={cho_thanh_toan:'Chờ thanh toán',da_thanh_toan:'Đã nhận tiền',hieu_luc:'Đã gắn GCN',huy:'Đã huỷ'};
+  var LY_DO={qua_han_thanh_toan:'quá hạn chuyển khoản',khong_nhan_duoc_tien:'huỷ tay'};
+  function zaloTT(d){
+    var z=d.zaloCapNhat; if(!z||!d.maDonZalo) return '';
+    return '<div class="mo" style="color:'+(z.ok?'#007437':'#b42318')+'">'+(z.ok?'✓ ':'⚠ ')+'Trạng thái giao dịch Zalo: '+esc(z.ghiChu||'')+'</div>';
+  }
   var DS=[], dangGan=null;
   var $=function(id){return document.getElementById(id)};
   try{ $('khoa').value = localStorage.getItem('dbv247_key') || ''; }catch(e){}
@@ -136,10 +143,11 @@
           ?'<td><div class="mo">'+(d.daLienKet?'✓ Khách đã liên kết — thấy trong app':'Chờ khách nhập mã trong app')+'</div>'+maLk(d)+'</td>'
           :'<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div>'+maLk(d)+'</td>')+
         '<td class="so">'+tien(d.phi)+'</td><td>'+esc(d.maCtv||'—')+'</td>'+
-        '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span><div class="mo">'+d.soGcn+' GCN</div>'+tinOA(d)+'</td>'+
+        '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span>'+(d.trangThai==='huy'&&d.huyLyDo?'<div class="mo">'+esc(LY_DO[d.huyLyDo]||d.huyLyDo)+'</div>':'')+'<div class="mo">'+d.soGcn+' GCN</div>'+zaloTT(d)+tinOA(d)+'</td>'+
         '<td><button data-sua="'+esc(d.maDon)+'">Sửa số ấn chỉ / chăm sóc</button> <button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> <button data-ma="'+esc(d.maDon)+'">Cấp mã liên kết</button> '+
         (d.soGcn&&!(d.tinOA&&d.tinOA.ok)?'<button data-nhan="'+esc(d.maDon)+'">Nhắn lại khách</button> ':'')+
-        (d.trangThai==='cho_thanh_toan'?'<button class="xanh" data-tien="'+esc(d.maDon)+'">Đã nhận tiền</button>':'')+'</td></tr>';
+        (d.trangThai==='cho_thanh_toan'||(d.trangThai==='huy'&&d.nguon!=='ngoai')?'<button class="xanh" data-tien="'+esc(d.maDon)+'">Đã nhận tiền</button> ':'')+
+        (d.trangThai==='cho_thanh_toan'&&d.nguon!=='ngoai'?'<button data-huy="'+esc(d.maDon)+'">Huỷ đơn</button>':'')+'</td></tr>';
     }).join('');
     $('ds').innerHTML = h || '<tr><td colspan="8" class="mo">Không có đơn khớp bộ lọc.</td></tr>';
   }
@@ -207,6 +215,12 @@
         .catch(function(err){ bao(err.message); });
     }
     if(b.dataset.gcn){ dangGan=b.dataset.gcn; $('chon-pdf').value=''; $('chon-pdf').click(); }
+    if(b.dataset.huy){
+      if(!confirm('Huỷ đơn '+b.dataset.huy+'? Zalo sẽ báo khách giao dịch không thành công.')) return;
+      b.disabled=true;
+      goi('huy-don',{maDon:b.dataset.huy}).then(function(j){ bao('Đã huỷ. '+(j.zalo&&j.zalo.ghiChu||'')); tai(); })
+        .catch(function(err){ b.disabled=false; bao(err.message); });
+    }
     if(b.dataset.tien){
       if(!confirm('Xác nhận đã thấy tiền của đơn '+b.dataset.tien+' trong sao kê?')) return;
       b.disabled=true;

@@ -325,6 +325,8 @@ async function xuLyTaoDon(p) {
     maDonZalo: '', gcn: [], idOA: idOaHopLe(p.idOA),
   };
   await kho.setJSON('don/' + maDon, banGhi);
+  /* Sổ chờ thanh toán — zalo-mini-het-han.js quét để huỷ đơn quá hạn và báo Zalo. */
+  await kho.setJSON('ctt/' + maDon, { maDon, taoLuc: banGhi.taoLuc });
   if (nd.id) await kho.setJSON('kh/' + nd.id + '/don/' + maDon, { maDon, taoLuc: banGhi.taoLuc });
   if (nd.id && banGhi.idOA) await kho.setJSON('kh/' + nd.id + '/oa', { idOA: banGhi.idOA, luc: banGhi.taoLuc });
 
@@ -343,7 +345,7 @@ async function xuLyTaoDon(p) {
 
   return C.json(200, {
     ok: true, maDon, tong, phiGoc, vat, noiDungCk,
-    nganHang: BANK, thanhToan,
+    nganHang: BANK, thanhToan, hanPhut: C.hanThanhToanPhut(),
   });
 }
 
@@ -533,6 +535,7 @@ async function xuLyDon(p) {
       id: d.maDon, sanPham: d.sanPham, bienSo: d.bienSo, phi: d.phi,
       hieuLucTu: d.hieuLucTu, hieuLucDen: d.hieuLucDen, taoLuc: d.taoLuc,
       trangThai: d.trangThai, noiDungCk: d.noiDungCk, nguon: d.nguon || 'zalo',
+      hanThanhToan: d.trangThai === 'cho_thanh_toan' && d.taoLuc ? new Date(Date.parse(d.taoLuc) + C.hanThanhToanPhut() * 60000).toISOString() : '',
       soAnChi: d.soAnChi || '', phuTrach: d.phuTrach && d.phuTrach.ten ? d.phuTrach : null,
       gcn: (d.gcn || []).map((g) => ({ id: g.maTep, ten: g.ten, url: urlTep(g.maTep, nd.id) })),
     });

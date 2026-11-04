@@ -73,6 +73,7 @@ const QUYEN = {
   'sua-don': ['quan-ly', 'van-hanh'],
   'nhan-lai': ['quan-ly', 'van-hanh'],
   'da-nhan-tien': ['quan-ly', 'ke-toan'],
+  'huy-don': ['quan-ly', 'ke-toan'],
 };
 
 function docPdf(p) {
@@ -159,6 +160,7 @@ async function danhSach(kho) {
       coOA: !!d.idOA, tinOA: d.tinOA || null,
       nguon: d.nguon || 'zalo', daLienKet: !!d.zaloId, maLienKet,
       soAnChi: d.soAnChi || '', phuTrach: d.phuTrach || null,
+      zaloCapNhat: d.zaloCapNhat || null, huyLyDo: d.huyLyDo || '',
     });
   }
   ds.sort((a, b) => String(b.taoLuc).localeCompare(String(a.taoLuc)));
@@ -234,10 +236,18 @@ exports.handler = async function (event) {
         const kq = await C.baoZaloDaThanhToan(d.maDonZalo, 1);
         zalo = { ok: kq.ok, ghiChu: kq.ok ? 'Đã báo Zalo' : 'Zalo trả: ' + JSON.stringify(kq.kq).slice(0, 200) };
       }
-      if (d.trangThai === 'cho_thanh_toan') d.trangThai = 'da_thanh_toan';
+      if (d.trangThai === 'cho_thanh_toan' || d.trangThai === 'huy') d.trangThai = 'da_thanh_toan';
+      d.zaloCapNhat = Object.assign({ luc: new Date().toISOString(), resultCode: 1 }, zalo);
+      await kho.delete('ctt/' + d.maDon);
       d.daNhanTienLuc = new Date().toISOString();
       d.daNhanTienBoi = nguoi;
       await kho.setJSON('don/' + d.maDon, d);
+      return C.json(200, { ok: true, zalo });
+    }
+    if (viec === 'huy-don') {
+      if (d.trangThai !== 'cho_thanh_toan') return C.json(409, { error: 'Chỉ huỷ được đơn đang chờ thanh toán.' });
+      const { zalo } = await C.huyDonChuaTra(kho, d, 'khong_nhan_duoc_tien', nguoi);
+      await kho.delete('ctt/' + d.maDon);
       return C.json(200, { ok: true, zalo });
     }
     return C.json(400, { error: 'Việc không hợp lệ.' });

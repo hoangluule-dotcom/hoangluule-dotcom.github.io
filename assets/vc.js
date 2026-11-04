@@ -195,7 +195,7 @@ function gui(data){
 }
 function coBan(){
   return {'form-name':'dbv-tuvan','san-pham':'Bảo Hiểm Vận Chuyển Nội Địa','muc-quan-tam':PT[elPt.value].ten,
-    'hang-hoa':(HANG[elHang.value]||{}).ten||'','ket-qua-tinh-phi':ketQua,'trang':location.href,'dong-y-chinh-sach':'Có','thoi-diem-dong-y':new Date().toISOString()};
+    'hang-hoa':(HANG[elHang.value]||{}).ten||'','ket-qua-tinh-phi':ketQua,'trang':location.href};  /* dong-y-chinh-sach + thoi-diem-dong-y do dbv-tracking.js gắn, không gửi trùng */
 }
 var tbXT=xemTruoc?'<br><small>(Bản xem trước trên máy: thông tin chưa được gửi thật.)</small>':'';
 
