@@ -354,6 +354,28 @@ async function layDonCuaToi(kho, zaloId, maDon) {
   return d && d.zaloId === zaloId ? d : null;
 }
 
+/* App báo kết quả checkTransaction sau sự kiện PaymentDone (bước 3 Checkout SDK).
+   Chỉ ghi nhật ký + trả trạng thái đơn phía DBV; KHÔNG tin resultCode từ app để
+   đổi trạng thái (tiền chuyển khoản chỉ kế toán xác nhận). */
+async function xuLyKetQuaTt(p) {
+  const nd = await C.xacMinhNguoiDung(p);
+  const kho = C.moKho();
+  const d = await kho.get('don/' + String(p.maDon || '').slice(0, 40), { type: 'json' });
+  if (!d || (d.zaloId && (!nd || nd.id !== d.zaloId))) return C.json(404, { error: 'Không tìm thấy đơn.' });
+  const rc = parseInt(p.resultCode, 10);
+  await C.ghiNhatKy('app', { orderId: String(p.maDonZalo || d.maDonZalo || ''), maDon: d.maDon, resultCode: isNaN(rc) ? null : rc, ok: true });
+  if (p.maDonZalo && !d.maDonZalo) {
+    const z = String(p.maDonZalo).slice(0, 64);
+    d.maDonZalo = z;
+    await kho.setJSON('don/' + d.maDon, d);
+    await kho.setJSON('zdon/' + z, { maDon: d.maDon });
+  }
+  return C.json(200, {
+    ok: true, trangThai: d.trangThai,
+    hanThanhToan: d.trangThai === 'cho_thanh_toan' && d.taoLuc ? new Date(Date.parse(d.taoLuc) + C.hanThanhToanPhut() * 60000).toISOString() : '',
+  });
+}
+
 async function xuLyGanDonZalo(p) {
   const nd = await C.xacMinhNguoiDung(p);
   const kho = C.moKho();
@@ -619,6 +641,7 @@ const VIEC = {
   'bao-phi': xuLyBaoPhi,
   'tao-don-tnds': xuLyTaoDon,
   'gan-don-zalo': xuLyGanDonZalo,
+  'ket-qua-tt': xuLyKetQuaTt,
   don: xuLyDon,
   've-tai-len': xuLyVeTaiLen,
   'xoa-tep': xuLyXoaTep,

@@ -225,23 +225,100 @@ function soSanhMac(chuoi, mac) {
   return String(mac) === hex || String(mac).toLowerCase() === hex || String(mac) === b64;
 }
 
-/* Cập nhật trạng thái giao dịch chuyển khoản lên Checkout SDK (updateOrderStatus):
+/* ── Cập nhật trạng thái giao dịch lên Checkout SDK (updateOrderStatus) ──────
    resultCode 1 = thành công (đã nhận tiền), -1 = thất bại (huỷ / quá hạn), 0 = đã hoàn tiền.
-   Zalo yêu cầu: giao dịch không được treo mãi ở "Đang chờ kết quả". */
-async function baoZaloDaThanhToan(maDonZalo, resultCode) {
+   Zalo kiểm duyệt (03 & 10/11/2026): giao dịch phải được cập nhật đủ THÀNH CÔNG / THẤT BẠI,
+   không được treo "Đang chờ kết quả".
+   • Endpoint theo kênh khách chọn (notify báo method): BANK → bank-callback-payment,
+     COD → cod-callback-payment. Chưa biết kênh → coi là BANK (kênh duy nhất đang bật).
+   • Tài liệu Zalo không nói rõ body là JSON hay form → gửi JSON, Zalo báo lỗi thì gửi lại dạng form.
+   • Gửi xong hỏi lại Zalo (get-status) để chắc trạng thái đã đổi; mọi lần gọi ghi nhật ký zlog/. */
+const ZP = 'https://payment-mini.zalo.me/api/transaction/';
+const DUONG_CAP_NHAT = { BANK: 'bank-callback-payment', COD: 'cod-callback-payment', CUSTOM: 'custom-callback-payment' };
+
+async function goiZalo(url, than, kieu) {
+  const opt = { method: 'POST' };
+  if (kieu === 'form') {
+    opt.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    opt.body = new URLSearchParams(Object.entries(than).map(([k, v]) => [k, String(v)])).toString();
+  } else {
+    opt.headers = { 'Content-Type': 'application/json' };
+    opt.body = JSON.stringify(than);
+  }
+  const ctrl = new AbortController();
+  const hen = setTimeout(() => ctrl.abort(), 8000);
+  try {
+    const r = await fetch(url, Object.assign(opt, { signal: ctrl.signal }));
+    const kq = await r.json().catch(() => ({ http: r.status }));
+    return { ok: kq.err === 0 || kq.error === 0, kq };
+  } finally {
+    clearTimeout(hen);
+  }
+}
+
+/** Hỏi Zalo trạng thái hiện tại của giao dịch (getOrderStatus). Trả {ok, returnCode, kq}. */
+async function layTrangThaiZalo(maDonZalo) {
+  const k = khoaCheckout();
+  const mac = crypto.createHmac('sha256', k).update('appId=' + MINI_APP_ID + '&orderId=' + maDonZalo + '&privateKey=' + k).digest('hex');
+  const q = new URLSearchParams({ appId: MINI_APP_ID, orderId: String(maDonZalo), mac });
+  try {
+    const r = await fetch(ZP + 'get-status?' + q.toString(), { method: 'GET' });
+    const kq = await r.json().catch(() => ({ http: r.status }));
+    const d = kq.data || kq;
+    const ok = kq.err === 0 || kq.error === 0 || d.returnCode != null;
+    return { ok, returnCode: d.returnCode, isProcessing: d.isProcessing, method: d.method, kq };
+  } catch (err) {
+    return { ok: false, kq: String(err.message || err) };
+  }
+}
+
+async function baoZaloDaThanhToan(maDonZalo, resultCode, kenh) {
   const rc = resultCode == null ? 1 : resultCode;
   const k = khoaCheckout();
   const mac = crypto
     .createHmac('sha256', k)
     .update('appId=' + MINI_APP_ID + '&orderId=' + maDonZalo + '&resultCode=' + rc + '&privateKey=' + k)
     .digest('hex');
-  const r = await fetch('https://payment-mini.zalo.me/api/transaction/' + MINI_APP_ID + '/bank-callback-payment', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ appId: MINI_APP_ID, orderId: maDonZalo, resultCode: rc, mac }),
-  });
-  const kq = await r.json().catch(() => ({}));
-  return { ok: kq.err === 0 || kq.error === 0, kq };
+  const ma = String(kenh || 'BANK').toUpperCase();
+  const url = ZP + MINI_APP_ID + '/' + (DUONG_CAP_NHAT[ma] || DUONG_CAP_NHAT.BANK);
+  const than = { appId: MINI_APP_ID, orderId: String(maDonZalo), resultCode: rc, mac };
+  const lan = [];
+  let r = await goiZalo(url, than, 'json').catch((e) => ({ ok: false, kq: String(e.message || e) }));
+  lan.push({ kieu: 'json', ok: r.ok, kq: r.kq });
+  if (!r.ok) {
+    r = await goiZalo(url, than, 'form').catch((e) => ({ ok: false, kq: String(e.message || e) }));
+    lan.push({ kieu: 'form', ok: r.ok, kq: r.kq });
+  }
+  /* Hỏi lại Zalo: trạng thái đã khớp chưa (1 ↔ thành công, -1 ↔ thất bại). */
+  let xacNhan = null;
+  if (r.ok) {
+    const t = await layTrangThaiZalo(maDonZalo);
+    xacNhan = { returnCode: t.returnCode, khop: t.returnCode === rc, kq: t.ok ? undefined : t.kq };
+  }
+  await ghiNhatKy('cap-nhat', { orderId: String(maDonZalo), resultCode: rc, kenh: ma, ok: r.ok, lan, xacNhan });
+  return { ok: r.ok, kq: r.kq, lan, xacNhan };
+}
+
+/* Nhật ký Checkout (notify, callback, cập nhật, kết quả từ app) — xem ở /admin/zalo-mini. */
+async function ghiNhatKy(loai, chiTiet) {
+  try {
+    const kho = moKho();
+    const luc = new Date().toISOString();
+    await kho.setJSON('zlog/' + luc + '-' + ngauNhien(4), Object.assign({ luc, loai }, chiTiet));
+  } catch (err) {
+    console.error('ghiNhatKy:', err.message);
+  }
+}
+async function docNhatKy(soDong) {
+  const kho = moKho();
+  const { blobs } = await kho.list({ prefix: 'zlog/' });
+  const moi = blobs.slice(-(soDong || 60)).reverse();
+  const ds = [];
+  for (const b of moi) {
+    const v = await kho.get(b.key, { type: 'json' });
+    if (v) ds.push(v);
+  }
+  return ds;
 }
 
 /* Phút giữ đơn chờ chuyển khoản trước khi tự huỷ (đổi bằng biến ZALO_HAN_THANH_TOAN_PHUT). */
@@ -256,7 +333,7 @@ async function huyDonChuaTra(kho, d, lyDo, boi) {
   let zalo = { ok: true, ghiChu: 'Đơn không qua Checkout của Zalo.' };
   if (d.maDonZalo) {
     try {
-      const kq = await baoZaloDaThanhToan(d.maDonZalo, -1);
+      const kq = await baoZaloDaThanhToan(d.maDonZalo, -1, d.kenhThanhToan);
       zalo = { ok: kq.ok, ghiChu: kq.ok ? 'Đã báo Zalo: giao dịch không thành công' : 'Zalo trả: ' + JSON.stringify(kq.kq).slice(0, 200) };
     } catch (err) {
       zalo = { ok: false, ghiChu: 'Chưa gọi được Zalo: ' + String(err.message || err).slice(0, 150) };
@@ -275,5 +352,5 @@ module.exports = {
   MINI_APP_ID, HOTLINE, CORS, json, moKho, datKhoThu,
   chuanHoaSdt, chuanHoaMaCtv, maDonMoi, ngauNhien,
   layNguoiDung, xacMinhNguoiDung, idTuKhoaThietBi, loiXacMinhGanNhat, doiTokenRaSdt, kyVe, giaiVe,
-  macDonHang, soSanhMac, baoZaloDaThanhToan, hanThanhToanPhut, huyDonChuaTra,
+  macDonHang, soSanhMac, baoZaloDaThanhToan, layTrangThaiZalo, ghiNhatKy, docNhatKy, hanThanhToanPhut, huyDonChuaTra,
 };

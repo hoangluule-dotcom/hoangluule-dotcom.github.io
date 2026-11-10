@@ -101,6 +101,12 @@
     </table>
   </div>
   <p class="mo">"Đã nhận tiền" chỉ bấm sau khi đã thấy dòng sao kê. Nút này báo Zalo giao dịch thành công, không sinh hoa hồng — hoa hồng vẫn do sổ chính (Google Sheets) sinh từ sao kê. Đơn chờ thanh toán quá 60 phút tự huỷ và báo Zalo "không thành công"; khách chuyển muộn thì vẫn bấm "Đã nhận tiền" được. "Huỷ đơn" dùng khi chắc chắn khách không chuyển.</p>
+  <details class="the" id="nk-khoi" style="padding:12px 14px;margin-top:12px">
+    <summary style="cursor:pointer;font-weight:700">Nhật ký Checkout SDK (Zalo ↔ máy chủ) — dùng khi Zalo báo chưa ghi nhận thanh toán</summary>
+    <p class="mo">notify = Zalo báo khách chọn chuyển khoản · cap-nhat = máy chủ báo Zalo thành công/thất bại · app = kết quả app nhận sau khi khách thanh toán. Dòng đỏ là lỗi.</p>
+    <button id="nk-tai" type="button">Tải nhật ký</button>
+    <div id="nk" class="mo" style="margin-top:8px"></div>
+  </details>
 </main>
 <input type="file" id="chon-pdf" accept="application/pdf" hidden>
 <script>
@@ -147,7 +153,8 @@
         '<td><button data-sua="'+esc(d.maDon)+'">Sửa số ấn chỉ / chăm sóc</button> <button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> <button data-ma="'+esc(d.maDon)+'">Cấp mã liên kết</button> '+
         (d.soGcn&&!(d.tinOA&&d.tinOA.ok)?'<button data-nhan="'+esc(d.maDon)+'">Nhắn lại khách</button> ':'')+
         (d.trangThai==='cho_thanh_toan'||(d.trangThai==='huy'&&d.nguon!=='ngoai')?'<button class="xanh" data-tien="'+esc(d.maDon)+'">Đã nhận tiền</button> ':'')+
-        (d.trangThai==='cho_thanh_toan'&&d.nguon!=='ngoai'?'<button data-huy="'+esc(d.maDon)+'">Huỷ đơn</button>':'')+'</td></tr>';
+        (d.trangThai==='cho_thanh_toan'&&d.nguon!=='ngoai'?'<button data-huy="'+esc(d.maDon)+'">Huỷ đơn</button> ':'')+
+        (d.maDonZalo?'<button data-ktz="'+esc(d.maDon)+'">Kiểm tra Zalo</button>':'')+'</td></tr>';
     }).join('');
     $('ds').innerHTML = h || '<tr><td colspan="8" class="mo">Không có đơn khớp bộ lọc.</td></tr>';
   }
@@ -182,6 +189,20 @@
     if(!w){ try{ window.top.location.href=url; }catch(e){ location.href=url; } }
     else bao('Đã mở trang kết nối Zalo OA ở tab mới. Đăng nhập bằng tài khoản quản trị OA, xong quay lại đây bấm "Tải danh sách".');
   };
+  var TEN_RC={'1':'thành công','0':'đang chờ','-1':'thất bại','-2':'khách thoát'};
+  $('nk-tai').addEventListener('click',function(){
+    $('nk').textContent='Đang tải…';
+    fetch(API+'?viec=nhat-ky',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json()}).then(function(j){
+      if(!j.ok){ $('nk').textContent=j.error||'Lỗi'; return; }
+      if(!j.ds.length){ $('nk').textContent='Chưa có sự kiện nào.'; return; }
+      $('nk').innerHTML=j.ds.map(function(x){
+        var mo=x.loai==='cap-nhat'?('báo Zalo '+(TEN_RC[String(x.resultCode)]||x.resultCode)+' · '+(x.ok?'Zalo nhận':'Zalo từ chối: '+esc(JSON.stringify((x.lan||[]).map(function(l){return l.kq}))).slice(0,160))+(x.xacNhan?(x.xacNhan.khop?' · Zalo xác nhận đã đổi':' · Zalo đang ghi: '+esc(String(x.xacNhan.returnCode))):''))
+          :x.loai==='app'?('app nhận kết quả: '+(TEN_RC[String(x.resultCode)]||x.resultCode))
+          :(x.ok?'OK':esc(x.loi||'lỗi'))+(x.method?' · '+esc(x.method):'')+(x.maDon?' · '+esc(x.maDon):'');
+        return '<div style="padding:4px 0;border-bottom:1px solid #eee;color:'+(x.ok?'inherit':'#b42318')+'">'+esc(new Date(x.luc).toLocaleString('vi-VN'))+' · <b>'+esc(x.loai)+'</b> · đơn Zalo '+esc(x.orderId||'—')+' · '+mo+'</div>';
+      }).join('');
+    }).catch(function(){ $('nk').textContent='Không kết nối được máy chủ.'; });
+  });
   function goi(viec, than){
     return fetch(API+'?viec='+viec,{method:'POST',headers:{'x-dashboard-key':khoa(),'Content-Type':'application/json'},body:JSON.stringify(than)})
       .then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Lỗi'); return j; })});
@@ -215,6 +236,11 @@
         .catch(function(err){ bao(err.message); });
     }
     if(b.dataset.gcn){ dangGan=b.dataset.gcn; $('chon-pdf').value=''; $('chon-pdf').click(); }
+    if(b.dataset.ktz){
+      b.disabled=true;
+      goi('kiem-tra-zalo',{maDon:b.dataset.ktz}).then(function(j){ b.disabled=false; bao('Đơn '+b.dataset.ktz+': '+(j.ghiChu||'')); })
+        .catch(function(err){ b.disabled=false; bao(err.message); });
+    }
     if(b.dataset.huy){
       if(!confirm('Huỷ đơn '+b.dataset.huy+'? Zalo sẽ báo khách giao dịch không thành công.')) return;
       b.disabled=true;

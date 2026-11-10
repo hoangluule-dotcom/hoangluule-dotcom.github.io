@@ -43,10 +43,12 @@ async function quet(kho, bayGio) {
       continue;
     }
 
-    /* Đơn đã huỷ nhưng lần trước gọi Zalo lỗi → thử lại. */
-    if (d.trangThai === 'huy' && d.maDonZalo && d.zaloCapNhat && !d.zaloCapNhat.ok && (c.thu || 0) < THU_LAI_TOI_DA) {
-      const r = await C.baoZaloDaThanhToan(d.maDonZalo, -1).catch((e) => ({ ok: false, kq: String(e.message || e) }));
-      d.zaloCapNhat = { luc: new Date(bayGio).toISOString(), resultCode: -1, ok: r.ok, ghiChu: r.ok ? 'Đã báo Zalo: giao dịch không thành công' : 'Zalo trả: ' + JSON.stringify(r.kq).slice(0, 200) };
+    /* Lần trước gọi Zalo lỗi → thử lại: đơn huỷ báo -1, đơn đã nhận tiền báo 1. */
+    const daTra = d.trangThai === 'da_thanh_toan' || d.trangThai === 'hieu_luc';
+    if ((d.trangThai === 'huy' || daTra) && d.maDonZalo && d.zaloCapNhat && !d.zaloCapNhat.ok && (c.thu || 0) < THU_LAI_TOI_DA) {
+      const rc = daTra ? 1 : -1;
+      const r = await C.baoZaloDaThanhToan(d.maDonZalo, rc, d.kenhThanhToan).catch((e) => ({ ok: false, kq: String(e.message || e) }));
+      d.zaloCapNhat = { luc: new Date(bayGio).toISOString(), resultCode: rc, ok: r.ok, ghiChu: r.ok ? (rc === 1 ? 'Đã báo Zalo: giao dịch thành công' : 'Đã báo Zalo: giao dịch không thành công') : 'Zalo trả: ' + JSON.stringify(r.kq).slice(0, 200) };
       await kho.setJSON('don/' + d.maDon, d);
       if (r.ok) await kho.delete(b.key);
       else { kq.loiZalo++; await kho.setJSON(b.key, Object.assign({}, c, { thu: (c.thu || 0) + 1 })); }

@@ -74,6 +74,7 @@ const QUYEN = {
   'nhan-lai': ['quan-ly', 'van-hanh'],
   'da-nhan-tien': ['quan-ly', 'ke-toan'],
   'huy-don': ['quan-ly', 'ke-toan'],
+  'kiem-tra-zalo': ['quan-ly', 'ke-toan', 'van-hanh'],
 };
 
 function docPdf(p) {
@@ -176,6 +177,7 @@ exports.handler = async function (event) {
 
   try {
     if (event.httpMethod === 'GET' && viec === 'ds') return C.json(200, { ok: true, don: await danhSach(kho) });
+    if (event.httpMethod === 'GET' && viec === 'nhat-ky') return C.json(200, { ok: true, ds: await C.docNhatKy(80) });
     if (event.httpMethod === 'GET' && viec === 'oa') return C.json(200, Object.assign({ ok: true }, await OA.trangThai()));
     if (event.httpMethod !== 'POST') return C.json(405, { error: 'Không hỗ trợ.' });
 
@@ -233,16 +235,24 @@ exports.handler = async function (event) {
     if (viec === 'da-nhan-tien') {
       let zalo = { ok: false, ghiChu: 'Đơn chưa có mã Zalo (khách chưa qua bước thanh toán trong app).' };
       if (d.maDonZalo) {
-        const kq = await C.baoZaloDaThanhToan(d.maDonZalo, 1);
-        zalo = { ok: kq.ok, ghiChu: kq.ok ? 'Đã báo Zalo' : 'Zalo trả: ' + JSON.stringify(kq.kq).slice(0, 200) };
+        const kq = await C.baoZaloDaThanhToan(d.maDonZalo, 1, d.kenhThanhToan);
+        zalo = { ok: kq.ok, ghiChu: kq.ok ? 'Đã báo Zalo: giao dịch thành công' + (kq.xacNhan && kq.xacNhan.khop ? ' (Zalo xác nhận)' : '') : 'Zalo trả: ' + JSON.stringify(kq.kq).slice(0, 200) };
       }
       if (d.trangThai === 'cho_thanh_toan' || d.trangThai === 'huy') d.trangThai = 'da_thanh_toan';
       d.zaloCapNhat = Object.assign({ luc: new Date().toISOString(), resultCode: 1 }, zalo);
-      await kho.delete('ctt/' + d.maDon);
+      /* Gọi Zalo lỗi → giữ trong sổ để hàm lịch thử lại; xong → bỏ khỏi sổ. */
+      if (zalo.ok || !d.maDonZalo) await kho.delete('ctt/' + d.maDon);
+      else await kho.setJSON('ctt/' + d.maDon, { maDon: d.maDon, taoLuc: d.taoLuc, thu: 0 });
       d.daNhanTienLuc = new Date().toISOString();
       d.daNhanTienBoi = nguoi;
       await kho.setJSON('don/' + d.maDon, d);
       return C.json(200, { ok: true, zalo });
+    }
+    if (viec === 'kiem-tra-zalo') {
+      if (!d.maDonZalo) return C.json(200, { ok: true, ghiChu: 'Đơn chưa qua Checkout của Zalo.' });
+      const t = await C.layTrangThaiZalo(d.maDonZalo);
+      const ten = { 1: 'Thành công', 0: 'Đang chờ kết quả', '-1': 'Thất bại' };
+      return C.json(200, { ok: true, zalo: t, ghiChu: t.ok ? 'Zalo đang ghi: ' + (ten[t.returnCode] || t.returnCode) + (t.method ? ' · ' + t.method : '') : 'Chưa hỏi được Zalo: ' + JSON.stringify(t.kq).slice(0, 200) });
     }
     if (viec === 'huy-don') {
       if (d.trangThai !== 'cho_thanh_toan') return C.json(409, { error: 'Chỉ huỷ được đơn đang chờ thanh toán.' });

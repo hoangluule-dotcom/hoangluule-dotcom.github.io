@@ -54,8 +54,12 @@ exports.handler = async function (event) {
   try {
     if (loai === 'notify') {
       const chuoi = 'appId=' + d.appId + '&orderId=' + d.orderId + '&method=' + d.method;
-      if (!C.soSanhMac(chuoi, p.mac)) return traLoi(-1, 'Sai MAC');
+      if (!C.soSanhMac(chuoi, p.mac)) {
+        await C.ghiNhatKy('notify', { orderId: String(d.orderId || ''), method: d.method, ok: false, loi: 'Sai MAC — kiểm tra ZALO_CHECKOUT_PRIVATE_KEY trùng Private Key trong Checkout SDK' });
+        return traLoi(-1, 'Sai MAC');
+      }
       const don = await timDon(kho, d.orderId, d.extradata);
+      await C.ghiNhatKy('notify', { orderId: String(d.orderId), method: d.method, ok: true, maDon: don ? don.maDon : '(chưa khớp — chờ app báo mã)' });
       if (don) {
         don.kenhThanhToan = d.method;
         if (!don.maDonZalo) {
@@ -74,8 +78,12 @@ exports.handler = async function (event) {
     if (loai === 'callback') {
       const chuoi = 'appId=' + d.appId + '&amount=' + d.amount + '&description=' + d.description +
         '&orderId=' + d.orderId + '&message=' + d.message + '&resultCode=' + d.resultCode + '&transId=' + d.transId;
-      if (!C.soSanhMac(chuoi, p.mac)) return traLoi(-1, 'Sai MAC');
+      if (!C.soSanhMac(chuoi, p.mac)) {
+        await C.ghiNhatKy('callback', { orderId: String(d.orderId || ''), ok: false, loi: 'Sai MAC' });
+        return traLoi(-1, 'Sai MAC');
+      }
       const don = await timDon(kho, d.orderId, d.extradata);
+      await C.ghiNhatKy('callback', { orderId: String(d.orderId), resultCode: d.resultCode, method: d.method, ok: !!don, maDon: don ? don.maDon : '' });
       if (!don) return traLoi(-1, 'Không tìm thấy đơn');
       if (Number(d.amount) !== Number(don.phi)) {
         console.error('zalo-mini-checkout: số tiền lệch', d.amount, don.phi, don.maDon);
