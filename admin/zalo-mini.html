@@ -7,273 +7,505 @@
 <title>Đơn Zalo Mini App — Quản trị DBV247</title>
 <link rel="stylesheet" href="/assets/tokens.css">
 <style>
+  /* Thiết kế lại 16/11/2026: hàng đợi công việc — mỗi đơn chỉ hiện MỘT việc cần làm tiếp,
+     việc phụ nằm trong menu "Thêm"; chi tiết mở khi bấm vào dòng. API giữ nguyên. */
+  :root{
+    --xanh:var(--c-brand,#007437); --dam:var(--c-heading,#084C38); --chu:var(--c-text,#1C1C1C);
+    --mo:var(--c-text-muted,#4A5568); --vien:var(--c-border,#E2E8F0); --nen:var(--c-bg-muted,#F8FAFB);
+    --mint:var(--c-mint,#EFF8F2); --cam:#C97D08; --cam-nen:var(--c-accent-soft,#FFF8E7); --do:#B42318; --do-nen:#FEF3F2;
+    --lam:#1D3F8F; --lam-nen:#E8EEF9; --xam:#667085; --xam-nen:#F2F4F7;
+  }
   *{box-sizing:border-box}
-  body{margin:0;font-family:var(--font,"Be Vietnam Pro",sans-serif);background:var(--c-bg-muted,#F8FAFB);color:var(--c-text,#1C1C1C);font-size:14px;line-height:1.5}
-  header{background:#fff;border-bottom:1px solid var(--c-border,#E2E8F0);padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-  h1{font-size:20px;margin:0;color:var(--c-heading,#084C38)}
-  main{padding:20px 24px;max-width:1400px;margin:0 auto}
-  .khoa{display:flex;gap:8px;margin-left:auto}
-  input,select{font:inherit;border:1px solid var(--c-border,#E2E8F0);border-radius:12px;padding:9px 12px;background:#fff}
-  button{font:inherit;font-weight:700;border-radius:12px;padding:9px 14px;border:1.5px solid var(--c-brand,#007437);background:#fff;color:var(--c-brand,#007437);cursor:pointer;min-height:40px}
-  button.xanh{background:var(--c-brand,#007437);color:#fff}
-  button:disabled{opacity:.5;cursor:default}
-  .the{background:#fff;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;box-shadow:0 3px 14px rgba(8,76,56,.06);overflow:auto}
-  table{width:100%;border-collapse:collapse;min-width:1100px}
-  th,td{padding:10px 12px;border-bottom:1px solid var(--c-border,#E2E8F0);text-align:left;vertical-align:top}
-  th{font-size:12px;color:var(--c-text-muted,#4A5568);background:var(--c-mint,#EFF8F2);position:sticky;top:0}
-  td.so{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-  .nhan{display:inline-block;padding:2px 8px;border-radius:8px;font-size:12px;font-weight:700}
-  .cho_thanh_toan{background:var(--c-accent-soft,#FFF8E7);color:#8a5300}
-  .da_thanh_toan{background:#E8F5E9;color:#005A2B}
-  .hieu_luc{background:var(--c-brand,#007437);color:#fff}
-  .huy{background:#F2F4F7;color:#475467}
-  .mo{color:var(--c-text-muted,#4A5568);font-size:12px}
-  .loc{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-  .bao{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:var(--c-accent-soft,#FFF8E7);display:none}
-  code{font-size:12px}
-  .ngoai{background:#E8EEF9;color:#1D3F8F}
-  details.form{background:#fff;border:1px solid var(--c-border,#E2E8F0);border-radius:16px;margin-bottom:14px}
-  details.form>summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--c-heading,#084C38);list-style:none}
-  details.form>summary::before{content:"＋ "}
-  details.form[open]>summary::before{content:"－ "}
-  .luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;padding:0 16px 16px}
-  .luoi label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--c-text-muted,#4A5568)}
+  body{margin:0;font-family:var(--font,"Be Vietnam Pro",system-ui,sans-serif);background:var(--nen);color:var(--chu);font-size:14px;line-height:1.5}
+  button,input,select{font:inherit}
+  button{cursor:pointer}
+  :focus-visible{outline:2px solid var(--xanh);outline-offset:2px}
+  .an{display:none!important}
+
+  /* Đầu trang */
+  .dau{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 24px 6px;max-width:1280px;margin:0 auto}
+  .dau h1{font-size:22px;line-height:1.25;margin:0;color:var(--dam);font-weight:800}
+  .dau .phai{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .oa{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--mo);background:#fff;border:1px solid var(--vien);border-radius:999px;padding:6px 12px}
+  .oa i{width:8px;height:8px;border-radius:50%;background:var(--xam)}
+  .oa.ok i{background:var(--xanh)} .oa.loi i{background:var(--do)}
+  .oa button{border:0;background:none;color:var(--xanh);font-weight:700;padding:0;margin-left:4px}
+  .nut{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--xanh);background:#fff;color:var(--xanh);font-weight:700;white-space:nowrap}
+  .nut.chinh{background:var(--xanh);color:#fff}
+  .nut.cam{background:var(--cam);border-color:var(--cam);color:#fff}
+  .nut.nhat{border-color:var(--vien);color:var(--chu)}
+  .nut.do{border-color:#F4C7C3;color:var(--do)}
+  .nut:disabled{opacity:.5;cursor:default}
+  .khoa{display:flex;gap:8px}
+  .khoa input{border:1px solid var(--vien);border-radius:10px;padding:8px 12px;min-width:240px}
+
+  /* Thanh lọc */
+  main{max-width:1280px;margin:0 auto;padding:8px 24px 40px}
+  .loc{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0 12px}
+  .tab{display:flex;gap:4px;flex-wrap:wrap;background:#fff;border:1px solid var(--vien);border-radius:12px;padding:4px}
+  .tab button{border:0;background:none;border-radius:8px;padding:7px 11px;color:var(--mo);font-weight:600;display:flex;gap:6px;align-items:center}
+  .tab button[aria-selected="true"]{background:var(--mint);color:var(--dam)}
+  .tab b{font-size:12px;min-width:20px;padding:0 6px;border-radius:999px;background:var(--xam-nen);color:var(--mo);text-align:center}
+  .tab button[aria-selected="true"] b{background:var(--xanh);color:#fff}
+  .tab button.gap b{background:var(--cam);color:#fff}
+  .tim{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--vien);border-radius:12px;padding:0 12px}
+  .tim input{border:0;outline:0;flex:1;min-height:42px;background:none}
+
+  /* Danh sách: một khối trắng, các dòng phân bằng đường kẻ, vạch màu bên trái = trạng thái */
+  .ds{background:#fff;border:1px solid var(--vien);border-radius:14px;overflow:hidden}
+  .dong{border-bottom:1px solid var(--vien);position:relative}
+  .dong:last-child{border-bottom:0}
+  .dong::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--vach,transparent)}
+  .dong.cho{--vach:var(--cam)} .dong.tien{--vach:var(--xanh)} .dong.xong{--vach:#B7D9C4} .dong.huy{--vach:#D0D5DD} .dong.ngoai{--vach:#9DB3E3}
+  .tom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr) minmax(0,.9fr) minmax(0,1.4fr) auto;gap:16px;align-items:center;padding:14px 16px 14px 20px;cursor:pointer}
+  .tom:hover{background:#FBFCFC}
+  .sp{font-weight:700;color:var(--dam);line-height:1.35}
+  .phu{color:var(--mo);font-size:12.5px;line-height:1.45}
+  .khach b{font-weight:600}
+  .tien-so{font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+  .ck{display:inline-flex;align-items:center;gap:6px;margin-top:2px;font-size:12.5px;color:var(--mo)}
+  .ck{flex-wrap:wrap} .ck code{white-space:nowrap;font-family:inherit;font-weight:700;color:var(--chu);background:var(--nen);border:1px dashed var(--vien);border-radius:6px;padding:1px 6px}
+  .chep{border:0;background:none;color:var(--xanh);font-weight:700;font-size:12px;padding:2px 4px}
+  .buoc{display:flex;flex-direction:column;gap:3px}
+  .the-tt{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px}
+  .the-tt.cho{background:var(--cam-nen);color:#8A5300} .the-tt.tien{background:#E3F4E9;color:#005A2B}
+  .the-tt.xong{background:var(--mint);color:var(--dam)} .the-tt.huy{background:var(--xam-nen);color:var(--xam)} .the-tt.ngoai{background:var(--lam-nen);color:var(--lam)}
+  .viec{font-size:13px;color:var(--chu)}
+  .viec.gap{color:var(--do);font-weight:600}
+  .hanh{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+  .them{position:relative}
+  .them>button{min-width:40px;padding:8px 10px}
+  .menu{position:absolute;right:0;top:calc(100% + 6px);z-index:20;background:#fff;border:1px solid var(--vien);border-radius:12px;box-shadow:0 12px 32px rgba(8,76,56,.14);min-width:230px;padding:6px;display:none}
+  .menu.mo{display:block}
+  .menu button{display:block;width:100%;text-align:left;border:0;background:none;border-radius:8px;padding:9px 10px;color:var(--chu)}
+  .menu button:hover{background:var(--nen)}
+  .menu button.do{color:var(--do)}
+  .menu hr{border:0;border-top:1px solid var(--vien);margin:4px 0}
+
+  /* Chi tiết khi mở dòng */
+  .ct{display:none;padding:2px 20px 16px 20px}
+  .dong.mo-ct .ct{display:block}
+  .ct dl{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px 20px;margin:0;padding:14px;background:var(--nen);border-radius:12px}
+  .ct dt{font-size:12px;color:var(--mo)} .ct dd{margin:1px 0 0;font-weight:600;word-break:break-word}
+  .lk{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;padding:12px 14px;border-radius:12px;background:var(--lam-nen)}
+  .lk .ma{font-size:22px;font-weight:800;letter-spacing:4px;color:var(--lam)}
+  .ok{color:var(--xanh)} .canh{color:var(--cam)} .loi-chu{color:var(--do)}
+
+  .trong{padding:44px 20px;text-align:center;color:var(--mo)}
+  .trong b{display:block;color:var(--dam);font-size:16px;margin-bottom:4px}
+
+  /* Thông báo nổi */
+  #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;max-width:min(640px,calc(100% - 32px));background:var(--dam);color:#fff;border-radius:12px;padding:12px 16px;box-shadow:0 12px 32px rgba(0,0,0,.2);display:none}
+  #toast.loi{background:var(--do)}
+
+  /* Hộp thoại */
+  .phu-man{position:fixed;inset:0;z-index:50;background:rgba(16,24,40,.42);display:none;align-items:flex-start;justify-content:center;padding:6vh 16px;overflow:auto}
+  .phu-man.mo{display:flex}
+  .hop{background:#fff;border-radius:16px;width:min(560px,100%);box-shadow:0 24px 60px rgba(0,0,0,.25)}
+  .hop.rong{width:min(760px,100%)}
+  .hop h2{margin:0;padding:18px 20px 0;font-size:18px;color:var(--dam)}
+  .hop .than{padding:12px 20px}
+  .hop .chan{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px 18px}
+  .o{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;color:var(--mo)}
+  .o input{font-weight:400;color:var(--chu);border:1px solid var(--vien);border-radius:10px;padding:9px 12px;min-height:42px}
+  .luoi{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .luoi .rong{grid-column:1/-1}
-  .huong{margin:0 16px 14px;padding:10px 14px;border-radius:12px;background:var(--c-mint,#EFF8F2);font-size:13px}
+  .huong{font-size:13px;color:var(--mo);background:var(--mint);border-radius:10px;padding:10px 12px;margin:0 0 12px}
+  .tin{width:100%;min-height:96px;border:1px solid var(--vien);border-radius:10px;padding:10px 12px;font:inherit;resize:vertical}
+
+  details.ky{margin-top:18px;color:var(--mo)}
+  details.ky summary{cursor:pointer;font-weight:600}
+  #nk{margin-top:8px;font-size:12.5px;background:#fff;border:1px solid var(--vien);border-radius:12px;padding:6px 12px;max-height:420px;overflow:auto}
+  #nk div{padding:5px 0;border-bottom:1px solid var(--vien)}
+  .ghi{font-size:12.5px;color:var(--mo);margin:12px 2px 0}
+
+  @media (max-width:900px){
+    .tom{grid-template-columns:1fr 1fr;gap:8px 12px}
+    .tom .buoc{grid-column:1/-1}
+    .tom .hanh{grid-column:1/-1;justify-content:flex-start}
+    .dau,main{padding-left:14px;padding-right:14px}
+    .luoi{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:no-preference){ .menu,.hop{animation:hien .14s ease-out} @keyframes hien{from{opacity:0;transform:translateY(-4px)}} }
 </style>
 </head>
 <body>
-<header>
+<div class="dau">
   <h1>Đơn Zalo Mini App</h1>
-  <span class="mo">Gắn giấy chứng nhận PDF (OA tự nhắn khách) · khách mua ngoài Zalo · báo Zalo đã nhận tiền chuyển khoản</span>
-  <div class="khoa">
-    <input id="khoa" type="password" placeholder="Khoá quản trị (DASHBOARD_KEY)" autocomplete="off">
-    <button class="xanh" id="vao">Tải danh sách</button>
+  <div class="phai">
+    <span class="oa" id="oa"><i></i><span id="oa-tt">Zalo OA: đang kiểm tra</span><button type="button" id="oa-noi" class="an">Kết nối</button></span>
+    <div class="khoa an" id="khoa-o">
+      <input id="khoa" type="password" placeholder="Khoá quản trị" autocomplete="off">
+      <button class="nut chinh" id="vao" type="button">Mở</button>
+    </div>
+    <button class="nut chinh" id="mo-ngoai" type="button">＋ Thêm hợp đồng mua ngoài Zalo</button>
   </div>
-</header>
+</div>
+
 <main>
-  <p class="bao" id="bao" role="status"></p>
-  <div class="loc" id="oa-thanh" style="align-items:center">
-    <span id="oa-tt" class="mo">Zalo OA: chưa kiểm tra</span>
-    <button id="oa-noi">Kết nối Zalo OA</button>
-  </div>
-  <details class="form" id="f-ngoai">
-    <summary>Gắn PDF cho khách mua ngoài Zalo (web, điện thoại, tại quầy…)</summary>
-    <p class="huong">Gắn xong, hệ thống tạo <b>mã liên kết 4 số</b> gắn với số điện thoại khách (hạn 30 ngày; nhiều hợp đồng cùng số dùng chung một mã). Nhắn khách: mở Mini App <b>Bảo hiểm DBV → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo</b> → nhập <b>số điện thoại đã mua + mã 4 số</b>. Liên kết một lần, các hợp đồng sau của số đó hiện thẳng trong app. Khách đổi máy hoặc xoá Zalo → bấm <b>"Cấp mã liên kết"</b> trên dòng đơn.</p>
-    <form class="luoi" id="ng-form" autocomplete="off">
-      <label>Số điện thoại khách *<input id="ng-sdt" inputmode="tel" placeholder="09xx xxx xxx" required></label>
-      <label>Sản phẩm *<input id="ng-sp" list="ng-ds-sp" placeholder="VD: Vật chất ô tô" required></label>
-      <label>Số ấn chỉ / số GCN (Tổng công ty cấp)<input id="ng-sac" placeholder="Hiện cho khách thay mã đơn"></label>
-      <label>Nhân viên chăm sóc<input id="ng-pt-ten" placeholder="Họ tên hiện cho khách"></label>
-      <label>SĐT nhân viên chăm sóc<input id="ng-pt-sdt" inputmode="tel" placeholder="09xx xxx xxx"></label>
-      <label>Họ tên khách<input id="ng-ten" placeholder="Chỉ nhân viên thấy"></label>
-      <label>Biển số (nếu có)<input id="ng-bien" placeholder="30A-123.45"></label>
-      <label>Hiệu lực từ<input id="ng-tu" type="date"></label>
-      <label>Hiệu lực đến<input id="ng-den" type="date"></label>
-      <label>Phí đã gồm VAT (đ)<input id="ng-phi" inputmode="numeric" placeholder="0"></label>
-      <label>File PDF giấy chứng nhận *<input id="ng-pdf" type="file" accept="application/pdf" required></label>
-      <div class="rong"><button class="xanh" type="submit" id="ng-gui">Gắn PDF cho khách</button></div>
-    </form>
-    <datalist id="ng-ds-sp">
-      <option>TNDS ô tô</option><option>TNDS xe máy</option><option>Vật chất ô tô</option><option>Vật chất xe ô tô điện</option>
-      <option>Sức khỏe An Tâm Vui Khỏe</option><option>Tai nạn 24 giờ</option><option>Bệnh nhiệt đới</option>
-      <option>Du lịch quốc tế</option><option>Du lịch nội địa</option><option>Cháy nổ căn hộ chung cư</option><option>Xây dựng nhà dân sinh</option>
-    </datalist>
-  </details>
   <div class="loc">
-    <input id="tim" placeholder="Tìm mã đơn, biển số, tên, SĐT">
-    <select id="tt">
-      <option value="">Mọi trạng thái</option>
-      <option value="cho_thanh_toan">Chờ thanh toán</option>
-      <option value="da_thanh_toan">Đã nhận tiền</option>
-      <option value="hieu_luc">Đã gắn GCN</option>
-      <option value="huy">Đã huỷ</option>
-      <option value="ngoai">Mua ngoài Zalo</option>
-    </select>
+    <div class="tab" role="tablist" id="tab"></div>
+    <label class="tim"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="tim" placeholder="Tìm biển số, tên khách, SĐT, mã đơn, số ấn chỉ" aria-label="Tìm đơn"></label>
+    <button class="nut nhat" id="lam-moi" type="button" title="Tải lại danh sách">Tải lại</button>
   </div>
-  <div class="the">
-    <table>
-      <thead><tr>
-        <th>Mã đơn / thời điểm</th><th>Sản phẩm</th><th>Khách</th><th>Nội dung CK</th>
-        <th>Phí</th><th>CTV</th><th>Trạng thái</th><th>Việc</th>
-      </tr></thead>
-      <tbody id="ds"><tr><td colspan="8" class="mo">Nhập khoá rồi bấm Tải danh sách.</td></tr></tbody>
-    </table>
-  </div>
-  <p class="mo">"Đã nhận tiền" chỉ bấm sau khi đã thấy dòng sao kê. Nút này báo Zalo giao dịch thành công, không sinh hoa hồng — hoa hồng vẫn do sổ chính (Google Sheets) sinh từ sao kê. Đơn chờ thanh toán quá 60 phút tự huỷ và báo Zalo "không thành công"; khách chuyển muộn thì vẫn bấm "Đã nhận tiền" được. "Huỷ đơn" dùng khi chắc chắn khách không chuyển.</p>
-  <details class="the" id="nk-khoi" style="padding:12px 14px;margin-top:12px">
-    <summary style="cursor:pointer;font-weight:700">Nhật ký Checkout SDK (Zalo ↔ máy chủ) — dùng khi Zalo báo chưa ghi nhận thanh toán</summary>
-    <p class="mo">notify = Zalo báo khách chọn chuyển khoản · cap-nhat = máy chủ báo Zalo thành công/thất bại · app = kết quả app nhận sau khi khách thanh toán. Dòng đỏ là lỗi.</p>
-    <button id="nk-tai" type="button">Tải nhật ký</button>
-    <div id="nk" class="mo" style="margin-top:8px"></div>
+
+  <div class="ds" id="ds"><div class="trong">Đang tải danh sách…</div></div>
+
+  <p class="ghi">Chỉ bấm "Đã nhận tiền" khi đã thấy tiền trong sao kê — Zalo sẽ báo khách thanh toán thành công. Đơn chờ quá 60 phút tự huỷ; khách chuyển muộn vẫn bấm "Đã nhận tiền" được. Hoa hồng CTV vẫn tính từ sổ chính (Google Sheets).</p>
+
+  <details class="ky" id="nk-khoi">
+    <summary>Nhật ký thanh toán Zalo (dùng khi Zalo báo chưa ghi nhận thanh toán)</summary>
+    <div id="nk">Mở để tải.</div>
   </details>
 </main>
+
+<!-- Hộp: thêm hợp đồng mua ngoài Zalo -->
+<div class="phu-man" id="h-ngoai" role="dialog" aria-modal="true" aria-labelledby="h-ngoai-t">
+  <form class="hop rong" id="ng-form" autocomplete="off">
+    <h2 id="h-ngoai-t">Thêm hợp đồng mua ngoài Zalo</h2>
+    <div class="than">
+      <p class="huong">Dùng cho khách mua qua website, điện thoại hay tại quầy. Lưu xong, hệ thống tạo <b>mã liên kết 4 số</b> theo số điện thoại khách. Khách mở Mini App → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo, nhập số điện thoại và mã là thấy giấy chứng nhận.</p>
+      <div class="luoi">
+        <label class="o">Số điện thoại khách *<input id="ng-sdt" inputmode="tel" placeholder="09xx xxx xxx" required></label>
+        <label class="o">Sản phẩm *<input id="ng-sp" list="ng-ds-sp" placeholder="Ví dụ: Vật chất ô tô" required></label>
+        <label class="o">Họ tên khách<input id="ng-ten" placeholder="Chỉ nhân viên thấy"></label>
+        <label class="o">Biển số (nếu có)<input id="ng-bien" placeholder="30A-123.45"></label>
+        <label class="o">Hiệu lực từ<input id="ng-tu" type="date"></label>
+        <label class="o">Hiệu lực đến<input id="ng-den" type="date"></label>
+        <label class="o">Phí đã gồm VAT (đ)<input id="ng-phi" inputmode="numeric" placeholder="0"></label>
+        <label class="o">Số ấn chỉ / số GCN<input id="ng-sac" placeholder="Khách thấy thay cho mã đơn"></label>
+        <label class="o">Nhân viên chăm sóc<input id="ng-pt-ten" placeholder="Họ tên khách sẽ thấy"></label>
+        <label class="o">SĐT nhân viên chăm sóc<input id="ng-pt-sdt" inputmode="tel" placeholder="09xx xxx xxx"></label>
+        <label class="o rong">File PDF giấy chứng nhận *<input id="ng-pdf" type="file" accept="application/pdf" required></label>
+      </div>
+      <datalist id="ng-ds-sp">
+        <option>TNDS ô tô</option><option>TNDS xe máy</option><option>Vật chất ô tô</option><option>Vật chất xe ô tô điện</option>
+        <option>Sức khỏe An Tâm Vui Khỏe</option><option>Tai nạn 24 giờ</option><option>Bệnh nhiệt đới</option>
+        <option>Du lịch quốc tế</option><option>Du lịch nội địa</option><option>Cháy nổ căn hộ chung cư</option><option>Xây dựng nhà dân sinh</option>
+      </datalist>
+    </div>
+    <div class="chan"><button class="nut nhat" type="button" data-dong>Đóng</button><button class="nut chinh" type="submit" id="ng-gui">Lưu và tạo mã liên kết</button></div>
+  </form>
+</div>
+
+<!-- Hộp: sửa số ấn chỉ / người chăm sóc -->
+<div class="phu-man" id="h-sua" role="dialog" aria-modal="true" aria-labelledby="h-sua-t">
+  <form class="hop" id="sua-form" autocomplete="off">
+    <h2 id="h-sua-t">Số ấn chỉ và người chăm sóc</h2>
+    <div class="than">
+      <p class="huong" id="sua-mo"></p>
+      <div class="luoi">
+        <label class="o rong">Số ấn chỉ / số GCN do Tổng công ty cấp<input id="sua-sac" placeholder="Để trống nếu chưa có"></label>
+        <label class="o">Nhân viên chăm sóc<input id="sua-ten" placeholder="Họ tên khách sẽ thấy"></label>
+        <label class="o">SĐT nhân viên chăm sóc<input id="sua-sdt" inputmode="tel" placeholder="09xx xxx xxx"></label>
+      </div>
+    </div>
+    <div class="chan"><button class="nut nhat" type="button" data-dong>Đóng</button><button class="nut chinh" type="submit">Lưu</button></div>
+  </form>
+</div>
+
+<!-- Hộp: xác nhận -->
+<div class="phu-man" id="h-xn" role="dialog" aria-modal="true" aria-labelledby="h-xn-t">
+  <div class="hop">
+    <h2 id="h-xn-t"></h2>
+    <div class="than" id="xn-than"></div>
+    <div class="chan"><button class="nut nhat" type="button" data-dong>Không</button><button class="nut chinh" type="button" id="xn-co"></button></div>
+  </div>
+</div>
+
+<!-- Hộp: tin nhắn gửi khách (mã liên kết) -->
+<div class="phu-man" id="h-tin" role="dialog" aria-modal="true" aria-labelledby="h-tin-t">
+  <div class="hop">
+    <h2 id="h-tin-t">Gửi mã liên kết cho khách</h2>
+    <div class="than">
+      <div class="lk"><span>Mã liên kết</span><span class="ma" id="tin-ma"></span><span class="phu" id="tin-sdt"></span></div>
+      <p class="phu" style="margin:12px 0 6px">Tin nhắn mẫu — sao chép rồi gửi qua Zalo hoặc SMS:</p>
+      <textarea class="tin" id="tin-noi" readonly></textarea>
+    </div>
+    <div class="chan"><button class="nut nhat" type="button" data-dong>Đóng</button><button class="nut chinh" type="button" id="tin-chep">Sao chép tin nhắn</button></div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
 <input type="file" id="chon-pdf" accept="application/pdf" hidden>
+
 <script>
 (function(){
   var API='/.netlify/functions/zalo-mini-admin';
-  var NHAN={cho_thanh_toan:'Chờ thanh toán',da_thanh_toan:'Đã nhận tiền',hieu_luc:'Đã gắn GCN',huy:'Đã huỷ'};
-  var LY_DO={qua_han_thanh_toan:'quá hạn chuyển khoản',khong_nhan_duoc_tien:'huỷ tay'};
-  function zaloTT(d){
-    var z=d.zaloCapNhat; if(!z||!d.maDonZalo) return '';
-    return '<div class="mo" style="color:'+(z.ok?'#007437':'#b42318')+'">'+(z.ok?'✓ ':'⚠ ')+'Trạng thái giao dịch Zalo: '+esc(z.ghiChu||'')+'</div>';
-  }
-  var DS=[], dangGan=null;
   var $=function(id){return document.getElementById(id)};
-  try{ $('khoa').value = localStorage.getItem('dbv247_key') || ''; }catch(e){}
-  function khoa(){ return $('khoa').value.trim(); }
-  function bao(t){ var b=$('bao'); b.textContent=t; b.style.display=t?'block':'none'; }
+  var DS=[], dangGan=null, TAB='can', moCt={};
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}); }
   function tien(n){ return (Math.round(n)||0).toLocaleString('vi-VN')+'đ'; }
-  function tai(){
-    bao('Đang tải…'); kiemOA();
-    try{ localStorage.setItem('dbv247_key', khoa()); }catch(e){}
-    fetch(API+'?viec=ds',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json().then(function(j){return {r:r,j:j}})}).then(function(x){
-      if(!x.r.ok){ bao(x.j.error||'Lỗi'); return; }
-      DS=x.j.don||[]; bao(DS.length?'':'Chưa có đơn nào từ Mini App.'); ve();
-    }).catch(function(){ bao('Không kết nối được máy chủ.'); });
-  }
-  function ve(){
-    var q=$('tim').value.trim().toLowerCase(), tt=$('tt').value;
-    var h=DS.filter(function(d){
-      if(tt==='ngoai'){ if(d.nguon!=='ngoai') return false; } else if(tt && d.trangThai!==tt) return false;
-      if(!q) return true;
-      return [d.maDon,d.soAnChi,d.bienSo,d.hoTen,d.sdt,d.email].join(' ').toLowerCase().indexOf(q)>=0;
-    }).map(function(d){
-      return '<tr><td><b>'+esc(d.soAnChi||d.maDon)+'</b>'+(d.soAnChi?'<div class="mo">Mã đơn: '+esc(d.maDon)+'</div>':'<div class="mo" style="color:#C97D08">Chưa có số ấn chỉ</div>')+'<div class="mo">'+esc(new Date(d.taoLuc).toLocaleString('vi-VN'))+'</div>'+
-        '<div class="mo">Chăm sóc: '+(d.phuTrach?esc(d.phuTrach.ten)+(d.phuTrach.sdt?' · '+esc(d.phuTrach.sdt):''):'<i>chưa gán</i>')+'</div>'+
-        (d.nguon==='ngoai'?'<div><span class="nhan ngoai">Mua ngoài Zalo</span></div>':(d.soChinh!=='da_ghi'?'<div class="mo">Sổ chính lỗi — đơn ở Netlify Forms</div>':''))+'</td>'+
-        '<td>'+esc(d.sanPham)+'<div class="mo">'+esc(d.bienSo||'Chưa có biển')+'</div></td>'+
-        '<td>'+esc(d.hoTen)+'<div class="mo">'+esc(d.sdt)+' · '+esc(d.email)+'</div></td>'+
-        (d.nguon==='ngoai'
-          ?'<td><div class="mo">'+(d.daLienKet?'✓ Khách đã liên kết — thấy trong app':'Chờ khách nhập mã trong app')+'</div>'+maLk(d)+'</td>'
-          :'<td><code>'+esc(d.noiDungCk)+'</code><div class="mo">'+(d.maDonZalo?'Zalo: '+esc(d.maDonZalo):'Chưa qua thanh toán')+(d.kenh?' · '+esc(d.kenh):'')+'</div>'+maLk(d)+'</td>')+
-        '<td class="so">'+tien(d.phi)+'</td><td>'+esc(d.maCtv||'—')+'</td>'+
-        '<td><span class="nhan '+esc(d.trangThai)+'">'+esc(NHAN[d.trangThai]||d.trangThai)+'</span>'+(d.trangThai==='huy'&&d.huyLyDo?'<div class="mo">'+esc(LY_DO[d.huyLyDo]||d.huyLyDo)+'</div>':'')+'<div class="mo">'+d.soGcn+' GCN</div>'+zaloTT(d)+tinOA(d)+'</td>'+
-        '<td><button data-sua="'+esc(d.maDon)+'">Sửa số ấn chỉ / chăm sóc</button> <button data-gcn="'+esc(d.maDon)+'">Gắn GCN</button> <button data-ma="'+esc(d.maDon)+'">Cấp mã liên kết</button> '+
-        (d.soGcn&&!(d.tinOA&&d.tinOA.ok)?'<button data-nhan="'+esc(d.maDon)+'">Nhắn lại khách</button> ':'')+
-        (d.trangThai==='cho_thanh_toan'||(d.trangThai==='huy'&&d.nguon!=='ngoai')?'<button class="xanh" data-tien="'+esc(d.maDon)+'">Đã nhận tiền</button> ':'')+
-        (d.trangThai==='cho_thanh_toan'&&d.nguon!=='ngoai'?'<button data-huy="'+esc(d.maDon)+'">Huỷ đơn</button> ':'')+
-        (d.maDonZalo?'<button data-ktz="'+esc(d.maDon)+'">Kiểm tra Zalo</button>':'')+'</td></tr>';
-    }).join('');
-    $('ds').innerHTML = h || '<tr><td colspan="8" class="mo">Không có đơn khớp bộ lọc.</td></tr>';
-  }
-  function maLk(d){
-    return d.maLienKet?'<div>Mã liên kết: <code style="font-size:15px;font-weight:700;letter-spacing:2px">'+esc(d.maLienKet)+'</code> <span class="mo">(SĐT '+esc(d.sdt)+')</span></div>':'';
-  }
-  function tinMa(sdt,ma){
-    return 'Nhắn khách: "DBV gửi anh/chị mã liên kết hợp đồng: '+ma+'. Anh/chị mở Mini App Bảo hiểm DBV trên Zalo → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo → nhập số điện thoại '+sdt+' và mã '+ma+' (hạn 30 ngày)."';
-  }
-  function tinOA(d){
-    if(d.tinOA&&d.tinOA.ok) return '<div class="mo">✓ OA đã nhắn khách</div>';
-    if(d.tinOA) return '<div class="mo" style="color:#C97D08">Chưa nhắn được: '+esc(d.tinOA.loi)+' — gọi/nhắn khách thủ công</div>';
-    return '<div class="mo">'+(d.coOA?'Khách có theo dõi OA':'Khách chưa theo dõi OA')+'</div>';
-  }
-  function baoTin(t){
-    if(!t) return '';
-    return t.ok?' OA đã nhắn khách.':' Chưa nhắn được khách qua OA ('+t.loi+') — anh/chị gọi hoặc nhắn khách thủ công.';
-  }
-  function kiemOA(){
-    fetch(API+'?viec=oa',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json()}).then(function(j){
-      if(j.error) return;
-      $('oa-tt').textContent = j.daKetNoi ? 'Zalo OA: đã kết nối'+(j.oaId?' (OA '+j.oaId+')':'')+' — tự nhắn khách khi gắn GCN' : 'Zalo OA: CHƯA kết nối — gắn GCN sẽ không tự nhắn khách';
-      $('oa-noi').textContent = j.daKetNoi ? 'Kết nối lại' : 'Kết nối Zalo OA';
-    }).catch(function(){});
-  }
-  $('oa-noi').onclick=function(){
-    if(!khoa()){ bao('Nhập khoá quản trị trước.'); return; }
-    /* Trang đăng nhập của Zalo không cho mở bên trong khung (iframe của cổng
-       /quan-tri) → mở ở tab mới; không mở được tab thì chuyển cả cửa sổ. */
-    var url='/.netlify/functions/zalo-oa-ket-noi?khoa='+encodeURIComponent(khoa());
-    var w=null; try{ w=window.open(url,'_blank'); }catch(e){}
-    if(!w){ try{ window.top.location.href=url; }catch(e){ location.href=url; } }
-    else bao('Đã mở trang kết nối Zalo OA ở tab mới. Đăng nhập bằng tài khoản quản trị OA, xong quay lại đây bấm "Tải danh sách".');
-  };
-  var TEN_RC={'1':'thành công','0':'đang chờ','-1':'thất bại','-2':'khách thoát'};
-  $('nk-tai').addEventListener('click',function(){
-    $('nk').textContent='Đang tải…';
-    fetch(API+'?viec=nhat-ky',{headers:{'x-dashboard-key':khoa()}}).then(function(r){return r.json()}).then(function(j){
-      if(!j.ok){ $('nk').textContent=j.error||'Lỗi'; return; }
-      if(!j.ds.length){ $('nk').textContent='Chưa có sự kiện nào.'; return; }
-      $('nk').innerHTML=j.ds.map(function(x){
-        var mo=x.loai==='cap-nhat'?('báo Zalo '+(TEN_RC[String(x.resultCode)]||x.resultCode)+' · '+(x.ok?'Zalo nhận':'Zalo từ chối: '+esc(JSON.stringify((x.lan||[]).map(function(l){return l.kq}))).slice(0,160))+(x.xacNhan?(x.xacNhan.khop?' · Zalo xác nhận đã đổi':' · Zalo đang ghi: '+esc(String(x.xacNhan.returnCode))):''))
-          :x.loai==='app'?('app nhận kết quả: '+(TEN_RC[String(x.resultCode)]||x.resultCode))
-          :(x.ok?'OK':esc(x.loi||'lỗi'))+(x.method?' · '+esc(x.method):'')+(x.maDon?' · '+esc(x.maDon):'');
-        return '<div style="padding:4px 0;border-bottom:1px solid #eee;color:'+(x.ok?'inherit':'#b42318')+'">'+esc(new Date(x.luc).toLocaleString('vi-VN'))+' · <b>'+esc(x.loai)+'</b> · đơn Zalo '+esc(x.orderId||'—')+' · '+mo+'</div>';
-      }).join('');
-    }).catch(function(){ $('nk').textContent='Không kết nối được máy chủ.'; });
+  function luc(v){ if(!v) return ''; var d=new Date(v), p=(Date.now()-d)/60000;
+    if(p<1) return 'vừa xong'; if(p<60) return Math.round(p)+' phút trước'; if(p<24*60) return Math.round(p/60)+' giờ trước';
+    return d.toLocaleDateString('vi-VN')+' '+d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}); }
+
+  /* ── Khoá: dùng vé đăng nhập cổng /quan-tri; chỉ hiện ô nhập khi mở trang lẻ mà chưa có vé ── */
+  function docKhoa(){ try{ return localStorage.getItem('dbv247_qt_ve')||localStorage.getItem('dbv247_key')||sessionStorage.getItem('dbv_key')||''; }catch(e){ return ''; } }
+  var KHOA=docKhoa();
+  function khoa(){ return KHOA; }
+
+  /* ── Thông báo ── */
+  var hToast;
+  function bao(t, loi){ var e=$('toast'); e.textContent=t; e.className=loi?'loi':''; e.style.display=t?'block':'none'; clearTimeout(hToast); if(t) hToast=setTimeout(function(){ e.style.display='none'; }, loi?9000:6000); }
+
+  /* ── Hộp thoại ── */
+  function moHop(id){ $(id).classList.add('mo'); var f=$(id).querySelector('input:not([type=file]),button.chinh'); if(f) setTimeout(function(){ f.focus(); },30); }
+  function dongHop(id){ $(id).classList.remove('mo'); }
+  document.querySelectorAll('.phu-man').forEach(function(m){
+    m.addEventListener('click',function(e){ if(e.target===m || e.target.hasAttribute('data-dong')) dongHop(m.id); });
   });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ document.querySelectorAll('.phu-man.mo').forEach(function(m){ dongHop(m.id); }); dongMenu(); } });
+  var xnLam=null;
+  function xacNhan(tieuDe, noiDung, chuNut, lam){ $('h-xn-t').textContent=tieuDe; $('xn-than').innerHTML=noiDung; $('xn-co').textContent=chuNut; xnLam=lam; moHop('h-xn'); }
+  $('xn-co').onclick=function(){ dongHop('h-xn'); if(xnLam) xnLam(); };
+
+  /* ── Gọi máy chủ ── */
+  function layJson(viec){ return fetch(API+'?viec='+viec,{headers:{'x-dashboard-key':khoa()}}).then(function(r){ return r.json().then(function(j){ if(!r.ok) throw Object.assign(new Error(j.error||'Lỗi'),{ma:r.status}); return j; }); }); }
   function goi(viec, than){
     return fetch(API+'?viec='+viec,{method:'POST',headers:{'x-dashboard-key':khoa(),'Content-Type':'application/json'},body:JSON.stringify(than)})
       .then(function(r){return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Lỗi'); return j; })});
   }
+
+  /* ── Trạng thái → nhóm, việc cần làm tiếp ── */
+  function nhom(d){
+    if(d.trangThai==='huy') return 'huy';
+    if(d.trangThai==='cho_thanh_toan') return 'cho';
+    if(d.trangThai==='da_thanh_toan') return 'tien';
+    if(d.nguon==='ngoai' && !d.daLienKet) return 'ngoai';
+    return 'xong';
+  }
+  var NHAN={cho:'Chờ tiền',tien:'Đã nhận tiền',xong:'Đã cấp GCN',huy:'Đã huỷ',ngoai:'Chờ khách liên kết'};
+  var LY_DO={qua_han_thanh_toan:'Quá hạn chuyển khoản',khong_nhan_duoc_tien:'Huỷ tay — không nhận được tiền'};
+  function chuaNhanKhach(d){ return d.soGcn && !(d.tinOA&&d.tinOA.ok) && d.nguon!=='ngoai'; }
+  function canXuLy(d){ var n=nhom(d); return n==='cho' || n==='tien' || chuaNhanKhach(d) || (d.zaloCapNhat && !d.zaloCapNhat.ok && d.maDonZalo); }
+  function viec(d){
+    var n=nhom(d);
+    if(d.zaloCapNhat && !d.zaloCapNhat.ok && d.maDonZalo) return {t:'Báo Zalo chưa thành công — hệ thống đang thử lại',gap:1};
+    if(n==='cho') return {t:'Đối chiếu sao kê, thấy tiền thì bấm "Đã nhận tiền"'};
+    if(n==='tien') return {t:'Cấp đơn trên hệ thống Tổng công ty rồi gắn PDF',gap:1};
+    if(n==='ngoai') return {t:'Gửi mã liên kết cho khách'};
+    if(chuaNhanKhach(d)) return {t:'OA chưa nhắn được khách — nhắn lại hoặc gọi khách',gap:1};
+    if(n==='huy') return {t:LY_DO[d.huyLyDo]||'Đơn đã huỷ'};
+    return {t:d.nguon==='ngoai'?'Khách đã liên kết, thấy trong app':(d.tinOA&&d.tinOA.ok?'Đã gửi khách qua Zalo OA':'Hoàn tất')};
+  }
+  function nutChinh(d){
+    var n=nhom(d), m=esc(d.maDon);
+    if(n==='cho') return '<button class="nut chinh" data-tien="'+m+'">Đã nhận tiền</button>';
+    if(n==='tien') return '<button class="nut cam" data-gcn="'+m+'">Gắn giấy chứng nhận</button>';
+    if(n==='ngoai') return '<button class="nut chinh" data-guima="'+m+'">Gửi mã cho khách</button>';
+    if(chuaNhanKhach(d)) return '<button class="nut" data-nhan="'+m+'">Nhắn lại khách</button>';
+    return '';
+  }
+  function menuThem(d){
+    var m=esc(d.maDon), n=nhom(d), h='';
+    h+='<button data-sua="'+m+'">Sửa số ấn chỉ, người chăm sóc</button>';
+    if(n!=='cho' && n!=='huy') h+='<button data-gcn="'+m+'">'+(d.soGcn?'Gắn thêm / thay giấy chứng nhận':'Gắn giấy chứng nhận')+'</button>';
+    if(d.soGcn && n!=='ngoai') h+='<button data-nhan="'+m+'">Nhắn lại khách qua OA</button>';
+    h+='<button data-ma="'+m+'">Cấp mã liên kết mới (khách đổi máy)</button>';
+    if(d.maDonZalo) h+='<button data-ktz="'+m+'">Kiểm tra trạng thái trên Zalo</button>';
+    if(n==='huy' && d.nguon!=='ngoai') h+='<hr><button data-tien="'+m+'">Đã nhận tiền (khách chuyển muộn)</button>';
+    if(n==='cho') h+='<hr><button class="do" data-huy="'+m+'">Huỷ đơn — không nhận được tiền</button>';
+    return h;
+  }
+
+  /* ── Tab ── */
+  var TABS=[
+    {id:'can', ten:'Cần xử lý', loc:canXuLy, gap:1},
+    {id:'cho', ten:'Chờ tiền', loc:function(d){return nhom(d)==='cho'}},
+    {id:'tien', ten:'Chờ gắn GCN', loc:function(d){return nhom(d)==='tien'}},
+    {id:'xong', ten:'Đã cấp', loc:function(d){return nhom(d)==='xong'}},
+    {id:'ngoai', ten:'Mua ngoài Zalo', loc:function(d){return d.nguon==='ngoai'}},
+    {id:'huy', ten:'Đã huỷ', loc:function(d){return nhom(d)==='huy'}},
+    {id:'tat', ten:'Tất cả', loc:function(){return true}}
+  ];
+  try{ var tLuu=sessionStorage.getItem('zm_tab'); if(tLuu) TAB=tLuu; }catch(e){}
+  function veTab(){
+    $('tab').innerHTML=TABS.map(function(t){
+      var so=DS.filter(t.loc).length;
+      return '<button role="tab" data-tab="'+t.id+'" aria-selected="'+(t.id===TAB)+'" class="'+(t.gap&&so?'gap':'')+'">'+esc(t.ten)+(t.id!=='tat'?' <b>'+so+'</b>':'')+'</button>';
+    }).join('');
+  }
+  $('tab').addEventListener('click',function(e){ var b=e.target.closest('[data-tab]'); if(!b) return; TAB=b.dataset.tab; try{ sessionStorage.setItem('zm_tab',TAB); }catch(x){} veTab(); ve(); });
+
+  /* ── Danh sách ── */
+  function ve(){
+    var q=$('tim').value.trim().toLowerCase(), t=TABS.filter(function(x){return x.id===TAB})[0]||TABS[0];
+    var ds=DS.filter(function(d){
+      if(q) return [d.maDon,d.soAnChi,d.bienSo,d.hoTen,d.sdt,d.email,d.noiDungCk,d.maDonZalo].join(' ').toLowerCase().indexOf(q)>=0;
+      return t.loc(d);
+    });
+    if(!ds.length){
+      $('ds').innerHTML='<div class="trong">'+(q?'<b>Không thấy đơn khớp "'+esc(q)+'"</b>Thử tìm theo biển số, số điện thoại hoặc mã đơn.'
+        :TAB==='can'?'<b>Không còn việc cần xử lý</b>Đơn mới từ Mini App sẽ hiện ở đây.':'<b>Chưa có đơn nào ở mục này</b>')+'</div>';
+      return;
+    }
+    $('ds').innerHTML=ds.map(dong).join('');
+  }
+  function dong(d){
+    var n=nhom(d), v=viec(d), m=esc(d.maDon);
+    var tieuDe=esc(d.sanPham||'Hợp đồng')+(d.bienSo?' · '+esc(d.bienSo):'');
+    var cotTien = d.nguon==='ngoai'
+      ? '<div class="tien-so">'+(d.phi?tien(d.phi):'—')+'</div><div class="phu">Mua ngoài Zalo</div>'
+      : '<div class="tien-so">'+tien(d.phi)+'</div>'+(d.noiDungCk&&n==='cho'?'<div class="ck">CK <code>'+esc(d.noiDungCk)+'</code><button class="chep" data-chep="'+esc(d.noiDungCk)+'" title="Sao chép nội dung chuyển khoản">Chép</button></div>':'<div class="phu">'+(d.kenh==='BANK'?'Chuyển khoản':(d.kenh||'Chuyển khoản'))+'</div>');
+    return '<div class="dong '+n+(moCt[d.maDon]?' mo-ct':'')+'" data-don="'+m+'">'
+      +'<div class="tom" data-mo="'+m+'">'
+        +'<div><div class="sp">'+tieuDe+'</div><div class="phu">'+esc(d.soAnChi||d.maDon)+' · '+esc(luc(d.taoLuc))+'</div></div>'
+        +'<div class="khach"><b>'+esc(d.hoTen||'—')+'</b><div class="phu">'+esc(d.sdt||'')+'</div></div>'
+        +'<div class="cot-tien">'+cotTien+'</div>'
+        +'<div class="buoc"><span class="the-tt '+n+'">'+NHAN[n]+'</span><div class="viec'+(v.gap?' gap':'')+'">'+esc(v.t)+'</div></div>'
+        +'<div class="hanh">'+nutChinh(d)
+          +'<div class="them"><button class="nut nhat" data-menu="'+m+'" aria-haspopup="true" aria-label="Việc khác">⋯</button><div class="menu" role="menu">'+menuThem(d)+'</div></div>'
+        +'</div>'
+      +'</div>'
+      +'<div class="ct">'+chiTiet(d)+'</div>'
+    +'</div>';
+  }
+  function chiTiet(d){
+    var z=d.zaloCapNhat, o=[];
+    function muc(k,v){ if(v!=='' && v!=null) o.push('<div><dt>'+k+'</dt><dd>'+v+'</dd></div>'); }
+    muc('Phí', d.nguon==='ngoai'?(d.phi?esc(tien(d.phi)):''):esc(tien(d.phi))+(d.noiDungCk?' · CK <b>'+esc(d.noiDungCk)+'</b>':''));
+    muc('Email khách', esc(d.email||''));
+    muc('Mã đơn', esc(d.maDon)+(d.soAnChi?' · số ấn chỉ '+esc(d.soAnChi):' · <span class="canh">chưa có số ấn chỉ</span>'));
+    muc('Người chăm sóc', d.phuTrach?esc(d.phuTrach.ten)+(d.phuTrach.sdt?' · '+esc(d.phuTrach.sdt):''):'<span class="canh">chưa gán</span>');
+    muc('Giấy chứng nhận', d.soGcn?d.soGcn+' file':'chưa có');
+    if(d.nguon!=='ngoai'){
+      muc('Thanh toán qua Zalo', d.maDonZalo?esc(d.maDonZalo)+(d.kenh?' · '+esc(d.kenh):''):'Khách chưa mở màn thanh toán');
+      if(z && d.maDonZalo) muc('Trạng thái giao dịch Zalo', '<span class="'+(z.ok?'ok':'loi-chu')+'">'+esc(z.ghiChu||'')+'</span>');
+      muc('Zalo OA', d.tinOA?(d.tinOA.ok?'<span class="ok">Đã nhắn khách</span>':'<span class="canh">Chưa nhắn được: '+esc(d.tinOA.loi)+'</span>'):(d.coOA?'Khách có theo dõi OA':'Khách chưa theo dõi OA'));
+      muc('Mã CTV', esc(d.maCtv||'—'));
+      if(d.soChinh && d.soChinh!=='da_ghi') muc('Sổ chính', '<span class="canh">Chưa ghi được — đơn nằm ở Netlify Forms</span>');
+    } else {
+      muc('Liên kết app', d.daLienKet?'<span class="ok">Khách đã liên kết — thấy trong app</span>':'<span class="canh">Chờ khách nhập mã</span>');
+    }
+    var lk = d.maLienKet && !d.daLienKet ? '<div class="lk"><span>Mã liên kết</span><span class="ma">'+esc(d.maLienKet)+'</span><span class="phu">cho SĐT '+esc(d.sdt)+' · hạn 30 ngày</span><button class="nut" data-guima="'+esc(d.maDon)+'">Gửi mã cho khách</button></div>' : '';
+    return '<dl>'+o.join('')+'</dl>'+lk;
+  }
+
+  /* ── Menu "⋯" ── */
+  function dongMenu(){ document.querySelectorAll('.menu.mo').forEach(function(m){ m.classList.remove('mo'); }); }
+  document.addEventListener('click',function(e){ if(!e.target.closest('.them')) dongMenu(); });
+
+  /* ── Tải ── */
+  function tai(im){
+    if(!khoa()){ $('khoa-o').classList.remove('an'); $('ds').innerHTML='<div class="trong"><b>Chưa đăng nhập</b>Đăng nhập ở trang quản trị chung /quan-tri, hoặc nhập khoá quản trị ở góc trên.</div>'; return; }
+    if(!im) $('ds').innerHTML='<div class="trong">Đang tải danh sách…</div>';
+    kiemOA();
+    layJson('ds').then(function(j){
+      $('khoa-o').classList.add('an');
+      DS=j.don||[];
+      if(TAB==='can' && !DS.some(canXuLy) && DS.length) TAB='tat';
+      veTab(); ve();
+    }).catch(function(e){
+      if(e.ma===401){ $('khoa-o').classList.remove('an'); $('ds').innerHTML='<div class="trong"><b>Phiên đăng nhập đã hết hạn</b>Tải lại trang quản trị /quan-tri và đăng nhập lại.</div>'; }
+      else $('ds').innerHTML='<div class="trong"><b>Không tải được danh sách</b>'+esc(e.message||'Không kết nối được máy chủ')+' — bấm "Tải lại" để thử lại.</div>';
+    });
+  }
+  function kiemOA(){
+    layJson('oa').then(function(j){
+      $('oa').className='oa '+(j.daKetNoi?'ok':'loi');
+      $('oa-tt').textContent=j.daKetNoi?'Zalo OA đã kết nối':'Zalo OA chưa kết nối — gắn GCN sẽ không tự nhắn khách';
+      $('oa-noi').textContent=j.daKetNoi?'Kết nối lại':'Kết nối';
+      $('oa-noi').classList.toggle('an', !!j.daKetNoi);
+    }).catch(function(){ $('oa-tt').textContent='Zalo OA: chưa kiểm tra được'; });
+  }
+  $('oa-noi').onclick=function(){
+    /* Trang đăng nhập Zalo không mở được trong khung của cổng → mở tab mới. */
+    var url='/.netlify/functions/zalo-oa-ket-noi?khoa='+encodeURIComponent(khoa());
+    var w=null; try{ w=window.open(url,'_blank'); }catch(e){}
+    if(!w){ try{ window.top.location.href=url; }catch(e){ location.href=url; } }
+    else bao('Đã mở trang kết nối Zalo OA ở tab mới. Đăng nhập tài khoản quản trị OA, xong quay lại bấm "Tải lại".');
+  };
+  $('vao').onclick=function(){ KHOA=$('khoa').value.trim(); try{ localStorage.setItem('dbv247_key',KHOA); }catch(e){} tai(); };
+  $('lam-moi').onclick=function(){ tai(); };
+  $('tim').oninput=ve;
+
+  /* ── Việc trên từng đơn ── */
+  function timDon(ma){ return DS.filter(function(x){return x.maDon===ma})[0]||{}; }
+  function baoTin(t){ if(!t) return ''; return t.ok?' Zalo OA đã nhắn khách.':' Chưa nhắn được khách qua OA ('+t.loi+') — gọi hoặc nhắn khách thủ công.'; }
+  function tinMa(sdt,ma){ return 'DBV gửi anh/chị mã liên kết hợp đồng bảo hiểm: '+ma+'. Anh/chị mở Mini App "Bảo hiểm DBV" trên Zalo → Hợp đồng → Liên kết hợp đồng mua ngoài Zalo → nhập số điện thoại '+sdt+' và mã '+ma+' (hạn 30 ngày). Cần hỗ trợ gọi 0869 656 561.'; }
+  function moTin(sdt,ma){ $('tin-ma').textContent=ma; $('tin-sdt').textContent='SĐT '+sdt; $('tin-noi').value=tinMa(sdt,ma); moHop('h-tin'); }
+  function chep(t){ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){ bao('Đã sao chép.'); }).catch(function(){ bao('Không tự sao chép được — bôi đen rồi Ctrl+C.', true); }); }
+  $('tin-chep').onclick=function(){ chep($('tin-noi').value); };
+
   $('ds').addEventListener('click',function(e){
-    var b=e.target.closest('button'); if(!b) return;
-    if(b.dataset.nhan){
-      b.disabled=true;
-      goi('nhan-lai',{maDon:b.dataset.nhan}).then(function(j){ bao('Đơn '+b.dataset.nhan+':'+baoTin(j.tinOA)); tai(); })
-        .catch(function(err){ b.disabled=false; bao(err.message); });
-    }
-    if(b.dataset.ma){
-      if(!confirm('Cấp mã liên kết mới cho số điện thoại của đơn '+b.dataset.ma+'? Mã cũ hết hiệu lực; khách nhập mã mới trên máy nào thì mọi hợp đồng của số đó chuyển sang máy đó.')) return;
-      b.disabled=true;
-      goi('cap-lai-ma',{maDon:b.dataset.ma}).then(function(j){
-        bao('Mã liên kết mới cho SĐT '+j.sdt+': '+j.maLienKet+'. '+tinMa(j.sdt,j.maLienKet));
-        tai();
-      }).catch(function(err){ b.disabled=false; bao(err.message); });
-    }
-    if(b.dataset.sua){
-      var d=DS.find(function(x){return x.maDon===b.dataset.sua})||{};
-      var sac=prompt('Số ấn chỉ / số GCN do Tổng công ty cấp (để trống nếu chưa có):', d.soAnChi||'');
-      if(sac===null) return;
-      var pt=d.phuTrach||nhoPT();
-      var ten=prompt('Họ tên nhân viên chăm sóc đơn này (khách sẽ thấy):', pt.ten||'');
-      if(ten===null) return;
-      var sdt=ten.trim()?prompt('Số điện thoại nhân viên chăm sóc:', pt.sdt||''):'';
-      if(sdt===null) return;
-      luuPT(ten,sdt);
-      goi('sua-don',{maDon:d.maDon,soAnChi:sac,phuTrachTen:ten,phuTrachSdt:sdt}).then(function(){ bao('Đã cập nhật đơn '+(sac||d.maDon)+'. Khách thấy ngay trong app.'); tai(); })
-        .catch(function(err){ bao(err.message); });
-    }
-    if(b.dataset.gcn){ dangGan=b.dataset.gcn; $('chon-pdf').value=''; $('chon-pdf').click(); }
-    if(b.dataset.ktz){
-      b.disabled=true;
-      goi('kiem-tra-zalo',{maDon:b.dataset.ktz}).then(function(j){ b.disabled=false; bao('Đơn '+b.dataset.ktz+': '+(j.ghiChu||'')); })
-        .catch(function(err){ b.disabled=false; bao(err.message); });
+    var b=e.target.closest('button');
+    if(!b){ var t=e.target.closest('[data-mo]'); if(t){ var ma=t.dataset.mo; moCt[ma]=!moCt[ma]; t.parentNode.classList.toggle('mo-ct',!!moCt[ma]); } return; }
+    e.stopPropagation();
+    if(b.dataset.menu){ var mn=b.nextElementSibling, dangMo=mn.classList.contains('mo'); dongMenu(); if(!dangMo) mn.classList.add('mo'); return; }
+    dongMenu();
+    var d;
+    if(b.dataset.chep){ chep(b.dataset.chep); return; }
+    if(b.dataset.tien){
+      d=timDon(b.dataset.tien);
+      xacNhan('Xác nhận đã nhận tiền', '<p style="margin:0">Đơn <b>'+esc(d.sanPham)+(d.bienSo?' · '+esc(d.bienSo):'')+'</b> — <b>'+tien(d.phi)+'</b>, nội dung CK <b>'+esc(d.noiDungCk||'')+'</b>.</p><p class="phu" style="margin:8px 0 0">Chỉ xác nhận khi đã thấy đúng khoản này trong sao kê. Zalo sẽ báo khách thanh toán thành công.</p>', 'Đã thấy tiền, xác nhận', function(){
+        bao('Đang ghi nhận…');
+        goi('da-nhan-tien',{maDon:d.maDon}).then(function(j){ bao('Đã ghi nhận đã nhận tiền. '+(j.zalo&&j.zalo.ghiChu||'')); tai(true); }).catch(function(err){ bao(err.message,true); });
+      });
     }
     if(b.dataset.huy){
-      if(!confirm('Huỷ đơn '+b.dataset.huy+'? Zalo sẽ báo khách giao dịch không thành công.')) return;
-      b.disabled=true;
-      goi('huy-don',{maDon:b.dataset.huy}).then(function(j){ bao('Đã huỷ. '+(j.zalo&&j.zalo.ghiChu||'')); tai(); })
-        .catch(function(err){ b.disabled=false; bao(err.message); });
+      d=timDon(b.dataset.huy);
+      xacNhan('Huỷ đơn này?', '<p style="margin:0">Đơn <b>'+esc(d.sanPham)+(d.bienSo?' · '+esc(d.bienSo):'')+'</b> của <b>'+esc(d.hoTen||d.sdt)+'</b>. Zalo sẽ báo khách giao dịch không thành công.</p><p class="phu" style="margin:8px 0 0">Nếu sau này khách vẫn chuyển tiền, mở menu ⋯ của đơn và chọn "Đã nhận tiền (khách chuyển muộn)".</p>', 'Huỷ đơn', function(){
+        goi('huy-don',{maDon:d.maDon}).then(function(j){ bao('Đã huỷ đơn. '+(j.zalo&&j.zalo.ghiChu||'')); tai(true); }).catch(function(err){ bao(err.message,true); });
+      });
     }
-    if(b.dataset.tien){
-      if(!confirm('Xác nhận đã thấy tiền của đơn '+b.dataset.tien+' trong sao kê?')) return;
+    if(b.dataset.gcn){ dangGan=b.dataset.gcn; $('chon-pdf').value=''; $('chon-pdf').click(); }
+    if(b.dataset.nhan){
       b.disabled=true;
-      goi('da-nhan-tien',{maDon:b.dataset.tien}).then(function(j){ bao('Đã ghi nhận. '+(j.zalo&&j.zalo.ghiChu||'')); tai(); })
-        .catch(function(err){ b.disabled=false; bao(err.message); });
+      goi('nhan-lai',{maDon:b.dataset.nhan}).then(function(j){ bao(j.tinOA&&j.tinOA.ok?'Zalo OA đã nhắn khách.':baoTin(j.tinOA).trim(), !(j.tinOA&&j.tinOA.ok)); tai(true); })
+        .catch(function(err){ b.disabled=false; bao(err.message,true); });
     }
+    if(b.dataset.guima){ d=timDon(b.dataset.guima); if(d.maLienKet) moTin(d.sdt,d.maLienKet); else capMa(d); }
+    if(b.dataset.ma){
+      d=timDon(b.dataset.ma);
+      xacNhan('Cấp mã liên kết mới?', '<p style="margin:0">Dùng khi khách đổi điện thoại hoặc cài lại Zalo. Mã cũ hết hiệu lực; khách nhập mã mới trên máy nào thì mọi hợp đồng của số <b>'+esc(d.sdt)+'</b> chuyển sang máy đó.</p>', 'Cấp mã mới', function(){ capMa(d); });
+    }
+    if(b.dataset.ktz){
+      bao('Đang hỏi Zalo…');
+      goi('kiem-tra-zalo',{maDon:b.dataset.ktz}).then(function(j){ bao(j.ghiChu||'Không có thông tin.'); }).catch(function(err){ bao(err.message,true); });
+    }
+    if(b.dataset.sua){
+      d=timDon(b.dataset.sua);
+      var pt=d.phuTrach||nhoPT();
+      $('sua-mo').textContent=(d.sanPham||'')+(d.bienSo?' · '+d.bienSo:'')+' — '+(d.hoTen||d.sdt||'')+'. Khách thấy số ấn chỉ và người chăm sóc ngay trong mục Hợp đồng.';
+      $('sua-sac').value=d.soAnChi||''; $('sua-ten').value=pt.ten||''; $('sua-sdt').value=pt.sdt||'';
+      $('sua-form').dataset.ma=d.maDon; moHop('h-sua');
+    }
+  });
+  function capMa(d){
+    goi('cap-lai-ma',{maDon:d.maDon}).then(function(j){ tai(true); moTin(j.sdt,j.maLienKet); }).catch(function(err){ bao(err.message,true); });
+  }
+  $('sua-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var ma=this.dataset.ma, ten=$('sua-ten').value.trim(), sdt=ten?$('sua-sdt').value.trim():'';
+    luuPT(ten,sdt);
+    goi('sua-don',{maDon:ma,soAnChi:$('sua-sac').value,phuTrachTen:ten,phuTrachSdt:sdt}).then(function(){ dongHop('h-sua'); bao('Đã lưu. Khách thấy ngay trong app.'); tai(true); })
+      .catch(function(err){ bao(err.message,true); });
   });
   $('chon-pdf').addEventListener('change',function(){
     var f=this.files[0]; if(!f||!dangGan) return;
-    if(f.size>4.5*1024*1024){ bao('File quá 4,5 MB.'); return; }
+    if(f.size>4.5*1024*1024){ bao('File quá 4,5 MB — nén lại rồi gắn.', true); return; }
     var rd=new FileReader();
     rd.onload=function(){
       bao('Đang tải giấy chứng nhận lên…');
       goi('gan-gcn',{maDon:dangGan,ten:f.name,base64:String(rd.result).split(',')[1]})
-        .then(function(j){ var d=DS.find(function(x){return x.maDon===dangGan})||{}; bao('Đã gắn GCN cho '+dangGan+'.'+(j.coTrongApp?' Khách thấy ngay trong mục Hợp đồng.':(d.nguon==='ngoai'?' Khách sẽ thấy file sau khi xác minh SĐT trong app.':' Đơn chưa gắn tài khoản Zalo nên file KHÔNG hiện trong app — gửi file cho khách qua chat OA/email.'))+baoTin(j.tinOA)); tai(); })
-        .catch(function(err){ bao(err.message); });
+        .then(function(j){ var d=timDon(dangGan); bao('Đã gắn giấy chứng nhận.'+(j.coTrongApp?' Khách thấy ngay trong mục Hợp đồng.':(d.nguon==='ngoai'?' Khách thấy sau khi liên kết bằng mã.':' Đơn chưa gắn tài khoản Zalo — gửi file cho khách qua OA hoặc email.'))+baoTin(j.tinOA)); tai(true); })
+        .catch(function(err){ bao(err.message,true); });
     };
     rd.readAsDataURL(f);
   });
+
+  /* ── Thêm hợp đồng mua ngoài ── */
   function ngayVN(v){ if(!v) return ''; var a=v.split('-'); return a[2]+'/'+a[1]+'/'+a[0]; }
+  $('mo-ngoai').onclick=function(){ dienPT(); moHop('h-ngoai'); };
   $('ng-phi').addEventListener('input',function(){ var n=this.value.replace(/\D/g,''); this.value=n?(+n).toLocaleString('vi-VN'):''; });
   $('ng-form').addEventListener('submit',function(e){
     e.preventDefault();
     var f=$('ng-pdf').files[0];
-    if(!f){ bao('Chọn file PDF.'); return; }
-    if(f.size>4.5*1024*1024){ bao('File quá 4,5 MB.'); return; }
-    var nut=$('ng-gui'); nut.disabled=true; bao('Đang tải PDF lên…');
+    if(!f){ bao('Chọn file PDF giấy chứng nhận.', true); return; }
+    if(f.size>4.5*1024*1024){ bao('File quá 4,5 MB — nén lại rồi gắn.', true); return; }
+    var nut=$('ng-gui'); nut.disabled=true; nut.textContent='Đang lưu…';
     var rd=new FileReader();
     rd.onload=function(){
       goi('gan-ngoai',{
@@ -282,22 +514,38 @@
         hieuLucTu:ngayVN($('ng-tu').value), hieuLucDen:ngayVN($('ng-den').value), phi:$('ng-phi').value,
         ten:f.name, base64:String(rd.result).split(',')[1]
       }).then(function(j){
-        nut.disabled=false; luuPT($('ng-pt-ten').value,$('ng-pt-sdt').value); $('ng-form').reset(); dienPT();
-        bao('Đã tạo hợp đồng '+j.maDon+'. '+(j.daLienKet
-          ? 'Số này đã liên kết Mini App — khách thấy ngay trong mục Hợp đồng.'+baoTin(j.tinOA)
-          : 'Mã liên kết: '+j.maLienKet+'. '+tinMa(j.sdt,j.maLienKet)));
-        tai();
-      }).catch(function(err){ nut.disabled=false; bao(err.message); });
+        nut.disabled=false; nut.textContent='Lưu và tạo mã liên kết';
+        luuPT($('ng-pt-ten').value,$('ng-pt-sdt').value); $('ng-form').reset(); dongHop('h-ngoai');
+        if(j.daLienKet) bao('Đã lưu hợp đồng. Số này đã liên kết Mini App — khách thấy ngay.'+baoTin(j.tinOA));
+        else moTin(j.sdt,j.maLienKet);
+        tai(true);
+      }).catch(function(err){ nut.disabled=false; nut.textContent='Lưu và tạo mã liên kết'; bao(err.message,true); });
     };
     rd.readAsDataURL(f);
   });
-  /* Nhớ người chăm sóc lần trước trên máy này để đỡ gõ lại. */
   function nhoPT(){ try{ return JSON.parse(localStorage.getItem('dbv247_phutrach')||'{}'); }catch(e){ return {}; } }
   function luuPT(ten,sdt){ try{ if(String(ten).trim()) localStorage.setItem('dbv247_phutrach',JSON.stringify({ten:ten.trim(),sdt:String(sdt||'').trim()})); }catch(e){} }
-  function dienPT(){ var pt=nhoPT(); if(pt.ten){ $('ng-pt-ten').value=pt.ten; $('ng-pt-sdt').value=pt.sdt||''; } }
-  dienPT();
-  $('vao').onclick=tai; $('tim').oninput=ve; $('tt').onchange=ve;
-  if(khoa()) tai();
+  function dienPT(){ var pt=nhoPT(); if(pt.ten && !$('ng-pt-ten').value){ $('ng-pt-ten').value=pt.ten; $('ng-pt-sdt').value=pt.sdt||''; } }
+
+  /* ── Nhật ký thanh toán Zalo (kỹ thuật) ── */
+  var TEN_RC={'1':'thành công','0':'đang chờ','-1':'thất bại','-2':'khách thoát'};
+  var TEN_LOAI={notify:'Zalo báo khách chọn chuyển khoản','cap-nhat':'Máy chủ báo Zalo',app:'App nhận kết quả',callback:'Zalo gọi lại'};
+  $('nk-khoi').addEventListener('toggle',function(){
+    if(!this.open) return;
+    $('nk').textContent='Đang tải…';
+    layJson('nhat-ky').then(function(j){
+      if(!j.ds.length){ $('nk').textContent='Chưa có sự kiện nào.'; return; }
+      $('nk').innerHTML=j.ds.map(function(x){
+        var mo=x.loai==='cap-nhat'?((TEN_RC[String(x.resultCode)]||x.resultCode)+' — '+(x.ok?'Zalo đã nhận':'Zalo từ chối: '+esc(JSON.stringify((x.lan||[]).map(function(l){return l.kq})).slice(0,160)))+(x.xacNhan?(x.xacNhan.khop?', Zalo xác nhận đã đổi':', Zalo đang ghi '+esc(String(x.xacNhan.returnCode))):''))
+          :x.loai==='app'?(TEN_RC[String(x.resultCode)]||x.resultCode)
+          :(x.ok?'OK':esc(x.loi||'lỗi'))+(x.maDon?' — đơn '+esc(x.maDon):'');
+        return '<div class="'+(x.ok?'':'loi-chu')+'">'+esc(new Date(x.luc).toLocaleString('vi-VN'))+' — <b>'+esc(TEN_LOAI[x.loai]||x.loai)+'</b>: '+mo+(x.orderId?' <span class="phu">(mã Zalo '+esc(x.orderId)+')</span>':'')+'</div>';
+      }).join('');
+    }).catch(function(e){ $('nk').textContent=e.message||'Không kết nối được máy chủ.'; });
+  });
+
+  veTab();
+  tai();
 })();
 </script>
 </body>
