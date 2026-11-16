@@ -265,7 +265,8 @@ var MUC = [
   { id:'nhan-vien',  nhom:'Hệ thống',   ten:'Nhân viên & phân quyền',ic:'nv',  cho:['quan-ly'] },
   { id:'tai-khoan',  nhom:'Hệ thống',   ten:'Tài khoản của tôi',     ic:'tk',  cho:TAT_CA }
 ];
-function duocXem(m){ return NV && m.cho.indexOf(NV.vaiTro) >= 0; }
+/* Toàn quyền (16/11/2026): mọi tài khoản thấy đủ menu. */
+function duocXem(m){ return NV && (NV.toanQuyen || m.cho.indexOf(NV.vaiTro) >= 0); }
 
 function veMenu(){
   var h = '', nhom = null;
@@ -336,7 +337,7 @@ function veTongQuan(){
     + '<h3>Việc cần làm</h3><div class="the"><ul class="viec" id="tq-viec"><li class="mo">Đang tải…</li></ul></div>';
 
   var THE = {}, VIEC = [];
-  var vt = NV.vaiTro, coLead = vt!=='ke-toan', laKeToan = vt==='ke-toan', laVanHanh = vt==='van-hanh';
+  var vt = NV.toanQuyen ? 'quan-ly' : NV.vaiTro, coLead = vt!=='ke-toan', laKeToan = vt==='ke-toan', laVanHanh = vt==='van-hanh';
   function ve(){
     var ds = [];
     if(coLead){ ds.push(THE.leadMoi||{ten:'Lead mới hôm nay',link:'khach-hang'}, THE.leadTre||{ten:'Lead quá hạn chưa gọi',link:'khach-hang',gap:1}, THE.henGoi||{ten:'Quá hẹn gọi lại',link:'khach-hang',gap:1}, THE.taiTuc||{ten:'Sắp đến hạn tái tục',link:'khach-hang'}); }
@@ -459,6 +460,7 @@ function veNhanVien(){
     });
     h += '</tbody></table></div>';
 
+    if(NV && NV.toanQuyen) h += '<div class="the" style="background:#FFF8E7;border-color:#F5C46B;margin-bottom:12px"><b>Đang bật TOÀN QUYỀN:</b> mọi tài khoản đăng nhập được làm mọi việc như Quản lý (kể cả xem dữ liệu khách, xác nhận tiền, quản lý tài khoản). Vai trò bên dưới chỉ để ghi nhận, chưa dùng để chặn quyền.</div>';
     h += '<h3>Quyền của từng vai trò</h3><div class="the"><ul class="viec">'
       + Object.keys(VAI_TRO).map(function(k){ return '<li><span class="huy-hieu" style="min-width:84px;text-align:center">'+VAI_TRO[k]+'</span><div class="noi">'+MO_TA_VT[k]+'</div></li>'; }).join('')
       + '</ul></div>';

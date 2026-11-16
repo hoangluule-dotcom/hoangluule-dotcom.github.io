@@ -243,7 +243,7 @@ table.tb2 tr.tong td{background:#f7fafc;font-weight:800;color:var(--dk);border-t
   var elHang=$('f-hang'),elDong=$('f-dong'),elNam=$('f-nam'),elVer=$('f-ver'),elNamDK=$('f-namdk');
 
   /* ── Khoá ────────────────────────────────────────────────────────────── */
-  function coKhoa(){return sessionStorage.getItem('dbv_key')||'';}
+  function coKhoa(){var k='';try{k=sessionStorage.getItem('dbv_key')||localStorage.getItem('dbv247_qt_ve')||localStorage.getItem('dbv247_key')||'';}catch(e){}return k;} /* vé đăng nhập cổng /quan-tri — không hỏi khoá lại */
   function veKhoa(){
     var c=!!coKhoa();
     $('key-dot').className='key-dot '+(c?'key-on':'key-off');

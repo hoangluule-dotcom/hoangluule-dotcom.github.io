@@ -125,7 +125,7 @@ async function dsNv() {
 function congKhai(nv) {
   return {
     ten: nv.ten, hoTen: nv.hoTen, vaiTro: nv.vaiTro, tenVaiTro: VAI_TRO[nv.vaiTro] || nv.vaiTro,
-    biKhoa: !!nv.biKhoa, phaiDoiMatKhau: !!nv.phaiDoiMatKhau,
+    biKhoa: !!nv.biKhoa, phaiDoiMatKhau: !!nv.phaiDoiMatKhau, toanQuyen: TOAN_QUYEN,
     taoLuc: nv.taoLuc, dangNhapLuc: nv.dangNhapLuc || null,
   };
 }
@@ -145,6 +145,13 @@ async function ghiNhatKy(nguoi, viec, chiTiet) {
    Trả { nv } nếu được phép; { loi, ma } nếu không (ma = 401 chưa đăng nhập /
    403 không đủ quyền). `cho` là danh sách vai trò được phép; bỏ trống = mọi
    nhân viên đã đăng nhập. */
+/* TOÀN QUYỀN (Hoàng chốt 16/11/2026): mọi tài khoản đăng nhập hợp lệ được làm MỌI việc
+   như Quản lý — không còn chặn theo vai trò, không hỏi khoá lại ở từng chức năng.
+   Vẫn bắt buộc đăng nhập bằng tài khoản riêng (khách ngoài không vào được).
+   Muốn phân quyền lại theo vai trò: đặt false. */
+const TOAN_QUYEN = true;
+function vaiTroHieuLuc(vaiTro) { return TOAN_QUYEN ? 'quan-ly' : vaiTro; }
+
 async function kiemQuyen(event, cho) {
   const h = event.headers || {};
   const gui = String(h['x-dashboard-key'] || h['X-Dashboard-Key'] || '').trim();
@@ -156,7 +163,7 @@ async function kiemQuyen(event, cho) {
     if (!ve) return { loi: 'Phiên đăng nhập đã hết hạn. Đăng nhập lại ở /quan-tri.', ma: 401 };
     const hs = await layNv(ve.u);
     if (!hs || hs.biKhoa || hs.phien !== ve.p) return { loi: 'Tài khoản đã bị khoá hoặc đổi mật khẩu. Đăng nhập lại ở /quan-tri.', ma: 401 };
-    nv = { ten: hs.ten, hoTen: hs.hoTen, vaiTro: hs.vaiTro };
+    nv = { ten: hs.ten, hoTen: hs.hoTen, vaiTro: vaiTroHieuLuc(hs.vaiTro), vaiTroGoc: hs.vaiTro };
   } else {
     const mong = process.env.DASHBOARD_KEY || '';
     if (!mong || gui !== mong) return { loi: 'Sai hoặc thiếu khoá truy cập.', ma: 401 };
@@ -174,6 +181,6 @@ async function kiemQuyen(event, cho) {
 module.exports = {
   VAI_TRO, SAI_TOI_DA, KHOA_PHUT, HAN_VE_GIO,
   moKho, chuanHoaTen, bamMatKhau, dungMatKhau, matKhauHopLe,
-  kyVe, docVe, layNv, luuNv, dsNv, congKhai, cauHinh, ghiNhatKy, kiemQuyen,
+  kyVe, docVe, layNv, luuNv, dsNv, congKhai, cauHinh, ghiNhatKy, kiemQuyen, TOAN_QUYEN, vaiTroHieuLuc,
   _datKho: (k) => { _kho = k; },
 };
