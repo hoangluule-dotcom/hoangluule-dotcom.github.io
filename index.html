@@ -1465,6 +1465,75 @@ html[data-nhom="cn"] .hp-fld-row{grid-template-columns:1fr}
 </style>
 </head>
 <body class="hp-home">
+<!-- VP-ENTRY: màn chọn trải nghiệm (website / văn phòng 3D). Hiện 1 lần mỗi phiên; ?web=1 để bỏ qua. -->
+<div id="vp-entry" role="dialog" aria-modal="true" aria-labelledby="vpe-t">
+<style>
+#vp-entry{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:24px 16px;overflow:auto;font-family:'Be Vietnam Pro',sans-serif;color:#fff;
+  background:radial-gradient(1100px 600px at 20% 0%,#0B6A43 0%,rgba(11,106,67,0) 60%),radial-gradient(900px 600px at 100% 100%,#0E5A3E 0%,rgba(14,90,62,0) 55%),#063A2B;animation:vpe-in .35s ease}
+#vp-entry.vpe-out{animation:vpe-out .3s ease forwards}
+@keyframes vpe-in{from{opacity:0}}@keyframes vpe-out{to{opacity:0;visibility:hidden}}
+:where(#vp-entry *){box-sizing:border-box;margin:0}
+.vpe-w{width:min(980px,100%);text-align:center}
+.vpe-logo{display:inline-flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:10px 18px;color:#084C38;font-weight:700;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.vpe-logo img{height:34px;width:auto;display:block}.vpe-logo span{border-left:1px solid #D0D5DD;padding-left:12px;text-align:left;line-height:1.25}
+.vpe-logo small{display:block;font-weight:500;color:#475467;font-size:12px}
+#vpe-t{font-size:clamp(22px,3.4vw,34px);font-weight:800;letter-spacing:-.02em;margin:22px 0 6px;line-height:1.25}
+.vpe-sub{font-size:15px;color:#BFE3CF;margin-bottom:26px}
+.vpe-g{display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left}
+.vpe-c{position:relative;display:flex;flex-direction:column;background:#fff;color:#101828;border-radius:18px;overflow:hidden;text-decoration:none;box-shadow:0 18px 40px -12px rgba(0,0,0,.45);transition:transform .2s ease,box-shadow .2s ease;cursor:pointer;border:0;font:inherit;text-align:left;padding:0}
+.vpe-c:hover,.vpe-c:focus-visible{transform:translateY(-4px);box-shadow:0 26px 50px -14px rgba(0,0,0,.55);outline:none}
+.vpe-c:focus-visible{box-shadow:0 0 0 4px #E8920A}
+.vpe-img{aspect-ratio:21/10;position:relative;overflow:hidden;background:#EFF8F2}
+.vpe-img img{width:100%;height:100%;object-fit:cover;display:block}
+.vpe-mock{position:absolute;inset:14px 18px 0;background:#fff;border-radius:10px 10px 0 0;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.vpe-mock i{display:block;height:8px;border-radius:4px;background:#E4E7EC}.vpe-mock .h{display:flex;gap:6px;align-items:center}.vpe-mock .h i{height:10px}
+.vpe-mock .hero{height:46px;border-radius:8px;background:linear-gradient(120deg,#007437,#0B5A3A);position:relative}
+.vpe-mock .hero:after{content:"";position:absolute;right:10px;top:10px;width:46px;height:20px;border-radius:999px;background:#E8920A}
+.vpe-mock .row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.vpe-mock .row i{height:30px;border-radius:7px;background:#EFF8F2;border:1px solid #D1E9DA}
+.vpe-b{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.vpe-b h2{font-size:19px;font-weight:800;color:#063A2B;display:flex;align-items:center;gap:8px}
+.vpe-tag{font-size:11px;font-weight:800;letter-spacing:.06em;background:#E8920A;color:#fff;border-radius:999px;padding:3px 9px}
+.vpe-b p{font-size:14px;line-height:1.55;color:#475467}
+.vpe-btn{margin-top:auto;padding-top:12px}.vpe-btn span{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:12px;font-weight:700;font-size:15px}
+.vpe-c1 .vpe-btn span{background:#EFF8F2;color:#007437;border:1.5px solid #B7DFC6}.vpe-c2 .vpe-btn span{background:#007437;color:#fff}
+.vpe-c2 .vpe-img:after{content:"";position:absolute;inset:0;box-shadow:inset 0 -60px 50px -40px rgba(0,0,0,.25)}
+.vpe-note{margin-top:20px;font-size:12.5px;color:#9CC9B0}
+@media(max-width:720px){.vpe-g{grid-template-columns:1fr;gap:14px}.vpe-img{aspect-ratio:24/9}.vpe-sub{margin-bottom:18px}#vpe-t{margin-top:16px}.vpe-b{padding:14px 16px 16px}}
+html.vpe-lock,html.vpe-lock body{overflow:hidden}
+</style>
+<div class="vpe-w">
+  <div class="vpe-logo"><img src="/logo-dbv-mark.webp" alt="Bảo hiểm DBV" width="120" height="42"><span>Chi nhánh Thành Đô<small>Bảo hiểm DBV · DBV247</small></span></div>
+  <h1 id="vpe-t">Chào mừng anh/chị đến với Bảo hiểm DBV</h1>
+  <p class="vpe-sub">Anh/chị muốn trải nghiệm theo cách nào?</p>
+  <div class="vpe-g">
+    <button type="button" class="vpe-c vpe-c1" id="vpe-web">
+      <div class="vpe-img"><div class="vpe-mock"><div class="h"><i style="width:44px;background:#007437"></i><i style="flex:1"></i><i style="width:60px;background:#E8920A"></i></div><div class="hero"></div><div class="row"><i></i><i></i><i></i><i></i></div><i style="width:70%"></i></div></div>
+      <div class="vpe-b"><h2>Website DBV247</h2><p>Xem sản phẩm, tính phí và mua bảo hiểm trực tuyến nhanh gọn trong vài phút.</p><div class="vpe-btn"><span>Vào website →</span></div></div>
+    </button>
+    <a class="vpe-c vpe-c2" id="vpe-3d" href="/van-phong-3d/">
+      <div class="vpe-img"><img src="/van-phong-3d/img/preview.webp" alt="Sảnh văn phòng 3D Bảo hiểm DBV" width="720" height="343" loading="eager" decoding="async"></div>
+      <div class="vpe-b"><h2>Văn phòng 3D <span class="vpe-tag">MỚI</span></h2><p>Bước vào văn phòng ảo: lễ tân đón tiếp, vào từng phòng nghiệp vụ đọc sản phẩm và trò chuyện với chuyên viên.</p><div class="vpe-btn"><span>Vào văn phòng 3D →</span></div></div>
+    </a>
+  </div>
+  <p class="vpe-note">Văn phòng 3D chạy tốt nhất trên máy tính hoặc điện thoại đời mới.</p>
+</div>
+<script>
+(function(){var el=document.getElementById('vp-entry'),d=document.documentElement;
+  var skip=false;try{skip=/[?&]web=1/.test(location.search)||sessionStorage.getItem('dbv_entry')||/bot|crawl|spider|lighthouse|slurp|bingpreview|facebookexternalhit|zalo/i.test(navigator.userAgent);}catch(e){}
+  if(skip){el.parentNode.removeChild(el);return;}
+  d.classList.add('vpe-lock');
+  function save(v){try{sessionStorage.setItem('dbv_entry',v);}catch(e){}}
+  function web(){save('web');d.classList.remove('vpe-lock');el.classList.add('vpe-out');setTimeout(function(){el.parentNode&&el.parentNode.removeChild(el);},320);}
+  document.getElementById('vpe-web').onclick=web;
+  var a=document.getElementById('vpe-3d'),pf=false;a.onclick=function(){save('3d');};
+  function pre(){if(pf)return;pf=true;['/van-phong-3d/','/van-phong-3d/data.js?v=1'].forEach(function(u){var l=document.createElement('link');l.rel='prefetch';l.href=u;document.head.appendChild(l);});}
+  a.addEventListener('mouseenter',pre);a.addEventListener('touchstart',pre,{passive:true});
+  document.addEventListener('keydown',function k(e){if(e.key==='Escape'&&el.parentNode){web();document.removeEventListener('keydown',k);}});
+})();
+</script>
+</div>
+<!-- /VP-ENTRY -->
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53NZ4XR4"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
