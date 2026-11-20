@@ -193,6 +193,10 @@ body.pnl #joy{display:none}
   .tabs button.act{background:var(--acn);color:var(--ac)}
   .panel .cols{grid-template-columns:1fr}
   .panel[data-tab=sp] .chat,.panel[data-tab=chat] .bd{display:none}
+  .panel.open,.panel.one.open{transform:none}
+  .panel.one{height:auto;max-height:56vh}
+  .brand>div{display:none}.brand{padding:8px 10px}
+  .panel.one .bd{display:block!important}
   .chat{border-left:0}
   .dlg{bottom:66px}.nav{bottom:8px}.nav button span{display:none}.nav button{padding:0 11px}
   .mz{font-size:9.5px}
@@ -1437,7 +1441,7 @@ function walkPath(pts,speed){speed=speed||4.4;const segs=[];let L=0;for(let i=1;
   const at=s=>{for(let i=0;i<segs.length;i++){if(s<=segs[i]||i===segs.length-1)return pts[i].clone().lerp(pts[i+1],segs[i]?Math.min(1,s/segs[i]):1);s-=segs[i];}return pts[pts.length-1].clone();};
   return tween(Math.max(.5,L/speed),k=>{const s=ease(k)*L;const p=at(s);cam.pos.copy(p);const ah=at(Math.min(L,s+1.0)).sub(p);
     if(ah.lengthSq()>1e-4)cam.yaw+=wrap(Math.atan2(-ah.x,-ah.z)-cam.yaw)*.13;cam.pitch+=(-.03-cam.pitch)*.1;});}
-function lookShift(stand,look,wide){if(innerWidth<=720)return look;const d=look.clone().sub(stand).setY(0);const dist=d.length();d.normalize();const r=new V3(-d.z,0,d.x);
+function lookShift(stand,look,wide){if(innerWidth<=720){const dist=look.clone().sub(stand).setY(0).length();return look.clone().setY(look.y-dist*.32);}const d=look.clone().sub(stand).setY(0);const dist=d.length();d.normalize();const r=new V3(-d.z,0,d.x);
   return look.clone().addScaledVector(r,dist*(wide?(innerWidth>1100?.42:.3):.2));}
 
 /* ================= TRẠNG THÁI ================= */
@@ -1455,7 +1459,7 @@ async function goStation(id){
   const path=findPath(cam.pos,st.walk);if(path){if(!guide)showGuide(path,new THREE.Color(DEPTS[id]?DEPTS[id].color:'#007437'));await walkPath(path);}
   clearGuide();
   if(st.kind==='walk'){await flyTo(st.stand,st.look,.7);mode='lobby';busy=false;return;}
-  const wide=st.kind==='chat';const look=st.kind==='sofa'?st.look:lookShift(st.stand,st.look,wide);
+  const wide=st.kind==='chat';const look=st.kind==='sofa'&&innerWidth>720?st.look:lookShift(st.stand,st.look,wide);
   await flyTo(st.stand,look,.9);mode='station';curSt=id;busy=false;
   const staff=(DEPTS[id]&&DEPTS[id].staff)||st.staff;if(staff)staff.waveT=performance.now()/1000;
   openStation(id);}
