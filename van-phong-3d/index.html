@@ -184,6 +184,12 @@ body.pnl #joy{display:none}
 .mz.o{background:transparent;border:1.5px dashed #98A2B3;color:#475467}
 .mdot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--do);border:3px solid #fff;box-shadow:0 0 0 2px var(--do);pointer-events:none;transition:left .2s,top .2s}
 .maphint{font-size:12px;color:var(--x-500);margin-top:8px}
+.gate .card{max-width:400px}.gate h3 span{display:flex;align-items:center;gap:8px}.gate h3 button{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--x-500)}
+.gate .gp{font-size:14px;line-height:1.55;color:var(--x-700);margin:-4px 0 12px}.gate label{display:block;font-size:12.5px;font-weight:700;color:var(--muc);margin-bottom:6px}
+.gate .gr{display:flex;gap:8px}.gate input{flex:1;min-width:0;height:44px;border:1.5px solid var(--x-300);border-radius:10px;padding:0 12px;font:inherit;font-size:15px;outline:none}
+.gate input:focus{border-color:var(--lam);box-shadow:0 0 0 4px rgba(0,116,55,.14)}.gate .gr button{height:44px;padding:0 16px;border-radius:10px;background:var(--navy);color:#fff;font-weight:700;font-size:14px}
+.gate .gr button[disabled]{opacity:.6}.gate .ge{font-size:12.5px;color:var(--do);min-height:16px;margin-top:8px}.gate .gn{font-size:12px;color:var(--x-500);line-height:1.5;margin-top:8px}
+#gtFade{position:fixed;inset:0;z-index:30;background:#063A2B;color:#B5DCC6;display:grid;place-items:center;font-size:15px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .35s ease}#gtFade.on{opacity:1;pointer-events:auto}
 @media (max-width:720px){
   .brand small{display:none}.tbtn span{display:none}.tbtn{padding:0 11px}.hint{display:none}.where{top:64px}
   .panel,.panel.one{top:auto;left:8px;right:8px;width:auto;bottom:66px;height:74vh;transform:translateY(calc(100% + 80px))}
@@ -376,7 +382,8 @@ function hitBox(w,h,d,x,y,z,data,ry=0){const m=new THREE.Mesh(new THREE.BoxGeome
 /* ================= LƯỚI VA CHẠM + TÌM ĐƯỜNG ================= */
 const OBS=[],DYN={};
 function obstacle(x0,z0,x1,z1){OBS.push([Math.min(x0,x1),Math.min(z0,z1),Math.max(x0,x1),Math.max(z0,z1)]);}
-const G={x0:-18.6,z0:-13.5,cs:.2};G.w=Math.ceil(37.2/G.cs);G.h=Math.ceil(33.7/G.cs);G.blk=new Uint8Array(G.w*G.h);
+// lưới kéo dài về phía sau tòa nhà (z tới -36.6) cho Phòng giải trí nhân viên — vùng đó chỉ đi được khi phòng đã mở
+const G={x0:-18.6,z0:-36.6,cs:.2};G.w=Math.ceil(37.2/G.cs);G.h=Math.ceil(56.8/G.cs);G.blk=new Uint8Array(G.w*G.h);
 const PR=.24,WALK=[[-18,-12.9,18,13.4],[-17.5,12.4,17.5,19.6]];
 function fillR(r,v,e){const i0=Math.max(0,Math.floor((r[0]-e-G.x0)/G.cs)),j0=Math.max(0,Math.floor((r[1]-e-G.z0)/G.cs)),
   i1=Math.min(G.w-1,Math.floor((r[2]+e-G.x0)/G.cs)),j1=Math.min(G.h-1,Math.floor((r[3]+e-G.z0)/G.cs));
@@ -1131,7 +1138,8 @@ function build(){
     box(.55,.34,.04,std('#111'),x-.5,1.0,-9.6);box(.55,.34,.04,std('#111'),x+.6,1.0,-9.6);
     });
   box(1.4,1.9,.5,std('#d0d5dd'),-2.6,.95,-12.6);
-  hitBox(7.2,3.4,.4,0,1.7,-6.2,{type:'nv',label:'Khu vực nội bộ — chỉ dành cho nhân viên'});
+  hitBox(7.2,3.4,.4,0,1.7,-6.2,{type:'nv',label:'Khu nhân viên — cửa vào Phòng giải trí (cần mã)'});
+  buildStaffDoor();
 
   /* ---- Quầy nước ---- */
   box(1.8,.95,.7,M.wood,-6.4,.475,-3.6);box(1.85,.05,.75,M.white,-6.4,.97,-3.6);
@@ -1463,7 +1471,7 @@ async function goStation(id){
   await flyTo(st.stand,look,.9);mode='station';curSt=id;busy=false;
   const staff=(DEPTS[id]&&DEPTS[id].staff)||st.staff;if(staff)staff.waveT=performance.now()/1000;
   openStation(id);}
-function openStation(id){const st=STATIONS[id];
+function openStation(id){const st=STATIONS[id];if(st.open)return st.open();
   if(st.kind==='chat')openPanel(id);
   else if(id==='sofa')openInfo({title:'Khu chờ',tag:'Khu chờ',icon:'sofa',color:'#344054',soft:'#EEF0F3',intro:'Mời anh/chị ngồi nghỉ, dùng đồ uống và xem tin tức bảo hiểm trên màn hình trong lúc chờ.',
       body:`<div class="colh">Anh/chị dùng gì ạ?</div><div class="chips" id="drk">${DRINKS.map(d=>`<button data-k="${d[0]}">${d[1]}</button>`).join('')}</div>
@@ -1539,8 +1547,8 @@ let curPanel=null;
 function panelBase(color,soft,one){const P=$('panel');document.body.classList.add('pnl');P.style.setProperty('--ac',color);P.style.setProperty('--acn',soft);P.classList.toggle('one',!!one);return P;}
 function openInfo(o){const P=panelBase(o.color,o.soft,true);curPanel=null;
   P.innerHTML=`<div class="hd"><button class="px" id="pX" aria-label="Đóng" title="Đóng">${ic('x',18)}</button><span class="tag">${ic(o.icon,15)} ${o.tag}</span><h2>${o.title}</h2><p>${o.intro}</p></div><div class="cols"><div class="bd">${o.body}</div></div>
-  <div class="ft"><button id="pBack">${ic('back',16)} ${o.backLabel||'Quay lại'}</button><button id="pRecep">${ic('user',16)} Hỏi lễ tân</button></div>`;
-  P.classList.add('open');$('pX').onclick=hidePanel;$('pBack').onclick=backFromStation;$('pRecep').onclick=()=>goReception(true);if(o.after)o.after();}
+  <div class="ft"><button id="pBack">${ic('back',16)} ${o.backLabel||'Quay lại'}</button><button id="pRecep">${ic(o.ft2?o.ft2[2]||'back':'user',16)} ${o.ft2?o.ft2[0]:'Hỏi lễ tân'}</button></div>`;
+  P.classList.add('open');$('pX').onclick=o.onX||hidePanel;$('pBack').onclick=o.onBack||backFromStation;$('pRecep').onclick=o.ft2?o.ft2[1]:()=>goReception(true);if(o.after)o.after();}
 const PURL={'Vật chất ô tô điện':'bao-hiem-oto-dien','TNDS bắt buộc ô tô':'bao-hiem-tnds-oto','TNDS bắt buộc xe máy':'bao-hiem-tnds-xemay','Vật chất ô tô (thân vỏ)':'bao-hiem-vat-chat-oto',
   'Sức khỏe cá nhân & gia đình':'bao-hiem-cham-soc-suc-khoe-dbvcare','Tai nạn con người 24/24':'bao-hiem-tai-nan','Bảo hiểm du lịch':'bao-hiem-du-lich-quoc-te',
   'Cháy nổ bắt buộc':'bao-hiem-chay-no','Mọi rủi ro tài sản':'bao-hiem-moi-rui-ro','Bảo hiểm nhà ở':'bao-hiem-chay-no-chung-cu',
@@ -1705,7 +1713,7 @@ $('bHelp').onclick=()=>$('help').classList.add('open');$('helpX').onclick=()=>$(
 /* ================= TƯƠNG TÁC ================= */
 const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
 function pick(x,y){ndc.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(ndc,camera);const h=ray.intersectObjects(clickables,false);
-  for(const it of h){if(it.distance<.1)continue;return it;}return null;}
+  for(const it of h){if(it.distance<.1)continue;if(GT.pickOk&&!GT.pickOk(it.object))continue;const hh=it.object.userData.hit;if(hh&&hh.type==='recep'&&it.point.y>1.78)continue;return it;}return null;}
 let down=null;
 canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,yaw:cam.yaw,pitch:cam.pitch,moved:false};canvas.setPointerCapture(e.pointerId);canvas.focus();audioInit();});
 canvas.addEventListener('pointermove',e=>{
@@ -1725,7 +1733,8 @@ function onClick(x,y){
   if(u.hit){const t=u.hit.type;
     if(t==='st')return goStation(u.hit.id);
     if(t==='recep')return goReception(true);
-    if(t==='nv')return toast('Khu vực nội bộ — chỉ dành cho nhân viên DBV247');
+    if(t==='nv')return openGate();
+    if(t==='gt'&&GT.onHit)return GT.onHit(u.hit,h);
     if(t==='water')return toast('Mời anh/chị dùng nước ạ — nước lọc và trà luôn có sẵn');
     if(t==='stall')return toggleStall(u.hit.i);
     if(t==='faucet'){faucets[u.hit.i].until=performance.now()+3500;noise(3.2,1400,.18);return;}
@@ -1754,6 +1763,69 @@ function noise(sec,freq,vol){if(!AC)return;try{const n=AC.sampleRate*sec,b=AC.cr
   const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=freq;f.Q.value=.7;const g=AC.createGain();g.gain.setValueAtTime(0,AC.currentTime);
   g.gain.linearRampToValueAtTime(vol,AC.currentTime+.15);g.gain.setValueAtTime(vol,AC.currentTime+sec-.3);g.gain.linearRampToValueAtTime(0,AC.currentTime+sec);s.connect(f).connect(g).connect(AC.destination);s.start();}catch(e){}}
 
+/* ================= KHU NHÂN VIÊN → PHÒNG GIẢI TRÍ =================
+   Sảnh chỉ có cánh cửa và ô nhập mã (vài KB). Phòng giải trí cùng 10 trò chơi nằm trong
+   giai-tri.js, chỉ tải khi nhân viên nhập đúng mã — khách tham quan không tải phần này.
+   Mã kiểm tra trên máy chủ (hàm giai-tri-3d, biến GIAI_TRI_3D_MA trên Netlify). */
+const GT={door:null,open:0,want:0,sess:null,ma:'',demo:false,loaded:null};
+try{const s=JSON.parse(localStorage.getItem('dbv_gt3d')||'null');if(s&&s.tok)GT.sess=s;}catch(e){}
+const GT_URL='/.netlify/functions/giai-tri-3d',GT_REAL=/(^|\.)dbv247\.com\.vn$/.test(location.hostname);
+function buildStaffDoor(){const x0=-2.7,z0=-6.3;const g=new THREE.Group();g.position.set(x0,0,z0+.13);scene.add(g);
+  box(1.2,.08,.1,M.frame,0,2.38,0,g,false);[-1,1].forEach(s=>box(.08,2.42,.1,M.frame,s*.6,1.21,0,g,false));
+  const leaf=new THREE.Group();g.add(leaf);
+  const tex=ctex(512,1024,(x,w,h)=>{x.fillStyle='#EEF4F0';x.fillRect(0,0,w,h);x.fillStyle='rgba(8,76,56,.06)';for(let i=0;i<h;i+=6)x.fillRect(0,i,w,2);
+    x.fillStyle='#084C38';x.fillRect(0,330,w,190);x.fillStyle='#E8920A';x.fillRect(0,520,w,12);
+    x.fillStyle='#fff';x.textAlign='center';x.font='800 66px "Be Vietnam Pro",sans-serif';x.fillText('NHÂN VIÊN',w/2,418);
+    x.fillStyle='#A8D5BD';x.font='600 36px "Be Vietnam Pro",sans-serif';x.fillText('Phòng giải trí',w/2,476);
+    x.fillStyle='#B8925A';rr(x,w-78,560,26,200,13);x.fill();});
+  const lm=new THREE.Mesh(new THREE.PlaneGeometry(1.1,2.32),std('#ffffff',{map:tex,roughness:.5}));lm.position.set(0,1.18,.02);leaf.add(lm);
+  const kp=ctex(128,192,(x,w,h)=>{x.fillStyle='#1d2433';x.fillRect(0,0,w,h);x.fillStyle='#0FA968';x.fillRect(14,14,w-28,30);
+    for(let r=0;r<4;r++)for(let c=0;c<3;c++){x.fillStyle='#3a4458';rr(x,16+c*34,58+r*32,28,24,5);x.fill();x.fillStyle='#d6dde8';x.font='700 15px sans-serif';x.textAlign='center';x.fillText(['1','2','3','4','5','6','7','8','9','*','0','#'][r*3+c],30+c*34,75+r*32);}});
+  box(.18,.26,.03,M.frame,.84,1.25,0,g,false);const key=new THREE.Mesh(new THREE.PlaneGeometry(.15,.225),basic(kp));key.position.set(.84,1.25,.017);g.add(key);
+  const led=new THREE.Mesh(new THREE.CircleGeometry(.016,12),new THREE.MeshBasicMaterial({color:'#E8920A',toneMapped:false}));led.position.set(.84,1.405,.018);g.add(led);
+  const sg=ctex(1024,200,(x,w,h)=>{x.fillStyle='#084C38';rr(x,0,0,w,h,30);x.fill();x.fillStyle='#E8920A';x.fillRect(0,h-16,w,16);x.fillStyle='#fff';x.textAlign='center';x.font='800 70px "Be Vietnam Pro",sans-serif';x.fillText('KHU NHÂN VIÊN',w/2,92);x.fillStyle='#A8D5BD';x.font='600 40px "Be Vietnam Pro",sans-serif';x.fillText('Phòng giải trí · cần mã',w/2,152);});
+  const sgm=new THREE.Mesh(new THREE.PlaneGeometry(1.5,.29),basic(sg,{transparent:true}));sgm.position.set(0,2.72,.02);g.add(sgm);clickable(sgm,{type:'nv',label:'Cửa nhân viên — vào Phòng giải trí (cần mã)'});
+  GT.door={leaf,led};hitBox(1.7,2.5,.5,x0+.15,1.25,z0+.25,{type:'nv',label:'Cửa nhân viên — vào Phòng giải trí (cần mã)'});}
+function gtFade(v,msg){let f=$('gtFade');if(!f){f=document.createElement('div');f.id='gtFade';document.body.appendChild(f);}
+  f.textContent=msg||'';void f.offsetWidth;f.classList.toggle('on',!!v);return new Promise(r=>setTimeout(r,380));}
+async function gtPost(b){try{const r=await fetch(GT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});let j={};try{j=await r.json();}catch(e){}return {s:r.status,j};}catch(e){return {s:0,j:{}};}}
+function gtSave(s){GT.sess=s;try{if(s)localStorage.setItem('dbv_gt3d',JSON.stringify(s));else localStorage.removeItem('dbv_gt3d');}catch(e){}}
+const GT_MAU=['Nguyễn Thu Trang','Trần Minh Anh','Lê Hoàng Nam','Phạm Thị Hà','Vũ Đức Long','Đỗ Ngọc Mai'];
+function gateEl(){let g=$('gate');if(g)return g;g=document.createElement('div');g.className='ovl gate';g.id='gate';
+  g.innerHTML=`<div class="card"><h3><span>${ic('users',18)} Khu nhân viên</span><button id="gX" aria-label="Đóng">${ic('x',18)}</button></h3>
+    <p class="gp">Phòng giải trí dành cho cán bộ Bảo hiểm DBV – Chi nhánh Thành Đô.</p>
+    <form id="gF1" class="gf" novalidate><label for="gMa">Mã vào phòng</label><div class="gr"><input id="gMa" type="password" inputmode="numeric" autocomplete="off" maxlength="40" placeholder="Nhập mã nhân viên"><button>Mở cửa</button></div></form>
+    <form id="gF2" class="gf" novalidate style="display:none"><label for="gTen">Anh/chị là ai?</label><div class="gr"><input id="gTen" list="gDs" autocomplete="off" maxlength="40" placeholder="Chọn hoặc gõ họ tên"><button>Vào phòng</button></div><datalist id="gDs"></datalist>
+      <p class="gn">Tên dùng cho bảng điểm, lời chúc và giấy nhớ. Nhập một lần, lần sau vào thẳng.</p></form>
+    <div class="ge" id="gE"></div><p class="gn" id="gDemo" style="display:none"></p></div>`;
+  document.body.appendChild(g);g.onclick=e=>{if(e.target===g)closeGate();};$('gX').onclick=closeGate;
+  $('gF1').onsubmit=async e=>{e.preventDefault();const ma=$('gMa').value.trim();if(!ma){$('gE').textContent='Nhập mã vào phòng.';return;}
+    const b=$('gF1').querySelector('button');b.disabled=true;$('gE').textContent='';const {s,j}=await gtPost({hanh_dong:'vao',ma});b.disabled=false;
+    let ds=null;if(s===200&&j.ok){GT.demo=false;GT.ma=ma;ds=j.ds||[];}
+    else if((s===0||s===404)&&!GT_REAL){GT.demo=true;ds=GT_MAU;$('gDemo').style.display='';$('gDemo').textContent='Bản xem thử trên máy: chưa có máy chủ nên mã nào cũng vào được, dữ liệu chỉ lưu trên trình duyệt này.';}
+    else{$('gE').textContent=j.loi||'Chưa kiểm tra được mã, thử lại sau nhé.';return;}
+    $('gDs').innerHTML=ds.map(n=>`<option value="${esc(n)}">`).join('');$('gF1').style.display='none';$('gF2').style.display='';setTimeout(()=>$('gTen').focus(),40);};
+  $('gF2').onsubmit=async e=>{e.preventDefault();const ten=$('gTen').value.replace(/\s+/g,' ').trim();if(ten.length<2){$('gE').textContent='Nhập họ tên của anh/chị.';return;}
+    if(GT.demo){gtSave({tok:'demo',ten,demo:true});closeGate();return enterRoom();}
+    const b=$('gF2').querySelector('button');b.disabled=true;const {s,j}=await gtPost({hanh_dong:'vao',ma:GT.ma,ten});b.disabled=false;
+    if(s===200&&j.tok){gtSave({tok:j.tok,ten:j.ten,qt:!!j.qt});closeGate();return enterRoom();}$('gE').textContent=j.loi||'Chưa vào được, thử lại nhé.';};
+  return g;}
+function openGate(){if(busy)return;if(GT.sess)return enterRoom();const g=gateEl();$('gF1').style.display='';$('gF2').style.display='none';$('gE').textContent='';$('gMa').value='';g.classList.add('open');setTimeout(()=>$('gMa').focus(),60);}
+function closeGate(){const g=$('gate');if(g)g.classList.remove('open');}
+function gtLogout(){gtSave(null);GT.ma='';}
+function gtLoad(){if(GT.loaded)return GT.loaded;GT.loaded=new Promise((ok,no)=>{const s=document.createElement('script');s.src='giai-tri.js?v=1';
+  s.onload=()=>{if(!window.GT3D)return no(new Error('thiếu GT3D'));window.GT3D.init(gtApi());ok();};s.onerror=()=>{GT.loaded=null;no(new Error('không tải được giai-tri.js'));};document.head.appendChild(s);});return GT.loaded;}
+async function enterRoom(){if(busy)return;closeDialog();clearGuide();closePanel();closeMap();await leaveCurrent();busy=true;mode='moving';setNav(null);
+  await flyTo(new V3(-2.7,EYE,-4.95),new V3(-2.7,1.45,-6.3),1.3);GT.want=1;GT.door.led.material.color.set('#0FA968');await new Promise(r=>setTimeout(r,600));
+  await gtFade(1,'Đang mở Phòng giải trí…');
+  try{await gtLoad();await window.GT3D.vao(GT.sess);}
+  catch(e){console.error(e);GT.want=0;GT.door.led.material.color.set('#E8920A');mode='lobby';busy=false;await gtFade(0);toast('Chưa mở được phòng giải trí, thử lại sau nhé');return;}
+  GT.want=0;GT.door.led.material.color.set('#E8920A');await gtFade(0);}
+function gtApi(){return {THREE,V3,EYE,RH,H,scene,camera,cam,M,MB,md,std,box,cyl,ctex,basic,rr,signTex,drawIcon,ic,ICONS,plant,chair,sofa,blob,plane,floorRect,ceilRect,wallRun,obstacle,WALK,rebuildGrid,clickable,hitBox,clickables,STATIONS,
+  goStation,backFromStation,leaveCurrent,closePanel,openInfo,toast,flyTo,walkPath,findPath,tween,ease,person,customer,PEOPLE,playMusic,stopMusic,MUSIC,MUSIC_OPTS,audioInit,getAC:()=>AC,esc,IMG,buildNav,setNav,closeDialog,clearGuide,
+  RECEP_POS,RECEP_LOOK,fade:gtFade,door:v=>{GT.want=v;},hook:GT,logout:gtLogout,gtUrl:GT_URL,
+  st:{get mode(){return mode;},set mode(v){mode=v;},get busy(){return busy;},set busy(v){busy=v;},get curSt(){return curSt;},set curSt(v){curSt=v;}}};}
+
 /* ================= VÒNG LẶP ================= */
 let last=performance.now(),tvIdx=0,tvAt=0,lastWhere='';
 const tmpV=new V3();
@@ -1769,7 +1841,7 @@ function animatePerson(P,t,lookPos,isRecep){if(P.spr){animSprite(P,t);return;}co
   const talking=performance.now()<P.talkUntil;P.mouth.visible=talking;P.smile.visible=!talking;if(talking)P.mouth.scale.y=.25+Math.abs(Math.sin(t*13))*.75;
   const bw=talking?.012+Math.abs(Math.sin(t*4))*.01:0;P.brows.forEach(b=>b.position.y=.315+bw);}
 const inR=(p,x0,z0,x1,z1)=>p.x>x0&&p.x<x1&&p.z>z0&&p.z<z1;
-function whereName(p){if(inR(p,10.8,-12.9,18,-6.3))return 'Nhà vệ sinh';if(p.z>12.9)return 'Bãi đỗ xe';
+function whereName(p){if(GT.where){const w=GT.where(p);if(w)return w;}if(inR(p,10.8,-12.9,18,-6.3))return 'Nhà vệ sinh';if(p.z>12.9)return 'Bãi đỗ xe';
   for(const z of ZONES){if(['recep','ctv','water','sofa','tuvan','dir','kiosk','park','gd'].includes(z[0]))continue;if(inR(p,z[2],z[3],z[4],z[5]))return z[1];}
   return p.z<-4.3?'Hành lang':'Sảnh chính';}
 const JOY={x:0,y:0};
@@ -1801,6 +1873,7 @@ let _tl=performance.now(),_ledT=0;function loop(now){if(now-_ledT>60){_ledT=now;
   if(guide)guide.items.forEach((m,i)=>{m.material.opacity=.2+.8*Math.max(0,Math.sin(t*5-i*.55));});
   const wn=mode==='station'&&curSt?STATIONS[curSt].name:whereName(cam.pos);if(wn!==lastWhere){lastWhere=wn;$('where').textContent=wn;}
   if($('map').classList.contains('open'))updateMapDot();
+  if(GT.door){GT.open+=(GT.want-GT.open)*Math.min(1,dt*6);GT.door.leaf.position.x=-GT.open*1.02;}if(GT.tick)GT.tick(dt,t);
   renderer.render(scene,camera);requestAnimationFrame(loop);}
 
 /* ================= KHỞI ĐỘNG ================= */
