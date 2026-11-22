@@ -11,7 +11,7 @@
    lưu trong trình duyệt. */
 (function () {
 'use strict';
-let A = null, S = null, DATA = null, ROOM = null, built = false, inside = false;
+let A = null, S = null, DATA = null, ROOM = null, built = false, inside = false, F7 = false, RA = null;
 const ROOMSET = new Set(), TX = {}, OBJ = {};
 const R = { x0: -9, x1: 9, z0: -36, z1: -22 };
 const F = '"Be Vietnam Pro",sans-serif';
@@ -519,7 +519,7 @@ async function ra() {
 
 /* ───────────────────────── Panel dùng chung ───────────────────────── */
 function panel(o) {
-  A.openInfo(Object.assign({ ft2: ['Ra sảnh', ra, 'door'], onX: () => { A.closePanel(); A.toast('Bấm vào đồ vật để mở lại · phím mũi tên để rời chỗ'); } }, o));
+  A.openInfo(Object.assign({ ft2: RA ? ['Thang máy', RA, 'lift'] : ['Ra sảnh', ra, 'door'], onX: () => { A.closePanel(); A.toast('Bấm vào đồ vật để mở lại · phím mũi tên để rời chỗ'); } }, o));
 }
 
 /* ═════════════ 1. ĐỐ VUI TRÀ CHIỀU ═════════════ */
@@ -920,7 +920,7 @@ function openRa() {
 
 /* ───────────────────────── Hoạt cảnh mỗi khung hình ───────────────────────── */
 function tick(dt, t) {
-  if (!inside || !built) return;
+  if (!((inside && built) || F7)) return;
   if (OBJ.claw) { OBJ.claw.position.x = .15 + Math.sin(t * .6) * .3; OBJ.claw.position.z = .05 + Math.sin(t * .45) * .25; OBJ.claw.rotation.y = t * .5; }
   if (OBJ.fan) OBJ.fan.rotation.z -= dt * 9;
   if (OBJ.balloons) OBJ.balloons.forEach((b) => { b.b.position.y = b.y + Math.sin(t * 1.2 + b.p) * .04; });
@@ -941,5 +941,13 @@ function init(api) {
     else if (e.target && e.target.tagName === 'TEXTAREA') e.stopPropagation(); };
   addEventListener('keydown', keyCap, true); addEventListener('keyup', keyCap, true);
 }
-window.GT3D = { init, vao, ra };
+/* ── Tầng 7 DBV Building (tang-tren.js): phòng Relax dựng ở tầng 7, các trò mở bằng mo(id) ── */
+function tx() { const c = A.ctex; if (!TX.board) TX.board = c(1024, 640, () => {}); if (!TX.bday) TX.bday = c(1024, 640, () => {}); if (!TX.cork) TX.cork = c(1024, 640, () => {}); if (!TX.juke) TX.juke = c(512, 512, () => {}); jukeKey = ''; drawAll(); return TX; }
+function gan(sess, o) { S = sess; F7 = true; RA = (o && o.ra) || null; if (o && o.obj) Object.assign(OBJ, o.obj); tx();
+  loadData().then(() => { if (DATA && DATA.sinh_nhat && DATA.sinh_nhat.some((p) => p.nay)) setTimeout(() => A.toast('Hôm nay có sinh nhật ' + DATA.sinh_nhat.filter((p) => p.nay).map((p) => p.ten).join(', ') + ' 🎂 — ghé tường sinh nhật thổi nến nhé!'), 2500); });
+  setTimeout(() => A.toast('Chào ' + esc(S.ten) + '! Phòng Relax tầng 7 — bấm vào đồ vật để chơi' + (S.demo ? ' (bản xem thử)' : '')), 450); }
+function roi() { F7 = false; RA = null; closeOv(); stopRelax(true); }
+const MO = { dovui: openDoVui, bot: openBot, sinhnhat: openSinhNhat, nhac: openNhac, thugian: openThuGian, giaynho: openGiayNho, nem: openNem, phitieu: openPhiTieu, gap: openGap, anh: openAnh };
+function mo(id) { if (!S) return A.toast('Vào Phòng Relax bằng thang máy, nhập mã nhân viên trước nhé'); const f = MO[id]; if (f) f(); }
+window.GT3D = { init, vao, ra, tx, gan, roi, mo };
 })();
