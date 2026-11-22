@@ -1231,7 +1231,7 @@ function build(){
   // dãy phòng phía sau
   wallRun('x',-6.3,-18,-3.6,[D(-14.4),D(-7.2)]);
   wallRun('x',-6.3,-3.6,3.6,[{c:.4,w:6.4,h:3.6}],{h:3.6});box(7.2,1.9,WT,M.white,0,4.55,-6.3);
-  wallRun('x',-6.3,3.6,18,[D(7.2),D(14.4)]);
+  wallRun('x',-6.3,3.6,18,[D(7.2),D(13.2,1.2),D(16.0,1.2)]);
   [-10.8,-3.6,3.6,10.8].forEach(x=>wallRun('z',x,-12.9,-6.4,[]));
   // dãy phía trước
   wallRun('x',8.7,-18,-10.9,[]);wallRun('x',8.7,-10.8,-3.6,[D(-7.2)],{mat:M.glass,glass:true});
@@ -1467,46 +1467,92 @@ function buildDept(id){
 }
 
 function buildToilet(){
-  // cửa chính tự động
-  autoDoors.push(slider(14.4,-6.25,2.2,3,'x',{near:new V3(14.4,0,-6.3),r:2.6}));
-  doorSign(14.4,-6.3,'Nhà vệ sinh','WC','#667085',null,null);
-  // tường vách buồng
-  const pm=std('#c7cdd4',{roughness:.4});
-  [13.2,15.6].forEach(x=>wallRun('z',x,-12.9,-9.6,[],{h:2.3,mat:pm,noSkirt:true}));
-  const SD=[{c:12.0,w:1.0,lab:'NAM',x0:10.8,x1:13.2},{c:14.4,w:1.0,lab:'NỮ',x0:13.2,x1:15.6},{c:16.8,w:1.3,lab:'NKT',x0:15.6,x1:18}];
-  wallRun('x',-9.6,10.8,18,SD.map(s=>({c:s.c,w:s.w,h:2.05})),{h:2.3,mat:pm,noSkirt:true});
+  // WC Nữ (x 10.8..15, 4 buồng) và WC Nam (x 15..18, 2 tiểu + 1 buồng) — hai phòng riêng, hai cửa tự động
+  autoDoors.push(slider(13.2,-6.25,1.2,3,'x',{near:new V3(13.2,0,-6.3),r:1.5}));
+  autoDoors.push(slider(16.0,-6.25,1.2,3,'x',{near:new V3(16.0,0,-6.3),r:1.5}));
+  {const frost=std('#eef2f0',{roughness:.85});autoDoors.slice(-2).forEach(d=>d.panels.forEach(({p})=>{p.children[0].material=frost;}));} // cửa WC kính mờ, không nhìn xuyên
+  wallRun('z',15,-12.9,-6.4,[]);
+  const brass=std('#b08a55',{metalness:.6,roughness:.32}),led=new THREE.MeshBasicMaterial({color:'#fff1d6',toneMapped:false});
+  const pnl=(tex,w,h,x,y,z,ry,o)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),o&&o.basic?basic(tex):std('#ffffff',{map:tex,roughness:.45}));m.position.set(x,y,z);m.rotation.y=ry||0;scene.add(m);return m;};
+  const tiles=(wm,hm,cols,tw,th,grout)=>ctex(Math.round(wm*180),Math.round(hm*180),(x,w,h)=>{x.fillStyle=grout;x.fillRect(0,0,w,h);const pw=tw*180,ph=th*180;let k=7;
+    for(let j=0;j*ph<h+ph;j++)for(let i=0;i*pw<w+pw;i++){k=(k*16807)%2147483647;x.fillStyle=cols[k%cols.length];x.fillRect(i*pw+1.2,h-(j+1)*ph+1.2,pw-2.4,ph-2.4);}});
+  const picto=(x,cx,cy,k,col,s)=>{x.fillStyle=col;x.beginPath();x.arc(cx,cy-64*s,17*s,0,7);x.fill();
+    if(k==='nu'){x.beginPath();x.moveTo(cx-12*s,cy-40*s);x.lineTo(cx+12*s,cy-40*s);x.lineTo(cx+36*s,cy+28*s);x.lineTo(cx-36*s,cy+28*s);x.closePath();x.fill();x.fillRect(cx-14*s,cy+28*s,10*s,42*s);x.fillRect(cx+4*s,cy+28*s,10*s,42*s);}
+    else{x.fillRect(cx-25*s,cy-40*s,50*s,66*s);x.fillRect(cx-23*s,cy+22*s,19*s,48*s);x.fillRect(cx+4*s,cy+22*s,19*s,48*s);}};
+  const FN='"Be Vietnam Pro",sans-serif';
+  // biển cửa có hình người, phía hành lang
+  [[13.2,'nu'],[16.0,'nam']].forEach(([cx,k])=>{const nu=k==='nu';const t=ctex(620,290,(x,w,h)=>{x.fillStyle=nu?'#F6E3DA':'#E3EFE8';x.fillRect(0,0,w,h);x.fillStyle=nu?'#C9765E':'#0F5C45';x.fillRect(0,0,16,h);x.fillRect(0,h-10,w,10);
+      picto(x,120,166,k,nu?'#B5543C':'#084C38',1.4);x.textAlign='left';x.fillStyle=nu?'#7A3322':'#063A2B';x.font=`900 104px ${FN}`;x.fillText(nu?'NỮ':'NAM',232,158);
+      x.font=`600 38px ${FN}`;x.fillStyle='#4A5568';x.fillText(nu?'WC · 4 buồng':'WC · 2 tiểu · 1 buồng',236,222);});
+    pnl(t,1.0,.47,cx,3.28,-6.17,0);box(1.04,.51,.03,nu?brass:std('#0F5C45',{roughness:.4}),cx,3.28,-6.19,scene,false);});
+  // dãy buồng: vách ngăn + mặt trước có cửa
+  const ZF=-11.2;
+  const pmF=std('#E6B3A1',{roughness:.45}),pmM=std('#0F5C45',{roughness:.35});
+  [11.9,12.9,13.9].forEach(x=>wallRun('z',x,-12.9,ZF,[],{h:2.3,mat:pmF,noSkirt:true}));
+  wallRun('z',16.8,-12.9,ZF,[],{h:2.3,mat:pmM,noSkirt:true});
+  const SD=[0,1,2,3].map(i=>({c:11.4+i,w:.72,lab:'NỮ '+(i+1),x0:10.9+i,x1:11.9+i,zf:ZF,dm:std('#C9765E',{roughness:.45})})).concat([{c:17.4,w:.76,lab:'NAM',x0:16.8,x1:18,zf:ZF,dm:std('#b88a5c',{roughness:.5})}]);
+  wallRun('x',ZF,10.9,14.9,SD.slice(0,4).map(s=>({c:s.c,w:s.w,h:2.05})),{h:2.3,mat:pmF,noSkirt:true});
+  wallRun('x',ZF,16.8,18,[{c:17.4,w:.76,h:2.05}],{h:2.3,mat:pmM,noSkirt:true});
+  box(4.0,.04,.06,M.chrome,12.9,2.32,ZF,scene,false);box(1.2,.04,.06,M.chrome,17.4,2.32,ZF,scene,false);
   SD.forEach((s,i)=>{
-    const g=new THREE.Group();g.position.set(s.c-s.w/2,0,-9.6);scene.add(g);const dp=box(s.w-.04,1.95,.05,std('#9aa4b2',{roughness:.35}),s.w/2,1.02,0,g);
+    const g=new THREE.Group();g.position.set(s.c-s.w/2,0,s.zf);scene.add(g);const dp=box(s.w-.04,1.95,.05,s.dm,s.w/2,1.02,0,g);
     box(.03,.12,.05,M.chrome,s.w-.12,1.0,.04,g,false);clickable(dp,{type:'stall',i,label:'Đóng / mở cửa buồng'});
-    const signT=ctex(256,128,()=>{});const sm=new THREE.Mesh(new THREE.PlaneGeometry(.56,.28),basic(signT));sm.position.set(s.c,2.2,-9.47);scene.add(sm);
+    const signT=ctex(256,128,()=>{});const sm=new THREE.Mesh(new THREE.PlaneGeometry(.5,.22),basic(signT));sm.position.set(s.c,2.18,s.zf+.13);scene.add(sm);
     stalls.push(Object.assign(s,{g,open:1,ang:1.35,signT,occ:null}));g.rotation.y=1.35;drawStallSign(stalls[i],false);
-    // bồn cầu
+    // bồn cầu, hộp giấy, móc treo đồng
     const bx=(s.x0+s.x1)/2;cyl(.17,.2,.42,M.ceramic,bx,.21,-12.35);const bowl=new THREE.Mesh(new THREE.SphereGeometry(.24,20,14,0,Math.PI*2,0,Math.PI/2),M.ceramic);bowl.scale.set(1,.35,1.3);bowl.position.set(bx,.44,-12.3);scene.add(bowl);
     box(.42,.5,.2,M.ceramic,bx,.7,-12.72);box(.44,.04,.6,M.white,bx,.47,-12.3);
-    box(.16,.16,.1,M.chrome,s.x1-.3,.9,-12.84);obstacle(bx-.3,-12.9,bx+.3,-11.9);
-    if(s.lab==='NAM'){box(.38,.6,.3,M.ceramic,s.x0+.45,1.0,-12.72);}
-    if(s.lab==='NKT'){[[-12.2,1],[-11,1]].forEach(([z])=>{const b=cyl(.02,.02,.8,M.chrome,s.x1-.15,.85,z,scene,8);b.rotation.x=Math.PI/2;});cyl(.02,.02,.7,M.chrome,s.x0+.2,.85,-11.8,scene,8).rotation.z=Math.PI/2;}
+    box(.16,.16,.1,M.chrome,s.x1-.2,.8,-12.2,scene,false);box(.05,.05,.05,brass,s.x0+.18,1.7,-12.8,scene,false);obstacle(bx-.3,-12.9,bx+.3,-11.9);
   });
-  // lavabo + gương
+  // ---- WC NAM: 2 bồn tiểu, vách tiểu, tường gạch xanh DBV
+  pnl(tiles(1.66,2.6,['#0F5C45','#12684F','#0C503C','#167457'],.075,.3,'#E9EFEA'),1.66,2.6,15.95,1.3,-12.84,0);box(1.66,.03,.04,brass,15.95,2.62,-12.83,scene,false);
+  [15.5,16.3].forEach(x=>{box(.38,.56,.3,M.ceramic,x,.98,-12.68);box(.3,.2,.18,M.white,x,.74,-12.6,scene,false);box(.06,.1,.04,M.chrome,x,1.42,-12.82,scene,false);box(.09,.03,.02,led,x,1.5,-12.82,scene,false);});
+  box(.03,.85,.46,std('#1C7A5C',{roughness:.4}),15.9,1.15,-12.6);obstacle(15.15,-12.9,16.75,-12.4);
+  // lavabo + gương phản chiếu (giữ chỗ cũ), viền sáng, lam gỗ
   box(.62,.85,2.4,std('#2f343b',{roughness:.3}),17.6,.425,-8.0);box(.66,.06,2.44,std('#f0eee9',{roughness:.15}),17.6,.88,-8.0);obstacle(17.25,-9.25,18,-6.75);
-  [-8.6,-7.4].forEach((z,i)=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.2,.16,.08,24),M.ceramic);b.position.set(17.55,.92,z);scene.add(b);
-    const f=cyl(.02,.02,.22,M.chrome,17.85,1.02,z,scene,10);const sp=box(.18,.025,.03,M.chrome,17.77,1.12,z,scene,false);
-    const water=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.18,8),new THREE.MeshStandardMaterial({color:'#bfe3ff',transparent:true,opacity:.7,roughness:.05}));water.position.set(17.68,1.0,z);water.visible=false;scene.add(water);
-    faucets.push({water,until:0});hitBox(.4,.4,.4,17.75,1.05,z,{type:'faucet',i,label:'Vòi nước cảm ứng'});});
-  box(.03,1.24,2.34,M.frame,17.99,1.75,-8.0,scene,false);
-  if(THREE.Reflector){mirror=new THREE.Reflector(new THREE.PlaneGeometry(2.2,1.1),{clipBias:.003,textureWidth:Math.min(1024,innerWidth),textureHeight:Math.min(512,innerHeight/2),color:0xb8c2c8});
-    mirror.position.set(17.97,1.75,-8.0);mirror.rotation.y=-Math.PI/2;mirror.visible=false;scene.add(mirror);}
-  else{const gm=new THREE.Mesh(new THREE.PlaneGeometry(2.2,1.1),std('#cfd8de',{metalness:1,roughness:.05,envMapIntensity:1.5}));gm.position.set(17.97,1.75,-8.0);gm.rotation.y=-Math.PI/2;scene.add(gm);}
-  // máy sấy tay, tranh, thùng rác, cây
-  box(.34,.42,.2,M.white,15.9,1.25,-9.47);box(.2,.04,.16,std('#555'),15.9,1.02,-9.42,scene,false);hitBox(.5,.6,.4,15.9,1.25,-9.35,{type:'dryer',label:'Máy sấy tay'});
+  const faucet=(bx,fx,sx,wx2,z,hx)=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.2,.16,.08,24),M.ceramic);b.position.set(bx,.92,z);scene.add(b);
+    cyl(.02,.02,.22,M.chrome,fx,1.02,z,scene,10);box(.18,.025,.03,M.chrome,sx,1.12,z,scene,false);
+    const water=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.18,8),new THREE.MeshStandardMaterial({color:'#bfe3ff',transparent:true,opacity:.7,roughness:.05}));water.position.set(wx2,1.0,z);water.visible=false;scene.add(water);
+    faucets.push({water,until:0});hitBox(.4,.4,.4,hx,1.05,z,{type:'faucet',i:faucets.length-1,label:'Vòi nước cảm ứng'});};
+  [-8.6,-7.4].forEach(z=>faucet(17.55,17.85,17.77,17.68,z,17.75));
+  box(.03,1.24,2.34,M.frame,17.99,1.75,-8.0,scene,false);box(.02,.03,2.3,led,17.96,2.4,-8.0,scene,false);box(.02,.02,2.3,led,17.28,.3,-8.0,scene,false);
+  const oak=AIRY?airyMats().oak:std('#b88a5c',{roughness:.6});for(let k=0;k<9;k++)box(.04,2.7,.045,oak,17.96,1.35,-9.45-k*.16,scene,false);
+  let mN=null,mF=null;
+  const mkMirror=(x,z,ry,w)=>{if(THREE.Reflector){const m=new THREE.Reflector(new THREE.PlaneGeometry(w,1.1),{clipBias:.003,textureWidth:Math.min(1024,innerWidth),textureHeight:Math.min(512,innerHeight/2),color:0xb8c2c8});
+      m.position.set(x,1.75,z);m.rotation.y=ry;m.visible=false;scene.add(m);return m;}
+    const gm=new THREE.Mesh(new THREE.PlaneGeometry(w,1.1),std('#cfd8de',{metalness:1,roughness:.05,envMapIntensity:1.5}));gm.position.set(x,1.75,z);gm.rotation.y=ry;scene.add(gm);return null;};
+  mN=mkMirror(17.97,-8.0,-Math.PI/2,2.2);
+  // máy sấy tay + áp phích Phòng Sức khỏe trên vách chung (phía Nam)
+  box(.2,.42,.34,M.white,15.22,1.25,-9.9);box(.04,.04,.2,std('#555'),15.3,1.03,-9.9,scene,false);hitBox(.4,.6,.5,15.3,1.25,-9.9,{type:'dryer',label:'Máy sấy tay'});
   const pt=ctex(512,720,(x,w,h)=>{x.fillStyle='#E7F8F0';x.fillRect(0,0,w,h);x.fillStyle='#0FA968';x.fillRect(0,0,w,16);drawIcon(x,'heart',w/2,170,150,'#0FA968',2);x.textAlign='center';x.fillStyle='#063A2B';
     x.font='800 46px "Be Vietnam Pro",sans-serif';x.fillText('Chăm sức khỏe',w/2,330);x.fillText('cho cả nhà',w/2,390);x.font='500 30px "Be Vietnam Pro",sans-serif';x.fillStyle='#344054';x.fillText('Hỏi chuyên viên tại',w/2,470);x.fillText('Phòng Sức khỏe',w/2,512);
     x.fillStyle='#063A2B';x.fillRect(w/2-70,560,140,140);x.fillStyle='#fff';for(let i=0;i<7;i++)for(let j=0;j<7;j++)if((i*3+j*5)%4<2)x.fillRect(w/2-60+i*17,570+j*17,15,15);});
-  const ptm=new THREE.Mesh(new THREE.PlaneGeometry(.5,.7),basic(pt));ptm.position.set(13.2,1.55,-9.47);scene.add(ptm);box(.56,.76,.03,M.frame,13.2,1.55,-9.5,scene,false);
+  const ptm=new THREE.Mesh(new THREE.PlaneGeometry(.5,.7),basic(pt));ptm.position.set(15.125,1.6,-8.2);ptm.rotation.y=Math.PI/2;scene.add(ptm);box(.03,.76,.56,M.frame,15.105,1.6,-8.2,scene,false);
   clickable(ptm,{type:'st',id:'suckhoe',label:'Áp phích — tới Phòng Sức khỏe'});
-  cyl(.15,.13,.4,M.chrome,11.2,.2,-6.75);plant(11.3,-9.1);
-  toiletLight=new THREE.PointLight('#fff6e8',0,9,1.6);toiletLight.position.set(14.4,3.2,-8.4);scene.add(toiletLight);
-  STATIONS.wc={name:'Nhà vệ sinh',walk:new V3(15.6,EYE,-7.6),stand:new V3(15.8,EYE,-7.6),look:new V3(18,1.6,-8.2),kind:'walk'};
+  cyl(.15,.13,.4,M.chrome,16.95,.2,-6.75);plant(17.55,-10.5,'snake',.85);
+  // ---- WC NỮ: gạch hồng đất, gương viền đồng + LED, đèn thả, ghế đôn, tranh lá
+  pnl(tiles(4.3,2.7,['#E9B9A7','#EFC6B6','#E3AD99','#F2CFC1'],.2,.2,'#FBF3EE'),4.3,2.7,10.905,1.35,-8.65,Math.PI/2);box(.04,.03,4.3,brass,10.92,2.72,-8.65,scene,false);
+  box(.62,.85,2.4,std('#efe6dc',{roughness:.4}),11.21,.425,-8.9);box(.66,.06,2.44,std('#f7f1ea',{roughness:.15}),11.21,.88,-8.9);box(.02,.6,2.3,std('#C9765E',{roughness:.5}),11.53,.45,-8.9,scene,false);obstacle(10.9,-10.15,11.55,-7.65);
+  [-9.5,-8.3].forEach(z=>faucet(11.25,10.95,11.03,11.12,z,11.05));
+  box(.03,1.24,2.34,brass,10.915,1.75,-8.9,scene,false);box(.02,.03,2.3,led,10.94,2.4,-8.9,scene,false);box(.02,.03,2.3,led,10.94,1.1,-8.9,scene,false);box(.02,.02,2.3,led,11.54,.3,-8.9,scene,false);
+  mF=mkMirror(10.935,-8.9,Math.PI/2,2.2);
+  [-9.5,-8.3].forEach(z=>{const gl=new THREE.Mesh(new THREE.SphereGeometry(.11,16,12),led);gl.position.set(11.55,2.55,z);scene.add(gl);box(.008,RH-2.66,.008,std('#16191d'),11.55,(RH+2.66)/2,z,scene,false);cyl(.06,.02,.05,brass,11.55,2.68,z,scene,12);});
+  box(.2,.42,.34,M.white,14.78,1.25,-9.9);box(.04,.04,.2,std('#555'),14.7,1.03,-9.9,scene,false);hitBox(.4,.6,.5,14.7,1.25,-9.9,{type:'dryer',label:'Máy sấy tay'});
+  const art=ctex(420,560,(x,w,h)=>{x.fillStyle='#FBF3EE';x.fillRect(0,0,w,h);x.fillStyle='#F2CFC1';x.beginPath();x.arc(w/2,250,150,Math.PI,0);x.lineTo(w/2+150,470);x.lineTo(w/2-150,470);x.closePath();x.fill();
+    const leaf=(cx,cy,r,a,c)=>{x.save();x.translate(cx,cy);x.rotate(a);x.fillStyle=c;x.beginPath();x.ellipse(0,0,r*.38,r,0,0,7);x.fill();x.restore();};
+    x.strokeStyle='#5E7D5A';x.lineWidth=5;x.beginPath();x.moveTo(w/2,470);x.quadraticCurveTo(w/2-10,300,w/2+20,140);x.stroke();
+    [[-55,380,60,-.7],[60,330,58,.7],[-50,270,52,-.6],[55,220,48,.6],[-30,170,40,-.4],[30,140,34,.5]].forEach(([dx,y,r,a],i)=>leaf(w/2+dx,y,r,a,i%2?'#7FA27A':'#5E7D5A'));
+    x.fillStyle='#C9765E';x.beginPath();x.arc(w/2+92,160,26,0,7);x.fill();x.fillStyle='#7A3322';x.font='700 26px "Be Vietnam Pro",sans-serif';x.textAlign='center';x.fillText('chăm mình, chăm nhà',w/2,520);});
+  pnl(art,.6,.8,14.875,1.6,-8.4,-Math.PI/2);box(.03,.86,.66,brass,14.895,1.6,-8.4,scene,false);
+  cyl(.2,.2,.42,std('#C9765E',{roughness:.5}),14.5,.21,-7.3,scene,18);cyl(.21,.21,.06,std('#F6EEE6',{roughness:.6}),14.5,.45,-7.3,scene,18);obstacle(14.28,-7.52,14.9,-7.08);
+  cyl(.14,.12,.4,brass,14.6,.2,-10.7,scene,14);plant(11.3,-6.85,'ficus',.8);
+  // biển cảm ơn bên trong cửa
+  const note=ctex(520,220,(x,w,h)=>{x.fillStyle='#ffffff';x.fillRect(0,0,w,h);x.fillStyle='#084C38';x.fillRect(0,0,w,8);x.textAlign='center';x.fillStyle='#063A2B';x.font='800 40px "Be Vietnam Pro",sans-serif';x.fillText('Cảm ơn bạn',w/2,92);
+    x.font='500 30px "Be Vietnam Pro",sans-serif';x.fillStyle='#4A5568';x.fillText('đã giữ WC sạch cho người sau',w/2,146);x.fillStyle='#0FA968';x.beginPath();x.arc(w/2,186,10,0,7);x.fill();});
+  [11.9,17.1].forEach(x=>pnl(note,.52,.22,x,1.6,-6.41,Math.PI));
+  mirror={set visible(v){if(mN)mN.visible=v&&cam.pos.x>15;if(mF)mF.visible=v&&cam.pos.x<=15;}};
+  toiletLight=new THREE.PointLight('#fff6e8',0,9,1.6);toiletLight.position.set(14.4,3.2,-8.8);scene.add(toiletLight);
+  STATIONS.wc={name:'Nhà vệ sinh',walk:new V3(14.6,EYE,-5.2),stand:new V3(14.6,EYE,-5.2),look:new V3(14.6,2.4,-6.3),kind:'walk'};
 }
 function drawStallSign(s,occ){if(s.occ===occ)return;s.occ=occ;const x=s.signT.userData.ctx;x.fillStyle=occ?'#B42318':'#0F7A4B';x.fillRect(0,0,256,128);x.fillStyle='#fff';x.textAlign='center';
   x.font='800 40px "Be Vietnam Pro",sans-serif';x.fillText(s.lab,128,54);x.font='600 26px "Be Vietnam Pro",sans-serif';x.fillText(occ?'ĐANG CÓ NGƯỜI':'TRỐNG',128,100);s.signT.needsUpdate=true;}
@@ -1992,7 +2038,7 @@ function onClick(x,y){
       showGuide(findPath(cam.pos,st.walk),new THREE.Color(r[2]));lookAtTarget=st.walk.clone();toast(`Đi theo vạch sáng tới ${DEPTS[r[3]]?DEPTS[r[3]].full:st.name}`,()=>goStation(r[3]),'Đưa tôi đến');return;}}
   if(u.floor&&(mode==='lobby'||mode==='station')){let p=h.point.clone();if(!isFree(p.x,p.z)){const c=nearestFree(cellOf(p.x,p.z));if(c<0)return;p.set(cx(c),0,cz(c));}freeWalk(p.setY(EYE));}}
 function toggleStall(i){const s=stalls[i];s.open=s.open?0:1;const a0=s.g.rotation.y,a1=s.open?1.35:0;tween(.45,k=>{s.g.rotation.y=a0+(a1-a0)*ease(k);});
-  DYN['stall'+i]=s.open?null:[s.c-s.w/2,-9.66,s.c+s.w/2,-9.54];rebuildGrid();}
+  DYN['stall'+i]=s.open?null:[s.c-s.w/2,s.zf-.06,s.c+s.w/2,s.zf+.06];rebuildGrid();}
 const HOTS=[['Đầu xe','Va chạm, đâm đụng làm hư hỏng thân vỏ thường thuộc phạm vi bảo hiểm vật chất ô tô.'],
   ['Kính xe','Vỡ kính có thể được bồi thường theo bảo hiểm vật chất — tùy điều khoản hợp đồng.'],
   ['Động cơ, gầm xe','Thủy kích khi đi vào vùng ngập thường cần quyền lợi bổ sung riêng — nên hỏi rõ khi mua.'],
@@ -2026,7 +2072,7 @@ function animatePerson(P,t,lookPos,isRecep){if(P.spr){animSprite(P,t);return;}co
   const talking=performance.now()<P.talkUntil;P.mouth.visible=talking;P.smile.visible=!talking;if(talking)P.mouth.scale.y=.25+Math.abs(Math.sin(t*13))*.75;
   const bw=talking?.012+Math.abs(Math.sin(t*4))*.01:0;P.brows.forEach(b=>b.position.y=.315+bw);}
 const inR=(p,x0,z0,x1,z1)=>p.x>x0&&p.x<x1&&p.z>z0&&p.z<z1;
-function whereName(p){if(UP.floor>1&&UP.where){const w=UP.where(p);if(w)return w;}if(inR(p,10.8,-12.9,18,-6.3))return 'Nhà vệ sinh';if(p.z>12.9)return 'Bãi đỗ xe';
+function whereName(p){if(UP.floor>1&&UP.where){const w=UP.where(p);if(w)return w;}if(inR(p,10.8,-12.9,18,-6.3))return p.x<15?'WC Nữ':'WC Nam';if(p.z>12.9)return 'Bãi đỗ xe';
   for(const z of ZONES){if(['recep','ctv','water','sofa','tuvan','dir','kiosk','park','gd'].includes(z[0]))continue;if(inR(p,z[2],z[3],z[4],z[5]))return z[1];}
   return p.z<-4.3?'Hành lang':'Sảnh chính';}
 const JOY={x:0,y:0};
@@ -2049,7 +2095,7 @@ let _tl=performance.now(),_ledT=0;function loop(now){if(now-_ledT>60){_ledT=now;
   // toilet: đèn cảm biến, gương, biển buồng
   const inWC=UP.floor===1&&inR(cam.pos,10.8,-12.9,18,-6.3);toiletLight.intensity+=((inWC?1.1:0)-toiletLight.intensity)*Math.min(1,dt*3);
   toiletLamp.color.setScalar(.35+.65*Math.min(1,toiletLight.intensity/1.1));if(mirror)mirror.visible=inWC;
-  stalls.forEach(s=>drawStallSign(s,!s.open&&inR(cam.pos,s.x0,-12.9,s.x1,-9.6)));
+  stalls.forEach(s=>drawStallSign(s,!s.open&&inR(cam.pos,s.x0,-12.9,s.x1,s.zf)));
   faucets.forEach(f=>{f.water.visible=now<f.until;});
   if(car&&curSt!=='car')car.rotation.y+=dt*.15;
   if(now-tvAt>9000){tvAt=now;tvIdx++;drawTV(tvIdx);}
