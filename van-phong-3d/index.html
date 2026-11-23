@@ -380,7 +380,7 @@ function drawIcon(x,name,cx,cy,s,color,lw){x.save();x.translate(cx-s/2,cy-s/2);x
 function signTex(title,sub,color,icon,w=1100,h=220){return ctex(w,h,(x)=>{x.fillStyle='#084C38';rr(x,0,0,w,h,26);x.fill();x.fillStyle=color;x.fillRect(0,0,30,h);
   rr(x,62,44,132,132,26);x.fillStyle=color;x.fill();if(icon)drawIcon(x,icon,128,110,84,'#fff',2);
   x.fillStyle='#A8D5BD';x.font='700 34px "Be Vietnam Pro",sans-serif';x.fillText(sub,224,88);x.fillStyle='#fff';x.font='800 64px "Be Vietnam Pro",sans-serif';x.fillText(title,222,160);});}
-const clickables=[];
+const clickables=[],OCC=[];
 function clickable(mesh,data){mesh.userData.hit=data;clickables.push(mesh);return mesh;}
 function hitBox(w,h,d,x,y,z,data,ry=0){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));m.position.set(x,y,z);m.rotation.y=ry;scene.add(m);return clickable(m,data);}
 
@@ -419,7 +419,7 @@ const WT=.2;
 function wallRun(axis,fixed,from,to,ops,o={}){
   const _r=ROUND;ROUND=0;const h=o.h||H,mat=o.mat||M.wall;ops=(ops||[]).slice().sort((a,b)=>a.c-b.c);let cur=from;
   const seg=(a,b,y0,y1)=>{const L=b-a;if(L<=.01)return;const m=(a+b)/2,hh=y1-y0;
-    const mesh=axis==='x'?box(L,hh,WT,mat,m,y0+hh/2,fixed):box(WT,hh,L,mat,fixed,y0+hh/2,m);
+    const mesh=axis==='x'?box(L,hh,WT,mat,m,y0+hh/2,fixed):box(WT,hh,L,mat,fixed,y0+hh/2,m);if(!o.glass){mesh.userData.occ=1;OCC.push(mesh);}
     if(o.glass){mesh.castShadow=false;mesh.receiveShadow=false;mesh.renderOrder=2;}
     if(y0===0){if(axis==='x')obstacle(a,fixed-WT/2,b,fixed+WT/2);else obstacle(fixed-WT/2,a,fixed+WT/2,b);
       if(!o.glass&&!o.noSkirt){if(axis==='x')box(L,.12,WT+.04,M.skirt,m,.06,fixed,scene,false);else box(WT+.04,.12,L,M.skirt,fixed,.06,m,scene,false);}}
@@ -1142,18 +1142,25 @@ const SIT_H=.09;
 // điểm khách hay đi tới trong sảnh
 const WANDER=[[0,9],[-2.5,6],[2.5,6],[-4,1],[4,1],[-2.6,1.2],[2.6,1.2],[-6.5,7.4],[6.4,9.5],[11.3,9.6],[-4.6,10.6],[6.6,-1.2],[-8,-1.4],[8,-1.4],[3.5,11.5],[-2.6,11.6]];
 function buildCrowd(){
-  // ngồi nghe tư vấn ở 6 phòng nghiệp vụ (ghế phía xa cửa)
-  ORDER.forEach(id=>{const d=DEPTS[id];const p=d.door.clone().addScaledVector(d.out,d.depth*.56-1.0).addScaledVector(d.right,-2.25);
-    customer({x:p.x,z:p.z,ry:facing(d.out),seat:.52,talk:true});});
-  // bàn tư vấn chung
-  customer({x:6.55,z:5.6,ry:Math.PI/2,seat:.52,female:true});customer({x:8.65,z:5.6,ry:-Math.PI/2,seat:.52,female:false});
-  // sofa khu chờ (sofa quay về phía TV)
-  customer({x:-6.62,z:.95,ry:-Math.PI/2,seat:.6});customer({x:-6.62,z:3.45,ry:-Math.PI/2,seat:.6});customer({x:-8.4,z:4.66,ry:Math.PI,seat:.6});
-  // đứng ở quầy lễ tân, CTV, thu ngân
-  customer({x:-1.6,z:-2.15,ry:Math.PI,talk:true});customer({x:6.2,z:-2.2,ry:Math.PI,talk:true});customer({x:10.2,z:10.9,ry:0,talk:true});customer({x:12.6,z:10.95,ry:0,female:true});
-  // khách đi lại trong sảnh
-  for(let i=0;i<8;i++){const w=WANDER[(i*5)%WANDER.length];customer({x:w[0],z:w[1],walk:true});}
+  // khách (nhân vật cùng phong cách với nhân viên, đứng/ngồi yên) — thay toàn bộ ma-nơ-canh ở tầng 1
+  const kh=(k,x,z,h,ry)=>{const P=glbPerson(k,x,z,h);P.g.rotation.y=ry;P.khach=true;return P;};
+  kh('Khach-1',-1.45,-2.05,1.70,2.6);obstacle(-1.75,-2.35,-1.15,-1.75);   // quầy lễ tân
+  kh('Khach-2',5.75,-2.2,1.72,2.75);obstacle(5.45,-2.5,6.05,-1.9);        // quầy CTV
+  kh('Khach-3',10.5,10.9,1.60,.42);obstacle(10.2,10.6,10.8,11.2);         // quầy thu ngân
+  kh('Khach-4',-9.05,4.75,1.25,Math.PI);obstacle(-9.5,4.35,-8.6,5.2);     // khu chờ, ghế bành
+  kh('Khach-5',-7.75,4.75,1.30,Math.PI);obstacle(-8.2,4.35,-7.3,5.2);
+  // dấu hiệu có người ở những chỗ chưa có khách: túi xách, ly cà phê, hồ sơ
+  ORDER.forEach((id,i)=>{const d=DEPTS[id];const at=(a,b,y)=>d.door.clone().addScaledVector(d.out,a).addScaledVector(d.right,b).setY(y);
+    const s=at(d.depth*.56-1.0,-2.25,.5);propBag(s.x,s.y,s.z,facing(d.out)+.4,['#7a4a2b','#2b3a55','#8c2f39','#3b5b4a','#5a4636','#1f2933'][i%6]);
+    const c=at(d.depth*.56-.32,-2.0,.78);propCup(c.x,c.y,c.z);const f=at(d.depth*.56-.3,-1.6,.776);propFolder(f.x,f.y,f.z,facing(d.out));});
+  propBag(-6.5,.5,3.15,-Math.PI/2+.3,'#c48a5a');
+  propCup(7.35,.8,5.45);propCup(7.85,.8,5.75);propFolder(7.6,.776,5.4,.2);
 }
+function propBag(x,y,z,ry,col){const g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=ry||0;scene.add(g);const m=std(col||'#7a4a2b',{roughness:.55});
+  const _r=ROUND;ROUND=.03;box(.3,.2,.12,m,0,.1,0,g);ROUND=_r;const hd=new THREE.Mesh(new THREE.TorusGeometry(.085,.011,8,20,Math.PI),m);hd.position.y=.2;g.add(hd);
+  box(.06,.03,.005,std('#d4b483',{metalness:.6,roughness:.3}),0,.16,.062,g,false);return g;}
+function propCup(x,y,z){const c=cyl(.034,.027,.1,std('#f4f1ea',{roughness:.4}),x,y+.05,z,scene,14);cyl(.035,.03,.035,std('#8a5a3b',{roughness:.7}),x,y+.05,z,scene,14);cyl(.036,.036,.012,std('#2b2b2b'),x,y+.106,z,scene,14);return c;}
+function propFolder(x,y,z,ry){const f=box(.32,.014,.23,std('#0B5A3A',{roughness:.6}),x,y,z,scene,false);f.rotation.y=ry||0;const p=box(.29,.004,.2,std('#ffffff'),x,y+.009,z,scene,false);p.rotation.y=(ry||0)+.08;return f;}
 const _tv=new V3();
 function updateCrowd(dt,t){CROWD.forEach(p=>{
   if(p.mode==='walk'){
@@ -1265,9 +1272,9 @@ function build(){
   box(.6,.36,.04,std('#111'),-2,1.42,-.3,desk);box(.6,.36,.04,std('#111'),1.6,1.42,-.3,desk);
   const vase=cyl(.08,.06,.28,M.ceramic,2.6,1.26,.1,desk);
   for(let i=0;i<5;i++){const f=new THREE.Mesh(new THREE.SphereGeometry(.065,10,8),std(i%2?'#E8920A':'#ff8a7a'));f.position.set(2.6+(Math.random()-.5)*.16,1.5+Math.random()*.1,.1+(Math.random()-.5)*.16);desk.add(f);}
-  obstacle(-3.15,-3.85,3.15,-2.6);blob(0,-3.2,7.4,2.2,.9);
+  obstacle(-3.15,-3.85,3.15,-2.6);blob(0,-3.2,7.4,2.2,.9);desk.traverse(o=>{if(o.isMesh){o.userData.occ=1;OCC.push(o);}});
   RECEP=glbPerson('Linh-LT',.2,-4.1,1.6);RECEP.g.position.y=.12;
-  hitBox(6.4,2.4,1.8,0,1.2,-3.5,{type:'recep',label:'Lễ tân Linh — bấm để được hỗ trợ'});
+  hitBox(1.3,1.15,1.1,.2,1.72,-3.95,{type:'recep',label:'Lễ tân Linh — bấm để được hỗ trợ'});
 
   /* ---- Khu thang máy + thang bộ ---- */
   buildLiftCore();
@@ -1278,14 +1285,14 @@ function build(){
   const ctvSign=new THREE.Mesh(new THREE.PlaneGeometry(3.6,.72),basic(signTex('CTV – Đại lý','QUẦY','#084C38','users'),{transparent:true}));
   ctvSign.position.set(6.6,3.3,-3.4);scene.add(ctvSign);[-1.4,1.4].forEach(dx=>box(.02,1.8,.02,M.frame,6.6+dx,4.6,-3.4,scene,false));
   DEPTS.ctv.staff=staffPerson('ctv',6.6,-4.0,0,0);
-  hitBox(3,2.6,1.6,6.6,1.3,-3.4,{type:'st',id:'ctv',label:'Quầy Cộng tác viên – Đại lý'});clickable(ctvSign,{type:'st',id:'ctv',label:'Quầy Cộng tác viên – Đại lý'});
+  hitBox(1.2,1.1,1,6.6,1.65,-3.95,{type:'st',id:'ctv',label:'Quầy Cộng tác viên – Đại lý'});clickable(ctvSign,{type:'st',id:'ctv',label:'Quầy Cộng tác viên – Đại lý'});
   STATIONS.ctv={name:'Quầy CTV – Đại lý',walk:new V3(6.6,EYE,-1.1),stand:new V3(6.6,EYE,-1.2),look:new V3(6.6,1.55,-3.95),kind:'chat',back:new V3(6.6,EYE,-.6)};
 
   /* ---- Khu chờ + TV ---- */
   tvTex=ctex(1280,720,()=>{});drawTV(0);
   const tv=new THREE.Mesh(new THREE.PlaneGeometry(2.6,1.46),basic(tvTex));tv.position.set(-10.62,2.1,2.2);tv.rotation.y=Math.PI/2;scene.add(tv);
   box(.06,1.56,2.7,std('#111'),-10.69,2.1,2.2,scene,false);
-  sofa(-6.6,2.2,-Math.PI/2,AIRY?'#537363':'#2E6B52',3);sofa(-8.4,4.7,Math.PI,AIRY?'#c49f77':'#2E6B52',2);
+  sofa(-6.6,2.2,-Math.PI/2,AIRY?'#537363':'#2E6B52',3);
   const tbl=cyl(.6,.6,.05,M.white,-8.4,.42,2.2);cyl(.05,.2,.4,M.frame,-8.4,.2,2.2);
   box(.4,.025,.28,std('#fff'),-8.3,.46,2.1);box(.36,.025,.26,std('#E8920A'),-8.5,.48,2.3);
   obstacle(-9.05,1.55,-7.75,2.85);
@@ -1297,7 +1304,7 @@ function build(){
     [[-1.05,0],[1.05,0]].forEach(([dx])=>{if(k===0&&dx>0)return;chair(x+dx,z,dx<0?Math.PI/2:-Math.PI/2);});
     if(k===0)box(.44,.025,.3,std('#fff'),x-.15,.79,z);if(k===0)deskKit(new V3(x,0,z),new V3(1,0,0),new V3(0,0,1),.775,{noMug:true});});
   DEPTS.tuvan.staff=staffPerson('tuvan',8.75,2.2,-Math.PI/2,0);
-  hitBox(2.8,2,1.8,7.6,1,2.2,{type:'st',id:'tuvan',label:'Bàn tư vấn chung — chưa rõ cần gì?'});
+  hitBox(1,1.45,1,8.75,.73,2.2,{type:'st',id:'tuvan',label:'Bàn tư vấn chung — chưa rõ cần gì?'});
   STATIONS.tuvan={name:'Bàn tư vấn chung',walk:new V3(6.0,EYE,2.2),stand:new V3(6.55,1.22,2.2),look:new V3(8.65,1.45,2.2),kind:'chat',back:new V3(5.8,EYE,2.2)};
 
   /* ---- Bảng chỉ dẫn + kiosk ---- */
@@ -1335,7 +1342,7 @@ function build(){
       const s=new THREE.Mesh(new THREE.PlaneGeometry(1.9,.38),basic(st,{transparent:true}));s.position.set(cx-1.2,2.75,ZF-.08);s.rotation.y=Math.PI;scene.add(s);
       clickable(s,{type:'st',id:'rieng',label:'Phòng tư vấn riêng — đặt lịch trao đổi riêng'});
 });
-    hitBox(14.4,2.6,2.8,-10.8,1.3,11.5,{type:'st',id:'rieng',label:'Phòng tư vấn riêng — đặt lịch trao đổi riêng'});
+    [-15.6,-10.8,-6].forEach(c=>hitBox(1.1,2.3,.3,c-1.2,1.15,10.05,{type:'st',id:'rieng',label:'Phòng tư vấn riêng — đặt lịch trao đổi riêng'}));
     STATIONS.rieng={name:'Phòng tư vấn riêng',walk:new V3(-10.2,EYE,9.4),stand:new V3(-10.2,EYE,9.45),look:new V3(-10.5,1.1,12.2),kind:'info',back:new V3(-7.2,EYE,7.6)};
     const shs=new THREE.Mesh(new THREE.PlaneGeometry(3.2,.64),basic(signTex('Phòng tư vấn riêng','KHU','#B8925A','users'),{transparent:true}));shs.position.set(-7.2,3.35,8.58);shs.rotation.y=Math.PI;scene.add(shs);
     const shs2=new THREE.Mesh(new THREE.PlaneGeometry(3.2,.64),basic(signTex('Phòng tư vấn riêng','KHU','#B8925A','users'),{transparent:true}));shs2.position.set(-7.2,3.35,8.82);scene.add(shs2);
@@ -1349,7 +1356,7 @@ function build(){
   const ths=new THREE.Mesh(new THREE.PlaneGeometry(4.4,.88),basic(signTex('Thu ngân','QUẦY','#0FA968','cash'),{transparent:true}));ths.position.set(11.3,3.3,12.85);ths.rotation.y=Math.PI;scene.add(ths);
   STATIONS.thungan={name:'Thu ngân',walk:new V3(11.3,EYE,9.5),stand:new V3(11.3,EYE,9.6),look:new V3(11.3,1.5,12.45),kind:'info',back:new V3(11.3,EYE,9.4)};
   STATIONS.thungan.staff=glbPerson('Linh-TN',11.3,12.5,1.63);
-  hitBox(7.8,2.6,1.4,11.3,1.3,11.9,{type:'st',id:'thungan',label:'Quầy thu ngân — thanh toán, nhận giấy chứng nhận'});
+  hitBox(1.4,1.1,1,11.3,1.68,12.45,{type:'st',id:'thungan',label:'Quầy thu ngân — thanh toán, nhận giấy chứng nhận'});
 
   /* ---- Phòng khách hàng Hàn Quốc ---- */
   buildKorean();
@@ -1384,6 +1391,27 @@ function doorSign(x,z,title,sub,color,icon,hit){const t=signTex(title,sub,color,
 
 /* ---- Khoang 2: văn phòng làm việc sau vách kính (chỉ để nhìn) ---- */
 const BO={},BOG={};
+/* ---- 2.5D: mỗi phòng một bộ ảnh (A/B), có bản lật ngang; ảnh chỉ tải khi khách tới gần ---- */
+const BO25_SET={xe:['A',0],boithuong:['B',0],congtrinh:['B',0],suckhoe:['A',1],taisan:['A',0],hanghoa:['B',1]};
+const BO25_DIM={A:{giua:[1499,609,.00227],trai:[552,923,.00168],phai:[522,1013,.00168]},B:{giua:[1472,919,.002],trai:[382,1024,.00181],phai:[598,783,.00181]}};
+const BO25_IMG={};function bo25Img(n){if(!BO25_IMG[n])BO25_IMG[n]=new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.onerror=()=>r(null);im.src='img/bo-'+n+'.webp';});return BO25_IMG[n];}
+function bo25(id,P,a0,a1,hw,out){const [S,flip]=BO25_SET[id]||['A',0],D=BO25_DIM[S],rot=facing(out.clone().negate()),list=[];
+  const mk=(name,w,h,a,b,opaque)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({toneMapped:false,transparent:!opaque,depthWrite:!!opaque,alphaTest:opaque?0:.02}));
+    const q=P(a,b,h/2);m.position.copy(q);m.rotation.y=rot;m.visible=false;m.renderOrder=opaque?0:1;scene.add(m);list.push({m,name,w,h,opaque});return m;};
+  // tường sau: ghép ảnh vào khung đúng tỉ lệ bức tường, kéo dài mép ảnh ra hai bên
+  mk(S+'-sau',hw*2,RH,a1-.03,0,true);
+  const g=D.giua;mk(S+'-giua',g[0]*g[2],g[1]*g[2],a0+3.2,(flip?.25:-.25),false);
+  const tl=D.trai,tr=D.phai,Lw=tl[0]*tl[2],Rw=tr[0]*tr[2];
+  // mảnh trái/phải áp sát hai vách bên; phòng lật ngang thì đổi bên
+  mk(S+'-trai',Lw,tl[1]*tl[2],a0+1.45,flip?(hw-Lw/2-.04):-(hw-Lw/2-.04),false);
+  mk(S+'-phai',Rw,tr[1]*tr[2],a0+1.25,flip?-(hw-Rw/2-.04):(hw-Rw/2-.04),false);
+  BO[id].b25={list,flip,hw,loaded:false};}
+function bo25Load(id){const o=BO[id]&&BO[id].b25;if(!o||o.loaded)return;o.loaded=true;
+  o.list.forEach(it=>{bo25Img(it.name).then(im=>{if(!im)return;let src=im;
+    if(it.opaque){const H=1024,Wc=Math.round(H*it.w/it.h),c=document.createElement('canvas');c.width=Wc;c.height=H;const x=c.getContext('2d');const iw=im.width*H/im.height,ox=(Wc-iw)/2;
+      if(o.flip){x.translate(Wc,0);x.scale(-1,1);}x.drawImage(im,ox,0,iw,H);if(ox>0){x.drawImage(im,0,0,3,im.height,0,0,ox+1,H);x.drawImage(im,im.width-3,0,3,im.height,ox+iw-1,0,ox+1,H);}src=c;}
+    else if(o.flip){const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const x=c.getContext('2d');x.translate(im.width,0);x.scale(-1,1);x.drawImage(im,0,0);src=c;}
+    const t=new THREE.Texture(src);t.encoding=THREE.sRGBEncoding;t.anisotropy=ANISO;t.needsUpdate=true;it.m.material.map=t;it.m.material.needsUpdate=true;it.m.visible=true;});});}
 function buildBackOffice(id,P,depth,hw,out,right){
   const D2=6,a0=depth+.1,a1=a0+D2;const L=BO[id]={desk:[],panel:[],mon:[],chair:[],ppl:[]};
   const c0=P(a0,-hw),c1=P(a1,hw),x0=Math.min(c0.x,c1.x),x1=Math.max(c0.x,c1.x),z0=Math.min(c0.z,c1.z),z1=Math.max(c0.z,c1.z);
@@ -1394,13 +1422,9 @@ function buildBackOffice(id,P,depth,hw,out,right){
   [-1,1].forEach(k=>{const q=P((a0+a1)/2,k*(hw+WT/2));box(along?D2:WT,RH,along?WT:D2,M.wall,q.x,RH/2,q.z);});
   const bk=P(a1+WT/2,0);box(along?WT:W,RH,along?W:WT,M.wall,bk.x,RH/2,bk.z);
   // dải màu phòng trên tường sau
-  const acc=P(a1-.02,0,2.55);const st=new THREE.Mesh(new THREE.PlaneGeometry(W-.4,.14),new THREE.MeshBasicMaterial({color:DEPTS[id].color}));st.position.copy(acc);st.rotation.y=facing(out.clone().negate());scene.add(st);
-  // 4 dãy x 5 bàn = 20 nhân viên, quay mặt về phía vách kính
-  const face=Math.atan2(-out.x,-out.z);
-  for(let r=0;r<4;r++)for(let c=0;c<5;c++){const a=a0+1.0+r*1.32,b=(c-2)*1.22;const p=P(a,b);
-    L.desk.push([p.x,.74,p.z,face]);const fp=P(a-.31,b);L.panel.push([fp.x,.37,fp.z,face]);
-    const mp=P(a-.05,b+.36);L.mon.push([mp.x,.87,mp.z,face]);
-    const sp=P(a+.5,b);L.ppl.push([sp.x,-.3,sp.z,face,(r*5+c)%2]);const ch=P(a+.72,b);L.chair.push([ch.x,0,ch.z,face]);}
+  const acc=P(a1-.02,0,RH-.12);const st=new THREE.Mesh(new THREE.PlaneGeometry(W-.4,.12),new THREE.MeshBasicMaterial({color:DEPTS[id].color}));st.position.copy(acc);st.rotation.y=facing(out.clone().negate());scene.add(st);
+  // khung cảnh làm việc 2.5D: 3 lớp ảnh ở 3 độ sâu (tường sau · dãy giữa · hai bên gần kính)
+  bo25(id,P,a0,a1,hw,out);
   // cây góc
   const pl=P(a1-.5,hw-.5);plant(pl.x,pl.z);
   const e0=P(-3,-hw-1),e1=P(a1,hw+1);L.box=[Math.min(e0.x,e1.x),Math.min(e0.z,e1.z),Math.max(e0.x,e1.x),Math.max(e0.z,e1.z)];
@@ -1411,14 +1435,14 @@ function finishBackOffice(){
   const G={desk:[new THREE.BoxGeometry(1.1,.05,.66),std(AIRY?'#d6c09c':'#ffffff',{roughness:.5})],panel:[new THREE.BoxGeometry(1.1,.7,.03),std(AIRY?'#ddd5c4':'#E9EEF0',{roughness:.7})],
     mon:[laptopGeo(),std('#3a4048',{metalness:.5,roughness:.35})]};const OC=officeChairGeo();md();G.chair=[OC.fab,MD.fab];G.chairM=[OC.met,MD.dark];G.legs=[deskLegsGeo(),MD.metal];
   Object.keys(BO).forEach(id=>{const L=BO[id],grp=new THREE.Group();scene.add(grp);
-    Object.keys(G).forEach(k=>{const list=L[k==='chairM'?'chair':k==='legs'?'desk':k];if(!list)return;const im=new THREE.InstancedMesh(G[k][0],G[k][1],list.length);
+    Object.keys(G).forEach(k=>{const list=L[k==='chairM'?'chair':k==='legs'?'desk':k];if(!list||!list.length)return;const im=new THREE.InstancedMesh(G[k][0],G[k][1],list.length);
       list.forEach((t,i)=>{q.setFromAxisAngle(yA,t[3]);s.set(k==='ppl'&&t[4]?-1:1,1,1);pz.set(t[0],t[1],t[2]);m4.compose(pz,q,s);im.setMatrixAt(i,m4);});
       im.castShadow=k==='desk';im.receiveShadow=true;grp.add(im);});
     L.ppl.forEach((t,i)=>{const kind=i%2?'A':'B';const m=staffModel(kind);if(!m)return;const w=new THREE.Group();w.position.set(t[0],kind==='A'?.6:-.42,t[2]);w.rotation.y=t[3];
       if(kind==='A')m.scale.setScalar(.7/.99);w.add(m);m.traverse(o=>{if(o.isMesh)o.castShadow=false;});grp.add(w);});
     grp.visible=false;BOG[id]={grp,box:L.box};});}
 // chỉ vẽ khoang làm việc của phòng mà khách đang ở gần, cho nhẹ máy
-function updateBackOffice(){const p=camera.position;Object.values(BOG).forEach(o=>{const b=o.box;o.grp.visible=p.x>b[0]&&p.x<b[2]&&p.z>b[1]&&p.z<b[3];});}
+function updateBackOffice(){const p=camera.position;Object.keys(BOG).forEach(id=>{const o=BOG[id],b=o.box;const v=p.x>b[0]-3&&p.x<b[2]+3&&p.z>b[1]-3&&p.z<b[3]+3;o.grp.visible=v;if(v)bo25Load(id);});}
 function buildDept(id){
   const d=DEPTS[id],r=d.room;let door,out,depth;
   if(r.wall==='L'){door=new V3(-10.8,0,r.c);out=new V3(-1,0,0);depth=7.2;}
@@ -1580,7 +1604,7 @@ function buildLiftCore(){const A=airyMats();
     const lb=ctex(256,64,(c,w,hh)=>{c.fillStyle='#344054';c.font='700 34px "Be Vietnam Pro",sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText('THANG '+(k+1),w/2,hh/2);});
     const lm=new THREE.Mesh(new THREE.PlaneGeometry(.6,.15),basic(lb,{transparent:true}));lm.position.set(x,2.92,-12.8);scene.add(lm);});
   box(.14,.3,.03,steel,-1.2,1.15,-12.8,scene,false);[1.22,1.08].forEach((y,i)=>{const b=cyl(.025,.025,.02,std('#ffffff',{emissive:i?'#000':'#ffb020',emissiveIntensity:.8}),-1.2,y,-12.78,scene,16);b.rotation.x=Math.PI/2;});
-  hitBox(4.6,2.8,.6,-1.2,1.4,-12.55,{type:'st',id:'thang',label:'Thang máy — lên các tầng (cần mã truy cập)'});
+  [-2.3,-.1].forEach(x=>hitBox(1.4,2.5,.3,x,1.25,-12.7,{type:'st',id:'thang',label:'Thang máy — lên các tầng (cần mã truy cập)'}));
   // thang bộ: 20 bậc gỗ lên tầng 2, lan can kính phía trong
   const N=20,RU=.285,RI=RH/N,X0=1.3,X1=3.48,Z0=-7.1,cx=(X0+X1)/2,wd=X1-X0;
   for(let i=0;i<N;i++){const z=Z0-(i+.5)*RU,y=(i+1)*RI;box(wd,.06,RU+.02,A.oak,cx,y-.03,z);box(wd,RI-.06,.03,A.cream,cx,y-RI/2-.03,z+RU/2,scene,false);}
@@ -1598,7 +1622,7 @@ function buildLiftCore(){const A=airyMats();
   const t2m=new THREE.Mesh(new THREE.PlaneGeometry(1.2,.38),basic(t2,{transparent:true}));t2m.position.set(2.4,4.55,-12.88);scene.add(t2m);
   // biển xanh "Thang bộ" trên chân thang
   const eb=ctex(640,150,(c,w,hh)=>{c.fillStyle='#0F7A4B';rr(c,0,0,w,hh,14);c.fill();drawIcon(c,'stairs',80,hh/2,90,'#fff',2.4);c.fillStyle='#fff';c.font='800 64px "Be Vietnam Pro",sans-serif';c.textBaseline='middle';c.fillText('THANG BỘ',150,hh/2+3);});
-  const ebm=new THREE.Mesh(new THREE.PlaneGeometry(1.4,.33),basic(eb,{transparent:true}));ebm.position.set(cx,3.25,-6.48);scene.add(ebm);
+  const ebm=new THREE.Mesh(new THREE.PlaneGeometry(1.4,.33),basic(eb,{transparent:true}));ebm.position.set(cx,3.25,-6.48);scene.add(ebm);clickable(ebm,{type:'st',id:'thangbo',label:'Thang bộ — lên Tầng 2'});
   // biển chỉ dẫn các tầng: gắn tường trái khu chờ thang máy
   const dt=ctex(700,1240,(c,w,hh)=>{c.fillStyle='#ffffff';c.fillRect(0,0,w,hh);c.fillStyle='#084C38';c.fillRect(0,0,w,250);c.fillStyle='#E8920A';c.fillRect(0,240,w,10);
     drawIcon(c,'lift',86,92,92,'#fff',2.2);drawIcon(c,'stairs',196,92,92,'#fff',2.4);c.fillStyle='#A8D5BD';c.font='700 30px "Be Vietnam Pro",sans-serif';c.fillText('DBV BUILDING · THANG MÁY',40,180);
@@ -1609,12 +1633,13 @@ function buildLiftCore(){const A=airyMats();
   const pf=new THREE.Mesh(new THREE.PlaneGeometry(1.0,1.77),basic(dt));pf.position.set(-3.48,1.72,-10.3);pf.rotation.y=Math.PI/2;scene.add(pf);
   box(.04,1.85,1.08,AIRY?A.oak:M.navy,-3.5,1.72,-10.3,scene,false);
   clickable(pf,{type:'st',id:'thang',label:'Danh mục tầng — Ban Giám đốc, Tài chính, Nhân sự, Marketing…'});
-  hitBox(2.2,2.6,5.6,cx,1.3,-9.9,{type:'st',id:'thang',label:'Thang bộ — lên các tầng trên'});
+  hitBox(2.2,2.6,5.6,cx,1.3,-9.9,{type:'st',id:'thangbo',label:'Thang bộ — lên Tầng 2 (cần mã truy cập)'});
   // biển nhỏ phía sảnh, dưới bảng logo
   const ls=ctex(900,130,(c,w,hh)=>{c.fillStyle='#084C38';rr(c,0,0,w,hh,16);c.fill();drawIcon(c,'lift',70,hh/2,72,'#fff',2.2);drawIcon(c,'stairs',150,hh/2,72,'#fff',2.4);c.fillStyle='#fff';c.font='800 50px "Be Vietnam Pro",sans-serif';c.textBaseline='middle';c.fillText('Thang máy · Thang bộ',210,hh/2+3);});
   const lsm=new THREE.Mesh(new THREE.PlaneGeometry(2.1,.3),basic(ls,{transparent:true}));lsm.position.set(-1.2,3.38,-6.17);scene.add(lsm);clickable(lsm,{type:'st',id:'thang',label:'Thang máy · Thang bộ'});
   plant(-3.1,-7.0,'snake',.9);
-  STATIONS.thang={name:'Khu thang máy – thang bộ',walk:new V3(-.4,EYE,-8.6),stand:new V3(-.4,EYE,-8.7),look:new V3(-2.2,1.6,-12.8),kind:'info',back:new V3(0,EYE,-5.2)};
+  STATIONS.thangbo={name:'Thang bộ',walk:new V3(2.4,EYE,-6.2),stand:new V3(2.4,EYE,-6.3),look:new V3(2.4,2.6,-12.6),kind:'info',back:new V3(2.4,EYE,-5.2)};
+  STATIONS.thang={name:'Thang máy',walk:new V3(-.4,EYE,-8.6),stand:new V3(-.4,EYE,-8.7),look:new V3(-2.2,1.6,-12.8),kind:'info',back:new V3(0,EYE,-5.2)};
 }
 
 /* ================= CÁC TẦNG 2–7 (tang-tren.js) =================
@@ -1636,6 +1661,23 @@ function liftUI(){const B=$('liftBox');if(!B)return;
 function liftDoor(k,to,dur=.9){const D=LIFT.doors[k];const o0=D.o;return tween(dur,e=>{const v=o0+(to-o0)*ease(e);D.o=v;D.p.forEach(q=>q.m.position.x=D.x+q.s*(.305+v*.56));});}
 function liftFx(){let f=$('liftFx');if(!f){f=document.createElement('div');f.id='liftFx';f.style.cssText='position:fixed;inset:0;z-index:60;background:#0b0f14;opacity:0;pointer-events:none;transition:opacity .6s;display:flex;align-items:center;justify-content:center;font-family:"Be Vietnam Pro",sans-serif';document.body.appendChild(f);}return f;}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function stairUI(){const B=$('stairBox');if(!B)return;
+  if(!LIFT.ok){B.innerHTML=`<div class="lead" id="skL"><b>Mã truy cập</b><p>Gợi ý: năm thành lập DBV Thành Đô.</p><form id="skF" novalidate><input id="skP" type="password" inputmode="numeric" placeholder="Nhập mã 4 số" maxlength="4" autocomplete="off"><button>Mở cửa thang bộ</button></form><div class="err" id="skE"></div></div>`;
+    $('skF').onsubmit=e=>{e.preventDefault();if($('skP').value.trim()===LIFT.code){LIFT.ok=true;stairUI();}else{$('skE').textContent='Mã chưa đúng, anh/chị thử lại.';$('skP').value='';$('skP').focus();}};setTimeout(()=>{const p=$('skP');if(p&&innerWidth>720)p.focus();},300);return;}
+  const t2=UPPER.find(u=>u[0]==='Tầng 2')||['Tầng 2','Ban Giám đốc'];
+  B.innerHTML=`<button class="sp liftgo" id="stGo" style="display:block;width:100%;text-align:left;cursor:pointer;background:#fff"><b>${ic('stairs',15)} Đi bộ lên ${t2[0]} · ${t2[1]}</b></button>`;$('stGo').onclick=()=>stairRide(t2[0],t2[1]);}
+async function stairRide(fl,name){if(busy||UP.floor!==1)return;let up=null;try{await upLoad();up=window.TANG3D;}catch(e){console.error(e);up=null;}
+  busy=true;closePanel();mode='moving';const E0=EYE,X=2.4,Z0=-7.1,N=20,RU=.285,ZT=-11.4;
+  await flyTo(new V3(X,E0,-6.6),new V3(X,E0+1.4,-12.6),.7);
+  await tween(3,k=>{const e=ease(k),z=-6.6+(ZT+6.6)*e,i=Math.max(0,(Z0-z)/RU);cam.pos.set(X,E0+Math.min(N,i)*RH/N,z);cam.pitch+=(.14-cam.pitch)*.1;});
+  const F=liftFx();F.innerHTML=`<div style="text-align:center;color:#fff"><div style="font:800 15px/1 'Be Vietnam Pro',system-ui,sans-serif;letter-spacing:.14em;color:#A8D5BD">THANG BỘ</div><div style="font:900 72px/1.15 'Be Vietnam Pro',system-ui,sans-serif;color:#8ED1A9;margin:14px 0">${fl}</div><div style="font:600 18px 'Be Vietnam Pro',system-ui,sans-serif;color:#D0D5DD">Đang lên ${name}</div></div>`;
+  F.style.pointerEvents='auto';F.style.opacity='1';await sleep(650);
+  let r='loi';if(up){r=await up.go(2).then(()=>'ok').catch(e=>{console.error(e);return 'loi';});}
+  if(r==='loi'){F.innerHTML=`<div style="max-width:420px;margin:0 20px;background:#fff;border-radius:18px;padding:26px 24px;text-align:center"><div style="font:900 22px/1.3 'Be Vietnam Pro',system-ui,sans-serif;color:#101828;margin:0 0 10px">Chưa mở được ${fl}</div><p style="font:500 15px/1.5 'Be Vietnam Pro',system-ui,sans-serif;color:#475467;margin:0 0 18px">Kết nối chưa ổn định, anh/chị thử lại sau ít phút.</p><button id="lfBack" style="height:44px;padding:0 22px;border:0;border-radius:12px;background:#084C38;color:#fff;font:700 15px 'Be Vietnam Pro',system-ui,sans-serif;cursor:pointer">Về sảnh tầng 1</button></div>`;
+    await new Promise(q=>$('lfBack').onclick=q);UP.floor=1;cam.pos.set(X,E0,-6.4);cam.yaw=Math.PI;cam.pitch=-.03;}
+  else{UP.floor=2;cam.pos.set(2.2,EYE,-6.7);cam.yaw=Math.PI;cam.pitch=-.03;}
+  await sleep(300);F.style.opacity='0';F.style.pointerEvents='none';await sleep(500);
+  mode='lobby';curSt=null;busy=false;if(UP.floor>1&&up&&up.arrived)up.arrived();}
 async function liftRide(fl,name){if(busy)return;const n=+String(fl).replace(/\D/g,'')||1,from=UP.floor;if(n===from){toast('Anh/chị đang ở '+fl);return;}
   let up=null;try{await upLoad();up=window.TANG3D;if(up.before&&!(await up.before(n)))return;}catch(e){console.error(e);up=null;}
   busy=true;closePanel();mode='moving';const k=1;
@@ -1790,7 +1832,7 @@ function lookShift(stand,look,wide){if(innerWidth<=720){const dist=look.clone().
 let mode='intro',curSt=null,voice=false,busy=false,lookAtTarget=null;
 const RECEP_POS=new V3(0,EYE,-.8),RECEP_LOOK=new V3(.2,1.5,-4.1);
 async function walkTo(target,finalLook){const path=findPath(cam.pos,target);if(path)await walkPath(path);else await flyTo(target.clone().setY(EYE),null);if(finalLook)await flyTo(cam.pos.clone(),finalLook,.5);}
-const HIDE_TIP={standee:'Bấm lại vào standee để xem quyền lợi',thang:'Bấm lại vào thang máy để chọn tầng',han:'Bấm lại vào tư vấn viên để mở lại',kiosk:'Bấm lại vào kiosk để tra cứu',rieng:'Bấm lại vào biển phòng để đặt lịch tư vấn riêng',giamdinh:'Bấm lại vào chuyên viên Hùng hoặc biển giám định',thungan:'Bấm lại vào quầy thu ngân',sofa:'Bấm lại vào sofa để gọi đồ uống'};
+const HIDE_TIP={standee:'Bấm lại vào standee để xem quyền lợi',thang:'Bấm lại vào thang máy để chọn tầng',thangbo:'Bấm lại vào thang bộ để lên Tầng 2',han:'Bấm lại vào tư vấn viên để mở lại',kiosk:'Bấm lại vào kiosk để tra cứu',rieng:'Bấm lại vào biển phòng để đặt lịch tư vấn riêng',giamdinh:'Bấm lại vào chuyên viên Hùng hoặc biển giám định',thungan:'Bấm lại vào quầy thu ngân',sofa:'Bấm lại vào sofa để gọi đồ uống'};
 function hidePanel(){closePanel();toast(HIDE_TIP[curSt]||(STATIONS[curSt]&&STATIONS[curSt].kind==='info'?'Bấm lại vào đây để mở bảng thông tin':'Bấm vào chuyên viên để mở lại · phím mũi tên để rời phòng'));}
 async function leaveCurrent(){if(mode==='station'&&curSt){const st=STATIONS[curSt];closePanel();if(st.back)await flyTo(st.back,null,.6);mode='lobby';curSt=null;setNav(null);}}
 async function goReception(open=true){
@@ -1831,7 +1873,9 @@ function openStation(id){const st=STATIONS[id];if(st.open)return st.open();
       <div class="err" id="gE"></div><div class="ok">${ic('check',18)} Đã ghi nhận yêu cầu.</div></div>
       <button class="linkbtn" id="toBT">${ic('chat',16)} Vào Quầy Bồi thường</button>`,
       after:()=>{$('toBT').onclick=()=>goStation('boithuong');$('gF').onsubmit=e=>{e.preventDefault();const p=$('gP').value.replace(/\D/g,'');if(!/^0\d{9}$/.test(p)){$('gE').textContent='Số điện thoại gồm 10 chữ số, bắt đầu bằng 0.';return;}if(!$('gS').value){$('gE').textContent='Chọn loại sự cố.';return;}$('gE').textContent='';$('gL').classList.add('done');sendLead({'dien-thoai':p,'san-pham':'Bồi thường – '+$('gS').value,'nhu-cau':'Yêu cầu giám định bồi thường (văn phòng 3D)'});};}});
-  else if(id==='thang')openInfo({title:'Thang máy · Thang bộ',tag:'Các tầng trên',icon:'lift',color:'#475467',soft:'#EEF0F3',intro:'Các tầng trên là khu làm việc nội bộ của chi nhánh. Nhập mã truy cập để đi thang máy lên tầng.',
+  else if(id==='thangbo')openInfo({title:'Thang bộ',tag:'Lên Tầng 2',icon:'stairs',color:'#0F7A4B',soft:'#E7F4EC',intro:'Thang bộ chỉ đi lên Tầng 2 – Ban Giám đốc. Lên các tầng 3 đến 7, mời anh/chị đi thang máy ngay bên cạnh.',
+      body:`<div id="stairBox"></div><button class="linkbtn" id="toLift">${ic('lift',16)} Đi thang máy lên tầng 3–7</button><p class="note">Khách cần gặp trực tiếp, vui lòng báo lễ tân để được hẹn lịch.</p>`,after:()=>{$('toLift').onclick=()=>goStation('thang');stairUI();}});
+  else if(id==='thang')openInfo({title:'Thang máy',tag:'Các tầng trên',icon:'lift',color:'#475467',soft:'#EEF0F3',intro:'Các tầng trên là khu làm việc nội bộ của chi nhánh. Nhập mã truy cập để đi thang máy lên tầng.',
       body:`<div id="liftBox"></div><p class="note">Khách cần gặp trực tiếp, vui lòng báo lễ tân để được hẹn lịch.</p>
       <button class="linkbtn" id="toRecep">${ic('user',16)} Báo lễ tân hẹn lịch</button>`,after:()=>{$('toRecep').onclick=()=>goReception(true);liftUI();}});
   else if(id==='han')openInfo({title:'한국 고객 상담실',tag:'Khách hàng Hàn Quốc',icon:'users',color:'#0047A0',soft:'#E8EEF8',intro:'한국어로 베트남 보험을 상담해 드립니다. · Tư vấn viên Thu Trang hỗ trợ khách hàng cá nhân và doanh nghiệp Hàn Quốc bằng tiếng Hàn.',
@@ -2056,8 +2100,9 @@ $('bHelp').onclick=()=>$('help').classList.add('open');$('helpX').onclick=()=>$(
 
 /* ================= TƯƠNG TÁC ================= */
 const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
-function pick(x,y){ndc.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(ndc,camera);const h=ray.intersectObjects(clickables,false);
-  for(const it of h){if(it.distance<.1)continue;if(UP.pickOk&&!UP.pickOk(it.object))continue;return it;}return null;}
+let _PL=null,_PLn=-1;function pickList(){const n=clickables.length*100000+OCC.length;if(n!==_PLn){_PL=clickables.concat(OCC);_PLn=n;}return _PL;}
+function pick(x,y){ndc.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(ndc,camera);const h=ray.intersectObjects(UP.floor>1?clickables:pickList(),false);
+  for(const it of h){if(it.distance<.1)continue;if(it.object.userData.occ){if(it.object.visible===false)continue;return null;}if(UP.pickOk&&!UP.pickOk(it.object))continue;return it;}return null;}
 let down=null;
 canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,yaw:cam.yaw,pitch:cam.pitch,moved:false};canvas.setPointerCapture(e.pointerId);canvas.focus();audioInit();});
 canvas.addEventListener('pointermove',e=>{
@@ -2171,7 +2216,7 @@ function buildMarkers(){
   if(STATIONS.han&&STATIONS.han.staff)add(STATIONS.han.staff,{type:'st',id:'han',label:'Tư vấn viên Thu Trang — 한국 고객 상담실'},'han');
   ['thungan','giamdinh'].forEach(id=>{const st=STATIONS[id];if(st&&st.staff)add(st.staff,{type:'st',id,label:id==='thungan'?'Quầy thu ngân — thanh toán, nhận giấy chứng nhận':'Chuyên viên giám định Hùng — hỗ trợ bồi thường'},id);});
   const rm=()=>new THREE.MeshBasicMaterial({color:'#E8920A',transparent:true,opacity:.7,depthWrite:false,side:THREE.DoubleSide});
-  [['sofa',-6.6,2.2,1.5],['kiosk',5,7.6,.55],['standee',-4.15,-2.85,.6],['dir',3.0,10.0,.95],['giamdinh',9.2,14.35,1.25],['thang',-1.2,-11.9,1.25],['giamdinh',12.8,17.6,2.55],['giamdinh',16.7,17.4,2.55]].forEach(([id,x,z,r])=>{
+  [['sofa',-6.6,2.2,1.5],['kiosk',5,7.6,.55],['standee',-4.15,-2.85,.6],['dir',3.0,10.0,.95],['giamdinh',9.2,14.35,1.25],['thang',-1.2,-11.9,1.25],['thangbo',2.4,-6.75,.75],['giamdinh',12.8,17.6,2.55],['giamdinh',16.7,17.4,2.55]].forEach(([id,x,z,r])=>{
     const g=new THREE.Group();g.position.set(x,.025,z);scene.add(g);const a=new THREE.Mesh(new THREE.RingGeometry(r-.045,r,64),rm());a.rotation.x=-Math.PI/2;g.add(a);
     const b=new THREE.Mesh(new THREE.RingGeometry(r-.03,r,64),rm());b.rotation.x=-Math.PI/2;g.add(b);MK.rings.push({g,a,b,id,r});});}
 function mkTop(m){if(m.top>0&&m.P.g.children.length===m.kids)return m.top;const b=new THREE.Box3().setFromObject(m.P.g);if(b.isEmpty())return 0;m.kids=m.P.g.children.length;m.top=b.max.y;return m.top;}
