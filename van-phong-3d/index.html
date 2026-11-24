@@ -102,6 +102,8 @@ body.pnl #joy{display:none}
 @keyframes flash{0%,60%{border-color:var(--ac);box-shadow:0 0 0 4px var(--acn)}100%{}}
 .sp .ask{display:inline-flex;align-items:center;gap:5px;margin-top:8px;margin-left:6px;font-size:12.5px;font-weight:600;color:var(--navy);padding:3px 6px;border-radius:6px}
 .sp .ask:hover{background:var(--x-100)}
+.spc{padding:10px 12px}.sph{display:flex;align-items:center;gap:11px}.sph b{font-size:14.5px;line-height:1.3}.spi{width:38px;height:38px;border-radius:10px;background:var(--acn);color:var(--ac);display:flex;align-items:center;justify-content:center;flex:none}
+.spc .spb{margin-top:9px;gap:4px}.spc .catbtn{margin-top:0}.spc .ask{margin-top:0;margin-left:2px;white-space:nowrap}
 .step{display:flex;gap:10px;margin-bottom:12px}
 .step i{flex:none;width:26px;height:26px;border-radius:8px;background:var(--acn);color:var(--ac);font-style:normal;font-weight:800;font-size:13px;display:grid;place-items:center}
 .step p{font-size:13.5px;line-height:1.5;color:var(--x-700)}
@@ -305,7 +307,6 @@ body.pnl #joy{display:none}
     <button class="tbtn gift" id="bGift" title="Bốc quà mỗi ngày"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg><span>Bốc quà</span><b class="bdg" id="bGiftN"></b></button>
     <button class="tbtn" id="bMap"><svg class="ic" viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span>Sơ đồ</span></button>
     <button class="tbtn" id="bMusic" title="Nhạc nền"><svg class="ic" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg><span>Nhạc</span></button>
-    <button class="tbtn" id="bVoice" title="Giọng lễ tân"><svg class="ic" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><span>Giọng nói</span></button>
     <button class="tbtn" id="bHelp"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17.5h.01"/></svg><span>Hướng dẫn</span></button>
     <a class="tbtn" href="/?web=1"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg><span>Giao diện thường</span></a>
   </div>
@@ -353,6 +354,7 @@ body.pnl #joy{display:none}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/BufferGeometryUtils.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
 <script src="data.js?v=2"></script>
 <script>
 (function(){
@@ -409,6 +411,15 @@ const LIFT={doors:[],ok:false,code:'2025'};
 const ORDER=['xe','suckhoe','taisan','hanghoa','congtrinh','boithuong'];
 const CHATS_ALL=ORDER.concat(['ctv','tuvan']);
 const ICONS={
+  ev:'<path d="M3 16v-3l2-5h9l2 5v3z"/><circle cx="6.5" cy="16" r="1.8"/><circle cx="12.5" cy="16" r="1.8"/><path d="M20 4l-2 4h3l-2 4"/>',
+  moto:'<circle cx="5.5" cy="16" r="3"/><circle cx="18.5" cy="16" r="3"/><path d="M5.5 16l4-6h5l4 6M12 10l-2-3H8M14.5 10l1-3h2"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+  bandage:'<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M10.5 10.5h.01M13.5 13.5h.01M10.5 13.5h.01M13.5 10.5h.01"/>',
+  fire:'<path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 3-5 5-5 8 0 4 3 7 7 7z"/>',
+  building:'<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M11 21v-3h2v3"/>',
+  ship:'<path d="M3 15l2 5h14l2-5zM6 15V9h12v6M10 9V5h4v4"/>',
+  steth:'<path d="M6 3v5a4 4 0 0 0 8 0V3"/><path d="M10 12v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/>',
+  pen:'<path d="M3 21l3-1 12-12-2-2L4 18zM14 6l2-2 4 4-2 2"/>',
   scale:'<path d="M12 3v18M7 21h10M5 7h14M12 4.5l-7 2.5M12 4.5l7 2.5"/><path d="M5 7l-3 7a3.5 3.5 0 0 0 6 0zM19 7l-3 7a3.5 3.5 0 0 0 6 0z"/>',
   gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
   phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
@@ -438,7 +449,7 @@ const ic=(n,s=18)=>`<svg class="ic" style="width:${s}px;height:${s}px" viewBox="
 
 /* ================= RENDERER ================= */
 const canvas=$('c');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.outputEncoding=THREE.sRGBEncoding;
 const AIRY=!/[?&]look=cu/.test(location.search);
@@ -453,7 +464,8 @@ const cam={pos:new V3(0,12,35.4),yaw:0,pitch:.55};
 const ANISO=renderer.capabilities.getMaxAnisotropy();
 const HAS_ENV=!!THREE.RoomEnvironment;
 if(HAS_ENV){const pm=new THREE.PMREMGenerator(renderer);scene.environment=pm.fromScene(new THREE.RoomEnvironment(),.04).texture;}
-function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?74:62;camera.updateProjectionMatrix();}
+const YT_ID='s01x6Hag0xg';const TVV={ok:false,act:false,snd:false,userSnd:true};
+function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);if(TVV.r)TVV.r.setSize(w,h);camera.aspect=w/h;camera.fov=w<h?74:62;camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
 
 /* ================= HELPERS ================= */
@@ -987,7 +999,7 @@ function drawLed(){if(!LED.tex)return;const x=LED.tex.userData.ctx,W=1280,Hh=400
   x.fillStyle=open?'#0FA968':'#E8920A';rr(x,bx+262,62,130,40,20);x.fill();x.fillStyle='#fff';x.font='700 22px "Be Vietnam Pro",sans-serif';x.fillText(open?'ĐANG MỞ':'NGOÀI GIỜ',bx+(open?284:274),90);
   // dải chữ chạy màu cam thương hiệu
   x.fillStyle='#E8920A';x.fillRect(0,Hh-70,W,70);x.fillStyle='#fff';x.font='700 34px "Be Vietnam Pro",sans-serif';
-  const msg='Hotline tư vấn 0869 656 561   •   Tổng đài bồi thường 24/7: 1900 96 96 90   •   Giờ làm việc: Thứ Hai – Thứ Sáu, 08:00 – 18:00   •   BT20 - C37, TDP 20, Thanh Xuân, Hà Nội   •   ';
+  const msg='Hotline tư vấn 0869 65 65 61   •   Tổng đài bồi thường 24/7: 1900 96 96 90   •   Giờ làm việc: Thứ Hai – Thứ Sáu, 08:00 – 18:00   •   BT20 - C37, TDP 20, Thanh Xuân, Hà Nội   •   ';
   const mw=x.measureText(msg).width,off=((performance.now()-LED.t0)/1000*90)%mw;x.fillText(msg,-off,Hh-24);x.fillText(msg,mw-off,Hh-24);
   LED.tex.needsUpdate=true;}
 
@@ -1022,7 +1034,7 @@ function drawStandee(x,W,Hh,hero){x.fillStyle='#ffffff';x.fillRect(0,0,W,Hh);
     x.fillStyle='#fff';x.font='900 40px "Be Vietnam Pro",sans-serif';x.fillText(c[0],84,y+82);x.fillStyle='#063A2B';x.font='700 32px "Be Vietnam Pro",sans-serif';x.fillText(c[1],224,y+60);x.font='600 32px "Be Vietnam Pro",sans-serif';x.fillStyle='#2E6B52';x.fillText(c[2],224,y+102);});
   x.fillStyle='#E8920A';rr(x,48,1690,704,70,35);x.fill();x.fillStyle='#fff';x.font='800 30px "Be Vietnam Pro",sans-serif';x.fillText('Xe dưới 3 năm: không thu phụ phí EV21 & EV24',72,1736);
   x.fillStyle='#084C38';x.fillRect(0,1790,W,210);x.fillStyle='#A8D5BD';x.font='700 28px "Be Vietnam Pro",sans-serif';x.fillText('TÍNH PHÍ CHO XE CỦA BẠN',56,1850);
-  x.fillStyle='#fff';x.font='900 72px "Be Vietnam Pro",sans-serif';x.fillText('0869 656 561',52,1930);x.fillStyle='#8ED1A9';x.font='500 20px "Be Vietnam Pro",sans-serif';x.fillText('Quyền lợi theo Quy tắc riêng cho xe năng lượng xanh của DBV',56,1972);
+  x.fillStyle='#fff';x.font='900 72px "Be Vietnam Pro",sans-serif';x.fillText('0869 65 65 61',52,1930);x.fillStyle='#8ED1A9';x.font='500 20px "Be Vietnam Pro",sans-serif';x.fillText('Quyền lợi theo Quy tắc riêng cho xe năng lượng xanh của DBV',56,1972);
   x.fillStyle='#fff';rr(x,598,1816,150,150,16);x.fill();x.fillStyle='#9aa6b1';x.font='600 20px "Be Vietnam Pro",sans-serif';x.fillText('Mã QR',636,1898);}
 
 /* ================= ĐIỂM NHẤN MÀU CAM THƯƠNG HIỆU ================= */
@@ -1120,7 +1132,7 @@ async function playMusic(key){MUSIC.cur=key;stopMusic(true);if(!MUSIC.on)return;
   if(src){const a=new Audio(src);a.loop=true;a.volume=musicOut()?0:MUSIC.vol;MUSIC.el=a;MUSIC.out=false;a.play().catch(()=>{});}else MUSIC.gen=genMusic(key);
   const b=$('bMusic');if(b)b.classList.add('on');}
 const musicOut=()=>UP.floor===1&&cam.pos.z>13.2; // ngoài cửa chính: vỉa hè, bãi đỗ xe
-function musicZone(dt){const a=MUSIC.el;if(!a)return;const out=musicOut();
+function musicZone(dt){const a=MUSIC.el;if(!a)return;const out=musicOut()||!!MUSIC.duck;
   if(out!==MUSIC.out){MUSIC.out=out;if(!out&&a.paused)a.play().catch(()=>{});}
   const tv=out?0:MUSIC.vol;a.volume=Math.max(0,Math.min(1,a.volume+(tv-a.volume)*Math.min(1,dt*3)));if(out&&a.volume<.01&&!a.paused)a.pause();}
 function stopMusic(keep){if(MUSIC.el){MUSIC.el.pause();MUSIC.el=null;}if(MUSIC.gen){MUSIC.gen.stop();MUSIC.gen=null;}if(!keep){const b=$('bMusic');if(b)b.classList.remove('on');}}
@@ -1263,7 +1275,7 @@ function buildCrowd(){
   seat('Khach-7',DEPTS.suckhoe.cch&&DEPTS.suckhoe.cch[0],1.36,facing(DEPTS.suckhoe.out));
   seat('Khach-8',KR_CH[1],1.38,Math.PI);
   ORDER.forEach((id,i)=>{const d=DEPTS[id];const at=(a,b,y)=>d.door.clone().addScaledVector(d.out,a).addScaledVector(d.right,b).setY(y);
-    const s=at(d.depth*.56-1.0,['xe','suckhoe'].includes(id)?-.75:-2.25,.5);propBag(s.x,s.y,s.z,facing(d.out)+.4,['#7a4a2b','#2b3a55','#8c2f39','#3b5b4a','#5a4636','#1f2933'][i%6]);
+    const s=at(d.depth*.56-1.0,-2.25,.5);if(!['xe','suckhoe'].includes(id))propBag(s.x,s.y,s.z,facing(d.out)+.4,['#7a4a2b','#2b3a55','#8c2f39','#3b5b4a','#5a4636','#1f2933'][i%6]);
     const c=at(d.depth*.56-.32,-2.0,.78);propCup(c.x,c.y,c.z);const f=at(d.depth*.56-.3,-1.6,.776);propFolder(f.x,f.y,f.z,facing(d.out));});
   propBag(-6.5,.5,3.15,-Math.PI/2+.3,'#c48a5a');
   propCup(7.35,.8,5.45);propCup(7.85,.8,5.75);propFolder(7.6,.776,5.4,.2);
@@ -1285,6 +1297,29 @@ function updateCrowd(dt,t){CROWD.forEach(p=>{
 
 /* ================= DỰNG VĂN PHÒNG ================= */
 const STATIONS={};
+/* Video YouTube trên TV khu chờ: iframe đặt sau canvas bằng CSS3D, ô màn hình TV trên canvas được khoét trong suốt để video hiện ra.
+   Tự chạy không tiếng khi khách vào sảnh; ngồi sofa thì bật tiếng và tạm dừng nhạc nền.
+   Không tải được video (mạng chặn, lỗi nhúng) thì sau 15 giây TV quay về bảng tin. */
+function ytCmd(func,args){try{TVV.el.contentWindow.postMessage(JSON.stringify(func==='listening'?{event:'listening',id:1,channel:'widget'}:{event:'command',func,args:args||[],id:1,channel:'widget'}),'*');}catch(e){}}
+function tvVideoInit(){if(TVV.el||TVV.dead||!THREE.CSS3DRenderer||!TVV.mesh)return;const W=1280,H=720;
+  const f=document.createElement('iframe');f.title='Video Bảo hiểm DBV';f.allow='autoplay; encrypted-media; picture-in-picture';f.referrerPolicy='strict-origin-when-cross-origin';
+  f.src=`https://www.youtube.com/embed/${YT_ID}?autoplay=1&mute=1&loop=1&playlist=${YT_ID}&controls=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&enablejsapi=1&origin=${encodeURIComponent(location.origin)}`;
+  f.style.cssText=`width:${W}px;height:${H}px;border:0;background:#000;pointer-events:none`;TVV.el=f;
+  const o=new THREE.CSS3DObject(f);o.position.copy(TVV.mesh.position);o.rotation.copy(TVV.mesh.rotation);o.scale.setScalar(2.68/W);TVV.scene=new THREE.Scene();TVV.scene.add(o);
+  const r=new THREE.CSS3DRenderer();r.setSize(innerWidth,innerHeight);r.domElement.style.cssText='position:fixed;inset:0;pointer-events:none;overflow:hidden';document.body.insertBefore(r.domElement,canvas);TVV.r=r;
+  f.addEventListener('load',()=>{ytCmd('listening');setTimeout(()=>ytCmd('listening'),1500);});
+  TVV.t=setTimeout(()=>{if(!TVV.ok)tvVideoOff();},15000);}
+function tvHole(on){if(!TVV.mesh)return;if(on){if(!TVV.hole)TVV.hole=new THREE.MeshBasicMaterial({color:0x000000,opacity:0,blending:THREE.NoBlending,toneMapped:false});TVV.mesh.material=TVV.hole;}else TVV.mesh.material=TVV.mat;}
+function tvVideoOff(){TVV.dead=true;TVV.ok=false;clearTimeout(TVV.t);tvHole(false);if(TVV.r){TVV.r.domElement.remove();TVV.r=null;}TVV.el=null;MUSIC.duck=false;}
+addEventListener('message',e=>{if(!TVV.el||e.source!==TVV.el.contentWindow)return;let d;try{d=typeof e.data==='string'?JSON.parse(e.data):e.data;}catch(x){return;}if(!d||!d.event)return;
+  if(d.event==='onError')return tvVideoOff();
+  if(!TVV.ok&&/^(onReady|initialDelivery|infoDelivery|onStateChange)$/.test(d.event)){TVV.ok=true;clearTimeout(TVV.t);tvHole(true);TVV.act=null;}});
+function tvVideoFrame(){if(!TVV.r||!TVV.ok)return;const act=UP.floor===1&&!musicOut();
+  if(act!==TVV.act){TVV.act=act;ytCmd(act?'playVideo':'pauseVideo');}
+  const want=act&&mode==='station'&&curSt==='sofa'&&TVV.userSnd;
+  if(want!==TVV.snd){TVV.snd=want;if(want){ytCmd('unMute');ytCmd('setVolume',[80]);}else ytCmd('mute');MUSIC.duck=want;const b=$('tvSnd');if(b)b.innerHTML=tvSndLabel();}
+  if(act)TVV.r.render(TVV.scene,camera);}
+const tvSndLabel=()=>`${ic(TVV.snd?'x':'send',16)} ${TVV.snd?'Tắt tiếng video':'Bật tiếng video'}`;
 let RECEP,mirror=null,toiletLight,toiletLamp,tvTex,stalls=[],autoDoors=[],faucets=[],car,carHots=[];
 function build(){
   // Ánh sáng
@@ -1368,9 +1403,12 @@ function build(){
   /* ---- Tường logo (khu nhân viên) + quầy lễ tân ---- */
   const logo=ctex(2400,640,(x,w,h)=>{x.fillStyle='#ffffff';x.fillRect(0,0,w,h);const L=IMG.full;
     if(L){const lh=390,lw=L.width*lh/L.height;x.drawImage(L,w/2-lw/2-560,(h-lh)/2-10,lw,lh);x.fillStyle='#D8DEE4';x.fillRect(w/2-560+lw/2+70,130,4,h-260);
-      const tx=w/2-560+lw/2+140;x.textBaseline='alphabetic';x.fillStyle='#255770';x.font='700 46px "Be Vietnam Pro",sans-serif';x.fillText('CÔNG TY CỔ PHẦN TẬP ĐOÀN BẢO HIỂM DBV',tx,250);
-      x.fillStyle='#007437';x.font='800 104px "Be Vietnam Pro",sans-serif';x.fillText('CHI NHÁNH THÀNH ĐÔ',tx,380);
-      x.fillStyle='#667085';x.font='500 38px "Be Vietnam Pro",sans-serif';x.fillText('BT20 - C37, TDP 20, Thanh Xuân, Hà Nội  ·  0869 656 561',tx,460);}});
+      const tx=w/2-560+lw/2+140;x.textBaseline='alphabetic';x.fillStyle='#255770';x.font='700 46px "Be Vietnam Pro",sans-serif';x.fillText('CÔNG TY CỔ PHẦN TẬP ĐOÀN BẢO HIỂM DBV',tx,190);
+      x.fillStyle='#007437';x.font='800 104px "Be Vietnam Pro",sans-serif';x.fillText('CHI NHÁNH THÀNH ĐÔ',tx,305);
+      // hotline: to, màu cam, nhóm số 0869 65 65 61 cho dễ nhớ — đứng giữa sảnh vẫn đọc được
+      const maxW=w-tx-70;let fs=150;x.font=`900 ${fs}px "Be Vietnam Pro",sans-serif`;while(x.measureText('0869 65 65 61').width+120>maxW&&fs>60){fs-=4;x.font=`900 ${fs}px "Be Vietnam Pro",sans-serif`;}
+      drawIcon(x,'phone',tx+46,478-fs*.36,92,'#E8920A',2.6);x.fillStyle='#E8920A';x.fillText('0869 65 65 61',tx+112,478);
+      x.fillStyle='#667085';x.font='500 34px "Be Vietnam Pro",sans-serif';x.fillText('Hotline tư vấn  ·  BT20 - C37, TDP 20, Thanh Xuân, Hà Nội',tx,560);}});
   const lw=new THREE.Mesh(new THREE.PlaneGeometry(7,1.86),basic(logo));lw.position.set(0,4.55,-6.18);scene.add(lw);
   const desk=new THREE.Group();desk.position.set(0,0,-3.2);scene.add(desk);
   if(AIRY){airyMats();box(5.9,.12,.92,AM.plinth,0,.06,0,desk);box(6.06,.92,1.02,AM.oak,0,.58,0,desk);
@@ -1402,8 +1440,8 @@ function build(){
 
   /* ---- Khu chờ + TV ---- */
   tvTex=ctex(1280,720,()=>{});drawTV(0);
-  const tv=new THREE.Mesh(new THREE.PlaneGeometry(2.6,1.46),basic(tvTex));tv.position.set(-10.62,2.1,2.2);tv.rotation.y=Math.PI/2;scene.add(tv);
-  box(.06,1.56,2.7,std('#111'),-10.69,2.1,2.2,scene,false);
+  const tv=new THREE.Mesh(new THREE.PlaneGeometry(2.6,1.46),basic(tvTex));tv.position.set(-10.62,2.1,2.2);tv.rotation.y=Math.PI/2;scene.add(tv);TVV.mesh=tv;TVV.mat=tv.material;
+  box(.06,1.56,2.7,std('#111'),-10.665,2.1,2.2,scene,false);
   sofa(-6.6,2.2,-Math.PI/2,AIRY?'#537363':'#2E6B52',3);
   const tbl=cyl(.6,.6,.05,M.white,-8.4,.42,2.2);cyl(.05,.2,.4,M.frame,-8.4,.2,2.2);
   box(.4,.025,.28,std('#fff'),-8.3,.46,2.1);box(.36,.025,.26,std('#E8920A'),-8.5,.48,2.3);
@@ -1591,7 +1629,7 @@ function buildDept(id){
   const hit=new THREE.Mesh(new THREE.PlaneGeometry(2.2,3),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));hit.position.copy(P(.15,0,1.5));hit.rotation.y=rot;scene.add(hit);
   clickable(hit,{type:'st',id,label:'Vào '+d.full});
   hitBox(.9,2,.9,sp.x,1,sp.z,{type:'st',id,label:'Chuyên viên '+STAFF[id]+' — '+d.name});
-  STATIONS[id]={name:d.full,walk:P(.7,0,EYE),stand:P(.8,0,EYE),look:P(depth*.56+1.2,-3.2,1.2),kind:'chat',back:P(-1.6,0,EYE),staffLook:true};
+  STATIONS[id]={name:d.full,walk:P(.7,0,EYE),stand:P(depth*.56-1.12,-.75,1.2),look:P(depth*.56+.72,-1.5,1.12),seat:true,kind:'chat',back:P(-1.6,0,EYE),staffLook:true};
 }
 
 function buildToilet(){
@@ -1741,8 +1779,8 @@ function buildLiftCore(){const A=airyMats();
   clickable(pf,{type:'st',id:'thang',label:'Danh mục tầng — Ban Giám đốc, Tài chính, Nhân sự, Marketing…'});
   hitBox(2.2,2.6,5.6,cx,1.3,-9.9,{type:'st',id:'thangbo',label:'Thang bộ — lên Tầng 2 (cần mã truy cập)'});
   // biển nhỏ phía sảnh, dưới bảng logo
-  const ls=ctex(900,130,(c,w,hh)=>{c.fillStyle='#084C38';rr(c,0,0,w,hh,16);c.fill();drawIcon(c,'lift',70,hh/2,72,'#fff',2.2);drawIcon(c,'stairs',150,hh/2,72,'#fff',2.4);c.fillStyle='#fff';c.font='800 50px "Be Vietnam Pro",sans-serif';c.textBaseline='middle';c.fillText('Thang máy · Thang bộ',210,hh/2+3);});
-  const lsm=new THREE.Mesh(new THREE.PlaneGeometry(2.1,.3),basic(ls,{transparent:true}));lsm.position.set(-1.2,3.38,-6.17);scene.add(lsm);clickable(lsm,{type:'st',id:'thang',label:'Thang máy · Thang bộ'});
+  const ls=ctex(900,130,(c,w,hh)=>{c.fillStyle='#084C38';rr(c,0,0,w,hh,16);c.fill();drawIcon(c,'lift',70,hh/2,72,'#fff',2.2);c.fillStyle='#fff';c.font='800 50px "Be Vietnam Pro",sans-serif';c.textBaseline='middle';c.fillText('Thang máy',140,hh/2+3);});
+  const lsm=new THREE.Mesh(new THREE.PlaneGeometry(2.1,.3),basic(ls,{transparent:true}));lsm.position.set(-1.2,3.38,-6.17);scene.add(lsm);clickable(lsm,{type:'st',id:'thang',label:'Thang máy'});
   plant(-3.1,-7.0,'snake',.9);
   STATIONS.thangbo={name:'Thang bộ',walk:new V3(2.4,EYE,-6.2),stand:new V3(2.4,EYE,-6.3),look:new V3(2.4,2.6,-12.6),kind:'info',back:new V3(2.4,EYE,-5.2)};
   STATIONS.thang={name:'Thang máy',walk:new V3(-.4,EYE,-8.6),stand:new V3(-.4,EYE,-8.7),look:new V3(-2.2,1.6,-12.8),kind:'info',back:new V3(0,EYE,-5.2)};
@@ -1816,6 +1854,30 @@ function flagCloth(draw,w,h,x,y,z,ry,seg){const t=ctex(480,320,(c,W,H)=>draw(c,W
   const m=new THREE.Mesh(g,std('#ffffff',{map:t,roughness:.85,side:THREE.DoubleSide}));m.position.set(x,y,z);m.rotation.y=ry||0;m.castShadow=true;scene.add(m);return m;}
 function flagPole(draw,x,z,ry){const A=airyMats();cyl(.025,.025,2.55,A.brass,x,1.3,z,scene,10);const tp=new THREE.Mesh(new THREE.SphereGeometry(.05,12,10),A.brass);tp.position.set(x,2.6,z);scene.add(tp);
   cyl(.2,.24,.06,A.dark,x,.03,z,scene,20);const f=flagCloth(draw,.96,.64,x+.5*Math.cos(ry||0),2.2,z-.5*Math.sin(ry||0),ry);obstacle(x-.25,z-.25,x+.25,z+.25);return f;}
+const ZALO_URL='https://zalo.me/1283738895804393564';
+const ZALO_QR='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAIAAABGWwIdAAAGMUlEQVR42u3dwXEbMRREwaGLN+fhPBy583AePsMp6LAC5wPdAYjSSnqFPUzhtdYKQKsfHgEgUgAiBYgUgEgBiBQgUgAiBYgUgEgBiBQgUgAiBYgUgEgBiBQgUgAiBYgUgEgBiBQgUgAiBdzu/dQX+vnr97UP8d/fP9ue4Vc+66mvs/N7brPzd+H/wkkK8LoHIFKASAGIFIBIASIFIFKASAGIFIBIAbHdy+e3PCnbcN38ddp+pxO3hDf/XzhJAV73AEQKECkAkQIQKUCkAEQKQKQAkQIQKSC2ezltE7RzM+Vuvj2f1faz+79wkgK87gGIFIBIASIFIFKASAGIFIBIASIFIFJAbPeIfdbzG7enPuvUO+xwkgJECkCkAJECECkAkQJECkCkAJECECkAkQJiu0fa78ubeK9cNu7y7PucpABEChApAJECEClApABEChApAJECEClApABy2Xbv1F3Vznvudu77dt4VuPN7bvs7vHlv6CQFiBSASAEiBSBSACIFiBSASAEiBSBSACIFxHYvLTuvXHzvXtvmru3natv33fx/4SQFiBSASAEiBSBSACIFiBSASAGIFCBSACIFHOq11vIUMmffl7Kt3M7dYtszxEkKQKQAkQIQKUCkAEQKQKQAkQIQKUCkAEQKIN+83Tv13rSdu7MM3AC23UvY9lmej5MU4HUPQKQARAoQKQCRAkQKQKQARAoQKQCRAmK7F/fKxebuI/vHndru+HOXopMU4HUPQKQAkQIQKQCRAkQKQKQAkQIQKQCRAo7zzqH3gmXg9qrtdzFxl3fqzrTts5ykAEQKECkAkQJECkCkAEQKECkAkQJECkCkAHLlvXu5eC9286asbSPpTj0nKcDrHoBIAYgUIFIAIgWIFIBIAYgUIFIAIgXEvXsFJu6YJu4Nn3qGX/k6E3dnbffT3bzvc5ICvO4BiBQgUgAiBSBSgEgBiBQgUgAiBSBSQGz3Mmkz1Xa/WNs+KwPvJZy4y8uh+1knKcDrHoBIAYgUIFIAIgWIFIBIAYgUIFIAIgXEdi+2RfZ9fvbe+xbbNq1OUgAiBYgUgEgBIgUgUgAiBYgUgEgBIgUgUgA5brt36q7qqe+n7eu07enafl85dD/rJAV43QMQKQCRAkQKQKQAkQIQKQCRAkQKQKSAi73WWmna3LXdiXbz/Ws791ltfxsZuIM79c5BJynA6x6ASAEiBSBSACIFiBSASAEiBSBSACIFxHYv7kQ75+eauKd76vu5ede58xk6SQFe9wBEChApAJECEClApABECkCkAJECECngUO+U7bwycE+XQ+9Wm7jLS9l9ixN3nW13FzpJAV73AEQKECkAkQIQKUCkAEQKECkAkQIQKSAXb/fa9mI7t4RPbZ1O3eVN3Mqder/hzv2jkxTgdQ9ApABEChApAJECRApApABEChApAJECLvZaa+XWPVTK7oObuE1re84T7xM89e/QSQrwugcgUgAiBYgUgEgBIgUgUgAiBYgUgEgBce9eTtsNTdzT3bzhartXru0577zbse35OEkBXvcARAoQKQCRAhApQKQARAoQKQCRAhApIBdv9ybeU5aNG6Wd99xN3GftvC+vbXM38Rk6SQGIFCBSACIFiBSASAGIFCBSACIFiBSASAFky3Yvh94Ht3PHZL/Wc3+fOxB7nqGTFOB1D0CkAJECECkAkQJECkCkAJECECkAkQJiu5dJW7m2/dqp9xvu3Bu2bS0nbmPbtp9OUoDXPQCRAkQKQKQARAoQKQCRAkQKQKQARAqI7R75/K4qZfusiXvMp75ne0MnKcDrHoBIAYgUIFIAIgWIFIBIAYgUIFIAIgXEdo+0b6Z2btPs13runpu4x3zqs5ykAK97ACIFiBSASAGIFCBSACIFiBSASAGIFBDbvZy2h3If3J6fq+37aduvtf2N7fy5nKQAr3sAIgWIFIBIAYgUIFIAIgWIFIBIAYgUMNBrrZWmTVkO3eV5Pj3P59R931Of1XYvoZMU4HUPQKQAkQIQKQCRAkQKQKQAkQIQKQCRAnLxdg/ASQoQKQCRAhApQKQARAoQKQCRAhApQKQARApApACRAhApQKQARApApACRAhApQKQARApApACRAvgG/wEGrmE5stOhjQAAAABJRU5ErkJggg==';
+// standee Zalo bên trái sảnh, gần lối vào (đối xứng với hộp Bốc quà bên phải)
+function buildZalo(){const X=-4.6,Z=7.8,RY=1.25,g=new THREE.Group();g.position.set(X,0,Z);g.rotation.y=RY;scene.add(g);
+  const metal=std('#c9ced4',{metalness:.8,roughness:.3});box(.84,.08,.3,metal,0,.04,0,g);box(.82,.05,.05,metal,0,2.0,0,g,false);
+  const qi=new Image();const tex=ctex(760,1900,(x,w,h)=>drawZalo(x,w,h,null));qi.onload=()=>{const c=tex.userData.ctx;drawZalo(c,760,1900,qi);tex.needsUpdate=true;};qi.src=ZALO_QR;
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(.78,1.95),basic(tex));m.position.set(0,1.03,.03);g.add(m);
+  const bk=new THREE.Mesh(new THREE.PlaneGeometry(.78,1.95),std('#e9ece8'));bk.position.set(0,1.03,.025);bk.rotation.y=Math.PI;g.add(bk);
+  obstacle(X-.5,Z-.35,X+.5,Z+.35);blob(X,Z,1,.6,.6);
+  clickable(m,{type:'st',id:'zalo',label:'Nhắn tin tư vấn qua Zalo'});
+  const d=new V3(Math.sin(RY),0,Math.cos(RY));
+  STATIONS.zalo={name:'Tư vấn qua Zalo',walk:new V3(X+d.x*1.9,EYE,Z+d.z*1.9),stand:new V3(X+d.x*1.85,EYE,Z+d.z*1.85),look:new V3(X,1.2,Z),kind:'info',back:new V3(X+d.x*2,EYE,Z+d.z*2),
+    open:()=>openInfo({title:'Tư vấn qua Zalo',tag:'Zalo',icon:'chat',color:'#0068FF',soft:'#E8F1FF',intro:'Nhắn tin cho Bảo hiểm DBV · Chi nhánh Thành Đô qua Zalo — chuyên viên trả lời trong giờ làm việc.',
+      body:`<div style="text-align:center"><img src="${ZALO_QR}" alt="Mã QR Zalo Bảo hiểm DBV" style="width:200px;height:200px;border-radius:12px;border:1px solid var(--x-100)"><p style="font-size:13px;color:var(--x-700);margin:8px 0 14px">Quét mã bằng ứng dụng Zalo trên điện thoại</p>
+        <a class="catbtn" href="${ZALO_URL}" target="_blank" rel="noopener" style="height:40px;padding:0 18px;font-size:14px">${ic('chat',16)} Mở Zalo để nhắn tin</a>
+        <p style="font-size:13px;color:var(--x-700);margin-top:14px">Hoặc gọi hotline <a href="tel:0869656561" style="color:#E8920A;font-weight:800">0869 65 65 61</a></p></div>`})};}
+function drawZalo(x,w,h,qr){x.fillStyle='#ffffff';x.fillRect(0,0,w,h);x.fillStyle='#0068FF';x.fillRect(0,0,w,380);
+  x.fillStyle='#fff';x.font='900 150px "Be Vietnam Pro",sans-serif';x.textAlign='center';x.fillText('Zalo',w/2,215);x.font='700 46px "Be Vietnam Pro",sans-serif';x.fillText('Nhắn tin tư vấn',w/2,300);
+  x.fillStyle='#063A2B';x.font='800 54px "Be Vietnam Pro",sans-serif';x.fillText('Chat với chuyên viên',w/2,480);x.fillText('Bảo hiểm DBV',w/2,550);
+  x.fillStyle='#F2F6FF';rr(x,90,620,w-180,w-180,36);x.fill();if(qr)x.drawImage(qr,130,660,w-260,w-260);
+  x.fillStyle='#0068FF';x.font='700 40px "Be Vietnam Pro",sans-serif';x.fillText('Quét mã bằng Zalo',w/2,w+520);
+  x.fillStyle='#E8920A';rr(x,70,w+600,w-140,120,60);x.fill();x.fillStyle='#fff';x.font='800 50px "Be Vietnam Pro",sans-serif';x.fillText('Bấm để mở Zalo',w/2,w+678);
+  x.fillStyle='#084C38';x.fillRect(0,h-210,w,210);x.fillStyle='#A8D5BD';x.font='700 30px "Be Vietnam Pro",sans-serif';x.fillText('HOTLINE TƯ VẤN',w/2,h-140);
+  x.fillStyle='#fff';x.font='900 72px "Be Vietnam Pro",sans-serif';x.fillText('0869 65 65 61',w/2,h-60);x.textAlign='left';}
 const KR_CH=[];
 function buildKorean(){const A=airyMats();const cx=-14.4;
   // màn hình chào mừng tiếng Hàn trên tường sau
@@ -1882,7 +1944,7 @@ function buildKorean(){const A=airyMats();const cx=-14.4;
   hitBox(2.2,3,.3,cx,1.5,-6.15,{type:'st',id:'han',label:'Vào 한국 고객 상담실'});
   hitBox(2.8,1.7,.3,cx,2.25,-12.7,{type:'st',id:'han',label:'한국 고객 상담실 — tư vấn bằng tiếng Hàn'});
   hitBox(1,1.6,1,cx,.8,dz-.95,{type:'st',id:'han',label:'Tư vấn viên Thu Trang — 한국어 상담'});
-  STATIONS.han={name:'한국 고객 상담실',walk:new V3(cx,EYE,-7.6),stand:new V3(cx,EYE,-8.3),look:new V3(cx,1.3,dz-1),kind:'info',back:new V3(cx,EYE,-5.3),staff:P};
+  STATIONS.han={name:'한국 고객 상담실',walk:new V3(cx,EYE,-7.6),stand:new V3(cx-.55,1.2,dz+1.0),look:new V3(cx,1.15,dz-.95),kind:'info',back:new V3(cx,EYE,-5.3),staff:P};
 }
 function buildDirectory(){
   const rows=[['Lễ tân – Tư vấn','up','#084C38','recep'],['Xe cơ giới','upl',DEPTS.xe.color,'xe'],['Sức khỏe','left',DEPTS.suckhoe.color,'suckhoe'],['Tài sản – Xây dựng','right',DEPTS.taisan.color,'taisan'],
@@ -1939,7 +2001,7 @@ function lookShift(stand,look,wide){if(innerWidth<=720){const dist=look.clone().
 let mode='intro',curSt=null,voice=false,busy=false,lookAtTarget=null;
 const RECEP_POS=new V3(0,EYE,-.8),RECEP_LOOK=new V3(.2,1.5,-4.1);
 async function walkTo(target,finalLook){const path=findPath(cam.pos,target);if(path)await walkPath(path);else await flyTo(target.clone().setY(EYE),null);if(finalLook)await flyTo(cam.pos.clone(),finalLook,.5);}
-const HIDE_TIP={quatang:'Bấm lại vào hộp quà để bốc quà',standee:'Bấm lại vào standee để xem quyền lợi',thang:'Bấm lại vào thang máy để chọn tầng',thangbo:'Bấm lại vào thang bộ để lên Tầng 2',han:'Bấm lại vào tư vấn viên để mở lại',kiosk:'Bấm lại vào kiosk để tra cứu',rieng:'Bấm lại vào biển phòng để đặt lịch tư vấn riêng',giamdinh:'Bấm lại vào chuyên viên Hùng hoặc biển giám định',thungan:'Bấm lại vào quầy thu ngân',sofa:'Bấm lại vào sofa để gọi đồ uống'};
+const HIDE_TIP={zalo:'Bấm lại vào standee Zalo để mở mã QR',quatang:'Bấm lại vào hộp quà để bốc quà',standee:'Bấm lại vào standee để xem quyền lợi',thang:'Bấm lại vào thang máy để chọn tầng',thangbo:'Bấm lại vào thang bộ để lên Tầng 2',han:'Bấm lại vào tư vấn viên để mở lại',kiosk:'Bấm lại vào kiosk để tra cứu',rieng:'Bấm lại vào biển phòng để đặt lịch tư vấn riêng',giamdinh:'Bấm lại vào chuyên viên Hùng hoặc biển giám định',thungan:'Bấm lại vào quầy thu ngân',sofa:'Bấm lại vào sofa để gọi đồ uống'};
 function hidePanel(){closePanel();toast(HIDE_TIP[curSt]||(STATIONS[curSt]&&STATIONS[curSt].kind==='info'?'Bấm lại vào đây để mở bảng thông tin':'Bấm vào chuyên viên để mở lại · phím mũi tên để rời phòng'));}
 async function leaveCurrent(){if(mode==='station'&&curSt){const st=STATIONS[curSt];closePanel();if(st.back)await flyTo(st.back,null,.6);mode='lobby';curSt=null;setNav(null);}}
 async function goReception(open=true){
@@ -1951,7 +2013,7 @@ async function goStation(id){
   const path=findPath(cam.pos,st.walk);if(path){if(!guide)showGuide(path,new THREE.Color(DEPTS[id]?DEPTS[id].color:'#007437'));await walkPath(path);}
   clearGuide();
   if(st.kind==='walk'){await flyTo(st.stand,st.look,.7);mode='lobby';busy=false;return;}
-  const wide=st.kind==='chat';const look=st.kind==='sofa'&&innerWidth>720?st.look:lookShift(st.stand,st.look,wide);
+  const wide=st.kind==='chat';const look=(st.kind==='sofa'||st.seat)&&innerWidth>720?st.look:lookShift(st.stand,st.look,wide);
   await flyTo(st.stand,look,.9);mode='station';curSt=id;busy=false;
   const staff=(DEPTS[id]&&DEPTS[id].staff)||st.staff;if(staff)staff.waveT=performance.now()/1000;
   openStation(id);}
@@ -1961,10 +2023,10 @@ function openStation(id){const st=STATIONS[id];if(st.open)return st.open();
       body:`<div class="colh">Anh/chị dùng gì ạ?</div><div class="chips" id="drk">${DRINKS.map(d=>`<button data-k="${d[0]}">${d[1]}</button>`).join('')}</div>
         <div class="colh" style="margin-top:14px">Nhạc chờ trong sảnh</div><div class="chips" id="mus">${MUSIC_OPTS.map(m=>`<button data-k="${m[0]}" class="${MUSIC.on&&MUSIC.cur===m[0]?'act':''}">${m[1]}</button>`).join('')}<button data-k="off" class="${MUSIC.on?'':'act'}">Tắt nhạc</button></div>
         <div class="colh" style="margin-top:14px">Bảng tin – bài viết mới</div><div id="newsL">${NEWS.slice(0,8).map((n,i)=>`<a class="nwi" href="/tin-tuc/${n[0]}" target="_blank" rel="noopener" data-i="${i}"><small>${n[1]} · ${n[2]}</small><b>${n[3]}</b></a>`).join('')}</div>
-        <button class="linkbtn" id="tvNext">${ic('send',16)} Chuyển bài tiếp theo trên màn hình</button>`,
-      after:()=>{$('tvNext').onclick=()=>{tvIdx++;drawTV(tvIdx);tvAt=performance.now();};
+        ${TVV.ok?`<button class="linkbtn" id="tvSnd">${tvSndLabel()}</button>`:`<button class="linkbtn" id="tvNext">${ic('send',16)} Chuyển bài tiếp theo trên màn hình</button>`}`,
+      after:()=>{if($('tvNext'))$('tvNext').onclick=()=>{tvIdx++;drawTV(tvIdx);tvAt=performance.now();};if($('tvSnd'))$('tvSnd').onclick=()=>{TVV.userSnd=!TVV.snd;};
         $('drk').querySelectorAll('button').forEach(b=>b.onclick=()=>{$('drk').querySelectorAll('button').forEach(x=>x.classList.toggle('act',x===b));serveDrink(b.dataset.k);});
-        $('mus').querySelectorAll('button').forEach(b=>b.onclick=()=>{$('mus').querySelectorAll('button').forEach(x=>x.classList.toggle('act',x===b));if(b.dataset.k==='off'){MUSIC.on=false;stopMusic();}else{MUSIC.on=true;playMusic(b.dataset.k);}});
+        $('mus').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.dataset.k!=='off')TVV.userSnd=false;$('mus').querySelectorAll('button').forEach(x=>x.classList.toggle('act',x===b));if(b.dataset.k==='off'){MUSIC.on=false;stopMusic();}else{MUSIC.on=true;playMusic(b.dataset.k);}});
         $('newsL').querySelectorAll('a').forEach(a=>a.onmouseenter=()=>{tvIdx=+a.dataset.i;drawTV(tvIdx);tvAt=performance.now();});},backLabel:'Đứng dậy'});
   else if(id==='kiosk')openInfo({title:'Tra cứu giấy chứng nhận',tag:'Kiosk',icon:'search',color:'#084C38',soft:'#E7ECF5',intro:'Nhập biển số xe để kiểm tra giấy chứng nhận bảo hiểm còn hiệu lực.',
       body:`<div class="lead"><form id="kF" novalidate><input id="kI" placeholder="Ví dụ: 30A-123.45" maxlength="14" autocomplete="off"><button>Tra cứu</button></form><div class="err" id="kE"></div></div><div class="res" id="kR"></div>`,
@@ -2020,7 +2082,7 @@ const SCRIPT={
   ask_xe:{t:'Dạ, xe của anh/chị là ô tô hay xe máy ạ?',o:[['Ô tô','g:xe'],['Xe máy','g:xe'],['Hỏi việc khác','greet']]},
   free:{t:'Dạ vâng ạ. Bảng chỉ dẫn ở gần cửa ra vào, nút Sơ đồ ở góc trên giúp anh/chị chọn nhanh khu cần tới. Cần gì cứ quay lại quầy gọi em nhé.',o:[['Cảm ơn em','close']]}
 };
-const DIRS={quatang:'phía trước bên phải sảnh, gần lối vào',thang:'ngay phía sau quầy lễ tân, đi vòng qua hai bên quầy',han:'cuối hành lang phía sau, bên trái',rieng:'bên trái sảnh đón, qua cửa kính có biển Phòng tư vấn riêng',wc:'cuối hành lang phía sau, bên phải — có biển Nhà vệ sinh',thungan:'phía trước, bên phải lối vào'};
+const DIRS={zalo:'bên trái sảnh, gần lối vào — standee màu xanh Zalo',quatang:'phía trước bên phải sảnh, gần lối vào',thang:'ngay phía sau quầy lễ tân, đi vòng qua hai bên quầy',han:'cuối hành lang phía sau, bên trái',rieng:'bên trái sảnh đón, qua cửa kính có biển Phòng tư vấn riêng',wc:'cuối hành lang phía sau, bên phải — có biển Nhà vệ sinh',thungan:'phía trước, bên phải lối vào'};
 let typing=null;
 function say(key){if(key==='greet')GREETED=true;let node=SCRIPT[key];
   if(key.startsWith('g:')||key.startsWith('n:')){const id=key.slice(2),st=STATIONS[id],d=DEPTS[id];const name=d?d.full:st.name,dir=d?d.dir:DIRS[id];const pre=LINH_PRE?LINH_PRE+' ':'';LINH_PRE=null;
@@ -2032,7 +2094,7 @@ function say(key){if(key==='greet')GREETED=true;let node=SCRIPT[key];
   const t0=performance.now();typing=setInterval(()=>{i=Math.floor((performance.now()-t0)/16);T.textContent=s.slice(0,i);if(i>=s.length){i=s.length;clearInterval(typing);showOpts();}},30);
   T.onclick=()=>{if(i<s.length){i=s.length;T.textContent=s;clearInterval(typing);showOpts();}};if(key==='greet')playGreet();else speak(s);RECEP.talkUntil=performance.now()+s.length*55;}
 const LINH_RULES=[ // [mẫu, nơi đến, true = so trên chữ có dấu]
-  [/vệ sinh|toilet|\bwc\b/,'wc',1],[/[가-힣]|hàn quốc|korea|tiếng hàn/,'han',1],
+  [/vệ sinh|toilet|\bwc\b/,'wc',1],[/zalo/,'zalo'],[/[가-힣]|hàn quốc|korea|tiếng hàn/,'han',1],
   [/boi thuong|giam dinh|ton that|va cham|dam xe|tham xe|hien truong|ho so boi/,'boithuong'],
   [/cong tac vien|\bctv\b|dai ly|hoa hong/,'ctv'],
   [/mang luoi|\bgara|garage|bao lanh|co so y te|benh vien|chi nhanh|diem giao dich/,'tuvan'],
@@ -2057,7 +2119,7 @@ $('dlgF').onsubmit=e=>{e.preventDefault();const v=$('dlgI').value;$('dlgI').valu
 $('dlgX').onclick=()=>{closeDialog();clearGuide();lookAtTarget=null;};
 function speak(s){if(!voice)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(s.replace('—',','));u.lang='vi-VN';u.rate=1.02;u.pitch=1.15;const v=speechSynthesis.getVoices().find(v=>/vi/i.test(v.lang));if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
 $('bMusic').onclick=()=>{audioInit();toggleMusic();};
-$('bVoice').onclick=()=>{voice=!voice;$('bVoice').classList.toggle('on',voice);if(!voice){try{speechSynthesis.cancel();}catch(e){}}else toast('Đã bật giọng lễ tân (cần trình duyệt có giọng tiếng Việt)');};
+if($('bVoice'))$('bVoice').onclick=()=>{voice=!voice;$('bVoice').classList.toggle('on',voice);if(!voice){try{speechSynthesis.cancel();}catch(e){}}else toast('Đã bật giọng lễ tân (cần trình duyệt có giọng tiếng Việt)');};
 
 /* ================= PANEL ================= */
 let curPanel=null;
@@ -2072,13 +2134,19 @@ const PURL={'Vật chất ô tô điện':'bao-hiem-oto-dien','TNDS bắt buộc
   'Mọi rủi ro xây dựng & lắp đặt':'bao-hiem-xay-dung','Xây dựng nhà dân sinh':'bao-hiem-xay-dung-nha-dan-sinh','Trách nhiệm công cộng':'bao-hiem-tncc','Trách nhiệm nghề nghiệp khám chữa bệnh':'bao-hiem-tnn-kcb',
   'Trách nhiệm nghề nghiệp luật sư & công chứng':'bao-hiem-tnn-ls','Trách nhiệm nghề nghiệp tư vấn thiết kế & giám sát':'bao-hiem-tnn-tvtk',
   'Hàng hóa xuất nhập khẩu':'bao-hiem-xnk','Hàng hóa vận chuyển nội địa':'bao-hiem-van-chuyen','Mọi rủi ro xây dựng':'bao-hiem-xay-dung','Mọi rủi ro lắp đặt':'bao-hiem-xay-dung'};
+const PICON={'Vật chất ô tô điện':'ev','TNDS bắt buộc ô tô':'car','TNDS bắt buộc xe máy':'moto','Vật chất ô tô (thân vỏ)':'car','Tai nạn người ngồi trên xe':'bandage',
+  'Sức khỏe cá nhân & gia đình':'heart','Tai nạn con người 24/24':'bandage','Bảo hiểm du lịch':'globe',
+  'Cháy nổ bắt buộc':'fire','Cháy nổ căn hộ chung cư':'building','Hỏa hoạn & rủi ro đặc biệt':'fire','Mọi rủi ro tài sản':'shield','Mọi rủi ro xây dựng & lắp đặt':'build','Xây dựng nhà dân sinh':'home',
+  'Hàng hóa xuất nhập khẩu':'ship','Hàng hóa vận chuyển nội địa':'box',
+  'Trách nhiệm công cộng':'users','Trách nhiệm nghề nghiệp khám chữa bệnh':'steth','Trách nhiệm nghề nghiệp luật sư & công chứng':'scale','Trách nhiệm nghề nghiệp tư vấn thiết kế & giám sát':'pen',
+  'Đăng ký bằng số điện thoại':'phone','Hoa hồng TNDS ô tô, xe máy':'cash','Theo dõi khách và hoa hồng':'users','Làm đại lý chuyên nghiệp':'user'};
 const catBtn=(slug,t)=>slug?`<a class="catbtn" href="/${slug}" target="_blank" rel="noopener">${ic('send',14)} ${t||'Xem catalogue sản phẩm'}</a>`:'';
 function openPanel(id){
   const d=DEPTS[id],P=panelBase(d.color,d.soft,false);P.dataset.tab=P.dataset.tab||'sp';curPanel=id;
   let body;
   if(d.net)body=`<div class="sp"><b>Mạng lưới dịch vụ DBV</b><p>Hơn 100 chi nhánh DBV trên toàn quốc, gara liên kết sửa chữa xe và cơ sở y tế bảo lãnh viện phí. Tra cứu điểm gần anh/chị.</p><div class="spb">${catBtn('servicemap','Tra cứu mạng lưới dịch vụ')}<button class="ask" data-qq="Tôi muốn tìm gara liên kết gần nhà">${ic('chat',14)} Nhờ tìm giúp</button></div></div>
     <div class="colh" style="margin-top:16px">Tin tức &amp; Kinh nghiệm</div>${NEWS.slice(0,6).map((n,i)=>`<a class="nwi" href="/tin-tuc/${n[0]}" target="_blank" rel="noopener"><small>${n[1]} · ${n[2]}</small><b>${n[3]}</b></a>`).join('')}${catBtn('tin-tuc','Xem tất cả bài viết')}`;
-  else if(d.products)body=d.products.map((p,i)=>`<div class="sp" id="sp${i}"><b>${p[0]}</b><p>${p[1]}</p><span class="gia">${p[2]}</span><div class="spb">${catBtn(PURL[p[0]])}<button class="ask" data-q="${i}">${ic('chat',14)} Hỏi về mục này</button></div></div>`).join('');
+  else if(d.products)body=d.products.map((p,i)=>`<div class="sp spc" id="sp${i}"><div class="sph"><i class="spi">${ic(PICON[p[0]]||d.icon,20)}</i><b>${p[0]}</b></div><div class="spb">${catBtn(PURL[p[0]])}<button class="ask" data-q="${i}">${ic('chat',14)} Hỏi về mục này</button></div></div>`).join('');
   else body=d.steps.map((s,i)=>`<div class="step"><i>${i+1}</i><p>${s}</p></div>`).join('')+catBtn('boi-thuong','Xem hướng dẫn bồi thường');
   if(id==='ctv')body+=catBtn('cong-tac-vien-dai-ly','Xem chương trình cộng tác viên');
   const nm=STAFF[id];const leadT=id==='boithuong'?'Cần hỗ trợ bồi thường ngay?':id==='ctv'?'Đăng ký làm cộng tác viên':id==='tuvan'?'Muốn chuyên viên gọi lại?':'Nhận báo phí trong 10 giây';
@@ -2175,7 +2243,7 @@ ${list}
 
 Thông tin được phép dùng:
 ${FACTS[id]}
-- Hotline tư vấn: 0869 656 561.
+- Hotline tư vấn: 0869 65 65 61.
 
 Quy tắc trả lời:
 - Tiếng Việt, xưng "em", gọi khách "anh/chị", lịch sự và gần gũi. Ngắn gọn: tối đa 3–4 câu, văn bản thường, không markdown, không emoji, không gạch đầu dòng.
@@ -2222,7 +2290,7 @@ const ZONES=[
   ['han','한국 고객 상담실',-18,-12.9,-10.8,-6.3,'t'],['xe','Xe cơ giới',-10.8,-12.9,-3.6,-6.3,'t'],['thang','Thang máy · Thang bộ',-3.6,-12.9,3.6,-6.3,'c'],['boithuong','Bồi thường',3.6,-12.9,10.8,-6.3,'t'],['wc','Toilet',10.8,-12.9,18,-6.3,'c'],
   ['congtrinh','Trách nhiệm',-18,-4.3,-10.8,2.2,'t'],['suckhoe','Sức khỏe',-18,2.2,-10.8,8.7,'t'],['taisan','Tài sản – Xây dựng',10.8,-4.3,18,2.2,'t'],['hanghoa','Hàng hóa',10.8,2.2,18,8.7,'t'],
   ['recep','Lễ tân',-3,-3.9,3,-2.4,'c'],['ctv','CTV – Đại lý',5.1,-3.9,8.1,-2.4,'t'],['sofa','Khu chờ',-9.4,.8,-5.8,5.4,'c'],['tuvan','Tư vấn',6.4,.9,8.9,6.6,'c'],
-  ['quatang','Bốc quà',3.9,6.5,6.1,8.7,'c'],['dir','Chỉ dẫn',2.2,9.5,3.8,10.5,'c'],['rieng','Phòng tư vấn riêng',-18,8.7,-3.6,12.9,'c'],['viahe','Vỉa hè',-18,20.9,18,24.6,'o'],['sanh','Sảnh đón',-3.6,8.7,3.6,12.9,'g'],['thungan','Thu ngân',3.6,8.7,18,12.9,'c'],
+  ['quatang','Bốc quà',3.9,6.5,6.1,8.7,'c'],['zalo','Zalo',-5.4,7.1,-3.8,8.5,'c'],['dir','Chỉ dẫn',2.2,9.5,3.8,10.5,'c'],['rieng','Phòng tư vấn riêng',-18,8.7,-3.6,12.9,'c'],['viahe','Vỉa hè',-18,20.9,18,24.6,'o'],['sanh','Sảnh đón',-3.6,8.7,3.6,12.9,'g'],['thungan','Thu ngân',3.6,8.7,18,12.9,'c'],
   ['park','Bãi đỗ xe',-17.5,13.4,6,19.5,'o'],['gd','Giám định bồi thường',6.4,13.4,17.5,19.5,'o']];
 const MZ0=-12.9,MZH=32.6;
 function buildMap(){const B=$('mapbox');ZONES.forEach(z=>{const d=document.createElement(z[6]==='g'?'div':'button');d.className='mz '+z[6];d.textContent=z[1];
@@ -2307,7 +2375,7 @@ function animatePerson(P,t,lookPos,isRecep){if(P.spr){animSprite(P,t);return;}co
   const bw=talking?.012+Math.abs(Math.sin(t*4))*.01:0;P.brows.forEach(b=>b.position.y=.315+bw);}
 const inR=(p,x0,z0,x1,z1)=>p.x>x0&&p.x<x1&&p.z>z0&&p.z<z1;
 function whereName(p){if(UP.floor>1&&UP.where){const w=UP.where(p);if(w)return w;}if(inR(p,10.8,-12.9,18,-6.3))return p.x<15?'WC Nữ':'WC Nam';if(p.z>12.9)return 'Bãi đỗ xe';
-  for(const z of ZONES){if(['recep','ctv','water','sofa','tuvan','dir','kiosk','park','gd','quatang'].includes(z[0]))continue;if(inR(p,z[2],z[3],z[4],z[5]))return z[1];}
+  for(const z of ZONES){if(['recep','ctv','water','sofa','tuvan','dir','kiosk','park','gd','quatang','zalo'].includes(z[0]))continue;if(inR(p,z[2],z[3],z[4],z[5]))return z[1];}
   return p.z<-4.3?'Hành lang':'Sảnh chính';}
 const JOY={x:0,y:0};
 (function(){if(!matchMedia('(pointer:coarse)').matches)return;const b=document.createElement('div');b.id='joy';b.innerHTML='<i></i>';document.body.appendChild(b);const k=b.firstChild;let id=null,cx=0,cy=0;const R=44;
@@ -2340,7 +2408,7 @@ let _tl=performance.now(),_ledT=0;function loop(now){if(now-_ledT>60){_ledT=now;
   const wn=mode==='station'&&curSt?STATIONS[curSt].name:whereName(cam.pos);if(wn!==lastWhere){lastWhere=wn;$('where').textContent=wn;}
   if($('map').classList.contains('open'))updateMapDot();
   if(UP.tick)UP.tick(dt,t);
-  renderer.render(scene,camera);requestAnimationFrame(loop);}
+  renderer.render(scene,camera);tvVideoFrame();requestAnimationFrame(loop);}
 
 /* ================= DẤU HIỆU "BẤM ĐƯỢC": mũi tên trên đầu người, vòng sáng dưới đồ vật, sáng viền khi rê chuột ================= */
 const MK={people:[],rings:[],hover:null};const RIENG_STAFF=[];
@@ -2364,7 +2432,7 @@ function buildMarkers(){
   const rm=()=>new THREE.MeshBasicMaterial({color:NE,transparent:true,opacity:.9,depthWrite:false,side:THREE.DoubleSide,toneMapped:false});
   const ht=ctex(256,256,(x,w)=>{const g=x.createRadialGradient(128,128,0,128,128,128);g.addColorStop(0,'rgba(255,106,0,0)');g.addColorStop(.62,'rgba(255,106,0,0)');g.addColorStop(.8,'rgba(255,120,20,.55)');g.addColorStop(.86,'rgba(255,150,50,.75)');g.addColorStop(1,'rgba(255,106,0,0)');x.fillStyle=g;x.fillRect(0,0,w,w);});
   MK.ringHalo=ht;
-  [['quatang',5,7.6,1.1],['sofa',-6.6,2.2,1.5],['standee',-4.15,-2.85,.6],['dir',3.0,10.0,.95],['giamdinh',9.2,14.35,1.25],['thang',-1.2,-11.9,1.25],['thangbo',2.4,-6.75,.75],['giamdinh',12.8,17.6,2.55],['giamdinh',16.7,17.4,2.55]].forEach(([id,x,z,r])=>{
+  [['quatang',5,7.6,1.1],['zalo',-4.6,7.8,.7],['sofa',-6.6,2.2,1.5],['standee',-4.15,-2.85,.6],['dir',3.0,10.0,.95],['giamdinh',9.2,14.35,1.25],['thang',-1.2,-11.9,1.25],['thangbo',2.4,-6.75,.75],['giamdinh',12.8,17.6,2.55],['giamdinh',16.7,17.4,2.55]].forEach(([id,x,z,r])=>{
     const g=new THREE.Group();g.position.set(x,.025,z);scene.add(g);const a=new THREE.Mesh(new THREE.RingGeometry(r-.075,r,72),rm());a.rotation.x=-Math.PI/2;g.add(a);
     const b=new THREE.Mesh(new THREE.RingGeometry(r-.035,r,72),rm());b.rotation.x=-Math.PI/2;g.add(b);
     const c=new THREE.Mesh(new THREE.PlaneGeometry(r*2.6,r*2.6),new THREE.MeshBasicMaterial({map:ht,transparent:true,depthWrite:false,toneMapped:false,opacity:.8}));c.rotation.x=-Math.PI/2;c.position.y=-.004;g.add(c);
@@ -2382,7 +2450,7 @@ function updateMarkers(t){if(!MK.people.length&&!MK.rings.length)return;const cp
     if(m.ring){m.ring.visible=on;if(on){m.ring.position.set(m.P.g.position.x,.03,m.P.g.position.z);m.ring.scale.setScalar(1+Math.sin(t*5)*.06);}}});}
 /* ================= BỐC QUÀ MỖI NGÀY (thay chỗ kiosk tra cứu, gần lối vào) ================= */
 // CẤU HÌNH: p = tỷ lệ % mỗi lượt (KHÔNG hiển thị cho khách); cap = [số giải, 'm' mỗi tháng | 'q' mỗi quý]
-const QG_CFG={turns:3,days:30,from:'01/12/2026',to:'28/02/2027',hotline:'0869 656 561',feed:null,
+const QG_CFG={turns:3,days:30,from:'01/12/2026',to:'28/02/2027',hotline:'0869 65 65 61',feed:null,
   prizes:[
     {id:'oto',name:'1 năm bảo hiểm ô tô',kind:'oto',p:0,ap:'Chuyên viên DBV liên hệ để cấp đơn bảo hiểm cho xe của anh/chị.'},
     {id:'sk',name:'Thẻ bảo hiểm sức khỏe',kind:'sk',p:0,ap:'Chuyên viên DBV liên hệ để kích hoạt thẻ bảo hiểm sức khỏe.'},
@@ -2552,13 +2620,13 @@ async function warmUp(){try{const seen=new Set();if(renderer.initTexture)scene.t
 async function start(){
   try{await Promise.race([Promise.all(['900 100px "Be Vietnam Pro",sans-serif','800 60px "Be Vietnam Pro",sans-serif','700 40px "Be Vietnam Pro",sans-serif','600 40px "Be Vietnam Pro",sans-serif','500 40px "Be Vietnam Pro",sans-serif'].map(f=>document.fonts.load(f,'ĐƯỜNG ỆỄ'))),new Promise(r=>setTimeout(r,3000))]);}catch(e){}
   await Promise.all([loadStaffModel(),loadKenney(),loadImg('full',LOGO_FULL),loadImg('mark',LOGO_MARK)]);
-  refreshNews();build();buildGift();faceStaff();applyTOD(true);buildMarkers();finishBackOffice();buildCrowd();rebuildGrid();buildNav();buildMap();
+  refreshNews();build();buildGift();buildZalo();faceStaff();applyTOD(true);buildMarkers();finishBackOffice();buildCrowd();rebuildGrid();buildNav();buildMap();
   camera.position.copy(cam.pos);camera.rotation.set(cam.pitch,cam.yaw,0);requestAnimationFrame(loop);
   $('enterTxt').textContent='Đang chuẩn bị hình ảnh…';await warmUp();
   $('bEnter').disabled=false;$('enterTxt').textContent='Bước vào văn phòng';$('bEnter').onclick=enter;
   document.documentElement.style.setProperty('--face',`url(${GLB_AV.recep})`);document.querySelector('.dlg .av').innerHTML='';
   window.__dbg={CROWD,customer,KM,scene,cam,serveDrink,playMusic,MUSIC,findPath,goStation,STATIONS,isFree,TOD};}
-async function enter(){audioInit();playMusic('classic');$('intro').classList.add('hide');mode='moving';busy=true;
+async function enter(){audioInit();playMusic('classic');tvVideoInit();$('intro').classList.add('hide');mode='moving';busy=true;
   // khách bắt đầu đứng trên vỉa hè trước tòa nhà, tự đi vào; lễ tân chào khi khách bước vào sảnh
   FLYING=true;await flyTo(new V3(0,EYE,18.6),new V3(0,2.4,0),4.2);
   await flyTo(new V3(0,EYE,6.3),new V3(0,1.25,-3.5),2.4);FLYING=false;
