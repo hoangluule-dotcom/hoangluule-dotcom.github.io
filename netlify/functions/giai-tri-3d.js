@@ -123,6 +123,44 @@ async function bangTro(tro, tuan) {
   const b = await doc('tro/' + tro + '/' + tuan, {});
   return Object.values(b).sort((a, c) => c.diem - a.diem || a.luc - c.luc).slice(0, 10).map((x) => ({ ten: x.ten, diem: x.diem }));
 }
+/* ── Bảng thi đua các trò ở tầng 7 (tro-choi.js) + ném giấy, phi tiêu ──
+   kieu 'cao': giữ điểm cao nhất · 'thap': giữ số nhỏ nhất (lật thẻ: ít lượt) · 'thang': đếm số trận thắng máy.
+   Mỗi trò có bảng TUẦN (tro/<id>/<thứ Hai>) và bảng MỌI LÚC (tro/<id>/tat-ca). Điểm do trình duyệt gửi lên,
+   máy chủ chỉ chặn số vô lý (tran) — đủ cho thi đua vui trong nội bộ. */
+const TRO_TD = {
+  bongro: { ten: 'Bóng rổ', kieu: 'cao', tran: 300, dv: 'điểm' },
+  duaxe: { ten: 'Đua xe', kieu: 'cao', tran: 60000, dv: 'điểm' },
+  ran: { ten: 'Rắn săn mồi', kieu: 'cao', tran: 4000, dv: 'điểm' },
+  latthe: { ten: 'Lật thẻ', kieu: 'thap', tran: 300, san: 8, dv: 'lượt' },
+  bongban: { ten: 'Bóng bàn', kieu: 'thang', tran: 50, dv: 'trận thắng' },
+  bilac: { ten: 'Bi lắc', kieu: 'thang', tran: 50, dv: 'trận thắng' },
+  caro: { ten: 'Cờ caro', kieu: 'thang', tran: 50, dv: 'ván thắng' },
+  nem: { ten: 'Ném giấy', kieu: 'cao', tran: 16, dv: 'điểm', chiTuan: true },
+  phitieu: { ten: 'Phi tiêu', kieu: 'cao', tran: 500, dv: 'điểm', chiTuan: true },
+};
+function xepBang(tro, b) {
+  const thap = TRO_TD[tro] && TRO_TD[tro].kieu === 'thap';
+  return Object.entries(b).map(([id, x]) => Object.assign({ id }, x)).sort((a, c) => (thap ? a.diem - c.diem : c.diem - a.diem) || a.luc - c.luc);
+}
+const gon = (ds, n) => ds.slice(0, n).map((x) => ({ ten: x.ten, diem: x.diem, van: x.van || undefined }));
+async function bangThiDua(tro, tuan, n) {
+  const T = TRO_TD[tro]; const [bt, ba] = await Promise.all([doc('tro/' + tro + '/' + tuan, {}), T.chiTuan ? {} : doc('tro/' + tro + '/tat-ca', {})]);
+  return { tuan: gon(xepBang(tro, bt), n), tat_ca: T.chiTuan ? [] : gon(xepBang(tro, ba), n) };
+}
+async function ghiThiDua(tro, me, d, tuan) {
+  const T = TRO_TD[tro]; const so = T.kieu === 'thang' ? 0 : Math.max(T.san || 0, Math.min(T.tran, Math.round(+d.diem || 0)));
+  const thang = T.kieu === 'thang' ? !!d.thang : false; const out = {};
+  for (const k of T.chiTuan ? [tuan] : [tuan, 'tat-ca']) {
+    const key = 'tro/' + tro + '/' + k, b = await doc(key, {}), cu = b[me.id];
+    let moi = cu, tot = false;
+    if (T.kieu === 'thang') { moi = { ten: me.ten, diem: Math.min(T.tran * (k === 'tat-ca' ? 100 : 1), (cu ? cu.diem : 0) + (thang ? 1 : 0)), van: (cu ? cu.van || 0 : 0) + 1, luc: thang || !cu ? Date.now() : cu.luc }; tot = thang; }
+    else if (!cu || (T.kieu === 'thap' ? so < cu.diem : so > cu.diem)) { moi = { ten: me.ten, diem: so, luc: Date.now() }; tot = true; }
+    if (moi !== cu) { b[me.id] = moi; await ghi(key, b); }
+    const xb = xepBang(tro, b); out[k === 'tat-ca' ? 'tat_ca' : 'tuan'] = { ky_luc: tot, cua_toi: moi ? moi.diem : null, hang: xb.findIndex((x) => x.id === me.id) + 1, so_nguoi: xb.length, bang: gon(xb, 10) };
+  }
+  return out;
+}
+
 async function gapCuaToi(id) {
   const g = await doc('gap/' + id, { ngay: '', dung: 0, bst: {} });
   return { con_luot: g.ngay === bayGio().ngay ? Math.max(0, LUOT_GAP - g.dung) : LUOT_GAP, bst: g.bst || {} };
@@ -220,6 +258,19 @@ exports.handler = async function (event) {
       const ky_luc = !cu || so > cu.diem;
       if (ky_luc) { b[me.id] = { ten: me.ten, diem: so, luc: Date.now() }; await ghi(k, b); }
       return tra(200, { ok: true, ky_luc, cao_nhat: ky_luc ? so : cu.diem, bang: await bangTro(tro, t.tuan) });
+    }
+
+    /* 4b) Kết quả các trò tầng 7: bóng rổ, đua xe, rắn, lật thẻ (điểm) · bóng bàn, bi lắc, cờ caro (thắng/thua) */
+    if (hd === 'ket_qua') {
+      const tro = String(d.tro || '');
+      if (!TRO_TD[tro] || TRO_TD[tro].chiTuan) return tra(400, { loi: 'Trò không hợp lệ' });
+      return tra(200, Object.assign({ ok: true, tro, tuan_bat_dau: t.tuan }, await ghiThiDua(tro, me, d, t.tuan)));
+    }
+    /* 4c) Bảng thi đua: mọi trò (hoặc một trò) — top 10 tuần này và mọi lúc */
+    if (hd === 'bxh_tro') {
+      const ds = d.tro && TRO_TD[d.tro] ? [d.tro] : Object.keys(TRO_TD);
+      const bang = {}; await Promise.all(ds.map(async (k) => { bang[k] = Object.assign({ ten: TRO_TD[k].ten, kieu: TRO_TD[k].kieu, dv: TRO_TD[k].dv }, await bangThiDua(k, t.tuan, Math.min(20, +d.n || 10))); }));
+      return tra(200, { ok: true, tuan_bat_dau: t.tuan, toi: me.ten, bang });
     }
 
     /* 5) Máy gắp thú */

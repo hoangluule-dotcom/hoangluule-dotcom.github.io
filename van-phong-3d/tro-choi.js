@@ -15,6 +15,17 @@
   function addWin(id) { const b = bestAll(); b[id] = (b[id] || 0) + 1; try { localStorage.setItem(BK, JSON.stringify(b)); } catch (e) { /* bỏ qua */ } return b[id]; }
   function beep(f, d, type, vol) { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const o = AC.createOscillator(), g = AC.createGain(); o.type = type || 'square'; o.frequency.value = f; g.gain.value = vol || .05; g.gain.exponentialRampToValueAtTime(.0001, AC.currentTime + (d || .08)); o.connect(g); g.connect(AC.destination); o.start(); o.stop(AC.currentTime + (d || .08)); } catch (e) { /* không có âm thanh */ } }
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  /* ---------- bảng thi đua chung (máy chủ giai-tri-3d) ---------- */
+  const TD = { bongro: ['Bóng rổ', 'điểm'], duaxe: ['Đua xe', 'điểm'], ran: ['Rắn săn mồi', 'điểm'], latthe: ['Lật thẻ', 'lượt'], bongban: ['Bóng bàn', 'trận thắng'], bilac: ['Bi lắc', 'trận thắng'], caro: ['Cờ caro', 'ván thắng'], nem: ['Ném giấy', 'điểm'], phitieu: ['Phi tiêu', 'điểm'] };
+  const online = () => !!(opts.tok && opts.tok !== 'demo' && opts.url);
+  async function api(body) { if (!online()) return null; try { const r = await fetch(opts.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ tok: opts.tok }, body)) }); const j = await r.json().catch(() => ({})); return r.ok && j.ok ? j : null; } catch (e) { return null; } }
+  let BXH = null, BXH_T = 0;
+  async function bxh(force) { if (!force && BXH && Date.now() - BXH_T < 30000) return BXH; const j = await api({ hanh_dong: 'bxh_tro' }); if (j) { BXH = j; BXH_T = Date.now(); } return BXH; }
+  // gửi kết quả một ván; trả về bảng tuần + mọi lúc (hoặc null khi không có mạng/đang chạy thử)
+  async function report(tro, body) { const j = await api(Object.assign({ hanh_dong: 'ket_qua', tro }, body)); if (j) { BXH = null; if (opts.onScore) { try { opts.onScore(); } catch (e) { /* bỏ qua */ } } } return j; }
+  const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  function rows(ds, dv, n) { if (!ds || !ds.length) return '<p class="tc-empty">Chưa có ai ghi thành tích — vào chơi để đứng đầu!</p>';
+    return '<ol class="tc-lb">' + ds.slice(0, n || 10).map((x, i) => `<li class="${opts.ten && x.ten === opts.ten ? 'me' : ''}"><span class="r">${i < 3 ? ['🥇', '🥈', '🥉'][i] : i + 1}</span><span class="n">${esc(x.ten)}</span><span class="v">${esc(x.diem)} <small>${esc(dv)}</small></span></li>`).join('') + '</ol>'; }
   function rr(x, X, Y, W, H, r) { x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + W, Y, X + W, Y + H, r); x.arcTo(X + W, Y + H, X, Y + H, r); x.arcTo(X, Y + H, X, Y, r); x.arcTo(X, Y, X + W, Y, r); x.closePath(); }
 
   function css() { if (document.getElementById('tcCss')) return; const s = document.createElement('style'); s.id = 'tcCss'; s.textContent = `
@@ -43,16 +54,25 @@
 .tc-pick em{display:block;margin-top:10px;font-style:normal;font-weight:700;font-size:13px;color:${G.amber}}
 .tc-pick.lt em{color:${G.orange}}
 .tc-pick:hover{transform:translateY(-2px)}
+.tc-lb{list-style:none;margin:8px 0 0;padding:0;text-align:left}.tc-lb li{display:flex;gap:10px;align-items:center;padding:6px 10px;border-radius:10px;font-size:14px;color:#1C1C1C}
+.tc-lb li:nth-child(odd){background:#F6F8F7}.tc-lb li.me{background:#FFF1DC;font-weight:800}.tc-lb .r{width:30px;text-align:center;font-weight:800;color:${G.green}}.tc-lb .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tc-lb .v{font-weight:800;color:${G.green}}.tc-lb small{font-weight:500;color:#667085}
+.tc-empty{color:#667085;font-size:14px;margin:10px 0}.tc-srv{margin-top:10px;border-top:1px solid #EEF2F0;padding-top:10px;max-height:240px;overflow:auto}.tc-srv .big{font-size:16px;font-weight:800;color:${G.orange}}
+.tc-cup{border:0;background:${G.amber};color:${G.green};font:800 13px ${FONT};padding:7px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.tc-board{background:#fff;width:100%;max-width:760px;border-radius:14px;padding:16px 18px;max-height:calc(100vh - 190px);overflow:auto}
+.tc-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.tc-tab{border:1px solid #D0D5DD;background:#fff;border-radius:999px;padding:6px 12px;font:700 13px ${FONT};cursor:pointer;color:${G.green}}
+.tc-tab.on{background:${G.green};border-color:${G.green};color:#fff}.tc-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.tc-cols h4{margin:4px 0 0;font-size:15px;color:${G.green}}
+.tc-note{font-size:12px;color:#667085;margin-top:10px}
 `; document.head.appendChild(s); }
 
   /* ---------- khung cửa sổ trò chơi ---------- */
   function shell(title, sub, hint) {
     css(); close(true);
     ov = document.createElement('div'); ov.className = 'tc-ov';
-    ov.innerHTML = `<div class="tc-box"><div class="tc-hd"><div><b></b><span></span></div><div class="tc-sc"></div><button class="tc-x" title="Đóng (Esc)">×</button></div><div class="tc-bd"></div><div class="tc-ft"></div></div>`;
+    ov.innerHTML = `<div class="tc-box"><div class="tc-hd"><div><b></b><span></span></div><div class="tc-sc"></div><button class="tc-cup" title="Xem bảng thi đua của mọi người">🏆 Bảng thi đua</button><button class="tc-x" title="Đóng (Esc)">×</button></div><div class="tc-bd"></div><div class="tc-ft"></div></div>`;
     ov.querySelector('.tc-hd b').textContent = title; ov.querySelector('.tc-hd span').textContent = sub || '';
     ov.querySelector('.tc-ft').innerHTML = hint || '';
     ov.querySelector('.tc-x').onclick = () => close();
+    ov.querySelector('.tc-cup').onclick = () => board(cur || 'bongro');
     ['pointerdown', 'pointermove', 'pointerup', 'wheel', 'mousedown', 'mouseup', 'mousemove', 'touchstart', 'touchmove', 'touchend', 'click', 'dblclick', 'contextmenu'].forEach((ev) => ov.addEventListener(ev, (e) => e.stopPropagation()));
     document.body.appendChild(ov);
     keys = {};
@@ -77,12 +97,29 @@
   // vòng lặp khung hình
   function loop(fn) { let last = performance.now(), id = 0, on = true; const step = (t) => { if (!on) return; const dt = Math.min(.05, (t - last) / 1000); last = t; fn(dt, t / 1000); id = requestAnimationFrame(step); }; id = requestAnimationFrame(step); return () => { on = false; cancelAnimationFrame(id); }; }
   // bảng kết quả
-  function result(title, lines, again, back) { const d = document.createElement('div'); d.className = 'tc-end';
-    d.innerHTML = `<div class="tc-card"><h3></h3>${lines.map((l) => `<p class="${l[1] || ''}"></p>`).join('')}<div class="tc-btns"><button class="tc-btn">Chơi lại</button>${back ? '<button class="tc-btn sec b2">Chọn trò khác</button>' : ''}<button class="tc-btn sec b3">Đóng</button></div></div>`;
-    d.querySelector('h3').textContent = title; d.querySelectorAll('p').forEach((p, i) => { p.textContent = lines[i][0]; });
+  function result(title, lines, again, back, srv, tro) { const d = document.createElement('div'); d.className = 'tc-end';
+    d.innerHTML = `<div class="tc-card"><h3></h3>${lines.map((l) => `<p class="tc-l ${l[1] || ''}"></p>`).join('')}<div class="tc-srv">${online() ? '<p class="tc-empty">Đang lưu thành tích lên bảng thi đua…</p>' : '<p class="tc-empty">Đang chạy thử nên chưa lưu lên bảng thi đua chung.</p>'}</div><div class="tc-btns"><button class="tc-btn">Chơi lại</button>${back ? '<button class="tc-btn sec b2">Chọn trò khác</button>' : ''}<button class="tc-btn sec b3">Đóng</button></div></div>`;
+    d.querySelector('h3').textContent = title; d.querySelectorAll('p.tc-l').forEach((p, i) => { p.textContent = lines[i][0]; });
     d.querySelector('.tc-btn').onclick = () => { d.remove(); again(); }; if (back) d.querySelector('.b2').onclick = () => { d.remove(); back(); }; d.querySelector('.b3').onclick = () => close();
-    body().appendChild(d); }
+    body().appendChild(d);
+    if (srv && online()) srv.then((j) => { const box = d.querySelector('.tc-srv'); if (!box) return; if (!j || !j.tuan) { box.innerHTML = '<p class="tc-empty">Chưa lưu được lên máy chủ (mạng chập chờn?). Thành tích vẫn ghi trên máy này.</p>'; return; }
+      const dv = (TD[tro] || ['', ''])[1], w = j.tuan, a = j.tat_ca; const hang = w.hang ? `Hạng ${w.hang}/${w.so_nguoi} tuần này` : '';
+      box.innerHTML = `<p class="big">${esc(hang)}${w.ky_luc && a && a.ky_luc && a.hang === 1 ? ' · Kỷ lục mọi thời của cả phòng!' : w.ky_luc ? ' · Thành tích tuần mới của bạn' : ''}</p>` + rows(w.bang, dv, 5) + '<button class="tc-btn sec" style="margin-top:8px">Xem toàn bộ bảng thi đua</button>';
+      box.querySelector('button').onclick = () => board(tro); }); }
   const who = () => (opts.ten ? opts.ten : 'Bạn');
+  let cur = null;
+  /* ---------- màn hình Bảng thi đua ---------- */
+  async function board(sel) { shell('Bảng thi đua Phòng Relax', 'Thành tích của mọi người · bảng tuần làm mới mỗi thứ Hai', 'Bảng tuần: điểm cao nhất của mỗi người trong tuần (bóng bàn, bi lắc, cờ caro tính số trận thắng máy). Bảng mọi lúc: kỷ lục từ trước đến nay. Lật thẻ: càng ít lượt càng cao.');
+    setScore(who()); const wrap = document.createElement('div'); wrap.className = 'tc-board'; body().innerHTML = ''; body().appendChild(wrap);
+    if (!online()) { wrap.innerHTML = '<p class="tc-empty">Đang chạy thử (không phải trang dbv247.com.vn) nên chưa có bảng thi đua chung. Kỷ lục trên máy này:</p>' + Object.keys(TD).filter((k) => bestOf(k) != null).map((k) => `<p><b>${TD[k][0]}:</b> ${bestOf(k)} ${TD[k][1]}</p>`).join(''); return; }
+    wrap.innerHTML = '<p class="tc-empty">Đang tải bảng thi đua…</p>'; const j = await bxh(true); if (!ov || !wrap.isConnected) return;
+    if (!j) { wrap.innerHTML = '<p class="tc-empty">Chưa tải được bảng thi đua, thử lại sau nhé.</p>'; return; }
+    let pick = sel && j.bang[sel] ? sel : Object.keys(j.bang)[0];
+    const paint = () => { const B = j.bang[pick]; wrap.innerHTML = '<div class="tc-tabs">' + Object.keys(j.bang).map((k) => `<button class="tc-tab ${k === pick ? 'on' : ''}" data-k="${k}">${esc(j.bang[k].ten)}</button>`).join('') + '</div>'
+      + `<div class="tc-cols"><div><h4>Tuần này (từ ${esc(j.tuan_bat_dau.split('-').reverse().join('/'))})</h4>${rows(B.tuan, B.dv, 10)}</div>` + (B.tat_ca && (B.tat_ca.length || !/nem|phitieu/.test(pick)) ? `<div><h4>Mọi lúc</h4>${rows(B.tat_ca, B.dv, 10)}</div>` : '') + '</div>'
+      + (TD[pick] && !/nem|phitieu/.test(pick) ? '<div class="tc-btns"><button class="tc-btn">Chơi ' + esc(B.ten) + '</button></div>' : '') + '<p class="tc-note">Thành tích được ghi theo tên anh/chị đã chọn khi vào Phòng Relax.</p>';
+      wrap.querySelectorAll('.tc-tab').forEach((b) => { b.onclick = () => { pick = b.dataset.k; paint(); }; }); const pb = wrap.querySelector('.tc-btns .tc-btn'); if (pb) pb.onclick = () => mo(pick, opts); };
+    paint(); }
 
   /* ======================= BÓNG BÀN ======================= */
   function pingpong() {
@@ -106,7 +143,7 @@
       b.x += b.vx * dt; b.y += b.vy * dt; if (b.y < b.r + 6 || b.y > H - b.r - 6) { b.vy *= -1; b.y = clamp(b.y, b.r + 6, H - b.r - 6); beep(300, .03, 'sine'); }
       hit(me, 30, -1); hit(ai, W - 30, 1);
       if (b.x < -20 || b.x > W + 20) { const pl = b.x > W; sc[pl ? 0 : 1]++; upd(); beep(pl ? 880 : 200, .15); if (sc[0] >= 7 || sc[1] >= 7) { draw(); stop(); const win = sc[0] > sc[1]; const n = win ? addWin('bongban') : (bestOf('bongban') || 0);
-          result(win ? 'Bạn thắng!' : 'Máy thắng rồi', [[`${sc[0]} – ${sc[1]}`], [`Số trận đã thắng máy: ${n}`, 'rec']], start); return; } newBall(pl ? -1 : 1); }
+          result(win ? 'Bạn thắng!' : 'Máy thắng rồi', [[`${sc[0]} – ${sc[1]}`], [`Số trận đã thắng máy (máy này): ${n}`, 'rec']], start, null, report('bongban', { thang: win }), 'bongban'); return; } newBall(pl ? -1 : 1); }
       draw(); }); };
     game = { stop: () => stop && stop() }; start();
   }
@@ -135,7 +172,7 @@
         const inGoal = ball.y > GY0 && ball.y < GY1;
         if (ball.x < M + ball.r && !inGoal) { ball.x = M + ball.r; ball.vx = Math.abs(ball.vx); } if (ball.x > W - M - ball.r && !inGoal) { ball.x = W - M - ball.r; ball.vx = -Math.abs(ball.vx); }
         rods.forEach((r) => { const dir = r.s === 'r' ? 1 : -1; men(r).forEach((y) => { if (Math.abs(ball.x - r.x) < 10 + ball.r && Math.abs(ball.y - y) < 18 + ball.r) { const sp = Math.max(420, Math.hypot(ball.vx, ball.vy) * 1.08); const ang = clamp((ball.y - y) / 30, -1, 1) * .7 + (Math.random() - .5) * .25; ball.vx = dir * Math.cos(ang) * sp; ball.vy = Math.sin(ang) * sp; ball.x = r.x + dir * (10 + ball.r + 1); kick(dir); } }); });
-        if (ball.x < -ball.r || ball.x > W + ball.r) { const pl = ball.x > W; sc[pl ? 0 : 1]++; setScore(`${who()} ${sc[0]} – ${sc[1]} Xanh`); beep(pl ? 880 : 180, .2); if (sc[0] >= 5 || sc[1] >= 5) { draw(); stop(); const win = sc[0] > sc[1]; const n = win ? addWin('bilac') : (bestOf('bilac') || 0); result(win ? 'Đội đỏ thắng!' : 'Đội xanh thắng', [[`${sc[0]} – ${sc[1]}`], [`Số trận đã thắng: ${n}`, 'rec']], start); return; } newBall(pl ? -1 : 1); break; } }
+        if (ball.x < -ball.r || ball.x > W + ball.r) { const pl = ball.x > W; sc[pl ? 0 : 1]++; setScore(`${who()} ${sc[0]} – ${sc[1]} Xanh`); beep(pl ? 880 : 180, .2); if (sc[0] >= 5 || sc[1] >= 5) { draw(); stop(); const win = sc[0] > sc[1]; const n = win ? addWin('bilac') : (bestOf('bilac') || 0); result(win ? 'Đội đỏ thắng!' : 'Đội xanh thắng', [[`${sc[0]} – ${sc[1]}`], [`Số trận đã thắng (máy này): ${n}`, 'rec']], start, null, report('bilac', { thang: win }), 'bilac'); return; } newBall(pl ? -1 : 1); break; } }
       if (Math.hypot(ball.vx, ball.vy) < 40 && wait <= 0) { ball.vx += (ball.x < W / 2 ? 1 : -1) * 60; ball.vy += (Math.random() - .5) * 60; }
       draw(); }); };
     game = { stop: () => stop && stop() }; start();
@@ -173,7 +210,7 @@
         front.forEach((p) => drawBall(...p));
         if (t > 0) drawBall(bx, BY, 34);
         if (charging) { const p = charge > 1 ? 2 - charge : charge; x.fillStyle = 'rgba(255,255,255,.25)'; x.fillRect(W - 40, BY - 150, 18, 150); x.fillStyle = p > .16 && p < .71 ? G.mint : G.red; x.fillRect(W - 40, BY - 150 * p, 18, 150 * p); }
-        if (t <= 0) { stop(); const rec = saveBest('bongro', score); result('Hết giờ!', [[`${who()} ghi ${score} điểm`], [rec ? 'Kỷ lục mới trên máy này!' : `Kỷ lục: ${bestOf('bongro')} điểm`, 'rec']], start); } }); };
+        if (t <= 0) { stop(); const rec = saveBest('bongro', score); result('Hết giờ!', [[`${who()} ghi ${score} điểm`], [rec ? 'Kỷ lục mới trên máy này!' : `Kỷ lục trên máy này: ${bestOf('bongro')} điểm`, 'rec']], start, null, report('bongro', { diem: score }), 'bongro'); } }); };
     game = { stop: () => stop && stop(),
       down: (P) => { if (Math.hypot(P.x - bx, P.y - BY) < 110 || P.y > BY - 120) drag = { x: P.x, y: P.y, t: performance.now() }; },
       up: (P) => { if (!drag || t <= 0) return; const dt = Math.max(60, performance.now() - drag.t), dy = P.y - drag.y, dx = P.x - drag.x; if (dy < -40) { bx = clamp(drag.x, 80, W - 80); throwBall(bx, dx / dt, -dy / dt); } drag = null; } };
@@ -196,7 +233,7 @@
       if (win) { x.fillStyle = 'rgba(95,224,162,.4)'; win.forEach(([i, j]) => x.fillRect(PAD + i * S, PAD + j * S, S, S)); }
       x.lineCap = 'round'; for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { const v = bd[i][j]; if (!v) continue; const cx = PAD + i * S + S / 2, cy = PAD + j * S + S / 2; x.lineWidth = 5;
         if (v === 'x') { x.strokeStyle = G.green2; x.beginPath(); x.moveTo(cx - 12, cy - 12); x.lineTo(cx + 12, cy + 12); x.moveTo(cx + 12, cy - 12); x.lineTo(cx - 12, cy + 12); x.stroke(); } else { x.strokeStyle = G.orange; x.beginPath(); x.arc(cx, cy, 13, 0, 7); x.stroke(); } } };
-    const finish = (win, who2) => { over = true; draw(win); const n = who2 === 'x' ? addWin('caro') : (bestOf('caro') || 0); setTimeout(() => result(who2 === 'x' ? 'Bạn thắng!' : who2 === 'o' ? 'Máy thắng' : 'Hòa', [[`Sau ${moves} nước`], [`Số ván đã thắng máy: ${n}`, 'rec']], start, back), 500); };
+    const finish = (win, who2) => { over = true; draw(win); const n = who2 === 'x' ? addWin('caro') : (bestOf('caro') || 0); const srv = report('caro', { thang: who2 === 'x' }); setTimeout(() => result(who2 === 'x' ? 'Bạn thắng!' : who2 === 'o' ? 'Máy thắng' : 'Hòa', [[`Sau ${moves} nước`], [`Số ván đã thắng máy (máy này): ${n}`, 'rec']], start, back, srv, 'caro'), 500); };
     const start = () => { bd = Array.from({ length: N }, () => Array(N).fill(null)); over = false; last = null; moves = 0; setScore('Lượt của bạn'); draw(); };
     game = { down: (P) => { if (over) return; const i = Math.floor((P.x - PAD) / S), j = Math.floor((P.y - PAD) / S); if (!in_(i, j) || bd[i][j]) return; bd[i][j] = 'x'; moves++; last = [i, j]; beep(500, .04); let w = line(i, j, 'x'); if (w) return finish(w, 'x');
       setScore('Máy đang nghĩ…'); draw(); over = true; setTimeout(() => { over = false; const [a, b] = aiMove(); bd[a][b] = 'o'; last = [a, b]; beep(380, .04); w = line(a, b, 'o'); if (w) return finish(w, 'o'); if (moves >= N * N / 2) return finish(null, '-'); setScore('Lượt của bạn'); draw(); }, 260); } };
@@ -219,7 +256,7 @@
     game = { stop: () => stop && stop(), down: (P) => { if (lock) return; const i = Math.floor((P.x - OX) / (CW + GX)) + Math.floor((P.y - OY) / (CH + GX)) * COLS; const cxp = (P.x - OX) % (CW + GX), cyp = (P.y - OY) % (CH + GX);
       if (P.x < OX || P.y < OY || cxp > CW || cyp > CH || i < 0 || i >= cards.length) return; const c = cards[i]; if (c.up || c.done) return; c.up = true; open.push(c); beep(600, .03, 'sine');
       if (open.length === 2) { moves++; setScore(`${moves} lượt`); lock = true; const [a, b] = open; setTimeout(() => { if (a.id === b.id) { a.done = b.done = true; found++; beep(900, .1, 'sine'); } else { a.up = b.up = false; } open = []; lock = false;
-        if (found === 8) { const s = Math.round((performance.now() - t0) / 1000); const rec = saveBest('latthe', moves, true); setTimeout(() => result('Hoàn thành!', [[`${moves} lượt · ${s} giây`], [rec ? 'Kỷ lục mới: ít lượt nhất!' : `Kỷ lục: ${bestOf('latthe')} lượt`, 'rec']], start, back), 400); } }, a.id === b.id ? 300 : 750); } } };
+        if (found === 8) { const s = Math.round((performance.now() - t0) / 1000); const rec = saveBest('latthe', moves, true); const srv = report('latthe', { diem: moves }); setTimeout(() => result('Hoàn thành!', [[`${moves} lượt · ${s} giây`], [rec ? 'Kỷ lục mới trên máy này: ít lượt nhất!' : `Kỷ lục trên máy này: ${bestOf('latthe')} lượt`, 'rec']], start, back, srv, 'latthe'), 400); } }, a.id === b.id ? 300 : 750); } } };
     start();
   }
 
@@ -242,7 +279,7 @@
         x.fillStyle = '#145a34'; for (let y = -80 + scroll; y < H; y += 160) { x.beginPath(); x.arc(RX / 2 - 6, y, 16, 0, 7); x.fill(); x.beginPath(); x.arc(W - RX / 2 + 6, y + 80, 16, 0, 7); x.fill(); }
         obs.forEach((o) => { if (o.coin) { x.fillStyle = G.amber; x.beginPath(); x.moveTo(laneX(o.l), o.y - 24); x.lineTo(laneX(o.l) + 22, o.y - 14); x.lineTo(laneX(o.l) + 18, o.y + 12); x.lineTo(laneX(o.l), o.y + 26); x.lineTo(laneX(o.l) - 18, o.y + 12); x.lineTo(laneX(o.l) - 22, o.y - 14); x.closePath(); x.fill(); x.fillStyle = G.green; x.font = `900 13px ${FONT}`; x.textAlign = 'center'; x.fillText('BH', laneX(o.l), o.y + 6); } else car(laneX(o.l), o.y, o.col, false); });
         car(px, H - 120, G.green2, true); if (shield) { x.strokeStyle = 'rgba(255,181,71,.8)'; x.lineWidth = 4; x.beginPath(); x.arc(px, H - 120, 66, 0, 7); x.stroke(); }
-        if (over) { stop(); const rec = saveBest('duaxe', total); setTimeout(() => result('Va chạm rồi!', [[`${who()} đạt ${total} điểm`], [rec ? 'Kỷ lục mới trên máy này!' : `Kỷ lục: ${bestOf('duaxe')} điểm`, 'rec']], start, back), 350); } }); };
+        if (over) { stop(); const rec = saveBest('duaxe', total); const srv = report('duaxe', { diem: total }); setTimeout(() => result('Va chạm rồi!', [[`${who()} đạt ${total} điểm`], [rec ? 'Kỷ lục mới trên máy này!' : `Kỷ lục trên máy này: ${bestOf('duaxe')} điểm`, 'rec']], start, back, srv, 'duaxe'), 350); } }); };
     game = { stop: () => stop && stop(), key: (k) => { if (k === 'ArrowLeft' || k === 'a') lane = Math.max(0, lane - 1); if (k === 'ArrowRight' || k === 'd') lane = Math.min(LANES - 1, lane + 1); },
       down: (P) => { lane = P.x < W / 2 ? Math.max(0, lane - 1) : Math.min(LANES - 1, lane + 1); } };
     start();
@@ -262,24 +299,26 @@
         x.fillStyle = G.amber; rr(x, food[0] * S + 5, food[1] * S + 3, S - 10, S - 6, 3); x.fill(); x.fillStyle = '#fff'; x.fillRect(food[0] * S + 9, food[1] * S + 9, S - 18, 2); x.fillRect(food[0] * S + 9, food[1] * S + 14, S - 18, 2);
         sn.forEach((p, i) => { x.fillStyle = i ? (i % 2 ? '#5FE0A2' : '#3fc487') : '#C9F5DD'; rr(x, p[0] * S + 2, p[1] * S + 2, S - 4, S - 4, 7); x.fill(); });
         const h0 = sn[0]; x.fillStyle = '#120B2E'; x.beginPath(); x.arc(h0[0] * S + S / 2 + dir[0] * 5 - dir[1] * 5, h0[1] * S + S / 2 + dir[1] * 5 - dir[0] * 5, 3, 0, 7); x.fill(); x.beginPath(); x.arc(h0[0] * S + S / 2 + dir[0] * 5 + dir[1] * 5, h0[1] * S + S / 2 + dir[1] * 5 + dir[0] * 5, 3, 0, 7); x.fill();
-        if (over) { stop(); const rec = saveBest('ran', score); setTimeout(() => result('Rắn cắn trúng rồi!', [[`${who()} được ${score} điểm · dài ${sn.length}`], [rec ? 'Kỷ lục mới trên máy này!' : `Kỷ lục: ${bestOf('ran')} điểm`, 'rec']], start, back), 350); } }); };
+        if (over) { stop(); const rec = saveBest('ran', score); const srv = report('ran', { diem: score }); setTimeout(() => result('Rắn cắn trúng rồi!', [[`${who()} được ${score} điểm · dài ${sn.length}`], [rec ? 'Kỷ lục mới trên máy này!' : `Kỷ lục trên máy này: ${bestOf('ran')} điểm`, 'rec']], start, back, srv, 'ran'), 350); } }); };
     game = { stop: () => stop && stop(), key: (k) => { const m = { ArrowUp: [0, -1], w: [0, -1], W: [0, -1], ArrowDown: [0, 1], s: [0, 1], S: [0, 1], ArrowLeft: [-1, 0], a: [-1, 0], A: [-1, 0], ArrowRight: [1, 0], d: [1, 0], D: [1, 0] }[k]; if (m) turn(m); },
       up: (P) => { const dx = P.x - P.sx, dy = P.y - P.sy; if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return; turn(Math.abs(dx) > Math.abs(dy) ? [Math.sign(dx), 0] : [0, Math.sign(dy)]); } };
     start();
   }
 
   /* ======================= MENU: BOARD GAME, CONSOLE ======================= */
-  function menu(title, sub, list, dark) { shell(title, sub, 'Chọn một trò để bắt đầu. Kỷ lục được lưu trên máy này.'); setScore(who());
+  function menu(title, sub, list, dark) { shell(title, sub, online() ? 'Chọn một trò để bắt đầu. Thành tích của anh/chị được ghi lên Bảng thi đua chung của cả phòng.' : 'Chọn một trò để bắt đầu. Đang chạy thử nên kỷ lục chỉ lưu trên máy này.'); setScore(who());
     const m = document.createElement('div'); m.className = 'tc-menu'; list.forEach(([ic, name, desc, rec, fn]) => { const b = document.createElement('button'); b.className = 'tc-pick' + (dark ? '' : ' lt'); b.innerHTML = '<i></i><b></b><span></span><em></em>';
       b.querySelector('i').textContent = ic; b.querySelector('b').textContent = name; b.querySelector('span').textContent = desc; b.querySelector('em').textContent = rec; b.onclick = fn; m.appendChild(b); });
-    body().innerHTML = ''; body().appendChild(m); }
+    body().innerHTML = ''; body().appendChild(m);
+    if (online()) bxh().then((j) => { if (!j) return; m.querySelectorAll('.tc-pick').forEach((b, i) => { const id = list[i][5]; const B = id && j.bang[id]; if (!B) return; const top = B.tuan[0]; const e = b.querySelector('em'); e.textContent = top ? `Dẫn đầu tuần: ${top.ten} · ${top.diem} ${B.dv}` : 'Tuần này chưa ai chơi — giành ngôi đầu!'; }); }); }
   const recTxt = (id, unit, low) => { const v = bestOf(id); return v == null ? 'Chưa có kỷ lục' : (low ? `Kỷ lục: ${v} ${unit}` : `${id === 'caro' ? 'Đã thắng' : 'Kỷ lục'}: ${v} ${unit}`); };
-  function boardMenu() { menu('Bàn board game', 'Cờ caro · lật thẻ trí nhớ', [['⭕', 'Cờ caro', 'Đấu với máy trên bàn 13×13, 5 quân liền là thắng.', recTxt('caro', 'ván'), () => caro(boardMenu)],
-    ['🃏', 'Lật thẻ trí nhớ', 'Tìm 8 cặp thẻ sản phẩm bảo hiểm DBV.', recTxt('latthe', 'lượt', true), () => memory(boardMenu)]], false); }
-  function consoleMenu() { menu('DBV Arcade · Góc console', 'Cầm tay cầm lên và chọn băng game', [['🏎️', 'Đua xe né kẹt xe', 'Đổi làn tránh xe, nhặt khiên bảo hiểm để được đỡ một lần.', recTxt('duaxe', 'điểm'), () => racer(consoleMenu)],
-    ['🐍', 'Rắn săn mồi', 'Ăn hồ sơ để dài ra, càng dài càng nhanh.', recTxt('ran', 'điểm'), () => snake(consoleMenu)]], true); }
+  function boardMenu() { menu('Bàn board game', 'Cờ caro · lật thẻ trí nhớ', [['⭕', 'Cờ caro', 'Đấu với máy trên bàn 13×13, 5 quân liền là thắng.', recTxt('caro', 'ván'), () => caro(boardMenu), 'caro'],
+    ['🃏', 'Lật thẻ trí nhớ', 'Tìm 8 cặp thẻ sản phẩm bảo hiểm DBV.', recTxt('latthe', 'lượt', true), () => memory(boardMenu), 'latthe']], false); }
+  function consoleMenu() { menu('DBV Arcade · Góc console', 'Cầm tay cầm lên và chọn băng game', [['🏎️', 'Đua xe né kẹt xe', 'Đổi làn tránh xe, nhặt khiên bảo hiểm để được đỡ một lần.', recTxt('duaxe', 'điểm'), () => racer(consoleMenu), 'duaxe'],
+    ['🐍', 'Rắn săn mồi', 'Ăn hồ sơ để dài ra, càng dài càng nhanh.', recTxt('ran', 'điểm'), () => snake(consoleMenu), 'ran']], true); }
 
-  function mo(id, o) { opts = o || {}; const f = { bongban: pingpong, bilac: foosball, bongro: basketball, boardgame: boardMenu, console: consoleMenu, caro: () => caro(boardMenu), latthe: () => memory(boardMenu), duaxe: () => racer(consoleMenu), ran: () => snake(consoleMenu) }[id];
+  function mo(id, o) { opts = Object.assign({}, opts, o || {}); cur = { boardgame: 'caro', console: 'duaxe', thidua: (o && o.tro) || 'bongro' }[id] || id;
+    const f = { bongban: pingpong, bilac: foosball, bongro: basketball, boardgame: boardMenu, console: consoleMenu, caro: () => caro(boardMenu), latthe: () => memory(boardMenu), duaxe: () => racer(consoleMenu), ran: () => snake(consoleMenu), thidua: () => board(o && o.tro) }[id];
     if (f) f(); else if (opts.toast) opts.toast('Trò này đang được dựng'); }
-  window.TROCHOI = { mo, dong: () => close() };
+  window.TROCHOI = { mo, dong: () => close(), bxh: (o) => { opts = Object.assign({}, opts, o || {}); return bxh(true); } };
 })();
