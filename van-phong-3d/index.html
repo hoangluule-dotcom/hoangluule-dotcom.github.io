@@ -1308,17 +1308,18 @@ function tvVideoInit(){if(TVV.el||TVV.dead||!THREE.CSS3DRenderer||!TVV.mesh)retu
   const o=new THREE.CSS3DObject(f);o.position.copy(TVV.mesh.position);o.rotation.copy(TVV.mesh.rotation);o.scale.setScalar(2.68/W);TVV.scene=new THREE.Scene();TVV.scene.add(o);
   const r=new THREE.CSS3DRenderer();r.setSize(innerWidth,innerHeight);r.domElement.style.cssText='position:fixed;inset:0;pointer-events:none;overflow:hidden';document.body.insertBefore(r.domElement,canvas);TVV.r=r;
   f.addEventListener('load',()=>{ytCmd('listening');setTimeout(()=>ytCmd('listening'),1500);});
-  TVV.t=setTimeout(()=>{if(!TVV.ok)tvVideoOff();},15000);}
+  TVV.t=setTimeout(()=>{if(!TVV.ok)tvVideoOff();},20000);}
 function tvHole(on){if(!TVV.mesh)return;if(on){if(!TVV.hole)TVV.hole=new THREE.MeshBasicMaterial({color:0x000000,opacity:0,blending:THREE.NoBlending,toneMapped:false});TVV.mesh.material=TVV.hole;}else TVV.mesh.material=TVV.mat;}
 function tvVideoOff(){TVV.dead=true;TVV.ok=false;clearTimeout(TVV.t);tvHole(false);if(TVV.r){TVV.r.domElement.remove();TVV.r=null;}TVV.el=null;MUSIC.duck=false;}
 addEventListener('message',e=>{if(!TVV.el||e.source!==TVV.el.contentWindow)return;let d;try{d=typeof e.data==='string'?JSON.parse(e.data):e.data;}catch(x){return;}if(!d||!d.event)return;
   if(d.event==='onError')return tvVideoOff();
   if(!TVV.ok&&/^(onReady|initialDelivery|infoDelivery|onStateChange)$/.test(d.event)){TVV.ok=true;clearTimeout(TVV.t);tvHole(true);TVV.act=null;}});
-function tvVideoFrame(){if(!TVV.r||!TVV.ok)return;const act=UP.floor===1&&!musicOut();
-  if(act!==TVV.act){TVV.act=act;ytCmd(act?'playVideo':'pauseVideo');}
-  const want=act&&mode==='station'&&curSt==='sofa'&&TVV.userSnd;
-  if(want!==TVV.snd){TVV.snd=want;if(want){ytCmd('unMute');ytCmd('setVolume',[80]);}else ytCmd('mute');MUSIC.duck=want;const b=$('tvSnd');if(b)b.innerHTML=tvSndLabel();}
-  if(act)TVV.r.render(TVV.scene,camera);}
+function tvVideoFrame(){if(!TVV.r)return;const act=UP.floor===1&&!musicOut();
+  if(TVV.ok){if(act!==TVV.act){TVV.act=act;ytCmd(act?'playVideo':'pauseVideo');}
+    const want=act&&mode==='station'&&curSt==='sofa'&&TVV.userSnd;
+    if(want!==TVV.snd){TVV.snd=want;if(want){ytCmd('unMute');ytCmd('setVolume',[80]);}else ytCmd('mute');MUSIC.duck=want;const b=$('tvSnd');if(b)b.innerHTML=tvSndLabel();}}
+  // CSS3DRenderer chỉ gắn iframe vào trang khi render: phải render ngay từ đầu để iframe tải được (chưa sẵn sàng thì canvas vẫn che kín nên khách không thấy)
+  if(act||!TVV.drawn){TVV.r.render(TVV.scene,camera);TVV.drawn=true;}}
 const tvSndLabel=()=>`${ic(TVV.snd?'x':'send',16)} ${TVV.snd?'Tắt tiếng video':'Bật tiếng video'}`;
 let RECEP,mirror=null,toiletLight,toiletLamp,tvTex,stalls=[],autoDoors=[],faucets=[],car,carHots=[];
 function build(){
@@ -1419,11 +1420,11 @@ function build(){
     x.fillText('SẢN PHẨM PHÙ HỢP  ·  CHI PHÍ TỐI ƯU',w/2,h*.3);x.fillText('TƯ VẤN CHUYÊN SÂU  ·  CAM KẾT ĐỒNG HÀNH',w/2,h*.72);});
   const dtm=new THREE.Mesh(new THREE.PlaneGeometry(4.6,.674),basic(dt,{transparent:true}));dtm.position.set(0,AIRY?.56:.44,AIRY?.595:.51);desk.add(dtm);
   [[-.9],[2.5]].forEach(([dx])=>deskKit(new V3(dx,0,-3.3),new V3(0,0,-1),new V3(-1,0,0),1.125,{noPlant:dx<0}));
-  box(.6,.36,.04,std('#111'),-2,1.42,-.3,desk);box(.6,.36,.04,std('#111'),1.6,1.42,-.3,desk);
+  box(.6,.36,.04,std('#111'),-2,1.42,-.3,desk);
   const vase=cyl(.08,.06,.28,M.ceramic,2.6,1.26,.1,desk);
   for(let i=0;i<5;i++){const f=new THREE.Mesh(new THREE.SphereGeometry(.065,10,8),std(i%2?'#E8920A':'#ff8a7a'));f.position.set(2.6+(Math.random()-.5)*.16,1.5+Math.random()*.1,.1+(Math.random()-.5)*.16);desk.add(f);}
   obstacle(-3.15,-3.85,3.15,-2.6);blob(0,-3.2,7.4,2.2,.9);desk.traverse(o=>{if(o.isMesh){o.userData.occ=1;OCC.push(o);}});
-  RECEP=glbPerson('Linh-LT',.2,-4.1,1.6);RECEP.g.position.y=.12;
+  buildZalo();RECEP=glbPerson('Linh-LT',.2,-4.1,1.6);RECEP.g.position.y=.12;
   hitBox(1.3,1.15,1.1,.2,1.72,-3.95,{type:'recep',label:'Lễ tân Linh — bấm để được hỗ trợ'});
 
   /* ---- Khu thang máy + thang bộ ---- */
@@ -1856,28 +1857,28 @@ function flagPole(draw,x,z,ry){const A=airyMats();cyl(.025,.025,2.55,A.brass,x,1
   cyl(.2,.24,.06,A.dark,x,.03,z,scene,20);const f=flagCloth(draw,.96,.64,x+.5*Math.cos(ry||0),2.2,z-.5*Math.sin(ry||0),ry);obstacle(x-.25,z-.25,x+.25,z+.25);return f;}
 const ZALO_URL='https://zalo.me/1283738895804393564';
 const ZALO_QR='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAIAAABGWwIdAAAGMUlEQVR42u3dwXEbMRREwaGLN+fhPBy583AePsMp6LAC5wPdAYjSSnqFPUzhtdYKQKsfHgEgUgAiBYgUgEgBiBQgUgAiBYgUgEgBiBQgUgAiBYgUgEgBiBQgUgAiBYgUgEgBiBQgUgAiBdzu/dQX+vnr97UP8d/fP9ue4Vc+66mvs/N7brPzd+H/wkkK8LoHIFKASAGIFIBIASIFIFKASAGIFIBIAbHdy+e3PCnbcN38ddp+pxO3hDf/XzhJAV73AEQKECkAkQIQKUCkAEQKQKQAkQIQKSC2ezltE7RzM+Vuvj2f1faz+79wkgK87gGIFIBIASIFIFKASAGIFIBIASIFIFJAbPeIfdbzG7enPuvUO+xwkgJECkCkAJECECkAkQJECkCkAJECECkAkQJiu0fa78ubeK9cNu7y7PucpABEChApAJECEClApABEChApAJECEClApABy2Xbv1F3Vznvudu77dt4VuPN7bvs7vHlv6CQFiBSASAEiBSBSACIFiBSASAEiBSBSACIFxHYvLTuvXHzvXtvmru3natv33fx/4SQFiBSASAEiBSBSACIFiBSASAGIFCBSACIFHOq11vIUMmffl7Kt3M7dYtszxEkKQKQAkQIQKUCkAEQKQKQAkQIQKUCkAEQKIN+83Tv13rSdu7MM3AC23UvY9lmej5MU4HUPQKQARAoQKQCRAkQKQKQARAoQKQCRAmK7F/fKxebuI/vHndru+HOXopMU4HUPQKQAkQIQKQCRAkQKQKQAkQIQKQCRAo7zzqH3gmXg9qrtdzFxl3fqzrTts5ykAEQKECkAkQJECkCkAEQKECkAkQJECkCkAHLlvXu5eC9286asbSPpTj0nKcDrHoBIAYgUIFIAIgWIFIBIAYgUIFIAIgXEvXsFJu6YJu4Nn3qGX/k6E3dnbffT3bzvc5ICvO4BiBQgUgAiBSBSgEgBiBQgUgAiBSBSQGz3Mmkz1Xa/WNs+KwPvJZy4y8uh+1knKcDrHoBIAYgUIFIAIgWIFIBIAYgUIFIAIgXEdi+2RfZ9fvbe+xbbNq1OUgAiBYgUgEgBIgUgUgAiBYgUgEgBIgUgUgA5brt36q7qqe+n7eu07enafl85dD/rJAV43QMQKQCRAkQKQKQAkQIQKQCRAkQKQKSAi73WWmna3LXdiXbz/Ws791ltfxsZuIM79c5BJynA6x6ASAEiBSBSACIFiBSASAEiBSBSACIFxHYv7kQ75+eauKd76vu5ede58xk6SQFe9wBEChApAJECEClApABECkCkAJECECngUO+U7bwycE+XQ+9Wm7jLS9l9ixN3nW13FzpJAV73AEQKECkAkQIQKUCkAEQKECkAkQIQKSAXb/fa9mI7t4RPbZ1O3eVN3Mqder/hzv2jkxTgdQ9ApABEChApAJECRApApABEChApAJECLvZaa+XWPVTK7oObuE1re84T7xM89e/QSQrwugcgUgAiBYgUgEgBIgUgUgAiBYgUgEgBce9eTtsNTdzT3bzhartXru0577zbse35OEkBXvcARAoQKQCRAhApQKQARAoQKQCRAhApIBdv9ybeU5aNG6Wd99xN3GftvC+vbXM38Rk6SQGIFCBSACIFiBSASAGIFCBSACIFiBSASAFky3Yvh94Ht3PHZL/Wc3+fOxB7nqGTFOB1D0CkAJECECkAkQJECkCkAJECECkAkQJiu5dJW7m2/dqp9xvu3Bu2bS0nbmPbtp9OUoDXPQCRAkQKQKQARAoQKQCRAkQKQKQARAqI7R75/K4qZfusiXvMp75ne0MnKcDrHoBIAYgUIFIAIgWIFIBIAYgUIFIAIgXEdo+0b6Z2btPs13runpu4x3zqs5ykAK97ACIFiBSASAGIFCBSACIFiBSASAGIFBDbvZy2h3If3J6fq+37aduvtf2N7fy5nKQAr3sAIgWIFIBIAYgUIFIAIgWIFIBIAYgUMNBrrZWmTVkO3eV5Pj3P59R931Of1XYvoZMU4HUPQKQAkQIQKQCRAkQKQKQAkQIQKQCRAnLxdg/ASQoQKQCRAhApQKQARAoQKQCRAhApQKQARApApACRAhApQKQARApApACRAhApQKQARApApACRAvgG/wEGrmE5stOhjQAAAABJRU5ErkJggg==';
-// standee Zalo bên trái sảnh, gần lối vào (đối xứng với hộp Bốc quà bên phải)
-function buildZalo(){const X=-4.6,Z=7.8,RY=1.25,g=new THREE.Group();g.position.set(X,0,Z);g.rotation.y=RY;scene.add(g);
-  const metal=std('#c9ced4',{metalness:.8,roughness:.3});box(.84,.08,.3,metal,0,.04,0,g);box(.82,.05,.05,metal,0,2.0,0,g,false);
-  const qi=new Image();const tex=ctex(760,1900,(x,w,h)=>drawZalo(x,w,h,null));qi.onload=()=>{const c=tex.userData.ctx;drawZalo(c,760,1900,qi);tex.needsUpdate=true;};qi.src=ZALO_QR;
-  const m=new THREE.Mesh(new THREE.PlaneGeometry(.78,1.95),basic(tex));m.position.set(0,1.03,.03);g.add(m);
-  const bk=new THREE.Mesh(new THREE.PlaneGeometry(.78,1.95),std('#e9ece8'));bk.position.set(0,1.03,.025);bk.rotation.y=Math.PI;g.add(bk);
-  obstacle(X-.5,Z-.35,X+.5,Z+.35);blob(X,Z,1,.6,.6);
-  clickable(m,{type:'st',id:'zalo',label:'Nhắn tin tư vấn qua Zalo'});
-  const d=new V3(Math.sin(RY),0,Math.cos(RY));
-  STATIONS.zalo={name:'Tư vấn qua Zalo',walk:new V3(X+d.x*1.9,EYE,Z+d.z*1.9),stand:new V3(X+d.x*1.85,EYE,Z+d.z*1.85),look:new V3(X,1.2,Z),kind:'info',back:new V3(X+d.x*2,EYE,Z+d.z*2),
+// mini standee Zalo đặt trên quầy lễ tân, thay màn hình máy tính bên tay trái Linh (phía phải khách khi đứng trước quầy)
+function buildZalo(){const X=1.6,Z=-2.9,Y=AIRY?1.16:1.125,g=new THREE.Group();g.position.set(X,Y,Z);scene.add(g);
+  const acr=new THREE.MeshStandardMaterial({color:'#ffffff',transparent:true,opacity:.35,roughness:.1,metalness:0});
+  box(.3,.012,.12,std('#d9dee3',{metalness:.6,roughness:.3}),0,.006,0,g);
+  const qi=new Image();const tex=ctex(600,800,(x,w,h)=>drawZalo(x,w,h,null));qi.onload=()=>{drawZalo(tex.userData.ctx,600,800,qi);tex.needsUpdate=true;};qi.src=ZALO_QR;
+  const f=new THREE.Mesh(new THREE.PlaneGeometry(.27,.36),basic(tex));f.position.set(0,.19,.012);f.rotation.x=-.16;g.add(f);
+  const bk=new THREE.Mesh(new THREE.PlaneGeometry(.29,.38),acr);bk.position.set(0,.19,0);bk.rotation.x=-.16;g.add(bk);
+  hitBox(.42,.5,.3,X,Y+.22,Z+.05,{type:'st',id:'zalo',label:'Nhắn tin tư vấn qua Zalo'});
+  STATIONS.zalo={name:'Tư vấn qua Zalo',walk:new V3(X,EYE,-1.25),stand:new V3(X,EYE,-1.45),look:new V3(X,1.25,Z),kind:'info',back:new V3(X,EYE,-.8),
     open:()=>openInfo({title:'Tư vấn qua Zalo',tag:'Zalo',icon:'chat',color:'#0068FF',soft:'#E8F1FF',intro:'Nhắn tin cho Bảo hiểm DBV · Chi nhánh Thành Đô qua Zalo — chuyên viên trả lời trong giờ làm việc.',
       body:`<div style="text-align:center"><img src="${ZALO_QR}" alt="Mã QR Zalo Bảo hiểm DBV" style="width:200px;height:200px;border-radius:12px;border:1px solid var(--x-100)"><p style="font-size:13px;color:var(--x-700);margin:8px 0 14px">Quét mã bằng ứng dụng Zalo trên điện thoại</p>
         <a class="catbtn" href="${ZALO_URL}" target="_blank" rel="noopener" style="height:40px;padding:0 18px;font-size:14px">${ic('chat',16)} Mở Zalo để nhắn tin</a>
         <p style="font-size:13px;color:var(--x-700);margin-top:14px">Hoặc gọi hotline <a href="tel:0869656561" style="color:#E8920A;font-weight:800">0869 65 65 61</a></p></div>`})};}
-function drawZalo(x,w,h,qr){x.fillStyle='#ffffff';x.fillRect(0,0,w,h);x.fillStyle='#0068FF';x.fillRect(0,0,w,380);
-  x.fillStyle='#fff';x.font='900 150px "Be Vietnam Pro",sans-serif';x.textAlign='center';x.fillText('Zalo',w/2,215);x.font='700 46px "Be Vietnam Pro",sans-serif';x.fillText('Nhắn tin tư vấn',w/2,300);
-  x.fillStyle='#063A2B';x.font='800 54px "Be Vietnam Pro",sans-serif';x.fillText('Chat với chuyên viên',w/2,480);x.fillText('Bảo hiểm DBV',w/2,550);
-  x.fillStyle='#F2F6FF';rr(x,90,620,w-180,w-180,36);x.fill();if(qr)x.drawImage(qr,130,660,w-260,w-260);
-  x.fillStyle='#0068FF';x.font='700 40px "Be Vietnam Pro",sans-serif';x.fillText('Quét mã bằng Zalo',w/2,w+520);
-  x.fillStyle='#E8920A';rr(x,70,w+600,w-140,120,60);x.fill();x.fillStyle='#fff';x.font='800 50px "Be Vietnam Pro",sans-serif';x.fillText('Bấm để mở Zalo',w/2,w+678);
-  x.fillStyle='#084C38';x.fillRect(0,h-210,w,210);x.fillStyle='#A8D5BD';x.font='700 30px "Be Vietnam Pro",sans-serif';x.fillText('HOTLINE TƯ VẤN',w/2,h-140);
-  x.fillStyle='#fff';x.font='900 72px "Be Vietnam Pro",sans-serif';x.fillText('0869 65 65 61',w/2,h-60);x.textAlign='left';}
+function drawZalo(x,w,h,qr){x.fillStyle='#ffffff';x.fillRect(0,0,w,h);x.fillStyle='#0068FF';x.fillRect(0,0,w,190);x.textAlign='center';
+  x.fillStyle='#fff';x.font='900 96px "Be Vietnam Pro",sans-serif';x.fillText('Zalo',w/2,120);x.font='700 34px "Be Vietnam Pro",sans-serif';x.fillText('Nhắn tin tư vấn',w/2,168);
+  x.fillStyle='#F2F6FF';rr(x,90,215,w-180,w-180,24);x.fill();if(qr)x.drawImage(qr,115,240,w-230,w-230);
+  x.fillStyle='#063A2B';x.font='800 38px "Be Vietnam Pro",sans-serif';x.fillText('Quét mã để chat',w/2,h-120);
+  x.fillStyle='#E8920A';x.font='900 46px "Be Vietnam Pro",sans-serif';x.fillText('0869 65 65 61',w/2,h-50);x.textAlign='left';}
+// vòng sáng cam nhỏ trên mặt quầy quanh mini standee Zalo, cùng kiểu với các điểm bấm khác
+function ZALO_RING(){const rm=()=>new THREE.MeshBasicMaterial({color:'#FF6A00',transparent:true,opacity:.9,depthWrite:false,side:THREE.DoubleSide,toneMapped:false});const r=.26;
+  const g=new THREE.Group();g.position.set(1.6,(AIRY?1.16:1.125)+.004,-2.9);scene.add(g);const a=new THREE.Mesh(new THREE.RingGeometry(r-.03,r,56),rm());a.rotation.x=-Math.PI/2;g.add(a);
+  const b=new THREE.Mesh(new THREE.RingGeometry(r-.015,r,56),rm());b.rotation.x=-Math.PI/2;g.add(b);MK.rings.push({g,a,b,id:'zalo',r});}
 const KR_CH=[];
 function buildKorean(){const A=airyMats();const cx=-14.4;
   // màn hình chào mừng tiếng Hàn trên tường sau
@@ -2001,7 +2002,7 @@ function lookShift(stand,look,wide){if(innerWidth<=720){const dist=look.clone().
 let mode='intro',curSt=null,voice=false,busy=false,lookAtTarget=null;
 const RECEP_POS=new V3(0,EYE,-.8),RECEP_LOOK=new V3(.2,1.5,-4.1);
 async function walkTo(target,finalLook){const path=findPath(cam.pos,target);if(path)await walkPath(path);else await flyTo(target.clone().setY(EYE),null);if(finalLook)await flyTo(cam.pos.clone(),finalLook,.5);}
-const HIDE_TIP={zalo:'Bấm lại vào standee Zalo để mở mã QR',quatang:'Bấm lại vào hộp quà để bốc quà',standee:'Bấm lại vào standee để xem quyền lợi',thang:'Bấm lại vào thang máy để chọn tầng',thangbo:'Bấm lại vào thang bộ để lên Tầng 2',han:'Bấm lại vào tư vấn viên để mở lại',kiosk:'Bấm lại vào kiosk để tra cứu',rieng:'Bấm lại vào biển phòng để đặt lịch tư vấn riêng',giamdinh:'Bấm lại vào chuyên viên Hùng hoặc biển giám định',thungan:'Bấm lại vào quầy thu ngân',sofa:'Bấm lại vào sofa để gọi đồ uống'};
+const HIDE_TIP={zalo:'Bấm lại vào bảng Zalo trên quầy lễ tân để mở mã QR',quatang:'Bấm lại vào hộp quà để bốc quà',standee:'Bấm lại vào standee để xem quyền lợi',thang:'Bấm lại vào thang máy để chọn tầng',thangbo:'Bấm lại vào thang bộ để lên Tầng 2',han:'Bấm lại vào tư vấn viên để mở lại',kiosk:'Bấm lại vào kiosk để tra cứu',rieng:'Bấm lại vào biển phòng để đặt lịch tư vấn riêng',giamdinh:'Bấm lại vào chuyên viên Hùng hoặc biển giám định',thungan:'Bấm lại vào quầy thu ngân',sofa:'Bấm lại vào sofa để gọi đồ uống'};
 function hidePanel(){closePanel();toast(HIDE_TIP[curSt]||(STATIONS[curSt]&&STATIONS[curSt].kind==='info'?'Bấm lại vào đây để mở bảng thông tin':'Bấm vào chuyên viên để mở lại · phím mũi tên để rời phòng'));}
 async function leaveCurrent(){if(mode==='station'&&curSt){const st=STATIONS[curSt];closePanel();if(st.back)await flyTo(st.back,null,.6);mode='lobby';curSt=null;setNav(null);}}
 async function goReception(open=true){
@@ -2082,7 +2083,7 @@ const SCRIPT={
   ask_xe:{t:'Dạ, xe của anh/chị là ô tô hay xe máy ạ?',o:[['Ô tô','g:xe'],['Xe máy','g:xe'],['Hỏi việc khác','greet']]},
   free:{t:'Dạ vâng ạ. Bảng chỉ dẫn ở gần cửa ra vào, nút Sơ đồ ở góc trên giúp anh/chị chọn nhanh khu cần tới. Cần gì cứ quay lại quầy gọi em nhé.',o:[['Cảm ơn em','close']]}
 };
-const DIRS={zalo:'bên trái sảnh, gần lối vào — standee màu xanh Zalo',quatang:'phía trước bên phải sảnh, gần lối vào',thang:'ngay phía sau quầy lễ tân, đi vòng qua hai bên quầy',han:'cuối hành lang phía sau, bên trái',rieng:'bên trái sảnh đón, qua cửa kính có biển Phòng tư vấn riêng',wc:'cuối hành lang phía sau, bên phải — có biển Nhà vệ sinh',thungan:'phía trước, bên phải lối vào'};
+const DIRS={zalo:'trên quầy lễ tân, phía bên phải khi anh/chị đứng trước quầy',quatang:'phía trước bên phải sảnh, gần lối vào',thang:'ngay phía sau quầy lễ tân, đi vòng qua hai bên quầy',han:'cuối hành lang phía sau, bên trái',rieng:'bên trái sảnh đón, qua cửa kính có biển Phòng tư vấn riêng',wc:'cuối hành lang phía sau, bên phải — có biển Nhà vệ sinh',thungan:'phía trước, bên phải lối vào'};
 let typing=null;
 function say(key){if(key==='greet')GREETED=true;let node=SCRIPT[key];
   if(key.startsWith('g:')||key.startsWith('n:')){const id=key.slice(2),st=STATIONS[id],d=DEPTS[id];const name=d?d.full:st.name,dir=d?d.dir:DIRS[id];const pre=LINH_PRE?LINH_PRE+' ':'';LINH_PRE=null;
@@ -2290,7 +2291,7 @@ const ZONES=[
   ['han','한국 고객 상담실',-18,-12.9,-10.8,-6.3,'t'],['xe','Xe cơ giới',-10.8,-12.9,-3.6,-6.3,'t'],['thang','Thang máy · Thang bộ',-3.6,-12.9,3.6,-6.3,'c'],['boithuong','Bồi thường',3.6,-12.9,10.8,-6.3,'t'],['wc','Toilet',10.8,-12.9,18,-6.3,'c'],
   ['congtrinh','Trách nhiệm',-18,-4.3,-10.8,2.2,'t'],['suckhoe','Sức khỏe',-18,2.2,-10.8,8.7,'t'],['taisan','Tài sản – Xây dựng',10.8,-4.3,18,2.2,'t'],['hanghoa','Hàng hóa',10.8,2.2,18,8.7,'t'],
   ['recep','Lễ tân',-3,-3.9,3,-2.4,'c'],['ctv','CTV – Đại lý',5.1,-3.9,8.1,-2.4,'t'],['sofa','Khu chờ',-9.4,.8,-5.8,5.4,'c'],['tuvan','Tư vấn',6.4,.9,8.9,6.6,'c'],
-  ['quatang','Bốc quà',3.9,6.5,6.1,8.7,'c'],['zalo','Zalo',-5.4,7.1,-3.8,8.5,'c'],['dir','Chỉ dẫn',2.2,9.5,3.8,10.5,'c'],['rieng','Phòng tư vấn riêng',-18,8.7,-3.6,12.9,'c'],['viahe','Vỉa hè',-18,20.9,18,24.6,'o'],['sanh','Sảnh đón',-3.6,8.7,3.6,12.9,'g'],['thungan','Thu ngân',3.6,8.7,18,12.9,'c'],
+  ['quatang','Bốc quà',3.9,6.5,6.1,8.7,'c'],['dir','Chỉ dẫn',2.2,9.5,3.8,10.5,'c'],['rieng','Phòng tư vấn riêng',-18,8.7,-3.6,12.9,'c'],['viahe','Vỉa hè',-18,20.9,18,24.6,'o'],['sanh','Sảnh đón',-3.6,8.7,3.6,12.9,'g'],['thungan','Thu ngân',3.6,8.7,18,12.9,'c'],
   ['park','Bãi đỗ xe',-17.5,13.4,6,19.5,'o'],['gd','Giám định bồi thường',6.4,13.4,17.5,19.5,'o']];
 const MZ0=-12.9,MZH=32.6;
 function buildMap(){const B=$('mapbox');ZONES.forEach(z=>{const d=document.createElement(z[6]==='g'?'div':'button');d.className='mz '+z[6];d.textContent=z[1];
@@ -2432,11 +2433,12 @@ function buildMarkers(){
   const rm=()=>new THREE.MeshBasicMaterial({color:NE,transparent:true,opacity:.9,depthWrite:false,side:THREE.DoubleSide,toneMapped:false});
   const ht=ctex(256,256,(x,w)=>{const g=x.createRadialGradient(128,128,0,128,128,128);g.addColorStop(0,'rgba(255,106,0,0)');g.addColorStop(.62,'rgba(255,106,0,0)');g.addColorStop(.8,'rgba(255,120,20,.55)');g.addColorStop(.86,'rgba(255,150,50,.75)');g.addColorStop(1,'rgba(255,106,0,0)');x.fillStyle=g;x.fillRect(0,0,w,w);});
   MK.ringHalo=ht;
-  [['quatang',5,7.6,1.1],['zalo',-4.6,7.8,.7],['sofa',-6.6,2.2,1.5],['standee',-4.15,-2.85,.6],['dir',3.0,10.0,.95],['giamdinh',9.2,14.35,1.25],['thang',-1.2,-11.9,1.25],['thangbo',2.4,-6.75,.75],['giamdinh',12.8,17.6,2.55],['giamdinh',16.7,17.4,2.55]].forEach(([id,x,z,r])=>{
+  [['quatang',5,7.6,1.1],['sofa',-6.6,2.2,1.5],['standee',-4.15,-2.85,.6],['dir',3.0,10.0,.95],['giamdinh',9.2,14.35,1.25],['thang',-1.2,-11.9,1.25],['thangbo',2.4,-6.75,.75],['giamdinh',12.8,17.6,2.55],['giamdinh',16.7,17.4,2.55]].forEach(([id,x,z,r])=>{
     const g=new THREE.Group();g.position.set(x,.025,z);scene.add(g);const a=new THREE.Mesh(new THREE.RingGeometry(r-.075,r,72),rm());a.rotation.x=-Math.PI/2;g.add(a);
     const b=new THREE.Mesh(new THREE.RingGeometry(r-.035,r,72),rm());b.rotation.x=-Math.PI/2;g.add(b);
     const c=new THREE.Mesh(new THREE.PlaneGeometry(r*2.6,r*2.6),new THREE.MeshBasicMaterial({map:ht,transparent:true,depthWrite:false,toneMapped:false,opacity:.8}));c.rotation.x=-Math.PI/2;c.position.y=-.004;g.add(c);
-    const dot=new THREE.Mesh(new THREE.CircleGeometry(Math.min(.12,r*.18),24),rm());dot.rotation.x=-Math.PI/2;g.add(dot);MK.rings.push({g,a,b,c,dot,id,r});});}
+    const dot=new THREE.Mesh(new THREE.CircleGeometry(Math.min(.12,r*.18),24),rm());dot.rotation.x=-Math.PI/2;g.add(dot);MK.rings.push({g,a,b,c,dot,id,r});});
+  ZALO_RING();}
 function mkTop(m){if(m.top>0&&m.P.g.children.length===m.kids)return m.top;const b=new THREE.Box3().setFromObject(m.P.g);if(b.isEmpty())return 0;m.kids=m.P.g.children.length;m.top=b.max.y;return m.top;}
 function updateMarkers(t){if(!MK.people.length&&!MK.rings.length)return;const cp=camera.position,show=mode!=='intro'&&!FLYING;
   MK.people.forEach(m=>{const g=m.P.g,d=cp.distanceTo(g.position),hov=MK.hover===m.id;const busyHere=mode==='station'&&curSt===m.id;const top=mkTop(m);
@@ -2620,7 +2622,7 @@ async function warmUp(){try{const seen=new Set();if(renderer.initTexture)scene.t
 async function start(){
   try{await Promise.race([Promise.all(['900 100px "Be Vietnam Pro",sans-serif','800 60px "Be Vietnam Pro",sans-serif','700 40px "Be Vietnam Pro",sans-serif','600 40px "Be Vietnam Pro",sans-serif','500 40px "Be Vietnam Pro",sans-serif'].map(f=>document.fonts.load(f,'ĐƯỜNG ỆỄ'))),new Promise(r=>setTimeout(r,3000))]);}catch(e){}
   await Promise.all([loadStaffModel(),loadKenney(),loadImg('full',LOGO_FULL),loadImg('mark',LOGO_MARK)]);
-  refreshNews();build();buildGift();buildZalo();faceStaff();applyTOD(true);buildMarkers();finishBackOffice();buildCrowd();rebuildGrid();buildNav();buildMap();
+  refreshNews();build();buildGift();faceStaff();applyTOD(true);buildMarkers();finishBackOffice();buildCrowd();rebuildGrid();buildNav();buildMap();
   camera.position.copy(cam.pos);camera.rotation.set(cam.pitch,cam.yaw,0);requestAnimationFrame(loop);
   $('enterTxt').textContent='Đang chuẩn bị hình ảnh…';await warmUp();
   $('bEnter').disabled=false;$('enterTxt').textContent='Bước vào văn phòng';$('bEnter').onclick=enter;
