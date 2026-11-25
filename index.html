@@ -1486,8 +1486,8 @@ html.vpe-lock,html.vpe-lock body{overflow:hidden}
 .vpe-main{flex:1;display:flex;flex-direction:column;gap:clamp(14px,2.6vh,30px);padding-bottom:clamp(12px,2vh,22px)}
 .vpe-hero{position:relative;overflow:hidden;border-radius:30px;min-height:clamp(280px,48vh,470px);display:flex;align-items:center;
   background:linear-gradient(100deg,#d9f2e7 0%,#e9f8f1 38%,#f4fbf7 60%)}
-.vpe-hero picture,.vpe-hero img.vpe-hi{position:absolute;inset:0 0 0 auto;width:64%;height:100%}
-.vpe-hero img.vpe-hi{object-fit:cover;object-position:62% 38%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26%);mask-image:linear-gradient(90deg,transparent 0,#000 26%)}
+.vpe-hero picture,.vpe-hero img.vpe-hi{position:absolute;inset:0 0 0 auto;width:56%;height:100%}
+.vpe-hero img.vpe-hi{object-fit:cover;object-position:50% 32%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26%);mask-image:linear-gradient(90deg,transparent 0,#000 26%)}
 .vpe-ht{position:relative;padding:0 clamp(24px,4.4vw,72px);max-width:60%}
 #vpe-t{font-size:clamp(32px,4.2vw,70px);font-weight:800;line-height:1.08;letter-spacing:-.035em;color:#0a3426}
 #vpe-t span{display:block}
@@ -1524,7 +1524,7 @@ html.vpe-lock,html.vpe-lock body{overflow:hidden}
   #vpe-t{font-size:clamp(25px,7.4vw,34px)}
   .vpe-intro{font-size:16px;margin-top:8px}
   .vpe-hero picture,.vpe-hero img.vpe-hi{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:16/10}
-  .vpe-hero img.vpe-hi{object-position:62% 30%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 24%);mask-image:linear-gradient(180deg,transparent 0,#000 24%)}
+  .vpe-hero img.vpe-hi{object-position:50% 34%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 24%);mask-image:linear-gradient(180deg,transparent 0,#000 24%)}
   .vpe-cards{grid-template-columns:1fr;gap:12px}
   .vpe-card{min-height:156px;border-radius:20px}
   .vpe-card img{width:50%}
@@ -1546,7 +1546,7 @@ html.vpe-lock,html.vpe-lock body{overflow:hidden}
 </div>
 <div class="vpe-w vpe-main">
   <section class="vpe-hero">
-    <img class="vpe-hi" src="/assets/img/trang-chu/welcome-tu-van-vien.webp" width="784" height="438" alt="" decoding="async" fetchpriority="high">
+    <img class="vpe-hi" src="/assets/img/trang-chu/welcome-tu-van-vien-2.webp" width="960" height="1200" alt="" decoding="async" fetchpriority="high">
     <div class="vpe-ht">
       <h1 id="vpe-t"><span>Chào mừng đến với</span> <span class="vpe-brandname">Bảo hiểm DBV</span></h1>
       <p class="vpe-intro" id="vpe-intro">Anh/chị muốn bắt đầu từ đâu?</p>
@@ -1619,7 +1619,7 @@ html.vpe-lock,html.vpe-lock body{overflow:hidden}
     } catch (_) {}
   });
   function prefetchOffice() {
-    for (const url of ['/van-phong-3d/', '/van-phong-3d/img/sanh-tai.webp', '/van-phong-3d/data.js?v=2']) {
+    for (const url of ['/van-phong-3d/', '/van-phong-3d/img/sanh-tai.webp', '/van-phong-3d/data.js?v=3']) {
       const link = document.createElement('link');
       link.rel = 'prefetch'; link.href = url; document.head.appendChild(link);
     }
