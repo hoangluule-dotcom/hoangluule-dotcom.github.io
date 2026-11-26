@@ -2760,8 +2760,8 @@ const HOST={cd:3,near:false};
 function hostBow(x,z,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;scene.add(g);HOST.g=g;
   n8Src('Minh-Thu-cui').then(src=>{if(!src||!THREE.GLTFLoader)return;new THREE.GLTFLoader().load(src,gl=>{const sc=gl.scene;fitTex(sc,MODEL_TEX);
     sc.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;o.frustumCulled=false;const m=o.material;if(m){m.envMapIntensity=.6;m.metalness=0;}}});g.add(sc);
-    const c=gl.animations[0];HOST.mixer=new THREE.AnimationMixer(sc);if(!c)return;const sub=THREE.AnimationUtils.subclip(c,'bow',78,142,30);
-    const a=HOST.mixer.clipAction(sub);a.setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true;a.play();a.paused=true;a.time=0;HOST.act=a;HOST.mixer.update(0);});});}
+    const c=gl.animations[0];HOST.mixer=new THREE.AnimationMixer(sc);if(!c)return;const sub=THREE.AnimationUtils.subclip(c,'bow',100,170,30); // một lần cúi: cúi xuống rồi ngẩng lên ngay
+    const a=HOST.mixer.clipAction(sub);a.timeScale=1.25;a.setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true;a.play();a.paused=true;a.time=0;HOST.act=a;HOST.mixer.update(0);});});}
 function updateHost(dt){if(!HOST.act)return;const v=UP.floor===1;HOST.g.visible=v;if(!v)return;HOST.cd-=dt;
   const near=Math.hypot(cam.pos.x-HOST.g.position.x,cam.pos.z-HOST.g.position.z)<4.5;
   if(HOST.cd<=0&&((near&&!HOST.near)||HOST.cd<-25)){HOST.act.reset();HOST.act.paused=false;HOST.act.play();HOST.cd=6;}
